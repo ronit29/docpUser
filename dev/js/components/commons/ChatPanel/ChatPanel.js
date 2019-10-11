@@ -487,6 +487,14 @@ class ChatPanel extends React.Component {
         }
     }
 
+    onIframeLoad(e){
+        try{
+            let target = e.target
+            (target.contentWindow||target.contentDocument).location.href;
+        }catch(error){
+            console.log('error in rendering chat iframe'+error);
+        }
+    }
     refundClicked(isEnable) {
         if(isEnable){
             let data = {
@@ -777,7 +785,7 @@ class ChatPanel extends React.Component {
                                     {/* chat Body */}
                                     <div className="chat-body">
                                         {
-                                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame"></iframe>
+                                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame" onLoad={(e)=>this.onIframeLoad(e)} onError={(e)=>this.onIframeLoad(e)} ></iframe>
                                         }
                                         {
                                             this.state.iframeLoading ?

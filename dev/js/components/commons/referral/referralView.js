@@ -9,6 +9,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import STORAGE from '../../../helpers/storage'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 
 class ReferralView extends React.Component {
@@ -146,6 +147,7 @@ class ReferralView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

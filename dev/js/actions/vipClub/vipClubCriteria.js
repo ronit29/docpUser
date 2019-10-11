@@ -1,12 +1,13 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getVipList = (is_endorsement,selectedLocation,callback) => (dispatch) => {
+export const getVipList = (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800
     let longitude = 77.216721
+    
     if (selectedLocation) {
         lat = selectedLocation.geometry.location.lat
         long = selectedLocation.geometry.location.lng
@@ -19,7 +20,14 @@ export const getVipList = (is_endorsement,selectedLocation,callback) => (dispatc
         latitude = latitude
         longitude = longitude
     }
-    return API_GET('/api/v1/plus/list?lat='+latitude+'&long='+longitude).then(function (response) {
+    let url = '/api/v1/plus/list?lat='+latitude+'&long='+longitude
+    if(isSalesAgent){
+        url +='&utm_source='+isSalesAgent
+    }
+    if(isAgent){
+        url += '&is_agent='+isAgent
+    }
+    return API_GET(url).then(function (response) {
         dispatch({
             type: GET_VIP_LIST,
             payload: response
@@ -95,7 +103,7 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,callback) => (dispatch) => {
+export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}, callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800
@@ -127,6 +135,9 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
             plan.latitude = latitude
             plan.longitude = longitude
         }
+    if(extraParams && extraParams.city_id) {
+        plan.city_id = extraParams.city_id
+    }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
         if(callback) callback(response)
     }).catch(function (error) {
@@ -191,3 +202,28 @@ export const removeVipMemberProof = (criteria) => (dispatch) => {
     })
 }
 
+export const pushMembersData = (criteria) => (dispatch) =>{
+    return API_POST('/api/v1/plus/push_dummy_data',criteria).then(function (response) {
+        // if(callback) callback(response);
+    }).catch(function (error) {
+        // if(callback) callback(error);
+        throw error
+    })
+}
+
+export const retrieveMembersData = (callback) => (dispatch) =>{
+    API_GET('api/v1/plus/show_dummy_data').then(function (response) {
+        dispatch({
+            type:SHOW_VIP_MEMBERS_FORM,
+            payload:response
+        })
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+}
+
+export const vipPlusLead = (data) => (dispatch) => {
+    API_POST(`api/v1/plus/push_vip_lead`, data).then(function (response) {
+    })
+}

@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams, cb) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams, cb)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
-        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback)),
         applyCoupons: (productId, couponData, couponId, hospitalId,callback) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId,callback)),

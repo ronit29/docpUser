@@ -12,6 +12,7 @@ import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import PaymentForm from '../paymentForm'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class CartView extends React.Component {
         let dd = 0
         let vip_amnt_price =0
         for (let item of cart_items) {
-            if (item.valid && item.actual_data.payment_type == 1) {
+            if (item.valid && (item.actual_data.payment_type == 1 || item.actual_data.payment_type == 5)) {
                 
 
                 //For Insured Appointments Do not add deal price to Amount Payable
@@ -123,7 +124,7 @@ class CartView extends React.Component {
         }
     }
 
-    processCart(total_price,is_selected_user_insurance_status) {
+    processCart(total_price,is_selected_user_insurance_status, is_any_vip_appointment) {
 
         if(is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
@@ -135,7 +136,27 @@ class CartView extends React.Component {
             this.setState({showConfirmationPopup:true})
             return
         }
-        this.props.processCartItems(this.state.use_wallet).then((data) => {
+        //Add SPO Utm Tags to the cart API
+        let currentTime = new Date().getTime()
+        let extraParams = {}
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            let sessionVal = parseInt(sessionStorage.getItem('sessionIdVal'))
+            if(spo_tags.utm_tags && spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
+                let time_offset = (currentTime - spo_tags.time)/60000
+                //Clear SPO utm tags after 15minutes
+                //900
+                if(time_offset>180) {
+                    this.props.unSetCommonUtmTags('spo')
+                }else {
+                    extraParams = spo_tags.utm_tags
+                }
+            }
+        }
+
+        let use_wallet = is_any_vip_appointment?false:this.state.use_wallet
+        this.props.processCartItems(use_wallet, extraParams).then((data) => {
             if (data.payment_required) {
                 // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
                 this.processPayment(data)
@@ -180,7 +201,7 @@ class CartView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', '',(err, res) => {
+        this.props.sendAgentBookingURL(null, 'sms', null,null,(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -241,6 +262,7 @@ class CartView extends React.Component {
         let is_platform_conv_fees = 0
         let is_default_user_insured = false
         let is_selected_user_insurance_status
+        let is_any_vip_appointment = false
         if (Object.keys(this.props.profiles).length > 0 && this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
@@ -253,6 +275,9 @@ class CartView extends React.Component {
                     invalid_items = true
                 } else {
                     valid_items = true
+                    if(cart_item.actual_data && cart_item.actual_data.cover_under_vip && cart_item.actual_data.is_vip_member) {
+                        is_any_vip_appointment = true
+                    }
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
                     }
@@ -272,7 +297,7 @@ class CartView extends React.Component {
                 <ProfileHeader />
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status !=4?
-                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isCart={true}/>
                     :''
                 }
                 <section className="container container-top-margin">
@@ -393,7 +418,7 @@ class CartView extends React.Component {
 
 
                                                     {
-                                                        !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                        !is_any_vip_appointment && !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="select-pt-form">
                                                                     <div className="referral-select">
@@ -420,7 +445,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_amnt,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_amnt,is_selected_user_insurance_status, is_any_vip_appointment)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
                                             </div> : ""
                                         }
 
@@ -452,6 +477,7 @@ class CartView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab'/> : ""
                 }

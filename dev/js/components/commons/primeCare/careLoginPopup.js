@@ -44,7 +44,7 @@ class CareLoginPopup extends React.Component{
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
-                    }, 10000)
+                    }, 20000)
                 }
             })
         } else {

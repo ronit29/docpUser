@@ -94,7 +94,14 @@ export default function (state = defaultState, action) {
             newState.nextFilterCriteria.lab_name = ""
             newState.nextFilterCriteria.network_id = ""
 
-            if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
+            if(action.payload.forceAddTestids){
+                let forcedAddedTests = []
+                newState.lab_test_data[action.payload.labId] = []
+                action.payload.tests.map((x=>{
+                    forcedAddedTests.push({extra_test: true, id: x.test.id, lab_id: action.payload.labId, name: x.test.name, type: 'test',url: x.test.url, hide_price: x.hide_price })
+                }))
+                newState.lab_test_data[action.payload.labId] = forcedAddedTests
+            }else if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {
                 newState.lab_test_data[action.payload.criteria.lab_id] = newState.lab_test_data[action.payload.criteria.lab_id] || []
 
                 newState.currentLabSelectedTests = newState.currentLabSelectedTests || []
@@ -122,21 +129,6 @@ export default function (state = defaultState, action) {
                             curr.is_selected = !curr.is_selected
                         }
                     })
-                    /*
-                                        newState.currentLabSelectedTests = newState.currentLabSelectedTests.filter((curr) => {
-                                            if (curr.id == action.payload.criteria.id && curr.type == action.payload.type) {
-                                                foundTest = true
-                                                return false
-                                            }
-                                            return true
-                                        })
-                    
-                                        if (!foundTest || action.payload.forceAdd) {
-                                            newState.currentLabSelectedTests.push({
-                                                ...action.payload.criteria,
-                                                type: action.payload.type
-                                            })
-                                        }*/
                 }
 
             } else {

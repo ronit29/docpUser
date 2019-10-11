@@ -243,7 +243,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
-                                            <a href="javascript:;" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
+                                            <a href={thumbnail} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                                 <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
                                                     <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
                                                 </InitialsPicture>
@@ -342,7 +342,7 @@ class DoctorProfileCard extends React.Component {
                                 }
                                 {
                                     !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable?
-                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 5 }} onClick={() => {
+                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
                                             this.props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'

@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -72,7 +73,7 @@ class UserLoginView extends React.Component {
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
-                    }, 10000)
+                    }, 20000)
                     setTimeout(() => {
                         this.setState({ enableOtpRequest:false })
                     }, 60000)
@@ -263,6 +264,7 @@ class UserLoginView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

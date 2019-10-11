@@ -1,6 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router'
 import GTM from '../../../helpers/gtm';
+import { connect } from 'react-redux';
+
+import { clearOpdPage } from '../../../actions/index.js'
 
 class Footer extends React.Component {
     constructor(props) {
@@ -17,6 +20,7 @@ class Footer extends React.Component {
     }
 
     navigateTo(where) {
+        this.props.clearOpdPage()
         this.props.history.push(where)
     }
 
@@ -625,10 +629,10 @@ class Footer extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-12 text-center">
-                            <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >This website is not intended to be used in case of a medical emergency and/or critical care and the user should directly contact his/her medical service provider.</p>
+                            <p className="fw-500 mrt-20" style={{ color: '#8a8a8a', fontSize: 12 }} >The Website is not intended to be used in case of a medical emergency and/ or critical care and the user should directly contact his/ her medical service provider for Physical Examination. Docprime is solely a technology partner.</p>
                         </div>
                         <div className="col-12 footer-new-copyrght" style={{ paddingBottom: 5 }} >
-                            <p>docprime.com Copyright &copy; 2018.</p>
+                            <p>Docprime.com Copyright &copy; 2019.</p>
                             <p>All rights reserved.</p>
                             <p>DOCPRIME TECHNOLOGIES PRIVATE LIMITED</p>
                             <p>CIN : U74999HR2016PTC064312</p>
@@ -640,4 +644,20 @@ class Footer extends React.Component {
     }
 }
 
-export default withRouter(Footer)
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    return {
+    
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearOpdPage:()=> dispatch(clearOpdPage())
+    }
+}
+
+// export default withRouter(Footer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Footer))

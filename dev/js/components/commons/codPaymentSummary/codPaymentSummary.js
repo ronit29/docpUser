@@ -5,6 +5,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 const queryString = require('query-string');
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class CodPaymentView extends React.Component {
 
@@ -102,6 +103,7 @@ class CodPaymentView extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         )
     }

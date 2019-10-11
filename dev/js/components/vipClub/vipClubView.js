@@ -9,6 +9,7 @@ import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
 import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
+import Disclaimer from '../commons/Home/staticDisclaimer.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -30,14 +31,14 @@ class VipClubView extends React.Component {
         }
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
-        if (STORAGE.checkAuth()) {
+        if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
             if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                 loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
                 if (Object.keys(loginUser).length > 0) {
-                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name,(resp)=>{
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
                         let LeadIdData = {
-                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                            }
+                            'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                        }
                         GTM.sendEvent({ data: LeadIdData })
                     })
                 }
@@ -84,22 +85,61 @@ class VipClubView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
         }
         GTM.sendEvent({ data: gtmData })
-        if (STORAGE.checkAuth()) {
-            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-                if (Object.keys(loginUser).length > 0) {
-                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name,(resp)=>{
-                        let LeadIdData = {
-                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+        if (!this.props.isSalesAgent && !this.props.isAgent) {
+            if (STORAGE.checkAuth()) {
+                if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                    loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                    if (Object.keys(loginUser).length > 0) {
+                        this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
+                            let LeadIdData = {
+                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
                             }
-                        GTM.sendEvent({ data: LeadIdData })
-                    })
+                            GTM.sendEvent({ data: LeadIdData })
+                        })
+                    }
+                    this.props.history.push('/vip-club-member-details')
                 }
+            } else {
+                this.props.citiesData()
+                this.setState({ showPopup: true })
             }
-            this.props.history.push('/vip-club-member-details')
-            // this.props.history.push('/vip-club-static-pages')
         } else {
-            this.setState({ showPopup: true })
+            if (STORAGE.checkAuth()) {
+                // if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                //     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                //     if (Object.keys(loginUser).length > 0) {
+                //         if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
+                //             let data = {
+                //                 name: loginUser.name,
+                //                 phone_number: loginUser.phone_number,
+                //                 utm_source: lead_data.utm_source || '',
+                //                 utm_spo_tags : lead_data || ''
+                //             }
+                //             this.props.vipPlusLead(data)
+                //         }
+                //     }
+                // }
+                let url = '/vip-club-member-details?isDummy=true'
+                if (lead_data.utm_source) {
+                    url += '&utm_source=' + lead_data.utm_source
+                }
+                if (lead_data.utm_term) {
+                    url += '&utm_term=' + lead_data.utm_term
+                }
+                if (lead_data.utm_campaign) {
+                    url += '&utm_campaign=' + lead_data.utm_campaign
+                }
+                if (lead_data.utm_medium) {
+                    url += '&utm_medium=' + lead_data.utm_medium
+                }
+                if (lead_data.is_agent) {
+                    url += '&is_agent=' + lead_data.is_agent
+                }
+                this.props.history.push(url)
+            } else {
+                this.props.citiesData()
+                this.setState({ showPopup: true })
+            }
         }
     }
 
@@ -122,7 +162,6 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        // console.log(this.state.selected_plan_data)
         let self = this
 
         return (
@@ -136,9 +175,16 @@ class VipClubView extends React.Component {
                         // description: `${this.props.data.description || ''}`
                     }} noIndex={false} />
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
-                        <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
-                            <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
-                        </div>
+                        {
+                            this.props.isSalesAgent && this.props.isAgent ? '' :
+                                this.props.source == 'doctorlisting' || this.props.source == 'bookingpage'
+                                    ? <div className="vipBackIco" onClick={() => this.props.history.go(-1)}>
+                                        <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                                    </div>
+                                    : <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
+                                        <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
+                                    </div>
+                        }
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
@@ -164,7 +210,7 @@ class VipClubView extends React.Component {
                                                         return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
                                                             {`(₹ ${value.deal_price})`}
                                                         </span>
-                                                        {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                            {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
                                                         </p>
                                                     })
                                                     : ''
@@ -225,10 +271,13 @@ class VipClubView extends React.Component {
                                         {
                                             this.state.selected_plan_data && this.state.selected_plan_data.enabled_hospital_networks && this.state.selected_plan_data.enabled_hospital_networks.length > 0 ?
                                                 <div className="pakg-slider-container mb-24">
-                                                    <div className="pkgSliderHeading">
-                                                        <h5>Key Hospital Partners</h5>
-                                                        <span onClick={() => this.props.history.push('/opd/searchresults')}>View Docprime Network</span>
-                                                    </div>
+                                                    {
+                                                        this.props.isSalesAgent && this.props.isAgent ? ''
+                                                            : <div className="pkgSliderHeading">
+                                                                <h5>Key Hospital Partners</h5>
+                                                                <span onClick={() => this.props.history.push('/opd/searchresults')}>View Docprime Network</span>
+                                                            </div>
+                                                    }
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
                                                             {
@@ -288,8 +337,8 @@ class VipClubView extends React.Component {
                                         <div className="vip-offer-cards mb-24">
                                             <div className="vip-free-doc vip-bkdiscount-bg">
                                                 <div className="bkdiscount-text">
-                                                    <h4 className="vip-card-heading">25% Discount on Lab Bookings </h4>
-                                                    <p>Maximum discount upto ₹200</p>
+                                                    <h4 className="vip-card-heading">Flat 25% discount on lab bookings </h4>
+                                                    <p>No cap on maximum discount</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -337,6 +386,44 @@ class VipClubView extends React.Component {
                                                 </div>
                                                 : ''
                                         }
+                                        <div className="pakg-slider-container mb-24">
+                                            <div className="pkgSliderHeading">
+                                                <h5>Our Happy VIP Customers</h5>
+                                            </div>
+                                            <div className="pkgSliderContainer">
+                                                <div className="pkgCardsList d-flex sub-wd-cards top_pkgCat">
+                                                    <div className="pkgcustCards vip-cmmnt-card">
+                                                       <div className="vip-sld-content">
+                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
+                                                           <h4>Mehak Verma</h4>
+                                                           <p>VIP made consulting with top doctors so simple, don’t have to worry about high consultation charges anymore. Brownie points for the online and teleconsultation which saves me the trouble of in-clinic visits for smaller issues.</p>
+                                                       </div>
+                                                    </div>
+                                                    <div className="pkgcustCards vip-cmmnt-card">
+                                                       <div className="vip-sld-content">
+                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
+                                                           <h4>Nidhi Singla</h4>
+                                                           <p>Amazing experience with Docprime VIP so far. It is very useful for my diabetic parents who have to visit their doctors on a regular basis.</p>
+                                                       </div>
+                                                    </div>
+                                                    <div className="pkgcustCards vip-cmmnt-card">
+                                                       <div className="vip-sld-content">
+                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
+                                                           <h4>Rohan Girotra</h4>
+                                                           <p>Huge savings on doctors is great but what I loved about VIP the most is the extra 25% discount on lab tests. It has helped me save a lot of money after the doctor recommended a few lab tests during my last visit.</p>
+                                                       </div>
+                                                    </div>
+                                                    <div className="pkgcustCards vip-cmmnt-card">
+                                                       <div className="vip-sld-content">
+                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
+                                                           <h4>Akshat Sinha</h4>
+                                                           <p>VIP is an amazing plan that covers doctor consultation charges for the whole family. What makes it even more awesome is free health checkups and additional tax savings on my income.</p>
+                                                       </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
                                         {
                                             this.state.selected_plan_data && this.state.selected_plan_data.content && Object.keys(this.state.selected_plan_data.content).length > 0 && this.state.selected_plan_data.content.salient_features && this.state.selected_plan_data.content.salient_features.length > 0 ?
                                                 <div className="vip-note-lst">
@@ -358,6 +445,7 @@ class VipClubView extends React.Component {
                             <p className="vipbtn-sub-txt">No Cost EMI Starts @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
                         </button>
                     </section>
+                    <Disclaimer isVip={true}/>
                 </div>
                 : <div></div>
         );

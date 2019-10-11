@@ -117,7 +117,7 @@ class LeftMenu extends React.Component {
                     this.props.history.push('/user/appointments')
                   }} href="#"><img src={ASSETS_BASE_URL + "/images/my-appointment.png"} alt="" className="" />My Appointments</a></li>
 
-                  {/*<li><a onClick={(e) => {
+                  <li><a onClick={(e) => {
                       e.preventDefault()
                       let data = {
                         'Category': 'ConsumerApp', 'Action': 'LeftMenuOrderMedicineClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'leftmenu-order-medicine-clicked'
@@ -126,8 +126,8 @@ class LeftMenu extends React.Component {
                       this.props.toggleLeftMenu()
                       this.props.iFrameState('', false, true)
                       this.props.history.push('/order-medicine')
-                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>
-                  </li>*/}
+                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order1.png"} alt="" className="pad-B0" />Order Medicines</a>
+                  </li>
 
                   <li><a onClick={(e) => {
                     e.preventDefault()
