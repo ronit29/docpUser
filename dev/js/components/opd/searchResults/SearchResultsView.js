@@ -42,6 +42,20 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    scrollHandler= ()=>{
+        var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+        var screenSize = window.screen && window.screen.width || null
+        let height = 375
+        if(screenSize && screenSize<992) {
+            height-=90
+        }
+        if(scrollPosition>375){
+            this.setState({showSearchBtn: true})
+        }else{
+            this.setState({showSearchBtn: false})
+        }
+    }
+
     componentDidMount() {
         /*let aa = {...SCROLL}
         //aa.init()
@@ -61,15 +75,8 @@ class SearchResultsView extends React.Component {
         }
         //START Save Selected City on Location Change
         //Add Scroll Events for Sticky Search Filter for Vip Network search
-        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget']){
-            document.addEventListener('scroll', (e)=>{
-                var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
-                if(scrollPosition>375){
-                    this.setState({showSearchBtn: true})
-                }else{
-                    this.setState({showSearchBtn: false})
-                }
-            })
+        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget'] && typeof window !== 'undefined'){
+            window.addEventListener('scroll', this.scrollHandler)
             this.setState({scrollEventAdded: true})
         }
 
@@ -187,15 +194,8 @@ class SearchResultsView extends React.Component {
         }
         //END Save Selected City on Location Change
                 //Add Scroll Events for Sticky Search Filter for Vip Network search
-        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget']){
-            document.addEventListener('scroll', (e)=>{
-                var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
-                if(scrollPosition>375){
-                    this.setState({showSearchBtn: true})
-                }else{
-                    this.setState({showSearchBtn: false})
-                }
-            })
+        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget'] && typeof window !== 'undefined'){
+            window.addEventListener('scroll', this.scrollHandler)
             this.setState({scrollEventAdded: true})
         }
 
@@ -292,8 +292,8 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillUnmount(){
-        if(this.state.scrollEventAdded){
-            document.removeEventListener('scroll');
+        if (typeof window !== 'undefined' && this.state.scrollEventAdded) {
+            window.removeEventListener('scroll', this.scrollHandler);
         }
     }
 
@@ -796,13 +796,14 @@ class SearchResultsView extends React.Component {
                                             this.state.fromVip &&
                                             <React.Fragment>
                                                 {
-                                                    this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
-                                                    <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
-                                                }
-                                                {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                                     <CarouselView topHeading='Top Hospitals' dataList={this.props.topHospitals.top_hospitals} dataType='topHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} />
                                                 }
+                                                {
+                                                    this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
+                                                    <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
+                                                }
+                                                
                                                 <div className="row searchForVip filter-row sticky-header mbl-stick" ref="vip_srch_widget">
                                                     <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj" onClick={()=>this.navigateToSearchVip()}>
                                                         <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor"/>
