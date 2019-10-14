@@ -1307,7 +1307,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                     <p className="ldng-text"></p>
                                                                                 </div>
-                                                                                : ((this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)) ?
+                                                                                : is_time_selected || this.props.is_integrated?
                                                                                     <div className="widget-content pos-relative">
                                                                                         <div className="lab-visit-time d-flex jc-spaceb mb-0">
                                                                                             <h4 className="title mb-0">
@@ -1316,9 +1316,20 @@ class PatientDetailsNew extends React.Component {
                                                                                                 </span>
                                                                                                 Select Visit Time
                                                                                 </h4>
+                                                                                {
+                                                                                    !is_time_selected && this.props.is_integrated && <a href="" onClick={(e) => {
+                                                                                            e.preventDefault()
+                                                                                            e.stopPropagation()
+                                                                                            this.navigateTo('time')
+                                                                                        }} className="text-primary fw-700 text-sm">Select Time</a>
+                                                                                }
                                                                                         </div>
                                                                                         <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
-                                                                                        <div className="date-slecet-cont">
+
+                                                                                        {
+                                                                                            is_time_selected && 
+                                                                                            <React.Fragment>
+                                                                                                <div className="date-slecet-cont">
                                                                                             <div className="nw-inpt-selctr">
                                                                                                 <span className="nw-pick-hdng">Date:</span>
                                                                                                 <div className="caln-input-tp">
@@ -1337,6 +1348,8 @@ class PatientDetailsNew extends React.Component {
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
+                                                                                            </React.Fragment>
+                                                                                        }
                                                                                         {
                                                                                             this.state.timeErrorText?
                                                                                             <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>
