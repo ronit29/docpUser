@@ -4626,6 +4626,14 @@ p.vp-pop-grn {
 p.vp-pop-sub-txt {
     font-weight: 500;
     margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+p.vp-pop-sub-txt img {
+    width: 22px;
+    margin: 0 3px;
+    flex-grow: 0;;
 }
 button.vp-pop-ch-btn {
     background-image: linear-gradient(to left,#f78631,#ff6d00);
