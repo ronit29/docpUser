@@ -88,7 +88,7 @@ class TopHospitalWidgets extends React.Component {
                 <div className="pkgSliderHeading">
                     <h5>{topHeading}</h5>
                     {
-                        showViewAll && this.props.top_data.length >20 && <span onClick={()=>this.viewAllClicked()}>View All</span>
+                        showViewAll && this.props.top_data.length >=20 && <span onClick={()=>this.viewAllClicked()}>View All</span>
                     }
                 </div>
                 <div className="pkgSliderContainer" id={dataType}>
