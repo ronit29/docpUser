@@ -338,7 +338,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let url_string
 	let new_url
 	let forTaxSaver = false
-	let parsed
+	let parsed= {}
 
 	if (typeof window == "object") {
 		url_string = window.location.href

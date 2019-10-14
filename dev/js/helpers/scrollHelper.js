@@ -17,10 +17,10 @@ class ScrollView extends React.Component {
 
 	componentDidMount() {
 		if(this.props.target && !this.state.setTarget) {
-			
-			this.addTouchStartEvent(this.props.target)
-			this.addTouchMoveEvent(this.props.target)
-			this.addTouchEndEvent(this.props.target)	
+			let target = this.props.target
+			target.addEventListener('touchstart', (e)=>this.addTouchStartEvent(e), false)
+			target.addEventListener('touchmove',  (e)=>this.addTouchMoveEvent(e), false)
+			target.addEventListener('touchmove', (e)=>this.addTouchEndEvent(e), false)
 			this.setState({setTarget: true})
 		}
 		
@@ -28,49 +28,44 @@ class ScrollView extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if(!this.state.setTarget && nextProps.target) {
-			
-			this.addTouchStartEvent(nextProps.target)
-			this.addTouchEndEvent(nextProps.target)	
-			this.addTouchMoveEvent(nextProps.target)
+			let target = nextProps.target
+			target.addEventListener('touchstart', (e)=>this.addTouchStartEvent(e), false)
+			target.addEventListener('touchmove',  (e)=>this.addTouchMoveEvent(e), false)
+			target.addEventListener('touchmove', (e)=>this.addTouchEndEvent(e), false)
 			this.setState({setTarget: true})
 		}
 	}
 
-	addTouchStartEvent(target){
-		let self = this
-		target.addEventListener('touchstart', function(event) {
-			let touch = event.touches[0] || event.changedTouches[0]
-
-			self.setState({touchstartX : touch.screenX, touchstartY : touch.screenY})
-		}, false)
+	addTouchStartEvent(event){
+		let touch = event.touches[0] || event.changedTouches[0]
+		this.setState({touchstartX : touch.screenX, touchstartY : touch.screenY})
 	}
 
-	addTouchMoveEvent(target){
-		let self = this
-		target.addEventListener('touchmove', function(event) {
-			let touch = event.touches[0] || event.changedTouches[0]
-			self.setState({
-				touchmoveX :  touch.screenX, touchmoveY : touch.screenY
-			},()=>{
-				self.handleGesture()	
-			})
-		}, false);
-		
+	addTouchMoveEvent = (event)=>{
+		let touch = event.touches[0] || event.changedTouches[0]
+		this.setState({
+			touchmoveX :  touch.screenX, touchmoveY : touch.screenY
+		},()=>{
+			this.handleGesture()	
+		})
 	}
 
-	addTouchEndEvent(target){
-		let self = this
-		target.addEventListener('touchend', function(event) {
-			let touch = event.touches[0] || event.changedTouches[0]
+	addTouchEndEvent(event){
+		let touch = event.touches[0] || event.changedTouches[0]
+		this.setState({
+			touchendX : touch.screenX, touchendY : touch.screenY
+		},()=>{
+			this.handleGesture()	
+		})
+	}
 
-			self.setState({
-				touchendX : touch.screenX, touchendY : touch.screenY
-			},()=>{
-				self.handleGesture()	
-			})
-		    
-		}, false);
-		
+	componentWillUnmount(){
+		if(this.state.setTarget) {
+			let target = this.props.target
+			target.removeEventListener('touchstart', this.addTouchStartEvent)
+			target.removeEventListener('touchmove',  this.addTouchMoveEvent)
+			target.removeEventListener('touchmove', this.addTouchEndEvent)
+		}
 	}
 
 	handleGesture(){

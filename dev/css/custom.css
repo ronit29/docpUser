@@ -3709,7 +3709,21 @@ p.sb-para {
 	-webkit-font-smoothing: antialiased;
 	   -moz-osx-font-smoothing: grayscale;
 	   text-rendering: optimizeLegibility;
-	}
+    }
+    p.vp-sb-txt.vp-act:after {
+        content: '';
+        border: 2px;
+        position: absolute;
+        width: 0px;
+        bottom: -18px;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: 0px;
+        border-style: solid;
+        border-width: 8px 8px 8px 8px;
+        border-color: #1b97fd transparent transparent transparent;
+    }
 	.vip-tabs-container {
 		margin: 0 -15px;
     display: flex;
@@ -3718,6 +3732,7 @@ p.sb-para {
     padding: 0 10px;
     margin-bottom: 16px;
     position: sticky;
+    position: -webkit-sticky;
     top: 59px;
     z-index: 9;
     background-color: #ffffff;
@@ -3729,7 +3744,7 @@ p.sb-para {
     color: #757575;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid #1b97fd00;
+    border-bottom: 3px solid #1b97fd00;
     cursor: pointer;
     flex: 1;
     text-align: center;
@@ -3748,7 +3763,7 @@ p.vp-sb-txt span{
 }
 p.vp-sb-txt.vp-act{
 	color: #1b97fd;
-    border-bottom: 2px solid #1b97fd;
+    border-bottom: 3px solid #1b97fd;
 }
 .vip-offer-cards {
     background-color: #fff;
@@ -3955,7 +3970,7 @@ p.vip-no-cost img {
     margin-bottom: 8px;
 }
 button.vip-foot-btn {
-    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    background: #1b97fd;
     color: white;
     position: fixed;
     bottom: 0;
