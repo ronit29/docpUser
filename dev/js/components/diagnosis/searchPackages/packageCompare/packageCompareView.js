@@ -6,6 +6,7 @@ import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
 import HelmetTags from '../../../commons/HelmetTags'
 import CONFIG from '../../../../config'
+import Disclaimer from '../../../commons/Home/staticDisclaimer.js'
 
 const queryString = require('query-string');
 
@@ -336,7 +337,9 @@ const queryString = require('query-string');
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
                                       <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">
                                       <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.discounted_price)}
-                                          <span className="pkg-cut-price" style={{color:'#ffffff'}}>₹ {parseInt(packages.mrp)}</span>
+                                          <span className="pkg-cut-price" style={{color:'#ffffff'}}>₹ {parseInt(packages.mrp)}
+                                          </span>
+                                          {/*<img style={{width: '16px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>*/}
                                       </p>
                                        </button></a>
                                 </li>
@@ -478,6 +481,7 @@ const queryString = require('query-string');
                       : ''
                   }
               </section>
+              <Disclaimer/>
           </div>
       )
       }

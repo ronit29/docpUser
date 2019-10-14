@@ -38,6 +38,7 @@ import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
 import Loadable from 'react-loadable';
+const helmet = require('helmet')
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
 
@@ -47,6 +48,11 @@ app.use(compression())
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
     app.use(Sentry.Handlers.requestHandler())
+    app.use(helmet.hsts({
+      maxAge: 5184000,
+      includeSubDomains: true,
+      preload: true
+    }))
 }
 
 app.disable('etag');
@@ -186,6 +192,7 @@ app.all('*', function (req, res) {
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
                 _serverHit(req, 'server_done')
+                res.set('X-Frame-Options', 'sameorigin');
                 res.render('index.ejs', {
                     html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                 })
@@ -201,6 +208,8 @@ app.all('*', function (req, res) {
                         context.data = data[0]
                     }
 
+                    res.set('X-Frame-Options', 'sameorigin')
+                    
                     if (context.data && context.data.status && context.data.status == 404) {
                         res.status(404)
                     }

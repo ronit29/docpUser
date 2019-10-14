@@ -76,9 +76,21 @@ class LeftMenu extends React.Component {
                 <ul className="drop-list-menu list_1">
                   {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                                 */}
+                  {
+                    CONFIG.ENABLE_VIP_CLUB?
+                      <li><a className="p-relative" onClick={(e) => {
+                        let data = {
+                        'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-vip-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
+                        e.preventDefault()
+                        this.props.toggleLeftMenu()
+                        this.props.history.push('/vip-club-details?source=mobile-leftmenu-vip-clicked&lead_source=Docprime')
+                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP <span className="vip-new-lft-tag">Save 70% on your family's medical bills</span></a></li>
+                  :''}
 
                   {
-                    CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
+                    /*CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && (user_ins_status == 1 || user_ins_status == 5)?
                       <li><a onClick={(e) => {
                         let data = {
                         'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'
@@ -88,7 +100,7 @@ class LeftMenu extends React.Component {
                         this.props.toggleLeftMenu()
                         this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
                       }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7? 'Active' : 'New'}</span></a></li>
-                      : ''
+                      : ''*/
                   }
                   <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
                                     <span className={memberClass}>{memStatus}</span></a></li>
@@ -104,6 +116,18 @@ class LeftMenu extends React.Component {
                     this.props.toggleLeftMenu()
                     this.props.history.push('/user/appointments')
                   }} href="#"><img src={ASSETS_BASE_URL + "/images/my-appointment.png"} alt="" className="" />My Appointments</a></li>
+
+                  <li><a onClick={(e) => {
+                      e.preventDefault()
+                      let data = {
+                        'Category': 'ConsumerApp', 'Action': 'LeftMenuOrderMedicineClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'leftmenu-order-medicine-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
+                      this.props.toggleLeftMenu()
+                      this.props.iFrameState('', false, true)
+                      this.props.history.push('/order-medicine')
+                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order1.png"} alt="" className="pad-B0" />Order Medicines</a>
+                  </li>
 
                   <li><a onClick={(e) => {
                     e.preventDefault()

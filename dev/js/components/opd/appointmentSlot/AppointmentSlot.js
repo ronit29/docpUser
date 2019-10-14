@@ -11,6 +11,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 
@@ -255,12 +256,12 @@ class AppointmentSlot extends React.Component {
                                         </div>
                                     </section> : <Loader />
                             }
-
                             <button disabled={!this.state.enableProceed} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn sticky-btn">Select</button>
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" type="opd" />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

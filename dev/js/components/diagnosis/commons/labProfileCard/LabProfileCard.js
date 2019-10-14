@@ -107,7 +107,11 @@ class LabProfileCard extends React.Component {
         let slot = { time: {} }
         this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
-        this.props.selectLabAppointmentType('home')
+        let selectedType = {
+            r_pickup: 'home',
+            p_pickup: 'lab'
+        }
+        this.props.selectLabAppointmentType(selectedType)
         this.mergeTests(id)
 
         if (url) {
@@ -149,8 +153,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance } = this.props.details;
-
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         let pickup_text = ""
@@ -201,7 +204,15 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
             is_insurance_buy_able =  true
         }
+        let is_vip_applicable = false
+        let vip_amount
+        let is_enable_for_vip = false
 
+        if(vip && Object.keys(vip).length > 0){
+            is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+            vip_amount = vip.vip_amount
+            is_enable_for_vip = is_vip_enabled
+        }
         return (
 
             <div className="cstm-docCard mb-3">
@@ -254,25 +265,54 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price ?
+                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price ?
-                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
+                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable ?
+                                    discounted_price != mrp?
+                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                    :<p className="cst-doc-price">₹ {discounted_price} </p> : ''
                             }
                             {
-                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
+                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             {
-                                is_insurance_applicable ?
+                                is_vip_applicable ?
+                                    <div className="text-right mb-2">
+                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                    </div>
+                                : ''
+                            }
+                            {
+                                is_insurance_applicable && !is_vip_applicable ?
                                     <div>
                                         <p className="cst-doc-price">₹ {0}</p>
                                         <div className="ins-val-bx">Covered Under Insurance</div>
                                     </div>
                                     : ''
                             }
+                            {
+                                   !is_insurance_applicable && is_vip_applicable ?
+                                        <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                        : ''
+                                }
+                            {
+                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
+                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                                            this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
+                                            let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'LabCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-card-vip-clicked'
+                                            }
+                                            GTM.sendEvent({ data: data })
+                                        }}>
+                                            <p className="fw-500 grn-txt-vip">Save 25% with</p>
+                                            <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
+                                        </div>
+                                        : ''
+                                }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>

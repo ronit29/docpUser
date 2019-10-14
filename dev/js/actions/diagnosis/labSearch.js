@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -142,7 +142,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	})
 }
 
-export const getLabById = (labId, testIds = []) => (dispatch) => {
+export const getLabById = (labId, testIds = [], forceAddTestids=false) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
 
 	return API_GET(url).then(function (response) {
@@ -156,6 +156,16 @@ export const getLabById = (labId, testIds = []) => (dispatch) => {
 			payload: response,
 			forceAdd: true
 		})
+		if(forceAddTestids){
+			dispatch({
+				type: TOGGLE_DIAGNOSIS_CRITERIA,
+				payload: {
+					forceAddTestids: true,
+					tests: response.tests,
+					labId: labId
+				}
+			})
+		}
 
 	}).catch(function (error) {
 
@@ -181,10 +191,14 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 	})
 }
 
-export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming_v2?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+export const getLabTimeSlots = (labId, pickup, pincode, date, extraParams, callback) => (dispatch) => {
+	let url = `/api/v1/diagnostic/labtiming_v3?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+	if(extraParams){
+		url+= `&test_ids=${extraParams.test_ids||''}&r_pickup=${extraParams.r_pickup||0}&p_pickup=${extraParams.p_pickup||0}`	
+	}
+	
 	return API_GET(url).then(function (response) {
-		callback(response)
+		if(callback)callback(response)
 	}).catch(function (error) {
 
 	})

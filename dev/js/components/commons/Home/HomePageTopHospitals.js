@@ -14,9 +14,13 @@ class TopHospitalWidgets extends React.Component {
         let redirectUrl = ''
 
         if(data.url) {
-            redirectUrl = `/${data.url}?showPopup=true`
+            redirectUrl = `/${data.url}`
         }else {
-            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
+            redirectUrl = `/ipd/hospital/${data.id}`
+        }
+
+        if(data.is_ipd_hospital) {
+            redirectUrl+= `?showPopup=true`
         }
 
         /*if(this.props.is_ipd_form_submitted){
@@ -53,6 +57,18 @@ class TopHospitalWidgets extends React.Component {
             document.getElementById('leftArrow_hsptl').classList.remove("d-none")
         }
     }
+
+    viewAllClicked(){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.mergeIpdCriteria({
+            commonSelectedCriterias: [],
+            nextSelectedCriterias: []
+        })
+        this.props.history.push(`/ipd/searchHospitals`)   
+    }
 	
 	render(){
 
@@ -60,7 +76,7 @@ class TopHospitalWidgets extends React.Component {
 		     <div className="pakg-slider-container mb-10">
                 <div className="pkgSliderHeading">
                     <h5>Top Hospitals</h5>
-                    {/*<span>View All</span>*/}
+                    <span onClick={()=>this.viewAllClicked()}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="top_hospitals">
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_hospitals_list'>
@@ -71,7 +87,7 @@ class TopHospitalWidgets extends React.Component {
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
-				                                {data.h1_title?data.h1_title:data.name}
+				                                {data.seo_title?data.seo_title:data.h1_title?data.h1_title:data.name}
 				                        	</p>
 				                        </a>		
                     		})

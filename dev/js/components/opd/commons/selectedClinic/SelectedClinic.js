@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../../commons/initialsPicture'
+const queryString = require('query-string');
 
 class SelectedClinic extends React.Component {
     constructor(props) {
@@ -54,8 +55,12 @@ class SelectedClinic extends React.Component {
             })
         }
         let selected_user_covered_under_insurance = false
-        if(this.props.profiles && Object.keys(this.props.profiles).length >0){
+        if(this.props.profiles && Object.keys(this.props.profiles).length >0 && this.props.profiles[this.props.selectedProfile]){
             selected_user_covered_under_insurance = this.props.profiles[this.props.selectedProfile].is_insured
+        }
+        const parsed = queryString.parse(this.props.location.search)
+        if(parsed && parsed.cod_to_prepaid=='true'){
+            show_clinic = 0
         }
         return (
             <div className="widget mrb-15 mrng-top-12">
@@ -75,7 +80,7 @@ class SelectedClinic extends React.Component {
                     </div>
                 </div>
                 {
-                    hospitals && hospitals.length > 1?
+                    hospitals && hospitals.length > 1 && !(parsed && parsed.cod_to_prepaid=='true')?
                     <div className={`clinicRadioContainer ${this.state.showMoreClinic?'':'d-none'}`}>
                         {hospitals.map((hospital, i) => {
                         return hospital.enabled_for_online_booking?
@@ -132,6 +137,14 @@ class SelectedClinic extends React.Component {
                         })}                        
                     </div>
                     :''
+                }
+                {
+                    parsed && parsed.cod_to_prepaid=='true' && 
+
+                    hospitals.filter(hospital=>hospital.id == this.props.selectedClinic).map((hospital)=>{
+
+                        return <p className="clnc-name">{hospital.hospital_name}</p>
+                    })
                 }
             </div>
         );

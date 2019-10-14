@@ -10,6 +10,10 @@ class Loader extends React.Component {
         return (
             <div className={this.props.classType || "loaderCircular"} >
                 <div className="dp-loader"></div>
+                {
+                    this.props.iFramePopup ?
+                        <p className="fw-500 mrt-10">Redirecting you to Pharmeasy website...</p> : ''
+                }
             </div>
         );
     }

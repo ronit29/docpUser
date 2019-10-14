@@ -81,7 +81,7 @@ class LabTests extends React.Component {
         let test_info = ''
         let show_details = ''
         let {is_plan_applicable} = this.props
-        let { is_insurance_applicable } = this.props
+        let { is_insurance_applicable, is_vip_applicable } = this.props
         let is_user_insured = false
         let selectedTestsCount = 0
 
@@ -107,9 +107,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount} is_user_insured={is_user_insured}/>)
+                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount} is_user_insured={is_user_insured} is_vip_applicable={is_vip_applicable} />)
                     } else {
-                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount}/>)
+                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount} is_vip_applicable={is_vip_applicable}/>)
                     }
 
                 } else {
@@ -130,15 +130,15 @@ class LabTests extends React.Component {
                             <span className="test-price text-sm">Free</span>
                         </li>
                             : <li key={i + "srt"}>
-                                <label className={`${is_user_insured?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
+                                <label className={`${is_user_insured || is_vip_applicable?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details ? test_info : ''}
                                     {
-                                        is_user_insured?''
+                                        is_user_insured || is_vip_applicable?''
                                         :<input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />    
                                     }
                                     
                                     {
-                                        is_user_insured?''
+                                        is_user_insured || is_vip_applicable?''
                                         :<span className="checkmark" />
                                     }
                                 </label>
@@ -182,7 +182,7 @@ class LabTests extends React.Component {
 
         //For Insured Person Remove unselected Tests/Packages
 
-        if(is_user_insured){
+        if(is_user_insured || is_vip_applicable){
             unSelectedTests = []
             unSelectedPackage = []
         }
@@ -297,11 +297,11 @@ class LabTests extends React.Component {
                     {
                         (STORAGE.isAgent() || ( !hide_price && !is_user_insured)) && (this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network')) ? <div className="pb-view d-flex align-items-center justify-content-between">
                         {
-                            !is_user_insured && this.props.data && this.props.data.total_test_count && this.props.data.total_test_count != '' ?
+                            !is_vip_applicable && !is_user_insured && this.props.data && this.props.data.total_test_count && this.props.data.total_test_count != '' ?
                             <span className="text-md fw-500">{this.props.data.total_test_count} total tests</span> : ''
                         }
                         {
-                            is_user_insured?''
+                            is_user_insured || is_vip_applicable?''
                             :<a href="javascript:;" className="link-text text-md fw-500" onClick={this.openTests.bind(this)}>View all tests</a>
                         }
                             
@@ -310,7 +310,7 @@ class LabTests extends React.Component {
                     }
 
                     {
-                        is_user_insured && !selectedTestsCount?
+                       (is_vip_applicable || is_user_insured ) && !selectedTestsCount?
                         <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.searchTests.bind(this)}>Search tests</a>
                         </div>

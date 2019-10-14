@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality } from '../../actions/index.js'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality, getSponsoredList } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -194,7 +194,8 @@ const mapDispatchToProps = (dispatch) => {
         cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
         getDoctorHospitalFilters: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctorHospitalFilters(state, page, from_server, searchByUrl, cb, clinic_card)),
-        getDoctorHospitalSpeciality: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctorHospitalSpeciality(state, page, from_server, searchByUrl, cb, clinic_card))
+        getDoctorHospitalSpeciality: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctorHospitalSpeciality(state, page, from_server, searchByUrl, cb, clinic_card)),
+        getSponsoredList: (data, selectedLocation, cb)=> dispatch(getSponsoredList(data, selectedLocation, cb))
     }
 }
 

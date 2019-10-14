@@ -23,6 +23,7 @@ class HomePageWidget extends React.Component {
     render() {
         return (
             <div className="card cstm-card mb-3">
+                <a className="anchor-link" id={`${this.props.type}`}></a>
                 <div className="card-header" style={{ justifyContent: 'normal' }}>
                     {
                         this.props.type === 'opd' ?

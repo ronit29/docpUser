@@ -72,11 +72,11 @@ class DesktopProfileHeader extends React.Component {
         if (search_back) {
             this.props.history.go(-1)
         } else {
-            this.props.history.push(`/search?from=header&pageType=${this.props.pageType?this.props.pageType:''}`)
+            this.props.history.push(`/search?from=header&pageType=${this.props.pageType ? this.props.pageType : ''}`)
         }
     }
 
-    openLocation(){
+    openLocation() {
         this.props.history.push('/locationsearch')
     }
 
@@ -135,11 +135,9 @@ class DesktopProfileHeader extends React.Component {
         return (
             <header id="is_header" className={headerClass} style={styles}>
                 {
-                    this.props.showPackageStrip || !this.props.ipd_chat?''
-                    :<IpdChatPanel {...this.props}/>    
+                    this.props.showPackageStrip || !this.props.ipd_chat ? ''
+                        : <IpdChatPanel {...this.props} />
                 }
-                
-                
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">
@@ -242,7 +240,7 @@ class DesktopProfileHeader extends React.Component {
                                 {
                                     hideSearch ? "" : <div className="head-links hed-links-search-flex">
                                         <div className="serch-nw-inputs new-home-full-widht" >
-                                            <div onClick={this.openSearch.bind(this)}> 
+                                            <div onClick={this.openSearch.bind(this)}>
                                                 <div className="header-serach-input-div">
                                                     <span>Search Doctors &amp; Tests</span>
                                                 </div>
@@ -378,13 +376,9 @@ class DesktopProfileHeader extends React.Component {
                                     </div>
                                 </div> : ""
                             }
-
-
                         </div>
 
-
                         {
-
                             this.state.medicinePopup ?
                                 <div className='col-12 mrb-15'>
                                     <div className="search-show art-padding d-lg-none">
@@ -420,14 +414,9 @@ class DesktopProfileHeader extends React.Component {
                                 </div> : ""
                             }
                         </div>
-
-
                     </div>
-
-
-
                 </div>
-            </header >
+            </header>
         );
     }
 }
