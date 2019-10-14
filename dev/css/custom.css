@@ -3966,7 +3966,8 @@ button.vip-foot-btn {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
-	border: none;
+    border: none;
+    z-index: 2;
 }
 .vip-back-btn{
 	background-image: linear-gradient(to left,#f78631,#ff6d00);
@@ -4607,6 +4608,9 @@ img.img-fluid.vp-cls-img {
     font-weight: 500;
     font-size: 13px;
 }
+.margin-bottom-55{
+margin-bottom: 55px;
+}
 /* ============ vip-card  ============ */
 /* ============ vip-pop-card  ============ */
 .widget.cancel-appointment-div.cancel-popup.vip-pop-mbl{
@@ -4644,3 +4648,33 @@ button.vp-pop-ch-btn {
 }
 }
 /* ============ vip-pop-card  ============ */
+/* ============ paypal-page  ============ */
+.paypal-main-cont h1 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+.paypal-dtls-cont {
+    margin-bottom: 30px;
+}
+.paypal-dtls-cont h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.paypal-dtls-cont ol {
+    list-style: decimal;
+    padding-left: 15px;
+}
+.paypal-dtls-cont ol li {
+    list-style: decimal;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4b4a4a;
+}
+.paypal-dtls-cont a{
+    color:#F78631;
+    cursor: pointer;
+}
+/* ============ paypal-page  ============ */

@@ -46,7 +46,7 @@ class VipClubStaticView extends React.Component {
                     </div>
                     <button className="vip-back-btn" onClick={() => this.props.history.push('/vip-club-details')}>Done</button>
                 </section>
-                <Disclaimer />
+                <Disclaimer isVip={true}/>
             </div>
         )
     }

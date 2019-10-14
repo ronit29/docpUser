@@ -112,7 +112,9 @@ export const registerUser = (postData, cb) => (dispatch) => {
 
 export const logout = (roomId) => (dispatch) => {
     // delete chat of current opened room
-    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`)
+    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`).catch((e)=>{
+        
+    })
     STORAGE.deleteAuth().then(() => {
         dispatch({
             type: RESET_AUTH,

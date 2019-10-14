@@ -528,7 +528,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: this.state.use_wallet,
+            use_wallet: is_vip_applicable?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web:true
@@ -1057,7 +1057,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
@@ -1462,7 +1461,7 @@ class PatientDetailsNew extends React.Component {
                                                                         }
 
                                                                         {
-                                                                            !is_insurance_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
+                                                                            !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
                                                                                 <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                     this.props.select_opd_payment_type(2)
                                                                                 }}>
@@ -1586,7 +1585,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 </div>
                                                                             </div>
                                                                             {
-                                                                                enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
+                                                                                !is_insurance_applicable &&enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
                                                                                     <React.Fragment>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p style={{color:'green'}}>Docprime Discount</p>
@@ -1644,7 +1643,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                             {
-                                                                !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
+                                                                !is_vip_applicable && !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
                                                                     <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                         <div className="widget-content">
                                                                             <div className="select-pt-form">

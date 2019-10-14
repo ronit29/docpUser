@@ -233,7 +233,7 @@ class VipClub extends React.Component {
                         </div>
                     </div>
                 </section>
-                <Disclaimer />
+                <Disclaimer isVip={true}/>
             </div>
         );
     }

@@ -361,10 +361,18 @@ class SearchResultsView extends React.Component {
         }
 
         let is_params_exist = false
+        url = `${window.location.pathname}`
+        
+        if (page > 1) {
+            url += `?page=${page}`
+            is_params_exist = true
+        }
 
+        url+= `${is_params_exist ? '&' : '?'}search_id=${this.state.search_id}`
+        is_params_exist = true
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
+            url+= `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
 
             if(parsed && parsed.utm_term){
                 url+= `&utm_term=${parsed.utm_term||''}`
@@ -372,14 +380,21 @@ class SearchResultsView extends React.Component {
 
             is_params_exist = true
 
-        } else if (this.state.seoFriendly) {
+        }/* else if (this.state.seoFriendly) {
 
             url = `${window.location.pathname}`
+        }*/
+
+        if(parsed.utm_source) {
+            url+= `&utm_source=${parsed.utm_source||''}`
         }
 
-        if (page > 1) {
-            url += `${is_params_exist ? '&' : '?'}page=${page}`
-            is_params_exist = true
+        if(parsed.utm_medium) {
+            url+= `&utm_medium=${parsed.utm_medium||''}`
+        }
+
+        if(parsed.utm_campaign) {
+            url+= `&utm_campaign=${parsed.utm_campaign||''}`
         }
 
         if (this.state.clinic_card) {
