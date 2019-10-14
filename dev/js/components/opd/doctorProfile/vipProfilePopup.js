@@ -1,5 +1,5 @@
 import React from 'react'
-export default ({props,toggle}) => {
+export default ({props,toggle, navigateToVip}) => {
 	return(
 		<div>
 				<div className="cancel-overlay vip-cncl-overlay" onClick={()=>toggle()}></div>
@@ -8,7 +8,7 @@ export default ({props,toggle}) => {
 					<div className="widget-header text-center action-screen-header" style={{ position: 'relative', paddingTop: '' }} >
 						<p className="vp-pop-grn">Save 70% on Appointments</p>
 						<p className="vp-pop-sub-txt"> Become Docprime the member of Docprime </p>
-						<button className="vp-pop-ch-btn">Know more</button>
+						<button className="vp-pop-ch-btn" onClick={()=>navigateToVip()}>Know more</button>
 					</div>
 				
 				</div>

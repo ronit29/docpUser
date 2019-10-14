@@ -87,7 +87,7 @@ class DoctorProfileView extends React.Component {
         this.setState({ searchShown: true })
         setTimeout(()=>{
             this.setState({showVipPopup: true})
-        }, 500)
+        }, 800)
     }
 
     showDownloadAppWidget(dataList) {
@@ -296,6 +296,23 @@ class DoctorProfileView extends React.Component {
         }
         GTM.sendEvent({ data: data })
         this.setState({ closeNonBookable: true })
+    }
+
+    toggleVip(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DocProfileCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Doctor-profile-cross-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.setState({showVipPopup: false})
+    }
+
+    navigateToVip(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DocProfileVipNavigation', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Doctor-profile-vip-navigation', 'doctorId': this.props.selectedDoctor
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-club-details?source=doctor-profile-page&lead_source=doctorpage')
+
     }
 
     render() {
@@ -670,7 +687,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.showVipPopup && <VIPPopup />
+                                            this.state.showVipPopup && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
                                         }
                                         {
                                             this.state.is_live ?
