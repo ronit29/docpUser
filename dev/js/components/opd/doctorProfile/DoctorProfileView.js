@@ -687,7 +687,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.showVipPopup && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
+                                            this.state.showVipPopup && this.state.closeNonBookable && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
                                         }
                                         {
                                             this.state.is_live ?
