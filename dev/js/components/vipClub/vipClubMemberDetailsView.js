@@ -305,6 +305,7 @@ class VipClubMemberDetailsView extends React.Component{
 					    		members.city_code = self_profile.city
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
+					    		members.is_already_user = param.is_already_user
 					    		if(param.is_already_user){
 					    			members.id = param.id
 					    		}
@@ -482,7 +483,7 @@ class VipClubMemberDetailsView extends React.Component{
 												{
 												this.state.popupMemData && Object.keys(this.state.popupMemData).length >0?
 												Object.entries(this.state.popupMemData).map(function([key, val]) {
-													return val.relation == 'SELF'?
+													return val.relation == 'SELF' ||  val.is_already_user?
 													''
 													: 	<div className="vip-sn-tbl m-0" key={key}>
 															<p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p>
@@ -504,9 +505,7 @@ class VipClubMemberDetailsView extends React.Component{
 												})
 	                                        :''}
 											</div>
-											<p className="vip-vls-png">
-												Are you sure you want to submit? 
-												Member details once submited cannot be added or edited later.</p>
+											
 											<div className="search-el-btn-container">
 												<button style={{fontSize: '14px'}} onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
 												{/* <span className="src-el-btn-border"></span> */}
