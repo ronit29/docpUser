@@ -321,7 +321,7 @@ class VipClubMemberDetailsView extends React.Component{
 										}
 										members.document_ids = image_ids
 									}
-									members.id=param.id
+									// members.id=param.id
 								}
 								pushData.members.push(members)
 					    		return data.members.push(members)
