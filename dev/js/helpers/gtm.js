@@ -139,7 +139,7 @@ const GTM = {
 
             data.visitor_info = GTM.getVisitorInfo()
             data.triggered_at = Math.floor((new Date()).getTime())
-            if (send_to_backend) {
+            if (send_to_backend && CONFIG.env=="production") {
                 setGTMSession(data);
             }
 
