@@ -187,10 +187,12 @@ class SearchResultsView extends React.Component {
     componentWillReceiveProps(props) {
         //START Save Selected City on Location Change
         if (props.selectedLocation && this.props.selectedLocation) {
-            if (this.state.search_string) {
-                if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ search_string: props.selectedLocation.formatted_address })
+            if ( (this.state.search_string || this.state.fromVip) && props.selectedLocation != this.props.selectedLocation ) {
+                let extraData = {
+                    selectedLocation: props.selectedLocation
                 }
+                this.props.getNearbyHospitals(extraData)
+                this.setState({ search_string: props.selectedLocation.formatted_address })
             } else if (!props.locationType.includes("geo")) {
                 // this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
             }
