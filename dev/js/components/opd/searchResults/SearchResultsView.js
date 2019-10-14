@@ -100,8 +100,11 @@ class SearchResultsView extends React.Component {
 
         //IF From VIP get nearbyDoctors
         if (this.state.fromVip) {
-            this.props.getNearbyHospitals(this.props.selectedLocation)
-            this.props.getTopHospitals(this.props.selectedLocation)
+            let extraData = {
+                selectedLocation: this.props.selectedLocation
+            }
+            this.props.getNearbyHospitals(extraData)
+            this.props.getTopHospitals(extraData)
         }
 
         if (this.props.mergeUrlState) {

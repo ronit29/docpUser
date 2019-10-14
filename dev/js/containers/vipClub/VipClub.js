@@ -29,8 +29,11 @@ class VipClub extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getNearbyHospitals(this.props.selectedLocation);
-        this.props.getTopHospitals(this.props.selectedLocation);
+        let extraData = {
+            selectedLocation: this.props.selectedLocation
+        }
+        this.props.getNearbyHospitals(extraData);
+        this.props.getTopHospitals(extraData);
         this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
 
     }
