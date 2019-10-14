@@ -467,6 +467,18 @@ class SearchResultsView extends React.Component {
             url = `${window.location.pathname}`
         }*/
 
+        if(parsed.utm_source) {
+            url+= `&utm_source=${parsed.utm_source||''}`
+        }
+
+        if(parsed.utm_medium) {
+            url+= `&utm_medium=${parsed.utm_medium||''}`
+        }
+
+        if(parsed.utm_campaign) {
+            url+= `&utm_campaign=${parsed.utm_campaign||''}`
+        }
+
         if (this.state.clinic_card) {
             url += `${is_params_exist ? '&' : '?'}clinic_card=true`
             is_params_exist = true

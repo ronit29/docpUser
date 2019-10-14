@@ -59,6 +59,7 @@ class BookingSummaryViewNew extends React.Component {
             seoFriendly: this.props.match.url.includes('-lpp'),
             isEmailNotValid:false,
             is_payment_coupon_applied: false,
+            is_spo_appointment: false,
             pay_btn_loading: true,
             isDobNotValid:false,
             show_lensfit_popup:false,
@@ -89,7 +90,7 @@ class BookingSummaryViewNew extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
+        const parsed = queryString.parse(this.props.location.search)
         if (this.props.location.search.includes("error_code")) {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
@@ -107,6 +108,48 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
+
+        //Add UTM tags for building url
+        try{
+            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let spo_tags = {
+                    utm_tags: {
+                        UtmSource: parsed.UtmSource||'',
+                        UtmTerm: parsed.UtmTerm||'',
+                        UtmMedium: parsed.UtmMedium||'',
+                        UtmCampaign: parsed.UtmCampaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.setState({is_spo_appointment: true})
+                this.props.setCommonUtmTags('spo', spo_tags)
+            }
+        }catch(e) {
+
+        }
+
+        //Clear Utm tags for SPO, after 15 minutes
+        let currentTime = new Date().getTime()
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            let sessionVal = parseInt(sessionStorage.getItem('sessionIdVal'))
+            if(spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
+                let time_offset = (currentTime - spo_tags.time)/60000
+                //Clear SPO utm tags after 15minutes
+                //900
+                if(time_offset>180) {
+                    this.props.unSetCommonUtmTags('spo')
+                }else {
+                    this.setState({is_spo_appointment: true})
+                }
+            }
+        }
         if(this.state.isLensfitSpecific){
             setTimeout(() => {
                 if (document.getElementById('confirm_booking')) {
@@ -669,8 +712,12 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ showConfirmationPopup: true })
             return
         }
-
-        this.setState({ loading: true, error: "" })
+        if(this.state.is_spo_appointment) {
+            this.setState({ error: "" })
+        }else {
+            this.setState({ loading: true, error: "" })
+        }
+        
 
        /* let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -683,7 +730,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: this.state.use_wallet,
+            use_wallet: is_vip_applicable?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
@@ -696,6 +743,17 @@ class BookingSummaryViewNew extends React.Component {
                 postData['selected_timings_type'] = 'separate'
             }
         }
+        //Check SPO UTM Tags
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            if(spo_tags.utm_tags){
+                
+                postData['utm_spo_tags'] = spo_tags.utm_tags
+            }
+        }
+
+
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
             let tests = []
 
@@ -714,7 +772,7 @@ class BookingSummaryViewNew extends React.Component {
                 }
             })
             postData['test_timings'] = tests
-            }
+        }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -745,11 +803,15 @@ class BookingSummaryViewNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
-                if (!this.state.cart_item) {
+                if (!this.state.cart_item && !this.state.is_spo_appointment) {
                     this.props.clearExtraTests()
                 }
 
-                this.props.history.push('/cart')
+                if(this.state.is_spo_appointment) {
+                    this.sendAgentBookingURL()
+                }else {
+                    this.props.history.push('/cart')
+                }
             }).catch((err) => {
                 let message = "Error adding to cart!"
                 if (err.message) {
@@ -780,6 +842,12 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
+
+                //Clear SPO UTM Tags after appointments creation
+                if(this.state.is_spo_appointment){
+                    this.props.unSetCommonUtmTags('spo')
+                }
+                
                 if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
                     this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     this.props.clearPrescriptions()
@@ -836,10 +904,20 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms',null,null, (err, res) => {
+        let postData = {}
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            if(spo_tags.utm_tags){
+                postData = spo_tags.utm_tags
+            }
+        }
+        
+        this.props.sendSPOAgentBooking(postData, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
+                this.props.unSetCommonUtmTags('spo')
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
             }
         })
@@ -1021,6 +1099,7 @@ class BookingSummaryViewNew extends React.Component {
     }
     
     render() {
+        const parsed = queryString.parse(this.props.location.search)
         let tests = []
         let tests_with_price = []
         let finalPrice = 0
@@ -1366,7 +1445,13 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-60">
                                                     <div className="col-12">
-                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
+                                                        <div className="widget mrb-15 mrng-top-12" onClick={()=>{
+                                                            if(parsed && parsed.test_ids){
+
+                                                            }else{
+                                                                this.goToProfile(this.props.selectedLab, labDetail.url)    
+                                                            }
+                                                        }} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex">
@@ -1410,7 +1495,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) && !is_default_user_under_vip?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !is_default_user_under_vip && !(parsed && parsed.test_ids) ) ?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                                 : ''
                                                                         }
@@ -1633,7 +1718,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                            !is_vip_applicable && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">
@@ -1691,14 +1776,14 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    STORAGE.isAgent() || (!is_corporate && !is_default_user_insured) ?
+                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                         } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
-                                            {this.state.cart_item ? "Update" : "Add to Cart"}
+                                            {this.state.is_spo_appointment?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
                                         </button>
                                         : ''
                                 }
