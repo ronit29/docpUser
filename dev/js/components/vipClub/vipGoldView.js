@@ -229,6 +229,37 @@ class VipGoldView extends React.Component {
                             <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
                     
+                    <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
+                        <div className="row main-row parent-section-row">
+                            <LeftBar />
+                            <div className="col-12 center-column">
+                                <div className="container-fluid ">
+                                    <div className="vip-new-container font-analyze">
+                                        <div className="vip-tabs-container">
+                                            {
+                                                this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+
+                                                    Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
+                                                        return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                            {`(₹ ${value.deal_price})`}
+                                                        </span>
+                                                            {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                        </p>
+                                                    })
+                                                    : ''
+                                            }
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button className="vip-foot-btn" onClick={this.proceed.bind(this)}><p>Buy Now @ ₹{this.state.selected_plan_data.deal_price}</p>
+                            <p className="vipbtn-sub-txt">Inclusive of GST
+                            {/* ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)} */}
+                            </p>
+                        </button>
+                    </section>
                     <Disclaimer isVip={true}/>
                 </div>
                 : <div></div>
