@@ -409,6 +409,10 @@ class DoctorProfileView extends React.Component {
         if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.selectedClinic &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(parseInt(this.state.selectedClinic))> -1){
             isSeoValid = false
         }
+        let showVipPopup = this.state.showVipPopup
+        if(nearbyDoctors && Object.keys(nearbyDoctors).length){
+             showVipPopup = showVipPopup && this.state.closeNonBookable
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -687,7 +691,7 @@ class DoctorProfileView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.showVipPopup && this.state.closeNonBookable && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
+                                            showVipPopup && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
                                         }
                                         {
                                             this.state.is_live ?
