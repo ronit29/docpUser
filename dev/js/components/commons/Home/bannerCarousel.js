@@ -10,7 +10,8 @@ class BannerCarousel extends React.Component {
             startY: 0,
             distX: 0,
             distY: 0,
-            intervalFlag: false
+            intervalFlag: false,
+            intervalId:''
         }
     }
 
@@ -19,7 +20,7 @@ class BannerCarousel extends React.Component {
         let filteredBanners = this.getFilteredBanners();
         if (this.props.sliderLocation && filteredBanners) {
             totalOffers = filteredBanners.length;
-            setInterval(() => {
+            let intervalId = setInterval(() => {
                 let curr_index = this.state.index
                 if (this.state.intervalFlag) {
                     curr_index = curr_index + 1
@@ -29,6 +30,15 @@ class BannerCarousel extends React.Component {
                 }
                 this.setState({ index: curr_index, intervalFlag: true })
             }, 5000)
+            this.setState({ intervalId })
+        }
+    }
+
+    componentWillUnmount(){
+        try{
+          clearInterval(this.state.intervalId)
+        }catch(e){
+
         }
     }
 

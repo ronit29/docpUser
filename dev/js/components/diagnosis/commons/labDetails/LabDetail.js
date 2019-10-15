@@ -85,7 +85,7 @@ class LabDetails extends React.Component {
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
-        let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data } = this.props.data
+        let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, total_test_count } = this.props.data
 
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
@@ -157,18 +157,24 @@ class LabDetails extends React.Component {
                                             <span className="open-close">{" Call Now"}</span>
                                         </li> */}
                                     </ul>
-                                    {
+                                    {/* {
                                         STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
                                             this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
                                                 <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
                                                     <input type="text" autoComplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search more Tests" />
                                                     <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{ width: '15px' }} />
                                                 </div> : ''
-                                    }
+                                    } */}
                                 </div>
-
+                                {
+                                    STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
+                                            this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
+                                    <div className="lb-viewmore">
+                                        <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
+                                    </div>
+                                    : ''
+                                }
                                 <LabTests {...this.props} />
-
 
                                 {/* <div className="widget-content pb-details pb-facility">
                                     <h4 className="wc-title text-md fw-700">Facility</h4>
@@ -212,9 +218,9 @@ class LabDetails extends React.Component {
                                 </div>
                             </div>
                             {
-                                this.props.data.lab.display_rating_widget?
-                                <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
-                                ""
+                                this.props.data.lab.display_rating_widget ?
+                                    <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props} /> :
+                                    ""
                             }
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-about">

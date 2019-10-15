@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance, mergeIpdCriteria } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance, mergeIpdCriteria, getNearbyHospitals } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -17,7 +17,7 @@ class Home extends React.Component {
     static loadData(store, match) {
         return new Promise((resolve, reject) => {
             getSpecialityFooterData((footerData) => {
-                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
+                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias()), store.dispatch(getNearbyHospitals()) ]).then(() => {
                     resolve({ footerData: (footerData || null) })
                 }).catch((e) => {
                     reject()
@@ -42,6 +42,10 @@ class Home extends React.Component {
             
             
         }
+        let extraData = {
+            selectedLocation: this.props.selectedLocation
+        }
+        this.props.getNearbyHospitals(extraData);
         this.props.loadLabCommonCriterias()
         this.props.loadOPDInsurance(this.props.selectedLocation)
         this.props.loadOPDCommonCriteria(this.props.selectedLocation)
@@ -89,13 +93,14 @@ const mapStateToProps = (state, passedProps) => {
         ipd_procedures,
         top_hospitals,
         common_settings,
-        package_categories
+        package_categories,
+        nearbyHospitals
     } = state.SEARCH_CRITERIA_OPD
     
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories, nearbyHospitals
     }
 }
 
@@ -119,7 +124,8 @@ const mapDispatchToProps = (dispatch) => {
         resetPkgCompare: () => dispatch(resetPkgCompare()),
         toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
-        mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
+        mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
+        getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb))
     }
 }
 

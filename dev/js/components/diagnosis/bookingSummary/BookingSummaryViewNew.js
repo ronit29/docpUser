@@ -1475,6 +1475,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </p>
                                                                         }
                                                                     </h4>
+                                                                    <span className="text-primary fw-700 text-sm">View Profile</span>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()

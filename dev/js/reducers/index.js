@@ -46,7 +46,7 @@ const USER_PERSIST = {
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations', 'commonSelectedCriterias', 'common_settings']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations', 'commonSelectedCriterias', 'common_settings', 'nearbyHospitals']
 }
 
 const LAB_SEARCH_PERSIST = {

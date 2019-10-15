@@ -820,23 +820,23 @@ class ChatPanel extends React.Component {
                     </div>
 
                     {
-                        this.props.articleData ?
-                            <div className="related-articles-div">
-                                {
-                                    this.props.articleData.linked.length ?
-                                        <div className="related-article-sub">
-                                            {
-                                                this.props.articleData.linked.map((linkedArticle, i) => {
-                                                    return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
-                                                })
-                                            }
-                                        </div> : ''
-                                }
-                                {
-                                    recentArticles && recentArticles.items && recentArticles.items.length ?
-                                        <RecentArticles recentArticlesItems={recentArticles.items} recentArticleTitle={recentArticles.title} /> : ''
-                                }
-                            </div> : ''
+                        // this.props.articleData ?
+                        //     <div className="related-articles-div">
+                        //         {
+                        //             this.props.articleData.linked.length ?
+                        //                 <div className="related-article-sub">
+                        //                     {
+                        //                         this.props.articleData.linked.map((linkedArticle, i) => {
+                        //                             return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
+                        //                         })
+                        //                     }
+                        //                 </div> : ''
+                        //         }
+                        //         {
+                        //             recentArticles && recentArticles.items && recentArticles.items.length ?
+                        //                 <RecentArticles recentArticlesItems={recentArticles.items} recentArticleTitle={recentArticles.title} /> : ''
+                        //         }
+                        //     </div> : ''
                     }
                     {
                         this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
