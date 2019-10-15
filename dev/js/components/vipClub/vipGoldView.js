@@ -295,55 +295,50 @@ class VipGoldView extends React.Component {
 
                                         {/* ================== gold HTML select  ================== */}
                                         {/* ================== gold slider ================== */}
+                                        {
+                                            this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
+                                            <div className="pakg-slider-container mb-24">
+                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.viewDocprimeNetworkClicked()} viewAll={true}/>
+                                            </div>
+                                        }
                                         <div className="gold-white-bg-container">
-                                            <div className="gold-slider-container">
-                                                <div className="pakg-slider-container mb-10">
-                                                    <div className="pkgSliderHeading">
-                                                        <h5>Top hospitals</h5>
-                                                        <span>View Docprime Gold Network</span>
-                                                    </div>
-                                                    <div className="pkgSliderContainer">
-                                                        <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
-                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                <div className="pkgcardImgCont">
-                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                </div>
-                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                            </a>
+                                            <div className="gold-slider-container d-none">
+                                                {
+                                                    this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
+                                                    <div className="pakg-slider-container mb-10">
+                                                        <div className="pkgSliderHeading">
+                                                            <h5>Top hospitals</h5>
+                                                            <span onClick={() => this.navigateTo()}>View Docprime Gold Network</span>
+                                                        </div>
+                                                        <div className="pkgSliderContainer">
+                                                            <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
+                                                                <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                    <div className="pkgcardImgCont">
+                                                                        <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                    </div>
+                                                                    <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                                </a>
+                                                                {
+                                                                    this.props.topHospitals.top_hospitals.map((data, key)=>{
+                                                                        <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(topHospital?true:false,data)}>
+                                                                            <div className="pkgcardImgCont">
+                                                                                {
+                                                                                    data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
+                                                                                }
+                                                                            </div>
+                                                                            <p className="gold-upto-offer">
+                                                                                {data.name}
+                                                                            </p>
+                                                                        </a>
+                                                                    })
+                                                                }
+                                                                
+                                                                
 
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                }
                                                 <div className="pakg-slider-container mb-10">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Top Labs</h5>
