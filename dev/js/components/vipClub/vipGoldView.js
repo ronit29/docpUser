@@ -235,7 +235,9 @@ class VipGoldView extends React.Component {
                             <div className="col-12 center-column">
                                 <div className="container-fluid ">
                                     <div className="vip-new-container font-analyze">
-                                        <div className="vip-tabs-container">
+                                        {
+                                            this.props.is_vip_gold?
+                                            <div className="vip-tabs-container">
                                             {
                                                 this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
 
@@ -248,8 +250,9 @@ class VipGoldView extends React.Component {
                                                     })
                                                     : ''
                                             }
-                                        </div>
-
+                                            </div>
+                                            :''
+                                        }
                                         {/* ================== gold HTML select  ================== */}
                                         <div className="mb-24">
                                             <h4 className="vip-card-heading">Docprime Gold Membership Plan</h4>
@@ -391,7 +394,6 @@ class VipGoldView extends React.Component {
                                             </div>
                                         </div>
                                         {/* ================== gold slider ================== */}
-
                                     </div>
                                 </div>
                             </div>

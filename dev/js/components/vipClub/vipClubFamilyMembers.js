@@ -101,7 +101,7 @@ class VipProposerFamily extends React.Component {
 					if(this.props.is_child_only){
 						if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length >0){
 							props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-								if(val.relation !== 'SELF'){
+								if(val.relation !== 'SELF' && val.id == this.props.member_id){
 									profile = Object.assign({}, val)
 								}
 								if (profile && Object.keys(profile).length) {

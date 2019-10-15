@@ -138,12 +138,29 @@ class FixedMobileFooter extends React.Component {
                         <span>Online Consultation</span>
                     </div>
 
-                    <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
+                    {/*<div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-vip-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         this.navigateTo('/vip-club-details?source=mobile-footer-vip-clicked&lead_source=Docprime')
+                    }}>
+                        <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
+                        <div className="nw-mid-container-with-img">
+                            <div className="vip-foot-cont">
+                                 <img style={{ width: 40 }} src={ASSETS_BASE_URL + "/img/viplog.png"} />
+                            </div>
+                            
+                            <p className="vip-foot-txt">Save Upto 70%</p>
+                        </div>
+                    </div>*/}
+
+                    <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-gold-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        this.navigateTo('/vip-club-gold-details?is_vip_gold=true&source=mobile-footer-gold-clicked&lead_source=Docprime')
                     }}>
                         <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
                         <div className="nw-mid-container-with-img">
