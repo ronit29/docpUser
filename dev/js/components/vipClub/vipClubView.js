@@ -219,12 +219,22 @@ class VipClubView extends React.Component {
                                         <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                                     </div>
                         }
-                        <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
-                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                            <h1 className="scrl-cont-dat">for just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
-                            {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
-                        </div>
+                        {
+                            this.props.is_gold?
+                                <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                    <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
+                                    <p className="scrl-cont-dat">Exclusive discounts on Doctor and </p>
+                                    <h1 className="scrl-cont-dat">Lab Appointments</h1>
+                                    {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                                </div>
+                            :
+                                <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                    <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
+                                    <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                                    <h1 className="scrl-cont-dat">for just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
+                                    {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                                </div>
+                        }
                     </div>
                     {
                         this.state.showPopup ?

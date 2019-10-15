@@ -190,14 +190,14 @@ class VipGoldView extends React.Component {
                                                     <div className="gold-acrd-main">
                                                         <div className="acdn-title">
                                                             <h2 className="fw-500" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
-                                                            <img class="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                                            <img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                         </div>
                                                         {/* ===================inner accordion container=================== */}
                                                         <div className="inneracord-container">
                                                             <div className="gold-sub-acrd">
                                                                 <div className="acdn-title">
                                                                     <h2 className="fw-500">Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt</h2>
-                                                                    <img class="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                                                    <img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className="gold-sub-acrd-content">
                                                                     ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
