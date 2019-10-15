@@ -161,7 +161,7 @@ class VipPlanView extends React.Component {
                                         {
                                             this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                             <div className="pakg-slider-container mb-24">
-                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.props.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.props.viewDocprimeNetworkClicked()} viewAll={true}/>
+                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.props.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.props.viewDocprimeNetworkClicked(is_gold_selected)} viewAll={true}/>
                                             </div>
                                         }
                                         {
