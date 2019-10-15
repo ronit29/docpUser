@@ -220,7 +220,6 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        console.log(this.props.selected_vip_plan)
         let self = this
         return (
 

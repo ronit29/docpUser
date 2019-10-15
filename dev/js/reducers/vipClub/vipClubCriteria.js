@@ -42,11 +42,12 @@ export default function (state = defaultState, action) {
                                 newState.selected_vip_plan.isForceUpdate = true
                                 newState.selected_vip_plan = newState.selected_vip_plan
                             }
-                        }else{
-                            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
-                                newState.selected_vip_plan = newState.selected_vip_plan
-                            }
                         }
+                        // else{
+                        //     if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
+                        //         newState.selected_vip_plan = newState.selected_vip_plan
+                        //     }
+                        // }
                         newState.LOAD_VIP_CLUB = true
                     }
                 }else{
@@ -57,11 +58,12 @@ export default function (state = defaultState, action) {
                                 newState.selected_vip_plan.isForceUpdate = true
                                 newState.selected_vip_plan = newState.selected_vip_plan
                             }
-                        }else{
-                            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
-                                newState.selected_vip_plan = newState.selected_vip_plan
-                            }
                         }
+                        // else{
+                        //     if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
+                        //         newState.selected_vip_plan = newState.selected_vip_plan
+                        //     }
+                        // }
                         newState.LOAD_VIP_CLUB = true
                     }
                 }

@@ -53,7 +53,6 @@ class ClinicSelector extends React.Component {
     }
 
     render() {
-
         let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
         let style = {}
         if (hospitals && hospitals.length == 1) {
@@ -130,6 +129,8 @@ class ClinicSelector extends React.Component {
                 <h2 className="panel-title mb-rmv">Dr. {name} Available at</h2>
                 {
                     hospitals.map((hospital, i) => {
+                        let vip_discounted_price = 0
+                        vip_discounted_price = hospital.discounted_price - (hospital.vip.vip_gold_price + hospital.vip.vip_convenience_amount)
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
                                 <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500 hosptl-vq-mr" style={{fontSize: 'inherit' }} >{hospital.hospital_name} </h3>
@@ -169,6 +170,21 @@ class ClinicSelector extends React.Component {
                                                     </span>
                                                     : hospital.mrp && hospital.mrp != 0 ?
                                                         <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
+                                            }
+
+                                            
+                                                {console.log(vip_discounted_price)}
+                                            {
+                                                !hospital.vip.is_vip_member && !hospital.vip.cover_under_vip && parseInt(vip_discounted_price) > 0?
+                                                <span onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    let analyticData = {
+                                                        'Category': 'ConsumerApp', 'Action': 'OpdProfileVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-profile-vip-gold-click',
+                                                    }
+                                                    GTM.sendEvent({ data: analyticData })
+                                                    this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
+                                                }}>{parseInt(vip_discounted_price)}</span>
+                                                :''
                                             }
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>

@@ -466,6 +466,7 @@ class PatientDetailsNew extends React.Component {
         let is_insurance_applicable = false
         let is_selected_user_insured = false
         let is_vip_applicable = false
+        let is_gold_applicable = false
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
@@ -1077,6 +1078,9 @@ class PatientDetailsNew extends React.Component {
         let vip_amount
         let is_selected_user_under_vip = false
         let is_default_user_under_vip = false
+        let vip_gold_price = 0
+        let vip_convenience_amount = 0
+        
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1116,6 +1120,8 @@ class PatientDetailsNew extends React.Component {
             if (hospital && hospital.vip) {
                 is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
                 vip_amount = hospital.vip.vip_amount
+                vip_gold_price = hospital.vip.vip_gold_price
+                vip_convenience_amount = hospital.vip.vip_convenience_amount
             }
 
 
@@ -1133,6 +1139,8 @@ class PatientDetailsNew extends React.Component {
             if (hospital.vip) {
                 is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
                 vip_amount = hospital.vip.vip_amount
+                vip_gold_price = hospital.vip.vip_gold_price
+                vip_convenience_amount = hospital.vip.vip_convenience_amount
             }
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
@@ -1212,6 +1220,8 @@ class PatientDetailsNew extends React.Component {
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
         let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && !this.props.is_ipd_form_submitted
+        let vip_discount_price = finalPrice - (vip_gold_price + vip_convenience_amount)
+        
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -1408,17 +1418,27 @@ class PatientDetailsNew extends React.Component {
                                                                         </div> : ''
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
-                                                                <div className="widget cpn-blur mrb-15 cursor-pointer">
-                                                                    <div className="widget-content d-flex jc-spaceb align-item-center">
-                                                                        <div className="gold-crd-lft">
-                                                                            <p><span>Save ₹200</span> on this appointment </p>
-                                                                            <p className="gld-crd-sb-txt">Become <img src={ASSETS_BASE_URL + '/img/gold-sm.png'} /> member</p>
-                                                                        </div>
-                                                                        <div className="gold-crd-rgt">
-                                                                            <p>Get Gold</p>
+                                                                {
+                                                                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 ?
+                                                                    <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        let analyticData = {
+                                                                            'Category': 'ConsumerApp', 'Action': 'OpdVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-vip-gold-click',
+                                                                        }
+                                                                        GTM.sendEvent({ data: analyticData })
+                                                                        this.props.history.push('/vip-gold-details?is_gold=true&source=opd-vip-gold-click&lead_source=Docprime')
+                                                                    }}>
+                                                                        <div className="widget-content d-flex jc-spaceb align-item-center">
+                                                                            <div className="gold-crd-lft">
+                                                                                <p><span>Save ₹{vip_discount_price}</span> on this appointment </p>
+                                                                                <p className="gld-crd-sb-txt">Become <img src={ASSETS_BASE_URL + '/img/gold-sm.png'} /> member</p>
+                                                                            </div>
+                                                                            <div className="gold-crd-rgt">
+                                                                                <p>Get Gold</p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                    :''}
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {/*
                                                                 !enabled_for_cod_payment && is_insurance_buy_able ?
