@@ -4829,7 +4829,7 @@ span.gold-prc-cut {
 .gd-rdio-gray {
     width: 20px;
     height: 20px;
-    background: rgba(128, 128, 128, .12);
+    background: rgb(215, 212, 212);
     border-radius: 50px;
 }
 .gold-ofr-lising.gold-select img.gd-rdio-chk{
@@ -4894,5 +4894,27 @@ p.gold-sub-acrd-content {
 }
 .gold-accordion-container {
     margin-top: 25px;
+}
+.gold-crd-lft p {
+    font-weight: 600;
+}
+.gold-crd-lft p span {
+    color: #55a740;
+    font-size: 15px;
+}
+.gld-crd-sb-txt{
+    display: flex;
+    align-items: center;
+    color: #757575;
+    margin-top: 4px;
+    font-size: 12px;
+}
+.gld-crd-sb-txt img{
+    width: 35px;
+    margin: 0 4px;
+}
+.gold-crd-rgt p {
+    color: #f78631;
+    font-weight: 600;
 }
 /* ============ vip-gold  ============ */
