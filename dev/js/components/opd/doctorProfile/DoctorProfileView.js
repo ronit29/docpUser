@@ -27,6 +27,7 @@ import STORAGE from '../../../helpers/storage'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
 import NonBookableDoctor from './nonBookableDoctor.js'
+import VIPPopup from './vipProfilePopup.js'
 
 const queryString = require('query-string');
 
@@ -55,7 +56,8 @@ class DoctorProfileView extends React.Component {
             showIpdLeadForm: true,
             showSecondPopup: false,
             firstLeadId: '',
-            closeNonBookable: false
+            closeNonBookable: false,
+            showVipPopup: false
         }
     }
 
@@ -83,6 +85,17 @@ class DoctorProfileView extends React.Component {
         }
 
         this.setState({ searchShown: true })
+        let time_to_show = 2000
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+        if(this.props.DOCTORS[doctor_id]) {
+            time_to_show = 1000
+        }
+        setTimeout(()=>{
+            this.setState({showVipPopup: true})
+        }, time_to_show)
     }
 
     showDownloadAppWidget(dataList) {
@@ -293,6 +306,23 @@ class DoctorProfileView extends React.Component {
         this.setState({ closeNonBookable: true })
     }
 
+    toggleVip(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DocProfileCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Doctor-profile-cross-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.setState({showVipPopup: false})
+    }
+
+    navigateToVip(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DocProfileVipNavigation', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Doctor-profile-vip-navigation', 'doctorId': this.props.selectedDoctor
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-club-details?source=doctor-profile-page&lead_source=doctorpage')
+
+    }
+
     render() {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
@@ -386,6 +416,10 @@ class DoctorProfileView extends React.Component {
         let isSeoValid= true
         if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.selectedClinic &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(parseInt(this.state.selectedClinic))> -1){
             isSeoValid = false
+        }
+        let showVipPopup = this.state.showVipPopup
+        if(nearbyDoctors && Object.keys(nearbyDoctors).length){
+             showVipPopup = showVipPopup && this.state.closeNonBookable
         }
         return (
             <div className="profile-body-wrap">
@@ -664,6 +698,9 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        {
+                                            showVipPopup && <VIPPopup toggle={()=>this.toggleVip()} navigateToVip={()=>this.navigateToVip()}/>
+                                        }
                                         {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
