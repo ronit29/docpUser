@@ -41,7 +41,8 @@ class TopBar extends React.Component {
             hideOtherFilters: false,
             filterSearchString:'',
             specialization_filter_ids:[],
-            defaultSpecializationIds:[]
+            defaultSpecializationIds:[],
+            searchCities:[]
             //showPopupContainer: true
         }
     }
@@ -74,6 +75,9 @@ class TopBar extends React.Component {
     }
 
     componentDidMount() {
+        if(this.props.fromVip){
+            this.props.topBarRef(this)
+        }
         this.setState({ ...this.props.filterCriteria, selectedHospitalIds: this.props.filterCriteria.hospital_id ? this.props.filterCriteria.hospital_id : [] })
         // this.shortenUrl()
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
@@ -591,6 +595,56 @@ class TopBar extends React.Component {
         return liData
     }
 
+    componentWillUnmount(){
+        if(this.props.fromVip){
+            this.props.topBarRef(undefined)
+        }
+    }
+
+    getCityListLayout(searchResults = []) {
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults })
+        } else {
+            this.setState({ searchCities: [] })
+        }
+    }
+
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+
+            this.setState({ searchCities: [] })
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'DoctorSearchPageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-location-selected'
+            }
+            GTM.sendEvent({ data: gtmData })
+
+        })
+    }
+
+    getCityList() {
+
+        return this.state.searchCities.length > 0?
+            <section>
+                <div className="widget mb-10">
+                    <div className="common-search-container">
+                        <p className="srch-heading">Location Search</p>
+                        <div className="common-listing-cont">
+                            <ul>
+                                {
+                                    this.state.searchCities.map((result, i) => {
+                                        return <li key={i}>
+                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section> : ''
+
+    }
+
     render() {
         // console.log(this.state.specialization_filter_ids)
         // console.log(this.state.specialization)
@@ -816,9 +870,7 @@ class TopBar extends React.Component {
                             </div>
                         </div> : ""
                 }
-                <div className="filter-row sticky-header mbl-stick">
-                    <div className="filter-row sticky-header mbl-stick">
-                        <div className="filter-row sticky-header mbl-stick">
+                        <div className={`${this.props.fromVip?'vipNetTop':''} filter-row sticky-header mbl-stick`}>
                             {this.props.breadcrumb && this.props.breadcrumb.length ?
                                 <div className="col-12 mrng-top-12 d-none d-md-block p-0">
                                     <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
@@ -847,90 +899,94 @@ class TopBar extends React.Component {
                                 </div>
                                 : ''
                             }
-
-                            <section className="scroll-shadow-bar">
-                                <div className="top-filter-tab-container">
-                                    <div className="top-filter-tabs-select locationTestFilter" >
-                                        <p className="newStickyfilter">
-                                            {
-                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name ? `${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}` : ''}`
-                                            }
-                                            {
-                                                this.props.hospitalData && this.props.hospitalData.name ? ''
-                                                    : <h1 className="sort-head-font-inline">
-                                                        <span className={`${this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length > 3 ? 'srch-truncate' : ''}`}>
-                                                            {`${criteriaStr || 'Doctor'}`}
-                                                        </span>
-                                                        <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
-                                                    </h1>
-                                            }
-                                            {
-                                                (this.props.hospitalData && this.props.hospitalData.name) || !locationName ? ''
-                                                    : <span onClick={this.goToLocation.bind(this)} ><img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                                    </span>
-                                            }
-                                        </p>
-                                    </div>
-                                    <div className="d-none d-md-inline-block">
-                                        <ul className="inline-list">
-                                            <li >
-                                                <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                                </span>
-                                            </li>
-                                            {
-                                                this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
-                                                    this.setState({ shortURL: "" })
-                                                }}>
-                                                    <div className="shareLinkpopup" onClick={(e) => {
-                                                        e.stopPropagation()
-                                                    }}>
-                                                        <p>{this.state.shortURL}</p>
-                                                        <CopyToClipboard text={this.state.shortURL}
-                                                            onCopy={() => {
-                                                                SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
-                                                                this.setState({ shortURL: "" })
-                                                            }}>
-                                                            <span className="shrelinkBtn">
-                                                                <button>Copy</button>
+                            {
+                                this.props.fromVip?
+                                <React.Fragment>
+                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} fromVip={this.props.fromVip}/>
+                                    {this.getCityList()}
+                                </React.Fragment>
+                                :<section className="scroll-shadow-bar">
+                                    <div className="top-filter-tab-container">
+                                        <div className="top-filter-tabs-select locationTestFilter" >
+                                            <p className="newStickyfilter">
+                                                {
+                                                    `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name ? `${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}` : ''}`
+                                                }
+                                                {
+                                                    this.props.hospitalData && this.props.hospitalData.name ? ''
+                                                        : <h1 className="sort-head-font-inline">
+                                                            <span className={`${this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length > 3 ? 'srch-truncate' : ''}`}>
+                                                                {`${criteriaStr || 'Doctor'}`}
                                                             </span>
-                                                        </CopyToClipboard>
-                                                    </div>
-                                                </div> : ""
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
-                                        <div className="p-relative">
-                                            <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
-                                            {
-                                                this.isDataFiltered() ?
-                                                    <p className="filterNotification">{this.isDataFiltered()}</p>
-                                                    : ''
-                                            }
+                                                            <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
+                                                        </h1>
+                                                }
+                                                {
+                                                    (this.props.hospitalData && this.props.hospitalData.name) || !locationName ? ''
+                                                        : <span onClick={this.goToLocation.bind(this)} ><img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                        </span>
+                                                }
+                                            </p>
                                         </div>
-                                        <span>Sort/Filter</span>
-                                        {/*<div className="pop-foot-btns-cont">
-                                        </div>*/}
+                                        <div className="d-none d-md-inline-block">
+                                            <ul className="inline-list">
+                                                <li >
+                                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                                    </span>
+                                                </li>
+                                                {
+                                                    this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
+                                                        this.setState({ shortURL: "" })
+                                                    }}>
+                                                        <div className="shareLinkpopup" onClick={(e) => {
+                                                            e.stopPropagation()
+                                                        }}>
+                                                            <p>{this.state.shortURL}</p>
+                                                            <CopyToClipboard text={this.state.shortURL}
+                                                                onCopy={() => {
+                                                                    SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
+                                                                    this.setState({ shortURL: "" })
+                                                                }}>
+                                                                <span className="shrelinkBtn">
+                                                                    <button>Copy</button>
+                                                                </span>
+                                                            </CopyToClipboard>
+                                                        </div>
+                                                    </div> : ""
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
+                                            <div className="p-relative">
+                                                <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
+                                                {
+                                                    this.isDataFiltered() ?
+                                                        <p className="filterNotification">{this.isDataFiltered()}</p>
+                                                        : ''
+                                                }
+                                            </div>
+                                            <span>Sort/Filter</span>
+                                            {/*<div className="pop-foot-btns-cont">
+                                            </div>*/}
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-
-                        </div>
+                                </section>
+                            }
                         {
-                            this.state.showLocationPopup ?
+                            this.state.showLocationPopup && !this.props.fromVip?
                                 <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card ?
+                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card  && !this.props.fromVip?
                                 <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer ?
+                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer  && !this.props.fromVip?
                                 <div className="popupContainer-overlay"></div>
                                 : ''
                         }
@@ -943,7 +999,6 @@ class TopBar extends React.Component {
                                 </div>
                                 : ''
                         }
-                    </div>
                 </div>
             </React.Fragment>
         );

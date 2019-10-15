@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 import Loader from '../../components/commons/Loader'
@@ -29,7 +29,11 @@ class VipClub extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-
+        let extraData = {
+            selectedLocation: this.props.selectedLocation
+        }
+        this.props.getNearbyHospitals(extraData);
+        this.props.getTopHospitals(extraData);
         this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
 
     }
@@ -61,11 +65,12 @@ const mapStateToProps = (state) => {
     let { user_cities } = state.USER
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan } = state.VIPCLUB
     const {
-        selectedLocation
-
+        selectedLocation,
+        topHospitals,
+        nearbyHospitals
     } = state.SEARCH_CRITERIA_OPD
     return {
-        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities
+        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals
     }
 }
 
@@ -79,7 +84,10 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         citiesData: () => dispatch(citiesData()),
-        vipPlusLead: (data) => dispatch(vipPlusLead(data))
+        vipPlusLead: (data) => dispatch(vipPlusLead(data)),
+        getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb)),
+        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb))
     }
 }
 

@@ -64,11 +64,11 @@ class HospitalCard extends React.Component {
                                  :''
                               }
                               {
-                                 data.is_ipd_hospital?<a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">Get Cost Estimate</button></a>
+                                 data.is_ipd_hospital && false?<a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">Get Cost Estimate</button></a>
                                  :<a href="javascript:void(0);" onClick={(e) => {
                                     e.preventDefault()
                                     this.props.getHospitalDetailPage(data.id, data.url || null)
-                                 }}><button className="cstm-book-btn">Book Now</button></a>
+                                 }}><button className="cstm-book-btn">View details</button></a>
                               }
                            </div>
                         </div>

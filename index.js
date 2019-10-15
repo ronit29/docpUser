@@ -45,7 +45,7 @@ const helmet = require('helmet')
 // GZIP Compression
 app.use(compression())
 
-if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+if (CONFIG.RAVEN_SERVER_DSN_KEY && false) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
     app.use(Sentry.Handlers.requestHandler())
     app.use(helmet.hsts({
@@ -265,7 +265,7 @@ app.all('*', function (req, res) {
 
                 } catch (e) {
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
-                        Sentry.captureException(e)
+                       // Sentry.captureException(e)
                     }
 
                     clearTimeout(SSR_TIMER)
@@ -312,14 +312,14 @@ app.all('*', function (req, res) {
 
     }).catch((e) => {
         if (CONFIG.RAVEN_SERVER_DSN_KEY) {
-            Sentry.captureException(error)
+           // Sentry.captureException(error)
         }
     })
 
 });
 
 
-if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+if (CONFIG.RAVEN_SERVER_DSN_KEY && false) {
     app.use(Sentry.Handlers.errorHandler())
 }
 
@@ -361,7 +361,7 @@ function _readStyles() {
             Promise.all(stylePromises).then((styleFilesData) => {
                 resolve(styleFilesData)
             }).catch((e) => {
-                if (CONFIG.RAVEN_SERVER_DSN_KEY) {
+                if (CONFIG.RAVEN_SERVER_DSN_KEY && false) {
                     Sentry.captureException(error)
                 }
                 reject(e)
