@@ -77,13 +77,22 @@ class VipClub extends React.Component {
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
-                        <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
-                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                            {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
+                        {
+                            this.props.is_gold?
+                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
+                                <p className="scrl-cont-dat">You are a Docprime Gold Member </p>
                                 <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
-                            {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
-                        </div>
+                            </div>
+                        :
+                            <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
+                                <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                                {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
+                                    <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
+                                {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                            </div>
+                        }
                     </div>
                 {/* last screen design */}
                 <section className="container container-top-margin sub-pdng-add" style={{ marginTop: '' }}>
@@ -111,7 +120,7 @@ class VipClub extends React.Component {
                                     :''
                                     }
                                     {
-                                        this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
+                                        !this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
                                             <React.Fragment>
                                                 <div className="vip-dsh-main-cont mb-3">
                                                     <div className="vip-acnt-heading">
@@ -162,6 +171,7 @@ class VipClub extends React.Component {
                                             </React.Fragment>
                                         :''
                                     }
+                                    {!this.props.is_gold?
                                     <div className="vip-offer-cards mb-3">
                                         <div className="vip-sbs-crd">
                                             <h5 className="vip-brder-hdng">Tax Benefit</h5>
@@ -175,6 +185,7 @@ class VipClub extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+                                    :''}
                                     {
                                         this.props.data.user && Object.keys(this.props.data.user).length >0 && this.props.data.user.plus_members && this.props.data.user.plus_members.length > 0?
                                             <div className="vip-offer-cards mb-3">

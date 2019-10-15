@@ -61,43 +61,43 @@ class VipGoldView extends React.Component {
                                                 //     </p>
                                                 // })
                                                 : ''
-                                        }
-                                        {
-                                            this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+                                            }
+                                            {
+                                                this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
 
-                                                Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
-                                                    return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
-                                                        {`(₹ ${value.deal_price})`}
-                                                    </span>
-                                                        {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
-                                                    </p>
-                                                })
-                                                : ''
-                                        }
-
-                                    </div>
-                                    {/* ================== gold HTML select  ================== */}
-                                    <div className="mb-24">
-                                        <h4 className="vip-card-heading">Docprime Gold Membership Plan</h4>
-                                        <div className="vip-offer-cards p-12">
-                                            <div className="gold-offer-cont">
-                                                <h4 className="gold-ofr-hdng">Limited Period Offer</h4>
-                                                <div className="gold-list-container">
-                                                    {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
-                                                        Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-                                                            return <div key={key} className={`gold-ofr-lising ${value.id == self.props.selected_plan_id ? 'gold-select' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value, false)}>
-                                                                <div className="gold-mnthplan">
-                                                                    <p className="mnth-plan-gld">{value.tenure} Months <span>POPULAR</span></p>
-                                                                    <p className="gld-cvr-txt">Covers upto {value.total_allowed_members} Members</p>
-                                                                </div>
-                                                                <div className="gold-price">
-                                                                    <p className="gld-prc"><span className="gold-prc-cut">₹{value.mrp}</span> ₹{value.deal_price}</p>
-                                                                    <div className="gold-pln-slct-radio">
-                                                                        <div className="gd-rdio-gray"></div>
-                                                                        <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                    Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
+                                                        return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                            {`(₹ ${value.deal_price})`}
+                                                        </span>
+                                                            {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                        </p>
+                                                    })
+                                                    : ''
+                                            }
+                                        
+                                        </div>
+                                        {/* ================== gold HTML select  ================== */}
+                                        <div className="mb-24">
+                                            <h4 className="vip-card-heading">Docprime Gold Membership Plan</h4>
+                                            <div className="vip-offer-cards p-12">
+                                                <div className="gold-offer-cont">
+                                                    <h4 className="gold-ofr-hdng">Limited Period Offer</h4>
+                                                    <div className="gold-list-container">
+                                                        {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
+                                                            Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                                                return <div key={key} className={`gold-ofr-lising ${value.id == self.props.selected_plan_id ? 'gold-select' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value,false)}>
+                                                                    <div className="gold-mnthplan">
+                                                                        <p className="mnth-plan-gld">{value.tenure} Months {value.is_selected?<span>POPULAR</span>:''}</p>
+                                                                        <p className="gld-cvr-txt">Covers upto {value.total_allowed_members} Members</p>
+                                                                    </div>
+                                                                    <div className="gold-price">
+                                                                        <p className="gld-prc"><span className="gold-prc-cut">₹{value.mrp}</span> ₹{value.deal_price}</p>
+                                                                        <div className="gold-pln-slct-radio">
+                                                                            <div className="gd-rdio-gray"></div>
+                                                                            <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         })
                                                         : ''}
 
