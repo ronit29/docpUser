@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner,
 
 
-getVipList, selectVipClubPlan, getVipDashboardList, resetVipData
+selectVipClubPlan, getVipDashboardList, resetVipData
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubActivatesView.js'
 import Loader from '../../components/commons/Loader'
@@ -54,9 +54,6 @@ class VipClubActivatedDetails extends React.Component{
             })
         }
 
-        // this.props.getInsurance(false)
-        // this.props.getVipList(false)
-
     }
     render(){
         if(this.props.LOAD_VIP_CLUB_DASHBOARD && this.state.data){
@@ -90,7 +87,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         resetVipData:() => dispatch(resetVipData()),
-        getVipList: (is_endorsement,callback) => dispatch(getVipList(is_endorsement,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)), 

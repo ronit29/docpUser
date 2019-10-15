@@ -16,8 +16,10 @@ class VipClub extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent,
-            source:parsed.source
+            isAgent:parsed.is_agent ?parsed.is_agent:false,
+            source:parsed.source,
+            is_gold:parsed.is_gold?parsed.is_gold:false,
+            is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false
         }
     }
 
@@ -34,13 +36,19 @@ class VipClub extends React.Component{
         }
         this.props.getNearbyHospitals(extraData);
         this.props.getTopHospitals(extraData);
-        this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
+        let data={}
+        data.selectedLocation = this.props.selectedLocation
+        data.isSalesAgent = this.state.isSalesAgent
+        data.isAgent = this.state.isAgent
+        data.is_gold = this.state.is_gold
+        data.all = this.state.is_vip_gold
+        this.props.getVipList(false,data)
 
     }
     render(){
         if(this.props.LOAD_VIP_CLUB){
             return(
-                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>
             )
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
@@ -76,7 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getVipList: (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => dispatch(getVipList(is_endorsement,selectedLocation,isSalesAgent,isAgent,callback)),
+        getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb)),

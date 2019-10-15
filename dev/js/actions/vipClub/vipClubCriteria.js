@@ -2,15 +2,15 @@ import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getVipList = (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => (dispatch) => {
+export const getVipList = (is_endorsement,data,callback) => (dispatch) => {
+
     let lat
     let long
     let latitude = 28.644800
     let longitude = 77.216721
-    
-    if (selectedLocation) {
-        lat = selectedLocation.geometry.location.lat
-        long = selectedLocation.geometry.location.lng
+    if (data.selectedLocation) {
+        lat = data.selectedLocation.geometry.location.lat
+        long = data.selectedLocation.geometry.location.lng
 
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
@@ -21,11 +21,17 @@ export const getVipList = (is_endorsement,selectedLocation,isSalesAgent,isAgent,
         longitude = longitude
     }
     let url = '/api/v1/plus/list?lat='+latitude+'&long='+longitude
-    if(isSalesAgent){
-        url +='&utm_source='+isSalesAgent
+    if(data.isSalesAgent){
+        url +='&utm_source='+data.isSalesAgent
     }
-    if(isAgent){
-        url += '&is_agent='+isAgent
+    if(data.isAgent){
+        url += '&is_agent='+data.isAgent
+    }
+    if(data.is_gold){
+        url += '&is_gold='+data.is_gold
+    }
+    if(data.all){
+        url += '&all='+data.all
     }
     return API_GET(url).then(function (response) {
         dispatch({
