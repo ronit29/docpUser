@@ -171,23 +171,24 @@ class ClinicSelector extends React.Component {
                                                     : hospital.mrp && hospital.mrp != 0 ?
                                                         <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                             }
-                                            {
-                                                !hospital.vip.is_vip_member && !hospital.vip.cover_under_vip && parseInt(vip_discounted_price) > 0?
-                                                <span onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    let analyticData = {
-                                                        'Category': 'ConsumerApp', 'Action': 'OpdProfileVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-profile-vip-gold-click',
-                                                    }
-                                                    GTM.sendEvent({ data: analyticData })
-                                                    this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
-                                                }}>{parseInt(vip_discounted_price)}</span>
-                                                :''
-                                            }
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
+                                    
                             }
-
+                            {!hospital.vip.is_vip_member && !hospital.vip.cover_under_vip && parseInt(vip_discounted_price) > 0?
+                                <div className="d-flex align-items-center justify-content-end goldCard" onClick={(e) => {
+                                    e.stopPropagation();
+                                    let analyticData = {
+                                        'Category': 'ConsumerApp', 'Action': 'OpdProfileVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-profile-vip-gold-click',
+                                    }
+                                    GTM.sendEvent({ data: analyticData })
+                                    this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
+                                }}>
+                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip_discounted_price)}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                </div>
+                            :''
+                            }
                             {
                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && 
                                 parseInt(hospital.discounted_price) <= hospital.insurance.insurance_threshold_amount ? '' 
