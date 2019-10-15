@@ -4917,4 +4917,50 @@ p.gold-sub-acrd-content {
     color: #f78631;
     font-weight: 600;
 }
+p.gold-cmplt-frst {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #757575;
+    font-size: 12px;
+}
+p.gold-cmplt-second {
+    margin: 10px 0;
+    color: #757575;
+    font-weight: 500;
+    font-size: 12px;
+}
+.gld-cmplt-lst {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.gold-cmplt-frst span{
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0px 5px;
+    color: black;
+}
+.goldCard{
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+}
+img.gld-cd-icon {
+    width: 35px;
+    margin-right: 5px;
+}
+.gld-p-rc{
+    color: #757575;
+    font-weight: 500;
+    margin-right: 4px;
+}
+.gld-rate-lf{
+    font-weight: 500;
+    font-size: 15px;
+    margin-right: 2px;
+}
 /* ============ vip-gold  ============ */

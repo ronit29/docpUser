@@ -221,6 +221,9 @@ class LabProfileCard extends React.Component {
             is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
             vip_amount = vip.vip_amount
             is_enable_for_vip = is_vip_enabled
+            if(!is_vip_applicable){
+                is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
+            }
         }
         return (
 
@@ -308,7 +311,7 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                             {
-                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable && !is_vip_gold?
+                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
                                             this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
                                             let data = {

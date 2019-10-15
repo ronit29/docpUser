@@ -5,6 +5,7 @@ import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage';
 import ProcedurePopup from '../PopUp'
 import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
+import { AssertionError } from 'assert';
 const queryString = require('query-string');
 
 
@@ -147,7 +148,7 @@ class DoctorProfileCard extends React.Component {
         }
     }
 
-    goldClicked(){
+    goldClicked() {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'VipGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-gold-clicked', 'selectedId': this.props.details.id
         }
@@ -236,7 +237,12 @@ class DoctorProfileCard extends React.Component {
             if (qualifications && qualifications.length) {
                 qualificationsArray = qualifications.filter(x => x.qualification.length <= 6);
             }
-            is_enable_for_vip = parsed.fromGoldVip?false:is_enable_for_vip
+
+            let vip_gold_price = (hospital.vip_convenience_amount + hospital.vip_gold_price || 0)
+            if (!is_vip_applicable && !parsed.fromVip) {
+                is_enable_for_vip = parsed.fromGoldVip || is_vip_gold ? false : is_enable_for_vip
+            }
+            //console.log('is_vip_applicable'+is_vip_applicable);console.log('is_vip_gold'+is_vip_gold);console.log('vip_gold_price'+vip_gold_price);console.log('discunted_price'+discounted_price);
             return (
                 <div className="cstm-docCard mb-3">
                     {
@@ -322,7 +328,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_insurance_applicable || is_vip_applicable?
+                                    is_insurance_applicable || is_vip_applicable ?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
@@ -336,7 +342,7 @@ class DoctorProfileCard extends React.Component {
                                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable && !is_vip_gold?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable && !is_vip_gold ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
@@ -353,7 +359,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable ?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
                                             this.props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
                                             let data = {
@@ -368,7 +374,11 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    !is_vip_applicable && is_vip_gold && !parsed.fromVip && discounted_price> (hospital.vip_convenience_amount + hospital.vip_gold_price||0)?<p onClick={()=>this.goldClicked()}>Gold <span>{hospital.vip_convenience_amount + hospital.vip_gold_price||0}</span></p>:''
+                                    !is_vip_applicable && is_vip_gold && !parsed.fromVip && (discounted_price > vip_gold_price) ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                       
+                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {hospital.vip_convenience_amount + hospital.vip_gold_price || 0}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                        
+                                    </div> : ''
                                 }
                                 {
                                     enabled_for_hospital_booking ?

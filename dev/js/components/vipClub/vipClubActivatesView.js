@@ -186,6 +186,19 @@ class VipClub extends React.Component {
                                         </div>
                                     </div>
                                     :''}
+                                    {this.props.data && Object.keys(this.props.data).length > 0 ?
+                                        <div className="mb-24">
+                                            <div className="vip-offer-cards p-12 text-center">
+                                                <p className="gold-cmplt-frst">You Saved <span>₹{this.props.data.total_vip_amount}</span> till now</p>
+                                                <p className="gold-cmplt-second">Total Gold appointments till now </p>
+                                                <div className="gld-cmplt-lst">
+                                                    <p className="gold-cmplt-frst"><span>{this.props.data.lab_appointment_count}</span> Lab</p>
+                                                    <p className="gold-cmplt-frst"><span>{this.props.data.opd_appointment_count}</span> Doctor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        :''
+                                    }
                                     {
                                         this.props.data.user && Object.keys(this.props.data.user).length >0 && this.props.data.user.plus_members && this.props.data.user.plus_members.length > 0?
                                             <div className="vip-offer-cards mb-3">
