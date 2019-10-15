@@ -326,7 +326,11 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && <p onClick={()=>this.goldClicked()}>Gold <span>{vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span></p>
+                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                       
+                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                        
+                                    </div>
                                 }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
