@@ -39,6 +39,11 @@ export default function (state = defaultState, action) {
                         if(Object.keys(newState.selected_vip_plan).length == 0){
                             newState.selected_vip_plan = action.payload.plus_data[0].gold_plans.filter((x => x.is_selected))[0]
                             if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan.isForceUpdate = true
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
+                        }else{
+                            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
                                 newState.selected_vip_plan = newState.selected_vip_plan
                             }
                         }
@@ -49,10 +54,15 @@ export default function (state = defaultState, action) {
                         if(Object.keys(newState.selected_vip_plan).length == 0){
                             newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
                             if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan.isForceUpdate = true
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
+                        }else{
+                            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
                                 newState.selected_vip_plan = newState.selected_vip_plan
                             }
                         }
-                         newState.LOAD_VIP_CLUB = true
+                        newState.LOAD_VIP_CLUB = true
                     }
                 }
             }
