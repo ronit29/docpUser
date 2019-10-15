@@ -238,6 +238,48 @@ class ProfileData extends React.Component {
                             </li>
                         :''
                         }
+                        {CONFIG.ENABLE_VIP_CLUB?
+                            <li onClick={(e) => {
+                                let data = {
+                                'Category': 'ConsumerApp', 'Action': 'ProfileMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-vip-clicked'
+                              }
+                              GTM.sendEvent({ data: data })
+                                e.preventDefault()
+                                this.props.history.push('/vip-club-details-details?source=profile-menu-vip-clicked&lead_source=Docprime')
+                              }} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content" style={{width:'100%'}}>
+                                    <h4 className="title app-title">Docprime Vip 
+                                        {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
+                        :''}
+                        {CONFIG.ENABLE_VIP_GOLD?
+                            <li onClick={(e) => {
+                                let data = {
+                                'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
+                              }
+                              GTM.sendEvent({ data: data })
+                                e.preventDefault()
+                                this.props.history.push('/vip-gold-details?is_gold=true&source=profile-menu-gold-clicked&lead_source=Docprime')
+                              }} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content" style={{width:'100%'}}>
+                                    <h4 className="title app-title">Docprime Gold 
+                                        {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
+                        :''}
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">

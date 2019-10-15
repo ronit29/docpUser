@@ -90,6 +90,19 @@ class LeftMenu extends React.Component {
                   :''}
 
                   {
+                    CONFIG.ENABLE_VIP_GOLD?
+                      <li><a className="p-relative" onClick={(e) => {
+                        let data = {
+                        'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
+                        e.preventDefault()
+                        this.props.toggleLeftMenu()
+                        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Save 70% on your family's medical bills</span></a></li>
+                  :''}
+
+                  {
                     /*CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && (user_ins_status == 1 || user_ins_status == 5)?
                       <li><a onClick={(e) => {
                         let data = {
