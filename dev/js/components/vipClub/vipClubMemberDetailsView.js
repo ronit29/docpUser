@@ -207,6 +207,11 @@ class VipClubMemberDetailsView extends React.Component{
 			pushData.utm_spo_tags = parsed
     		pushData.plan = this.props.selected_vip_plan
     		pushData.members = []
+    		if(isSms){
+    			pushData.is_agent = true
+    		}else{
+    			pushData.is_agent = false
+    		}
     		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
     			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
