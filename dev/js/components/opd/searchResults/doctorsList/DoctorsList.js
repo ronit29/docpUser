@@ -432,7 +432,8 @@ class DoctorsList extends React.Component {
                                                                     </li> : ''
                                                             }
 
-                                                            {result_list && result_list.length > 5 && i == 3 ?
+                                                            {
+                                                                false && result_list && result_list.length > 5 && i == 3 ?
                                                                 <div className="mb-3 referDocimg" onClick={(e) => {
                                                                     e.preventDefault();
                                                                     let data = {
@@ -442,7 +443,8 @@ class DoctorsList extends React.Component {
                                                                     this.props.history.push('/doctorsignup?member_type=1')
                                                                 }}>
                                                                     <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
-                                                                </div> : ''}
+                                                                </div> : ''
+                                                            }
 
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?

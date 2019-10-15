@@ -238,7 +238,7 @@ class LabsList extends React.Component {
                                                                             : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                     }
                                                                 </li>
-                                                                {labList && labList.length > 5 &&  i == 2?
+                                                                {false && labList && labList.length > 5 &&  i == 2?
                                                                 <div className="mb-3 referDocimg" onClick={(e)=>{
                                                                     e.preventDefault();
                                                                     let data = {
