@@ -4634,7 +4634,7 @@ div.row.searchForVip{
     background-color: white !important;
     margin: 10px 5px 5px !important;
     background-color: #ffffff;
-    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    box-shadow: 0px 1px 2px -2px #adadad;
     margin: 5px 0 12px 0 !important;
 }
 div.col-12.vip-srch-pdng-adj{
@@ -4651,7 +4651,7 @@ div.col-12.vip-srch-pdng-adj .doc-input-loc{
 }
 button.srt-scrl-btn {
     margin: auto;
-    margin-bottom: 8px;
+    padding: 7px 0px;
     background: white;
     border: none;
     font-weight: 500;
@@ -4680,10 +4680,16 @@ left: 3px;
 .pl-1{
     padding-left: 10px;;
 }
+.sort-sticky-network{
+    top: 171px !important;
+}
 @media(max-width: 992px) {
     .pkgSliderContainer.network-slider {
         margin: 0px;
     } 
+    .sort-sticky-network{
+        top: 121px !important;
+    }
 }
 /* ============ search for vip  ============ */
 /* ============ paypal-page  ============ */
