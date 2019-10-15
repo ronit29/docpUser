@@ -466,6 +466,7 @@ class PatientDetailsNew extends React.Component {
         let is_insurance_applicable = false
         let is_selected_user_insured = false
         let is_vip_applicable = false
+        let is_gold_applicable = false
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
