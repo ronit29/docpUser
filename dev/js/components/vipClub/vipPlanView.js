@@ -36,7 +36,7 @@ class VipPlanView extends React.Component {
                 })
                 :''
             }
-
+            
         return (
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 ?

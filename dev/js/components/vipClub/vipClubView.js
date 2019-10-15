@@ -21,7 +21,7 @@ class VipClubView extends React.Component {
             selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
             isLead: '',
-            selected_plan_id: '',
+            selected_plan_id: this.props.selected_plan && Object.keys(this.props.selected_plan).length ? this.props.selected_plan.id:'',
             toggleTabType: false,
             is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false
         }
@@ -29,7 +29,7 @@ class VipClubView extends React.Component {
 
     componentDidMount() {
         let plan = []
-        if (this.props.selected_vip_plan && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0) {
+        if (!this.props.is_gold && this.props.selected_vip_plan && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0) {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
@@ -83,7 +83,7 @@ class VipClubView extends React.Component {
         }else{
             plan = plan_to_toggle
         }
-        plan_to_toggle.is_selected = true
+        plan.is_selected = true
         this.props.selectVipClubPlan('plan', plan, (resp) => {
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         })
@@ -213,7 +213,7 @@ class VipClubView extends React.Component {
 
     render() {
         let self = this
-        console.log(this.state.is_gold_clicked)
+        console.log(this.props.selected_plan_id)
         return (
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?

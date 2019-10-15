@@ -83,7 +83,7 @@ class VipGoldView extends React.Component {
                                                 <div className="gold-offer-cont">
                                                     <h4 className="gold-ofr-hdng">Limited Period Offer</h4>
                                                     <div className="gold-list-container">
-                                                        {this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
+                                                        {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
                                                             Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
                                                                 return <div key={key} className={`gold-ofr-lising ${value.id == self.props.selected_plan_id ? 'gold-select' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value,false)}>
                                                                     <div className="gold-mnthplan">
@@ -116,10 +116,10 @@ class VipGoldView extends React.Component {
                                             </div>
                                         */}
                                         <div className="gold-white-bg-container">
-                                            <div className="gold-slider-container d-none">
+                                            <div className="gold-slider-container">
                                                 {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
-                                                    <div className="pakg-slider-container mb-10">
+                                                    <div className="pakg-slider-container mb-10  d-none">
                                                         <div className="pkgSliderHeading">
                                                             <h5>Top hospitals</h5>
                                                             <span onClick={() => this.navigateTo()}>View Docprime Gold Network</span>
