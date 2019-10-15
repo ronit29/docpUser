@@ -3,6 +3,7 @@ import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
 import CONFIG from '../../../config'
 import GTM from '../../../helpers/gtm.js'
+import { relative } from 'path';
 
 class LeftMenu extends React.Component {
 
@@ -99,7 +100,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
-                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Save 70% on your family's medical bills</span></a></li>
+                      }} href="#"><img style={{position: 'relative', top: '15px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
                   :''}
 
                   {
