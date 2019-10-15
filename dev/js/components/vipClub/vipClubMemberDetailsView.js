@@ -314,7 +314,7 @@ class VipClubMemberDetailsView extends React.Component{
 					    		if(param.is_already_user){
 					    			members.id = param.id
 					    		}
-					    		members.email = null
+					    		members.email = self_profile.email
 						    	if(this.props.members_proofs && this.props.members_proofs.length>0){
 									is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
 									if(is_member_updated && is_member_updated.length > 0){
@@ -338,11 +338,13 @@ class VipClubMemberDetailsView extends React.Component{
 			    		this.setState({show_popup:true})
 			    		return
 				    }
+				    console.log(data)
 	    			this.props.addVipMembersData(data,(resp)=>{
 	    				if(resp.success){
 	    					this.props.history.push('vip-club-activated-details')
 	    				}
 	    			})
+
 	    		}else{
 	    			var members = {}
 		    		members.title = self_profile.title
