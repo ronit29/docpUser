@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
+import VipGoldView from '../../components/vipClub/vipGoldView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
@@ -47,9 +48,13 @@ class VipClub extends React.Component{
     }
     render(){
         if(this.props.LOAD_VIP_CLUB){
-            return(
+            return <React.Fragment>
+            {this.state.is_gold || this.state.is_vip_gold?
+                <VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>
+            :
                 <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>
-            )
+            }           
+            </React.Fragment>
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/vip-club-activated-details')
