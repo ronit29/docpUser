@@ -4754,3 +4754,103 @@ left: 3px;
     margin-left: 5px;
 }
 /* ============ lab-view-prfl  ============ */
+/* ============ vip-gold  ============ */
+h4.gold-ofr-hdng {
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.gold-ofr-lising {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding: 7px 0;
+    align-items: center;
+    cursor: pointer;
+}
+.gold-ofr-lising:last-child{
+    border-bottom: 1px solid transparent;
+}
+p.mnth-plan-gld {
+    color: #1b97fd;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+p.mnth-plan-gld span {
+    background: #e52b2b;
+    font-size: 11px;
+    color: white;
+    margin-left: 4px;
+    border-radius: 4px;
+    padding: 1px 3px;
+    font-weight: 600;
+}
+p.gold-upto-offer {
+    color: #55a740;
+    font-weight: 600;
+    font-size: 11px;
+    text-align: right;
+    margin-top: 2px;
+}
+p.gld-cvr-txt {
+    color: #757575;
+    font-size: 12px;
+    font-weight: 600;
+}
+.gold-price {
+    display: flex;
+    align-items: center;
+}
+p.gld-prc {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+span.gold-prc-cut {
+    font-size: 12px;
+    margin-right: 6px;
+    color: #757575;
+    text-decoration: line-through;
+}
+.gold-pln-slct-radio {
+    position: relative;
+    margin-left: 10px;
+}
+.gd-rdio-gray {
+    width: 20px;
+    height: 20px;
+    background: rgba(128, 128, 128, .12);
+    border-radius: 50px;
+}
+.gold-ofr-lising.gold-select img.gd-rdio-chk{
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 20px;
+    width: 20px;
+    background: white;
+}
+
+img.gd-rdio-chk {
+    display: none;
+}
+p.gld-lst-foot-txt {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+p.gld-lst-foot-txt span {
+    color: #757575;
+}
+.gold-white-bg-container {
+    background: white;
+    margin: 0 -15px;
+    padding: 8px 15px;
+}
+/* ============ vip-gold  ============ */

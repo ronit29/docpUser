@@ -91,7 +91,7 @@ class VipGoldView extends React.Component {
                 if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
                     if (Object.keys(loginUser).length > 0) {
-                        this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
+                        this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp) => {
                             let LeadIdData = {
                                 'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
                             }
@@ -185,7 +185,7 @@ class VipGoldView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
-    viewDocprimeNetworkClicked(){
+    viewDocprimeNetworkClicked() {
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'VipDoctorNetworkClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-doctor-network-clicked'
         }
@@ -218,9 +218,9 @@ class VipGoldView extends React.Component {
                                     </div>
                         }
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
-                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                            <h1 className="scrl-cont-dat">for just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
+                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
+                            <p className="scrl-cont-dat">Exclusive discounts on Doctor and </p>
+                            <h1 className="scrl-cont-dat">Lab Appointments</h1>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
@@ -228,7 +228,7 @@ class VipGoldView extends React.Component {
                         this.state.showPopup ?
                             <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
-                    
+
                     <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
@@ -249,7 +249,149 @@ class VipGoldView extends React.Component {
                                                     : ''
                                             }
                                         </div>
-                                        
+
+                                        {/* ================== gold HTML select  ================== */}
+                                        <div className="mb-24">
+                                            <h4 className="vip-card-heading">Docprime Gold Membership Plan</h4>
+                                            <div className="vip-offer-cards p-12">
+                                                <div className="gold-offer-cont">
+                                                    <h4 className="gold-ofr-hdng">Limited Period Offer</h4>
+                                                    <div className="gold-list-container">
+                                                        <div className="gold-ofr-lising">
+                                                            <div className="gold-mnthplan">
+                                                                <p className="mnth-plan-gld">3 Months <span>POPULAR</span></p>
+                                                                <p className="gld-cvr-txt">Covers upto 2 Members</p>
+                                                            </div>
+                                                            <div className="gold-price">
+                                                                <p className="gld-prc"><span className="gold-prc-cut">₹499</span> ₹299</p>
+                                                                <div className="gold-pln-slct-radio">
+                                                                    <div className="gd-rdio-gray"></div>
+                                                                    <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="gold-ofr-lising gold-select">
+                                                            <div className="gold-mnthplan">
+                                                                <p className="mnth-plan-gld">3 Months <span>POPULAR</span></p>
+                                                                <p className="gld-cvr-txt">Covers upto 2 Members</p>
+                                                            </div>
+                                                            <div className="gold-price">
+                                                                <p className="gld-prc"><span className="gold-prc-cut">₹499</span> ₹299</p>
+                                                                <div className="gold-pln-slct-radio">
+                                                                    <div className="gd-rdio-gray"></div>
+                                                                    <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <p className="gld-lst-foot-txt">Includes Unlimited Online Consultation <span>(General Physician)</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* ================== gold HTML select  ================== */}
+                                        {/* ================== gold slider ================== */}
+                                        <div className="gold-white-bg-container">
+                                            <div className="gold-slider-container">
+                                                <div className="pakg-slider-container mb-10">
+                                                    <div className="pkgSliderHeading">
+                                                        <h5>Top hospitals</h5>
+                                                        <span>View Docprime Gold Network</span>
+                                                    </div>
+                                                    <div className="pkgSliderContainer">
+                                                        <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="pakg-slider-container mb-10">
+                                                    <div className="pkgSliderHeading">
+                                                        <h5>Top Labs</h5>
+                                                       
+                                                    </div>
+                                                    <div className="pkgSliderContainer">
+                                                        <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+                                                            <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                <div className="pkgcardImgCont">
+                                                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                </div>
+                                                                <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* ================== gold slider ================== */}
+
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +402,7 @@ class VipGoldView extends React.Component {
                             </p>
                         </button>
                     </section>
-                    <Disclaimer isVip={true}/>
+                    <Disclaimer isVip={true} />
                 </div>
                 : <div></div>
         );
