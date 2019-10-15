@@ -236,22 +236,22 @@ class VipGoldView extends React.Component {
                                 <div className="container-fluid ">
                                     <div className="vip-new-container font-analyze">
                                         {
-                                            this.props.is_vip_gold?
-                                            <div className="vip-tabs-container">
-                                            {
-                                                this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+                                            this.props.is_vip_gold ?
+                                                <div className="vip-tabs-container">
+                                                    {
+                                                        this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
 
-                                                    Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
-                                                        return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
-                                                            {`(₹ ${value.deal_price})`}
-                                                        </span>
-                                                            {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
-                                                        </p>
-                                                    })
-                                                    : ''
-                                            }
-                                            </div>
-                                            :''
+                                                            Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
+                                                                return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                                    {`(₹ ${value.deal_price})`}
+                                                                </span>
+                                                                    {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                                </p>
+                                                            })
+                                                            : ''
+                                                    }
+                                                </div>
+                                                : ''
                                         }
                                         {/* ================== gold HTML select  ================== */}
                                         <div className="mb-24">
@@ -347,7 +347,7 @@ class VipGoldView extends React.Component {
                                                 <div className="pakg-slider-container mb-10">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Top Labs</h5>
-                                                       
+
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
@@ -391,6 +391,28 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div className="gold-accordion-container">
+                                                    <div className="gold-acrd-main">
+                                                        <div className="acdn-title">
+                                                            <h2 className="fw-500" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
+                                                            <img class="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                                        </div>
+                                                        {/* ===================inner accordion container=================== */}
+                                                        <div className="inneracord-container">
+                                                            <div className="gold-sub-acrd">
+                                                                <div className="acdn-title">
+                                                                    <h2 className="fw-500">Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt</h2>
+                                                                    <img class="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                                                </div>
+                                                                <p className="gold-sub-acrd-content">
+                                                                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        {/* ===================inner accordion container=================== */}
+                                                    </div>
+                                                </div>
+                                                <p className="gold-trms-cnd">Terms of Use</p>
                                             </div>
                                         </div>
                                         {/* ================== gold slider ================== */}

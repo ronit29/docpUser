@@ -4859,4 +4859,40 @@ p.gld-lst-foot-txt span {
     margin: 0 -15px;
     padding: 8px 15px;
 }
+
+.gold-acrd-main div.acdn-title h2{
+padding-right: 20px;
+font-size: 14px;
+}
+.inneracord-container {
+    margin-top: 12px;
+}
+.gold-sub-acrd {
+    border-bottom: 1px solid #eae7e7;
+}
+.gold-acrd-main div.acdn-title h2 {
+    padding-right: 20px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+p.gold-sub-acrd-content {
+    margin: 10px 0;
+    font-size: 13px;
+    color: #757575;
+    font-weight: 500;
+}
+.gold-trms-cnd {
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 13px;
+    display: inline-block;
+    cursor: pointer;
+}
+.gold-acrd-main .acdn-arrow{
+     top: 6px;
+}
+.gold-accordion-container {
+    margin-top: 25px;
+}
 /* ============ vip-gold  ============ */
