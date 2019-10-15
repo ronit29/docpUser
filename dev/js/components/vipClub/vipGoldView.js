@@ -209,8 +209,8 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                 }
                                             <div className="gold-accordion-container">
-                                                <div className="gold-acrd-main" onClick={this.ButtonHandler.bind(this,0)}>
-                                                    <div className="acdn-title">
+                                                <div className="gold-acrd-main">
+                                                    <div className="acdn-title" onClick={this.ButtonHandler.bind(this,0)}>
                                                         <h2 className="fw-500" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
                                                         <img className= {`acdn-arrow  ${this.state.tabsValue.indexOf(0)>-1?'':'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                     </div>

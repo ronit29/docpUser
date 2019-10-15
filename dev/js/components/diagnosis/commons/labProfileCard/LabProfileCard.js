@@ -312,7 +312,8 @@ class LabProfileCard extends React.Component {
                                 }
                             {
                                     !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
-                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
+                                            this.props.clearVipSelectedPlan()
                                             this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'LabCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-card-vip-clicked'

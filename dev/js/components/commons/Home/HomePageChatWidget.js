@@ -15,6 +15,7 @@ class TopChatWidget extends React.Component {
 			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
 			}
 			GTM.sendEvent({ data: gtmData })
+			this.props.clearVipSelectedPlan()
 			this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked&lead_source=Docprime')
 		}else{
 			let gtmData = {

@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN
 } from '../../constants/types';
 
 const defaultState = {
@@ -215,6 +215,15 @@ export default function (state = defaultState, action) {
             }
             newState.showVipDetailsView=true
             return newState 
+        }
+        case CLEAR_VIP_SELECTED_PLAN:{
+            let newState = {
+                ...state
+            }
+            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length){
+                newState.selected_vip_plan = {}
+            }
+            return newState
         }
     }
     return state

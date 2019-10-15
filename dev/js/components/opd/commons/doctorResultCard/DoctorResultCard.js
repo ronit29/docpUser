@@ -361,6 +361,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable ?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                                            this.props.clearVipSelectedPlan()
                                             this.props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
