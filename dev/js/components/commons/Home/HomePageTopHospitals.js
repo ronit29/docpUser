@@ -3,6 +3,17 @@ import GTM from '../../../helpers/gtm.js'
 
 class TopHospitalWidgets extends React.Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+            mergedState: false
+        }
+    }
+
+    componentDidMount(){
+        this.setState({mergedState: true})
+    }
+
 	navigateTo(data, e) {
         e.preventDefault()
         e.stopPropagation()
@@ -95,7 +106,7 @@ class TopHospitalWidgets extends React.Component {
                     <div className={`pkgCardsList d-inline-flex sub-wd-cards ${dataType}_list`}>
                     	{
                     		this.props.top_data.slice(0,20).map((data, i) => {
-                    			return <a key={this.props.mergeState?i:data.url?data.url:i} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.state.mergedState?`${i}_list_${dataType}`:data.url?data.url:`${data.id}_${dataType}`} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>

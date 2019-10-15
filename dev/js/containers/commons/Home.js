@@ -42,13 +42,13 @@ class Home extends React.Component {
             
             
         }
-        this.props.loadLabCommonCriterias()
-        this.props.loadOPDInsurance(this.props.selectedLocation)
-        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
         let extraData = {
             selectedLocation: this.props.selectedLocation
         }
         this.props.getNearbyHospitals(extraData);
+        this.props.loadLabCommonCriterias()
+        this.props.loadOPDInsurance(this.props.selectedLocation)
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 
         this.props.resetFilters()
         this.props.clearExtraTests()

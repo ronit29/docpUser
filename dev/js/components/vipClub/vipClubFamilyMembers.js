@@ -32,7 +32,10 @@ class VipProposerFamily extends React.Component {
     	    year:null,
     	    mnth:null,
     	    day:null,
-    	    relation_key:''
+    	    relation_key:'',
+    	    is_disable:false,
+    	    member_form_id:this.props.member_form_id,
+    	    is_already_user:false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -81,6 +84,8 @@ class VipProposerFamily extends React.Component {
 		let self = this
 		let adult_title
 		let adult_gender
+		let profile ={}
+		let oldDate
 		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
@@ -94,15 +99,31 @@ class VipProposerFamily extends React.Component {
 			}else if(props.member_id && !this.state.setDefault){
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
-						if(!self.state.year && !self.state.mnth && !self.state.mnth){
-						    self.populateDates(self.props.member_id,true)
+						if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length >0){
+							props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+								if(val.relation !== 'SELF' && val.id == this.props.member_id){
+									profile = Object.assign({}, val)
+								}
+								if (profile && Object.keys(profile).length) {
+									oldDate = profile.dob.split('-')
+									this.setState({name:profile.first_name,last_name:profile.last_name,gender:profile.title == 'mr.'?'m':'f',dob:profile.dob,profile_id:profile.profile,title:profile.title,relation_key:profile.relation,relation:profile.relation=='SPOUSE_FATHER'?'Father-in-law':profile.relation == 'SPOUSE_MOTHER'?'Mother-in-law':self.relationTextFormat(profile.relation),member_type:this.props.member_type,is_disable:true,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],is_already_user:true},() =>{
+										self.populateDates(self.props.member_id,true)
+										self.handleSubmit()
+									})	
+								}
+							})
+						}else{
+							self.populateDates(self.props.member_id,true)
+							if(!self.state.year && !self.state.mnth && !self.state.mnth){
+							    self.populateDates(self.props.member_id,true)
+							}
+							this.setState({member_type:this.props.member_type,is_disable:false},() =>{
+								self.handleSubmit()
+							})
 						}
-						this.setState({member_type:this.props.member_type},() =>{
-							self.handleSubmit()
-						})
-					}else{
+					}else{						
 					    self.populateDates(self.props.member_id,true)
-						this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true},() =>{
+						this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true,is_disable:false},() =>{
 							self.handleSubmit()
 						})
 					}					
@@ -110,6 +131,13 @@ class VipProposerFamily extends React.Component {
 			}
 		}
 	}
+
+	relationTextFormat(str){
+		return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+	    	if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+	    		return index != 0 ? match.toLowerCase() : match.toUpperCase();
+	  	});
+    }
 	handleTitle(field, event) {
 		// let title_value = event.target.value
 		/*if(this.props.is_child_only){ // to be deleted
@@ -147,7 +175,7 @@ class VipProposerFamily extends React.Component {
 	}
 	handleRelation(id,event) {
 		var relation_id = document.getElementById(id);
-		this.setState({'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
+		this.setState({id:this.props.member_id,'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
 			this.handleSubmit(true,event)
 		})
 	}
@@ -456,7 +484,7 @@ class VipProposerFamily extends React.Component {
 					</div>
 					<div>
 					{
-						this.props.show_selected_profiles.length>0?
+						this.props.show_selected_profiles.length>0 && !this.state.is_disable?
 						<div className="sub-form-hed-click" onClick={() => this.setState({
 						showPopup: true, userProfiles: this.props.USER})}>
 						Select from profile
@@ -475,7 +503,7 @@ class VipProposerFamily extends React.Component {
 								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
-										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this,'relation_id_'+this.props.member_id )} id={`relation_id_${this.props.member_id}`} >
+										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this,'relation_id_'+this.props.member_id )} id={`relation_id_${this.props.member_id}`} disabled={this.state.is_disable ? 'disabled' : ''}  >
 											<option hidden>Select Relation</option>
 											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
 												return <option data-param={key} key={key}>{value}</option>
@@ -518,7 +546,7 @@ class VipProposerFamily extends React.Component {
 								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
 								}
 					</div>
-					<div> 
+					<div className= {this.state.is_disable ? 'click-disable' : ''}> 
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
@@ -550,8 +578,19 @@ class VipProposerFamily extends React.Component {
 					}
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
-								<input type="text" style={{'textTransform': 'capitalize'}} id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required autoComplete="first_name" name="name" data-param='name' value={this.state.name} onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit.bind(this,false)} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
-								<label className="form-control-placeholder" htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
+								<input type="text" style={{'textTransform': 'capitalize'}} 
+									id={`name_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required 
+									autoComplete="first_name" 
+									name="name" data-param='name' 
+									value={this.state.name} 
+									onChange={this.handleChange.bind(this, 'name')} 
+									onBlur={this.handleSubmit.bind(this,false)} 
+									onKeyPress={this.handleNameCharacters.bind(this,'name')}
+									disabled={this.state.is_disable ? 'disabled' : ''}
+								/>
+								<label className={this.state.is_disable ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'}
+								htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
@@ -583,8 +622,20 @@ class VipProposerFamily extends React.Component {
 						</div>*/}
 						<div className="col-6">
 							<div className="ins-form-group ins-form-group inp-margin-right  ">
-								<input type="text" style={{'textTransform': 'capitalize'}} id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" data-param='last_name' value={this.state.no_lname?'':this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} />
-								<label className="form-control-placeholder" htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
+								<input type="text" style={{'textTransform': 'capitalize'}} 
+								id={`last_name_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required 
+								autoComplete="last_name" 
+								name="last_name" 
+								data-param='last_name' 
+								value={this.state.no_lname?'':this.state.last_name} 
+								onChange={this.handleChange.bind(this, 'last_name')} 
+								onBlur={this.handleSubmit.bind(this,false)} 
+								disabled={this.state.no_lname?'disabled':""} 
+								onKeyPress={this.handleNameCharacters.bind(this,'last_name')} 
+								disabled={this.state.is_disable ? 'disabled' : ''}
+								/>
+								<label className={this.state.is_disable ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
@@ -641,7 +692,7 @@ class VipProposerFamily extends React.Component {
 								<span className="fill-error-span">{this.props.errorMessages['shouldGenderTitle']}</span>:''	
 							}
 						</div>*/}
-						<div className="col-12">
+						<div className= {this.state.is_disable ? 'click-disable' : 'col-12'}>
 							<div className="ins-form-group mb-0">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
@@ -686,7 +737,7 @@ class VipProposerFamily extends React.Component {
 							}
 						</div>
 					</div>
-					{this.props.is_from_payment?
+					{this.props.is_from_payment && !this.state.is_disable?
 						<InsuranceProofs {...this.props}/>
 					:''
 					}
