@@ -35,7 +35,7 @@ class SearchResultsView extends React.Component {
             quickFilter: {},
             detectLocation: false,
             sponsorData: [],
-            fromVip: parsed && parsed.fromVip,
+            fromVip: parsed && (parsed.fromVip || parsed.fromGoldVip),
             search_string:'',
             showSearchBtn:false,
             scrollEventAdded: false
