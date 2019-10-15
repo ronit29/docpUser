@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, CLEAR_OPD_SEARCH_ID, LOAD_INSURANCE_CRITERIA, CLEAR_OPD_PAGE_NUMBER } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, CLEAR_OPD_SEARCH_ID, LOAD_INSURANCE_CRITERIA, SAVE_NEARBY_HOSPITALS, SAVE_TOP_HOSPITALS, CLEAR_OPD_PAGE_NUMBER } from '../../constants/types';
 
 // const moment = require('moment');
 const DEFAULT_FILTER_STATE = {
@@ -43,7 +43,9 @@ const defaultState = {
     ipd_procedures: [],
     top_hospitals: [],
     common_settings:null,
-    package_categories:[]
+    package_categories:[],
+    nearbyHospitals: {},
+    topHospitals: {}
 }
 
 export default function (state = defaultState, action) {
@@ -371,6 +373,22 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.page = 1
+            return newState
+        }
+
+        case SAVE_NEARBY_HOSPITALS:{
+            let newState = {
+                ...state
+            }
+            newState.nearbyHospitals = action.payload
+            return newState
+        }
+
+        case SAVE_TOP_HOSPITALS: {
+            let newState = {
+                ...state
+            }
+            newState.topHospitals = action.payload
             return newState
         }
 

@@ -3709,7 +3709,21 @@ p.sb-para {
 	-webkit-font-smoothing: antialiased;
 	   -moz-osx-font-smoothing: grayscale;
 	   text-rendering: optimizeLegibility;
-	}
+    }
+    p.vp-sb-txt.vp-act:after {
+        content: '';
+        border: 2px;
+        position: absolute;
+        width: 0px;
+        bottom: -18px;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: 0px;
+        border-style: solid;
+        border-width: 8px 8px 8px 8px;
+        border-color: #1b97fd transparent transparent transparent;
+    }
 	.vip-tabs-container {
 		margin: 0 -15px;
     display: flex;
@@ -3718,6 +3732,7 @@ p.sb-para {
     padding: 0 10px;
     margin-bottom: 16px;
     position: sticky;
+    position: -webkit-sticky;
     top: 59px;
     z-index: 9;
     background-color: #ffffff;
@@ -3729,7 +3744,7 @@ p.sb-para {
     color: #757575;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid #1b97fd00;
+    border-bottom: 3px solid #1b97fd00;
     cursor: pointer;
     flex: 1;
     text-align: center;
@@ -3748,7 +3763,7 @@ p.vp-sb-txt span{
 }
 p.vp-sb-txt.vp-act{
 	color: #1b97fd;
-    border-bottom: 2px solid #1b97fd;
+    border-bottom: 3px solid #1b97fd;
 }
 .vip-offer-cards {
     background-color: #fff;
@@ -3955,7 +3970,7 @@ p.vip-no-cost img {
     margin-bottom: 8px;
 }
 button.vip-foot-btn {
-    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    background: #1b97fd;
     color: white;
     position: fixed;
     bottom: 0;
@@ -4580,6 +4595,8 @@ img.img-fluid.vp-cls-img {
         width: 97% !important;
     }
 }
+
+
 /* ============ vip-popup  ============ */
 /* ============ vip-card  ============ */
 .pkgcustCards.vip-cmmnt-card {
@@ -4612,6 +4629,69 @@ img.img-fluid.vp-cls-img {
 margin-bottom: 55px;
 }
 /* ============ vip-card  ============ */
+/* ============ search for vip  ============ */
+div.row.searchForVip{
+    background-color: white !important;
+    margin: 10px 5px 5px !important;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 2px -2px #adadad;
+    margin: 5px 0 12px 0 !important;
+}
+div.col-12.vip-srch-pdng-adj{
+    padding: 10px 8px !important;
+}
+p.vip-srch-slct{
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+div.col-12.vip-srch-pdng-adj .doc-input-loc{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 0 !important;
+}
+button.srt-scrl-btn {
+    margin: auto;
+    padding: 7px 0px;
+    background: white;
+    border: none;
+    font-weight: 500;
+}
+button.srt-scrl-btn img {
+    width: 12px;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+.pkgSliderContainer.network-slider {
+    margin: 0 15px;
+}
+.netwrk-btns div.pkg-btnlft{
+left: 3px;
+}
+.netwrk-btns div.pkg-btnrgt{
+    right: 3px;
+}
+.pkg-ntwk-mrgn{
+    /* margin-left: 5px;
+    margin-right: 5px; */
+}
+.vipNetTop.filter-row{
+    top:44px;
+}
+.pl-1{
+    padding-left: 10px;;
+}
+.sort-sticky-network{
+    top: 171px !important;
+}
+@media(max-width: 992px) {
+    .pkgSliderContainer.network-slider {
+        margin: 0px;
+    } 
+    .sort-sticky-network{
+        top: 121px !important;
+    }
+}
+/* ============ search for vip  ============ */
 /* ============ paypal-page  ============ */
 .paypal-main-cont h1 {
     text-align: center;
@@ -4641,4 +4721,42 @@ margin-bottom: 55px;
     color:#F78631;
     cursor: pointer;
 }
+.srch-vp-nt{
+    top: 13px;
+    height: 32px;
+    padding: 0;
+    right: 11px;
+    background: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40, 40, 40, .8);
+    font-weight: 500;
+    align-items: center;
+    white-space: nowrap;
+    width: 114px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    position: absolute;
+}
+
 /* ============ paypal-page  ============ */
+/* ============ lab-view-prfl  ============ */
+.lb-viewmore{
+    padding: 0 12px 10px 0;
+    text-align: right;
+    
+}
+.lb-viewmore p{
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+.lb-viewmore p img{
+    width: 17px;
+    margin-left: 5px;
+}
+/* ============ lab-view-prfl  ============ */

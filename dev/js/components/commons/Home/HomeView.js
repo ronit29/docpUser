@@ -250,9 +250,9 @@ class HomeView extends React.Component {
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
 			slabOrder.push(
-				<div className="col-md-5">
+				<div className="col-md-5" key="spez">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
@@ -278,7 +278,7 @@ class HomeView extends React.Component {
 				</div>)
 
 			slabOrder.push(
-				<div className="col-md-5">
+				<div className="col-md-5" key="test">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
@@ -321,7 +321,13 @@ class HomeView extends React.Component {
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								: ''
+						}
+
+						{
+							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
 								: ''
 						}
 
@@ -337,9 +343,9 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
 			slabOrder.push(
-				<div className="col-md-5">
+				<div className="col-md-5" key="upcom">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						{/* {
@@ -371,7 +377,13 @@ class HomeView extends React.Component {
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								: ''
+						}
+
+						{
+							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
 								: ''
 						}
 
