@@ -26,6 +26,17 @@ class VipGoldView extends React.Component {
     render() {
         let self = this
 
+        let is_gold_selected = false
+            {
+                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0?
+                    Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                        if(parseInt(value.id) == parseInt(self.props.selected_plan_data.id)){
+                            is_gold_selected = true
+                        }
+                })
+                :''
+            }
+
         return (
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 ?
@@ -35,24 +46,36 @@ class VipGoldView extends React.Component {
                             <div className="col-12 center-column">
                                 <div className="container-fluid ">
                                     <div className="vip-new-container font-analyze">
-                                        {
-                                            this.props.is_vip_gold ?
-                                                <div className="vip-tabs-container">
-                                                    {
-                                                        this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+                                        <div className="vip-tabs-container">
+                                            {
+                                                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
+                                                    <p onClick={this.props.selectGoldPlan.bind(this,true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold <span>
+                                                            {`(₹ ${this.props.selected_plan_data.deal_price})`}
+                                                        </span></p>
+                                                    // Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
 
-                                                            Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
-                                                                return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
-                                                                    {`(₹ ${value.deal_price})`}
-                                                                </span>
-                                                                    {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
-                                                                </p>
-                                                            })
-                                                            : ''
-                                                    }
-                                                </div>
+                                                    //     return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                    //         {`(₹ ${value.deal_price})`}
+                                                    //     </span>
+                                                    //         {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                    //     </p>
+                                                    // })
                                                 : ''
-                                        }
+                                            }
+                                            {
+                                                this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+
+                                                    Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
+                                                        return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                            {`(₹ ${value.deal_price})`}
+                                                        </span>
+                                                            {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                        </p>
+                                                    })
+                                                    : ''
+                                            }
+                                        
+                                        </div>
                                         {/* ================== gold HTML select  ================== */}
                                         <div className="mb-24">
                                             <h4 className="vip-card-heading">Docprime Gold Membership Plan</h4>
@@ -60,32 +83,23 @@ class VipGoldView extends React.Component {
                                                 <div className="gold-offer-cont">
                                                     <h4 className="gold-ofr-hdng">Limited Period Offer</h4>
                                                     <div className="gold-list-container">
-                                                        <div className="gold-ofr-lising">
-                                                            <div className="gold-mnthplan">
-                                                                <p className="mnth-plan-gld">3 Months <span>POPULAR</span></p>
-                                                                <p className="gld-cvr-txt">Covers upto 2 Members</p>
-                                                            </div>
-                                                            <div className="gold-price">
-                                                                <p className="gld-prc"><span className="gold-prc-cut">₹499</span> ₹299</p>
-                                                                <div className="gold-pln-slct-radio">
-                                                                    <div className="gd-rdio-gray"></div>
-                                                                    <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                        {this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
+                                                            Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                                                return <div key={key} className={`gold-ofr-lising ${value.id == self.props.selected_plan_id ? 'gold-select' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value,false)}>
+                                                                    <div className="gold-mnthplan">
+                                                                        <p className="mnth-plan-gld">{value.tenure} Months <span>POPULAR</span></p>
+                                                                        <p className="gld-cvr-txt">Covers upto {value.total_allowed_members} Members</p>
+                                                                    </div>
+                                                                    <div className="gold-price">
+                                                                        <p className="gld-prc"><span className="gold-prc-cut">₹{value.mrp}</span> ₹{value.deal_price}</p>
+                                                                        <div className="gold-pln-slct-radio">
+                                                                            <div className="gd-rdio-gray"></div>
+                                                                            <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="gold-ofr-lising gold-select">
-                                                            <div className="gold-mnthplan">
-                                                                <p className="mnth-plan-gld">3 Months <span>POPULAR</span></p>
-                                                                <p className="gld-cvr-txt">Covers upto 2 Members</p>
-                                                            </div>
-                                                            <div className="gold-price">
-                                                                <p className="gld-prc"><span className="gold-prc-cut">₹499</span> ₹299</p>
-                                                                <div className="gold-pln-slct-radio">
-                                                                    <div className="gd-rdio-gray"></div>
-                                                                    <img className="gd-rdio-chk" src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            })
+                                                        :''}
 
                                                     </div>
                                                     <p className="gld-lst-foot-txt">Includes Unlimited Online Consultation <span>(General Physician)</span></p>
@@ -95,12 +109,12 @@ class VipGoldView extends React.Component {
 
                                         {/* ================== gold HTML select  ================== */}
                                         {/* ================== gold slider ================== */}
-                                        {
+                                        {/*
                                             this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                             <div className="pakg-slider-container mb-24">
                                                     <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.viewDocprimeNetworkClicked()} viewAll={true}/>
                                             </div>
-                                        }
+                                        */}
                                         <div className="gold-white-bg-container">
                                             <div className="gold-slider-container d-none">
                                                 {
@@ -139,7 +153,7 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                     </div>
                                                 }
-                                                <div className="pakg-slider-container mb-10">
+                                                <div className="pakg-slider-container mb-10 d-none">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Top Labs</h5>
 

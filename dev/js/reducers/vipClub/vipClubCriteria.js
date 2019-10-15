@@ -34,14 +34,26 @@ export default function (state = defaultState, action) {
                 newState.LOAD_VIP_CLUB = false
             }else if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
                 newState.vipClubList = action.payload.plus_data[0]
-                if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
-                    if(Object.keys(newState.selected_vip_plan).length == 0){
-                        newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
-                        if(Object.keys(newState.selected_vip_plan).length){
-                            newState.selected_vip_plan = newState.selected_vip_plan
+                if(action.is_vip_gold){
+                    if(action.payload.plus_data[0].gold_plans && action.payload.plus_data[0].gold_plans.length >0){
+                        if(Object.keys(newState.selected_vip_plan).length == 0){
+                            newState.selected_vip_plan = action.payload.plus_data[0].gold_plans.filter((x => x.is_selected))[0]
+                            if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
                         }
+                        newState.LOAD_VIP_CLUB = true
                     }
-                    newState.LOAD_VIP_CLUB = true
+                }else{
+                    if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
+                        if(Object.keys(newState.selected_vip_plan).length == 0){
+                            newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
+                            if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
+                        }
+                         newState.LOAD_VIP_CLUB = true
+                    }
                 }
             }
             return newState

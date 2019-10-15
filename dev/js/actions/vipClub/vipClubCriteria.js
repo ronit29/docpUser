@@ -3,7 +3,7 @@ import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getVipList = (is_endorsement,data,callback) => (dispatch) => {
-
+    let is_vip_gold = false
     let lat
     let long
     let latitude = 28.644800
@@ -29,20 +29,24 @@ export const getVipList = (is_endorsement,data,callback) => (dispatch) => {
     }
     if(data.is_gold){
         url += '&is_gold='+data.is_gold
+        is_vip_gold = data.is_gold
     }
     if(data.all){
         url += '&all='+data.all
+        is_vip_gold = data.all
     }
     return API_GET(url).then(function (response) {
         dispatch({
             type: GET_VIP_LIST,
-            payload: response
+            payload: response,
+            is_vip_gold: is_vip_gold
         })
         if(callback) callback(response)
     }).catch(function (error) {
         dispatch({
             type: GET_VIP_LIST,
-            payload: error
+            payload: error,
+            is_vip_gold: is_vip_gold
         })
         if(callback) callback(error)
         throw error

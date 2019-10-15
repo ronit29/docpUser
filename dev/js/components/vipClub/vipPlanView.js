@@ -17,64 +17,25 @@ class VipPlanView extends React.Component {
         super(props)
         this.state = {
             // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
-            showPopup: false,
+            // showPopup: false,
             // isLead: '',
             // selected_plan_id: this.props.selected_plan_id,
             // toggleTabType: false
         }
     }
 
-    navigateTo(data, e) {
-        e.preventDefault()
-        e.stopPropagation()
-        let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
-        }
-        GTM.sendEvent({ data: gtmData })
-        let redirectUrl = ''
-
-        if (data.url) {
-            redirectUrl = `/${data.url}?showPopup=true`
-        } else {
-            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
-        }
-
-        this.props.history.push(redirectUrl)
-    }
-
-    hospitalCardClicked(top = false, data) {
-        let gtmData = {}
-        if (top) {
-            gtmData = {
-                'Category': 'ConsumerApp', 'Action': 'vip-nearby-hospitals-clicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-nearby-hospitals-clicked'
-            }
-
-        } else {
-            gtmData = {
-                'Category': 'ConsumerApp', 'Action': 'vip-tophospitalsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-top-hospitals-clicked'
-            }
-        }
-        GTM.sendEvent({ data: gtmData })
-        let redirectUrl = ''
-
-        if (data.url) {
-            redirectUrl = `/${data.url}?showPopup=true`
-        } else {
-            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
-        }
-        this.props.history.push(redirectUrl)
-    }
-
-    viewDocprimeNetworkClicked(){
-        let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipDoctorNetworkClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-doctor-network-clicked'
-        }
-        GTM.sendEvent({ data: gtmData })
-        this.props.history.push('/opd/searchresults?fromVip=true')
-    }
-
     render() {
         let self = this
+        let is_gold_selected = false
+            {
+                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0?
+                Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                    if(parseInt(value.id) == parseInt(self.props.selected_plan_data.id)){
+                        is_gold_selected = true
+                    }
+                })
+                :''
+            }
 
         return (
 
@@ -88,16 +49,31 @@ class VipPlanView extends React.Component {
                                     <div className="vip-new-container font-analyze">
                                         <div className="vip-tabs-container">
                                             {
-                                                this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
+                                                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
+                                                    <p onClick={this.props.selectGoldPlan.bind(this,true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold <span>
+                                                            {`(₹ ${this.props.selected_plan_data.deal_price})`}
+                                                        </span></p>
+                                                    // Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
 
+                                                    //     return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
+                                                    //         {`(₹ ${value.deal_price})`}
+                                                    //     </span>
+                                                    //         {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                    //     </p>
+                                                    // })
+                                                : ''
+                                            }
+                                            {
+                                                this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
                                                     Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
+
                                                         return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
                                                             {`(₹ ${value.deal_price})`}
                                                         </span>
                                                             {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
                                                         </p>
                                                     })
-                                                    : ''
+                                                : ''
                                             }
                                         </div>
                                         <div className="mb-24">
