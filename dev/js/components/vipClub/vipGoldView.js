@@ -321,21 +321,7 @@ class VipGoldView extends React.Component {
                                         </div>
                                     </div>
                                     {/* ================== gold slider ================== */}
-                                    {/* ================== last screen card ================== */}
-                                    <div className="mb-24">
-                                        <div className="vip-offer-cards p-12 text-center">
-                                            <p className="gold-cmplt-frst">You Saved <span>₹1298</span> till now</p>
-                                            <p className="gold-cmplt-second">Total Gold appointments till now </p>
-                                            <div className="gld-cmplt-lst">
-                                                <p className="gold-cmplt-frst"><span>12</span> Lab</p>
-                                                <p className="gold-cmplt-frst"><span>10</span> Doctor</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* ================== last screen card ================== */}
-
-
-
+                                    
                                 </div>
                             </div>
                         </div>

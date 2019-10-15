@@ -171,9 +171,6 @@ class ClinicSelector extends React.Component {
                                                     : hospital.mrp && hospital.mrp != 0 ?
                                                         <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                             }
-
-                                            
-                                                {console.log(vip_discounted_price)}
                                             {
                                                 !hospital.vip.is_vip_member && !hospital.vip.cover_under_vip && parseInt(vip_discounted_price) > 0?
                                                 <span onClick={(e) => {
