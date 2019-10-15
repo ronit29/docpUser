@@ -235,7 +235,9 @@ class VipGoldView extends React.Component {
                             <div className="col-12 center-column">
                                 <div className="container-fluid ">
                                     <div className="vip-new-container font-analyze">
-                                        <div className="vip-tabs-container">
+                                        {
+                                            this.props.is_vip_gold?
+                                            <div className="vip-tabs-container">
                                             {
                                                 this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0 ?
 
@@ -248,8 +250,9 @@ class VipGoldView extends React.Component {
                                                     })
                                                     : ''
                                             }
-                                        </div>
-                                        
+                                            </div>
+                                            :''
+                                        }
                                     </div>
                                 </div>
                             </div>
