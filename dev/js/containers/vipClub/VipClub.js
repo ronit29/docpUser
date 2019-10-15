@@ -33,7 +33,8 @@ class VipClub extends React.Component{
             window.scrollTo(0, 0)
         }
         let extraData = {
-            selectedLocation: this.props.selectedLocation
+            selectedLocation: this.props.selectedLocation,
+            from_vip:true
         }
         this.props.getNearbyHospitals(extraData);
         this.props.getTopHospitals(extraData);
