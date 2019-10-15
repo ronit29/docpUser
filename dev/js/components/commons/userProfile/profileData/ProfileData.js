@@ -253,7 +253,7 @@ class ProfileData extends React.Component {
                               }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Vip 
@@ -275,7 +275,7 @@ class ProfileData extends React.Component {
                               }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Gold 
