@@ -837,7 +837,7 @@ class SearchResultsView extends React.Component {
                                                     <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} extraHeading='View All' navigateTo= {()=>this.viewAllHospitalClicked()}/>
                                                 }
                                                 
-                                                <div className="row vipNetTop searchForVip filter-row sticky-header mbl-stick" ref="vip_srch_widget">
+                                                <div className="row vipNetTop searchForVip filter-row sticky-header mbl-stick sort-sticky-network" ref="vip_srch_widget">
                                                    {/* <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj" onClick={()=>this.navigateToSearchVip()}>
                                                         <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor"/>
                                                         <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18px' }} />

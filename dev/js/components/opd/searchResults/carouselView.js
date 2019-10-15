@@ -49,7 +49,7 @@ class CarouselView extends React.Component {
                 			return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.props.carouselCardClicked(topHospital?true:false,data)}>
 	                            <div className="pkgcardImgCont">
 	                            	{
-	                            		data.logo && <img className="img-fluid" src={data.logo} />
+	                            		data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
 	                            	}
 	                            </div>
 	                            <p className="pkgtstName prcd-height">
