@@ -1080,7 +1080,7 @@ class PatientDetailsNew extends React.Component {
         let is_default_user_under_vip = false
         let vip_gold_price = 0
         let vip_convenience_amount = 0
-        
+        let cover_under_vip = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1122,6 +1122,7 @@ class PatientDetailsNew extends React.Component {
                 vip_amount = hospital.vip.vip_amount
                 vip_gold_price = hospital.vip.vip_gold_price
                 vip_convenience_amount = hospital.vip.vip_convenience_amount
+                cover_under_vip = hospital.vip.cover_under_vip
             }
 
 
@@ -1141,6 +1142,7 @@ class PatientDetailsNew extends React.Component {
                 vip_amount = hospital.vip.vip_amount
                 vip_gold_price = hospital.vip.vip_gold_price
                 vip_convenience_amount = hospital.vip.vip_convenience_amount
+                cover_under_vip = hospital.vip.cover_under_vip
             }
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
@@ -1419,7 +1421,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {
-                                                                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 ?
+                                                                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0  && cover_under_vip?
                                                                     <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         let analyticData = {
