@@ -205,11 +205,16 @@ class VipClubView extends React.Component {
     }
 
     viewDocprimeNetworkClicked(){
+        let is_gold = this.props.is_gold || this.state.is_gold_clicked
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipDoctorNetworkClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-doctor-network-clicked'
+            'Category': 'ConsumerApp', 'Action': `Vip${is_gold?'gold':''}DoctorNetworkClicked`, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `vip-${is_gold?'gold-':''}doctor-network-clicked`
         }
         GTM.sendEvent({ data: gtmData })
-        this.props.history.push('/opd/searchresults?fromVip=true')
+        let url = '/opd/searchresults?fromVip=true'
+        if(is_gold){
+            url = '/opd/searchresults?fromGoldVip=true'
+        }
+        this.props.history.push(url)
     }
 
     render() {

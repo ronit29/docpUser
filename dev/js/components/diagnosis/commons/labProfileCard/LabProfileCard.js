@@ -151,9 +151,17 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    goldClicked(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'VipGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-gold-clicked', 'selectedId': this.props.details.id
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=labgoldlisting&lead_source=Docprime')
+    }
+
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled, is_gold } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         let pickup_text = ""
@@ -207,6 +215,7 @@ class LabProfileCard extends React.Component {
         let is_vip_applicable = false
         let vip_amount
         let is_enable_for_vip = false
+        let is_vip_gold = is_gold
 
         if(vip && Object.keys(vip).length > 0){
             is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
@@ -299,7 +308,7 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                             {
-                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
+                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable && !is_vip_gold?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
                                             this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
                                             let data = {
@@ -312,6 +321,9 @@ class LabProfileCard extends React.Component {
                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
                                         </div>
                                         : ''
+                                }
+                                {
+                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && <p onClick={()=>this.goldClicked()}>Gold <span>{vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span></p>
                                 }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>

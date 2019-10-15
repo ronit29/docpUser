@@ -119,30 +119,31 @@ class VipGoldView extends React.Component {
                                             <div className="gold-slider-container">
                                                 {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
-                                                    <div className="pakg-slider-container mb-10  d-none">
+                                                    <div className="pakg-slider-container mb-10">
                                                         <div className="pkgSliderHeading">
                                                             <h5>Top hospitals</h5>
-                                                            <span onClick={() => this.navigateTo()}>View Docprime Gold Network</span>
+                                                            <span onClick={() => this.props.viewDocprimeNetworkClicked()}>View Docprime Gold Network</span>
                                                         </div>
                                                         <div className="pkgSliderContainer">
                                                             <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
-                                                                <a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                {/*<a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
                                                                     <div className="pkgcardImgCont">
                                                                         <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
                                                                     </div>
                                                                     <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                                </a>
+                                                                </a>*/}
                                                                 {
                                                                     this.props.topHospitals.top_hospitals.map((data, key)=>{
-                                                                        <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(topHospital?true:false,data)}>
+                                                                        return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(true,data)}>
                                                                             <div className="pkgcardImgCont">
                                                                                 {
                                                                                     data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
                                                                                 }
                                                                             </div>
-                                                                            <p className="gold-upto-offer">
-                                                                                {data.name}
-                                                                            </p>
+                                                                            {
+                                                                                data.vip_percentage?
+                                                                                <p className="gold-upto-offer">Upto {parseInt(data.vip_percentage)}% OFF</p>:''
+                                                                            }
                                                                         </a>
                                                                     })
                                                                 }
@@ -153,7 +154,40 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                     </div>
                                                 }
-                                                <div className="pakg-slider-container mb-10 d-none">
+                                                {
+                                                    this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
+                                                    <div className="pakg-slider-container mb-10">
+                                                        <div className="pkgSliderHeading">
+                                                            <h5>Hospitals Near You</h5>
+                                                        </div>
+                                                        <div className="pkgSliderContainer">
+                                                            <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
+                                                                {/*<a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
+                                                                    <div className="pkgcardImgCont">
+                                                                        <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
+                                                                    </div>
+                                                                    <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                                </a>*/}
+                                                                {
+                                                                    this.props.nearbyHospitals.hospitals.map((data, key)=>{
+                                                                        return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(false,data)}>
+                                                                            <div className="pkgcardImgCont">
+                                                                                {
+                                                                                    data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
+                                                                                }
+                                                                            </div>
+                                                                            {
+                                                                                data.vip_percentage?
+                                                                                <p className="gold-upto-offer">Upto {parseInt(data.vip_percentage)}% OFF</p>:''
+                                                                            }
+                                                                        </a>
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                {/*<div className="pakg-slider-container mb-10 d-none">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Top Labs</h5>
 
@@ -199,7 +233,7 @@ class VipGoldView extends React.Component {
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*/}
                                                 <div className="gold-accordion-container">
                                                     <div className="gold-acrd-main">
                                                         <div className="acdn-title">
