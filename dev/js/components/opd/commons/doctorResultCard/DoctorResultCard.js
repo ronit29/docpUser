@@ -187,8 +187,10 @@ class DoctorProfileCard extends React.Component {
         }
         let is_vip_gold = false
         let is_procedure = false
+        let is_gold_member =false
         if (hospitals && hospitals.length) {
             is_vip_gold = hospital.hosp_is_gold || parsed.fromGoldVip
+            is_gold_member = hospital.is_gold_member
             let selectedCount = 0
             let unselectedCount = 0
             let finalProcedureDealPrice = discounted_price
@@ -316,9 +318,15 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 } */}
 
-                                {is_vip_applicable ?
+                                {is_gold_member?'':
+                                    is_vip_applicable ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                    </div>
+                                    : ''}
+                                {is_gold_member ?
+                                    <div className="text-right mb-2">
+                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                     </div>
                                     : ''}
 

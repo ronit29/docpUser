@@ -760,9 +760,23 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price, is_vip_applicable, vip_amount) {
+    getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price, is_vip_applicable, vip_amount,is_gold_member,vip_convenience_amount) {
 
         let price_from_wallet = 0
+        if(is_gold_member){
+            if (vip_amount) {
+                let vip_price_pay = 0
+                if (this.state.use_wallet && total_wallet_balance) {
+                    price_from_wallet = Math.min(total_wallet_balance, (vip_amount+vip_convenience_amount))
+                }
+
+                vip_price_pay = (vip_amount+vip_convenience_amount) - price_from_wallet
+
+                return `Confirm Booking ${vip_price_pay ? `(₹ ${vip_price_pay})` : ''}`
+            } else {
+                return `Confirm Booking`
+            }
+        }
         if (is_vip_applicable) {
             if (vip_amount) {
                 let vip_price_pay = 0
@@ -1081,6 +1095,7 @@ class PatientDetailsNew extends React.Component {
         let vip_gold_price = 0
         let vip_convenience_amount = 0
         let cover_under_vip = false
+        let is_gold_member = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1123,6 +1138,8 @@ class PatientDetailsNew extends React.Component {
                 vip_gold_price = hospital.vip.vip_gold_price
                 vip_convenience_amount = hospital.vip.vip_convenience_amount
                 cover_under_vip = hospital.vip.cover_under_vip
+                is_gold_member = hospital.vip.is_gold_member
+                vip_convenience_amount = hospital.vip.vip_convenience_amount
             }
 
 
@@ -1143,6 +1160,8 @@ class PatientDetailsNew extends React.Component {
                 vip_gold_price = hospital.vip.vip_gold_price
                 vip_convenience_amount = hospital.vip.vip_convenience_amount
                 cover_under_vip = hospital.vip.cover_under_vip
+                is_gold_member = hospital.vip.is_gold_member
+                vip_convenience_amount = hospital.vip.vip_convenience_amount
             }
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
@@ -1476,7 +1495,9 @@ class PatientDetailsNew extends React.Component {
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
-                                                                                                <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' : is_vip_applicable ? `₹ ${vip_amount}` : this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
+                                                                                                <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' : 
+                                                                                                    is_gold_member ? `₹ ${vip_amount+vip_convenience_amount}`:
+                                                                                                    is_vip_applicable ? `₹ ${vip_amount}` : this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
                                                                                                 {/* {
                                                                                                 is_insurance_applicable ? ""
                                                                                                     : <span className="save-upto">Save {percent_discount}%</span>
@@ -1558,7 +1579,15 @@ class PatientDetailsNew extends React.Component {
                                                                                     <p>MRP</p>
                                                                                     <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                                 </div>
-                                                                                {is_vip_applicable ?
+                                                                                {
+                                                                                    is_gold_member?
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p style={{ color: 'green' }}>Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
+                                                                                        <p style={{ color: 'green' }}>- &#8377; {parseInt(priceData.mrp) - (parseInt(vip_amount) + parseInt(vip_convenience_amount))}</p>
+                                                                                    </div>
+                                                                                    :''
+                                                                                }
+                                                                                {is_gold_member?'':is_vip_applicable ?
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {parseInt(priceData.mrp) - parseInt(vip_amount)}</p>
@@ -1594,7 +1623,7 @@ class PatientDetailsNew extends React.Component {
                                                                             {
                                                                                 priceData ? <div className="test-report payment-detail mt-20">
                                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                                    <h5 className="payment-amt-value">&#8377; {is_vip_applicable ? vip_amount : finalPrice || 0}</h5>
+                                                                                    <h5 className="payment-amt-value">&#8377; { is_gold_member?vip_amount + vip_convenience_amount: is_vip_applicable ? vip_amount : finalPrice || 0}</h5>
                                                                                 </div> : ""
                                                                             }
                                                                             {
@@ -1740,7 +1769,7 @@ class PatientDetailsNew extends React.Component {
                                         {
                                             ((STORAGE.isAgent() || this.state.isMatrix) && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price, is_vip_applicable, vip_amount)}</button>
+                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price, is_vip_applicable, vip_amount,is_gold_member,vip_convenience_amount)}</button>
                                         }
                                     </div>
                                 </div>
