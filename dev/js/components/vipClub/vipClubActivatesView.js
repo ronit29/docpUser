@@ -98,9 +98,12 @@ class VipClub extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
                                                 <div className="vip-wrn-content">
                                                     <h5>Activate your subscription now</h5>
-                                                    <p>
-                                                        Add remaining 3 members details to activate
-                                                        your subscription</p>
+                                                    {
+                                                        this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0?
+                                                        <p> {`Add remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members details to activate your subscription`}</p>
+
+                                                        :''
+                                                    }
                                                 </div>
                                             </div>
                                                 <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
