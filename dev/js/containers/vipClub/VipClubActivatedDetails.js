@@ -18,7 +18,8 @@ class VipClubActivatedDetails extends React.Component{
     constructor(props) {
         super(props)
         this.state={
-            data:null
+            data:null,
+            is_gold:false
         }
     }
 
@@ -42,14 +43,15 @@ class VipClubActivatedDetails extends React.Component{
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,false,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
-                    this.setState({data:resp.data})
+                    this.setState({data:resp.data,is_gold:resp.data.plan[0].is_gold})
                 }
             })
         }else{
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,true,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
-                    this.setState({data:resp.data})
+
+                    this.setState({data:resp.data,is_gold:resp.data.plan[0].is_gold})
                 }
             })
         }
@@ -58,7 +60,7 @@ class VipClubActivatedDetails extends React.Component{
     render(){
         if(this.props.LOAD_VIP_CLUB_DASHBOARD && this.state.data){
             return(
-                <VipClubView {...this.props} data={this.state.data}/>
+                <VipClubView {...this.props} data={this.state.data} is_gold={this.state.is_gold}/>
             )
         }else{
             return(
@@ -73,14 +75,13 @@ class VipClubActivatedDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan, LOAD_VIP_CLUB_DASHBOARD, vip_club_db_data } = state.VIPCLUB
     const {
         selectedLocation
 
     } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, vip_club_db_data, LOAD_VIP_CLUB_DASHBOARD
+       USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, vip_club_db_data, LOAD_VIP_CLUB_DASHBOARD
     }
 }
 

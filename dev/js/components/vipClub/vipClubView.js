@@ -33,6 +33,7 @@ class VipClubView extends React.Component {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
+        
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
         // if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
@@ -213,7 +214,6 @@ class VipClubView extends React.Component {
 
     render() {
         let self = this
-        console.log(this.props.selected_plan_id)
         return (
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?
