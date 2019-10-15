@@ -1627,7 +1627,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
                                                         {/* ============================= gold card details ============================= */}
                                                         {
-                                                            !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 ?
+                                                            false && !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 ?
                                                             <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 let analyticData = {
