@@ -84,6 +84,8 @@ class LabTests extends React.Component {
         let { is_insurance_applicable, is_vip_applicable } = this.props
         let is_user_insured = false
         let selectedTestsCount = 0
+        let vip_amount = 0
+        let finalMrp = 0
 
         //For Insured Person Remove unselected Tests/Packages
 
@@ -107,6 +109,10 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
+                        finalMrp+= parseInt(test.mrp)
+                        if(test.vip){
+                            vip_amount+= parseInt(test.vip.vip_gold_price||0) + parseInt(test.vip.vip_convenience_amount||0)    
+                        }
                         selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount} is_user_insured={is_user_insured} is_vip_applicable={is_vip_applicable} />)
                     } else {
                         unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount} is_vip_applicable={is_vip_applicable}/>)
@@ -114,6 +120,10 @@ class LabTests extends React.Component {
 
                 } else {
                     if (test.is_selected) {
+                        finalMrp+= parseInt(test.mrp)
+                        if(test.vip){
+                            vip_amount+= parseInt(test.vip.vip_gold_price||0) + parseInt(test.vip.vip_convenience_amount||0)    
+                        }
                         if (test.test.show_details) {
                             // test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
                             test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block', 'cursor':'pointer'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
@@ -248,7 +258,7 @@ class LabTests extends React.Component {
         if(is_insurance_applicable){
             pickup_text = ''
         }
-
+        let vip_discount_price = finalMrp - vip_amount
         return (
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng clearfix">
@@ -340,6 +350,30 @@ class LabTests extends React.Component {
                     </div>
                     : ''
                 }
+                {/* ============================= gold card details ============================= */}
+                {
+                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 ?
+                    <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
+                        e.stopPropagation();
+                        let analyticData = {
+                            'Category': 'ConsumerApp', 'Action': 'LabProfileVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-profile-gold-click',
+                        }
+                        GTM.sendEvent({ data: analyticData })
+                        this.props.history.push('/vip-gold-details?is_gold=true&source=lab-profile-gold-click&lead_source=Docprime')
+                    }}>
+                        <div className="widget-content d-flex jc-spaceb align-item-center">
+                            <div className="gold-crd-lft">
+                                <p><span>Save ₹{vip_discount_price}</span> on this appointment </p>
+                                <p className="gld-crd-sb-txt">Become <img src={ASSETS_BASE_URL + '/img/gold-sm.png'} /> member</p>
+                            </div>
+                            <div className="gold-crd-rgt">
+                                <p>Get Gold</p>
+                            </div>
+                        </div>
+                    </div>
+                    :''}
+                {/* ============================= gold card details ============================= */}
+
             </div>
         );
     }
