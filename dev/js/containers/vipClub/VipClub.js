@@ -58,7 +58,7 @@ class VipClub extends React.Component{
             </React.Fragment>
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
-                this.props.history.push('/vip-club-activated-details')
+                this.props.history.replace('/vip-club-activated-details')
             }
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
