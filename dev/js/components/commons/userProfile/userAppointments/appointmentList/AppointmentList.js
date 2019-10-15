@@ -88,7 +88,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip } = this.props.data
+        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip, payment_mode } = this.props.data
 
         let date = new Date(time_slot_start)
         let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
@@ -186,6 +186,13 @@ class AppointmentList extends React.Component {
                                 </div>
                             </div>
                         </div> : ''
+                }
+                {
+                    payment_mode && 
+                    <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
+                        <span>Payment mode</span>
+                        <span>{payment_mode}</span>
+                    </div>
                 }
             </li>
         );
