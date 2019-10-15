@@ -333,7 +333,7 @@ class DoctorProfileView extends React.Component {
         let google_rating = {}
         if (this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget) {
 
-            if (this.props.DOCTORS[doctor_id].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length) {
+            if (this.props.DOCTORS[doctor_id].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph.avg_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph.rating_count) {
 
                 google_rating.rating = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating
                 google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph

@@ -215,7 +215,7 @@ class DoctorProfileCard extends React.Component {
             let is_enable_for_vip = hospital.is_enable_for_vip
             let avgGoogleRating = ''
             let googleRatingCount = ''
-            if (google_rating && google_rating.avg_rating) {
+            if (google_rating && google_rating.avg_rating && google_rating.rating_count) {
                 avgGoogleRating = google_rating.avg_rating
                 googleRatingCount = google_rating.rating_count || ''
             }
@@ -418,7 +418,7 @@ class DoctorProfileCard extends React.Component {
                                         </h3>
                             }
                             {
-                                google_rating && !average_rating ?
+                                google_rating && avgGoogleRating && googleRatingCount && !average_rating ?
                                     <div className="d-flex align-items-center" style={{ paddingLeft: 20, marginBottom: 8 }}>
                                         <RatingStars average_rating={avgGoogleRating} rating_count={googleRatingCount} width="12px" height="12px" />
                                         <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100, marginLeft: 6 }} />
