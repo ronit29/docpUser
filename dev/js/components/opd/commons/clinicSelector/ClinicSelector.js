@@ -176,7 +176,7 @@ class ClinicSelector extends React.Component {
                                     </div>
                                     
                             }
-                            {!hospital.vip.is_vip_member && hospital.vip.cover_under_vip && parseInt(vip_discounted_price) > 0?
+                            {!hospital.vip.is_vip_member && hospital.vip.is_enable_for_vip && parseInt(vip_discounted_price) > 0?
                                 <div className="d-flex align-items-center justify-content-end goldCard" onClick={(e) => {
                                     e.stopPropagation();
                                     let analyticData = {

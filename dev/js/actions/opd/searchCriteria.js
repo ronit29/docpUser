@@ -235,7 +235,11 @@ export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => {
     }else{
         locality = "Delhi"
     }
-    return API_GET(`/api/v1/doctor/hospitals_near_you?lat=${lat}&long=${long}&locality=${locality}`).then(function(response){
+    let url = `/api/v1/doctor/hospitals_near_you?lat=${lat}&long=${long}&locality=${locality}`
+    if(extraParams && extraParams.from_vip){
+        url+= `&from_vip=${extraParams.from_vip}`    
+    }
+    return API_GET(url).then(function(response){
 
         dispatch({
             type: SAVE_NEARBY_HOSPITALS,

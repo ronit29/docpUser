@@ -1127,14 +1127,15 @@ class PatientDetailsNew extends React.Component {
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
             is_default_user_under_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
-            is_selected_user_gold = this.props.profiles[this.props.defaultProfile].is_vip_gold_member
         }
+
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
             is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
+            is_selected_user_gold = this.props.profiles[this.props.selectedProfile].is_vip_gold_member
         }
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
@@ -1525,7 +1526,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             <label className="container-radio payment-type-radio">
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' : 
-                                                                                                    is_gold_member ? `₹ ${vip_amount+vip_convenience_amount}`:
+                                                                                                    is_gold_member &&is_selected_user_gold ? `₹ ${vip_amount+vip_convenience_amount}`:
                                                                                                     is_vip_applicable ? `₹ ${vip_amount}` : this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
                                                                                                 {/* {
                                                                                                 is_insurance_applicable ? ""

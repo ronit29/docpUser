@@ -170,7 +170,9 @@ class LabDetails extends React.Component {
                                     STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
                                             this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
                                     <div className="lb-viewmore">
-                                        <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
+                                        {
+                                            !this.props.is_vip_applicable && !this.props.is_covered_under_gold && <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
+                                        }
                                     </div>
                                     : ''
                                 }
