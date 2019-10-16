@@ -1511,7 +1511,7 @@ class PatientDetailsNew extends React.Component {
                                                                             }
 
                                                                             {
-                                                                                !is_insurance_applicable && enabled_for_cod_payment ?
+                                                                                !is_insurance_applicable && enabled_for_cod_payment && !is_vip_applicable ?
                                                                                     <hr /> : ''
                                                                             }
 
