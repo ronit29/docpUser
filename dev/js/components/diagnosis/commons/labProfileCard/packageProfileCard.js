@@ -199,8 +199,23 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
         }
-        let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
-        let vip_amount = vip.vip_amount
+        // let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+        // let vip_amount = vip.vip_amount
+
+        let is_vip_applicable = false
+        let vip_amount
+        let is_enable_for_vip = false
+        let is_vip_gold = false
+
+        if(vip && Object.keys(vip).length > 0){
+            is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+            vip_amount = vip.vip_amount
+            is_enable_for_vip = vip.is_vip_enabled
+            is_vip_gold = vip.is_gold_member
+            if(!is_vip_applicable){
+                is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
+            }
+        }
         return (
             <div className="pkg-card-container mb-3">
                 {!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?
@@ -307,6 +322,7 @@ class LabProfileCard extends React.Component {
                                             </p>
                                              : ''
                                     }
+                                    
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
