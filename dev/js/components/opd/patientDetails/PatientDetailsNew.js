@@ -1413,7 +1413,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
 
                                                                 {
-                                                                    ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_vip_applicable ?
+                                                                    ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_insurance_applicable &&  !is_vip_applicable && !(is_gold_member && is_selected_user_gold)?
                                                                         <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1 ? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                             {
                                                                                 doctorCoupons.length ?
@@ -1629,7 +1629,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     <p style={{ color: 'green' }}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                                 </div>
                                                                                     : ''}
-                                                                                {!is_vip_applicable && this.props.payment_type == 1 && priceData.fees == 0 ?
+                                                                                {!is_vip_applicable && !(is_gold_member && is_selected_user_gold) && this.props.payment_type == 1 && priceData.fees == 0 ?
                                                                                     <React.Fragment>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p>Docprime price</p>
