@@ -946,12 +946,14 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay,is_vip_applicable,vip_amount) {
+    getBookingButtonText(total_wallet_balance, price_to_pay,is_vip_applicable,vip_amount, extraAllParams) {
         let price_from_wallet = 0
         let price_from_pg = 0
-        if(is_vip_applicable){
+        
+        if(is_vip_applicable || (extraAllParams && extraAllParams.is_gold_member) ){
             if(vip_amount){
-                return `Confirm Booking (₹ ${vip_amount})`
+                let total_cost = extraAllParams && extraAllParams.is_gold_member && extraAllParams.vip_convenience_amount?extraAllParams.vip_convenience_amount:0
+                return `Confirm Booking (₹ ${vip_amount+total_cost})`
             }else{
                 return `Confirm Booking`
             }
@@ -1136,6 +1138,7 @@ class BookingSummaryViewNew extends React.Component {
         let vip_amount=0
         let vip_convenience_amount=0
         let vip_gold_price = 0 
+        let is_gold_member = false
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -1173,11 +1176,12 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
-                if(test.vip && test.vip.covered_under_vip){
-                    is_tests_covered_under_vip = true
+                if(test.vip){
+                    is_tests_covered_under_vip = test.vip.covered_under_vip
                     vip_amount = test.vip.vip_amount
                     vip_convenience_amount = test.vip.vip_convenience_amount||0
                     vip_gold_price = test.vip.vip_gold_price||0
+                    is_gold_member = test.vip.is_gold_member
                 }else{
 
                 }
@@ -1425,6 +1429,17 @@ class BookingSummaryViewNew extends React.Component {
         let total_test_count = pathology_tests.length + radiology_tests.length
         let is_time_selected_for_all_tests = this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot?Object.keys(this.props.selectedSlot.selectedTestsTimeSlot).length:0
         let vip_discount_price = total_price - (vip_gold_price + vip_convenience_amount)
+        let total_amount_payable = total_price
+        if(is_gold_member){
+            total_amount_payable = vip_amount +  vip_convenience_amount
+        }else if(is_vip_applicable){
+            total_amount_payable = vip_amount
+        }
+
+        let extraParams = {
+            is_gold_member: is_gold_member,
+            vip_convenience_amount: vip_convenience_amount
+        }
         return (
 
             <div className="profile-body-wrap">
@@ -1684,17 +1699,25 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 :
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
-                                                                                    {is_vip_applicable? <div className="payment-detail d-flex">
+                                                                                    {is_vip_applicable && !is_gold_member? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{color:'green'}}>- &#8377; {total_price - vip_amount}</p>
                                                                                     </div>:''}
+                                                                                    {
+                                                                                        is_gold_member?
+                                                                                        <div className="payment-detail d-flex">
+                                                                                            <p style={{ color: 'green' }}>Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
+                                                                                            <p style={{ color: 'green' }}>- &#8377; {vip_discount_price}</p>
+                                                                                        </div>
+                                                                                        :''
+                                                                                    }
                                                                                     {
                                                                                         (total_price && is_home_collection_enabled && is_home_charges_applicable && !is_vip_applicable) ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    {(finalMrp -finalPrice) && !is_vip_applicable? <div className="payment-detail d-flex">
+                                                                                    {(finalMrp -finalPrice) && !is_vip_applicable &&!is_gold_member? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>:''}
@@ -1720,9 +1743,10 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                         <div className="lab-visit-time test-report">
                                                                             <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                            {
-                                                                                is_home_charges_applicable ? <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5>
-                                                                            }
+                                                                            <h5 className="payment-amt-value fw-500">&#8377;  {total_amount_payable}</h5>
+                                                                            {/*
+                                                                                is_home_charges_applicable ? <h5 className="payment-amt-value fw-500">&#8377;  {total_amount_payable}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5>
+                                                                            */}
 
 
                                                                         </div>
@@ -1820,7 +1844,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_amount)}</button>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_amount, extraParams)}</button>
                                 }
                             </div>
 

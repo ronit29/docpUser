@@ -281,21 +281,28 @@ class LabProfileCard extends React.Component {
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable ?
+                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable && !vip.is_gold_member?
                                     discounted_price != mrp?
                                     <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                    :<p className="cst-doc-price">₹ {discounted_price} </p> : ''
+                                    :<p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price} </p> : ''
                             }
                             {
                                 !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             {
-                                is_vip_applicable ?
+                                is_vip_applicable && !vip.is_gold_member ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                     </div>
                                 : ''
+                            }
+                            {
+                                vip.is_gold_member?
+                                    <div className="text-right mb-2">
+                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                    </div>
+                                    : ''
                             }
                             {
                                 is_insurance_applicable && !is_vip_applicable ?
@@ -327,9 +334,10 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
-                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
+                                        <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                         
                                     </div>
                                 }
