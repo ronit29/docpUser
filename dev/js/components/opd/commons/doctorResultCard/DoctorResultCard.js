@@ -329,9 +329,14 @@ class DoctorProfileCard extends React.Component {
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                     </div>
                                     : ''}
+                                {
+                                    is_gold_member ?
+                                        <p className="cst-doc-price">₹ {vip_gold_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                        : ''
+                                }
 
                                 {
-                                    is_vip_applicable ?
+                                    is_gold_member?'':is_vip_applicable ?
                                         <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : ''
                                 }
