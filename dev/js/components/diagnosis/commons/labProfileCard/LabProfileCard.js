@@ -317,7 +317,7 @@ class LabProfileCard extends React.Component {
                                    !is_insurance_applicable && is_vip_applicable ?
                                         <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : ''
-                                }
+                            }
                             {
                                     !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
