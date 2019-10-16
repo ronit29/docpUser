@@ -185,7 +185,7 @@ class ClinicSelector extends React.Component {
                                     GTM.sendEvent({ data: analyticData })
                                     this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
                                 }}>
-                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip_discounted_price)}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip_discounted_price)}</span><img style={{transform: 'rotate(-90deg)',width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                 </div>
                             :''
                             }
