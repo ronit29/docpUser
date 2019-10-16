@@ -104,18 +104,18 @@ class VipClub extends React.Component {
                                     {this.props.data.is_member_allowed?
                                         <div className="vip-act-pop mb-3">
                                             <div className="vip-wrn-img">
-                                                <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
+                                                <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
                                                 <div className="vip-wrn-content">
-                                                    <h5>Activate your subscription now</h5>
+                                                    <h5>Your subscription is now active</h5>
                                                     {
                                                         this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0?
-                                                        <p> {`Add remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members details to activate your subscription`}</p>
+                                                        <p> {`You can add the remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members anytime until the expiry date.`}</p>
 
                                                         :''
                                                     }
                                                 </div>
                                             </div>
-                                                <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
+                                                <button onClick={this.AddMemberDetails.bind(this)}>Add member</button>
                                         </div>
                                     :''
                                     }
