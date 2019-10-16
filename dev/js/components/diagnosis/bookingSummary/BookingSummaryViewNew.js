@@ -952,8 +952,7 @@ class BookingSummaryViewNew extends React.Component {
         
         if(is_vip_applicable || (extraAllParams && extraAllParams.is_gold_member) ){
             if(vip_amount){
-                let total_cost = extraAllParams && extraAllParams.is_gold_member && extraAllParams.vip_convenience_amount?extraAllParams.vip_convenience_amount:0
-                return `Confirm Booking (₹ ${vip_amount+total_cost})`
+                return `Confirm Booking (₹ ${extraAllParams.total_amount_payable})`
             }else{
                 return `Confirm Booking`
             }
@@ -1431,14 +1430,13 @@ class BookingSummaryViewNew extends React.Component {
         let vip_discount_price = total_price - (vip_gold_price + vip_convenience_amount)
         let total_amount_payable = total_price
         if(is_gold_member){
-            total_amount_payable = vip_amount +  vip_convenience_amount
+            total_amount_payable = vip_amount +  vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
         }else if(is_vip_applicable){
-            total_amount_payable = vip_amount
+            total_amount_payable = vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
         }
-
         let extraParams = {
             is_gold_member: is_gold_member,
-            vip_convenience_amount: vip_convenience_amount
+            total_amount_payable: total_amount_payable
         }
         return (
 
@@ -1712,7 +1710,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         :''
                                                                                     }
                                                                                     {
-                                                                                        (total_price && is_home_collection_enabled && is_home_charges_applicable && !is_vip_applicable && !is_gold_member) ? <div className="payment-detail d-flex">
+                                                                                        (total_price && is_home_collection_enabled && is_home_charges_applicable) ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""

@@ -766,7 +766,7 @@ class PatientDetailsNew extends React.Component {
         if(is_gold_member){
             if (vip_amount) {
                 let vip_price_pay = 0
-                if (this.state.use_wallet && total_wallet_balance) {
+                if (false && this.state.use_wallet && total_wallet_balance) {
                     price_from_wallet = Math.min(total_wallet_balance, (vip_amount+vip_convenience_amount))
                 }
 
@@ -780,7 +780,7 @@ class PatientDetailsNew extends React.Component {
         if (is_vip_applicable) {
             if (vip_amount) {
                 let vip_price_pay = 0
-                if (this.state.use_wallet && total_wallet_balance) {
+                if (false && this.state.use_wallet && total_wallet_balance) {
                     price_from_wallet = Math.min(total_wallet_balance, vip_amount)
                 }
 
