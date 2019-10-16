@@ -242,7 +242,7 @@ class DoctorProfileCard extends React.Component {
 
             let vip_gold_price = (hospital.vip_convenience_amount + hospital.vip_gold_price || 0)
             if (!is_vip_applicable && !parsed.fromVip) {
-                is_enable_for_vip = parsed.fromGoldVip || is_vip_gold ? false : is_enable_for_vip
+                is_enable_for_vip = parsed.fromGoldVip || (is_gold_member && is_vip_gold) ? false : is_enable_for_vip
             }
             //console.log('is_vip_applicable'+is_vip_applicable);console.log('is_vip_gold'+is_vip_gold);console.log('vip_gold_price'+vip_gold_price);console.log('discunted_price'+discounted_price);
             return (
@@ -341,7 +341,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_insurance_applicable || is_vip_applicable || is_gold_member || is_vip_gold?
+                                    is_insurance_applicable || is_vip_applicable || is_gold_member?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
