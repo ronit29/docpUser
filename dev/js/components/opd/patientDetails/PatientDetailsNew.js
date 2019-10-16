@@ -68,13 +68,15 @@ class PatientDetailsNew extends React.Component {
             firstLeadId: '',
             timeErrorText: '',
             pay_btn_loading: true,
-            isMatrix: parsed.is_matrix,
-            show_lensfit_popup: false,
-            lensfit_coupons: null,
-            lensfit_decline: false,
-            isLensfitSpecific: parsed.isLensfitSpecific || false,
-            show_banner: false,
-            banner_decline: false
+            isMatrix:parsed.is_matrix,
+            isEmailNotValid: false,
+            isDobNotValid: false,
+            show_lensfit_popup:false,
+            lensfit_coupons:null,
+            lensfit_decline:false,
+            isLensfitSpecific:parsed.isLensfitSpecific|| false,
+            show_banner:false,
+            banner_decline:false
         }
     }
 
@@ -451,6 +453,17 @@ class PatientDetailsNew extends React.Component {
                 window.scrollTo(0, 0)
                 return
             }
+        }
+
+        if(patient && !patient.email && this.props.is_integrated){
+            this.setState({isEmailNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            return 
+        }
+        if(patient && !patient.dob && this.props.is_integrated){
+            this.setState({isDobNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
+            return 
         }
 
         if (!this.state.profileDataFilled) {
@@ -1240,7 +1253,8 @@ class PatientDetailsNew extends React.Component {
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
-        let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && !this.props.is_ipd_form_submitted
+        let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
+        let is_time_selected = (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)
         let vip_discount_price = finalPrice - (vip_gold_price + vip_convenience_amount)
         
         return (
@@ -1324,24 +1338,34 @@ class PatientDetailsNew extends React.Component {
                                                                                         </div>
                                                                                         <p className="ldng-text"></p>
                                                                                     </div>
-                                                                                    : ((this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)) ?
-                                                                                        <div className="widget-content pos-relative">
-                                                                                            <div className="lab-visit-time d-flex jc-spaceb mb-0">
-                                                                                                <h4 className="title mb-0">
-                                                                                                    <span>
-                                                                                                        <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
-                                                                                                    </span>
-                                                                                                    Select Visit Time
+                                                                                : is_time_selected || this.props.is_integrated?
+                                                                                    <div className="widget-content pos-relative">
+                                                                                        <div className="lab-visit-time d-flex jc-spaceb mb-0">
+                                                                                            <h4 className="title mb-0">
+                                                                                                <span>
+                                                                                                    <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
+                                                                                                </span>
+                                                                                                Select Visit Time
                                                                                 </h4>
-                                                                                            </div>
-                                                                                            <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
-                                                                                            <div className="date-slecet-cont">
-                                                                                                <div className="nw-inpt-selctr">
-                                                                                                    <span className="nw-pick-hdng">Date:</span>
-                                                                                                    <div className="caln-input-tp">
-                                                                                                        <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                                                                                        <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
-                                                                                                    </div>
+                                                                                {
+                                                                                    !is_time_selected && this.props.is_integrated && <a href="" onClick={(e) => {
+                                                                                            e.preventDefault()
+                                                                                            e.stopPropagation()
+                                                                                            this.navigateTo('time')
+                                                                                        }} className="text-primary fw-700 text-sm">Select Time</a>
+                                                                                }
+                                                                                        </div>
+                                                                                        <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
+
+                                                                                        {
+                                                                                            is_time_selected && 
+                                                                                            <React.Fragment>
+                                                                                                <div className="date-slecet-cont">
+                                                                                            <div className="nw-inpt-selctr">
+                                                                                                <span className="nw-pick-hdng">Date:</span>
+                                                                                                <div className="caln-input-tp">
+                                                                                                    <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
+                                                                                                    <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="date-slecet-cont">
@@ -1354,15 +1378,18 @@ class PatientDetailsNew extends React.Component {
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            {
-                                                                                                this.state.timeErrorText ?
-                                                                                                    <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>
-                                                                                                    : ''
-                                                                                            }
-                                                                                        </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
-                                                                            }
-                                                                        </div>
-                                                                }
+                                                                                        </div>
+                                                                                            </React.Fragment>
+                                                                                        }
+                                                                                        {
+                                                                                            this.state.timeErrorText?
+                                                                                            <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>
+                                                                                            :''
+                                                                                        }
+                                                                                    </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
+                                                                        }
+                                                                    </div>
+                                                        }
 
                                                                 {/* new time slot */}
 
@@ -1374,11 +1401,11 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
-                                                                {
-                                                                    Object.values(selectedProcedures).length ?
-                                                                        <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
-                                                                        : ''/*<div className="clearfix pb-list proc-padding-list">
+                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true}/>
+                                                            {
+                                                                Object.values(selectedProcedures).length ?
+                                                                    <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
+                                                                    : ''/*<div className="clearfix pb-list proc-padding-list">
                                                                             <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>*/
                                                                 }
 

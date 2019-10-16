@@ -155,7 +155,7 @@ class StickyFilter extends React.Component{
 	                       <hr />
 
 	                       {
-	                       	health_insurance_provider.length?
+	                       	health_insurance_provider.length && false?
 	                       	<div className="ins-listing">
 	                          <div className="pop-head">Health Insurance Providers</div>
 	                          <ul className="range-slider-ul">

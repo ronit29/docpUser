@@ -129,12 +129,13 @@ class AppointmentSlot extends React.Component {
     }
 
     componentDidMount() {
-        let clinicId = this.props.selectedClinic
-        let doctorId = this.props.selectedDoctor
-
-        this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots || {} })
-        })
+        let selectedDate = new Date()
+        if(this.props.selectedDateFormat){
+            selectedDate = this.props.selectedDateFormat
+        }else{
+            selectedDate = this.getFormattedDate(selectedDate)
+        }
+        this.getOpdTimeSlot(selectedDate)
 
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
             this.setState({ selectedTimeSlot: this.props.selectTimeSlot })
@@ -148,6 +149,18 @@ class AppointmentSlot extends React.Component {
             this.setState({ showPopup: true })
         }
 
+    }
+
+    getOpdTimeSlot(selectedDate){
+        let clinicId = this.props.selectedClinic
+        let doctorId = this.props.selectedDoctor
+
+        let extraParams = {
+            selectedDate: selectedDate
+        }
+        this.props.getTimeSlots(doctorId, clinicId, extraParams, (timeSlots) => {
+            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots || {} })
+        })
     }
 
     enableProceed(enable, slot = {}) {
@@ -234,7 +247,7 @@ class AppointmentSlot extends React.Component {
                                                                 selectedSlot={this.state.reschedule ? this.props.rescheduleSlot : this.props.selectedSlot}
                                                                 doctor_leaves={this.state.doctor_leaves || []}
                                                                 enableProceed = {this.enableProceed.bind(this)} 
-                                                                upcoming_slots= {this.state.upcoming_slots}
+                                                                upcoming_slots= {this.state.upcoming_slots} getOpdTimeSlot={this.getOpdTimeSlot.bind(this)}
                                                             /> : <Loader />
                                                     }
 

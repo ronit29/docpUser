@@ -73,7 +73,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId, clinicId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, clinicId, procedure_ids, category_ids)),
-        getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
+        getTimeSlots: (doctorId, clinicId, extraParam, callback) => dispatch(getTimeSlots(doctorId, clinicId, extraParam, callback)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam)),
         submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
     }

@@ -324,11 +324,15 @@ export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null
 	})
 }
 
-export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
+export const getTimeSlots = (doctorId, clinicId, extraParams={}, callback) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING_OPD_TIME
 	})
-	return API_GET(`/api/v1/doctor/doctortiming_v2?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
+	let url = `/api/v1/doctor/doctortiming_v2?doctor_id=${doctorId}&hospital_id=${clinicId}`
+	if(extraParams && extraParams.selectedDate) {
+		url+=`&date=${extraParams.selectedDate}`
+	}
+	return API_GET(url).then(function (response) {
 		callback(response)
 		dispatch({
 			type: END_FETCHING_OPD_TIME
