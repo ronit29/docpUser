@@ -58,6 +58,7 @@ class CartView extends React.Component {
         let total_amnt = 0
         let dd = 0
         let vip_amnt_price =0
+        let is_gold_member = false
         for (let item of cart_items) {
             if (item.valid && (item.actual_data.payment_type == 1 || item.actual_data.payment_type == 5)) {
                 
@@ -71,7 +72,12 @@ class CartView extends React.Component {
                         if(item.actual_data.vip_amount == 0){
                             vip_amnt_price += item.mrp
                         }else{
-                            vip_amnt_price += item.mrp - item.actual_data.vip_amount
+                            if(item.actual_data.is_gold_member){
+                                is_gold_member = item.actual_data.is_gold_member
+                                vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
+                            }else{
+                                vip_amnt_price += item.mrp - item.actual_data.vip_amount
+                            }
                         }
                     }
                     total_mrp += item.mrp
@@ -120,7 +126,8 @@ class CartView extends React.Component {
             cashback_breakup,
             platformConvFees,
             total_amnt,
-            vip_amnt_price
+            vip_amnt_price,
+            is_gold_member
         }
     }
 
@@ -247,7 +254,8 @@ class CartView extends React.Component {
             cashback_breakup,
             platformConvFees,
             total_amnt,
-            vip_amnt_price
+            vip_amnt_price,
+            is_gold_member
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -383,8 +391,12 @@ class CartView extends React.Component {
                                                                                 }
                                                                             </div> : ''
                                                                         }
-
-                                                                        {vip_amnt_price ?
+                                                                        {vip_amnt_price && is_gold_member ?
+                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            </div>
+                                                                            :''
+                                                                        }
+                                                                        {is_gold_member?'': vip_amnt_price ?
                                                                             <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
                                                                             :''
