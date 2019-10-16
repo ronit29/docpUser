@@ -4690,6 +4690,9 @@ left: 3px;
     .sort-sticky-network{
         top: 121px !important;
     }
+    .gold-white-bg-container{
+        margin: 0 -15px;
+    }
 }
 /* ============ search for vip  ============ */
 /* ============ paypal-page  ============ */
@@ -4856,7 +4859,6 @@ p.gld-lst-foot-txt span {
 }
 .gold-white-bg-container {
     background: white;
-    margin: 0 -15px;
     padding: 8px 15px;
 }
 
