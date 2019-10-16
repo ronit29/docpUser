@@ -397,7 +397,9 @@ class CartItem extends React.Component {
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_vip_applicable?
+                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_gold_member?
+                                            <img style={{height:'15px', width:'35px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            : is_vip_applicable?
                                                <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                         :''}</h1>
                                     </div>
@@ -453,14 +455,21 @@ class CartItem extends React.Component {
 
                                                     
                                                     {
-                                                        is_vip_applicable?
+                                                        is_gold_member?'':is_vip_applicable?
                                                         <span className="float-right fw-700">₹ {vip_amount}<span className="test-mrp">₹ {mrp}</span>
                                                         </span>
                                                         :''
                                                     }
 
                                                     {
-                                                        is_vip_applicable?''
+                                                        is_gold_member?
+                                                        <span className="float-right fw-700">₹ {is_gold_price}<span className="test-mrp">₹ {mrp}</span>
+                                                        </span>
+                                                        :''
+                                                    }
+
+                                                    {
+                                                        is_vip_applicable || is_gold_member?''
                                                         : is_appointment_insured || included_in_user_plan ?
                                                             <span className="float-right fw-700">₹ 0 </span>
                                                             : <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
