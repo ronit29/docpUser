@@ -1584,7 +1584,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable ?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable && !is_gold_member?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -1712,7 +1712,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         :''
                                                                                     }
                                                                                     {
-                                                                                        (total_price && is_home_collection_enabled && is_home_charges_applicable && !is_vip_applicable) ? <div className="payment-detail d-flex">
+                                                                                        (total_price && is_home_collection_enabled && is_home_charges_applicable && !is_vip_applicable && !is_gold_member) ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
