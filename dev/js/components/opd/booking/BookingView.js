@@ -228,6 +228,8 @@ class BookingView extends React.Component {
         let is_vip_member = false
         let covered_under_vip = false
         let vip_amount = 0
+        let is_gold_vip = 0
+        let vip_convenient_price = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -243,6 +245,9 @@ class BookingView extends React.Component {
             is_vip_member = this.state.data.vip.is_vip_member
             covered_under_vip = this.state.data.vip.covered_under_vip
             vip_amount = this.state.data.vip.vip_amount
+            is_gold_vip = this.state.data.vip.is_gold_member
+            vip_convenient_price = this.state.data.vip.extra_charge
+
         }
 
         let summary_utm_tag = ""
@@ -377,7 +382,7 @@ class BookingView extends React.Component {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
                                                         {
-                                                            STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member?'':status != 6 && status != 7 &&
+                                                            STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member || is_gold_vip?'':status != 6 && status != 7 &&
                                                                 <div className="vip-content-book">
                                                                     <div>
                                                                         <p>
@@ -479,15 +484,22 @@ class BookingView extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        is_vip_member && covered_under_vip?
+                                                                        is_vip_member && covered_under_vip && !is_gold_vip?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                 <p className="fw-500" style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid"src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                 <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - parseInt(vip_amount)}</p>
                                                                             </div> : ''
                                                                     }
+                                                                    {
+                                                                        is_gold_vip &&
+                                                                        <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                            <p className="fw-500" style={{ color: 'green' }}> Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/></p>
+                                                                            <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - (parseInt(vip_amount) + parseInt(vip_convenient_price||0))}</p>
+                                                                        </div>
+                                                                    }
                                                                     
                                                                     {
-                                                                        discount && payment_type!=3 && !is_vip_member && !covered_under_vip?
+                                                                        discount && payment_type!=3 && !is_vip_member && !covered_under_vip && !is_gold_vip?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                 <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
                                                                                 <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>
