@@ -187,8 +187,10 @@ class DoctorProfileCard extends React.Component {
         }
         let is_vip_gold = false
         let is_procedure = false
+        let is_gold_member =false
         if (hospitals && hospitals.length) {
             is_vip_gold = hospital.hosp_is_gold || parsed.fromGoldVip
+            is_gold_member = hospital.is_gold_member
             let selectedCount = 0
             let unselectedCount = 0
             let finalProcedureDealPrice = discounted_price
@@ -316,9 +318,15 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 } */}
 
-                                {is_vip_applicable ?
+                                {is_gold_member?'':
+                                    is_vip_applicable ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                    </div>
+                                    : ''}
+                                {is_gold_member ?
+                                    <div className="text-right mb-2">
+                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                     </div>
                                     : ''}
 
@@ -361,6 +369,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable ?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                                            this.props.clearVipSelectedPlan()
                                             this.props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
@@ -374,7 +383,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    !is_vip_applicable && is_vip_gold && !parsed.fromVip && (discounted_price > vip_gold_price) ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    enabled_for_hospital_booking && !is_vip_applicable && is_vip_gold && !parsed.fromVip && (discounted_price > vip_gold_price) ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
                                         <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {hospital.vip_convenience_amount + hospital.vip_gold_price || 0}</span><img style={{transform: 'rotate(-90deg)'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                         

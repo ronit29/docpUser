@@ -372,7 +372,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.history ?
-								<TopChatWidget history={this.props.history} /> : ''
+								<TopChatWidget {...this.props} history={this.props.history} /> : ''
 						}
 
 						{
@@ -526,6 +526,7 @@ class HomeView extends React.Component {
 								}
 								GTM.sendEvent({ data: data })
 								e.preventDefault();
+								this.props.clearVipSelectedPlan()
 								this.navigateTo("/vip-club-details?source=vipClickSubheader&lead_source=Docprime", 'opd')
 							}}>Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 24, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {

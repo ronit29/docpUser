@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails, selectSearchType, loadOPDInsurance, iFrameState } from '../../../actions/index.js'
+import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails, selectSearchType, loadOPDInsurance, iFrameState, clearVipSelectedPlan } from '../../../actions/index.js'
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
@@ -58,7 +58,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
-        iFrameState: (url, emptyUrls, leftMenuClick) => dispatch(iFrameState(url, emptyUrls, leftMenuClick))
+        iFrameState: (url, emptyUrls, leftMenuClick) => dispatch(iFrameState(url, emptyUrls, leftMenuClick)),
+        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan())
     }
 }
 

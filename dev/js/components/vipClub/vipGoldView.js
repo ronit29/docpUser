@@ -140,7 +140,7 @@ class VipGoldView extends React.Component {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                                     <div className="pakg-slider-container mb-10">
                                                         <div className="pkgSliderHeading">
-                                                            <h5>Top hospitals</h5>
+                                                            <h5>Key Hospital Partners</h5>
                                                             <span onClick={() => this.props.viewDocprimeNetworkClicked()}>View Docprime Gold Network</span>
                                                         </div>
                                                         <div className="pkgSliderContainer">
@@ -153,7 +153,8 @@ class VipGoldView extends React.Component {
                                                                 </a>*/}
                                                                 {
                                                                     this.props.topHospitals.top_hospitals.map((data, key)=>{
-                                                                        return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(true,data)}>
+                                                                        return <a key={`${key}_${data.id}`} href={data.url?data.url:data.id} className="pkgcustCards"  onClick={(e)=>{e.preventDefault();
+                                                                            this.props.hospitalCardClicked(true,data)}}>
                                                                             <div className="pkgcardImgCont">
                                                                                 {
                                                                                     data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
@@ -189,7 +190,8 @@ class VipGoldView extends React.Component {
                                                                 </a>*/}
                                                                 {
                                                                     this.props.nearbyHospitals.hospitals.map((data, key)=>{
-                                                                        return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.carouselCardClicked(false,data)}>
+                                                                        return <a key={`${key}_${data.id}`} href={data.url?data.url:data.id} className="pkgcustCards"  onClick={(e)=>{e.preventDefault();
+                                                                            this.props.hospitalCardClicked(false,data)} }>
                                                                             <div className="pkgcardImgCont">
                                                                                 {
                                                                                     data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
@@ -207,8 +209,8 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                 }
                                             <div className="gold-accordion-container">
-                                                <div className="gold-acrd-main" onClick={this.ButtonHandler.bind(this,0)}>
-                                                    <div className="acdn-title">
+                                                <div className="gold-acrd-main">
+                                                    <div className="acdn-title" onClick={this.ButtonHandler.bind(this,0)}>
                                                         <h2 className="fw-500" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
                                                         <img className= {`acdn-arrow  ${this.state.tabsValue.indexOf(0)>-1?'':'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                     </div>
@@ -317,7 +319,7 @@ class VipGoldView extends React.Component {
                                                     {/* ===================inner accordion container=================== */}
                                                 </div>
                                             </div>
-                                            <p className="gold-trms-cnd">Terms of Use</p>
+                                            <p className="gold-trms-cnd" onClick={()=>this.props.history.push('/terms')}>Terms of Use</p>
                                         </div>
                                     </div>
                                     {/* ================== gold slider ================== */}

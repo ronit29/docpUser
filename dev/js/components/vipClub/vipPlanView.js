@@ -27,16 +27,20 @@ class VipPlanView extends React.Component {
     render() {
         let self = this
         let is_gold_selected = false
+        let selected_gold_plan_price 
             {
                 this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0?
                 Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                    if(value.is_selected){
+                        selected_gold_plan_price = value.deal_price
+                    }
                     if(parseInt(value.id) == parseInt(self.props.selected_plan_data.id)){
                         is_gold_selected = true
                     }
                 })
                 :''
             }
-            
+
         return (
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 ?
@@ -50,9 +54,9 @@ class VipPlanView extends React.Component {
                                         <div className="vip-tabs-container">
                                             {
                                                 this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
-                                                    <p onClick={this.props.selectGoldPlan.bind(this,true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold <span>
-                                                            {`(₹ ${this.props.selected_plan_data.deal_price})`}
-                                                        </span></p>
+                                                    <p onClick={this.props.selectGoldPlan.bind(this,true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold 
+                                                        <span> {`(₹ ${selected_gold_plan_price})`}</span>
+                                                    </p>
                                                     // Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
 
                                                     //     return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
@@ -157,7 +161,7 @@ class VipPlanView extends React.Component {
                                         {
                                             this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                             <div className="pakg-slider-container mb-24">
-                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.props.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.props.viewDocprimeNetworkClicked()} viewAll={true}/>
+                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.props.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.props.viewDocprimeNetworkClicked(is_gold_selected)} viewAll={true}/>
                                             </div>
                                         }
                                         {

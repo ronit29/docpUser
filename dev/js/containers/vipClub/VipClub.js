@@ -48,7 +48,7 @@ class VipClub extends React.Component{
 
     }
     render(){
-        if(this.props.LOAD_VIP_CLUB){
+        if(this.props.LOAD_VIP_CLUB  && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
             return <React.Fragment>
             
                 {/*<VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>*/}
@@ -58,7 +58,7 @@ class VipClub extends React.Component{
             </React.Fragment>
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
-                this.props.history.push('/vip-club-activated-details')
+                this.props.history.replace('/vip-club-activated-details')
             }
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">

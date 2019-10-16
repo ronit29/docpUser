@@ -206,7 +206,7 @@ class BookingView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked',city_id: city_id
         }
         GTM.sendEvent({ data: analyticData })
-
+        this.pros.clearVipSelectedPlan()
         this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 

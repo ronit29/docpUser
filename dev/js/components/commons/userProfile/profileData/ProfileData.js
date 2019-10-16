@@ -107,6 +107,7 @@ class ProfileData extends React.Component {
                                                 'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
                                             }
                                             GTM.sendEvent({ data: data })
+                                            this.props.clearVipSelectedPlan()
                                             this.props.history.push(`/vip-club-details`)
                                         }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
@@ -122,6 +123,7 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
+                                        this.props.clearVipSelectedPlan()
                                         this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
@@ -137,6 +139,7 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
+                                        this.props.clearVipSelectedPlan()
                                         this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
@@ -245,11 +248,12 @@ class ProfileData extends React.Component {
                               }
                               GTM.sendEvent({ data: data })
                                 e.preventDefault()
-                                this.props.history.push('/vip-club-details-details?source=profile-menu-vip-clicked&lead_source=Docprime')
+                                this.props.clearVipSelectedPlan()
+                                this.props.history.push('/vip-club-details?source=profile-menu-vip-clicked&lead_source=Docprime')
                               }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Vip 
@@ -266,11 +270,12 @@ class ProfileData extends React.Component {
                               }
                               GTM.sendEvent({ data: data })
                                 e.preventDefault()
+                                this.props.clearVipSelectedPlan()
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=profile-menu-gold-clicked&lead_source=Docprime')
                               }} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Gold 
