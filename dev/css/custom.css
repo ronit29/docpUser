@@ -4950,17 +4950,21 @@ p.gold-cmplt-second {
     z-index: 1;
 }
 img.gld-cd-icon {
-    width: 35px;
+    width: 32px;
     margin-right: 5px;
 }
 .gld-p-rc{
     color: #757575;
     font-weight: 500;
     margin-right: 4px;
+    font-size: 10px;
 }
 .gld-rate-lf{
     font-weight: 500;
-    font-size: 15px;
-    margin-right: 2px;
+    font-size: 11px;
+    margin-right: 0px;
 }
+
+
+
 /* ============ vip-gold  ============ */
