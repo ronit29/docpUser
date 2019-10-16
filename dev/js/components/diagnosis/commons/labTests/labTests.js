@@ -81,7 +81,7 @@ class LabTests extends React.Component {
         let test_info = ''
         let show_details = ''
         let {is_plan_applicable} = this.props
-        let { is_insurance_applicable, is_vip_applicable } = this.props
+        let { is_insurance_applicable, is_vip_applicable, is_covered_under_gold } = this.props
         let is_user_insured = false
         let selectedTestsCount = 0
         let vip_amount = 0
@@ -140,15 +140,15 @@ class LabTests extends React.Component {
                             <span className="test-price text-sm">Free</span>
                         </li>
                             : <li key={i + "srt"}>
-                                <label className={`${is_user_insured || is_vip_applicable?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
+                                <label className={`${is_user_insured || is_vip_applicable || is_covered_under_gold?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details ? test_info : ''}
                                     {
-                                        is_user_insured || is_vip_applicable?''
+                                        is_user_insured || is_vip_applicable || is_covered_under_gold?''
                                         :<input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />    
                                     }
                                     
                                     {
-                                        is_user_insured || is_vip_applicable?''
+                                        is_user_insured || is_vip_applicable || is_covered_under_gold?''
                                         :<span className="checkmark" />
                                     }
                                 </label>
@@ -192,7 +192,7 @@ class LabTests extends React.Component {
 
         //For Insured Person Remove unselected Tests/Packages
 
-        if(is_user_insured || is_vip_applicable){
+        if(is_user_insured || is_vip_applicable || is_covered_under_gold) {
             unSelectedTests = []
             unSelectedPackage = []
         }
@@ -311,7 +311,7 @@ class LabTests extends React.Component {
                             <span className="text-md fw-500">{this.props.data.total_test_count} total tests</span> : ''
                         }
                         {
-                            is_user_insured || is_vip_applicable?''
+                            is_user_insured || is_vip_applicable || is_covered_under_gold?''
                             :<a href="javascript:;" className="link-text text-md fw-500" onClick={this.openTests.bind(this)}>View all tests</a>
                         }
                             
@@ -352,7 +352,7 @@ class LabTests extends React.Component {
                 }
                 {/* ============================= gold card details ============================= */}
                 {
-                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 && false ?
+                    !is_covered_under_gold && !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0 && false ?
                     <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                         e.stopPropagation();
                         let analyticData = {

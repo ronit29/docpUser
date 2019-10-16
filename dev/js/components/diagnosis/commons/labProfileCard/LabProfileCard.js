@@ -161,7 +161,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled, is_gold } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         let pickup_text = ""
@@ -215,12 +215,13 @@ class LabProfileCard extends React.Component {
         let is_vip_applicable = false
         let vip_amount
         let is_enable_for_vip = false
-        let is_vip_gold = is_gold
+        let is_vip_gold = false
 
         if(vip && Object.keys(vip).length > 0){
             is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
             vip_amount = vip.vip_amount
             is_enable_for_vip = is_vip_enabled
+            is_vip_gold = vip.is_gold_member
             if(!is_vip_applicable){
                 is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
             }
@@ -277,7 +278,7 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable ?
+                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable && !is_vip_gold?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
@@ -334,7 +335,7 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    !is_insurance_applicable && is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
                                         <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
                                         <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>

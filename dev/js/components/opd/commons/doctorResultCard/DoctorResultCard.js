@@ -341,7 +341,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    is_insurance_applicable || is_vip_applicable ?
+                                    is_insurance_applicable || is_vip_applicable || is_gold_member || is_vip_gold?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
@@ -388,7 +388,7 @@ class DoctorProfileCard extends React.Component {
                                         : ''
                                 }
                                 {
-                                    enabled_for_hospital_booking && !is_vip_applicable && is_vip_gold && !parsed.fromVip && (discounted_price > vip_gold_price) ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    !is_insurance_applicable && !is_gold_member && enabled_for_hospital_booking && !is_vip_applicable && is_vip_gold && !parsed.fromVip && (discounted_price > vip_gold_price) ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
                                         <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {hospital.vip_convenience_amount + hospital.vip_gold_price || 0}</span><img style={{transform: 'rotate(-90deg)',width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                         
