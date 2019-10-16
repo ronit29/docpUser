@@ -186,7 +186,7 @@ class VipClub extends React.Component {
                                         </div>
                                     </div>
                                     :''}
-                                    {this.props.data && Object.keys(this.props.data).length > 0 ?
+                                    {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
                                         <div className="mb-24">
                                             <div className="vip-offer-cards p-12 text-center">
                                                 <p className="gold-cmplt-frst">You Saved <span>₹{this.props.data.total_vip_amount}</span> till now</p>
