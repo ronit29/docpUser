@@ -10,6 +10,7 @@ export default (props)=> {
 	let { is_labopd_enable_for_vip, is_labopd_enable_for_gold, is_vip_member, is_gold_member, covered_under_vip, vip_data, discounted_price, mrp } = props;
 	console.log(props);
 	let vip = vip_data;
+	let show_deal_price = vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price
 	return (
 		<React.Fragment>
 			{//for Vip Gold Purchase User
@@ -33,7 +34,14 @@ export default (props)=> {
 				(is_gold_member || is_vip_member ) && covered_under_vip && <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
 			}
 			{//for non gold ,non vip but for lab having gold or vip
-				!((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip) && <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+				!((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip) && 
+				<React.Fragment>
+					{
+						show_deal_price!=mrp?
+						<p className="cst-doc-price">₹ {show_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+						:<p className="cst-doc-price">₹ {mrp}</p>
+					}
+				</React.Fragment>
 			}
 			{
 				//for Non gold & non vip user, non gold vip but for vip enabled lab
