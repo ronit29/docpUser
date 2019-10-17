@@ -6,6 +6,7 @@ import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
 import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
+import CommonVipGoldBadge from '../../../commons/commonVipGoldBadge.js'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -161,7 +162,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance, vip, is_vip_enabled, is_gold } = this.props.details;
         distance = Math.ceil(distance / 1000);
 
         let pickup_text = ""
@@ -212,19 +213,26 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
             is_insurance_buy_able =  true
         }
-        let is_vip_applicable = false
-        let vip_amount
-        let is_enable_for_vip = false
-        let is_vip_gold = false
-
+        // let is_vip_applicable = false
+        // let vip_amount
+        // let is_enable_for_vip = false
+        // let is_vip_gold = false
+        let is_labopd_enable_for_vip = is_vip_enabled
+        let is_labopd_enable_for_gold = is_gold
+        let is_vip_member = false
+        let is_gold_member = false
+        let covered_under_vip = false
         if(vip && Object.keys(vip).length > 0){
-            is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
-            vip_amount = vip.vip_amount
-            is_enable_for_vip = is_vip_enabled
-            is_vip_gold = vip.is_gold_member
-            if(!is_vip_applicable){
-                is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
-            }
+            // is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+            // vip_amount = vip.vip_amount
+            // is_enable_for_vip = is_vip_enabled
+            // is_vip_gold = vip.is_gold_member
+            // if(!is_vip_applicable){
+            //     is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
+            // }
+            is_vip_member = vip.is_vip_member
+            is_gold_member = vip.is_gold_member
+            covered_under_vip = vip.covered_under_vip
         }
         return (
 
@@ -277,33 +285,36 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                         <div className="col-4">
+                            
                             {
-                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable && !is_vip_gold?
+                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip)?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !is_vip_applicable && !vip.is_gold_member?
-                                    discounted_price != mrp?
-                                    <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                    :<p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price} </p> : ''
+                                !is_insurance_applicable && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price}/>
                             }
                             {
-                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
+                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !(is_labopd_enable_for_vip || is_labopd_enable_for_gold) ?
+                                    <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price} </p>
+                                    : ''
+                            }
+                            {
+                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && !(is_labopd_enable_for_vip || is_labopd_enable_for_gold) ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             {
-                                is_vip_applicable && !vip.is_gold_member ?
-                                    <div className="text-right mb-2">
-                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
-                                    </div>
-                                : ''
+                                // is_vip_applicable && !vip.is_gold_member ?
+                                //     <div className="text-right mb-2">
+                                //         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                //     </div>
+                                // : ''
                             }
                             {
-                                vip.is_gold_member?
-                                    <div className="text-right mb-2">
-                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                    </div>
-                                    : ''
+                            //     vip.is_gold_member?
+                            //         <div className="text-right mb-2">
+                            //             <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                            //         </div>
+                            //         : ''
                             }
                             {
                                 is_insurance_applicable && !is_vip_applicable ?
@@ -314,12 +325,12 @@ class LabProfileCard extends React.Component {
                                     : ''
                             }
                             {
-                                   !is_insurance_applicable && is_vip_applicable ?
-                                        <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : ''
+                            //        !is_insurance_applicable && is_vip_applicable ?
+                            //             <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                            //             : ''
                             }
                             {
-                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
+/*                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
                                             this.props.clearVipSelectedPlan()
                                             this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
@@ -332,15 +343,15 @@ class LabProfileCard extends React.Component {
                                             <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
                                         </div>
-                                        : ''
+                                        : ''*/
                                 }
                                 {
-                                    !is_insurance_applicable && is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    // !is_insurance_applicable && is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
-                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                                        <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                    //     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
+                                    //     <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                         
-                                    </div>
+                                    // </div>
                                 }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
