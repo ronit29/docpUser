@@ -1411,7 +1411,7 @@ class BookingSummaryViewNew extends React.Component {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
         total_price = is_corporate || is_insurance_applicable || is_plan_applicable ? 0 : total_price
-        if(is_vip_applicable){
+        if(is_vip_applicable || (is_gold_member && is_selected_user_gold) ){
             total_price = finalMrp
         }
         let total_wallet_balance = 0
