@@ -1249,7 +1249,7 @@ class PatientDetailsNew extends React.Component {
 
         let vip_discount_price = 0//finalPrice - (vip_gold_price + vip_convenience_amount)
         let total_amount_payable = total_price
-
+        is_selected_user_gold = vip_data.cover_under_vip && is_selected_user_gold
         if(vip_data && (vip_data.is_enable_for_vip) ){
 
             vip_discount_price = total_price - vip_data.vip_amount
@@ -1486,7 +1486,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {
-                                                                    !is_vip_applicable && !is_insurance_applicable && vip_discount_price > 0  && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price>0?
+                                                                    !is_vip_applicable && !is_insurance_applicable  && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price>0?
                                                                     <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         let analyticData = {
