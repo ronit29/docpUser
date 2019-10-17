@@ -1705,7 +1705,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     {
                                                                                         is_gold_member && is_selected_user_gold?
                                                                                         <div className="payment-detail d-flex">
-                                                                                            <p style={{ color: 'green' }}>Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
+                                                                                            <p style={{ color: 'green' }}>Docprime Gold Discount <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
                                                                                             <p style={{ color: 'green' }}>- &#8377; {vip_discount_price}</p>
                                                                                         </div>
                                                                                         :''

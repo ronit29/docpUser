@@ -1611,7 +1611,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 {
                                                                                     is_gold_member && is_selected_user_gold?
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
+                                                                                        <p style={{ color: 'green' }}>Docprime Gold Discount <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {parseInt(priceData.mrp) - (parseInt(vip_amount) + parseInt(vip_convenience_amount))}</p>
                                                                                     </div>
                                                                                     :''
