@@ -244,6 +244,16 @@ class DoctorProfileCard extends React.Component {
             if (!is_vip_applicable && !parsed.fromVip) {
                 is_enable_for_vip = parsed.fromGoldVip || (is_gold_member && is_vip_gold) ? false : is_enable_for_vip
             }
+            
+            let is_labopd_enable_for_vip = hospital.is_enable_for_vip
+            let is_labopd_enable_for_gold = hospital.hosp_is_gold || parsed.fromGoldVip
+            let is_vip_member = hospital.is_vip_member
+            let is_gold_member = hospital.is_gold_member
+            let cover_under_vip  = hospital.cover_under_vip
+
+
+
+            
             //console.log('is_vip_applicable'+is_vip_applicable);console.log('is_vip_gold'+is_vip_gold);console.log('vip_gold_price'+vip_gold_price);console.log('discunted_price'+discounted_price);
             return (
                 <div className="cstm-docCard mb-3">
@@ -313,36 +323,52 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
-                                {/* {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !is_vip_applicable ?
-                                        <p className="cstm-doc-price">Docprime Price</p> : ''
-                                } */}
 
-                                {is_gold_member?'':
+                                
+                                {
+                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !((is_vip_member || is_gold_member) && covered_under_vip) ?
+                                        <p className="cstm-doc-price">Docprime Price</p> : ''
+                                }
+
+                                {  !is_insurance_applicable?
+                                    <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} /> 
+                                    :''
+                                }
+
+                                {
+                                    /*is_gold_member?'':
                                     is_vip_applicable ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                     </div>
-                                    : ''}
-                                {is_gold_member ?
+                                    : ''*/
+                                }
+                                {
+                                    /*is_gold_member ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                     </div>
-                                    : ''}
+                                    : ''*/
+                                }
                                 {
-                                    is_gold_member ?
+                                    /*is_gold_member ?
                                         <p className="cst-doc-price">₹ {vip_gold_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : ''
+                                        : ''*/
                                 }
 
                                 {
-                                    is_gold_member?'':is_vip_applicable ?
+                                    /*is_gold_member?'':is_vip_applicable ?
                                         <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : ''
+                                        : ''*/
                                 }
                                 {
-                                    is_insurance_applicable || is_vip_applicable || is_gold_member?
-                                        ''
+                                    is_insurance_applicable ?
+                                        <div>
+                                            <p className="cst-doc-price">₹ {0}</p>
+                                            <div className="ins-val-bx">Covered Under Insurance</div>
+                                        </div>                                   
+                                        :is_vip_applicable || is_gold_member?
+                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                             : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
@@ -364,12 +390,12 @@ class DoctorProfileCard extends React.Component {
                                         </p> : ''
                                 }
                                 {
-                                    is_insurance_applicable ?
+                                    /*is_insurance_applicable ?
                                         <div>
                                             <p className="cst-doc-price">₹ {0}</p>
                                             <div className="ins-val-bx">Covered Under Insurance</div>
                                         </div>
-                                        : ''
+                                        : ''*/
                                 }
                                 {
                                     !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable && !is_vip_gold ?
