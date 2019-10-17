@@ -291,7 +291,7 @@ class LabProfileCard extends React.Component {
                             <div className="col-4">
                                 <div className="pkg-card-price text-right">
                                     {
-                                        !is_vip_applicable || !vip.is_gold_member?
+                                        (!is_vip_applicable || !vip.is_gold_member) && false?
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }

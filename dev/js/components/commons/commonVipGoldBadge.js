@@ -7,11 +7,11 @@ import GTM from '../../helpers/gtm.js'
 //         let covered_under_vip = false
         
 export default (props)=> {
-	let { is_labopd_enable_for_vip, is_labopd_enable_for_gold, is_vip_member, is_gold_member, covered_under_vip, vip_data, discounted_price, mrp, enabled_for_hospital_booking, is_doc, is_package } = props;
+	let { is_labopd_enable_for_vip, is_labopd_enable_for_gold, is_vip_member, is_gold_member, covered_under_vip, vip_data, discounted_price, mrp, enabled_for_hospital_booking, is_doc, is_package, deal_price } = props;
 	let vip = vip_data;
-	let show_deal_price = vip.is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price
-	let display_price_widget = true
+	let show_deal_price = vip.is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price 
 	let gold_price = vip.vip_convenience_amount + vip.vip_gold_price
+	//let hide_gold_widget = gold_price > deal_price
 	return (
 		<React.Fragment>
 			{//for Vip Gold Purchase User
@@ -39,9 +39,9 @@ export default (props)=> {
 				<React.Fragment>
 					{
 						show_deal_price!=mrp && gold_price<mrp?
-						<p className="cst-doc-price">₹ {show_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+						<p className="cst-doc-price">₹ {parseInt(show_deal_price)} <span className="cstm-doc-cut-price">₹ {parseInt(mrp)} </span></p>
 						: (mrp>gold_price)?
-						<p className="cst-doc-price">₹ {mrp}</p>:''
+						<p className="cst-doc-price">₹ {parseInt(mrp)}</p>:''
 					}
 				</React.Fragment>
 			}
@@ -106,7 +106,7 @@ export default (props)=> {
 				    	<div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.props.goldClicked()}>
                            
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}

@@ -149,7 +149,7 @@ class ClinicSelector extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
-                                                :(hospital.vip.is_gold_member || hospital.vip.is_vip_member ) && hospital.vip.covered_under_vip ? <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                                :(hospital.vip.is_gold_member || hospital.vip.is_vip_member) && hospital.vip.cover_under_vip ? <p className="cst-doc-price">₹ {hospital.vip.vip_amount+hospital.vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {hospital.mrp} </span></p>
                                                 /*:hospital.vip.is_gold_member?
                                                     <span className="test-price txt-ornage">₹ {hospital.vip.vip_amount + hospital.vip.vip_convenience_amount}
                                                         <span className="test-mrp">₹ {hospital.mrp}</span>

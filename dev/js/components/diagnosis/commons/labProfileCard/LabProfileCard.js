@@ -276,7 +276,7 @@ class LabProfileCard extends React.Component {
                         <div className="col-4">
                             
                             {
-                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip)?
+                                false && !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip)?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {

@@ -250,7 +250,7 @@ class DoctorProfileCard extends React.Component {
             let is_labopd_enable_for_gold = hospital.hosp_is_gold || parsed.fromGoldVip
             let is_vip_member = hospital.is_vip_member
             let is_gold_member = hospital.is_gold_member
-            let covered_under_vip  = hospital.covered_under_vip
+            let covered_under_vip  = hospital.cover_under_vip
             let vip ={}
             vip.vip_amount = hospital.vip_amount
             vip.vip_convenience_amount = hospital.vip_convenience_amount
@@ -329,12 +329,12 @@ class DoctorProfileCard extends React.Component {
 
                                 
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !((is_vip_member || is_gold_member) && covered_under_vip) ?
+                                    false && !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !((is_vip_member || is_gold_member) && covered_under_vip) ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
 
                                 {  !is_insurance_applicable?
-                                    <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)}/> 
+                                    <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                     :''
                                 }
 

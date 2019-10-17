@@ -517,7 +517,7 @@ class PatientDetailsNew extends React.Component {
                 this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
         }*/
-        if (!this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
+        if (false && !this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ show_banner: true })
             return
         }
