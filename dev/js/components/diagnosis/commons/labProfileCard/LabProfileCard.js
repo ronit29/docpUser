@@ -308,7 +308,7 @@ class LabProfileCard extends React.Component {
                             //         : ''
                             }
                             {
-                                is_insurance_applicable && !is_vip_applicable ?
+                                is_insurance_applicable?
                                     <div>
                                         <p className="cst-doc-price">₹ {0}</p>
                                         <div className="ins-val-bx">Covered Under Insurance</div>
