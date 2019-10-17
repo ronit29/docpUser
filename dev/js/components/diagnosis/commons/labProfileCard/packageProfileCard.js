@@ -224,7 +224,7 @@ class LabProfileCard extends React.Component {
         
 
         let is_labopd_enable_for_vip = vip.is_enable_for_vip 
-        let is_labopd_enable_for_gold = vip.hosp_is_gold
+        let is_labopd_enable_for_gold = vip.is_gold
         let is_vip_member = vip.is_vip_member
         let is_gold_member = vip.is_gold_member
         let covered_under_vip  = vip.covered_under_vip
@@ -296,7 +296,7 @@ class LabProfileCard extends React.Component {
                                         :''
                                     }
                                     {  !is_insurance_applicable?
-                                        <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
+                                        <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
                                     :''
                                     }
                                     {
