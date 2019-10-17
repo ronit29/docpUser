@@ -1425,17 +1425,19 @@ class BookingSummaryViewNew extends React.Component {
         let vip_discount_price = 0
         let total_amount_payable = total_price
 
-        if(vip_data && (vip_data.covered_under_vip) ){
+        if(vip_data && (vip_data.is_enable_for_vip) ){
 
+            vip_discount_price = finalMrp - vip_data.vip_amount
+            
             if(vip_data.is_gold && is_selected_user_gold) {
 
                 total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             }else{
                 if(vip_data.is_gold){
-                    total_amount_payable = vip_data.vip_gold_price + vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                    //total_amount_payable = vip_data.vip_gold_price + vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                     vip_discount_price = finalMrp - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
-                }else {
+                }else if(is_vip_applicable){
                     total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }
             }
@@ -1650,7 +1652,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
                                                         {/* ============================= gold card details ============================= */}
                                                         {
-                                                            !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold?
+                                                            !is_vip_applicable && !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold?
                                                             <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 let analyticData = {
