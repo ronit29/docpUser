@@ -153,7 +153,8 @@ class LabTests extends React.Component {
                                     }
                                 </label>
                                 {
-                                    is_insurance_applicable || test.included_in_user_plan?
+                                    is_vip_applicable || is_covered_under_gold?''
+                                    :is_insurance_applicable || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
                                     :
                                     test.deal_price == test.mrp.split('.')[0]?
