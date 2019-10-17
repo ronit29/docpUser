@@ -6,6 +6,7 @@ import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
 import SnackBar from 'node-snackbar'
+import CommonVipGoldBadge from '../../../commons/commonVipGoldBadge.js'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -221,6 +222,13 @@ class LabProfileCard extends React.Component {
             is_vip_gold = vip.is_gold_member
         }
         
+
+        let is_labopd_enable_for_vip = vip.is_enable_for_vip 
+        let is_labopd_enable_for_gold = vip.hosp_is_gold
+        let is_vip_member = vip.is_vip_member
+        let is_gold_member = vip.is_gold_member
+        let covered_under_vip  = vip.covered_under_vip
+        
         return (
             <div className="pkg-card-container mb-3">
                 {!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?
@@ -287,40 +295,48 @@ class LabProfileCard extends React.Component {
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }
-                                    {is_vip_applicable && !vip.is_gold_member?
+                                    {  !is_insurance_applicable?
+                                        <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
+                                    :''
+                                    }
+                                    {
+                                    /*    is_vip_applicable && !vip.is_gold_member?
                                         <div className="text-right mb-2">
                                             <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                         </div>
-                                    :''}
+                                    :''*/
+                                    }
                                     {
-                                        vip.is_gold_member?
+                                        /*vip.is_gold_member?
                                             <div className="text-right mb-2">
                                                 <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                             </div>
-                                            : ''
+                                            : ''*/
                                     }
                                     {
-                                        vip.is_gold_member?
+                                        /*vip.is_gold_member?
                                             <p className="fw-500">₹ {parseInt(vip.vip_convenience_amount+vip.vip_amount)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
                                             </p>
-                                        :''
+                                        :''*/
                                     }
                                     {
-                                        is_vip_applicable && !vip.is_gold_member?
+                                        /*is_vip_applicable && !vip.is_gold_member?
                                             <p className="fw-500">₹ {parseInt(vip_amount)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
                                             </p>
-                                        :''
+                                        :''*/
                                     }
                                     
                                     {
                                         !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable && !vip.is_gold_member? 
-                                            parseInt(discounted_price)!= parseInt(mrp)?
+                                            !((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip)?
+                                            ''
+                                            :parseInt(discounted_price)!= parseInt(mrp)?
                                             <p className="fw-500">₹ {parseInt(discounted_price)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p>
                                             :<p className="fw-500">₹ {parseInt(discounted_price)}</p>
-                                             : ''
+                                            : ''
                                     }
                                     
                                     {
@@ -345,13 +361,13 @@ class LabProfileCard extends React.Component {
                                     }
                                     
                                     {
-                                    !is_insurance_applicable && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                    /*!is_insurance_applicable && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
                                        
                                         <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
                                         <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount+ vip.vip_gold_price}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                         
                                     </div>
-                                    :''
+                                    :''*/
                                     } 
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
