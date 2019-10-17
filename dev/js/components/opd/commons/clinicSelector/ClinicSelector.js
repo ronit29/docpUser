@@ -149,14 +149,15 @@ class ClinicSelector extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
-                                                :hospital.vip.is_gold_member?
+                                                :(hospital.vip.is_gold_member || hospital.vip.is_vip_member ) && hospital.vip.covered_under_vip ? <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                                /*:hospital.vip.is_gold_member?
                                                     <span className="test-price txt-ornage">₹ {hospital.vip.vip_amount + hospital.vip.vip_convenience_amount}
                                                         <span className="test-mrp">₹ {hospital.mrp}</span>
                                                     </span>
                                                 :hospital.vip.is_vip_member?
                                                     <span className="test-price txt-ornage">₹ {hospital.vip.vip_amount}
                                                         <span className="test-mrp">₹ {hospital.mrp}</span>
-                                                    </span>
+                                                    </span>*/
                                                 :hospital.enabled_for_cod && !hospital.enabled_for_prepaid
                                                 ?hospital.cod_deal_price
                                                     ?<span className="test-price txt-ornage">₹ {hospital.cod_deal_price}
@@ -183,8 +184,10 @@ class ClinicSelector extends React.Component {
                                         </div>
                                     </div>
                                     
-                            }
-                            {!hospital.vip.is_vip_member && hospital.vip.is_enable_for_vip && parseInt(vip_discounted_price) > 0?
+                            } 
+                            
+
+                            {!hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && hospital.discounted_price>(hospital.vip.vip_convenience_amount||0 + hospital.vip.vip_gold_price||0) ?
                                 <div className="d-flex align-items-center justify-content-end goldCard" onClick={(e) => {
                                     e.stopPropagation();
                                     let analyticData = {
@@ -193,7 +196,7 @@ class ClinicSelector extends React.Component {
                                     GTM.sendEvent({ data: analyticData })
                                     this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
                                 }}>
-                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip_discounted_price)}</span><img style={{transform: 'rotate(-90deg)',width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {hospital.vip.vip_gold_price+ hospital.vip.vip_convenience_amount}</span><img style={{transform: 'rotate(-90deg)',width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                 </div>
                             :''
                             }
