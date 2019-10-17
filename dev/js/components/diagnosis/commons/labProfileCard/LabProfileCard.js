@@ -213,23 +213,12 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
             is_insurance_buy_able =  true
         }
-        // let is_vip_applicable = false
-        // let vip_amount
-        // let is_enable_for_vip = false
-        // let is_vip_gold = false
         let is_labopd_enable_for_vip = is_vip_enabled
         let is_labopd_enable_for_gold = is_gold
         let is_vip_member = false
         let is_gold_member = false
         let covered_under_vip = false
         if(vip && Object.keys(vip).length > 0){
-            // is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
-            // vip_amount = vip.vip_amount
-            // is_enable_for_vip = is_vip_enabled
-            // is_vip_gold = vip.is_gold_member
-            // if(!is_vip_applicable){
-            //     is_enable_for_vip = is_vip_gold?false:is_enable_for_vip
-            // }
             is_vip_member = vip.is_vip_member
             is_gold_member = vip.is_gold_member
             covered_under_vip = vip.covered_under_vip
