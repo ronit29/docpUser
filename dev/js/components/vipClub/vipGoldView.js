@@ -121,7 +121,12 @@ class VipGoldView extends React.Component {
                                                         : ''}
 
                                                 </div>
-                                                <p className="gld-lst-foot-txt">Includes Unlimited Online Consultation <span>(General Physician)</span></p>
+                                                {
+                                                    this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.is_vip_gold && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 && this.props.selected_plan_data.show_consultation_text?
+                                                        <p className="gld-lst-foot-txt">Includes Unlimited Online Consultation <span>(General 
+                                                            Physician)</span></p>
+                                                    :''
+                                                }
                                             </div>
                                         </div>
                                     </div>
