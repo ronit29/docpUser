@@ -369,7 +369,9 @@ class DoctorProfileCard extends React.Component {
                                         <div>
                                             <p className="cst-doc-price">₹ {0}</p>
                                             <div className="ins-val-bx">Covered Under Insurance</div>
-                                        </div>                                   
+                                        </div>
+                                        :!((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip)?
+                                        ''                                   
                                         :is_vip_applicable || is_gold_member?
                                          ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
