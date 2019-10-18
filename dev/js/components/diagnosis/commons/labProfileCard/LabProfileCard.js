@@ -280,7 +280,7 @@ class LabProfileCard extends React.Component {
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price}/>
+                                !is_insurance_applicable && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
                             }
                             {
                                 !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !(is_labopd_enable_for_vip || is_labopd_enable_for_gold)
