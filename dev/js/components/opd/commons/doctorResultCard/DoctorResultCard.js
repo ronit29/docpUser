@@ -186,12 +186,12 @@ class DoctorProfileCard extends React.Component {
         } catch (e) {
             new_schema = ""
         }
-        let is_vip_gold = false
+        // let is_vip_gold = false
         let is_procedure = false
-        let is_gold_member =false
+        // let is_gold_member =false
         if (hospitals && hospitals.length) {
-            is_vip_gold = hospital.hosp_is_gold || parsed.fromGoldVip
-            is_gold_member = hospital.is_gold_member
+            // is_vip_gold = hospital.hosp_is_gold || parsed.fromGoldVip
+            // is_gold_member = hospital.is_gold_member
             let selectedCount = 0
             let unselectedCount = 0
             let finalProcedureDealPrice = discounted_price
@@ -226,8 +226,8 @@ class DoctorProfileCard extends React.Component {
             }
 
             let is_vip_applicable = hospital.is_vip_member && hospital.cover_under_vip
-            let vip_amount = hospital.vip_amount + hospital.vip_convenience_amount
-            let is_enable_for_vip = hospital.is_enable_for_vip || parsed.fromVip
+            // let vip_amount = hospital.vip_amount + hospital.vip_convenience_amount
+            // let is_enable_for_vip = hospital.is_enable_for_vip || parsed.fromVip
             let avgGoogleRating = ''
             let googleRatingCount = ''
             if (google_rating && google_rating.avg_rating && google_rating.rating_count) {
@@ -241,10 +241,10 @@ class DoctorProfileCard extends React.Component {
                 qualificationsArray = qualifications.filter(x => x.qualification.length <= 6);
             }
 
-            let vip_gold_price = (hospital.vip_convenience_amount + hospital.vip_gold_price || 0)
-            if (!is_vip_applicable && !parsed.fromVip) {
-                is_enable_for_vip = parsed.fromGoldVip || (is_gold_member && is_vip_gold) ? false : is_enable_for_vip
-            }
+            // let vip_gold_price = (hospital.vip_convenience_amount + hospital.vip_gold_price || 0)
+            // if (!is_vip_applicable && !parsed.fromVip) {
+            //     is_enable_for_vip = parsed.fromGoldVip || (is_gold_member && is_vip_gold) ? false : is_enable_for_vip
+            // }
             
             let is_labopd_enable_for_vip = hospital.is_enable_for_vip 
             let is_labopd_enable_for_gold = hospital.hosp_is_gold || parsed.fromGoldVip
@@ -386,7 +386,7 @@ class DoctorProfileCard extends React.Component {
                                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable && !is_vip_gold ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable && !is_labopd_enable_for_gold ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
