@@ -1434,11 +1434,11 @@ class BookingSummaryViewNew extends React.Component {
                 total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             }else{
-                if(vip_data.is_gold){
-                    //total_amount_payable = vip_data.vip_gold_price + vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
-                    vip_discount_price = finalMrp - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
-                }else if(is_vip_applicable){
+
+                if(is_vip_applicable) {
                     total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                }else if(vip_data.is_gold){
+                    vip_discount_price = finalMrp - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
                 }
             }
 

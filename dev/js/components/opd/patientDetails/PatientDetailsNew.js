@@ -1259,11 +1259,10 @@ class PatientDetailsNew extends React.Component {
                 total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount 
                 vip_discount_price = total_price - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             }else{
-                if(vip_data.hosp_is_gold){
-                    //total_amount_payable = vip_data.vip_gold_price + vip_data.vip_convenience_amount
+                if(is_vip_applicable) {
+                    total_amount_payable = vip_data.vip_amount
+                }else if(vip_data.hosp_is_gold) {
                     vip_discount_price = total_price - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
-                }else if(is_vip_applicable){
-                    total_amount_payable = vip_data.vip_amount   
                 }
             }
 
