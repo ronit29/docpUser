@@ -4964,8 +4964,11 @@ p.gold-sub-acrd-content {
     margin: 0 4px;
 }
 .gold-crd-rgt p {
-    color: #f78631;
+    color: white;
     font-weight: 600;
+    background: #55a740;
+    padding: 3px 8px;
+    border-radius: 15px;
 }
 p.gold-cmplt-frst {
     font-weight: 500;
@@ -5014,7 +5017,10 @@ img.gld-cd-icon {
     font-size: 11px;
     margin-right: 0px;
 }
-
+.gold-green-cont{
+    background: rgba(85, 167, 64, .17);
+    border: 1px solid #55a740;
+}
 
 
 /* ============ vip-gold  ============ */
