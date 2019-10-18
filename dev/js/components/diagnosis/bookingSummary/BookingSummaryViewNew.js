@@ -1210,7 +1210,7 @@ class BookingSummaryViewNew extends React.Component {
                 }*/
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
-                vip_total_amount +=parseFloat(twp.vip.vip_amount)
+                vip_total_amount +=parseInt(twp.vip.vip_amount)
                 vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(twp.vip.vip_gold_price)
 
