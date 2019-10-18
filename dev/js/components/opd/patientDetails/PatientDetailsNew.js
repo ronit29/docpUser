@@ -1488,6 +1488,7 @@ class PatientDetailsNew extends React.Component {
                                                                     !is_vip_applicable && !is_insurance_applicable  && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price>0?
                                                                     <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
                                                                         e.stopPropagation();
+                                                                        this.props.clearVipSelectedPlan()
                                                                         let analyticData = {
                                                                             'Category': 'ConsumerApp', 'Action': 'OpdVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-vip-gold-click',
                                                                         }
