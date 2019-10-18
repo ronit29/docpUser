@@ -260,7 +260,7 @@ class LocationElementsView extends React.Component {
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
                 </div>
 
-                <div className="col-12 vip-srch-pdng-adj" style={{ paddingBottom: 10 }}>
+                <div className={`col-12 ${this.props.fromVip?'vip-srch-pdng-adj':''}`} style={{ paddingBottom: 10 }}>
                     <p className="vip-srch-slct">Select your location</p>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div" onClick={this.goToLocation.bind(this)}>
