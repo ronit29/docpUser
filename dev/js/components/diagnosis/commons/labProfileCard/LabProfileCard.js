@@ -226,7 +226,7 @@ class LabProfileCard extends React.Component {
         return (
 
             <div className="cstm-docCard mb-3">
-                <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} onClick={this.bookNowClicked.bind(this, id, url)}>
+                <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} >
                     <div className="row no-gutters">
                         <div className="col-8">
                             <div className="cstm-doc-details-container labCardUiresponsive">
@@ -344,7 +344,7 @@ class LabProfileCard extends React.Component {
                                         
                                     // </div>
                                 }
-                            <button className="cstm-book-btn">Book Now</button>
+                            <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url)}>Book Now</button>
                         </div>
                     </div>
                     {/*

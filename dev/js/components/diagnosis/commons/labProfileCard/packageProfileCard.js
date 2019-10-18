@@ -249,7 +249,7 @@ class LabProfileCard extends React.Component {
                         <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div> */}
                     <div className="pkg-card-content m-0">
-                        <div className="row no-gutters" onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                        <div className="row no-gutters" >
                             <div className="col-8">
                                 <div className="pkg-cardleft-img nw-pkg-crd-img">
                                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -371,7 +371,7 @@ class LabProfileCard extends React.Component {
                                     } 
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
-                                    <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
+                                    <button className="pkg-btn-nw" style={{ width: '100%' }} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>Book Now</button>
                                 </a>
                                 {/*
                                     !is_insurance_applicable && !included_in_user_plan && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
