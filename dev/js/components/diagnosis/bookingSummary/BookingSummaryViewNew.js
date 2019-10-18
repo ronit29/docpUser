@@ -1135,6 +1135,9 @@ class BookingSummaryViewNew extends React.Component {
         let is_default_user_under_vip = false
         let is_tests_covered_under_vip = false
         let is_selected_user_gold = false
+        let vip_total_amount = 0
+        let vip_total_convenience_amount = 0
+        let vip_total_gold_price = 0
         let vip_data  = {}
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -1207,6 +1210,9 @@ class BookingSummaryViewNew extends React.Component {
                 }*/
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
+                vip_total_amount +=parseFloat(twp.vip.vip_amount)
+                vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
+                vip_total_gold_price += parseInt(twp.vip.vip_gold_price)
 
                 if(twp.is_radiology) {
                     r_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
@@ -1304,7 +1310,10 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }*/
-
+        //VIP TOTAL DATA 
+        vip_data.vip_amount = vip_total_amount
+        vip_data.vip_convenience_amount = vip_total_convenience_amount
+        vip_data.vip_gold_price = vip_total_gold_price
         //Check both pathology and radiology pickup status & toggle accordingly if not available
         if(!radiology_tests.length) {
             r_pickup_home = false
@@ -1650,7 +1659,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }
                                                                 </div> : ''
                                                         }
-                                                        {/* ============================= gold card details ============================= */}
+                                                        {/* ============================= gold card details ============================= */}     
                                                         {
                                                             !is_vip_applicable && !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold?
                                                             <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
