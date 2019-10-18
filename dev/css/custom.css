@@ -4969,6 +4969,7 @@ p.gold-sub-acrd-content {
     background: #55a740;
     padding: 3px 8px;
     border-radius: 15px;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
 }
 p.gold-cmplt-frst {
     font-weight: 500;
@@ -5020,6 +5021,7 @@ img.gld-cd-icon {
 .gold-green-cont{
     background: rgba(85, 167, 64, .17);
     border: 1px solid #55a740;
+    box-shadow: 0 0 0 0;
 }
 
 

@@ -1653,7 +1653,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         {/* ============================= gold card details ============================= */}
                                                         {
                                                             !is_vip_applicable && !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold?
-                                                            <div className="widget cpn-blur mrb-15 cursor-pointer" onClick={(e) => {
+                                                            <div className="widget cpn-blur mrb-15 cursor-pointer gold-green-cont" onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 let analyticData = {
                                                                     'Category': 'ConsumerApp', 'Action': 'LabSummaryVipGoldClick', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-summary-gold-click',
