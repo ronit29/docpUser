@@ -128,9 +128,9 @@ class ThyrocarePackageView extends React.Component {
                                                                 </p>
                                         </div>*/}
 
-                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,12227)}>
+                                        <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,12227)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 475</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 475</span>
                                         </div>
 
                                         <p className="stc-free-pick">Free Home Pickup</p>
@@ -143,9 +143,9 @@ class ThyrocarePackageView extends React.Component {
                                         {/*<div className="stc-offr-cpn">
                                             <p className="stc-off-para">Includes ₹ 150 OFF Coupon</p>
                                         </div>*/}
-                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,12213)}>
+                                        <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,12213)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 750</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 750</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
@@ -165,9 +165,9 @@ class ThyrocarePackageView extends React.Component {
                                                 OFF Coupon
                                                                 </p>
                                         </div>*/}
-                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,14947)}>
+                                        <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,14947)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=14947"
