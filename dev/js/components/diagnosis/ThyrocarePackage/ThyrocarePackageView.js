@@ -95,19 +95,19 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B<br />(Includes 60 tests)</p>
-                                            <p className="stc-price-cut">₹ 750{/*634 <span>₹ 750</span>*/}</p>
+                                            <p className="stc-price-cut">₹ 700{/*634 <span>₹ 750</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
-                                            <p className="stc-price-cut">₹ 1100{/*950 <span>₹ 1100</span>*/}</p>
+                                            <p className="stc-price-cut">₹ 1000{/*950 <span>₹ 1100</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 94 tests)</p>
-                                            <p className="stc-price-cut">₹ 1600{/*1440 <span>₹ 1600</span>*/}</p>
+                                            <p className="stc-price-cut">₹ 2000{/*1440 <span>₹ 1600</span>*/}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +119,12 @@ class ThyrocarePackageView extends React.Component {
                                                 OFF Coupon
                                                                 </p>
                                         </div>*/}
+
+                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                            <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 475</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                        </div>
+
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
                                             e.preventDefault()
@@ -129,6 +135,10 @@ class ThyrocarePackageView extends React.Component {
                                         {/*<div className="stc-offr-cpn">
                                             <p className="stc-off-para">Includes ₹ 150 OFF Coupon</p>
                                         </div>*/}
+                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                            <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 750</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                        </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
                                             e.preventDefault()
@@ -147,6 +157,10 @@ class ThyrocarePackageView extends React.Component {
                                                 OFF Coupon
                                                                 </p>
                                         </div>*/}
+                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                            <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                        </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=14947"
                                             onClick={(e) => {
@@ -1601,7 +1615,7 @@ class ThyrocarePackageView extends React.Component {
                                                 </div> : ''
                                         }
                                     </div>
-{/*                                    <div className="stc-accord-container">
+                                    {/*                                    <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
                                             <p>Pancreatic (Acute) Profile</p>
                                             <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
