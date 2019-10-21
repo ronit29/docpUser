@@ -69,6 +69,14 @@ class ThyrocarePackageView extends React.Component {
         this.props.history.push('/tax-saver-health-packages?package_category_ids=59')
     }
 
+    goldClicked(pkg_id) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'VipGoldThyrocareClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-gold-thyrocare-clicked', 'pkgId': pkg_id
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=thyrocarePkgListing&lead_source=Docprime')
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -120,7 +128,7 @@ class ThyrocarePackageView extends React.Component {
                                                                 </p>
                                         </div>*/}
 
-                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,12227)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 475</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                         </div>
@@ -135,7 +143,7 @@ class ThyrocarePackageView extends React.Component {
                                         {/*<div className="stc-offr-cpn">
                                             <p className="stc-off-para">Includes ₹ 150 OFF Coupon</p>
                                         </div>*/}
-                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,12213)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 750</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                         </div>
@@ -157,7 +165,7 @@ class ThyrocarePackageView extends React.Component {
                                                 OFF Coupon
                                                                 </p>
                                         </div>*/}
-                                        <div className="d-flex align-items-center justify-content-center goldCard">
+                                        <div className="d-flex align-items-center justify-content-center goldCard" onClick={this.goldClicked.bind(this,14947)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span><img style={{ transform: 'rotate(-90deg)', width: '10px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                         </div>
