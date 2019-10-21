@@ -4998,8 +4998,8 @@ p.gold-cmplt-second {
 }
 .goldCard{
     cursor: pointer;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     position: relative;
     z-index: 1;
 }
