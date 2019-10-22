@@ -5023,6 +5023,34 @@ img.gld-cd-icon {
     border: 1px solid #55a740;
     box-shadow: 0 0 0 0;
 }
-
-
+.gold-benifi-cards-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.gold-benifi-cards {
+    text-align: center;
+    margin-bottom: 10px;
+    width: 33.33%;
+}
+.gold-benifi-cards img {
+    width: 50px;
+}
+.gold-benifi-cards p {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.gold-benifi-cards p strong {
+    font-weight: 600;
+}
+.gld-hd-txt-algn{
+    align-items: flex-end;
+    display: flex;
+}
+.gold-price-card-addon{
+    margin: 8px -10px;
+    background-image: linear-gradient(to left, #fff7d9, #fffefc );
+    padding: 5px 10px;
+}
 /* ============ vip-gold  ============ */
