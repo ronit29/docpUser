@@ -119,11 +119,21 @@ class VipClubMemberDetailsView extends React.Component{
     				// membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		// membersId.push({[1]: 1, type:'adult'})
 		    		if(!Object.keys(props.vipClubMemberDetails).length){
+			    		// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    		// 	if(key == 0){
+			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
+			    		// 	}else{
+			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    		// 	}
+			    		// })
 			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(key == 0){
-			    				membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    			}else{
-			    				membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    			if(value.relation === 'SELF'){
+			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
+			    			}
+			    		})
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation !== 'SELF'){
+			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
 			    			}
 			    		})
 			    		if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length == 1){
@@ -131,11 +141,21 @@ class VipClubMemberDetailsView extends React.Component{
 			    		}
 			    	}
 		    		if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-		    			Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(key == 0){
-			    				membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    			}else{
-			    				membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+		    			// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    		// 	if(key == 0){
+			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
+			    		// 	}else{
+			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    		// 	}
+			    		// })
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation === 'SELF'){
+			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
+			    			}
+			    		})
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation !== 'SELF'){
+			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
 			    			}
 			    		})
 		    			if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
