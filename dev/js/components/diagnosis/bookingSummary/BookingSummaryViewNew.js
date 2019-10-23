@@ -1673,7 +1673,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                 <div className="widget-content d-flex jc-spaceb align-item-center">
                                                                     <div className="gold-crd-lft">
                                                                         <p><span>Save ₹{vip_discount_price}</span> on this appointment </p>
-                                                                        <p className="gld-crd-sb-txt">Become <img src={ASSETS_BASE_URL + '/img/gold-sm.png'} /> member @&#8377;199</p>
+                                                                        <p className="gld-crd-sb-txt">Become <img src={ASSETS_BASE_URL + '/img/gold-sm.png'} /> member @&#8377;299</p>
                                                                     </div>
                                                                     <div className="gold-crd-rgt">
                                                                         <p>Get Gold</p>
