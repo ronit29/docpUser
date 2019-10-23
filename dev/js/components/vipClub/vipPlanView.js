@@ -215,7 +215,7 @@ class VipPlanView extends React.Component {
                                             <div className="vip-free-doc vip-bkdiscount-bg">
                                                 <div className="bkdiscount-text">
                                                     <h4 className="vip-card-heading">Flat 25% discount on lab bookings </h4>
-                                                    <p>No cap on maximum discount</p>
+                                                    <p>Maximum discount of ₹1000 per booking</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -237,6 +237,68 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                 </div>
                                             }
+                                            {/* ================== gold benifits  ================== */}
+                                            <div className="pakg-slider-container mb-10">
+                                                <div className="pkgSliderHeading">
+                                                    <h5>Top Labs</h5>
+                                                </div>
+                                                <div className="pkgSliderContainer">
+                                                    <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 50% OFF</p>
+                                                        </a>
+                                                        
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/9be7c3c53ed30877c1433bf6d9f7d916_GjgCeik.jpg" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 50% OFF</p>
+                                                        </a>
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                        </a>
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/2c25c272c61b8b646301741f1c980387.jpg" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 20% OFF</p>
+                                                        </a>
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/45ae4aff8b1b9bf6d1dff2e86e97400a.jpg" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 50% OFF</p>
+                                                        </a>
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/da7ccb6125dda7b3eba1c38d7bd9c0b9_Zp0O1EX.jpg" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 70% OFF</p>
+                                                        </a>
+                                                        
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 18% OFF</p>
+                                                        </a>
+                                                        <a className="pkgcustCards">
+                                                            <div className="pkgcardImgCont">
+                                                                <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/c2748b2e22e2f8e3ed90cb3ca5ea29be_i3PE0Ya.jpg" style={{ width: '82px' }} />
+                                                            </div>
+                                                            <p className="gold-upto-offer">Upto 40% OFF</p>
+                                                        </a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* ================== gold benifits  ================== */}
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">
                                                     <div className="acdn-title" onClick={this.ButtonHandler.bind(this, 0)}>
