@@ -246,8 +246,8 @@ class VipClubView extends React.Component {
                             this.props.is_gold?
                                 <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                     <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
-                                    <p className="scrl-cont-dat gld-hd-txt-algn">Save more with exclusive </p>
-                                    <h1 className="scrl-cont-dat">membership</h1>
+                                    <p className="scrl-cont-dat gld-hd-txt-algn">DISCOUNT LIKE </p>
+                                    <h1 className="scrl-cont-dat">NEVER BEFORE</h1>
                                     {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                                 </div>
                             :
