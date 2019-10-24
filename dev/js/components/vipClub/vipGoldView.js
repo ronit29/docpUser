@@ -318,7 +318,7 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">whom can I add members under the plan? </h2>
+                                                                <h2 className="fw-500">Whom can I add members under the plan? </h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
@@ -429,10 +429,13 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button className="vip-foot-btn" onClick={this.props.proceed.bind(this)}><p>Buy Now @ ₹{this.props.selected_plan_data.deal_price}</p>
-                        <p className="vipbtn-sub-txt">Inclusive of GST
-                            {/* ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)} */}
-                        </p>
+                    <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}><p>
+                        Continue
+                        {/* {this.props.selected_plan_data.deal_price} */}
+                    </p>
+                        {/* <p className="vipbtn-sub-txt">Inclusive of GST
+                           
+                        </p> */}
                     </button>
                 </section>
                 : <div></div>

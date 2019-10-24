@@ -548,7 +548,7 @@ class VipClubMemberDetailsView extends React.Component{
 						<section className="profile-book-screen">
 							<div>
 								<div className="insurance-member-container" style={{padding:0}}>
-									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Proposer Details</h4>
+									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Primary Member Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
 										<div className="insurance-member-details mrt-20">
 											<VipProposer {...this.props} 
