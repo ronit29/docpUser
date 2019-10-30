@@ -120,7 +120,7 @@ class VipGoldView extends React.Component {
                                         <h4 className="vip-card-heading">Select your plan</h4>
                                         <div className="vip-offer-cards p-12">
                                             <div className="gold-offer-cont">
-                                                <h4 className="gold-ofr-hdng">Special Diwali Offer</h4>
+                                                <h4 className="gold-ofr-hdng">LIMITED PERIOD OFFER</h4>
                                                 <div className="gold-list-container">
                                                     {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
                                                         Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
