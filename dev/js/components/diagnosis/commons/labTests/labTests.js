@@ -164,13 +164,19 @@ class LabTests extends React.Component {
                                 }
                             </li>)
                     } else {
+                        if (test.test.show_details) {
+                            test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block', 'cursor':'pointer'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
+                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
+                            </span>
+                        }
+                        
                         unSelectedTests.push(test.hide_price
                             ? <li className="clearfix" key={i}>
                                 <span className="test-price">Free</span>
                             </li>
                             : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
-                                    {test.test.name}
+                                    {test.test.name} {test.test.show_details ? test_info : ''}
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
