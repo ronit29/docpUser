@@ -384,12 +384,12 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                             </div>
-                            {  !is_insurance_applicable?
-                                <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
-                            :''
-                            }
                         </div>
                     </div>
+                    {  !is_insurance_applicable?
+                        <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
+                    :''
+                    }
                     <div className="pkg-includes-container">
                         {category_details && category_details.length > 0 ?
                             <ul>

@@ -188,7 +188,7 @@ class ClinicSelector extends React.Component {
                             
 
                             {!hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && hospital.discounted_price>(hospital.vip.vip_convenience_amount||0 + hospital.vip.vip_gold_price||0) ?
-                                <div className="d-flex align-items-center justify-content-end goldCard" onClick={(e) => {
+                                <div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={(e) => {
                                     e.stopPropagation();
                                     this.props.clearVipSelectedPlan()
                                     let analyticData = {

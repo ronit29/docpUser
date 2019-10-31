@@ -18,7 +18,7 @@ export default (props)=> {
 			{
 				//for Non gold & non vip user, non gold vip but for vip enabled lab
 				!is_package && !is_doc && !is_gold_member && !is_vip_member && !is_labopd_enable_for_gold && is_labopd_enable_for_vip && 
-				<div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
+				<div className="d-flex align-items-center justify-content-end gold-price-card-addon" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
                         props.clearVipSelectedPlan()
                         props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
                         let data = {
@@ -34,7 +34,7 @@ export default (props)=> {
 			{
 				//for non gold & non vip , for hospital having gold
 				   !is_package && !is_doc && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
-				    	<div className="d-flex align-items-center justify-content-end goldCard" onClick={() => props.goldClicked()}>
+				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
@@ -44,7 +44,7 @@ export default (props)=> {
 			{
 				// for Non gold & non vip user, non gold vip but for vip enabled doctor
                 !is_package &&  is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && !is_labopd_enable_for_gold && is_labopd_enable_for_vip ?
-                    <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                    <div className="d-flex align-items-center justify-content-end gold-price-card-addon" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
                         props.clearVipSelectedPlan()
                         props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
                         let data = {
@@ -62,7 +62,7 @@ export default (props)=> {
             {
 				//for non gold & non vip , for hospital having gold doctor
 				!is_package && is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
-				    	<div className="d-flex align-items-center justify-content-end goldCard" onClick={() => props.goldClicked()}>
+				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
@@ -73,7 +73,7 @@ export default (props)=> {
 			{
 				//for non gold & non vip , for hospital having gold package
 				is_package && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
-				    	<div className="d-flex align-items-center justify-content-end goldCard" onClick={() => props.goldClicked()}>
+				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
                             <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
