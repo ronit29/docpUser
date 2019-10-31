@@ -7,6 +7,7 @@ import ProcedurePopup from '../PopUp'
 import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 import { AssertionError } from 'assert';
 import CommonVipGoldBadge from '../../../commons/commonVipGoldBadge.js'
+import CommonVipGoldNonLoginBadge from '../../../commons/commonVipGoldNonLoginBadge.js'
 const queryString = require('query-string');
 
 
@@ -433,6 +434,11 @@ class DoctorProfileCard extends React.Component {
                                 }
 
                             </div>
+
+                            {  !is_insurance_applicable?
+                                    <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
+                                    :''
+                                }
                         </div>
                         {/*
                             is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?

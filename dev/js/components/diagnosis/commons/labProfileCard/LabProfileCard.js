@@ -7,6 +7,7 @@ import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
 import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 import CommonVipGoldBadge from '../../../commons/commonVipGoldBadge.js'
+import CommonVipGoldNonLoginBadge from '../../../commons/commonVipGoldNonLoginBadge.js'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -346,6 +347,9 @@ class LabProfileCard extends React.Component {
                                 }
                             <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url)}>Book Now</button>
                         </div>
+                            {
+                                !is_insurance_applicable && <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
+                            }
                     </div>
                     {/*
                         is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
