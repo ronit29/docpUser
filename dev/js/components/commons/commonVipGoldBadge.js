@@ -45,6 +45,52 @@ export default (props)=> {
 					}
 				</React.Fragment>
 			}
+			{
+				//for Non gold & non vip user, non gold vip but for vip enabled lab
+				!is_package && !is_doc && !is_gold_member && !is_vip_member && !is_labopd_enable_for_gold && is_labopd_enable_for_vip && 
+				<div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
+                        props.clearVipSelectedPlan()
+                        props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'LabCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-card-vip-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                    }}>
+                        <p className="fw-500 grn-txt-vip">Save 25% with</p>
+                        <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                        <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
+                    </div>
+			}
+			{
+				// for Non gold & non vip user, non gold vip but for vip enabled doctor
+                !is_package &&  is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && !is_labopd_enable_for_gold && is_labopd_enable_for_vip ?
+                    <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                        props.clearVipSelectedPlan()
+                        props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                    }}>
+                        <p className="fw-500 grn-txt-vip">Save 70% with</p>
+                        <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                        <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
+                    </div>
+                    : ''
+            }
+
+            <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                        props.clearVipSelectedPlan()
+                        props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                    }}>
+                        <p className="fw-500 grn-txt-vip">Save 70% with</p>
+                        <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                        <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
+                    </div>
 
 		</React.Fragment>
 		)	
