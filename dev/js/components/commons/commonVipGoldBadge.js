@@ -79,19 +79,6 @@ export default (props)=> {
                     : ''
             }
 
-            <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
-                        props.clearVipSelectedPlan()
-                        props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
-                        }
-                        GTM.sendEvent({ data: data })
-                    }}>
-                        <p className="fw-500 grn-txt-vip">Save 70% with</p>
-                        <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
-                        <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
-                    </div>
-
 		</React.Fragment>
 		)	
 }
