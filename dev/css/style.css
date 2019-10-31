@@ -7265,7 +7265,7 @@ box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
 }
 .cstm-docCard-content {
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
 }
 p.cstm-card-loc-set {
     color: #b7b7b7;

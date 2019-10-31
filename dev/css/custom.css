@@ -5006,6 +5006,7 @@ p.gold-cmplt-second {
 img.gld-cd-icon {
     width: 32px;
     margin-right: 5px;
+    padding: 5px 0px 5px 0px;
 }
 .gld-p-rc{
     color: #757575;
@@ -5048,9 +5049,15 @@ img.gld-cd-icon {
     align-items: flex-end;
     display: flex;
 }
-.gold-price-card-addon{
-    margin: 8px -10px;
+.gold-price-card-addon-clinicSelector{
+	margin: 0px -14px;
     background-image: linear-gradient(to left, #fff7d9, #fffefc );
-    padding: 5px 10px;
+    padding: 0px 0px 0px 0px;
+
+}
+.gold-price-card-addon{
+    margin: 0px -10px;
+    background-image: linear-gradient(to left, #fff7d9, #fffefc );
+    padding: 0px 0px;
 }
 /* ============ vip-gold  ============ */

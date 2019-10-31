@@ -22,7 +22,7 @@ export default (props)=> {
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}
@@ -33,7 +33,7 @@ export default (props)=> {
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}
@@ -45,7 +45,7 @@ export default (props)=> {
                            
                            <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}

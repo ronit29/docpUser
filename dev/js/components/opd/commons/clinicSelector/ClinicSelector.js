@@ -188,7 +188,7 @@ class ClinicSelector extends React.Component {
                             
 
                             {!hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && hospital.discounted_price>(hospital.vip.vip_convenience_amount||0 + hospital.vip.vip_gold_price||0) ?
-                                <div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon m-0" onClick={(e) => {
+                                <div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon-clinicSelector" onClick={(e) => {
                                     e.stopPropagation();
                                     this.props.clearVipSelectedPlan()
                                     let analyticData = {
@@ -198,7 +198,7 @@ class ClinicSelector extends React.Component {
                                     this.props.history.push('/vip-gold-details?is_gold=true&source=opd-profile-vip-gold-click&lead_source=Docprime')
                                 }}>
                                     <p className="gld-p-rc">For</p>
-                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {hospital.vip.vip_gold_price+ hospital.vip.vip_convenience_amount}</span><img style={{transform: 'rotate(-90deg)',width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {hospital.vip.vip_gold_price+ hospital.vip.vip_convenience_amount}</span><img style={{transform: 'rotate(-90deg)',width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                 </div>
                             :''
                             }
