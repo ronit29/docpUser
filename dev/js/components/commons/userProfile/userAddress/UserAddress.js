@@ -30,6 +30,7 @@ class UserAddress extends React.Component {
         addressData.is_default = true
         this.props.updateUserAddress(addressData, (err, data) => {
             this.props.getUserAddress()
+            this.editAddress(addressData.id)
         })
     }
 
@@ -53,7 +54,7 @@ class UserAddress extends React.Component {
                                         <li className="fw-500 text-sm" style={{ width: '80%', wordWrap: 'break-word' }}>{curr.land_mark !== ""?curr.land_mark:curr.locality}</li>
                                     </ul>
                                 </div>
-                                <span onClick={this.editAddress.bind(this, curr.id)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">{this.state.pick ? "Pick" : "Edit"}</span>
+                                <span onClick={this.updateAddress.bind(this, curr)} style={{ top: 10 }} className="ct-img ct-img-sm arrow-forward-right">{this.state.pick ? "Pick" : "Edit"}</span>
                             </li>
                         }) : <div className="text-center pd-20">
                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/no-address.png"} />
