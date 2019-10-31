@@ -97,7 +97,7 @@ class VipGoldView extends React.Component {
                                     </div>
                                     {/* ================== gold benifits  ================== */}
                                     <div className="gold-white-bg-container mb-24">
-                                        <h4 className="vip-card-heading">Gold benefits</h4>
+                                        <h4 className="vip-card-heading">Gold Benefits</h4>
                                         <div className="gold-benifi-cards-cont">
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
@@ -105,7 +105,7 @@ class VipGoldView extends React.Component {
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                <p>Save big on <br /><strong></strong>Top Labs</p>
+                                                <p>Discounts on <br /><strong>5,000</strong> Labs</p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl3.png'} />
@@ -117,7 +117,7 @@ class VipGoldView extends React.Component {
                                     {/* ================== gold benifits  ================== */}
                                     {/* ================== gold HTML select  ================== */}
                                     <div className="mb-24">
-                                        <h4 className="vip-card-heading">Select your plan</h4>
+                                        <h4 className="vip-card-heading">Select Your Plan</h4>
                                         <div className="vip-offer-cards p-12">
                                             <div className="gold-offer-cont">
                                                 <h4 className="gold-ofr-hdng">LIMITED PERIOD OFFER</h4>

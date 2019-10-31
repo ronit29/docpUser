@@ -35,9 +35,9 @@ export default (props)=> {
 				//for non gold & non vip , for hospital having gold
 				   !is_package && !is_doc && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
-                           
+                           <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}
@@ -63,9 +63,9 @@ export default (props)=> {
 				//for non gold & non vip , for hospital having gold doctor
 				!is_package && is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
-                           
+                           <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price+ vip.vip_convenience_amount||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}
@@ -75,8 +75,9 @@ export default (props)=> {
 				is_package && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            
+                           <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                            <p className="gld-p-rc">Members</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price)+ parseInt(vip.vip_convenience_amount)||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             
                         </div>
 			}
