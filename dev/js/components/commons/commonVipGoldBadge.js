@@ -40,7 +40,7 @@ export default (props)=> {
 					{
 						show_deal_price!=mrp && gold_price<mrp?
 						<p className="cst-doc-price">₹ {parseInt(show_deal_price)} <span className="cstm-doc-cut-price">₹ {parseInt(mrp)} </span></p>
-						: (mrp>gold_price)?
+						: (mrp>=gold_price)?
 						<p className="cst-doc-price">₹ {parseInt(mrp)}</p>:''
 					}
 				</React.Fragment>
