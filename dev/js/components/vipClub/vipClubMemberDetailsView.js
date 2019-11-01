@@ -327,7 +327,7 @@ class VipClubMemberDetailsView extends React.Component{
 						    	members.gender=param.gender
 						    	members.profile=param.profile_id
 						    	members.city = self_profile.city
-					    		members.city_code = self_profile.city
+					    		members.city_code = self_profile.city_code
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
 					    		members.is_already_user = param.is_already_user
