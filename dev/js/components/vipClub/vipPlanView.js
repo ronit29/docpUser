@@ -29,7 +29,7 @@ class VipPlanView extends React.Component {
         let is_gold_selected = false
         let selected_gold_plan_price 
             {
-                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0?
+                this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length?
                 Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
                     if(value.is_selected){
                         selected_gold_plan_price = value.deal_price

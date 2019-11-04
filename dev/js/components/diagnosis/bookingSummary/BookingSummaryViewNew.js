@@ -111,17 +111,17 @@ class BookingSummaryViewNew extends React.Component {
 
         //Add UTM tags for building url
         try{
-            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+            if(parsed.utm_source && parsed.utm_source=='OfflineAffiliate'){
                 let sessionId = Math.floor(Math.random() * 103)*21 + 1050
                 if(sessionStorage) {
                     sessionStorage.setItem('sessionIdVal',sessionId)   
                 }
                 let spo_tags = {
                     utm_tags: {
-                        UtmSource: parsed.UtmSource||'',
-                        UtmTerm: parsed.UtmTerm||'',
-                        UtmMedium: parsed.UtmMedium||'',
-                        UtmCampaign: parsed.UtmCampaign||''
+                        utm_source: parsed.utm_source||'',
+                        utm_term: parsed.utm_term||'',
+                        utm_medium: parsed.utm_medium||'',
+                        utm_campaign: parsed.utm_campaign||''
                     },
                     time: new Date().getTime(),
                     currentSessionId: sessionId
