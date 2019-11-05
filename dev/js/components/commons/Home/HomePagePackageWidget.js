@@ -48,6 +48,14 @@ class HomePagePackageWidget extends React.Component {
         }
     }
 
+    goldClicked(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=homepagepackagegoldlisting&lead_source=Docprime')
+    }
+
     render() {
         return (
             <div className="pakg-slider-container mt-10 mb-3">
@@ -88,7 +96,8 @@ class HomePagePackageWidget extends React.Component {
                                                         :''
                                                     }
                                                 </div>
-                                                :<div className="pkg-card-price-offr">
+                                                :<React.Fragment>
+                                                <div className="pkg-card-price-offr">
                                                     {
                                                         listItem.discounted_price == listItem.mrp?
                                                         <div className="pkg-prc-ct">
@@ -106,6 +115,17 @@ class HomePagePackageWidget extends React.Component {
                                                         <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
                                                     }
                                                 </div>
+                                                {
+                                                        !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount||0 + listItem.vip.vip_gold_price||0) && listItem.vip.is_gold?
+                                                        <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked.bind(this)}>
+                                                            <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                                            <span>Price</span>
+                                                            <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
+                                                            <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                                        </div>
+                                                        :''
+                                                }
+                                                </React.Fragment>
                                         : ''}
                                 </div>
                             })
