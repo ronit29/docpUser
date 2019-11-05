@@ -48,6 +48,14 @@ class HomePagePackageWidget extends React.Component {
         }
     }
 
+    goldClicked(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=homepagepackagegoldlisting&lead_source=Docprime')
+    }
+
     render() {
         return (
             <div className="pakg-slider-container mt-10 mb-3">
@@ -109,10 +117,10 @@ class HomePagePackageWidget extends React.Component {
                                                 </div>
                                                 {
                                                         !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount||0 + listItem.vip.vip_gold_price||0) && listItem.vip.is_gold?
-                                                        <div className="pkg-prc-ct">
+                                                        <div className="pkg-prc-ct" onClick={this.goldClicked.bind(this)}>
                                                             <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>Price
-                                                            <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount} 
-                                                            </p>
+                                                            <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
+                                                            <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                                         </div>
                                                         :''
                                                 }
