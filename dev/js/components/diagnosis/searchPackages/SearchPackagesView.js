@@ -34,6 +34,7 @@ class SearchPackagesView extends React.Component {
         if (true) {
             this.getLabList(this.props)
         }
+        const parsed = queryString.parse(this.props.location.search)
         if (this.state.seoFriendly) {
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
                 if (footerData) {
@@ -44,6 +45,44 @@ class SearchPackagesView extends React.Component {
 
         if (window) {
             window.scrollTo(0, 0)
+        }
+
+        try{
+            if(parsed.utm_source && parsed.utm_source=='OfflineAffiliate'){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let spo_tags = {
+                    utm_tags: {
+                        utm_source: parsed.utm_source||'',
+                        utm_term: parsed.utm_term||'',
+                        utm_medium: parsed.utm_medium||'',
+                        utm_campaign: parsed.utm_campaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.props.setCommonUtmTags('spo', spo_tags)
+            }
+        }catch(e) {
+
+        }
+
+        //Clear Utm tags for SPO, after 15 minutes
+        let currentTime = new Date().getTime()
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            let sessionVal = parseInt(sessionStorage.getItem('sessionIdVal'))
+            if(spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
+                let time_offset = (currentTime - spo_tags.time)/60000
+                //Clear SPO utm tags after 15minutes
+                //900
+                if(time_offset>180) {
+                    this.props.unSetCommonUtmTags('spo')
+                }
+            }
         }
 
         this.setState({ showChatWithus: true })
@@ -214,7 +253,7 @@ class SearchPackagesView extends React.Component {
         let gender = filterCriteriaPackages.gender || ""
         let package_type = filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
-        let package_ids = filterCriteriaPackages.package_ids || ""
+        let package_ids = filterCriteriaPackages.package_ids || ""       
         // let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 
         let url
@@ -243,6 +282,22 @@ class SearchPackagesView extends React.Component {
 
         if (parsed.isComparable) {
             url += '&isComparable=true'
+        }
+        
+        if(parsed.utm_term){
+            url += `&utm_term=${parsed.utm_term || ""}`
+        }
+
+        if(parsed.utm_medium){
+            url += `&utm_medium=${parsed.utm_medium || ""}`
+        }
+
+        if(parsed.utm_campaign){
+            url += `&utm_campaign=${parsed.utm_campaign || ""}`
+        }
+
+        if(parsed.utm_source){
+            url += `&utm_source=${parsed.utm_source || ""}`
         }
 
         return url

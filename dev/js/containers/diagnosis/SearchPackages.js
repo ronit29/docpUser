@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -109,7 +109,8 @@ const mapStateToProps = (state, passedProps) => {
         offerList,
         is_login_user_insured,
         insurance_status,
-        device_info
+        device_info,
+        common_utm_tags
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -138,7 +139,8 @@ const mapStateToProps = (state, passedProps) => {
         compare_packages,
         insurance_status,
         device_info,
-        common_settings
+        common_settings,
+        common_utm_tags
     }
 
 }
@@ -159,7 +161,9 @@ const mapDispatchToProps = (dispatch) => {
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
+        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag))
     }
 }
 
