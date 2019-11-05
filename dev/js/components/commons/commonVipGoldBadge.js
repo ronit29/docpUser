@@ -32,7 +32,7 @@ export default (props)=> {
                 </React.Fragment>
 			}
 			{//for gold or vip enabled user
-				(is_gold_member || is_vip_member ) && covered_under_vip && <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+				(is_gold_member || is_vip_member ) && covered_under_vip && <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {parseInt(mrp)} </span></p>
 			}
 			{//for non gold ,non vip but for lab having gold or vip
 				!((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip) && 
