@@ -77,13 +77,22 @@ class VipClub extends React.Component {
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
-                        <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
-                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                            {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
+                        {
+                            this.props.is_gold?
+                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
+                                <p className="scrl-cont-dat">You are a Docprime Gold Member </p>
                                 <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
-                            {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
-                        </div>
+                            </div>
+                        :
+                            <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
+                                <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                                {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
+                                    <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
+                                {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                            </div>
+                        }
                     </div>
                 {/* last screen design */}
                 <section className="container container-top-margin sub-pdng-add" style={{ marginTop: '' }}>
@@ -95,23 +104,23 @@ class VipClub extends React.Component {
                                     {this.props.data.is_member_allowed?
                                         <div className="vip-act-pop mb-3">
                                             <div className="vip-wrn-img">
-                                                <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
+                                                <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
                                                 <div className="vip-wrn-content">
-                                                    <h5>Activate your subscription now</h5>
+                                                    <h5>Your subscription is now active</h5>
                                                     {
                                                         this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0?
-                                                        <p> {`Add remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members details to activate your subscription`}</p>
+                                                        <p> {`You can add the remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members anytime until the expiry date.`}</p>
 
                                                         :''
                                                     }
                                                 </div>
                                             </div>
-                                                <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
+                                                <button onClick={this.AddMemberDetails.bind(this)}>Add member</button>
                                         </div>
                                     :''
                                     }
                                     {
-                                        this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
+                                        !this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
                                             <React.Fragment>
                                                 <div className="vip-dsh-main-cont mb-3">
                                                     <div className="vip-acnt-heading">
@@ -162,6 +171,7 @@ class VipClub extends React.Component {
                                             </React.Fragment>
                                         :''
                                     }
+                                    {!this.props.is_gold?
                                     <div className="vip-offer-cards mb-3">
                                         <div className="vip-sbs-crd">
                                             <h5 className="vip-brder-hdng">Tax Benefit</h5>
@@ -175,6 +185,20 @@ class VipClub extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+                                    :''}
+                                    {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
+                                        <div className="mb-24">
+                                            <div className="vip-offer-cards p-12 text-center">
+                                                <p className="gold-cmplt-frst">You Saved <span>₹{this.props.data.total_vip_amount}</span> till now</p>
+                                                <p className="gold-cmplt-second">Total Gold appointments till now </p>
+                                                <div className="gld-cmplt-lst">
+                                                    <p className="gold-cmplt-frst"><span>{this.props.data.lab_appointment_count}</span> Lab</p>
+                                                    <p className="gold-cmplt-frst"><span>{this.props.data.opd_appointment_count}</span> Doctor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        :''
+                                    }
                                     {
                                         this.props.data.user && Object.keys(this.props.data.user).length >0 && this.props.data.user.plus_members && this.props.data.user.plus_members.length > 0?
                                             <div className="vip-offer-cards mb-3">

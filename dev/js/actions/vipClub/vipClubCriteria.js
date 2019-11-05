@@ -1,16 +1,16 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getVipList = (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => (dispatch) => {
+export const getVipList = (is_endorsement,data,callback) => (dispatch) => {
+    let is_vip_gold = false
     let lat
     let long
     let latitude = 28.644800
     let longitude = 77.216721
-    
-    if (selectedLocation) {
-        lat = selectedLocation.geometry.location.lat
-        long = selectedLocation.geometry.location.lng
+    if (data.selectedLocation) {
+        lat = data.selectedLocation.geometry.location.lat
+        long = data.selectedLocation.geometry.location.lng
 
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
@@ -21,22 +21,32 @@ export const getVipList = (is_endorsement,selectedLocation,isSalesAgent,isAgent,
         longitude = longitude
     }
     let url = '/api/v1/plus/list?lat='+latitude+'&long='+longitude
-    if(isSalesAgent){
-        url +='&utm_source='+isSalesAgent
+    if(data.isSalesAgent){
+        url +='&utm_source='+data.isSalesAgent
     }
-    if(isAgent){
-        url += '&is_agent='+isAgent
+    if(data.isAgent){
+        url += '&is_agent='+data.isAgent
+    }
+    if(data.is_gold){
+        url += '&is_gold='+data.is_gold
+        is_vip_gold = data.is_gold
+    }
+    if(data.all){
+        url += '&all='+data.all
+        is_vip_gold = data.all
     }
     return API_GET(url).then(function (response) {
         dispatch({
             type: GET_VIP_LIST,
-            payload: response
+            payload: response,
+            is_vip_gold: is_vip_gold
         })
         if(callback) callback(response)
     }).catch(function (error) {
         dispatch({
             type: GET_VIP_LIST,
-            payload: error
+            payload: error,
+            is_vip_gold: is_vip_gold
         })
         if(callback) callback(error)
         throw error
@@ -225,5 +235,11 @@ export const retrieveMembersData = (callback) => (dispatch) =>{
 
 export const vipPlusLead = (data) => (dispatch) => {
     API_POST(`api/v1/plus/push_vip_lead`, data).then(function (response) {
+    })
+}
+
+export const clearVipSelectedPlan = () =>(dispatch) =>{
+    dispatch({
+        type: CLEAR_VIP_SELECTED_PLAN
     })
 }

@@ -153,7 +153,13 @@ class VipLoginPopup extends React.Component {
                         //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                         // }
                         // GTM.sendEvent({ data: data })
-                        this.props.getVipList(false, this.props.selectedLocation,this.props.isSalesAgent,this.props.isAgent,(resp) => {
+                        let api_params = {} 
+                        api_params.selectedLocation = this.props.selectedLocation
+                        api_params.isSalesAgent = this.props.isSalesAgent
+                        api_params.isAgent = this.props.isAgent
+                        api_params.is_gold = this.props.is_gold
+                        api_params.all = this.props.is_vip_gold
+                        this.props.getVipList(false, api_params,(resp) => {
                             this.props.getUserProfile()
                             if(!this.props.isSalesAgent && !this.props.isAgent){
                                 if (!resp.certificate) {

@@ -138,7 +138,7 @@ class FixedMobileFooter extends React.Component {
                         <span>Online Consultation</span>
                     </div>
 
-                    <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
+                    {/*<div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-vip-clicked'
                         }
@@ -148,13 +148,30 @@ class FixedMobileFooter extends React.Component {
                         <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
                         <div className="nw-mid-container-with-img">
                             <div className="vip-foot-cont">
+                                 <img style={{ width: 40 }} src={ASSETS_BASE_URL + "/img/viplog.png"} />
+                            </div>
+                            
+                            <p className="vip-foot-txt">Save Upto 70%</p>
+                        </div>
+                    </div>*/}
+
+                    <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-gold-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        this.navigateTo('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+                    }}>
+                        <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
+                        <div className="nw-mid-container-with-img">
+                            <div className="vip-foot-cont">
                                 {/* <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} /> */}
                                  {/* <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} /> */}
-                                 <img style={{ width: 40 }} src={ASSETS_BASE_URL + "/img/viplog.png"} />
+                                 <img style={{ width: 50 }} src={ASSETS_BASE_URL + "/img/gold-lg.png"} />
                             </div>
                             {/* <p style={{ fontSize: 11 }}>Free Online</p>
                             <p style={{ fontSize: 11 }}>Doctor Consult</p> */}
-                            <p className="vip-foot-txt">Save Upto 70%</p>
+                            <p className="vip-foot-txt">Exclusive <br/>Discounts</p>
                         </div>
                     </div>
 

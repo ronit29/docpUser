@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN
 } from '../../constants/types';
 
 const defaultState = {
@@ -34,14 +34,38 @@ export default function (state = defaultState, action) {
                 newState.LOAD_VIP_CLUB = false
             }else if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
                 newState.vipClubList = action.payload.plus_data[0]
-                if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
-                    if(Object.keys(newState.selected_vip_plan).length == 0){
-                        newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
-                        if(Object.keys(newState.selected_vip_plan).length){
-                            newState.selected_vip_plan = newState.selected_vip_plan
+                if(action.is_vip_gold){
+                    if(action.payload.plus_data[0].gold_plans && action.payload.plus_data[0].gold_plans.length >0){
+                        if(Object.keys(newState.selected_vip_plan).length == 0){
+                            newState.selected_vip_plan = action.payload.plus_data[0].gold_plans.filter((x => x.is_selected))[0]
+                            if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan.isForceUpdate = true
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
                         }
+                        // else{
+                        //     if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
+                        //         newState.selected_vip_plan = newState.selected_vip_plan
+                        //     }
+                        // }
+                        newState.LOAD_VIP_CLUB = true
                     }
-                    newState.LOAD_VIP_CLUB = true
+                }else{
+                    if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
+                        if(Object.keys(newState.selected_vip_plan).length == 0){
+                            newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
+                            if(Object.keys(newState.selected_vip_plan).length){
+                                newState.selected_vip_plan.isForceUpdate = true
+                                newState.selected_vip_plan = newState.selected_vip_plan
+                            }
+                        }
+                        // else{
+                        //     if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length > 0 && !newState.selected_vip_plan.isForceUpdate){
+                        //         newState.selected_vip_plan = newState.selected_vip_plan
+                        //     }
+                        // }
+                        newState.LOAD_VIP_CLUB = true
+                    }
                 }
             }
             return newState
@@ -191,6 +215,15 @@ export default function (state = defaultState, action) {
             }
             newState.showVipDetailsView=true
             return newState 
+        }
+        case CLEAR_VIP_SELECTED_PLAN:{
+            let newState = {
+                ...state
+            }
+            if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length){
+                newState.selected_vip_plan = {}
+            }
+            return newState
         }
     }
     return state

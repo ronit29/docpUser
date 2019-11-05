@@ -119,11 +119,21 @@ class VipClubMemberDetailsView extends React.Component{
     				// membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		// membersId.push({[1]: 1, type:'adult'})
 		    		if(!Object.keys(props.vipClubMemberDetails).length){
+			    		// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    		// 	if(key == 0){
+			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
+			    		// 	}else{
+			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    		// 	}
+			    		// })
 			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(key == 0){
-			    				membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    			}else{
-			    				membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    			if(value.relation === 'SELF'){
+			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
+			    			}
+			    		})
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation !== 'SELF'){
+			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
 			    			}
 			    		})
 			    		if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length == 1){
@@ -131,11 +141,21 @@ class VipClubMemberDetailsView extends React.Component{
 			    		}
 			    	}
 		    		if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-		    			Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(key == 0){
-			    				membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    			}else{
-			    				membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+		    			// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    		// 	if(key == 0){
+			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
+			    		// 	}else{
+			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    		// 	}
+			    		// })
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation === 'SELF'){
+			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
+			    			}
+			    		})
+			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    			if(value.relation !== 'SELF'){
+			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
 			    			}
 			    		})
 		    			if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
@@ -307,7 +327,7 @@ class VipClubMemberDetailsView extends React.Component{
 						    	members.gender=param.gender
 						    	members.profile=param.profile_id
 						    	members.city = self_profile.city
-					    		members.city_code = self_profile.city
+					    		members.city_code = self_profile.city_code
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
 					    		members.is_already_user = param.is_already_user
@@ -528,7 +548,7 @@ class VipClubMemberDetailsView extends React.Component{
 						<section className="profile-book-screen">
 							<div>
 								<div className="insurance-member-container" style={{padding:0}}>
-									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Proposer Details</h4>
+									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Primary Member Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
 										<div className="insurance-member-details mrt-20">
 											<VipProposer {...this.props} 

@@ -10,20 +10,21 @@ class TopChatWidget extends React.Component {
 	widgetClick(knowMore = false) {
 
 		// this.props.history.push('/mobileviewchat')
-		if(knowMore) {
+		if (knowMore) {
 			let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
+				'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
 			}
 			GTM.sendEvent({ data: gtmData })
-			this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked&lead_source=Docprime')
-		}else{
+			this.props.clearVipSelectedPlan()
+			this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+		} else {
 			let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
+				'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
 			}
 			GTM.sendEvent({ data: gtmData })
 			this.props.history.push('/mobileviewchat')
 		}
-		
+
 	}
 
 	render() {
@@ -32,10 +33,10 @@ class TopChatWidget extends React.Component {
 				<div className=" widget mrb-10 cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #ffb601', alignItems: 'center', justifyContent: 'space-between' }} onClick={() => this.widgetClick(true)}>
 					<div className="home-vip-cont">
 						<div className="doc-avatar">
-							<img src={ASSETS_BASE_URL + '/img/viplog.png'} />
+							<img style={{width: 30}} src={ASSETS_BASE_URL + '/img/gold-lg.png'} />
 						</div>
 						<div style={{ flex: 1 }} >
-							<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime VIP member <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
+							<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime Gold member<span className="vip-tp-sub-txt">Save more with exclusive membership</span></p>
 						</div>
 					</div>
 					<div className="chat-now-btn text-right">

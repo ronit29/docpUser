@@ -35,7 +35,7 @@ class SearchResultsView extends React.Component {
             quickFilter: {},
             detectLocation: false,
             sponsorData: [],
-            fromVip: parsed && parsed.fromVip,
+            fromVip: parsed && (parsed.fromVip || parsed.fromGoldVip),
             search_string:'',
             showSearchBtn:false,
             scrollEventAdded: false
@@ -440,6 +440,10 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
+        if(parsed && parsed.fromGoldVip) {
+            is_filter_applied = true
+        }
+
         let is_params_exist = false
         url = `${window.location.pathname}`
         
@@ -460,6 +464,10 @@ class SearchResultsView extends React.Component {
 
             if (parsed && parsed.utm_term) {
                 url += `&utm_term=${parsed.utm_term || ''}`
+            }
+
+            if(parsed && parsed.fromGoldVip) {
+                url += `&fromGoldVip=${parsed.fromGoldVip || ''}`
             }
 
             is_params_exist = true

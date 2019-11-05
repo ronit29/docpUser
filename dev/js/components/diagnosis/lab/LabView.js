@@ -84,11 +84,14 @@ class LabView extends React.Component {
         let hide_price = false
         let is_user_insured = false
         let is_vip_applicable = false
+        let is_user_gold_vip = false
+        let is_covered_under_gold = false
 
         //For Insured Person Remove unselected Tests/Packages
 
         if (this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
             is_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_user_gold_vip = this.props.profiles[this.props.defaultProfile].is_vip_gold_member
         }
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
 
@@ -118,9 +121,12 @@ class LabView extends React.Component {
                     }
 
                     if(test.vip && test.vip.covered_under_vip){
-                        is_vip_applicable = true
+                        is_vip_applicable = true && is_user_gold_vip
                     }else{
 
+                    }
+                    if(test.vip && test.vip.is_gold_member) {
+                        is_covered_under_gold = is_user_insured
                     }
                 }
 
@@ -191,7 +197,7 @@ class LabView extends React.Component {
                                             }} noIndex={this.props.location && this.props.location.pathname && this.props.location.pathname.includes('ck-birla-hospital-for-women-in-sector-50-gurgaon-lpp')} />
                                         }
 
-                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly} is_vip_applicable={is_vip_applicable} />
+                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly} is_vip_applicable={is_vip_applicable} is_covered_under_gold={is_covered_under_gold}/>
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1

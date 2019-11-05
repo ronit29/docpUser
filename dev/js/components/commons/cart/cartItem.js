@@ -310,12 +310,13 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount } = this.props.actual_data
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount, is_gold_member, vip_convenience_amount } = this.props.actual_data
         if (date) {
             date = new Date(date)
         }
         let parsed = queryString.parse(this.props.location.search)
         let is_vip_applicable = is_vip_member && cover_under_vip
+        let is_gold_price = vip_amount + vip_convenience_amount
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -326,7 +327,7 @@ class CartItem extends React.Component {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
                         {
-                            is_vip_applicable?
+                            is_gold_member?'': is_vip_applicable?
                                 <div className="shopng-cart-price">
                                     <p>₹ {vip_amount} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
 
@@ -335,7 +336,17 @@ class CartItem extends React.Component {
                                 :''
                         }
 
-                        {is_vip_applicable? '':
+                        {
+                            is_gold_member?
+                                <div className="shopng-cart-price">
+                                    <p>₹ {is_gold_price} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
+
+                                    </p>
+                                </div>
+                                :''
+                        }
+
+                        {is_vip_applicable || is_gold_member? '':
                             is_appointment_insured ?
                                 <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
                                 :
@@ -374,8 +385,11 @@ class CartItem extends React.Component {
                             {
                                 doctor ? <div className="dr-profile mrt-10">
                                     <h1 className="dr-name vip-ico-hdng">Dr. {doctor.name} 
-                                        {is_vip_applicable?
+                                        {is_gold_member?'': is_vip_applicable?
                                                <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        :''}
+                                        {is_gold_member?
+                                               <img style={{height:'15px', width:'35px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
                                         :''}
                                     </h1>
                                     {
@@ -383,7 +397,9 @@ class CartItem extends React.Component {
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_vip_applicable?
+                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_gold_member?
+                                            <img style={{height:'15px', width:'35px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            : is_vip_applicable?
                                                <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                         :''}</h1>
                                     </div>
@@ -439,14 +455,21 @@ class CartItem extends React.Component {
 
                                                     
                                                     {
-                                                        is_vip_applicable?
+                                                        is_gold_member?'':is_vip_applicable?
                                                         <span className="float-right fw-700">₹ {vip_amount}<span className="test-mrp">₹ {mrp}</span>
                                                         </span>
                                                         :''
                                                     }
 
                                                     {
-                                                        is_vip_applicable?''
+                                                        is_gold_member?
+                                                        <span className="float-right fw-700">₹ {is_gold_price}<span className="test-mrp">₹ {mrp}</span>
+                                                        </span>
+                                                        :''
+                                                    }
+
+                                                    {
+                                                        is_vip_applicable || is_gold_member?''
                                                         : is_appointment_insured || included_in_user_plan ?
                                                             <span className="float-right fw-700">₹ 0 </span>
                                                             : <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>

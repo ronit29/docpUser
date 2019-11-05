@@ -93,9 +93,9 @@ class DoctorProfileView extends React.Component {
         if(this.props.DOCTORS[doctor_id]) {
             time_to_show = 1000
         }
-        setTimeout(()=>{
-            this.setState({showVipPopup: true})
-        }, time_to_show)
+        // setTimeout(()=>{
+        //     this.setState({showVipPopup: true})
+        // }, time_to_show)
     }
 
     showDownloadAppWidget(dataList) {

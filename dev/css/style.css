@@ -859,7 +859,7 @@ p.top-head-link.card-lab-link span {
 		top: 44px !important;
 	}
 	.sticky-pk-container-2{
-		top: 129px !important;
+		top: 125px !important;
 	}
 	.pkglftRhtbtncont{
 		display: none;
@@ -4044,13 +4044,13 @@ ul li.time-slot-li-listing{
 
 .sticky-pk-container, .sticky-pk-container-2{
 	position: sticky;
-    top: 107px;
+    top: 94px;
     background-color: #fff;
 	z-index: 1;
 }
 .sticky-pk-container-2{
 	border-bottom: 1px solid #d3d3d3;
-	top: 192px;
+	top: 175px;
 }
 .stc-no-cursor{
 	cursor: auto;
@@ -4971,7 +4971,7 @@ p.error-msg.subAlertins{
 }
 .vip-foot-cont{
     position: absolute;
-    top: -8px;
+    top: -4px;
     left: 0;
     right: 0;
     margin: auto;
@@ -4980,7 +4980,7 @@ p.vip-foot-txt {
     position: absolute;
     left: 0;
     right: 0;
-    top: 41px;
+    top: 28px;
     font-size: 11px;
     font-weight: 500;
 }
@@ -7265,7 +7265,7 @@ box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
 }
 .cstm-docCard-content {
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
 }
 p.cstm-card-loc-set {
     color: #b7b7b7;
@@ -7333,7 +7333,7 @@ p.cstm-card-loc-set span {
 .cstm-doc-content-container p, .cstm-doc-content-container h3{
     color: #757575;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 11px;
     margin-bottom: 3px;
 }
 p.cstm-doc-price {

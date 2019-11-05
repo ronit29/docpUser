@@ -70,12 +70,23 @@ class HomePagePackageWidget extends React.Component {
                                         `(${listItem.no_of_tests} tests)` : ''}</p>
                                     {listItem.mrp && listItem.discounted_price ? listItem.vip && listItem.vip.is_vip_member && listItem.vip.covered_under_vip?
                                               <div className="pkg-card-price-offr">
-                                                    <div className="pkg-prc-ct">
-                                                        <p>₹ {listItem.vip.vip_amount} 
-                                                            <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
-                                                            <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
-                                                        </p>
-                                                    </div>
+                                                    {
+                                                        listItem.vip.is_gold_member?
+                                                        <div className="pkg-prc-ct">
+                                                            <p>₹ {listItem.vip.vip_amount+ listItem.vip.vip_convenience_amount} 
+                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                                <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                                            </p>
+                                                        </div>
+                                                        :listItem.vip.is_vip_member?
+                                                        <div className="pkg-prc-ct">
+                                                            <p>₹ {listItem.vip.vip_amount} 
+                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                                <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
+                                                            </p>
+                                                        </div>
+                                                        :''
+                                                    }
                                                 </div>
                                                 :<div className="pkg-card-price-offr">
                                                     {

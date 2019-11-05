@@ -6,6 +6,8 @@ import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
 import SnackBar from 'node-snackbar'
+import CommonVipGoldBadge from '../../../commons/commonVipGoldBadge.js'
+import CommonVipGoldNonLoginBadge from '../../../commons/commonVipGoldNonLoginBadge.js'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -151,6 +153,14 @@ class LabProfileCard extends React.Component {
         }
     }
 
+    goldClicked(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'VipGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-package-gold-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=packagegoldlisting&lead_source=Docprime')
+    }
+
     render() {
         let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance, vip } = this.props.details;
         distance = Math.ceil(distance / 1000);
@@ -199,8 +209,27 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
         }
-        let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
-        let vip_amount = vip.vip_amount
+        // let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+        // let vip_amount = vip.vip_amount
+
+        let is_vip_applicable = false
+        let vip_amount
+        let is_enable_for_vip = false
+        let is_vip_gold = false
+
+        if(vip && Object.keys(vip).length > 0){
+            is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+            vip_amount = vip.vip_amount
+            is_vip_gold = vip.is_gold_member
+        }
+        
+
+        let is_labopd_enable_for_vip = vip.is_enable_for_vip 
+        let is_labopd_enable_for_gold = vip.is_gold
+        let is_vip_member = vip.is_vip_member
+        let is_gold_member = vip.is_gold_member
+        let covered_under_vip  = vip.covered_under_vip
+        
         return (
             <div className="pkg-card-container mb-3">
                 {!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?
@@ -221,7 +250,7 @@ class LabProfileCard extends React.Component {
                         <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div> */}
                     <div className="pkg-card-content m-0">
-                        <div className="row no-gutters" onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                        <div className="row no-gutters" >
                             <div className="col-8">
                                 <div className="pkg-cardleft-img nw-pkg-crd-img">
                                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -263,30 +292,54 @@ class LabProfileCard extends React.Component {
                             <div className="col-4">
                                 <div className="pkg-card-price text-right">
                                     {
-                                        !is_vip_applicable?
+                                        (!is_vip_applicable || !vip.is_gold_member) && false?
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }
-                                    {is_vip_applicable?
+                                    {  !is_insurance_applicable?
+                                        <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
+                                    :''
+                                    }
+                                    {
+                                    /*    is_vip_applicable && !vip.is_gold_member?
                                         <div className="text-right mb-2">
                                             <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                         </div>
-                                    :''}
+                                    :''*/
+                                    }
                                     {
-                                        is_vip_applicable?
+                                        /*vip.is_gold_member?
+                                            <div className="text-right mb-2">
+                                                <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                            </div>
+                                            : ''*/
+                                    }
+                                    {
+                                        /*vip.is_gold_member?
+                                            <p className="fw-500">₹ {parseInt(vip.vip_convenience_amount+vip.vip_amount)}
+                                                <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
+                                            </p>
+                                        :''*/
+                                    }
+                                    {
+                                        /*is_vip_applicable && !vip.is_gold_member?
                                             <p className="fw-500">₹ {parseInt(vip_amount)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
                                             </p>
-                                        :''
+                                        :''*/
                                     }
+                                    
                                     {
-                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable? 
-                                            parseInt(discounted_price)!= parseInt(mrp)?
+                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable && !vip.is_gold_member? 
+                                            !((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip)?
+                                            ''
+                                            :parseInt(discounted_price)!= parseInt(mrp)?
                                             <p className="fw-500">₹ {parseInt(discounted_price)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p>
                                             :<p className="fw-500">₹ {parseInt(discounted_price)}</p>
-                                             : ''
+                                            : ''
                                     }
+                                    
                                     {
                                         hide_price ? <p className="fw-500">₹ 0</p> : ""
                                     }
@@ -299,7 +352,7 @@ class LabProfileCard extends React.Component {
                                             : ''
                                     }
                                     {
-                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
+                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable && !vip.is_gold_member ?
                                             <p className="dc-cpn-include">{offPercent}% Off 
                                                 {!is_insurance_applicable && !included_in_user_plan && discounted_price != price?
                                                     <span>(includes Coupon)</span>
@@ -307,9 +360,19 @@ class LabProfileCard extends React.Component {
                                             </p>
                                              : ''
                                     }
+                                    
+                                    {
+                                    /*!is_insurance_applicable && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member ? <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+                                       
+                                        <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
+                                        <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount+ vip.vip_gold_price}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                        
+                                    </div>
+                                    :''*/
+                                    } 
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
-                                    <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
+                                    <button className="pkg-btn-nw" style={{ width: '100%' }} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>Book Now</button>
                                 </a>
                                 {/*
                                     !is_insurance_applicable && !included_in_user_plan && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
@@ -323,6 +386,10 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {  !is_insurance_applicable?
+                        <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
+                    :''
+                    }
                     <div className="pkg-includes-container">
                         {category_details && category_details.length > 0 ?
                             <ul>

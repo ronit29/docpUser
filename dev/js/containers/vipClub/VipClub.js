@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
+// import VipGoldView from '../../components/vipClub/vipGoldView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
@@ -16,8 +17,10 @@ class VipClub extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent,
-            source:parsed.source
+            isAgent:parsed.is_agent ?parsed.is_agent:false,
+            source:parsed.source,
+            is_gold:parsed.is_gold?parsed.is_gold:false,
+            is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false
         }
     }
 
@@ -30,21 +33,32 @@ class VipClub extends React.Component{
             window.scrollTo(0, 0)
         }
         let extraData = {
-            selectedLocation: this.props.selectedLocation
+            selectedLocation: this.props.selectedLocation,
+            from_vip:true
         }
         this.props.getNearbyHospitals(extraData);
         this.props.getTopHospitals(extraData);
-        this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
+        let data={}
+        data.selectedLocation = this.props.selectedLocation
+        data.isSalesAgent = this.state.isSalesAgent
+        data.isAgent = this.state.isAgent
+        data.is_gold = this.state.is_gold
+        data.all = this.state.is_vip_gold
+        this.props.getVipList(false,data)
 
     }
     render(){
-        if(this.props.LOAD_VIP_CLUB){
-            return(
-                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source}/>
-            )
+        if(this.props.LOAD_VIP_CLUB  && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
+            return <React.Fragment>
+            
+                {/*<VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>*/}
+            
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan}/>
+                       
+            </React.Fragment>
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
-                this.props.history.push('/vip-club-activated-details')
+                this.props.history.replace('/vip-club-activated-details')
             }
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
@@ -76,7 +90,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getVipList: (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => dispatch(getVipList(is_endorsement,selectedLocation,isSalesAgent,isAgent,callback)),
+        getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb)),

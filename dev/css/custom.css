@@ -3682,7 +3682,6 @@ p.sb-para {
     font-weight: 500;
     margin: 0px 0px;
     display: flex;
-    align-items: flex-end;
     justify-content: center;
 }
 .vip-new-lft-tag{
@@ -4644,6 +4643,10 @@ p.vip-srch-slct{
     font-weight: 500;
     margin-bottom: 5px;
     font-size: 13px;
+    display: none;
+}
+div.row.searchForVip p.vip-srch-slct{
+    display: block;
 }
 div.col-12.vip-srch-pdng-adj .doc-input-loc{
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -4689,6 +4692,9 @@ left: 3px;
     } 
     .sort-sticky-network{
         top: 121px !important;
+    }
+    .gold-white-bg-container{
+        margin: 0 -15px;
     }
 }
 /* ============ search for vip  ============ */
@@ -4804,3 +4810,254 @@ button.vp-pop-ch-btn {
     margin-left: 5px;
 }
 /* ============ lab-view-prfl  ============ */
+/* ============ vip-gold  ============ */
+h4.gold-ofr-hdng {
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.gold-ofr-lising {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding: 7px 0;
+    align-items: center;
+    cursor: pointer;
+}
+.gold-ofr-lising:last-child{
+    border-bottom: 1px solid transparent;
+}
+p.mnth-plan-gld {
+    color: #1b97fd;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+p.mnth-plan-gld span {
+    background: #e52b2b;
+    font-size: 11px;
+    color: white;
+    margin-left: 4px;
+    border-radius: 4px;
+    padding: 1px 3px;
+    font-weight: 600;
+}
+p.gold-upto-offer {
+    color: #55a740;
+    font-weight: 600;
+    font-size: 11px;
+    text-align: right;
+    margin-top: 2px;
+}
+p.gld-cvr-txt {
+    color: #757575;
+    font-size: 12px;
+    font-weight: 600;
+}
+.gold-price {
+    display: flex;
+    align-items: center;
+}
+p.gld-prc {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+span.gold-prc-cut {
+    font-size: 12px;
+    margin-right: 6px;
+    color: #757575;
+    text-decoration: line-through;
+}
+.gold-pln-slct-radio {
+    position: relative;
+    margin-left: 10px;
+}
+.gd-rdio-gray {
+    width: 20px;
+    height: 20px;
+    background: rgb(215, 212, 212);
+    border-radius: 50px;
+}
+.gold-ofr-lising.gold-select img.gd-rdio-chk{
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 20px;
+    width: 20px;
+    background: white;
+}
+
+img.gd-rdio-chk {
+    display: none;
+}
+p.gld-lst-foot-txt {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+p.gld-lst-foot-txt span {
+    color: #757575;
+}
+.gold-white-bg-container {
+    background: white;
+    padding: 8px 15px;
+}
+
+.gold-acrd-main div.acdn-title h2{
+    
+    font-size: 13px;
+    padding: 10px 20px 10px 0;
+}
+.inneracord-container {
+    margin-top: 12px;
+}
+.gold-sub-acrd {
+    border-bottom: 1px solid #eae7e7;
+}
+.gold-acrd-main div.acdn-title h2 {
+    padding-right: 20px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+p.gold-sub-acrd-content {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #757575;
+    font-weight: 500;
+}
+.gold-trms-cnd {
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 13px;
+    display: inline-block;
+    cursor: pointer;
+}
+.gold-acrd-main .acdn-arrow{
+    top: 15px;
+}
+.gold-accordion-container {
+    margin-top: 25px;
+}
+.gold-crd-lft p {
+    font-weight: 600;
+}
+.gold-crd-lft p span {
+    color: #55a740;
+    font-size: 15px;
+}
+.gld-crd-sb-txt{
+    display: flex;
+    align-items: center;
+    color: #757575;
+    margin-top: 4px;
+    font-size: 12px;
+}
+.gld-crd-sb-txt img{
+    width: 35px;
+    margin: 0 4px;
+}
+.gold-crd-rgt p {
+    color: white;
+    font-weight: 600;
+    background: #55a740;
+    padding: 3px 8px;
+    border-radius: 15px;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+}
+p.gold-cmplt-frst {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #757575;
+    font-size: 12px;
+}
+p.gold-cmplt-second {
+    margin: 10px 0;
+    color: #757575;
+    font-weight: 500;
+    font-size: 12px;
+}
+.gld-cmplt-lst {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.gold-cmplt-frst span{
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0px 5px;
+    color: black;
+}
+.goldCard{
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+}
+img.gld-cd-icon {
+    width: 32px;
+    margin-right: 5px;
+    padding: 5px 0px 5px 0px;
+}
+.gld-p-rc{
+    color: #757575 !important;
+    font-weight: 500 !important;
+    margin-right: 4px !important;
+    font-size: 11px !important;
+}
+.gld-rate-lf{
+    font-weight: 500;
+    font-size: 12px;
+    margin-right: 0px;
+}
+.gold-green-cont{
+    background: rgba(85, 167, 64, .17);
+    border: 1px solid #55a740;
+    box-shadow: 0 0 0 0;
+}
+.gold-benifi-cards-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.gold-benifi-cards {
+    text-align: center;
+    margin-bottom: 10px;
+    width: 33.33%;
+}
+.gold-benifi-cards img {
+    width: 50px;
+}
+.gold-benifi-cards p {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.gold-benifi-cards p strong {
+    font-weight: 600;
+}
+.gld-hd-txt-algn{
+    align-items: flex-end;
+    display: flex;
+}
+.gold-price-card-addon{
+    margin: 0px -10px;
+    background-image: linear-gradient(to left, #fff7d9, #fffefc );
+    padding: 0px 0px;
+}
+.gold-price-card-addon-clinicSelector{
+	margin: 0px -14px;
+    background-image: linear-gradient(to left, #fff7d9, #fffefc );
+    padding: 0px 0px 0px 0px;
+
+}
+/* ============ vip-gold  ============ */
