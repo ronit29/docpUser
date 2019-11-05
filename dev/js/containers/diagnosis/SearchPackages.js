@@ -109,7 +109,8 @@ const mapStateToProps = (state, passedProps) => {
         offerList,
         is_login_user_insured,
         insurance_status,
-        device_info
+        device_info,
+        common_utm_tags
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -138,7 +139,8 @@ const mapStateToProps = (state, passedProps) => {
         compare_packages,
         insurance_status,
         device_info,
-        common_settings
+        common_settings,
+        common_utm_tags
     }
 
 }

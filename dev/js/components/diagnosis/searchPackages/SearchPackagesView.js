@@ -26,8 +26,7 @@ class SearchPackagesView extends React.Component {
             showChatWithus: false,
             isScroll: true,
             isCompare: false,
-            quickFilter: {},
-            is_spo_appointment:false
+            quickFilter: {}
         }
     }
 
@@ -64,7 +63,6 @@ class SearchPackagesView extends React.Component {
                     time: new Date().getTime(),
                     currentSessionId: sessionId
                 }
-                // this.setState({is_spo_appointment: true})
                 this.props.setCommonUtmTags('spo', spo_tags)
             }
         }catch(e) {
@@ -83,8 +81,6 @@ class SearchPackagesView extends React.Component {
                 //900
                 if(time_offset>180) {
                     this.props.unSetCommonUtmTags('spo')
-                }else {
-                    // this.setState({is_spo_appointment: true})
                 }
             }
         }
