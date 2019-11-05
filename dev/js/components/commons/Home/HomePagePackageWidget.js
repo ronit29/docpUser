@@ -88,7 +88,8 @@ class HomePagePackageWidget extends React.Component {
                                                         :''
                                                     }
                                                 </div>
-                                                :<div className="pkg-card-price-offr">
+                                                :<React.Fragment>
+                                                <div className="pkg-card-price-offr">
                                                     {
                                                         listItem.discounted_price == listItem.mrp?
                                                         <div className="pkg-prc-ct">
@@ -106,6 +107,16 @@ class HomePagePackageWidget extends React.Component {
                                                         <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
                                                     }
                                                 </div>
+                                                {
+                                                        !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount||0 + listItem.vip.vip_gold_price||0) && listItem.vip.is_gold?
+                                                        <div className="pkg-prc-ct">
+                                                            <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>Price
+                                                            <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount} 
+                                                            </p>
+                                                        </div>
+                                                        :''
+                                                }
+                                                </React.Fragment>
                                         : ''}
                                 </div>
                             })
