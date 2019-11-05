@@ -338,8 +338,7 @@ export const resetLabCoupons = () => (dispatch) => {
 	})
 }
 
-export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
-
+export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false,extra_params, cb) => (dispatch) => {
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
 	if (page == 1) {
 		dispatch({
@@ -419,6 +418,24 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!!filterCriteriaPackages.network_id) {
 		url += `&network_id=${filterCriteria.network_id || ""}`
+	}
+
+	if(extra_params && Object.keys(extra_params).length > 0){
+		if(extra_params.utm_term){
+	        url += `&utm_term=${parsed.utm_term || ""}`
+	    }
+
+	    if(extra_params.utm_medium){
+	        url += `&utm_medium=${extra_params.utm_medium || ""}`
+	    }
+
+	    if(extra_params.utm_campaign){
+	        url += `&utm_campaign=${extra_params.utm_campaign || ""}`
+	    }
+
+	    if(extra_params.utm_source){
+	        url += `&utm_source=${extra_params.utm_source || ""}`
+	    }
 	}
 
 	return API_GET(url).then(function (response) {

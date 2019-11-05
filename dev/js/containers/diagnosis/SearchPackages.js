@@ -17,12 +17,31 @@ class SearchPackages extends React.Component {
     }
 
     static loadData(store, match, queryParams = {}) {
+        const parsed = queryString.parse(this.props.location.search)
         return new Promise((resolve, reject) => {
             try {
                 let location_ms = null
                 if (match.url.includes('location=')) {
                     location_ms = match.url.split('location=')[1]
                     location_ms = parseInt(location_ms)
+                }
+
+                let extra_params = {}
+
+                if(parsed.utm_term){
+                    extra_params.utm_term = parsed.utm_term || ""
+                }
+
+                if(parsed.utm_medium){
+                    extra_params.utm_medium = parsed.utm_medium || ""
+                }
+
+                if(parsed.utm_campaign){
+                    extra_params.utm_campaign = parsed.utm_campaign || ""
+                }
+
+                if(parsed.utm_source){
+                   extra_params.utm_source = parsed.utm_source || ""
                 }
 
                 PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
@@ -148,7 +167,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getPackages: (state, page, from_server, searchByUrl, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, cb)),
+        getPackages: (state, page, from_server, searchByUrl,extra_params, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, extra_params, cb)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),

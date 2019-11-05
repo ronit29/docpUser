@@ -110,6 +110,7 @@ class SearchPackagesView extends React.Component {
     }
 
     getLabList(state = null, page = null, cb = null) {
+        const parsed = queryString.parse(this.props.location.search)
         if (page === null) {
             page = this.props.page
         }
@@ -118,8 +119,24 @@ class SearchPackagesView extends React.Component {
         } else if (state.page) {
             page = state.page
         }
+        let extra_params = {}
 
-        this.props.getPackages(state, page, false, null, (...args) => {
+        if(parsed.utm_term){
+            extra_params.utm_term = parsed.utm_term || ""
+        }
+
+        if(parsed.utm_medium){
+            extra_params.utm_medium = parsed.utm_medium || ""
+        }
+
+        if(parsed.utm_campaign){
+            extra_params.utm_campaign = parsed.utm_campaign || ""
+        }
+
+        if(parsed.utm_source){
+           extra_params.utm_source = parsed.utm_source || ""
+        }
+        this.props.getPackages(state, page, false, null,extra_params, (...args) => {
             // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
