@@ -723,10 +723,11 @@ class ChatPanel extends React.Component {
 
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
                                             {
-                                                !is_religare && <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Refund</p>
+                                                !is_religare && <p className={`cht-need-btn cursor-pntr mr-2 ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>
+                                                    <img src={ASSETS_BASE_URL + '/img/chat-rfnd.png'} style={{width: 28}} /> </p>
                                             }
                                             {
-                                                this.state.selectedRoom ? <span className="mr-2" onClick={() => {
+                                                /*this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {
                                                         'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
                                                     }
@@ -739,9 +740,9 @@ class ChatPanel extends React.Component {
                                                         }, 10000)
                                                     }
                                                 }}>
-                                                    {/*<img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />*/}
+                                                    <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
 
-                                                </span> : ""
+                                                </span> : ""*/
                                             }
 
                                             {
