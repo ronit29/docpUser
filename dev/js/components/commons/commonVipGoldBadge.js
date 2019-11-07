@@ -9,7 +9,7 @@ import GTM from '../../helpers/gtm.js'
 export default (props)=> {
 	let { is_labopd_enable_for_vip, is_labopd_enable_for_gold, is_vip_member, is_gold_member, covered_under_vip, vip_data, discounted_price, mrp, enabled_for_hospital_booking, is_doc, is_package, deal_price } = props;
 	let vip = vip_data;
-	let show_deal_price = is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price 
+	let show_deal_price = vip.is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price 
 	let gold_price = vip.vip_convenience_amount + vip.vip_gold_price
 	//let hide_gold_widget = gold_price > deal_price
 	
@@ -36,7 +36,7 @@ export default (props)=> {
 				(is_gold_member || is_vip_member ) && covered_under_vip && <p className="cst-doc-price">₹ {vip.vip_amount+vip.vip_convenience_amount} <span className="cstm-doc-cut-price">₹ {parseInt(mrp)} </span></p>
 			}
 			{//for non gold ,non vip but for lab having gold or vip
-				!((is_gold_member || is_vip_member ) && covered_under_vip) && !is_vip_member && (is_labopd_enable_for_gold || is_labopd_enable_for_vip) && 
+				!((is_gold_member || is_vip_member ) && covered_under_vip) && !is_vip_member && is_labopd_enable_for_gold && is_labopd_enable_for_vip && 
 				<React.Fragment>
 					{
 						show_deal_price!=mrp && gold_price<mrp?
