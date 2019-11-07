@@ -737,7 +737,7 @@ class ChatPanel extends React.Component {
                                         </div>
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
                                             {
-                                                !is_religare && <p className={`cht-need-btn cursor-pntr mr-2 ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>
+                                                !is_religare && show_disabled_refund_button && <p className={`cht-need-btn cursor-pntr mr-2 ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>
                                                     <img src={ASSETS_BASE_URL + '/img/chat-rfnd.png'} style={{width: 28}} /> </p>
                                             }
                                             {
