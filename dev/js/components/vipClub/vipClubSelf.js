@@ -34,7 +34,8 @@ class VipProposer extends React.Component {
 			// town_code: '',
 			// selectedDateSpan: new Date(), // to be deleted
 			// no_lname: false,
-			disableName: false,
+			disableFName: false,
+			disableLName: false,
 			disableEmail: false,
 			disableDob: false,
 			is_change: false,
@@ -261,17 +262,22 @@ class VipProposer extends React.Component {
 						if(profile.name){
 							newName = profile.name.split(" ")
 							if (newName.length == 2) {
-								this.setState({name: newName[0],last_name: newName[1]})
+								this.setState({name: newName[0],last_name: newName[1],disableFName:true,disableLName:true})
 							}  else if (newName.length > 2) {
 								tempArray = newName.slice(1, newName.length)
-								this.setState({name: newName[0],last_name: tempArray.join(' ')})
+								this.setState({name: newName[0],last_name: tempArray.join(' '),disableFName:true})
 							} else {
-								this.setState({ name:profile.name?profile.name:'' })
+								this.setState({ name:profile.name?profile.name:'', disableFName:true })
 							}
 						}
 					}
 				}
 				this.handleSubmit(false,false)
+			})
+
+			this.setState({
+				disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
+				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,	
 			})
 			// this.setState({
 			// 	// disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
@@ -741,10 +747,10 @@ class VipProposer extends React.Component {
 								onChange={this.handleChange.bind(this, 'name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'name')} 
-								disabled={this.props.is_from_payment ? 'disabled' : ''} 
+								disabled={this.props.is_from_payment || this.state.disableFName ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'name')} 
 							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
+							<label className={this.props.is_from_payment || this.state.disableFName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -795,10 +801,10 @@ class VipProposer extends React.Component {
 								onChange={this.handleChange.bind(this, 'last_name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
-								disabled={this.props.is_from_payment ? 'disabled' : ""} 
+								disabled={this.props.is_from_payment || this.state.disableLName ? 'disabled' : ""} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
+							<label className={this.props.is_from_payment || this.state.disableLName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -863,9 +869,9 @@ class VipProposer extends React.Component {
 									onChange={this.handleChange.bind(this, 'email')} 
 									onBlur={this.handleEmail} 
 									onFocus={this.handleOnFocus.bind(this, 'email')}
-									disabled={this.props.is_from_payment ? 'disabled' : ''}  
+									disabled={this.props.is_from_payment || this.state.disableEmail ? 'disabled' : ''}  
 								/>
-								<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
+								<label className={this.props.is_from_payment || this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 							</div>
 							{
@@ -882,7 +888,7 @@ class VipProposer extends React.Component {
 						</React.Fragment>
 					}
 					<div className="col-12">
-						<div className={`ins-form-group ${this.props.is_from_payment?'click-disable':''}`} >
+						<div className={`ins-form-group ${this.props.is_from_payment || this.state.disableDob ?'click-disable':''}`} >
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
 							<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 							<div className="dob-select-div d-flex align-items-center">
