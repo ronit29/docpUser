@@ -264,6 +264,21 @@ class VipClubMemberDetailsView extends React.Component{
 							fields.push('dob')
 						}
 
+						if(param.year == null || param.year == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
+						if(param.mnth == null || param.mnth == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
+						if(param.day == null || param.day == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
 						if(param.relation =='SELF'){
 							if(param.state == "" || param.state_code == ""){  
 								is_disable = true
