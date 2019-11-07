@@ -9,9 +9,10 @@ import GTM from '../../helpers/gtm.js'
 export default (props)=> {
 	let { is_labopd_enable_for_vip, is_labopd_enable_for_gold, is_vip_member, is_gold_member, covered_under_vip, vip_data, discounted_price, mrp, enabled_for_hospital_booking, is_doc, is_package, deal_price } = props;
 	let vip = vip_data;
-	let show_deal_price = vip.is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price 
+	let show_deal_price = is_labopd_enable_for_gold?vip.vip_gold_price+vip.vip_convenience_amount:discounted_price 
 	let gold_price = vip.vip_convenience_amount + vip.vip_gold_price
 	//let hide_gold_widget = gold_price > deal_price
+	
 	return (
 		<React.Fragment>
 			{//for Vip Gold Purchase User

@@ -298,7 +298,7 @@ class LabProfileCard extends React.Component {
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }
-                                    {  !is_insurance_applicable || !show_common_prices?
+                                    {  (!is_insurance_applicable && !show_common_prices)?
                                         <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
                                     :''
                                     }
@@ -386,7 +386,7 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {  !is_insurance_applicable || !show_common_prices?
+                    {  (!is_insurance_applicable && !show_common_prices)?
                         <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
                     :''
                     }

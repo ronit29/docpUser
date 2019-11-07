@@ -336,7 +336,7 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
 
-                                {  !is_insurance_applicable || !show_common_prices?
+                                {  (!is_insurance_applicable && !show_common_prices)?
                                     <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                     :''
                                 }
@@ -435,7 +435,7 @@ class DoctorProfileCard extends React.Component {
 
                             </div>
                         </div>
-                        {  !is_insurance_applicable || !show_common_prices?
+                        {  (!is_insurance_applicable && !show_common_prices)?
                                     <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                     :''
                                 }
