@@ -224,6 +224,8 @@ class LabProfileCard extends React.Component {
             is_gold_member = vip.is_gold_member
             covered_under_vip = vip.covered_under_vip
         }
+
+        let show_common_prices = !is_labopd_enable_for_vip || ( (is_gold_member || is_vip_member ) && !covered_under_vip )
         return (
 
             <div className="cstm-docCard mb-3">
@@ -281,17 +283,17 @@ class LabProfileCard extends React.Component {
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
+                                !is_insurance_applicable  || !show_common_prices && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
                             }
                             {
-                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && !(is_labopd_enable_for_vip || is_labopd_enable_for_gold || !(is_vip_member && !covered_under_vip) )
+                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && show_common_prices
                                     ?discounted_price!=mrp
                                         ?<p className="cst-doc-price">₹ {discounted_price}<span className="cstm-doc-cut-price">₹ {mrp} </span> </p>
                                         :<p className="cst-doc-price">₹ {discounted_price}</p>
                                     : ''
                             }
                             {
-                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && !(is_labopd_enable_for_vip || is_labopd_enable_for_gold) ?
+                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 && show_common_prices ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             {
@@ -349,7 +351,7 @@ class LabProfileCard extends React.Component {
                         </div>
                     </div>
                     {
-                        !is_insurance_applicable && <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
+                        !is_insurance_applicable || !show_common_prices && <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
                     }
                     {/*
                         is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?

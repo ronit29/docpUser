@@ -229,6 +229,8 @@ class LabProfileCard extends React.Component {
         let is_vip_member = vip.is_vip_member
         let is_gold_member = vip.is_gold_member
         let covered_under_vip  = vip.covered_under_vip
+
+        let show_common_prices = !is_labopd_enable_for_vip || ( (is_gold_member || is_vip_member ) && !covered_under_vip )
         
         return (
             <div className="pkg-card-container mb-3">
@@ -296,7 +298,7 @@ class LabProfileCard extends React.Component {
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }
-                                    {  !is_insurance_applicable?
+                                    {  !is_insurance_applicable || !show_common_prices?
                                         <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
                                     :''
                                     }
@@ -330,14 +332,12 @@ class LabProfileCard extends React.Component {
                                     }
                                     
                                     {
-                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable && !vip.is_gold_member? 
-                                            !((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip || !(is_vip_member && !covered_under_vip) )?
-                                            ''
-                                            :parseInt(discounted_price)!= parseInt(mrp)?
+                                        !is_insurance_applicable && !hide_price && discounted_price && show_common_prices?
+                                            parseInt(discounted_price)!= parseInt(mrp)?
                                             <p className="fw-500">₹ {parseInt(discounted_price)}
                                                 <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p>
                                             :<p className="fw-500">₹ {parseInt(discounted_price)}</p>
-                                            : ''
+                                        : ''
                                     }
                                     
                                     {
@@ -352,7 +352,7 @@ class LabProfileCard extends React.Component {
                                             : ''
                                     }
                                     {
-                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable && !vip.is_gold_member ?
+                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && show_common_prices ?
                                             <p className="dc-cpn-include">{offPercent}% Off 
                                                 {!is_insurance_applicable && !included_in_user_plan && discounted_price != price?
                                                     <span>(includes Coupon)</span>
@@ -386,7 +386,7 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {  !is_insurance_applicable?
+                    {  !is_insurance_applicable || !show_common_prices?
                         <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={this.goldClicked.bind(this)} is_package={true}/> 
                     :''
                     }
