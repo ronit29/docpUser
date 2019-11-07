@@ -669,7 +669,6 @@ class VipProposer extends React.Component {
 	}
 
 	render() {
-		console.log(this.state)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
