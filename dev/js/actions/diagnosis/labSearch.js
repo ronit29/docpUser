@@ -1,4 +1,5 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, TOGGLE_DIAGNOSIS_CRITERIA } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, TOGGLE_DIAGNOSIS_CRITERIA,
+SHOW_RETAIL_VIP_CARD_LAB_SUMMARY } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -144,7 +145,10 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 export const getLabById = (labId, testIds = [], forceAddTestids=false) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
-
+		dispatch({
+			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
+			payload: false
+		})
 	return API_GET(url).then(function (response) {
 
 		dispatch({
@@ -155,6 +159,10 @@ export const getLabById = (labId, testIds = [], forceAddTestids=false) => (dispa
 			type: SAVE_CURRENT_LAB_PROFILE_TESTS,
 			payload: response,
 			forceAdd: true
+		})
+		dispatch({
+			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
+			payload: true
 		})
 		if(forceAddTestids){
 			dispatch({
@@ -174,7 +182,10 @@ export const getLabById = (labId, testIds = [], forceAddTestids=false) => (dispa
 
 export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablistbyurl?url=${lab_url}&test_ids=${testIds.join(',')}`
-
+		dispatch({
+			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
+			payload: false
+		})
 	return API_GET(url).then(function (response) {
 		dispatch({
 			type: APPEND_LABS,
@@ -184,6 +195,10 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 			type: SAVE_CURRENT_LAB_PROFILE_TESTS,
 			payload: response,
 			forceAdd: true
+		})
+		dispatch({
+			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
+			payload: true
 		})
 		cb((response.lab ? response.lab.id : null), null)
 	}).catch(function (error) {
@@ -323,8 +338,7 @@ export const resetLabCoupons = () => (dispatch) => {
 	})
 }
 
-export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
-
+export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false,extra_params, cb) => (dispatch) => {
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
 	if (page == 1) {
 		dispatch({
@@ -404,6 +418,24 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!!filterCriteriaPackages.network_id) {
 		url += `&network_id=${filterCriteria.network_id || ""}`
+	}
+
+	if(extra_params && Object.keys(extra_params).length > 0){
+		if(extra_params.utm_term){
+	        url += `&utm_term=${parsed.utm_term || ""}`
+	    }
+
+	    if(extra_params.utm_medium){
+	        url += `&utm_medium=${extra_params.utm_medium || ""}`
+	    }
+
+	    if(extra_params.utm_campaign){
+	        url += `&utm_campaign=${extra_params.utm_campaign || ""}`
+	    }
+
+	    if(extra_params.utm_source){
+	        url += `&utm_source=${extra_params.utm_source || ""}`
+	    }
 	}
 
 	return API_GET(url).then(function (response) {

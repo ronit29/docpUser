@@ -68,19 +68,19 @@ class VipLoginPopup extends React.Component {
     }
 
     submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup = null) {
-        if (this.state.user_name == '') {
+        /*if (this.state.user_name == '') {
             SnackBar.show({ pos: 'bottom-center', text: 'Enter your name' })
             return
-        }
+        }*/
 
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
 
             this.setState({ validationError: "" })
-            if(this.props.user_cities && this.props.user_cities.length && !this.state.selectedCity){
+            /*if(this.props.user_cities && this.props.user_cities.length && !this.state.selectedCity){
                 this.setState({ validationError: "Please select the city", error_message: '' })
                 return;
-            }
+            }*/
             this.props.sendOTP(number, viaSms, viaWhatsapp, 'insurance-login', (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
@@ -165,9 +165,9 @@ class VipLoginPopup extends React.Component {
                                 if (!resp.certificate) {
                                     if (Object.keys(self.props.selected_vip_plan).length > 0) {
                                         let extraParams = {}
-                                        if(this.props.user_cities && this.props.user_cities.length){
+                                        /*if(this.props.user_cities && this.props.user_cities.length){
                                             extraParams.city_id = this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
-                                        }
+                                        }*/
 
                                         self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name, extraParams, (resp)=>{
                                             let LeadIdData = {
@@ -379,14 +379,14 @@ class VipLoginPopup extends React.Component {
                                     </div>
                                     <div className="widget-content text-center">
                                         <div className="form-group mobile-field sup-input-pdng">
-                                            <div className="adon-group enter-mobile-number">
+                                            {/*<div className="adon-group enter-mobile-number">
                                                 <input type="text" id="name" className="fc-input text-center" placeholder="Enter your name" value={this.state.user_name} onChange={this.inputHandler.bind(this)} name="user_name" disabled={this.state.showOTP ? true : false} />
-                                            </div>
+                                            </div>*/}
                                             <div className="adon-group enter-mobile-number">
                                                 <br /><br />
                                                 <input type="number" id="number" className="fc-input text-center" placeholder="Enter your mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
                                             </div>
-                                            <div className="adon-group enter-mobile-number">
+                                            {/*<div className="adon-group enter-mobile-number">
                                                 <br /><br />
                                                 <input type="text" className="fc-input text-center " placeholder='Search Cities' onChange={this.handleCityInut.bind(this, 'search_city')} onFocus={this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_city} />
                                                 {
@@ -408,7 +408,7 @@ class VipLoginPopup extends React.Component {
                                                         </div>
                                                         : ''
                                                 }
-                                            </div>
+                                            </div>*/}
                                         </div>
                                         <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
                                         <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>

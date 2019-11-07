@@ -5068,4 +5068,16 @@ img.gld-cd-icon {
     padding: 0px 0px 0px 0px;
 
 }
+.pkg-prc-ct.home-screengoldprice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pkg-prc-ct.home-screengoldprice p {
+    margin: 0 5px;
+}
+.pkg-prc-ct.home-screengoldprice span {
+    font-weight: 500;
+    font-size: 13px;
+}
 /* ============ vip-gold  ============ */

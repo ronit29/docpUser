@@ -257,6 +257,8 @@ class DoctorProfileCard extends React.Component {
             vip.vip_convenience_amount = hospital.vip_convenience_amount
             vip.vip_gold_price = hospital.vip_gold_price
 
+            let show_common_prices = !is_labopd_enable_for_vip || ( (is_gold_member || is_vip_member ) && !covered_under_vip )
+
             
             //console.log('is_vip_applicable'+is_vip_applicable);console.log('is_vip_gold'+is_vip_gold);console.log('vip_gold_price'+vip_gold_price);console.log('discunted_price'+discounted_price);
             return (
@@ -334,7 +336,7 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
 
-                                {  !is_insurance_applicable?
+                                {  (!is_insurance_applicable && !show_common_prices)?
                                     <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                     :''
                                 }
@@ -371,11 +373,8 @@ class DoctorProfileCard extends React.Component {
                                             <p className="cst-doc-price">₹ {0}</p>
                                             <div className="ins-val-bx">Covered Under Insurance</div>
                                         </div>
-                                        :!((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip)?
-                                        ''                                   
-                                        :is_vip_applicable || is_gold_member?
-                                         ''
-                                        : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
+                                        :show_common_prices
+                                        ?enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                             : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
                                                 <p className="cst-doc-price">₹ {cod_deal_price}</p>
@@ -385,9 +384,10 @@ class DoctorProfileCard extends React.Component {
                                                         <p className="cst-doc-price">₹ {mrp}</p>
                                                         : mrp != null && enabled_for_hospital_booking ?
                                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                        :''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable && !is_labopd_enable_for_gold ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && show_common_prices ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
@@ -435,7 +435,7 @@ class DoctorProfileCard extends React.Component {
 
                             </div>
                         </div>
-                        {  !is_insurance_applicable?
+                        {  (!is_insurance_applicable && !show_common_prices)?
                                     <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                     :''
                                 }

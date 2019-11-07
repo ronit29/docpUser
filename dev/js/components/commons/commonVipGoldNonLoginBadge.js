@@ -18,7 +18,7 @@ export default (props)=> {
 			
 			{
 				//for non gold & non vip , for hospital having gold
-				   !is_package && !is_doc && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
+				   !is_package && !is_doc && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount+ vip.vip_gold_price) && is_labopd_enable_for_gold && is_labopd_enable_for_vip &&
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
@@ -29,7 +29,7 @@ export default (props)=> {
 
             {
 				//for non gold & non vip , for hospital having gold doctor
-				!is_package && is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
+				!is_package && is_doc && enabled_for_hospital_booking && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount + vip.vip_gold_price) && is_labopd_enable_for_gold && is_labopd_enable_for_vip && 
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            <p className="gld-p-rc">For</p>
                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
@@ -40,7 +40,7 @@ export default (props)=> {
 
 			{
 				//for non gold & non vip , for hospital having gold package
-				is_package && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && is_labopd_enable_for_gold && 
+				is_package && !is_gold_member && !is_vip_member && discounted_price>(vip.vip_convenience_amount + vip.vip_gold_price) && is_labopd_enable_for_gold && is_labopd_enable_for_vip &&
 				    	<div className="d-flex align-items-center justify-content-end goldCard gold-price-card-addon" onClick={() => props.goldClicked()}>
                            
                            <p className="gld-p-rc">For</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -17,12 +17,31 @@ class SearchPackages extends React.Component {
     }
 
     static loadData(store, match, queryParams = {}) {
+        const parsed = queryString.parse(this.props.location.search)
         return new Promise((resolve, reject) => {
             try {
                 let location_ms = null
                 if (match.url.includes('location=')) {
                     location_ms = match.url.split('location=')[1]
                     location_ms = parseInt(location_ms)
+                }
+
+                let extra_params = {}
+
+                if(parsed.utm_term){
+                    extra_params.utm_term = parsed.utm_term || ""
+                }
+
+                if(parsed.utm_medium){
+                    extra_params.utm_medium = parsed.utm_medium || ""
+                }
+
+                if(parsed.utm_campaign){
+                    extra_params.utm_campaign = parsed.utm_campaign || ""
+                }
+
+                if(parsed.utm_source){
+                   extra_params.utm_source = parsed.utm_source || ""
                 }
 
                 PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
@@ -109,7 +128,8 @@ const mapStateToProps = (state, passedProps) => {
         offerList,
         is_login_user_insured,
         insurance_status,
-        device_info
+        device_info,
+        common_utm_tags
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -138,7 +158,8 @@ const mapStateToProps = (state, passedProps) => {
         compare_packages,
         insurance_status,
         device_info,
-        common_settings
+        common_settings,
+        common_utm_tags
     }
 
 }
@@ -146,7 +167,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getPackages: (state, page, from_server, searchByUrl, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, cb)),
+        getPackages: (state, page, from_server, searchByUrl,extra_params, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, extra_params, cb)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
@@ -159,7 +180,9 @@ const mapDispatchToProps = (dispatch) => {
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
+        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag))
     }
 }
 

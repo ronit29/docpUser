@@ -1,5 +1,5 @@
 
-import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION,  CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, CLEAR_LAB_COUPONS } from '../../constants/types';
+import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION,  CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, CLEAR_LAB_COUPONS, SHOW_RETAIL_VIP_CARD_LAB_SUMMARY } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -23,7 +23,8 @@ const defaultState = {
     show404: false,
     user_prescriptions:[],
     is_prescription_needed:null,
-    selectedDateFormat: null
+    selectedDateFormat: null,
+    show_vip_non_login_card: false
 }
 
 export default function (state = defaultState, action) {
@@ -236,6 +237,15 @@ export default function (state = defaultState, action) {
             newState.labCoupons = {}
             return newState
         }
+
+        case SHOW_RETAIL_VIP_CARD_LAB_SUMMARY :{
+            let newState = {
+                ...state
+            }
+            newState.show_vip_non_login_card = action.payload
+            return newState
+        }
+        
     }
 
     return state

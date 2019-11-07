@@ -52,7 +52,7 @@ const OPD_SEARCH_PERSIST = {
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package', 'currentSearchedCriterias']
+    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package', 'currentSearchedCriterias', 'filterCriteriaPackages']
 }
 
 const AUTH_PERSIST = {

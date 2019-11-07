@@ -264,6 +264,21 @@ class VipClubMemberDetailsView extends React.Component{
 							fields.push('dob')
 						}
 
+						if(param.year == null || param.year == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
+						if(param.mnth == null || param.mnth == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
+						if(param.day == null || param.day == ""){
+							is_disable = true
+							fields.push('dob')
+						}
+
 						if(param.relation =='SELF'){
 							if(param.state == "" || param.state_code == ""){  
 								is_disable = true
@@ -585,6 +600,8 @@ class VipClubMemberDetailsView extends React.Component{
 									</button>
 								:''*/
 							}
+
+							
 							{
 								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && !this.props.isAgent?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
@@ -602,12 +619,14 @@ class VipClubMemberDetailsView extends React.Component{
 								{
 									this.props.isAgent === 'true' && this.props.isSalesAgent?
 									<React.Fragment>
-										<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,true)}>Send SMS
-										<span className="foot-btn-sub-span"></span>
-										</button>
-										<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+											<button className="add-shpng-cart-btn" data-disabled="true" onClick={this.proceedPlan.bind(this,true)}>Send SMS
+												<span className="foot-btn-sub-span"></span>
+											</button>
+											<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 											<span className="foot-btn-sub-span"></span>
 										</button>
+										</div>
 									</React.Fragment>
 									:!this.props.isAgent && this.props.isAgent === 'false'?
 										<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
