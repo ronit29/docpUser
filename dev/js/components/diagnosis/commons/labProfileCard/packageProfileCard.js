@@ -331,7 +331,7 @@ class LabProfileCard extends React.Component {
                                     
                                     {
                                         !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable && !vip.is_gold_member? 
-                                            !((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip)?
+                                            !((is_gold_member || is_vip_member ) && covered_under_vip) && (is_labopd_enable_for_gold || is_labopd_enable_for_vip || !(is_vip_member && !covered_under_vip) )?
                                             ''
                                             :parseInt(discounted_price)!= parseInt(mrp)?
                                             <p className="fw-500">₹ {parseInt(discounted_price)}
