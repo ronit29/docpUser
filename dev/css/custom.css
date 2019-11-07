@@ -4842,6 +4842,15 @@ p.mnth-plan-gld span {
     padding: 1px 3px;
     font-weight: 600;
 }
+p.gld-cvr-txt span {
+    background: #e52b2b;
+    font-size: 11px;
+    color: white;
+    margin-left: 4px;
+    border-radius: 4px;
+    padding: 1px 3px;
+    font-weight: 600;
+}
 p.gold-upto-offer {
     color: #55a740;
     font-weight: 600;
@@ -4853,6 +4862,7 @@ p.gld-cvr-txt {
     color: #757575;
     font-size: 12px;
     font-weight: 600;
+    margin-top: 2px;
 }
 .gold-price {
     display: flex;

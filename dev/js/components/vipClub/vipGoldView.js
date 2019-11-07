@@ -126,8 +126,10 @@ class VipGoldView extends React.Component {
                                                         Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
                                                             return <div key={key} className={`gold-ofr-lising ${value.id == self.props.selected_plan_id ? 'gold-select' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value, false)}>
                                                                 <div className="gold-mnthplan">
-                                                                    <p className="mnth-plan-gld">{value.tenure} Months {value.is_selected ? <span>POPULAR</span> : ''}</p>
-                                                                    <p className="gld-cvr-txt">Covers upto {value.total_allowed_members} Members</p>
+                                                                    <p className="mnth-plan-gld">
+                                                                    Covers upto {value.total_allowed_members} Members
+                                                                    </p>
+                                                                    <p className="gld-cvr-txt">Validity for {value.tenure} Months {value.is_selected ? <span>POPULAR</span> : ''}</p>
                                                                 </div>
                                                                 <div className="gold-price">
                                                                     <p className="gld-prc"><span className="gold-prc-cut">₹{value.mrp}</span> ₹{value.deal_price}</p>
