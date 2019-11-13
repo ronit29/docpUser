@@ -17,31 +17,12 @@ class SearchPackages extends React.Component {
     }
 
     static loadData(store, match, queryParams = {}) {
-        const parsed = queryString.parse(this.props.location.search)
         return new Promise((resolve, reject) => {
             try {
                 let location_ms = null
                 if (match.url.includes('location=')) {
                     location_ms = match.url.split('location=')[1]
                     location_ms = parseInt(location_ms)
-                }
-
-                let extra_params = {}
-
-                if(parsed.utm_term){
-                    extra_params.utm_term = parsed.utm_term || ""
-                }
-
-                if(parsed.utm_medium){
-                    extra_params.utm_medium = parsed.utm_medium || ""
-                }
-
-                if(parsed.utm_campaign){
-                    extra_params.utm_campaign = parsed.utm_campaign || ""
-                }
-
-                if(parsed.utm_source){
-                   extra_params.utm_source = parsed.utm_source || ""
                 }
 
                 PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
@@ -55,7 +36,7 @@ class SearchPackages extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getPackages(state, page, true, searchUrl, (loadMore, seoData) => {
+                    return store.dispatch(getPackages(state, page, true, searchUrl, {}, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
