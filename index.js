@@ -290,6 +290,12 @@ app.all('*', function (req, res) {
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                         // Sentry.captureException(error)
                     }
+                    if(req && req.path && req.path.match('-mddp')) {
+                        res.writeHead(302, {
+                          'Location': '/all-medicines'
+                        });
+                        res.end();
+                    }
 
                     res.status(404)
                     _serverHit(req, 'server_done')
