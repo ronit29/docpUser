@@ -195,9 +195,9 @@ class HomeChatView extends React.Component {
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} chatPage={true} offerList={this.props.offerList} />)
+			slabOrder.push(<ChatPanel key="1" homePage={true} chatPage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
-				<div className="col-md-5">
+				<div key="2" className="col-md-5">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
@@ -223,7 +223,7 @@ class HomeChatView extends React.Component {
 				</div>)
 
 			slabOrder.push(
-				<div className="col-md-5">
+				<div key="3" className="col-md-5">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
@@ -277,9 +277,9 @@ class HomeChatView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} chatPage={true} offerList={this.props.offerList} />)
+			slabOrder.push(<ChatPanel key="12" homePage={true} chatPage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
-				<div className="col-md-5">
+				<div key="22" className="col-md-5">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						{/* {
@@ -415,18 +415,29 @@ class HomeChatView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							{this.props.common_settings && this.props.common_settings.insurance_availability ?
-								<a href="/insurance/insurance-plans" onClick={(e) => {
-									let data = {
-										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
-									}
-									GTM.sendEvent({ data: data })
-									e.preventDefault();
-									this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
-								}}>OPD Insurance
-								<span className="opdNewHeaderOfr">New</span>
-								</a>
-								: ''}
+														<a href="/vip-club-details" onClick={(e) => {
+								let data = {
+									'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
+								}
+								GTM.sendEvent({ data: data })
+								e.preventDefault();
+								this.props.clearVipSelectedPlan()
+								this.navigateTo("/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime", 'opd')
+							}}>Docprime <img src={ASSETS_BASE_URL + '/img/gold-lg.png'} style={{ width: 35, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
+
+							{//this.props.common_settings && this.props.common_settings.insurance_availability ?
+							// 	<a href="/insurance/insurance-plans" onClick={(e) => {
+							// 		let data = {
+							// 			'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+							// 		}
+							// 		GTM.sendEvent({ data: data })
+							// 		e.preventDefault();
+							// 		this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
+							// 	}}>OPD Insurance
+							// 	<span className="opdNewHeaderOfr">New</span>
+							// 	</a>
+							// 	: ''
+							}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance, clearVipSelectedPlan } from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 import HomeChatView from '../../components/commons/Home/HomeChatView.js';
@@ -116,7 +116,8 @@ const mapDispatchToProps = (dispatch) => {
         getUpComingAppointment: () => dispatch(getUpComingAppointment()),
         resetPkgCompare: () => dispatch(resetPkgCompare()),
         toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
+        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan())
     }
 }
 
