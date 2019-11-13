@@ -76,27 +76,26 @@ class HomePagePackageWidget extends React.Component {
                                 <p className="newpkgInclude">{listItem.no_of_tests} tests included </p> */}
                                     <p className="pkgtstName">{listItem.name} {listItem.no_of_tests > 0 ?
                                         `(${listItem.no_of_tests} tests)` : ''}</p>
-                                    {listItem.mrp && listItem.discounted_price ? listItem.vip && listItem.vip.is_vip_member && listItem.vip.covered_under_vip?
-                                              <div className="pkg-card-price-offr">
-                                                    {
-                                                        listItem.vip.is_gold_member?
-                                                        <div className="pkg-prc-ct">
-                                                            <p>₹ {listItem.vip.vip_amount+ listItem.vip.vip_convenience_amount} 
-                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
-                                                                <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
-                                                            </p>
-                                                        </div>
-                                                        :listItem.vip.is_vip_member?
-                                                        <div className="pkg-prc-ct">
-                                                            <p>₹ {listItem.vip.vip_amount} 
-                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
-                                                                <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
-                                                            </p>
-                                                        </div>
-                                                        :''
-                                                    }
+
+                                        {
+                                            //for login, gold enabled member or vip enabled member
+                                            listItem.vip && ( listItem.vip.is_gold_member || listItem.vip.is_vip_member ) && listItem.vip.covered_under_vip ? 
+                                            <div className="pkg-card-price-offr">
+                                                <div className="pkg-prc-ct">
+                                                {
+                                                    listItem.vip.is_gold_member?
+                                                    <p>₹ {listItem.vip.vip_amount+ listItem.vip.vip_convenience_amount} 
+                                                        <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                        <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                                    </p>
+                                                    :<p>₹ {listItem.vip.vip_amount} 
+                                                        <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                        <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
+                                                    </p>
+                                                }
                                                 </div>
-                                                :<React.Fragment>
+                                            </div>
+                                            :<React.Fragment>
                                                 <div className="pkg-card-price-offr">
                                                     {
                                                         listItem.discounted_price == listItem.mrp?
@@ -116,7 +115,7 @@ class HomePagePackageWidget extends React.Component {
                                                     }
                                                 </div>
                                                 {
-                                                        !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount||0 + listItem.vip.vip_gold_price||0) && listItem.vip.is_gold?
+                                                        !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount + listItem.vip.vip_gold_price) && listItem.vip.is_gold && listItem.vip.is_enable_for_vip?
                                                         <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked.bind(this)}>
                                                             <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
                                                             <span>Price</span>
@@ -126,7 +125,60 @@ class HomePagePackageWidget extends React.Component {
                                                         :''
                                                 }
                                                 </React.Fragment>
-                                        : ''}
+                                        }
+
+                                    {// {listItem.mrp && listItem.discounted_price ? listItem.vip && listItem.vip.is_vip_member && listItem.vip.covered_under_vip?
+                                    //           <div className="pkg-card-price-offr">
+                                    //                 {
+                                    //                     listItem.vip.is_gold_member?
+                                    //                     <div className="pkg-prc-ct">
+                                    //                         <p>₹ {listItem.vip.vip_amount+ listItem.vip.vip_convenience_amount} 
+                                    //                             <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                    //                             <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                    //                         </p>
+                                    //                     </div>
+                                    //                     :listItem.vip.is_vip_member?
+                                    //                     <div className="pkg-prc-ct">
+                                    //                         <p>₹ {listItem.vip.vip_amount} 
+                                    //                             <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                    //                             <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
+                                    //                         </p>
+                                    //                     </div>
+                                    //                     :''
+                                    //                 }
+                                    //             </div>
+                                    //             :<React.Fragment>
+                                    //             <div className="pkg-card-price-offr">
+                                    //                 {
+                                    //                     listItem.discounted_price == listItem.mrp?
+                                    //                     <div className="pkg-prc-ct">
+                                    //                         <p>₹ {listItem.mrp}
+                                    //                         </p>
+                                    //                     </div>
+                                    //                     :<div className="pkg-prc-ct">
+                                    //                         <p>₹ {listItem.discounted_price} 
+                                    //                             <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                    //                         </p>
+                                    //                     </div>
+                                    //                 }
+                                    //                 {
+                                    //                     parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)!=0 && (listItem.discounted_price != listItem.mrp)?
+                                    //                     <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
+                                    //                 }
+                                    //             </div>
+                                    //             {
+                                    //                     !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount||0 + listItem.vip.vip_gold_price||0) && listItem.vip.is_gold?
+                                    //                     <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked.bind(this)}>
+                                    //                         <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                    //                         <span>Price</span>
+                                    //                         <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
+                                    //                         <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                    //                     </div>
+                                    //                     :''
+                                    //             }
+                                    //             </React.Fragment>
+                                    //     : ''}
+                                }
                                 </div>
                             })
                         }
