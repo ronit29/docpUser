@@ -669,7 +669,7 @@ class DoctorProfileView extends React.Component {
                                                                             </a></h4>
                                                                             <div className="panel-content pd-0 border-bottom-panel d-flex align-items-start">
                                                                                 <div className="googleReviewcard" style={{ flex: 1 }}>
-                                                                                    <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
+                                                                                    <img src={ASSETS_BASE_URL + "/img/powered_by_google_on_white.png"} />
                                                                                     {
                                                                                         selectedClinicName ? <p>Ratings for<span>{selectedClinicName}</span></p> : ''
                                                                                     }
