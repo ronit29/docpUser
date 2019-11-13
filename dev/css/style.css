@@ -4010,7 +4010,8 @@ ul li.time-slot-li-listing{
 }
 .slt-label-radio .dtl-radio .container-radio{
 	margin-bottom: 0px;
-	font-size: 14px;
+    font-size: 14px;
+    color:#757575;
 }
 .slt-label-radio .dtl-radio .container-radio .doc-checkmark{
 	top: 0px;

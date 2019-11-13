@@ -119,7 +119,7 @@ class HomePagePackageWidget extends React.Component {
                                                         <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked.bind(this)}>
                                                             <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
                                                             <span>Price</span>
-                                                            <p>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
+                                                            <p style={{color:'black'}}>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
                                                             <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                                         </div>
                                                         :''
