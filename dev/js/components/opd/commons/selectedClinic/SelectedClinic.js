@@ -58,7 +58,10 @@ class SelectedClinic extends React.Component {
         if(this.props.profiles && Object.keys(this.props.profiles).length >0 && this.props.profiles[this.props.selectedProfile]){
             selected_user_covered_under_insurance = this.props.profiles[this.props.selectedProfile].is_insured
         }
-        const parsed = queryString.parse(this.props.location.search)
+        var parsed = null
+        if(this.props.location && this.props.location.search) {
+            parsed = queryString.parse(this.props.location.search)    
+        }
         if(parsed && parsed.cod_to_prepaid=='true'){
             show_clinic = 0
         }
