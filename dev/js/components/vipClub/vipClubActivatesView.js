@@ -227,7 +227,7 @@ class VipClub extends React.Component {
                                             <div className="coupan-col">
                                                 <h4>Use coupan <br/> <span>DOCPRIME</span></h4>
                                                 <p>
-                                                    {/* <a><img src="" alt="copy" /></a> */}
+                                                    <a><img src="/assets/img/copy.svg" alt="copy" /></a>
                                                     <span>Tap to copy</span>
                                                 </p>
                                             </div>
