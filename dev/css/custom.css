@@ -5216,16 +5216,21 @@ img.gld-cd-icon {
     padding-right: 10px;
 }
 .vip-discount-col > .offer-col > p{
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   color: #1b97fd;
   text-align: center;
 }
 
 .vip-discount-col > .offer-col > p > span{
-  font-size: 14px;
+  font-size: 13px;
   color: #757575;
 }
+
+.vip-discount-col > .offer-col > p > img{
+    height: 24px;
+}
+
 .vip-discount-col > .offer-col >a{
     position: relative;
     top: 5px;
@@ -5233,7 +5238,7 @@ img.gld-cd-icon {
 .discount-coupan-col {
     width: 62%;
     display: inline-block;
-    padding: 10px 0px 0px 10px;
+    padding: 10px 0px 0px 15px;
 }
 .discount-coupan-col > .coupan-col{
   border-radius: 9px;
@@ -5255,13 +5260,23 @@ img.gld-cd-icon {
     font-size:11px;
     border-left: 1px solid rgba(0,0,0,0.2);
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.discount-coupan-col > .coupan-col > p > a{
+    text-align: center;
+}
+
+.discount-coupan-col > .coupan-col > p > a > img{
+    height: 18px;
 }
 
 .order-now{
     font-size: 16px;
     font-weight: 500;
     color: #f78631;
-    padding-top: 15px;
+    padding-top: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
