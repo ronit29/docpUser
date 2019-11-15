@@ -248,7 +248,7 @@ class VipClub extends React.Component {
                                                 <p>
                                                     {/* <a><img src="" alt="copy" /></a> */}
                                                     <span onClick={this.copyText.bind(this)}>Tap to copy</span>
-                                                    <input id="myInput" type="text" value="DOCPRIME" />
+                                                    <input style={{opacity:0}} id="myInput" type="text" value="DOCPRIME" />
                                                 </p>
                                             </div>
                                             <a href="http://bit.ly/2NXLR5u" className="order-now">
