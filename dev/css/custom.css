@@ -5149,10 +5149,11 @@ img.gld-cd-icon {
 /*====terms and condition css===*/
 
 .tc-apply{
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #f78631;
     padding-right: 80px;
+    cursor: pointer;
 }
 .tc-apply:hover{
     color: #f78631;
@@ -5184,3 +5185,97 @@ img.gld-cd-icon {
     padding-right: 0px;
     margin-bottom: 0px!important;
 }
+.mr-b-0{    
+    margin-bottom: 0px;
+}
+.pd-r-0{
+    padding-right: 0px;
+}
+
+.mr-t-10{
+    margin-top: 10px;
+}
+.vip-club > .gold-benifi-cards{
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.vip-club > .gold-benifi-cards:last-child{
+    border-right: 0px;
+}
+
+/***** vip discount customer dasboard  *****/
+.vip-discount-col{
+    background: url(/assets/img/vip-medlife-bg.png) repeat;
+    background-size: 121%;
+    background-position: 46%;
+}
+.vip-discount-col > .offer-col{
+    width: 38%;
+    border-right: 1px dashed rgba(0,0,0,0.2);
+    display: inline-block;
+    padding-right: 10px;
+}
+.vip-discount-col > .offer-col > p{
+  font-size: 16px;
+  font-weight: bold;
+  color: #1b97fd;
+  text-align: center;
+}
+
+.vip-discount-col > .offer-col > p > span{
+  font-size: 14px;
+  color: #757575;
+}
+.vip-discount-col > .offer-col >a{
+    position: relative;
+    top: 5px;
+}
+.discount-coupan-col {
+    width: 62%;
+    display: inline-block;
+    padding: 10px 0px 0px 10px;
+}
+.discount-coupan-col > .coupan-col{
+  border-radius: 9px;
+  border: 1px dashed #696969;
+  background-color: #f3f3f3;
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+}
+.discount-coupan-col > .coupan-col > h4{
+    font-size:12px;
+}
+.discount-coupan-col > .coupan-col > h4 > span{
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.discount-coupan-col > .coupan-col > p{
+    font-size:11px;
+    border-left: 1px solid rgba(0,0,0,0.2);
+    padding-left: 10px;
+}
+
+.order-now{
+    font-size: 16px;
+    font-weight: 500;
+    color: #f78631;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-now > img{
+    transform: rotate(-90deg);
+}
+
+.order-now:hover{
+    color: #f78631;
+}
+/* .border-circle{
+    width: 15px;
+    height: 15px;
+    background: red;
+} */

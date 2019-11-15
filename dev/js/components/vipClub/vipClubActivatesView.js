@@ -199,6 +199,47 @@ class VipClub extends React.Component {
                                         </div>
                                         :''
                                     }
+                                    {/* ================== gold benifits  ================== */}
+                                    <div className="vip-offer-cards p-12 mb-24">
+                                        <div className="gold-benifi-cards-cont vip-club">
+                                            <div className="gold-benifi-cards mr-b-0">
+                                                <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
+                                                <p>Book <br/> Doctors</p>
+                                            </div>
+                                            <div className="gold-benifi-cards mr-b-0">
+                                                <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
+                                                <p>Book Lab <br/> Test</p>
+                                            </div>
+                                            <div className="gold-benifi-cards mr-b-0">
+                                                <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                <p>Order <br/> Medicines</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/**vip discount dashboard**/}
+                                    <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
+                                        <div className="offer-col"> 
+                                            <p>Upto 23% OFF <br/> <span>on medicines</span></p>
+                                            <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>
+                                            <a className="tc-apply pd-r-0" href="#">T&amp;C Apply</a>
+                                        </div>
+                                        <div className="discount-coupan-col">
+                                            <div className="coupan-col">
+                                                <h4>Use coupan <br/> <span>DOCPRIME</span></h4>
+                                                <p>
+                                                    {/* <a><img src="" alt="copy" /></a> */}
+                                                    <span>Tap to copy</span>
+                                                </p>
+                                            </div>
+                                            <a href="http://bit.ly/2NXLR5u" className="order-now">
+                                                <span>Order medicine now</span>
+                                                <img src="/assets/img/customer-icons/dropdown-arrow.svg"></img>
+                                            </a>
+                                        </div>
+                                        {/* <div className="border-circle">
+                                            &nbsp;
+                                        </div> */}
+                                    </div>
                                     {
                                         this.props.data.user && Object.keys(this.props.data.user).length >0 && this.props.data.user.plus_members && this.props.data.user.plus_members.length > 0?
                                             <div className="vip-offer-cards mb-3">
