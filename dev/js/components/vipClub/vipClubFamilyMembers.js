@@ -10,8 +10,6 @@ class VipProposerFamily extends React.Component {
 		this.state = {
 			name: '',
 			last_name: '',
-			// middle_name:'',
-			// gender: '',
 			dob: '',
 			id: '',
 			relation: '',
@@ -22,12 +20,7 @@ class VipProposerFamily extends React.Component {
 			setDefault: false,
 			profile_id:null,
 			only_adult:false,
-			// select_profile_disable:false,
-			// show_lname: this.props.no_lname,
-			// show_lname_flag:this.props.no_lname,
-			// dateModal:false,
 			no_lname:false,
-    	    // selectedDateSpan:new Date(),
     	    is_change:false,
     	    year:null,
     	    mnth:null,
@@ -35,7 +28,8 @@ class VipProposerFamily extends React.Component {
     	    relation_key:'',
     	    is_disable:false,
     	    member_form_id:this.props.member_form_id,
-    	    is_already_user:false
+    	    is_already_user:false,
+    	    isUserSelectedProfile:this.props.isUserSelectedProfile
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -238,7 +232,7 @@ class VipProposerFamily extends React.Component {
 			}else{
 				this.populateDates(newProfileid,false)
 			}
-	    	
+	    	newProfile.isUserSelectedProfile = true
 			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({

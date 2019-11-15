@@ -9,6 +9,7 @@ import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
+import VipClubActivatedMemberDetails from './vipClubActivatedMemeberDetailsView.js'
 
 class VipClubMemberDetailsView extends React.Component{
 	constructor(props) {
@@ -35,7 +36,7 @@ class VipClubMemberDetailsView extends React.Component{
     	}
     }
 
-    addMembers(){
+    addMembers(isFromDefaultUser){
     	let member_dummy_data={
     		name: '',
 			last_name: '',
@@ -47,20 +48,49 @@ class VipClubMemberDetailsView extends React.Component{
     	}
     	let card
     	let membersId = []
-    	if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
-    		membersId = [].concat(this.props.currentSelectedVipMembersId)
-    		if(this.props.currentSelectedVipMembersId.length == 2){
-				membersId.push({[2]: 2, type:'adult'})
-				member_dummy_data.id=2
-    		}
-    		if(this.props.currentSelectedVipMembersId.length == 3){
-				membersId.push({[3]: 3, type:'adult'})
-				member_dummy_data.id=3
-    		}
-    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
+    	if(isFromDefaultUser){
+    		this.props.clearVipMemeberData()
+			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
+			member_dummy_data.id=0
+			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
     			this.props.userDetails('self_data', member_dummy_data)
     		})
-    	}
+    	}else{
+    		if(this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length &&  this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length >0){
+    			// this.props.vip_club_db_data.data.plan[0].total_allowed_members	
+    				if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.currentSelectedVipMembersId.length  < this.props.vip_club_db_data.data.plan[0].total_allowed_members){
+			    		membersId = [].concat(this.props.currentSelectedVipMembersId)
+			    		let currentFormIdsCount = this.props.currentSelectedVipMembersId.length
+			    		let total_allowed_members = this.props.vip_club_db_data.data.plan[0].total_allowed_members
+			    		if(currentFormIdsCount <= total_allowed_members){
+							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult'})
+							member_dummy_data.id=currentFormIdsCount
+			    		}
+				    // 		if(this.props.currentSelectedVipMembersId.length == 3){
+								// membersId.push({[3]: 3, type:'adult'})
+								// member_dummy_data.id=3
+				    // 		}
+			    		console.log(membersId)
+			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
+			    			this.props.userDetails('self_data', member_dummy_data)
+			    		})
+			    	}
+    		}
+	    // 	if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
+	    // 		membersId = [].concat(this.props.currentSelectedVipMembersId)
+	    // 		if(this.props.currentSelectedVipMembersId.length == 2){
+					// membersId.push({[2]: 2, type:'adult'})
+					// member_dummy_data.id=2
+	    // 		}
+	    // 		if(this.props.currentSelectedVipMembersId.length == 3){
+					// membersId.push({[3]: 3, type:'adult'})
+					// member_dummy_data.id=3
+	    // 		}
+	    // 		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
+	    // 			this.props.userDetails('self_data', member_dummy_data)
+	    // 		})
+	    // 	}
+	    }
     }
 
     componentWillReceiveProps(props){
@@ -68,16 +98,8 @@ class VipClubMemberDetailsView extends React.Component{
     	let self = this
     	let isDummyUser
     	let membersId = []
-    	// console.log(this.state.saveMembers)
-    	// console.log('props.selected_vip_plan')
-    	// console.log(props.selected_vip_plan)
-    	// console.log('props.USER.defaultProfile')
-    	// console.log(props.USER.defaultProfile)
-    	// console.log('props.currentSelectedVipMembersId')
-    	// console.log(props.currentSelectedVipMembersId)
-    	// console.log('props.is_from_payment')
-    	// console.log(props.is_from_payment)
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
+    		alert("sssss")
     		// console.log('iffff')
     		let loginUser
     		let isDefaultUser
@@ -86,7 +108,7 @@ class VipClubMemberDetailsView extends React.Component{
     		}
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
     			Object.entries(props.savedMemberData).map(function([key, value]) {
-    				membersId.push({[key]: value.id, type:value.relation == 'SELF'?'self':'adult', member_form_id:0})
+    				membersId.push({[key]: value.id, type:value.relation == 'SELF'?'self':'adult', member_form_id:0,isUserSelectedProfile:true})
     			})
     			props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true})
@@ -98,14 +120,14 @@ class VipClubMemberDetailsView extends React.Component{
 	    			isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		}
 	    		if(!isDummyUser){
-		    		membersId.push({'0':loginUser, type: 'self',member_form_id:0})
+		    		membersId.push({'0':loginUser, type: 'self',member_form_id:0,isUserSelectedProfile:false})
 		    		if(props.is_from_payment){
-			    		membersId.push({[1]: 1, type:'adult',member_form_id:1})
+			    		membersId.push({[1]: 1, type:'adult',member_form_id:1,isUserSelectedProfile:false})
 			    	}
 				}else{
-					membersId.push({'0':0, type:'self',member_form_id:0})
+					membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false})
 					if(props.is_from_payment){
-			    		membersId.push({[1]: 1, type:'adult',member_form_id:1})
+			    		membersId.push({[1]: 1, type:'adult',member_form_id:1,isUserSelectedProfile:false})
 			    	}
 				}
 				// console.log('membersIdelse')
@@ -120,58 +142,44 @@ class VipClubMemberDetailsView extends React.Component{
 		    		// membersId.push({[1]: 1, type:'adult'})
 		    		if(!Object.keys(props.vipClubMemberDetails).length){
 			    		// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    		// 	if(key == 0){
-			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    		// 	}else{
-			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
+			    		// 	if(value.relation === 'SELF'){
+			    		// 		membersId.push({[0]:value.id, type: 'self',member_form_id:value.id,isUserSelectedProfile:false})
 			    		// 	}
 			    		// })
-			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(value.relation === 'SELF'){
-			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
-			    			}
-			    		})
-			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(value.relation !== 'SELF'){
-			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
-			    			}
-			    		})
+			    		// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    		// 	if(value.relation !== 'SELF'){
+			    		// 		membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id,isUserSelectedProfile:false})
+			    		// 	}
+			    		// })
 			    		if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length == 1){
-			    			membersId.push({[1]: 1, type:'adult',member_form_id:1})
+			    			membersId.push({[1]: 1, type:'adult',member_form_id:1,isUserSelectedProfile:false})
 			    		}
 			    	}
-		    		if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-		    			// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    		// 	if(key == 0){
-			    		// 		membersId.push({'0':value.id, type: 'self',member_form_id:value.id})
-			    		// 	}else{
-			    		// 		membersId.push({[key]: value.id, type:'adult',member_form_id:value.id})
-			    		// 	}
-			    		// })
-			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(value.relation === 'SELF'){
-			    				membersId.push({[0]:value.id, type: 'self',member_form_id:value.id})
-			    			}
-			    		})
-			    		Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-			    			if(value.relation !== 'SELF'){
-			    				membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id})
-			    			}
-			    		})
-		    			if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-		    				Object.entries(props.vipClubMemberDetails).map(function ([key, value]) {
-		    					let found = false
-		    					membersId.map(function(k,val){
-		    						if(parseInt(k.member_form_id) == parseInt(key)){
-	    								found = true
-	    							}
-		    					})
-		    					if(!found){
-		    						membersId.push({[value.id]:value.id , type:'adult',member_form_id:value.id})
-		    					}
-		    				}) 
-		    			}
-		    		}
+		    		// if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
+			    	// 	Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    	// 		if(value.relation === 'SELF'){
+			    	// 			membersId.push({[0]:value.id, type: 'self',member_form_id:value.id,isUserSelectedProfile:false})
+			    	// 		}
+			    	// 	})
+			    	// 	Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
+			    	// 		if(value.relation !== 'SELF'){
+			    	// 			membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id,isUserSelectedProfile:false})
+			    	// 		}
+			    	// 	})
+		    		// 	if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
+		    		// 		Object.entries(props.vipClubMemberDetails).map(function ([key, value]) {
+		    		// 			let found = false
+		    		// 			membersId.map(function(k,val){
+		    		// 				if(parseInt(k.member_form_id) == parseInt(key)){
+	    			// 					found = true
+	    			// 				}
+		    		// 			})
+		    		// 			if(!found){
+		    		// 				membersId.push({[value.id]:value.id , type:'adult',member_form_id:value.id,isUserSelectedProfile:false})
+		    		// 			}
+		    		// 		}) 
+		    		// 	}
+		    		// }
 		    		
 					props.saveCurrentSelectedVipMembers(membersId)
 					this.setState({ saveMembers: true})
@@ -232,22 +240,22 @@ class VipClubMemberDetailsView extends React.Component{
     		}else{
     			pushData.is_agent = false
     		}
-    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-    			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
-    		}else{
-    			self_profile = this.props.vipClubMemberDetails[0]	
-    		}	
+    		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+    		// if(!isDummyUser){
+    		// 	self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
+    		// }else{
+    		// 	self_profile = this.props.vipClubMemberDetails[0]	
+    		// }	
     		let fields = []
     		this.props.currentSelectedVipMembersId.map((val,key) => {
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
 	    			if(param && Object.keys(param).length > 0){
-						if(param.relation == ""){ //common validation
-							is_disable = true
-							fields.push('relation')
-						}
+						// if(param.relation == ""){ //common validation
+						// 	is_disable = true
+						// 	fields.push('relation')
+						// }
 
 						if(param.title == ""){
 							is_disable = true
@@ -279,22 +287,22 @@ class VipClubMemberDetailsView extends React.Component{
 							fields.push('dob')
 						}
 
-						if(param.relation =='SELF'){
-							if(param.state == "" || param.state_code == ""){  
-								is_disable = true
-								fields.push('state')
-							}
-							if(param.address == ""){  
-								is_disable = true
-								fields.push('address')
-							}
+						if(!this.props.is_from_payment){
+							// if(param.state == "" || param.state_code == ""){  
+							// 	is_disable = true
+							// 	fields.push('state')
+							// }
+							// if(param.address == ""){  
+							// 	is_disable = true
+							// 	fields.push('address')
+							// }
+							// if(param.pincode == ""){  
+							// 	is_disable = true
+							// 	fields.push('pincode')
+							// }
 							if(param.email == ""){  
 								is_disable = true
 								fields.push('email')
-							}
-							if(param.pincode == ""){  
-								is_disable = true
-								fields.push('pincode')
 							}
 							if(param.email !='' && param.relation == 'self'){
 								let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -325,98 +333,137 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
-			    	let is_member_updated = []
-    				let image_ids = []
-	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
-			    		let param =this.props.vipClubMemberDetails[value[key]]
-				    		if(param.relation == 'SELF'){
-			    				self_profile = this.props.vipClubMemberDetails[value[key]]
-			    			}
-							members={}
-								members.relation=param.relation_key
-								members.title=param.title							
-						    	members.member = param.id
-						    	members.first_name=param.name
-						    	members.last_name=param.last_name
-						    	members.dob=param.dob
-						    	members.gender=param.gender
-						    	members.profile=param.profile_id
-						    	members.city = self_profile.city
-					    		members.city_code = self_profile.city_code
-					    		members.address = self_profile.address
-					    		members.pincode = self_profile.pincode
-					    		members.is_already_user = param.is_already_user
-					    		if(param.is_already_user){
-					    			members.id = param.id
-					    		}
-					    		members.email = self_profile.email
-						    	if(this.props.members_proofs && this.props.members_proofs.length>0){
-									is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
-									if(is_member_updated && is_member_updated.length > 0){
-										if(is_member_updated[0].img_path_ids.length > 0){
-											image_ids = []
-											is_member_updated[0].img_path_ids.map((imgId,i)=>{
-												image_ids.push({'proof_file':imgId.id})
-											})
-										}
-										members.document_ids = image_ids
-									}
-									// members.id=param.id
-								}
-								pushData.members.push(members)
-					    		return data.members.push(members)
-					},this)}
-					let popupMemData
-					popupMemData = data.members
-					this.setState({popupMemData:popupMemData})
-					if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
-			    		this.setState({show_popup:true})
-			    		return
-				    }
-				    console.log(data)
-	    			this.props.addVipMembersData(data,(resp)=>{
-	    				if(resp.success){
-	    					this.props.history.push('vip-club-activated-details')
-	    				}
-	    			})
-
 	    		}else{
-	    			var members = {}
-		    		members.title = self_profile.title
-		    		members.first_name = self_profile.name 
-		    		members.last_name = self_profile.last_name 
-		    		members.email = self_profile.email 
-		    		members.dob = self_profile.dob 
-		    		members.city = self_profile.state 
-		    		members.city_code = self_profile.state_code
-		    		members.address = self_profile.address
-		    		members.pincode = self_profile.pincode
-		    		members.profile = self_profile.profile_id
-		    		members.gender = self_profile.gender
-		    		members.relation = self_profile.relation
-		    		members.id = self_profile.id
-		    		data.members.push(members)
-		    		pushData.members.push(self_profile)
-		    		console.log(data)
-		    		this.pushUserData(pushData)
-		    		if(isSms){
-		    			this.sendSMS()
-		    		}else{
-			    		this.props.vipClubPay(data,(resp)=>{
-			    			
-			    			if(resp && resp.error){
-			    				SnackBar.show({ pos: 'bottom-center', text: resp.error})
-			    				return
-			    			}
-			    			if(resp && resp.payment_required){
-	                            this.processPayment(resp)
-							}else{
-								success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
-								this.props.history.push(success_id)
-							}
-			    		})
-			    	}
+	    			this.props.currentSelectedVipMembersId.map((val,key) => {
+			    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
+			    			param =this.props.vipClubMemberDetails[val[key]]
+			    			var members = {}
+				    		members.title = param.title
+				    		members.relation = param.relation_key
+				    		members.first_name = param.name 
+				    		members.last_name = param.last_name 
+				    		members.email = param.email 
+				    		members.dob = param.dob 
+				    		members.gender = param.gender
+				    		members.profile = param.profile_id
+				    		members.id = param.id
+				    		data.members.push(members)
+				    		pushData.members.push(param)
+				    		console.log(data)
+				    		this.pushUserData(pushData)
+				    		if(isSms){
+				    			this.sendSMS()
+				    		}else{
+					    		this.props.vipClubPay(data,(resp)=>{
+					    			
+					    			if(resp && resp.error){
+					    				SnackBar.show({ pos: 'bottom-center', text: resp.error})
+					    				return
+					    			}
+					    			if(resp && resp.payment_required){
+			                            this.processPayment(resp)
+									}else{
+										success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
+										this.props.history.push(success_id)
+									}
+					    		})
+					    	}
+			    		}
+		    		})
 	    		}
+	    // 		if(this.props.is_from_payment){
+			  //   	let is_member_updated = []
+    	// 			let image_ids = []
+	    // 			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
+			  //   		let param =this.props.vipClubMemberDetails[value[key]]
+				 //    		if(param.relation == 'SELF'){
+			  //   				self_profile = this.props.vipClubMemberDetails[value[key]]
+			  //   			}
+					// 		members={}
+					// 			members.relation=param.relation_key
+					// 			members.title=param.title							
+					// 	    	members.member = param.id
+					// 	    	members.first_name=param.name
+					// 	    	members.last_name=param.last_name
+					// 	    	members.dob=param.dob
+					// 	    	members.gender=param.gender
+					// 	    	members.profile=param.profile_id
+					// 	    	// members.city = self_profile.city
+					//     		// members.city_code = self_profile.city_code
+					//     		// members.address = self_profile.address
+					//     		// members.pincode = self_profile.pincode
+					//     		members.is_already_user = param.is_already_user
+					//     		if(param.is_already_user){
+					//     			members.id = param.id
+					//     		}
+					//     		members.email = self_profile.email
+					// 	    	if(this.props.members_proofs && this.props.members_proofs.length>0){
+					// 				is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
+					// 				if(is_member_updated && is_member_updated.length > 0){
+					// 					if(is_member_updated[0].img_path_ids.length > 0){
+					// 						image_ids = []
+					// 						is_member_updated[0].img_path_ids.map((imgId,i)=>{
+					// 							image_ids.push({'proof_file':imgId.id})
+					// 						})
+					// 					}
+					// 					members.document_ids = image_ids
+					// 				}
+					// 				// members.id=param.id
+					// 			}
+					// 			pushData.members.push(members)
+					//     		return data.members.push(members)
+					// },this)}
+					// let popupMemData
+					// popupMemData = data.members
+					// this.setState({popupMemData:popupMemData})
+					// if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
+			  //   		this.setState({show_popup:true})
+			  //   		return
+				 //    }
+				 //    console.log(data)
+	    // 			this.props.addVipMembersData(data,(resp)=>{
+	    // 				if(resp.success){
+	    // 					this.props.history.push('vip-club-activated-details')
+	    // 				}
+	    // 			})
+
+	    // 		}else{
+	    // 			var members = {}
+		   //  		members.title = self_profile.title
+		   //  		members.first_name = self_profile.name 
+		   //  		members.last_name = self_profile.last_name 
+		   //  		members.email = self_profile.email 
+		   //  		members.dob = self_profile.dob 
+		   //  		// members.city = self_profile.state 
+		   //  		// members.city_code = self_profile.state_code
+		   //  		// members.address = self_profile.address
+		   //  		// members.pincode = self_profile.pincode
+		   //  		members.profile = self_profile.profile_id
+		   //  		members.gender = self_profile.gender
+		   //  		members.relation = self_profile.relation
+		   //  		members.id = self_profile.id
+		   //  		data.members.push(members)
+		   //  		pushData.members.push(self_profile)
+		   //  		console.log(data)
+		   //  		this.pushUserData(pushData)
+		   //  		if(isSms){
+		   //  			this.sendSMS()
+		   //  		}else{
+			  //   		this.props.vipClubPay(data,(resp)=>{
+			    			
+			  //   			if(resp && resp.error){
+			  //   				SnackBar.show({ pos: 'bottom-center', text: resp.error})
+			  //   				return
+			  //   			}
+			  //   			if(resp && resp.payment_required){
+	    //                         this.processPayment(resp)
+					// 		}else{
+					// 			success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
+					// 			this.props.history.push(success_id)
+					// 		}
+			  //   		})
+			  //   	}
+	    // 		}
 	    		// this.props.history.push('/vip-club-activated-details')
 	    	}
     		
@@ -465,12 +512,17 @@ class VipClubMemberDetailsView extends React.Component{
 				proposer_id = this.props.USER.defaultProfile
 			}
 		}
-		if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
-			Object.entries(this.props.savedMemberData).map(function([key, value]) {
-    				if(value.relation == 'SELF'){
-    					proposer_id = value.id
-    				}
-    		})
+		// if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
+		// 	Object.entries(this.props.savedMemberData).map(function([key, value]) {
+		// 		if(value.relation == 'SELF'){
+		// 			proposer_id = value.id
+		// 		}
+  //   		})
+		// }
+		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
+			this.props.currentSelectedVipMembersId.filter(x=>x.isUserSelectedProfile).map((data, i) =>{
+				proposer_id = data[i]
+			})
 		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId =0
@@ -501,6 +553,7 @@ class VipClubMemberDetailsView extends React.Component{
 									endorsementError={this.state.endorsementError}
 									member_type = 'child'
 									member_form_id = {selectedMembersId}
+									isUserSelectedProfile = {false}
 								/>
 				})
 			}
@@ -566,7 +619,7 @@ class VipClubMemberDetailsView extends React.Component{
 									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Primary Member Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
 										<div className="insurance-member-details mrt-20">
-											<VipProposer {...this.props} 
+											{!this.props.is_from_payment?<VipProposer {...this.props} 
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
 												id={`member_${proposer_id}`} 
 												member_id={proposer_id} 
@@ -578,30 +631,24 @@ class VipClubMemberDetailsView extends React.Component{
 												endorsementError={this.state.endorsementError}
 												member_type='adult'
 												member_form_id={0}
+												show_selected_profiles={this.state.show_selected_profiles}
+												isUserSelectedProfile={false}
+												addMembers= {this.addMembers.bind(this)}
 												/>
+												:<VipClubActivatedMemberDetails {...this.props}/>
+											}
 										</div>
 									</div>
 									
 									{child}
 								</div>
 							</div>
-							{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
-								<button className="add-mem-blk" onClick={this.addMembers.bind(this)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.currentSelectedVipMembersId.length == 2?'3rd':this.props.currentSelectedVipMembersId.length == 3?'4th':''} Member `}</button>
+							{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length &&  this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length >0 && 
+								this.props.currentSelectedVipMembersId.length  < this.props.vip_club_db_data.data.plan[0].total_allowed_members ?
+								<button className="add-mem-blk" onClick={this.addMembers.bind(this,false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.currentSelectedVipMembersId.length == 2?'3rd':this.props.currentSelectedVipMembersId.length == 3?'4th':this.props.currentSelectedVipMembersId.length == 4?'Another':''} Member `}</button>
 							:''
 							}
 						</section>
-							{
-								/*this.props.isSalesAgent && this.props.isAgent && this.props.isAgent === 'true' && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price} rishi
-										<span className="foot-btn-sub-span"></span>
-									</button>
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
-										<span className="foot-btn-sub-span"></span>
-									</button>
-								:''*/
-							}
-
-							
 							{
 								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && !this.props.isAgent?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}

@@ -3,6 +3,7 @@ import SnackBar from 'node-snackbar'
 import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 import VerifyEmail from './verifyEmail.js'
+import VipLoginPopup from './vipClubPopup.js'
 const moment = require('moment')
 
 class VipProposer extends React.Component {
@@ -10,18 +11,17 @@ class VipProposer extends React.Component {
 		super(props)
 		this.state = {
 			name: '',
-			// middle_name: '', // to be deleted
 			last_name: '',
 			email: '',
 			gender: '',
 			dob: '',
-			pincode: '',
-			address: '',
+			// pincode: '',
+			// address: '',
 			title: '',
 			id: this.props.member_id,
 			relation: 'SELF',
 			// member_type: 'adult',
-			state: '',
+			// state: '',
 			// town: '',
 			// district: '',
 			profile_flag: true,
@@ -29,7 +29,7 @@ class VipProposer extends React.Component {
 			// show_lname_flag:this.props.no_lname, // to be deleted
 			profile_id: null,
 			// dateModal: false, // to be deleted
-			state_code: '',
+			// state_code: '',
 			// district_code: '',
 			// town_code: '',
 			// selectedDateSpan: new Date(), // to be deleted
@@ -46,7 +46,10 @@ class VipProposer extends React.Component {
 			profile:'',
 			relation_key:'SELF',
 			member_form_id:this.props.member_form_id,
-			is_already_user:this.props.is_from_payment?true:false
+			userProfiles:{},
+			showPopup:false,
+			isUserSelectedProfile:this.props.isUserSelectedProfile,
+			phone_number:null
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,12 +65,11 @@ class VipProposer extends React.Component {
 			// console.log('11')
 			if (!isDummyUser) {
 				// console.log('12')
-				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 			} else {
 				// console.log('13')
-				profile = Object.assign({}, this.props.vipClubMemberDetails[0])
+				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 			}
-
 			if(Object.keys(profile).length > 0){
 				// console.log('14')
 				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
@@ -97,19 +99,18 @@ class VipProposer extends React.Component {
 		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
-				// console.log('15')
 				let profile
 				if (!isDummyUser) {
 					// console.log('16')
-					profile = Object.assign({}, props.vipClubMemberDetails[props.USER.defaultProfile])
+					profile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				} else {
 					// console.log('17')
-					profile = Object.assign({}, props.vipClubMemberDetails[0])
+					profile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				}
-				if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
-					// console.log('18')
-					profile = props.USER.profiles[props.USER.defaultProfile]
-				}
+				// if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
+				// 	// console.log('18')
+				// 	profile = props.USER.profiles[props.USER.defaultProfile]
+				// }
 				if(profile && Object.keys(profile).length){
 					// console.log(profile)
 					// console.log('19')
@@ -122,9 +123,10 @@ class VipProposer extends React.Component {
 				// console.log('20')
 				let profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
-					// console.log('21')
-					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
-					if(profile.length > 0){
+					console.log('21')
+					profile = props.savedMemberData.filter((x=>x.id == props.member_id))
+
+					if(profile && profile.length > 0){
 						profile = profile[0]
 						// console.log(profile)
 						// console.log('profile21')
@@ -188,41 +190,57 @@ class VipProposer extends React.Component {
 		}
 	}
 
+	togglePopup(newProfileid, member_id, newProfile) {
+		let oldDate
+		let finalDate
+		if(newProfileid !== ''){
+			this.setState({...newProfile,relation:'',relation_key:''})
+			if (newProfile.gender == 'm') {
+				this.setState({ title: 'mr.' })
+			} else if (newProfile.gender == 'f') {
+				this.setState({ title: 'mrs.' })
+			}
+			console.log(newProfile)
+			if(newProfile && newProfile.dob){
+				oldDate= newProfile.dob.split('-')
+				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
+	    			this.populateDates(newProfileid,false)
+	    			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 
+	    			this.setState({dob:finalDate})
+	    		})
+			}else{
+				this.populateDates(newProfileid,false)
+			}
+			newProfile.isUserSelectedProfile=true
+			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, 0)
+			this.setState({
+				showPopup: !this.state.showPopup,
+				profile_id: newProfileid,
+				id:newProfileid
+			},() =>{
+				this.handleSubmit(false);
+			})
+		}else{
+			this.setState({showPopup: !this.state.showPopup})
+		}
+	}
+
+	hideSelectProfilePopup() {
+        this.setState({
+            showPopup: false
+        });
+    }
+
 	getUserDetails(profile) {
 		let newName = []
 		let oldDate
 		let tempArray
 		// this.populateDates()
 		if(Object.keys(profile).length > 0){
-			// if(profile.name){
-			// 	newName = profile.name.split(" ")
-			// 	if (newName.length == 2) {
-			// 		this.setState({
-			// 			// name: profile.isDummyUser ? '' : newName[0],
-			// 			// last_name: profile.isDummyUser ? '' : newName[1]
-			// 			name: newName[0],last_name: newName[1]
-			// 		})
-			// 	}  else if (newName.length > 2) {
-			// 		tempArray = newName.slice(1, newName.length)
-			// 		this.setState({
-			// 			// name: profile.isDummyUser ? '' : newName[0],
-			// 			// last_name: profile.isDummyUser ? '' : tempArray.join(' ')
-			// 			name: newName[0],
-			// 			last_name: tempArray.join(' ')
-			// 		})
-			// 	} else {
-			// 		this.setState({ name:profile.name?profile.name:'' })
-			// 	}
-			// }
 			if(this.props.is_from_payment){
 				if(profile.first_name){
 					this.setState({name:profile.first_name?profile.first_name:profile.name?profile.name:''})
-				}
-				if(profile.city){
-					this.setState({state:profile.city?profile.city:''})
-				}
-				if(profile.city_code){
-					this.setState({state_code:profile.city_code?profile.city_code:''})
 				}
 			}
 			if(profile.gender == 'm'){
@@ -350,12 +368,6 @@ class VipProposer extends React.Component {
 				event.preventDefault();
 			}
 		}
-		/*} else if (field == 'middle_name') { // to be deleted
-			if (this.state.middle_name.length == 50) {
-				event.preventDefault();
-			}
-		}*/
-
 	}
 	handleEmail() {
 		let formIsValid = true;
@@ -369,91 +381,6 @@ class VipProposer extends React.Component {
 			}
 		}
 	}
-	/*handleGender(field, event) {
-		let gender_value = event.target.value
-		if (gender_value == 'm') {
-			this.setState({ title: 'mr.' })
-		} else if (gender_value == 'f') {
-			this.setState({ title: 'mrs.' })
-		}
-		this.setState({
-			gender: event.target.value
-		}, () => {
-			this.handleSubmit(false,false)
-		})
-	}*/
-	/*openDateModal() { // to be deleted
-		this.setState({ dateModal: !this.state.dateModal })
-	}*/
-	/*selectDateFromCalendar(date) {
-		if (date) {
-			date = date.toDate()
-			var date = new Date(date)
-			let mnth = ("0" + (date.getMonth() + 1)).slice(-2)
-			let day = ("0" + date.getDate()).slice(-2);
-			let actual_date = [date.getFullYear(), mnth, day].join("-");
-			this.setState({ selectedDateSpan: actual_date, dateModal: false, currentDate: new Date(date).getDate(), dob: actual_date }, () => {
-				this.handleSubmit(false,false)
-			})
-		} else {
-			this.setState({ dateModal: false })
-		}
-	}*/
-	// handleLastname(event) {
-	// 	this.setState({ no_lname: !this.state.no_lname }, () => {
-	// 		this.handleSubmit(false,false)
-	// 	})
-	// }
-
-	// showAlert(type) {
-	// 	SnackBar.show({ pos: 'bottom-center', text: "Please select" + type + "first" });
-	// }
-
-	handleState(feild, event) {
-		this.setState({
-			[event.target.getAttribute('data-param')]: event.target.value
-		})
-		let states = []
-
-		if(this.props.user_cities && this.props.user_cities.length){
-			Object.entries(this.props.user_cities).map(function ([key, value]) {
-				states.push({ 'code': value.id, 'name': value.name })
-			})
-			this.autocomplete(document.getElementsByClassName('userState')[0], states, 'isState');
-		}
-	}
-
-	/*handleDistrict(feild, event) {
-		let self = this
-		this.setState({
-			[event.target.getAttribute('data-param')]: event.target.value
-		})
-		let districts_opt = []
-		Object.entries(this.props.insurnaceData['state']).map(function ([key, value]) {
-			if (self.state.state_code && self.state.state_code != '' && self.state.state != '' && self.state.state_code == value.gst_code) {
-				Object.entries(value.district).map(function ([k, districts]) {
-					districts_opt.push({ 'code': districts.district_code, 'name': districts.district_name })
-				})
-			}
-		})
-		this.autocomplete(document.getElementsByClassName('userDistrict')[0], districts_opt, 'isDistrict');
-	}*/
-
-	/*handleTown(feild, event) {
-		let self = this
-		this.setState({
-			[event.target.getAttribute('data-param')]: event.target.value
-		})
-		let city_opt = []
-		Object.entries(this.props.insurnaceData['state']).map(function ([key, value]) {
-			if (self.state.state_code && self.state.state_code != '' && self.state.state != '' && self.state.state_code == value.gst_code) {
-				Object.entries(value.cities).map(function ([k, city]) {
-					city_opt.push({ 'code': city.city_code, 'name': city.city_name })
-				})
-			}
-		})
-		this.autocomplete(document.getElementsByClassName('userTown')[0], city_opt, 'isTown');
-	}*/
 
 	autocomplete(inp, arr, type) {
 		let self = this
@@ -669,6 +596,7 @@ class VipProposer extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.member_id)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
@@ -684,49 +612,15 @@ class VipProposer extends React.Component {
 		if (this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]) {
 			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 		}
-		/*{self.props.user_cities && self.props.user_cities.length >0?
-			Object.entries(self.props.user_cities).map(function ([key, value]) {
-				if (self.state.state_code && self.state.state_code != '' && self.state.state != '' && self.state.state_code == value.gst_code) {
-					Object.entries(value.district).map(function ([k, districts]) {
-						districts_opt.push(<option key={k} data-param="district" id={districts.district_code} value={districts.district_name}>{districts.district_name}</option>)
-					})
-					Object.entries(value.cities).map(function ([k, city]) {
-						city_opt.push(<option key={k} data-param="town" id={city.city_code} value={city.city_name}>{city.city_name}</option>)
-					})
-				}
-			})
-		:''
-		}*/
-		// let isDisable = false
-		// if(!isDummyUser && this.state.isDisable){
-		// 	if(this.state.name !='' && this.state.dob !='' && this.state.email !=''){
-		// 		isDisable = true
-		// 	}
-
-		// }
 		return (
 			<div>
-				{/*
-					isDisable?
-						<span>Change details</span>
-					:''
-				*/}
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : this.props.is_endorsement ? `member_${this.props.member_id}` : `member_${this.props.USER.defaultProfile}`}>
+					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
+							showPopup: true, userProfiles: this.props.USER})}>
+							Select from profile
+							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+					</div>:''}
 					<div className="col-12">
-						{ //to be deleted
-							/*this.props.selected_plan.adult_count == 2 ?
-								<div>
-									<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-									<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-								</div>
-								:
-								<div>
-									<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-									<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
-									<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-
-								</div>*/
-						}
 						<React.Fragment>
 							<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 							<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
@@ -762,31 +656,6 @@ class VipProposer extends React.Component {
 								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
 						}
 					</div>
-					{/*<div className="col-6"> // to be deleted
-						<div className="ins-form-group inp-margin-right ">
-							<input 
-								style={{ 'textTransform': 'capitalize' }} 
-								type="text" 
-								id={`middle_name_${this.props.member_id}`} 
-								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name') > -1 ? 'fill-error' : ''}`} required 
-								autoComplete="middle_name" 
-								name="middle_name" 
-								value={this.state.no_lname ? '' : this.state.middle_name} 
-								data-param='middle_name' 
-								onChange={this.handleChange.bind(this, 'middle_name')} 
-								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'middle_name')} 
-								onKeyPress={this.handleNameCharacters.bind(this, 'middle_name')} 
-								disabled={this.state.no_lname || this.state.disableName? 'disabled' : ""}
-							/>
-							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
-							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-						</div>
-						{
-							show_createApi_keys.indexOf('middle_name') > -1 ?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
-						}
-					</div>*/}
 					<div className="col-6">
 						<div className="ins-form-group ins-form-group inp-margin-right">
 							<input 
@@ -816,45 +685,6 @@ class VipProposer extends React.Component {
 								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
 						}
 					</div>
-					{/*<div className="col-12" style={{ marginTop: '-10px' }} >
-						<div className="member-dtls-chk">
-							<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{ fontSize: 12, paddingLeft: 24, lineHeight: '16px' }}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on" />
-								<span className="checkmark small-checkmark"></span></label>
-						</div>
-					</div>*/}
-					{/*<div className="col-12 mrt-10">
-						<div className="ins-form-radio">
-							<div className="dtl-radio">
-								<label className="container-radio">
-									Male
-							 <input type="radio" name="gender" value='m' data-param='gender' checked={this.state.gender === 'm'} onChange={this.handleGender.bind(this, 'm')} />
-									<span className="doc-checkmark"></span>
-								</label>
-							</div>
-							<div className="dtl-radio">
-								<label className="container-radio">
-									Female
-							 <input type="radio" name="gender" value='f' data-param='gender' checked={this.state.gender === 'f'} onChange={this.handleGender.bind(this, 'f')} />
-									<span className="doc-checkmark"></span>
-								</label>
-							</div>
-							<div className="dtl-radio">
-								<label className="container-radio">
-									Others
-							 <input type="radio" name="gender" value='o' data-param='gender' checked={this.state.gender === 'o'} onChange={this.handleGender.bind(this, 'o')} />
-									<span className="doc-checkmark"></span>
-								</label>
-							</div>
-						</div>
-						{
-							this.props.validateErrors.indexOf('gender') > -1 ?
-								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('gender') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.gender[0]}</span> : ''
-						}
-					</div>*/}
 					{
 						!this.props.is_endorsement?
 						<div className="col-12 mrt-10">
@@ -921,7 +751,7 @@ class VipProposer extends React.Component {
 								<span className="fill-error-span">{this.props.createApiErrors.dob[0]}</span> : ''
 						}
 					</div>
-					<div className="col-12">
+					{/*<div className="col-12">
 						<div className="ins-form-group autocomplete">
 							<input 
 								style={{ 'textTransform': 'capitalize' }} 
@@ -949,7 +779,7 @@ class VipProposer extends React.Component {
 							show_createApi_keys.indexOf('state') > -1 ?
 								<span className="fill-error-span">{this.props.createApiErrors.state[0]}</span> : ''
 						}
-					</div>
+					</div>*/}
 					{/*<div className="col-12">
 						{this.state.state_code != '' ?
 							<div className="ins-form-group autocomplete">
@@ -1039,7 +869,7 @@ class VipProposer extends React.Component {
 								<span className="fill-error-span">{this.props.createApiErrors.town[0]}</span> : ''
 						}
 					</div>*/}
-					<div className="col-12">
+					{/*<div className="col-12">
 						<div className="ins-form-group">
 							<input 
 								style={{ 'textTransform': 'capitalize' }} 
@@ -1066,8 +896,8 @@ class VipProposer extends React.Component {
 							show_createApi_keys.indexOf('address') > -1 ?
 								<span className="fill-error-span">{this.props.createApiErrors.address[0]}</span> : ''
 						}
-					</div>
-					<div className="col-12">
+					</div>*/}
+					{/*<div className="col-12">
 						<div className="ins-form-group mb-0">
 							<input 
 								type="number" 
@@ -1097,7 +927,7 @@ class VipProposer extends React.Component {
 							show_createApi_keys.indexOf('pincode') > -1 ?
 								<span className="fill-error-span">{this.props.createApiErrors.pincode[0]}</span> : ''
 						}
-					</div>
+					</div>*/}
 					<div>
 					</div>
 				</div>
@@ -1110,6 +940,17 @@ class VipProposer extends React.Component {
 					this.props.is_from_payment?
 						<InsuranceProofs {...this.props} />
 						: ''
+				}
+				{this.state.showPopup?
+					<VipLoginPopup {...this.state.userProfiles} {...this.props} 
+						currentSelectedVipMembersId={this.props.currentSelectedVipMembersId} 
+						member_id={this.props.member_id} 
+						closePopup={this.togglePopup.bind(this)} 
+						isSelectprofile = {true} 
+						vipClubMemberDetails ={this.props.vipClubMemberDetails[this.props.member_id]}
+						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
+						is_child_only = {this.props.is_child_only}
+					/> : ''
 				}
 			</div>
 		)
