@@ -300,6 +300,15 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="vip-offer-cards mb-24">
+                                                <div className="vip-free-doc vip-medlife-bg">
+                                                    <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No Limits </p>
+                                                    <p className="text-right"><a className="tc-apply">T&amp;C Apply</a></p>
+                                                </div>
+                                            </div>
                                             {/* ================== gold benifits  ================== */}
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">

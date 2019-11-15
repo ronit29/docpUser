@@ -3788,6 +3788,12 @@ p.vp-sb-txt.vp-act{
 	background-size: 22%;
 	background-position: 96% 100% !important;
 }
+.vip-medlife-bg{
+	background: url(/assets/img/vip-medlife.png );
+	background-size: 63px;
+    background-position: 96% 100% !important;
+    padding-bottom: 5px!important;
+}
 .vip-bkdiscount-bg{
     background: url(/assets/img/vip-dscnt.png);
     background-size: 25%;
@@ -5138,3 +5144,43 @@ img.gld-cd-icon {
     to { max-height: 100%; transform: translateY(3px);}
 }
 /* ============ pharm-foot  ============ */
+
+
+/*====terms and condition css===*/
+
+.tc-apply{
+    font-size: 14px;
+    font-weight: 500;
+    color: #f78631;
+    padding-right: 80px;
+}
+.tc-apply:hover{
+    color: #f78631;
+}
+.medlife-col{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -13px;
+    text-align: right;
+}
+.medlife-col > .powered-col{
+  font-size: 14px;
+  font-weight: 500;
+  color: #757575;
+  position: relative;
+  top: 6px;
+  left: 2px;
+}
+
+.medlife-col > img {
+    width: 80px;
+    height: 27px;
+}
+
+.vip-medlife-bg > .vip-card-heading{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0px;
+    margin-bottom: 0px!important;
+}
