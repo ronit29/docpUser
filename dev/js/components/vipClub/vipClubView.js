@@ -13,6 +13,7 @@ import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
 import VipPlanView from './vipPlanView.js'
 import VipGoldView from './vipGoldView.js'
+import VipTnC from './vipTncView.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -23,7 +24,8 @@ class VipClubView extends React.Component {
             isLead: '',
             selected_plan_id: this.props.selected_plan && Object.keys(this.props.selected_plan).length ? this.props.selected_plan.id:'',
             toggleTabType: false,
-            is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false
+            is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false,
+            openMedlifeTnC:false
         }
     }
 
@@ -77,6 +79,14 @@ class VipClubView extends React.Component {
         })
     }
 
+    toggle(){
+        this.setState({openMedlifeTnC:true})
+    }
+
+    closeTncPopup(){
+       this.setState({openMedlifeTnC:false}) 
+    }
+
     selectGoldPlan(plan_to_toggle,isHeader) {
         this.setState({is_gold_clicked:true})
         let plan
@@ -107,40 +117,18 @@ class VipClubView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
         }
         GTM.sendEvent({ data: gtmData })
-        if (!this.props.isSalesAgent && !this.props.isAgent) {
-            if (STORAGE.checkAuth()) {
-                if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-                    loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-                    if (Object.keys(loginUser).length > 0) {
-                        this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
-                            let LeadIdData = {
-                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                            }
-                            GTM.sendEvent({ data: LeadIdData })
-                        })
-                    }
-                    this.props.history.push('/vip-club-member-details')
+            
+        if (STORAGE.checkAuth()) {
+            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if (Object.keys(loginUser).length > 0) {
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
+                        let LeadIdData = {
+                            'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                        }
+                        GTM.sendEvent({ data: LeadIdData })
+                    })
                 }
-            } else {
-                this.props.citiesData()
-                this.setState({ showPopup: true })
-            }
-        } else {
-            if (STORAGE.checkAuth()) {
-                // if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-                //     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-                //     if (Object.keys(loginUser).length > 0) {
-                //         if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
-                //             let data = {
-                //                 name: loginUser.name,
-                //                 phone_number: loginUser.phone_number,
-                //                 utm_source: lead_data.utm_source || '',
-                //                 utm_spo_tags : lead_data || ''
-                //             }
-                //             this.props.vipPlusLead(data)
-                //         }
-                //     }
-                // }
                 let url = '/vip-club-member-details?isDummy=true'
                 if (lead_data.utm_source) {
                     url += '&utm_source=' + lead_data.utm_source
@@ -158,11 +146,70 @@ class VipClubView extends React.Component {
                     url += '&is_agent=' + lead_data.is_agent
                 }
                 this.props.history.push(url)
-            } else {
-                this.props.citiesData()
-                this.setState({ showPopup: true })
+                // this.props.history.push('/vip-club-member-details')
             }
+        } else {
+            this.props.citiesData()
+            this.setState({ showPopup: true })
         }
+
+
+        // if (!this.props.isSalesAgent && !this.props.isAgent) {
+        //     if (STORAGE.checkAuth()) {
+        //         if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+        //             loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+        //             if (Object.keys(loginUser).length > 0) {
+        //                 this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
+        //                     let LeadIdData = {
+        //                         'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+        //                     }
+        //                     GTM.sendEvent({ data: LeadIdData })
+        //                 })
+        //             }
+        //             this.props.history.push('/vip-club-member-details')
+        //         }
+        //     } else {
+        //         this.props.citiesData()
+        //         this.setState({ showPopup: true })
+        //     }
+        // } else {
+        //     if (STORAGE.checkAuth()) {
+        //         // if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+        //         //     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+        //         //     if (Object.keys(loginUser).length > 0) {
+        //         //         if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
+        //         //             let data = {
+        //         //                 name: loginUser.name,
+        //         //                 phone_number: loginUser.phone_number,
+        //         //                 utm_source: lead_data.utm_source || '',
+        //         //                 utm_spo_tags : lead_data || ''
+        //         //             }
+        //         //             this.props.vipPlusLead(data)
+        //         //         }
+        //         //     }
+        //         // }
+        //         let url = '/vip-club-member-details?isDummy=true'
+        //         if (lead_data.utm_source) {
+        //             url += '&utm_source=' + lead_data.utm_source
+        //         }
+        //         if (lead_data.utm_term) {
+        //             url += '&utm_term=' + lead_data.utm_term
+        //         }
+        //         if (lead_data.utm_campaign) {
+        //             url += '&utm_campaign=' + lead_data.utm_campaign
+        //         }
+        //         if (lead_data.utm_medium) {
+        //             url += '&utm_medium=' + lead_data.utm_medium
+        //         }
+        //         if (lead_data.is_agent) {
+        //             url += '&is_agent=' + lead_data.is_agent
+        //         }
+        //         this.props.history.push(url)
+        //     } else {
+        //         this.props.citiesData()
+        //         this.setState({ showPopup: true })
+        //     }
+        // }
     }
 
     navigateTo(data, e) {
@@ -264,12 +311,45 @@ class VipClubView extends React.Component {
                             <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
                     {!this.props.is_gold && !this.state.is_gold_clicked?
-                         <VipPlanView {...this.props} isSalesAgent={this.props.isSalesAgent} isAgent={this.props.isAgent} source={this.props.source} is_gold={this.props.is_gold} is_vip_gold={this.props.is_vip_gold} selectPlan={this.selectPlan.bind(this)} proceed={this.proceed.bind(this)} selected_plan_id={this.state.selected_plan_id} selected_plan_data={this.state.selected_plan_data} viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data)} hospitalCardClicked={this.hospitalCardClicked.bind(this)} toggleTabType={this.state.toggleTabType} selectGoldPlan={this.selectGoldPlan.bind(this)}/>
+                         <VipPlanView {...this.props} 
+                            isSalesAgent={this.props.isSalesAgent} 
+                            isAgent={this.props.isAgent} 
+                            source={this.props.source} 
+                            is_gold={this.props.is_gold} 
+                            is_vip_gold={this.props.is_vip_gold} 
+                            selectPlan={this.selectPlan.bind(this)} 
+                            proceed={this.proceed.bind(this)} 
+                            selected_plan_id={this.state.selected_plan_id} 
+                            selected_plan_data={this.state.selected_plan_data} 
+                            viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data)} 
+                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            toggleTabType={this.state.toggleTabType} 
+                            selectGoldPlan={this.selectGoldPlan.bind(this)} 
+                            toggle = {this.toggle.bind(this)}
+                            />
                         :''}
 
                     {this.props.is_gold || this.state.is_gold_clicked?
-                        <VipGoldView {...this.props} isSalesAgent={this.props.isSalesAgent} isAgent={this.props.isAgent} source={this.props.source} is_gold={this.props.is_gold} is_vip_gold={this.props.is_vip_gold} selectPlan={this.selectPlan.bind(this)} proceed={this.proceed.bind(this)} selected_plan_id={this.state.selected_plan_id} selected_plan_data={this.state.selected_plan_data} viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data)} hospitalCardClicked={this.hospitalCardClicked.bind(this)} toggleTabType={this.state.toggleTabType} selectGoldPlan={this.selectGoldPlan.bind(this)} />
+                        <VipGoldView {...this.props} 
+                            isSalesAgent={this.props.isSalesAgent} 
+                            isAgent={this.props.isAgent} 
+                            source={this.props.source} 
+                            is_gold={this.props.is_gold} 
+                            is_vip_gold={this.props.is_vip_gold} 
+                            selectPlan={this.selectPlan.bind(this)} 
+                            proceed={this.proceed.bind(this)} 
+                            selected_plan_id={this.state.selected_plan_id} 
+                            selected_plan_data={this.state.selected_plan_data} 
+                            viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data)} 
+                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            toggleTabType={this.state.toggleTabType} 
+                            selectGoldPlan={this.selectGoldPlan.bind(this)} 
+                            toggle = {this.toggle.bind(this)}
+                            />
                         :''
+                    }
+                    {
+                        this.state.openMedlifeTnC ? <VipTnC props={this.props} toggle={this.closeTncPopup.bind(this)} is_insurance_applicable={false}/> : ""
                     }
                     <Disclaimer isVip={true}/>
                 </div>

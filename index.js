@@ -209,8 +209,17 @@ app.all('*', function (req, res) {
                     }
 
                     res.set('X-Frame-Options', 'sameorigin')
+
                     
                     if (context.data && context.data.status && context.data.status == 404) {
+
+                        if(req && req.path && req.path.match('-mddp')) {
+                            res.writeHead(302, {
+                              'Location': '/all-medicines'
+                            });
+                            res.end();
+                        }
+                        
                         res.status(404)
                     }
 
@@ -289,6 +298,12 @@ app.all('*', function (req, res) {
 
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                         // Sentry.captureException(error)
+                    }
+                    if(req && req.path && req.path.match('-mddp')) {
+                        res.writeHead(302, {
+                          'Location': '/all-medicines'
+                        });
+                        res.end();
                     }
 
                     res.status(404)
