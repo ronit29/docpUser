@@ -245,15 +245,11 @@ class VipClub extends React.Component {
                                         <div className="discount-coupan-col">
                                             <div className="coupan-col">
                                                 <h4>Use coupan <br/> <span>DOCPRIME</span></h4>
-                                                <p>
-<<<<<<< HEAD
+                                                <p onClick={this.copyText.bind(this)}>
                                                     {/* <a><img src="" alt="copy" /></a> */}
-                                                    <span onClick={this.copyText.bind(this)}>Tap to copy</span>
-                                                    <input style={{opacity:0}} id="myInput" type="text" value="DOCPRIME" />
-=======
-                                                    <a><img src="/assets/img/copy.svg" alt="copy" /></a>
+                                                    <img src="/assets/img/copy.svg" alt="copy" />
                                                     <span>Tap to copy</span>
->>>>>>> dab7de68e5f1f95dcc1961832c697568625c64e9
+                                                    <input style={{opacity:0}} id="myInput" type="text" value="DOCPRIME" />
                                                 </p>
                                             </div>
                                             <a href="http://bit.ly/2NXLR5u" className="order-now">
