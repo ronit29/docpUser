@@ -720,9 +720,9 @@ class DoctorProfileView extends React.Component {
                                                     } */}
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic, false)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
+                                                        <p><span style={{ display: 'inline-block' }}>Book Now</span></p>
                                                         {
-                                                            is_insurance_applicable ? ''
+                                                            is_insurance_applicable || true? ''
                                                                 : <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
                                                         }
 
