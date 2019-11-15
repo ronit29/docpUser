@@ -9,6 +9,7 @@ import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
+import VipTnC from './vipTncView.js'
 // import LocationElements from '../../../containers/commons/locationElements'
 // import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
@@ -18,7 +19,8 @@ class VipClub extends React.Component {
         super(props)
         this.state = {
            toggleTabType: false,
-           tabsValue:[]
+           tabsValue:[],
+           openMedlifeTnC:false
         }
     }
 
@@ -66,6 +68,21 @@ class VipClub extends React.Component {
 
         self.setState({ tabsValue: tabs })
     }
+
+    closeTncPopup(){
+       this.setState({openMedlifeTnC:false}) 
+    }
+
+    toggle(){
+        this.setState({openMedlifeTnC:true})
+    }
+
+    copyText(){
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        document.execCommand("copy");
+    }
+
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -200,35 +217,38 @@ class VipClub extends React.Component {
                                         :''
                                     }
                                     {/* ================== gold benifits  ================== */}
-                                    <div className="vip-offer-cards p-12 mb-24">
-                                        <div className="gold-benifi-cards-cont vip-club">
-                                            <div className="gold-benifi-cards mr-b-0">
-                                                <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                <p>Book <br/> Doctors</p>
-                                            </div>
-                                            <div className="gold-benifi-cards mr-b-0">
-                                                <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                <p>Book Lab <br/> Test</p>
-                                            </div>
-                                            <div className="gold-benifi-cards mr-b-0">
-                                                <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                <p>Order <br/> Medicines</p>
+                                    {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
+                                        <div className="vip-offer-cards p-12 mb-24">
+                                            <div className="gold-benifi-cards-cont vip-club">
+                                                <div className="gold-benifi-cards mr-b-0">
+                                                    <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
+                                                    <p>Book <br/> Doctors</p>
+                                                </div>
+                                                <div className="gold-benifi-cards mr-b-0">
+                                                    <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
+                                                    <p>Book Lab <br/> Test</p>
+                                                </div>
+                                                <div className="gold-benifi-cards mr-b-0">
+                                                    <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                    <p>Order <br/> Medicines</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    :''}
                                     {/**vip discount dashboard**/}
                                     <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
                                         <div className="offer-col"> 
                                             <p>Upto 23% OFF <br/> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>
-                                            <a className="tc-apply pd-r-0" href="#">T&amp;C Apply</a>
+                                            <a className="tc-apply pd-r-0" onClick={this.toggle.bind(this)}>T&amp;C Apply</a>
                                         </div>
                                         <div className="discount-coupan-col">
                                             <div className="coupan-col">
                                                 <h4>Use coupan <br/> <span>DOCPRIME</span></h4>
                                                 <p>
                                                     {/* <a><img src="" alt="copy" /></a> */}
-                                                    <span>Tap to copy</span>
+                                                    <span onClick={this.copyText.bind(this)}>Tap to copy</span>
+                                                    <input id="myInput" type="text" value="DOCPRIME" />
                                                 </p>
                                             </div>
                                             <a href="http://bit.ly/2NXLR5u" className="order-now">
@@ -299,6 +319,9 @@ class VipClub extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {
+                        this.state.openMedlifeTnC ? <VipTnC props={this.props} toggle={this.closeTncPopup.bind(this)} is_insurance_applicable={false}/> : ""
+                        }
                     </div>
                 </section>
                 <Disclaimer isVip={true}/>

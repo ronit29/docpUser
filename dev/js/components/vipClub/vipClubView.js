@@ -13,6 +13,7 @@ import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
 import VipPlanView from './vipPlanView.js'
 import VipGoldView from './vipGoldView.js'
+import VipTnC from './vipTncView.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -23,7 +24,8 @@ class VipClubView extends React.Component {
             isLead: '',
             selected_plan_id: this.props.selected_plan && Object.keys(this.props.selected_plan).length ? this.props.selected_plan.id:'',
             toggleTabType: false,
-            is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false
+            is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false,
+            openMedlifeTnC:false
         }
     }
 
@@ -75,6 +77,14 @@ class VipClubView extends React.Component {
         this.props.selectVipClubPlan('plan', plan, (resp) => {
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         })
+    }
+
+    toggle(){
+        this.setState({openMedlifeTnC:true})
+    }
+
+    closeTncPopup(){
+       this.setState({openMedlifeTnC:false}) 
     }
 
     selectGoldPlan(plan_to_toggle,isHeader) {
@@ -301,12 +311,45 @@ class VipClubView extends React.Component {
                             <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
                     {!this.props.is_gold && !this.state.is_gold_clicked?
-                         <VipPlanView {...this.props} isSalesAgent={this.props.isSalesAgent} isAgent={this.props.isAgent} source={this.props.source} is_gold={this.props.is_gold} is_vip_gold={this.props.is_vip_gold} selectPlan={this.selectPlan.bind(this)} proceed={this.proceed.bind(this)} selected_plan_id={this.state.selected_plan_id} selected_plan_data={this.state.selected_plan_data} viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data)} hospitalCardClicked={this.hospitalCardClicked.bind(this)} toggleTabType={this.state.toggleTabType} selectGoldPlan={this.selectGoldPlan.bind(this)}/>
+                         <VipPlanView {...this.props} 
+                            isSalesAgent={this.props.isSalesAgent} 
+                            isAgent={this.props.isAgent} 
+                            source={this.props.source} 
+                            is_gold={this.props.is_gold} 
+                            is_vip_gold={this.props.is_vip_gold} 
+                            selectPlan={this.selectPlan.bind(this)} 
+                            proceed={this.proceed.bind(this)} 
+                            selected_plan_id={this.state.selected_plan_id} 
+                            selected_plan_data={this.state.selected_plan_data} 
+                            viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data)} 
+                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            toggleTabType={this.state.toggleTabType} 
+                            selectGoldPlan={this.selectGoldPlan.bind(this)} 
+                            toggle = {this.toggle.bind(this)}
+                            />
                         :''}
 
                     {this.props.is_gold || this.state.is_gold_clicked?
-                        <VipGoldView {...this.props} isSalesAgent={this.props.isSalesAgent} isAgent={this.props.isAgent} source={this.props.source} is_gold={this.props.is_gold} is_vip_gold={this.props.is_vip_gold} selectPlan={this.selectPlan.bind(this)} proceed={this.proceed.bind(this)} selected_plan_id={this.state.selected_plan_id} selected_plan_data={this.state.selected_plan_data} viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data)} hospitalCardClicked={this.hospitalCardClicked.bind(this)} toggleTabType={this.state.toggleTabType} selectGoldPlan={this.selectGoldPlan.bind(this)} />
+                        <VipGoldView {...this.props} 
+                            isSalesAgent={this.props.isSalesAgent} 
+                            isAgent={this.props.isAgent} 
+                            source={this.props.source} 
+                            is_gold={this.props.is_gold} 
+                            is_vip_gold={this.props.is_vip_gold} 
+                            selectPlan={this.selectPlan.bind(this)} 
+                            proceed={this.proceed.bind(this)} 
+                            selected_plan_id={this.state.selected_plan_id} 
+                            selected_plan_data={this.state.selected_plan_data} 
+                            viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data)} 
+                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            toggleTabType={this.state.toggleTabType} 
+                            selectGoldPlan={this.selectGoldPlan.bind(this)} 
+                            toggle = {this.toggle.bind(this)}
+                            />
                         :''
+                    }
+                    {
+                        this.state.openMedlifeTnC ? <VipTnC props={this.props} toggle={this.closeTncPopup.bind(this)} is_insurance_applicable={false}/> : ""
                     }
                     <Disclaimer isVip={true}/>
                 </div>

@@ -306,7 +306,7 @@ class VipGoldView extends React.Component {
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No Limits </p>
-                                                    <p className="text-right"><a className="tc-apply">T&amp;C Apply</a></p>
+                                                    <p className="text-right"><a className="tc-apply" onClick={this.props.toggle.bind(this,true)}>T&amp;C Apply</a></p>
                                                 </div>
                                             </div>
                                             {/* ================== gold benifits  ================== */}
