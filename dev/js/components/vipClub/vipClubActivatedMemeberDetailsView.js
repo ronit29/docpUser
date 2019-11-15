@@ -12,7 +12,7 @@ class VipClubActivatedMemberDetails extends React.Component {
 
     render(){
     	if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
-    		console.log(this.props.vip_club_db_data.data.user.plus_members)
+    		// console.log(this.props.vip_club_db_data.data.user.plus_members)
     	}
     	return <section className="container container-top-margin cardMainPaddingRmv">
 				<div className="row no-gutters dsktp-row-gutter">

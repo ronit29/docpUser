@@ -37,36 +37,6 @@ class VipProposerFamily extends React.Component {
 	componentDidMount(){
 		let profile
 		if(this.props.is_endorsement){
-			/*if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
-				profile= Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
-				let oldDate
-				if(Object.keys(profile).length > 0 && profile.dob){
-					oldDate= profile.dob.split('-')
-				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
-				    		this.populateDates(this.props.member_id,true)
-				    })
-				}
-				this.setState({...profile},()=>{
-	    				this.handleSubmit(true)
-	    			})
-			}else{
-				let oldDate
-				if(this.props.user_data && this.props.user_data.length > 0){
-					if(this.props.user_data[0].relation == 'spouse'){
-						this.setState({only_adult:true})
-					}
-					if(this.props.user_data && this.props.user_data[0].dob){
-						oldDate= this.props.user_data[0].dob.split('-')
-						this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
-				    		this.populateDates(this.props.member_id,true)
-				    	})
-					}
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
-	    				this.handleSubmit(true)
-	    				// this.populateDates(this.props.member_id,true)
-	    			})
-				}
-			}*/
 		}else{
 			if(!this.state.year && !this.state.mnth && !this.state.mnth){
 				this.populateDates(this.props.member_id,true)
@@ -82,6 +52,7 @@ class VipProposerFamily extends React.Component {
 		let oldDate
 		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
+				console.log('ssssss')
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
@@ -90,39 +61,52 @@ class VipProposerFamily extends React.Component {
 					    self.populateDates(props.member_id,true)
 					}
 				}
-			}else if(props.member_id && !this.state.setDefault){
+			}else if(props.member_id >=0 && !this.state.setDefault){ 
+				console.log('ddddd')
+				console.log(props.member_id)
 				this.setState({id: props.member_id, setDefault:true}, () => {
-					if(this.props.is_child_only){
-						if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length >0){
-							props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-								if(val.relation !== 'SELF' && val.id == this.props.member_id){
-									profile = Object.assign({}, val)
-								}
-								if (profile && Object.keys(profile).length) {
-									oldDate = profile.dob.split('-')
-									this.setState({name:profile.first_name,last_name:profile.last_name,gender:profile.title == 'mr.'?'m':'f',dob:profile.dob,profile_id:profile.profile,title:profile.title,relation_key:profile.relation,relation:profile.relation=='SPOUSE_FATHER'?'Father-in-law':profile.relation == 'SPOUSE_MOTHER'?'Mother-in-law':self.relationTextFormat(profile.relation),member_type:this.props.member_type,is_disable:true,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],is_already_user:true},() =>{
-										self.populateDates(self.props.member_id,true)
-										self.handleSubmit()
-									})	
-								}
-							})
-						}else{
-							self.populateDates(self.props.member_id,true)
-							if(!self.state.year && !self.state.mnth && !self.state.mnth){
-							    self.populateDates(self.props.member_id,true)
-							}
-							this.setState({member_type:this.props.member_type,is_disable:false},() =>{
-								self.handleSubmit()
-							})
-						}
-					}else{						
+					self.populateDates(self.props.member_id,true)
+					if(!self.state.year && !self.state.mnth && !self.state.mnth){
 					    self.populateDates(self.props.member_id,true)
-						this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true,is_disable:false},() =>{
-							self.handleSubmit()
-						})
-					}					
+					}
+					this.setState({member_type:this.props.member_type,is_disable:false},() =>{
+						self.handleSubmit()
+					})
 				})
 			}
+			// else if(props.member_id && !this.state.setDefault){
+			// 	this.setState({id: props.member_id, setDefault:true}, () => {
+			// 		if(this.props.is_child_only){
+			// 			if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length >0){
+			// 				props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+			// 					if(val.relation !== 'SELF' && val.id == this.props.member_id){
+			// 						profile = Object.assign({}, val)
+			// 					}
+			// 					if (profile && Object.keys(profile).length) {
+			// 						oldDate = profile.dob.split('-')
+			// 						this.setState({name:profile.first_name,last_name:profile.last_name,gender:profile.title == 'mr.'?'m':'f',dob:profile.dob,profile_id:profile.profile,title:profile.title,relation_key:profile.relation,relation:profile.relation=='SPOUSE_FATHER'?'Father-in-law':profile.relation == 'SPOUSE_MOTHER'?'Mother-in-law':self.relationTextFormat(profile.relation),member_type:this.props.member_type,is_disable:true,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],is_already_user:true},() =>{
+			// 							self.populateDates(self.props.member_id,true)
+			// 							self.handleSubmit()
+			// 						})	
+			// 					}
+			// 				})
+			// 			}else{
+			// 				self.populateDates(self.props.member_id,true)
+			// 				if(!self.state.year && !self.state.mnth && !self.state.mnth){
+			// 				    self.populateDates(self.props.member_id,true)
+			// 				}
+			// 				this.setState({member_type:this.props.member_type,is_disable:false},() =>{
+			// 					self.handleSubmit()
+			// 				})
+			// 			}
+			// 		}else{						
+			// 		    self.populateDates(self.props.member_id,true)
+			// 			this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true,is_disable:false},() =>{
+			// 				self.handleSubmit()
+			// 			})
+			// 		}					
+			// 	})
+			// }
 		}
 	}
 
