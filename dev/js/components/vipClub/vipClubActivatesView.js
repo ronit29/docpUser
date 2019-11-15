@@ -77,7 +77,8 @@ class VipClub extends React.Component {
         this.setState({openMedlifeTnC:true})
     }
 
-    copyText(){
+    copyText(e){
+        e.preventDefault();
         var copyText = document.getElementById("myInput");
         copyText.select();
         document.execCommand("copy");
@@ -244,10 +245,10 @@ class VipClub extends React.Component {
                                         </div>
                                         <div className="discount-coupan-col">
                                             <div className="coupan-col">
-                                                <h4>Use coupan <br/> <span>DOCPRIME</span></h4>
-                                                <p onClick={this.copyText.bind(this)}>
+                                                <h4>Use coupon: <span>DOCPRIME</span></h4>
+                                                <p className="d-none" onClick={this.copyText.bind(this)}>
                                                     {/* <a><img src="" alt="copy" /></a> */}
-                                                    <img src="/assets/img/copy.svg" alt="copy" />
+                                                    <img src="/assets/img/copy.svg" alt="copy" height="18px" />
                                                     <span>Tap to copy</span>
                                                     <input style={{opacity:0}} id="myInput" type="text" value="DOCPRIME" />
                                                 </p>

@@ -5149,11 +5149,13 @@ img.gld-cd-icon {
 /*====terms and condition css===*/
 
 .tc-apply{
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 500;
     color: #f78631;
     padding-right: 80px;
     cursor: pointer;
+    position: relative;
+    top: 2px;
 }
 .tc-apply:hover{
     color: #f78631;
@@ -5166,7 +5168,7 @@ img.gld-cd-icon {
     text-align: right;
 }
 .medlife-col > .powered-col{
-  font-size: 14px;
+  font-size: 9px;
   font-weight: 500;
   color: #757575;
   position: relative;
@@ -5184,6 +5186,7 @@ img.gld-cd-icon {
     justify-content: space-between;
     padding-right: 0px;
     margin-bottom: 0px!important;
+    font-size:14px;
 }
 .mr-b-0{    
     margin-bottom: 0px;
@@ -5250,6 +5253,10 @@ img.gld-cd-icon {
 }
 .discount-coupan-col > .coupan-col > h4{
     font-size:12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }
 .discount-coupan-col > .coupan-col > h4 > span{
     font-weight: 500;
@@ -5262,6 +5269,10 @@ img.gld-cd-icon {
     padding-left: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+.discount-coupan-col > .coupan-col > p > input{
+    position: absolute ;
 }
 
 .discount-coupan-col > .coupan-col > p > a{
@@ -5289,8 +5300,32 @@ img.gld-cd-icon {
 .order-now:hover{
     color: #f78631;
 }
-/* .border-circle{
-    width: 15px;
-    height: 15px;
-    background: red;
-} */
+
+/**** terms and condition page css*****/
+
+.qa-column  > li > span > a, .qa-column  > li > span > a:hover{
+    color: #f78631;
+    font-weight: 500;
+}
+
+.tnc-column{
+    padding: 10px 12px;
+}
+.tnc-column > h3{
+    font-size: 18px;
+}
+.offer-terms-column{
+    padding-left: 15px;
+    margin-top: 15px;
+}
+.offer-terms-column > li{
+    margin-bottom: 10px;
+    list-style: disc!important;
+}
+.offer-terms-column  > li > a, .offer-terms-column  > li > a:hover{
+    color: #f78631;
+    font-weight: 500;
+}
+.child-list-item > li {
+    list-style: upper-roman;
+}

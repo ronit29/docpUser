@@ -108,8 +108,8 @@ class VipGoldView extends React.Component {
                                                 <p>Discounts on <br /><strong>5,000</strong> Labs</p>
                                             </div>
                                             <div className="gold-benifi-cards">
-                                                <img src={ASSETS_BASE_URL + '/img/gl3.png'} />
-                                                <p>Unlimited <br />Usage</p>
+                                                <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                <p>Order <br />Medicines</p>
                                             </div>
                                         </div>
 
@@ -168,7 +168,7 @@ class VipGoldView extends React.Component {
                                                 <div className="pakg-slider-container mb-10">
                                                     <div className="pkgSliderHeading">
                                                         <h5 style={{ fontSize: '14px' }}>Key Hospital Partners</h5>
-                                                        <span onClick={() => this.props.viewDocprimeNetworkClicked()}>View Docprime Gold Network</span>
+                                                        <span style={{ fontSize: '13px' }} onClick={() => this.props.viewDocprimeNetworkClicked()}>View Docprime Gold Network</span>
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
@@ -302,11 +302,11 @@ class VipGoldView extends React.Component {
                                             </div>
                                             <div className="vip-offer-cards mb-24">
                                                 <div className="vip-free-doc vip-medlife-bg">
-                                                    <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                    <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No Limits </p>
-                                                    <p className="text-right"><a className="tc-apply" onClick={this.props.toggle.bind(this,true)}>T&amp;C Apply</a></p>
+                                                    <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this,true)}>T&amp;C Apply</a></p>
                                                 </div>
                                             </div>
                                             {/* ================== gold benifits  ================== */}
