@@ -5138,3 +5138,69 @@ img.gld-cd-icon {
     to { max-height: 100%; transform: translateY(3px);}
 }
 /* ============ pharm-foot  ============ */
+/* ============ vip-gold-single-flow  ============ */
+.sng-gld-img {
+    margin: 0 4px;
+    width: 35px;
+}
+span.gold-qus {
+    background: #1b97fd;
+    color: white;
+    border-radius: 20px;
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+}
+b.gd-cut-prc {
+    color: #757575;
+    text-decoration: line-through;
+    margin-left: 1px;
+}
+.dp-gold-pln-change-container {
+    background: #eff4f6;
+    border: 1px solid #d0cccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+.dp-gold-pay-lft {
+    padding: 5px 5px;
+    border-right: 1px solid #d0cccc;
+    flex-shrink: 0;
+    flex:1;
+}
+p.dp-gld-txt-mem {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+p.dp-gld-txt-mem span {
+    color: #f78631;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+p.dp-gld-txt-mem span img {
+    width: 9px;
+    margin-left: 2px;
+}
+p.dp-gld-mem-grn {
+    color: #468e33;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.dp-gold-pay-rgt {
+    padding: 0 8px;
+}
+.dp-gold-pay-rgt p {
+    font-weight: 500;
+}
+/* ============ vip-gold-single-flow  ============ */
