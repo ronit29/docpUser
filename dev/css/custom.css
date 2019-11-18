@@ -5192,7 +5192,10 @@ img.gld-cd-icon {
     margin-bottom: 0px;
 }
 .pd-r-0{
-    padding-right: 0px;
+    padding-right: 0px!important;
+}
+.pd-l-0{
+    padding-left: 0px!important;
 }
 
 .mr-t-10{
@@ -5208,7 +5211,7 @@ img.gld-cd-icon {
 
 /***** vip discount customer dasboard  *****/
 .vip-discount-col{
-    background: url(/assets/img/vip-medlife-bg.png) repeat;
+    background-image: url(/assets/img/vip-medlife-bg@2x.png) ;
     background-size: 121%;
     background-position: 46%;
 }
@@ -5303,13 +5306,24 @@ img.gld-cd-icon {
 
 /**** terms and condition page css*****/
 
+.no-overflow{
+    overflow: hidden;
+}
 .qa-column  > li > span > a, .qa-column  > li > span > a:hover{
     color: #f78631;
     font-weight: 500;
 }
 
+.tnc-header{
+    position: fixed!important;
+    left: 0px;
+    width: 100%;
+    background: #ffffff;
+}
 .tnc-column{
     padding: 10px 12px;
+    height: 80vh;
+    overflow-y: auto;
 }
 .tnc-column > h3{
     font-size: 18px;
@@ -5329,3 +5343,8 @@ img.gld-cd-icon {
 .child-list-item > li {
     list-style: upper-roman;
 }
+
+.mr-t-5{
+    margin-top: 5px!important;
+}
+/**** terms and condition page css*****/
