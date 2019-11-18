@@ -52,7 +52,6 @@ class VipProposerFamily extends React.Component {
 		let oldDate
 		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
-				console.log('ssssss')
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
@@ -62,8 +61,6 @@ class VipProposerFamily extends React.Component {
 					}
 				}
 			}else if(props.member_id >=0 && !this.state.setDefault){ 
-				console.log('ddddd')
-				console.log(props.member_id)
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					self.populateDates(self.props.member_id,true)
 					if(!self.state.year && !self.state.mnth && !self.state.mnth){
