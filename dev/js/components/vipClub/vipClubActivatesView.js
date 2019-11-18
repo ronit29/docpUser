@@ -204,6 +204,18 @@ class VipClub extends React.Component {
                                         </div>
                                     </div>
                                     :''}
+                                    <div className="vip-offer-cards mb-3 gold-card-section">
+                                        <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/>
+                                        <img className="vipLogiImg pd-12" src="/assets/img/docgold.png" />
+                                        <div className="gold-card-user text-right text-white pd-12">
+                                            <h5>Gurpreet Singh</h5>
+                                            <h6>(Primary)</h6>
+                                        </div>
+                                        <div className="membership-validity-column pd-12 text-black text-center">
+                                            <h4>Docprime Gold Member</h4>
+                                            <h6>Valid till <strong>27 Aug 2020 </strong></h6>
+                                        </div>  
+                                    </div>
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
                                         <div className="mb-24">
                                             <div className="vip-offer-cards p-12 text-center">
