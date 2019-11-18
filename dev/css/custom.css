@@ -5357,3 +5357,47 @@ img.gld-cd-icon {
     margin-top: 5px!important;
 }
 /**** terms and condition page css*****/
+
+/**** gold card css*****/
+.gold-card-section{
+    background: #000000;
+    background-image: url(/assets/img/gold-bg.png);
+    background-size: cover;
+    border-radius: 11px;
+}
+.gold-card-section > .shadow-img{
+    position: absolute;
+    top: -52px;
+    max-width: 100%;
+}
+.gold-card-section > .vipLogiImg{
+    display: block;
+}
+.gold-card-section > .gold-card-user > h5{
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.gold-card-section > .gold-card-user > h6{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.gold-card-section > .membership-validity-column{
+    background-image: linear-gradient(to left, #edd083, #e9bf72);
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+.gold-card-section > .membership-validity-column > h4{
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.gold-card-section > .membership-validity-column > h6{
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+}
