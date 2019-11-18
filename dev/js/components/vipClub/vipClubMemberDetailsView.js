@@ -720,7 +720,7 @@ class VipClubMemberDetailsView extends React.Component {
 								</div>
 								{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0 &&
 									this.props.currentSelectedVipMembersId.length < this.props.vip_club_db_data.data.plan[0].total_allowed_members ?
-									<button className="add-mem-blk" onClick={this.addMembers.bind(this, false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.currentSelectedVipMembersId.length == 2 ? '3rd' : this.props.currentSelectedVipMembersId.length == 3 ? '4th' : this.props.currentSelectedVipMembersId.length == 4 ? 'Another' : ''} Member `}</button>
+									<button className="add-mem-blk" onClick={this.addMembers.bind(this, false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 2 ? '3rd' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 3 ? '4th' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 4 ? 'Another' : ''} Member `}</button>
 									: ''
 								}
 							</section>
