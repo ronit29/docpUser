@@ -204,6 +204,18 @@ class VipClub extends React.Component {
                                         </div>
                                     </div>
                                     :''}
+                                    <div className="vip-offer-cards mb-3 gold-card-section">
+                                        <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/>
+                                        <img className="vipLogiImg pd-12" src="/assets/img/docgold.png" />
+                                        <div className="gold-card-user text-right text-white pd-12">
+                                            <h5>Gurpreet Singh</h5>
+                                            <h6>(Primary)</h6>
+                                        </div>
+                                        <div className="membership-validity-column pd-12 text-black text-center">
+                                            <h4>Docprime Gold Member</h4>
+                                            <h6>Valid till <strong>27 Aug 2020 </strong></h6>
+                                        </div>  
+                                    </div>
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
                                         <div className="mb-24">
                                             <div className="vip-offer-cards p-12 text-center">
@@ -219,25 +231,26 @@ class VipClub extends React.Component {
                                     }
                                     {/* ================== gold benifits  ================== */}
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
-                                        <div className="vip-offer-cards p-12 mb-24">
+                                        <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
                                             <div className="gold-benifi-cards-cont vip-club">
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                    <p>Book <br/> Doctors</p>
+                                                    <p className="mr-t-5">Book <br/> Doctors</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                    <p>Book Lab <br/> Test</p>
+                                                    <p className="mr-t-5">Book Lab <br/> Test</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                    <p>Order <br/> Medicines</p>
+                                                    <p className="mr-t-5">Order <br/> Medicines</p>
                                                 </div>
                                             </div>
                                         </div>
                                     :''}
                                     {/**vip discount dashboard**/}
-                                    <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
+                                    <div className="vip-discount-col p-12 mb-24 no-overflow">
+                                        <img className="bg-circle-img" src="/assets/img/circle-bg.png" alt="circle" />
                                         <div className="offer-col"> 
                                             <p>Upto 23% OFF <br/> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>

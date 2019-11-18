@@ -458,7 +458,9 @@ class VipProposerFamily extends React.Component {
 							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
 							:<p className="sub-form-hed">{this.props.is_child_only? `Member ${this.props.member_view_id+1}`:`Spouse`}</p>*/
 						}
-						<p className="sub-form-hed">{`Member ${this.props.member_view_id+1}`}</p>
+						{
+							this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0?<p className="sub-form-hed">{`Member ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.member_view_id+1}`}</p>:''
+						}
 					</div>
 					<div>
 					{

@@ -12148,3 +12148,33 @@ padding: 0 10px;
 	color: #757575;
 	margin-right: 3px;
 }
+
+
+/* =============== single flow vip =============== */
+.vip-wrng-mssg {
+    border-radius: 10px;
+    background-color: rgba(245, 226, 138, .4);
+    display: flex;
+    align-items: end;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    margin-top: 4px;
+}
+.ins-usr-img-para li:last-child {
+    margin: 0;
+}
+.vip-user-details-container .ins-user-details-lisitng{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ededed;
+    margin: 0px -10px 10px -10px;
+    padding: 0px 10px 10px 10px;
+}
+.vip-user-details-container .ins-user-details-lisitng:last-child{
+    
+    margin-bottom: 0px;
+    border: transparent;
+    padding-bottom: 0;
+}
+/* =============== single flow vip =============== */

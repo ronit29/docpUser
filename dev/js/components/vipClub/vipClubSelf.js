@@ -49,7 +49,9 @@ class VipProposer extends React.Component {
 			userProfiles:{},
 			showPopup:false,
 			isUserSelectedProfile:this.props.isUserSelectedProfile,
-			phone_number:null
+			phone_number:null,
+			disablePhoneNo:false,
+			disableTitle:false
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -123,7 +125,7 @@ class VipProposer extends React.Component {
 				// console.log('20')
 				let profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
-					console.log('21')
+					// console.log('21')
 					profile = props.savedMemberData.filter((x=>x.id == props.member_id))
 
 					if(profile && profile.length > 0){
@@ -194,13 +196,12 @@ class VipProposer extends React.Component {
 		let oldDate
 		let finalDate
 		if(newProfileid !== ''){
-			this.setState({...newProfile,relation:'',relation_key:''})
+			this.setState({...newProfile,relation:null,relation_key:null,profile_flag:true})
 			if (newProfile.gender == 'm') {
 				this.setState({ title: 'mr.' })
 			} else if (newProfile.gender == 'f') {
 				this.setState({ title: 'mrs.' })
 			}
-			console.log(newProfile)
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
 				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
@@ -237,6 +238,11 @@ class VipProposer extends React.Component {
 		let oldDate
 		let tempArray
 		// this.populateDates()
+		let empty_state ={}
+		if(this.props.is_tobe_dummy_user){
+			this.setState({...empty_state})
+		}
+
 		if(Object.keys(profile).length > 0){
 			if(this.props.is_from_payment){
 				if(profile.first_name){
@@ -280,23 +286,30 @@ class VipProposer extends React.Component {
 						if(profile.name){
 							newName = profile.name.split(" ")
 							if (newName.length == 2) {
-								this.setState({name: newName[0],last_name: newName[1],disableFName:true,disableLName:true})
+								this.setState({name: newName[0],last_name: newName[1],disableFName:!profile.isDummyUser?true:false,disableLName:!profile.isDummyUser?true:false})
 							}  else if (newName.length > 2) {
 								tempArray = newName.slice(1, newName.length)
-								this.setState({name: newName[0],last_name: tempArray.join(' '),disableFName:true})
+								this.setState({disableLName:true,name: newName[0],last_name: tempArray.join(' '),disableFName:!profile.isDummyUser?true:false})
 							} else {
-								this.setState({ name:profile.name?profile.name:'', disableFName:true })
+								this.setState({ name:profile.name?profile.name:'', disableFName:!profile.isDummyUser?true:false })
 							}
 						}
 					}
 				}
 				this.handleSubmit(false,false)
 			})
-
+			if(!profile.isDummyUser && profile.name != '' && (profile.email != null || profile.email !='') && (profile.dob != null || profile.dob !='')){
+				this.setState({disableTitle:true})
+			}
 			this.setState({
-				disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,	
+				disableEmail: !profile.isDummyUser && profile.email !== '' ? true : false,
+				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
+				disableDob: !profile.isDummyUser && profile.dob !== '' ? true : false,
+				disablePhoneNo: !profile.isDummyUser && profile.phone_number != null ? true: false	
 			})
+			if(this.props.is_tobe_dummy_user){
+				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:null,disableTitle:false})
+			}
 			// this.setState({
 			// 	// disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
 			// 	// disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
@@ -341,7 +354,7 @@ class VipProposer extends React.Component {
 	}
 	handleSubmit(is_endoresment,is_endorse_email) {
 		let profile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
-		if (!profile.isDummyUser) {
+		if (!profile.isDummyUser && this.props.member_id > 0) {
 			this.setState({ profile_id: this.props.member_id })
 		} else {
 			this.setState({ profile_id: null })
@@ -614,13 +627,9 @@ class VipProposer extends React.Component {
 		}
 		return (
 			<div>
-				<div className="row no-gutters" id={isDummyUser ? 'member_0' : this.props.is_endorsement ? `member_${this.props.member_id}` : `member_${this.props.USER.defaultProfile}`}>
-					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
-							showPopup: true, userProfiles: this.props.USER})}>
-							Select from profile
-							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
-					</div>:''}
-					<div className="col-12">
+				{/*<div className="row no-gutters" id={isDummyUser ? 'member_0' : this.props.is_endorsement ? `member_${this.props.member_id}` : `member_${this.props.USER.defaultProfile}`}>*/}
+				<div className="row no-gutters" id={isDummyUser ? 'member_0' : `member_${this.props.member_id}`}>
+					<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
 						<React.Fragment>
 							<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 							<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
@@ -670,7 +679,7 @@ class VipProposer extends React.Component {
 								onChange={this.handleChange.bind(this, 'last_name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
-								disabled={this.props.is_from_payment || this.state.disableLName ? 'disabled' : ""} 
+								disabled={this.props.is_from_payment || this.state.disableLName ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
 							<label className={this.props.is_from_payment || this.state.disableLName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
@@ -687,7 +696,7 @@ class VipProposer extends React.Component {
 					</div>
 					{
 						!this.props.is_endorsement?
-						<div className="col-12 mrt-10">
+						<div className="col-12">
 							<div className="ins-form-group">
 								<input 
 									type="text" id={`emails_${this.props.member_id}`} 
@@ -716,6 +725,32 @@ class VipProposer extends React.Component {
 									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
 							}
 						</React.Fragment>
+					}
+					{
+						!this.props.is_endorsement && this.props.show_extra_fields && !this.props.is_from_payment?
+						<div className="col-12">
+							<div className="ins-form-group">
+								<input 
+									type="number" id={`phone_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('phone_number') > -1 ? 'fill-error' : ''}`} required 
+									autoComplete="phone_number" 
+									name="phone_number" 
+									value={this.state.phone_number} 
+									data-param='phone_number' 
+									onChange={this.handleChange.bind(this, 'phone_number')} 
+									onBlur={this.handleSubmit} 
+									onFocus={this.handleOnFocus.bind(this, 'phone_number')}
+									disabled={this.props.is_from_payment || this.state.disablePhoneNo ? 'disabled' : ''}  
+								/>
+								<label className={this.props.is_from_payment || this.state.disablePhoneNo ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`phone_${this.props.member_id}`}><span className="labelDot"></span>Phone Numer</label>
+								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+							</div>
+							{
+								this.props.validateErrors.indexOf('phone_number') > -1 ?
+									commonMsgSpan : ''
+							}
+						</div>
+						:''
 					}
 					<div className="col-12">
 						<div className={`ins-form-group ${this.props.is_from_payment || this.state.disableDob ?'click-disable':''}`} >
@@ -928,8 +963,11 @@ class VipProposer extends React.Component {
 								<span className="fill-error-span">{this.props.createApiErrors.pincode[0]}</span> : ''
 						}
 					</div>*/}
-					<div>
-					</div>
+					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
+							showPopup: true, userProfiles: this.props.USER,profile_flag:true})}>
+							Select from profile
+							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+					</div>:''}
 				</div>
 				{
 					/*this.props.is_endorsement && this.state.is_change ?
