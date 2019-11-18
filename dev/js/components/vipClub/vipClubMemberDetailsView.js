@@ -17,13 +17,7 @@ class VipClubMemberDetailsView extends React.Component {
         this.state = {
             saveMembers:false,
             validateErrors:{},
-            validateOtherErrors:{},
-            validatingNames:[],
-            CreateApiErrors:{},
             show_selected_profiles:[],
-            validateDobErrors:[],
-           	errorMessages:[],
-           	endorsementError:[],
            	paymentData: null,
            	show_popup:false,
            	proceed:false,
@@ -75,7 +69,7 @@ class VipClubMemberDetailsView extends React.Component {
 			    		let currentFormIdsCount = this.props.currentSelectedVipMembersId.length
 			    		let total_allowed_members = this.props.vip_club_db_data.data.plan[0].total_allowed_members
 			    		if(currentFormIdsCount <= total_allowed_members){
-							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount})
+							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount,isUserSelectedProfile:true})
 							member_dummy_data.id=currentFormIdsCount
 			    		}
 			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
@@ -403,7 +397,7 @@ class VipClubMemberDetailsView extends React.Component {
 					let popupMemData
 						popupMemData = data.members
 						this.setState({popupMemData:popupMemData})
-						if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
+						if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <this.props.selected_vip_plan.total_allowed_members){
 						  		this.setState({show_popup:true})
 						  		return
 						   }
@@ -622,20 +616,11 @@ class VipClubMemberDetailsView extends React.Component {
 						return <VipProposerFamily {...this.props} 
 									key={i} 
 									member_id={data[i]} 
-									// checkForValidation ={this.checkForValidation.bind(this)} 
-									is_child_only={true} 
 									id={`member_${i}`} 
 									param_id = {i} 
 									member_view_id= {i} 
 									validateErrors={this.state.validateErrors[data[i]] || []} 
-									validateOtherErrors={[]} 
-									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[data[i]] || []} 
-									errorMessages={this.state.errorMessages} 
-									validatingNames={this.state.validatingNames||[]}
-									is_endorsement = {false}
-									endorsementError={this.state.endorsementError}
 									member_type = 'child'
 									member_form_id = {i}
 									isUserSelectedProfile = {false}
@@ -712,16 +697,9 @@ class VipClubMemberDetailsView extends React.Component {
 										<div className="widget" style={{ padding: '10px' }}>
 											<div className={` insurance-member-details ${this.props.is_from_payment ? '' : 'mrt-20'}`}>
 												{!this.props.is_from_payment ? <VipProposer {...this.props}
-													// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
 													id={`member_${proposer_id}`}
 													member_id={proposer_id}
 													validateErrors={this.state.validateErrors[proposer_id] || []}
-													validateOtherErrors={this.state.validateOtherErrors[proposer_id] || []}
-													createApiErrors={this.state.CreateApiErrors.members ? this.state.CreateApiErrors.members[0] : []}
-													errorMessages={this.state.errorMessages}
-													is_endorsement={false}
-													endorsementError={this.state.endorsementError}
-													member_type='adult'
 													member_form_id={0}
 													show_selected_profiles={this.state.show_selected_profiles}
 													isUserSelectedProfile={false}

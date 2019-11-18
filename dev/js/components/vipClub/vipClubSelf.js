@@ -15,33 +15,19 @@ class VipProposer extends React.Component {
 			email: '',
 			gender: '',
 			dob: '',
-			// pincode: '',
-			// address: '',
 			title: '',
 			id: this.props.member_id,
 			relation: 'SELF',
-			// member_type: 'adult',
-			// state: '',
-			// town: '',
-			// district: '',
 			profile_flag: true,
-			// show_lname: this.props.no_lname, // to be deleted
-			// show_lname_flag:this.props.no_lname, // to be deleted
 			profile_id: null,
-			// dateModal: false, // to be deleted
-			// state_code: '',
-			// district_code: '',
-			// town_code: '',
-			// selectedDateSpan: new Date(), // to be deleted
-			// no_lname: false,
 			disableFName: false,
 			disableLName: false,
 			disableEmail: false,
 			disableDob: false,
 			is_change: false,
-			year: null,
-			mnth: null,
-			day: null,
+			year: '',
+			mnth: '',
+			day: '',
 			emailVerified:false,
 			profile:'',
 			relation_key:'SELF',
@@ -62,18 +48,13 @@ class VipProposer extends React.Component {
 		let profile
 		let isDummyUser
 		let profileLength = Object.keys(this.props.USER.profiles).length;
-		// if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_from_payment) { profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 		if (profileLength > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
-			// console.log('11')
 			if (!isDummyUser) {
-				// console.log('12')
 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 			} else {
-				// console.log('13')
 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 			}
 			if(Object.keys(profile).length > 0){
-				// console.log('14')
 				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 				if(profile.isDummyUser){
 					profile.id = 0
@@ -87,11 +68,6 @@ class VipProposer extends React.Component {
 	    				this.getUserDetails(profile)	
 	    			})
 				}
-				// this.setState({...profile},()=>{
-				// 	this.getUserDetails(profile)
-				// 	this.populateDates()
-				// 	this.handleSubmit(false,false)
-				// })
 			}
 		}
 	}
@@ -103,45 +79,30 @@ class VipProposer extends React.Component {
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
 				let profile
 				if (!isDummyUser) {
-					// console.log('16')
 					profile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				} else {
-					// console.log('17')
 					profile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
-				}
-				// if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
-				// 	// console.log('18')
-				// 	profile = props.USER.profiles[props.USER.defaultProfile]
-				// }
+				}				
 				if(profile && Object.keys(profile).length){
-					// console.log(profile)
-					// console.log('19')
 					this.setState({id:profile.id,profile_flag:false},()=>{
 						this.populateDates()
 			    		this.getUserDetails(profile)	
 			    	})
 			    }
 			}else if (props.USER.profiles[props.USER.defaultProfile]) {
-				// console.log('20')
 				let profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
-					// console.log('21')
 					profile = props.savedMemberData.filter((x=>x.id == props.member_id))
 
 					if(profile && profile.length > 0){
 						profile = profile[0]
-						// console.log(profile)
-						// console.log('profile21')
 						this.setState({id:profile.id,profile_flag:false},()=>{
 							this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
 				}else{
-					// console.log('22')
 					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
-					// console.log(profile)
-					// console.log('profile23')
 					if (profile && Object.keys(profile).length) {
 						if(profile.isDummyUser){
 							profile.id = 0
@@ -158,38 +119,39 @@ class VipProposer extends React.Component {
 					}
 				}
 			}
-		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
-			let profile ={}
-			let newProfile = {}
-			if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
-				if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length > 0){
-					props.currentSelectedVipMembersId.map((val,key) => {
-		    			newProfile =props.vipClubMemberDetails[val[key]]
-		    			if(newProfile && newProfile.relation == 'SELF'){
-		    				profile = props.vipClubMemberDetails[val[key]]
-		    			}
-			    	})
-			    	if (profile && Object.keys(profile).length) {
-			    		this.setState({id:profile.profile,profile_flag:false},()=>{
-			    			this.populateDates()
-			    			this.getUserDetails(profile)	
-			    		})
-					}
-				}else{
-			    	props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-						if(val.relation == 'SELF'){
-							profile = Object.assign({}, val)
-						}
-					})
-			    	if (profile && Object.keys(profile).length) {
-			    		this.setState({id:profile.profile,profile_flag:false},()=>{
-			    			this.populateDates()
-			    			this.getUserDetails(profile)	
-			    		})
-					}
-				}
-			}
 		}
+		// else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
+		// 	let profile ={}
+		// 	let newProfile = {}
+		// 	if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
+		// 		if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length > 0){
+		// 			props.currentSelectedVipMembersId.map((val,key) => {
+		//     			newProfile =props.vipClubMemberDetails[val[key]]
+		//     			if(newProfile && newProfile.relation == 'SELF'){
+		//     				profile = props.vipClubMemberDetails[val[key]]
+		//     			}
+		// 	    	})
+		// 	    	if (profile && Object.keys(profile).length) {
+		// 	    		this.setState({id:profile.profile,profile_flag:false},()=>{
+		// 	    			this.populateDates()
+		// 	    			this.getUserDetails(profile)	
+		// 	    		})
+		// 			}
+		// 		}else{
+		// 	    	props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+		// 				if(val.relation == 'SELF'){
+		// 					profile = Object.assign({}, val)
+		// 				}
+		// 			})
+		// 	    	if (profile && Object.keys(profile).length) {
+		// 	    		this.setState({id:profile.profile,profile_flag:false},()=>{
+		// 	    			this.populateDates()
+		// 	    			this.getUserDetails(profile)	
+		// 	    		})
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 
 	togglePopup(newProfileid, member_id, newProfile) {
@@ -328,16 +290,13 @@ class VipProposer extends React.Component {
 			// })
 		}
 	}
+
 	handleChange(field, event) {
 		this.setState({
 			[event.target.getAttribute('data-param')]: event.target.value
 		})
 	}
-	handleOnFocus(field, event) {
-		// if(event.target.nextElementSibling.nextElementSibling){
-		// 	event.target.nextElementSibling.nextElementSibling.classList.add('field-icon')
-		// }
-	}
+
 	handleTitle(field, event) {
 		let title_value = event.target.value
 		if (title_value == 'mr.') {
@@ -352,6 +311,7 @@ class VipProposer extends React.Component {
 			this.props.userDetails('self_data', self_data)
 		})
 	}
+
 	handleSubmit(is_endoresment,is_endorse_email) {
 		let profile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 		if (!profile.isDummyUser && this.props.member_id > 0) {
@@ -366,11 +326,7 @@ class VipProposer extends React.Component {
 		}
 		this.props.userDetails('self_data', self_data)
 	}
-	handlekey(event) {
-		if (this.state.pincode.length == 6) {
-			event.preventDefault();
-		}
-	}
+
 	handleNameCharacters(field, event) {
 		if (field == 'name') {
 			if (this.state.name.length == 50) {
@@ -382,6 +338,7 @@ class VipProposer extends React.Component {
 			}
 		}
 	}
+
 	handleEmail() {
 		let formIsValid = true;
 		if (this.state.email != '') {
@@ -393,108 +350,6 @@ class VipProposer extends React.Component {
 				SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 			}
 		}
-	}
-
-	autocomplete(inp, arr, type) {
-		let self = this
-		var currentFocus;
-
-		inp.addEventListener("input", function (e) {
-			var parentDiv, childDiv, i, val = this.value;
-
-			self.closeAllLists(type);
-			if (!val) { return false; }
-			currentFocus = -1;
-
-			parentDiv = document.createElement("DIV")
-			parentDiv.setAttribute("id", this.id + "autocomplete-list")
-			parentDiv.setAttribute("class", "autocomplete-items")
-			parentDiv.setAttribute("style", "cursor: pointer;")
-			this.parentNode.appendChild(parentDiv)
-
-			for (i = 0; i < arr.length; i++) {
-				/*check if the item starts with the same letters as the text field value:*/
-				if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-					childDiv = document.createElement("DIV");
-					childDiv.innerHTML = "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
-					childDiv.innerHTML += arr[i].name.substr(val.length);
-					childDiv.innerHTML += "<input type='hidden' value='" + arr[i].name + "' id='" + arr[i].code + "'>";
-
-					childDiv.addEventListener("click", function (e) {
-						inp.value = this.getElementsByTagName("input")[0].value;
-						if (type == 'isState') {
-							self.setState({ state: inp.value, state_code: this.getElementsByTagName("input")[0].id })
-						}
-						// } else if (type == 'isDistrict') {
-						// 	self.setState({ district: inp.value, district_code: this.getElementsByTagName("input")[0].id })
-						// } else if (type == 'isTown') {
-						// 	self.setState({ town: inp.value, town_code: this.getElementsByTagName("input")[0].id })
-						// }
-
-						self.handleSubmit()
-						self.closeAllLists(type)
-					})
-					parentDiv.appendChild(childDiv);
-				}
-			}
-		})
-		/*execute a function on key presses:*/
-		inp.addEventListener("keydown", function (e) {
-			var x = document.getElementById(this.id + "autocomplete-list");
-			if (x) x = x.getElementsByTagName("div");
-			if (e.keyCode == 40) {
-				currentFocus++;
-				self.addActive(x, currentFocus);
-			} else if (e.keyCode == 38) {
-				currentFocus--;
-				self.addActive(x, currentFocus);
-			} else if (e.keyCode == 13) {
-				e.preventDefault();
-				if (currentFocus > -1) {
-					if (x) x[currentFocus].click();
-				}
-			}
-		})
-	}
-
-	addActive(x, currentFocus) {
-		if (!x) return false;
-		this.removeActive(x);
-		if (currentFocus >= x.length) currentFocus = 0;
-		if (currentFocus < 0) currentFocus = (x.length - 1);
-		if(x[currentFocus].classList){
-			x[currentFocus].classList.add("autocomplete-active");
-		}
-	}
-
-	removeActive(x) {
-		for (var i = 0; i < x.length; i++) {
-			if(x[i].classList){
-				x[i].classList.remove("autocomplete-active");
-			}
-		}
-	}
-
-	closeAllLists(elmnt, type) {
-		let inp
-		if (type == 'isState') {
-			inp = document.getElementsByClassName('userState')[0]
-		} 
-		// else if (type == 'isDistrict') {
-		// 	inp = document.getElementsByClassName('userDistrict')[0]
-		// } else if (type == 'isTown') {
-		// 	inp = document.getElementsByClassName('userTown')[0]
-		// }
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-			if (elmnt != x[i] && elmnt != inp) {
-				x[i].parentNode.removeChild(x[i]);
-			}
-		}
-	}
-
-	daysInMonth(month, year) {
-		return new Date(year, month, 31).getDate();
 	}
 
 	populateDates() {
@@ -589,6 +444,7 @@ class VipProposer extends React.Component {
 			})
 		}
 	}
+
 	submitDob() {
 		let self = this
 		if (self.state.day && self.state.mnth && self.state.year) {
@@ -616,18 +472,12 @@ class VipProposer extends React.Component {
 		let districts_opt = []
 		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
-		if (Object.keys(this.props.createApiErrors).length > 0) {
-			Object.entries(this.props.createApiErrors).map(function ([key, value]) {
-				show_createApi_keys.push(key)
-			})
-		}
 		let isDummyUser
 		if (this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]) {
 			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 		}
 		return (
-			<div>
-				{/*<div className="row no-gutters" id={isDummyUser ? 'member_0' : this.props.is_endorsement ? `member_${this.props.member_id}` : `member_${this.props.USER.defaultProfile}`}>*/}
+			<React.Fragment>
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : `member_${this.props.member_id}`}>
 					<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
 						<React.Fragment>
@@ -649,7 +499,6 @@ class VipProposer extends React.Component {
 								data-param='name' 
 								onChange={this.handleChange.bind(this, 'name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'name')} 
 								disabled={this.props.is_from_payment || this.state.disableFName ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'name')} 
 							/>
@@ -659,10 +508,6 @@ class VipProposer extends React.Component {
 						{
 							this.props.validateErrors.indexOf('name') > -1 ?
 								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('first_name') > -1 ?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
 						}
 					</div>
 					<div className="col-6">
@@ -678,7 +523,6 @@ class VipProposer extends React.Component {
 								data-param='last_name' 
 								onChange={this.handleChange.bind(this, 'last_name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
 								disabled={this.props.is_from_payment || this.state.disableLName ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
@@ -689,13 +533,9 @@ class VipProposer extends React.Component {
 							this.props.validateErrors.indexOf('last_name') > -1 ?
 								commonMsgSpan : ''
 						}
-						{
-							show_createApi_keys.indexOf('last_name') > -1 ?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
-						}
 					</div>
 					{
-						!this.props.is_endorsement?
+						!this.props.is_from_payment?
 						<div className="col-12">
 							<div className="ins-form-group">
 								<input 
@@ -707,7 +547,6 @@ class VipProposer extends React.Component {
 									data-param='email' 
 									onChange={this.handleChange.bind(this, 'email')} 
 									onBlur={this.handleEmail} 
-									onFocus={this.handleOnFocus.bind(this, 'email')}
 									disabled={this.props.is_from_payment || this.state.disableEmail ? 'disabled' : ''}  
 								/>
 								<label className={this.props.is_from_payment || this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
@@ -718,16 +557,10 @@ class VipProposer extends React.Component {
 									commonMsgSpan : ''
 							}
 						</div>
-						:<React.Fragment>
-							<VerifyEmail {...this.props} is_endorsement={true} member_id={this.props.member_id} validateErrors ={this.props.validateErrors} email={this.state.email} handleSubmit={this.handleSubmit.bind(this)} verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}/>
-							{
-								this.props.validateErrors.indexOf('email') > -1 ?
-									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
-							}
-						</React.Fragment>
+						:''
 					}
 					{
-						!this.props.is_endorsement && this.props.show_extra_fields && !this.props.is_from_payment?
+						this.props.show_extra_fields && !this.props.is_from_payment?
 						<div className="col-12">
 							<div className="ins-form-group">
 								<input 
@@ -739,7 +572,6 @@ class VipProposer extends React.Component {
 									data-param='phone_number' 
 									onChange={this.handleChange.bind(this, 'phone_number')} 
 									onBlur={this.handleSubmit} 
-									onFocus={this.handleOnFocus.bind(this, 'phone_number')}
 									disabled={this.props.is_from_payment || this.state.disablePhoneNo ? 'disabled' : ''}  
 								/>
 								<label className={this.props.is_from_payment || this.state.disablePhoneNo ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`phone_${this.props.member_id}`}><span className="labelDot"></span>Phone Numer</label>
@@ -781,199 +613,13 @@ class VipProposer extends React.Component {
 							this.props.validateErrors.indexOf('dob') > -1 ?
 								commonMsgSpan : ''
 						}
-						{
-							show_createApi_keys.indexOf('dob') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.dob[0]}</span> : ''
-						}
 					</div>
-					{/*<div className="col-12">
-						<div className="ins-form-group autocomplete">
-							<input 
-								style={{ 'textTransform': 'capitalize' }} 
-								type="text" 
-								id={`isnstate_${this.props.member_id}`} 
-								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userState`} required 
-								autoComplete="state" 
-								name="state" 
-								value={this.state.state} 
-								data-param='state' 
-								onChange={this.handleState.bind(this, 'state')} 
-								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'state')} 
-								data-state-code={this.state.state_code} 
-								disabled={this.props.is_from_payment ? 'disabled' : ''} 
-							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnstate_${this.props.member_id}`}>City</label>
-							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-						</div>
-						{
-							this.props.validateErrors.indexOf('state') > -1 ?
-								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('state') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.state[0]}</span> : ''
-						}
-					</div>*/}
-					{/*<div className="col-12">
-						{this.state.state_code != '' ?
-							<div className="ins-form-group autocomplete">
-								<input 
-									style={{ 'textTransform': 'capitalize' }} 
-									type="text" 
-									id={`isndistrict_${this.props.member_id}`} 
-									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userDistrict`} required 
-									autoComplete="district" 
-									name="district" 
-									value={this.state.district} 
-									data-param='district' 
-									onChange={this.handleDistrict.bind(this, 'district')} 
-									onBlur={this.handleSubmit.bind(this, false,false)} 
-									onFocus={this.handleOnFocus.bind(this, 'district')} 
-									data-state-code={this.state.district_code} 
-								/>
-								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-							</div>
-							: <div className="ins-form-group" onClick={this.showAlert.bind(this,' state ')}>
-								<input 
-									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
-									type="text" 
-									id={`isndistrict_${this.props.member_id}`} 
-									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district') > -1 ? 'fill-error' : ''}`} required 
-									autoComplete="district" 
-									name="district" 
-									value="Select District" disabled 
-									data-param='district' 
-								/>
-								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-
-							</div>
-						}
-						{
-							this.props.validateErrors.indexOf('district') > -1 ?
-								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('district') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.district[0]}</span> : ''
-						}
-					</div>
-					<div className="col-12">
-						{this.state.district_code != '' ?
-							<div className="ins-form-group autocomplete">
-								<input style={{ 'textTransform': 'capitalize' }}
-									type="text"
-									id={`isnTown_${this.props.member_id}`}
-									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userTown`} required
-									autoComplete="town"
-									name="town"
-									value={this.state.town}
-									data-param='town'
-									onChange={this.handleTown.bind(this, 'town')}
-									onBlur={this.handleSubmit.bind(this, false,false)}
-									onFocus={this.handleOnFocus.bind(this, 'town')}
-									data-state-code={this.state.town_code} 
-								/>
-								<label className="form-control-placeholder" htmlFor={`isnTown_${this.props.member_id}`}>Town</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-							</div>
-							: <div className="ins-form-group" onClick={this.showAlert.bind(this,' district ')}>
-								<input 
-									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
-									type="text" 
-									id={`isndistrict_${this.props.member_id}`} 
-									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town') > -1 ? 'fill-error' : ''}`} required 
-									autoComplete="town" 
-									name="town" 
-									value="Select Town" disabled 
-									data-param='town' 
-								/>
-								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-
-							</div>
-						}
-						{
-							this.props.validateErrors.indexOf('town') > -1 ?
-								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('town') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.town[0]}</span> : ''
-						}
-					</div>*/}
-					{/*<div className="col-12">
-						<div className="ins-form-group">
-							<input 
-								style={{ 'textTransform': 'capitalize' }} 
-								type="text" 
-								id={`insaddress${this.props.member_id}`} 
-								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address') > -1 ? 'fill-error' : ''}`} required 
-								autoComplete="address" 
-								name="address" 
-								value={this.state.address} 
-								data-param='address' 
-								onChange={this.handleChange.bind(this, 'address')} 
-								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'address')} 
-								disabled={this.props.is_from_payment ? 'disabled' : ''} 
-							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot"></span>Full Address</label>
-							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-						</div>
-						{
-							this.props.validateErrors.indexOf('address') > -1 ?
-								commonMsgSpan : ''
-						}
-						{
-							show_createApi_keys.indexOf('address') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.address[0]}</span> : ''
-						}
-					</div>*/}
-					{/*<div className="col-12">
-						<div className="ins-form-group mb-0">
-							<input 
-								type="number" 
-								id={`isnpin_${this.props.member_id}`} 
-								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode') > -1 ? 'fill-error' : ''}`} required 
-								autoComplete="pincode" 
-								name="pincode" 
-								value={this.state.pincode} 
-								data-param='pincode' 
-								onKeyPress={this.handlekey.bind(this)} 
-								onChange={this.handleChange.bind(this, 'pincode')} 
-								onBlur={this.handleSubmit.bind(this, false,false)} 
-								onFocus={this.handleOnFocus.bind(this, 'pincode')} 
-								disabled={this.props.is_from_payment ? 'disabled' : ''} 
-							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot"></span>Pincode</label>
-							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-						</div>
-						{
-								this.props.validateErrors && this.props.validateErrors.indexOf('pincode')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
-							}
-						{
-							this.props.validateOtherErrors.indexOf('pincode') > -1 ?
-								<span className="fill-error-span">Please Enter Valid Pincode</span> : ''
-						}
-						{
-							show_createApi_keys.indexOf('pincode') > -1 ?
-								<span className="fill-error-span">{this.props.createApiErrors.pincode[0]}</span> : ''
-						}
-					</div>*/}
 					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
 							showPopup: true, userProfiles: this.props.USER,profile_flag:true})}>
 							Select from profile
 							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''}
 				</div>
-				{
-					/*this.props.is_endorsement && this.state.is_change ?
-						<InsuranceProofs {...this.props} />
-						: ''*/
-				}
 				{
 					this.props.is_from_payment?
 						<InsuranceProofs {...this.props} />
@@ -990,7 +636,7 @@ class VipProposer extends React.Component {
 						is_child_only = {this.props.is_child_only}
 					/> : ''
 				}
-			</div>
+			</React.Fragment>
 		)
 	}
 

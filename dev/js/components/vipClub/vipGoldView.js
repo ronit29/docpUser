@@ -16,11 +16,6 @@ class VipGoldView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
-            // showPopup: false,
-            // isLead: '',
-            // selected_plan_id: '',
-            // toggleTabType: false
             tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13]
         }
     }
@@ -71,14 +66,6 @@ class VipGoldView extends React.Component {
                                                 <p onClick={this.props.selectGoldPlan.bind(this, true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold <span>
                                                     {`(₹ ${this.props.selected_plan_data.deal_price})`}
                                                 </span></p>
-                                                // Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-
-                                                //     return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
-                                                //         {`(₹ ${value.deal_price})`}
-                                                //     </span>
-                                                //         {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
-                                                //     </p>
-                                                // })
                                                 : ''
                                         }
                                         {
@@ -155,12 +142,6 @@ class VipGoldView extends React.Component {
 
                                     {/* ================== gold HTML select  ================== */}
                                     {/* ================== gold slider ================== */}
-                                    {/*
-                                            this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
-                                            <div className="pakg-slider-container mb-24">
-                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.viewDocprimeNetworkClicked()} viewAll={true}/>
-                                            </div>
-                                        */}
                                     <div className="gold-white-bg-container">
                                         <div className="gold-slider-container">
                                             {
@@ -172,12 +153,6 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
-                                                            {/*<a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                    <div className="pkgcardImgCont">
-                                                                        <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                    </div>
-                                                                    <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                                </a>*/}
                                                             {
                                                                 this.props.topHospitals.top_hospitals.map((data, key) => {
                                                                     return <a key={`${key}_${data.id}`} href={data.url ? data.url : data.id} className="pkgcustCards" onClick={(e) => {
@@ -211,12 +186,6 @@ class VipGoldView extends React.Component {
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards home_top_hsptl_list">
-                                                            {/*<a href="/ck-birla-hospital-for-women-in-sector-50-gurgaon-hpp" className="pkgcustCards">
-                                                                    <div className="pkgcardImgCont">
-                                                                        <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" style={{ width: '82px' }} />
-                                                                    </div>
-                                                                    <p className="gold-upto-offer">Upto 70% OFF</p>
-                                                                </a>*/}
                                                             {
                                                                 this.props.nearbyHospitals.hospitals.map((data, key) => {
                                                                     return <a key={`${key}_${data.id}`} href={data.url ? data.url : data.id} className="pkgcustCards" onClick={(e) => {
@@ -451,13 +420,8 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}><p>
-                        Continue
-                        {/* {this.props.selected_plan_data.deal_price} */}
-                    </p>
-                        {/* <p className="vipbtn-sub-txt">Inclusive of GST
-                           
-                        </p> */}
+                    <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
+                        <p>Continue</p>
                     </button>
                 </section>
                 : <div></div>
