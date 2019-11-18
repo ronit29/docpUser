@@ -237,7 +237,8 @@ class VipClub extends React.Component {
                                         </div>
                                     :''}
                                     {/**vip discount dashboard**/}
-                                    <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
+                                    <div className="vip-discount-col p-12 mb-24 no-overflow">
+                                        <img className="bg-circle-img" src="/assets/img/circle-bg.png" alt="circle" />
                                         <div className="offer-col"> 
                                             <p>Upto 23% OFF <br/> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>

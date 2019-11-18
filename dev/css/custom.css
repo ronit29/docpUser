@@ -5211,10 +5211,19 @@ img.gld-cd-icon {
 
 /***** vip discount customer dasboard  *****/
 .vip-discount-col{
-    background-image: url(/assets/img/vip-medlife-bg@2x.png) ;
-    background-size: 121%;
-    background-position: 46%;
+    background-image: url(/assets/img/offer-bg.png);
+    background-size: 100% 104%;
+    transform: scale(1.03);
+    background-color: transparent;
+    box-shadow: none;
 }
+.vip-discount-col > .bg-circle-img{
+    position: absolute;
+    max-width: 88%;
+    top: 2px;
+    left: 3px;
+}
+
 .vip-discount-col > .offer-col{
     width: 38%;
     border-right: 1px dashed rgba(0,0,0,0.2);
@@ -5244,7 +5253,7 @@ img.gld-cd-icon {
 .discount-coupan-col {
     width: 62%;
     display: inline-block;
-    padding: 10px 0px 0px 15px;
+    padding: 10px 13px 0px 13px;
 }
 .discount-coupan-col > .coupan-col{
   border-radius: 9px;
