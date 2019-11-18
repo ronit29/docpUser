@@ -5258,7 +5258,10 @@ p.dp-gld-mem-grn {
     margin-bottom: 0px;
 }
 .pd-r-0{
-    padding-right: 0px;
+    padding-right: 0px!important;
+}
+.pd-l-0{
+    padding-left: 0px!important;
 }
 
 .mr-t-10{
@@ -5274,10 +5277,19 @@ p.dp-gld-mem-grn {
 
 /***** vip discount customer dasboard  *****/
 .vip-discount-col{
-    background: url(/assets/img/vip-medlife-bg.png) repeat;
-    background-size: 121%;
-    background-position: 46%;
+    background-image: url(/assets/img/offer-bg.png);
+    background-size: 100% 104%;
+    transform: scale(1.03);
+    background-color: transparent;
+    box-shadow: none;
 }
+.vip-discount-col > .bg-circle-img{
+    position: absolute;
+    max-width: 88%;
+    top: 2px;
+    left: 3px;
+}
+
 .vip-discount-col > .offer-col{
     width: 38%;
     border-right: 1px dashed rgba(0,0,0,0.2);
@@ -5307,7 +5319,7 @@ p.dp-gld-mem-grn {
 .discount-coupan-col {
     width: 62%;
     display: inline-block;
-    padding: 10px 0px 0px 15px;
+    padding: 10px 13px 0px 13px;
 }
 .discount-coupan-col > .coupan-col{
   border-radius: 9px;
@@ -5369,13 +5381,24 @@ p.dp-gld-mem-grn {
 
 /**** terms and condition page css*****/
 
+.no-overflow{
+    overflow: hidden;
+}
 .qa-column  > li > span > a, .qa-column  > li > span > a:hover{
     color: #f78631;
     font-weight: 500;
 }
 
+.tnc-header{
+    position: fixed!important;
+    left: 0px;
+    width: 100%;
+    background: #ffffff;
+}
 .tnc-column{
     padding: 10px 12px;
+    height: 80vh;
+    overflow-y: auto;
 }
 .tnc-column > h3{
     font-size: 18px;
@@ -5395,3 +5418,8 @@ p.dp-gld-mem-grn {
 .child-list-item > li {
     list-style: upper-roman;
 }
+
+.mr-t-5{
+    margin-top: 5px!important;
+}
+/**** terms and condition page css*****/

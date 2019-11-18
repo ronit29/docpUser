@@ -219,25 +219,26 @@ class VipClub extends React.Component {
                                     }
                                     {/* ================== gold benifits  ================== */}
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
-                                        <div className="vip-offer-cards p-12 mb-24">
+                                        <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
                                             <div className="gold-benifi-cards-cont vip-club">
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                    <p>Book <br/> Doctors</p>
+                                                    <p className="mr-t-5">Book <br/> Doctors</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                    <p>Book Lab <br/> Test</p>
+                                                    <p className="mr-t-5">Book Lab <br/> Test</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
                                                     <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                    <p>Order <br/> Medicines</p>
+                                                    <p className="mr-t-5">Order <br/> Medicines</p>
                                                 </div>
                                             </div>
                                         </div>
                                     :''}
                                     {/**vip discount dashboard**/}
-                                    <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
+                                    <div className="vip-discount-col p-12 mb-24 no-overflow">
+                                        <img className="bg-circle-img" src="/assets/img/circle-bg.png" alt="circle" />
                                         <div className="offer-col"> 
                                             <p>Upto 23% OFF <br/> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>
