@@ -24,6 +24,7 @@ import UploadPrescription from './uploadPrescription.js'
 import PaymentForm from '../../commons/paymentForm'
 import LensfitPopup from './lensfitPopup.js'
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
+import VipGoldPackage from '../../opd/patientDetails/VipGoldPackage.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
