@@ -134,7 +134,7 @@ class LeftMenu extends React.Component {
                         this.props.history.push('/user/appointments')
                       }} href="#"><img src={ASSETS_BASE_URL + "/images/my-appointment.png"} alt="" className="" />My Appointments</a></li>
 
-                      <li><a onClick={(e) => {
+                      {/* <li><a onClick={(e) => {
                         e.preventDefault()
                         let data = {
                           'Category': 'ConsumerApp', 'Action': 'LeftMenuOrderMedicineClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'leftmenu-order-medicine-clicked'
@@ -144,7 +144,7 @@ class LeftMenu extends React.Component {
                         this.props.iFrameState('', false, true)
                         this.props.history.push('/order-medicine')
                       }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order1.png"} alt="" className="pad-B0" />Order Medicines</a>
-                      </li>
+                      </li> */}
 
                       <li><a onClick={(e) => {
                         e.preventDefault()
@@ -167,7 +167,7 @@ class LeftMenu extends React.Component {
                       }} href="#"><img src={ASSETS_BASE_URL + "/images/notification.png"} alt="" className="" />Notifications</a>
                         {
                           this.props.unread_count ?
-                            <div className="notification-count">
+                            <div className="notification-count lft-notify">
                               <span className="fw-500 text-xs">{this.props.unread_count}</span>
                             </div> : ''
                         }
