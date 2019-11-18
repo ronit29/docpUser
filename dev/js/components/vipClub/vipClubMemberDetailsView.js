@@ -27,7 +27,8 @@ class VipClubMemberDetailsView extends React.Component{
            	paymentData: null,
            	show_popup:false,
            	proceed:false,
-           	popupMemData:{}
+           	popupMemData:{},
+           	is_tobe_dummy_user:false
         }
     }
     componentDidMount(){
@@ -42,13 +43,24 @@ class VipClubMemberDetailsView extends React.Component{
 			last_name: '',
 			dob: '',
 			// id: '',
-			relation: '',
+			relation: null,
+			relation_key: null,
 			title: '',
-			profile:null
+			profile:null,
+			profile_id:null,
+			phone_number:null,
+			isUserSelectedProfile:true,
+			day:null,
+			mnth:null,
+			year:null,
+			email:'',
+			first_name:'',
+			age:''
     	}
     	let card
     	let membersId = []
-    	if(isFromDefaultUser){
+    	if(isFromDefaultUser && !this.props.is_from_payment){
+    		this.setState({is_tobe_dummy_user:true})
     		this.props.clearVipMemeberData()
 			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
 			member_dummy_data.id=0
@@ -101,7 +113,7 @@ class VipClubMemberDetailsView extends React.Component{
     		}
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
     			Object.entries(props.savedMemberData).map(function([key, value]) {
-    				membersId.push({[key]: value.id, type:value.relation == 'SELF'?'self':'adult', member_form_id:0,isUserSelectedProfile:true})
+    				membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true})
     			})
     			props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true})
@@ -302,6 +314,14 @@ class VipClubMemberDetailsView extends React.Component{
 							// 	is_disable = true
 							// 	fields.push('pincode')
 							// }
+							if(!param.phone_number && !param.isDummyUser){
+								is_disable = true
+								fields.push('phone_number')
+							}
+							if(!param.isDummyUser && param.phone_number && param.phone_number.length <10){
+								is_disable = true
+								fields.push('phone_number')
+							}
 							if(param.email == ""){  
 								is_disable = true
 								fields.push('email')
@@ -548,6 +568,7 @@ class VipClubMemberDetailsView extends React.Component{
 				proposer_id = this.props.USER.defaultProfile
 			}
 		}
+		let show_extra_fields = false
 		// if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
 		// 	Object.entries(this.props.savedMemberData).map(function([key, value]) {
 		// 		if(value.relation == 'SELF'){
@@ -558,6 +579,7 @@ class VipClubMemberDetailsView extends React.Component{
 		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
 			this.props.currentSelectedVipMembersId.filter(x=>x.isUserSelectedProfile).map((data, i) =>{
 				proposer_id = data[i]
+				show_extra_fields = true
 			})
 		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
@@ -596,6 +618,8 @@ class VipClubMemberDetailsView extends React.Component{
 									member_type = 'child'
 									member_form_id = {i}
 									isUserSelectedProfile = {false}
+									show_extra_fields = {show_extra_fields}
+									is_tobe_dummy_user={this.state.is_tobe_dummy_user}
 								/>
 				})
 			}
@@ -676,6 +700,8 @@ class VipClubMemberDetailsView extends React.Component{
 												show_selected_profiles={this.state.show_selected_profiles}
 												isUserSelectedProfile={false}
 												addMembers= {this.addMembers.bind(this)}
+												show_extra_fields = {show_extra_fields}
+												is_tobe_dummy_user = {this.state.is_tobe_dummy_user}
 												/>
 												:<VipClubActivatedMemberDetails {...this.props}/>
 											}

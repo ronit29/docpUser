@@ -422,7 +422,6 @@ class VipLoginPopup extends React.Component {
                                                 <input type="text" id="name" className="fc-input text-center" placeholder="Enter your name" value={this.state.user_name} onChange={this.inputHandler.bind(this)} name="user_name" disabled={this.state.showOTP ? true : false} />
                                             </div>*/}
                                             <div className="adon-group enter-mobile-number">
-                                                <br /><br />
                                                 <input type="number" id="number" className="fc-input text-center" placeholder="Enter your mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
                                             </div>
                                             {/*<div className="adon-group enter-mobile-number">
