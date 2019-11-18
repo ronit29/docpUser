@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -246,5 +246,47 @@ export const clearVipSelectedPlan = () =>(dispatch) =>{
 export const clearVipMemeberData = () =>(dispatch) =>{
     dispatch({
         type: CLEAR_VIP_MEMBER_DATA
+    })
+}
+
+export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+
+    return API_POST(`/api/v1/common/predicted-price-via-plan/opd`, extraParams).then((response) =>{
+        dispatch({
+            type: GET_OPD_VIP_GOLD_PLANS,
+            payload: response
+        })
+        let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
+        dispatch({
+            type: SELECT_VIP_CLUB_PLAN,
+            payload: {
+                selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
+            }
+        })
+        dispatch({
+            type: GET_OPD_VIP_GOLD_PLANS,
+            payload: response.vip_plans
+        })
+    })
+}
+
+export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+
+    return API_POST(`/api/v1/common/predicted-price-via-plan/lab`, extraParams).then((response) =>{
+        dispatch({
+            type: GET_LAB_VIP_GOLD_PLANS,
+            payload: response
+        })
+        let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
+        dispatch({
+            type: SELECT_VIP_CLUB_PLAN,
+            payload: {
+                selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
+            }
+        })
+        dispatch({
+            type: GET_LAB_VIP_GOLD_PLANS,
+            payload: response.vip_plans
+        })
     })
 }

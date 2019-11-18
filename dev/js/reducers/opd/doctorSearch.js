@@ -24,7 +24,7 @@ const defaultState = {
     breadcrumb: [],
     seoData: {},
     show404: false,
-    payment_type: 1,
+    payment_type: 6,
     canonical_url: null,
     hospitalData: null,
     selectedDateFormat: null,

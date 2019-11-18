@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS
 } from '../../constants/types';
 
 const defaultState = {
@@ -11,7 +11,9 @@ currentSelectedVipMembersId:[],
 LOAD_VIP_CLUB_DASHBOARD:false,
 vip_club_db_data:{},
 showVipDetailsView:false,
-savedMemberData:[]
+savedMemberData:[],
+odpGoldPredictedPrice: [],
+labGoldPredictedPrice: []
 }
 
 const DUMMY_PROFILE = {
@@ -233,6 +235,22 @@ export default function (state = defaultState, action) {
             if(newState.vipClubMemberDetails && Object.keys(newState.vipClubMemberDetails).length){
                 newState.vipClubMemberDetails = {}
             }
+            return newState
+        }
+
+        case GET_OPD_VIP_GOLD_PLANS: {
+            let newState = {
+                ...state
+            }
+            newState.odpGoldPredictedPrice = action.payload
+            return newState
+        }
+
+        case GET_LAB_VIP_GOLD_PLANS: {
+            let newState = {
+                ...state
+            }
+            newState.labGoldPredictedPrice = action.payload
             return newState
         }
     }
