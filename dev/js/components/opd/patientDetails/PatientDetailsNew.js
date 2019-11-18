@@ -563,6 +563,9 @@ class PatientDetailsNew extends React.Component {
             utm_tags: utm_tags,
             from_web: true
         }
+        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length) {
+            postData['plus_plan'] = this.props.selected_vip_plan.id
+        }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -1102,7 +1105,7 @@ class PatientDetailsNew extends React.Component {
 
     toggleGoldPlans = (plan)=>{
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'ToggleGoldPlanClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'toggle-gold-plan-clicked', 'plan':plan.id
+            'Category': 'ConsumerApp', 'Action': 'ToggleOpdGoldPlanClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'toggle-opd-gold-plan-clicked', 'plan':plan.id
         }
 
         GTM.sendEvent({ data: data })
@@ -1254,7 +1257,7 @@ class PatientDetailsNew extends React.Component {
             payment_mode_count++
         if (enabled_for_cod_payment)
             payment_mode_count++
-        if(!this.props.is_any_user_buy_gold)
+        if(!this.props.is_any_user_buy_gold && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length)
             payment_mode_count++
         // if (enabled_for_prepaid_payment && is_insurance_buy_able)
         //     payment_mode_count++
@@ -1583,7 +1586,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
                                                                             {
-                                                                                !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && 
+                                                                                !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length &&
                                                                                 <React.Fragment>
                                                                                     <div className="payment-summary-content">
                                                                                         <div className="payment-detail d-flex" onClick={() => {
@@ -1881,7 +1884,7 @@ class PatientDetailsNew extends React.Component {
                                     <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 
                                         {
-                                            (STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') ?
+                                            this.props.payment_type!=6 && ( (STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') )?
                                                 <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
                                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, is_selected_user_insurance_status)}>
