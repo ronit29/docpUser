@@ -5425,18 +5425,29 @@ p.dp-gld-mem-grn {
 /**** terms and condition page css*****/
 
 /**** gold card css*****/
+.card-container{
+    padding: 20px 30px 20px!important;
+}
+
+@media (min-width:767px){
+    .card-container{
+        padding: 20px 90px 20px!important;
+    }   
+}
 .gold-card-section{
     background: #000000;
-    background-image: url(/assets/img/gold-bg.png);
-    background-size: cover;
+    background-image: url(https://cdn.docprime.com/media/web/custom_images/bgcard.png);
+    background-size: 115%;
     border-radius: 11px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    background-position: -14px -77px;
 }
 .gold-card-section > .shadow-img{
     position: absolute;
     top: -52px;
     max-width: 100%;
 }
-.gold-card-section > .vipLogiImg{
+.gold-card-section > .vipLogiImg-2{
     display: block;
 }
 .gold-card-section > .gold-card-user > h5{
