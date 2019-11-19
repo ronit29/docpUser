@@ -1347,7 +1347,9 @@ class BookingSummaryViewNew extends React.Component {
                             is_corporate || is_insurance_applicable || is_plan_applicable ?
                                 <p>&#8377; 0</p>
                                 :this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests && this.props.selected_vip_plan.tests[twp.test_id]?
-                                <p className="pay-amnt-shrnk">&#8377; {(this.props.selected_vip_plan.tests[twp.test_id].gold_price || 0)}</p>
+                                parseInt((this.props.selected_vip_plan.tests[twp.test_id].gold_price)) == parseInt((this.props.selected_vip_plan.tests[twp.test_id].mrp))
+                                    ?<p className="pay-amnt-shrnk">&#8377; {(this.props.selected_vip_plan.tests[twp.test_id].gold_price || 0)}</p>
+                                    :<p className="pay-amnt-shrnk">&#8377; {(this.props.selected_vip_plan.tests[twp.test_id].mrp)}</p>
                                 :price == twp.mrp ?
                                     <p className="pay-amnt-shrnk">&#8377; {price}</p>
                                     :
@@ -1533,7 +1535,7 @@ class BookingSummaryViewNew extends React.Component {
         //SET PAYMENT SUMMARY PRICE
         let display_docprime_discount = finalMrp - finalPrice
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests) {
-            display_docprime_discount = 0//parseInt(gold_pricelist_mrp) - parseInt(gold_pricelist_deal_price)
+            display_docprime_discount = parseInt(gold_pricelist_mrp) - parseInt(gold_pricelist_deal_price)
             total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price
             total_price = total_amount_payable
         }
@@ -1809,7 +1811,12 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                     e.preventDefault();
                                                                                                     this.goToGoldPage()
                                                                                                 }}>?</span></h4>
-                                                                                    <span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`}</span>
+                                                                                    {
+                                                                                     gold_pricelist_deal_price == gold_pricelist_mrp
+                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`}</span>
+                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
+                                                                                     
+                                                                                    }
                                                                                 </div>
                                                                                     <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on"  />
                                                                                     <span className="doc-checkmark"></span>
@@ -1893,8 +1900,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         //When Gold Membership is buying
                                                                                         this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
                                                                                         <div className="payment-detail d-flex">
-                                                                                            <p style={{ color: 'green' }}>Docprime Gold Membership </p>
-                                                                                            <p style={{ color: 'green' }}>+ &#8377; {this.props.selected_vip_plan.deal_price}</p>
+                                                                                            <p>Docprime Gold Membership </p>
+                                                                                            <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
                                                                                         </div>
                                                                                     }
                                                                                     {
