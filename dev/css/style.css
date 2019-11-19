@@ -12192,5 +12192,8 @@ padding: 0 10px;
     font-weight: 600;
     cursor: pointer;
 }
+.no-cursor{
+    cursor: auto;
+}
 /* =============== single flow vip =============== */
 
