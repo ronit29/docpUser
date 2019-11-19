@@ -12177,4 +12177,20 @@ padding: 0 10px;
     border: transparent;
     padding-bottom: 0;
 }
+.gold-pop-hdng{
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+}
+.gold-pop-pading{
+    padding: 18px 0;
+}
+.gol-pop-custom-btn{
+    text-align: center;
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
 /* =============== single flow vip =============== */
+
