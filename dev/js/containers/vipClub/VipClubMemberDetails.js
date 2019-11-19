@@ -19,7 +19,12 @@ class VipClubMemberDetails extends React.Component{
     }
 
     componentDidMount() {
-        this.props.retrieveMembersData()
+        let parsed = queryString.parse(this.props.location.search)
+        if(parsed.is_from_payment){
+
+        }else{
+            this.props.retrieveMembersData()
+        }
         // this.props.citiesData()
     }
 
