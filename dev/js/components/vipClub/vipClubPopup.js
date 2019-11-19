@@ -289,32 +289,6 @@ class VipLoginPopup extends React.Component {
         let errorMessage
 
         this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)
-        /*if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
-            if(this.props.is_child_only){
-                threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
-                threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
-                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].child_min_age} days and ${this.props.selected_plan.threshold[0].child_max_age} years`
-            }else{
-                threshold_max_age = this.props.selected_plan.threshold[0].max_age
-                threshold_min_age = this.props.selected_plan.threshold[0].min_age
-                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].min_age} and ${this.props.selected_plan.threshold[0].max_age} years`
-            }
-        }
-        if(this.props.is_child_only){
-            if(this.state.selectedProfileAge > threshold_min_age && this.state.age < threshold_max_age){
-                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
-            }else{
-                SnackBar.show({ pos: 'bottom-center', text: errorMessage })   
-            }
-        }
-        if(!this.props.is_child_only){
-            if(this.state.selectedProfileAge > threshold_min_age && this.state.selectedProfileAge < threshold_max_age){
-                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
-            }else{
-               SnackBar.show({ pos: 'bottom-center', text: errorMessage })    
-            }
-        }*/
-
     }
 
     handleCityInut(type, event) {

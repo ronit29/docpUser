@@ -17,10 +17,6 @@ class VipPlanView extends React.Component {
         super(props)
         this.state = {
             // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
-            // showPopup: false,
-            // isLead: '',
-            // selected_plan_id: this.props.selected_plan_id,
-            // toggleTabType: false
         }
     }
 
@@ -57,14 +53,6 @@ class VipPlanView extends React.Component {
                                                     <p onClick={this.props.selectGoldPlan.bind(this,true)} className={`vp-sb-txt ${is_gold_selected ? 'vp-act' : ''}`}>Gold 
                                                         <span> {`(₹ ${selected_gold_plan_price})`}</span>
                                                     </p>
-                                                    // Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-
-                                                    //     return <p onClick={self.props.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.props.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
-                                                    //         {`(₹ ${value.deal_price})`}
-                                                    //     </span>
-                                                    //         {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
-                                                    //     </p>
-                                                    // })
                                                 : ''
                                             }
                                             {
@@ -131,32 +119,6 @@ class VipPlanView extends React.Component {
                                                     <span className="vip-card-tag">Worth ₹ {this.props.selected_plan_data.worth.doctor_consult_amount}  </span>
                                                 </div>
                                                 : ''
-                                        }
-                                        {
-                                            //this.props.selected_plan_data && this.props.selected_plan_data.enabled_hospital_networks && this.props.selected_plan_data.enabled_hospital_networks.length > 0 ?
-                                                // <div className="pakg-slider-container mb-24">
-                                                //     {
-                                                //         this.props.isSalesAgent && this.props.isAgent?''
-                                                //         :<div className="pkgSliderHeading">
-                                                //             <h5>Key Hospital Partners</h5>
-                                                //             <span onClick={() => this.props.history.push('/opd/searchresults?fromVip=true')}>View Docprime Network</span>
-                                                //         </div>
-                                                //     }
-                                                //     <div className="pkgSliderContainer">
-                                                //         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
-                                                //             {
-                                                //                 Object.entries(this.props.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
-                                                //                     return <div onClick={self.navigateTo.bind(self, value)} key={key} className="pkgcustCards vip-hsp-card-mn">
-                                                //                         <div className="vip-hsp-img">
-                                                //                             <img className="img-fluid" src={value.logo} />
-                                                //                         </div>
-                                                //                     </div>
-                                                //                 })
-                                                //             }
-                                                //         </div>
-                                                //     </div>
-                                                // </div>
-                                                // : ''
                                         }
                                         {
                                             this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
@@ -328,9 +290,7 @@ class VipPlanView extends React.Component {
                             </div>
                         </div>
                         <button className="vip-foot-btn" onClick={this.props.proceed.bind(this)}><p>Buy Now @ ₹{this.props.selected_plan_data.deal_price}</p>
-                            <p className="vipbtn-sub-txt">Inclusive of GST
-                            {/* ₹{Math.round(parseInt(this.props.selected_plan_data.deal_price) / 12)} */}
-                            </p>
+                            <p className="vipbtn-sub-txt">Inclusive of GST</p>
                         </button>
                     </section>
                 : <div></div>

@@ -22,9 +22,9 @@ class VipProposerFamily extends React.Component {
 			only_adult:false,
 			no_lname:false,
     	    is_change:false,
-    	    year:null,
-    	    mnth:null,
-    	    day:null,
+    	    year:'',
+    	    mnth:'',
+    	    day:'',
     	    relation_key:'',
     	    is_disable:false,
     	    member_form_id:this.props.member_form_id,
@@ -36,11 +36,8 @@ class VipProposerFamily extends React.Component {
 
 	componentDidMount(){
 		let profile
-		if(this.props.is_endorsement){
-		}else{
-			if(!this.state.year && !this.state.mnth && !this.state.mnth){
-				this.populateDates(this.props.member_id,true)
-			}
+		if(!this.state.year && !this.state.mnth && !this.state.mnth){
+			this.populateDates(this.props.member_id,true)
 		}
 	}
 
@@ -52,7 +49,6 @@ class VipProposerFamily extends React.Component {
 		let oldDate
 		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
-				console.log('ssssss')
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
@@ -62,8 +58,6 @@ class VipProposerFamily extends React.Component {
 					}
 				}
 			}else if(props.member_id >=0 && !this.state.setDefault){ 
-				console.log('ddddd')
-				console.log(props.member_id)
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					self.populateDates(self.props.member_id,true)
 					if(!self.state.year && !self.state.mnth && !self.state.mnth){
@@ -74,65 +68,10 @@ class VipProposerFamily extends React.Component {
 					})
 				})
 			}
-			// else if(props.member_id && !this.state.setDefault){
-			// 	this.setState({id: props.member_id, setDefault:true}, () => {
-			// 		if(this.props.is_child_only){
-			// 			if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length >0){
-			// 				props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-			// 					if(val.relation !== 'SELF' && val.id == this.props.member_id){
-			// 						profile = Object.assign({}, val)
-			// 					}
-			// 					if (profile && Object.keys(profile).length) {
-			// 						oldDate = profile.dob.split('-')
-			// 						this.setState({name:profile.first_name,last_name:profile.last_name,gender:profile.title == 'mr.'?'m':'f',dob:profile.dob,profile_id:profile.profile,title:profile.title,relation_key:profile.relation,relation:profile.relation=='SPOUSE_FATHER'?'Father-in-law':profile.relation == 'SPOUSE_MOTHER'?'Mother-in-law':self.relationTextFormat(profile.relation),member_type:this.props.member_type,is_disable:true,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],is_already_user:true},() =>{
-			// 							self.populateDates(self.props.member_id,true)
-			// 							self.handleSubmit()
-			// 						})	
-			// 					}
-			// 				})
-			// 			}else{
-			// 				self.populateDates(self.props.member_id,true)
-			// 				if(!self.state.year && !self.state.mnth && !self.state.mnth){
-			// 				    self.populateDates(self.props.member_id,true)
-			// 				}
-			// 				this.setState({member_type:this.props.member_type,is_disable:false},() =>{
-			// 					self.handleSubmit()
-			// 				})
-			// 			}
-			// 		}else{						
-			// 		    self.populateDates(self.props.member_id,true)
-			// 			this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true,is_disable:false},() =>{
-			// 				self.handleSubmit()
-			// 			})
-			// 		}					
-			// 	})
-			// }
 		}
 	}
 
-	relationTextFormat(str){
-		return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-	    	if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-	    		return index != 0 ? match.toLowerCase() : match.toUpperCase();
-	  	});
-    }
 	handleTitle(field, event) {
-		// let title_value = event.target.value
-		/*if(this.props.is_child_only){ // to be deleted
-			if(title_value == 'mr.'){
-  			this.setState({gender:'m',relation:'son'})	
-	  		}else if(title_value == 'miss'){
-	  			this.setState({gender:'f',relation:'daughter'})	
-	  		}
-		}else{
-			if(title_value == 'mr.'){
-  			this.setState({gender:'m'})	
-	  		}else if(title_value == 'miss'){
-	  			this.setState({gender:'f'})	
-	  		}else if(title_value == 'mrs.'){
-	  			this.setState({gender:'f'})
-	  		}
-		}*/
 		let title_value = event.target.value
 			if(title_value == 'mr.'){
   				this.setState({gender:'m'})	
@@ -142,21 +81,23 @@ class VipProposerFamily extends React.Component {
 		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
-			// this.props.userData('self_data', self_data)
 			this.props.userDetails('self_data', self_data)
 		})
 	}
+
 	handleChange(field, event) {
 		this.setState({
 			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
+
 	handleRelation(id,event) {
 		var relation_id = document.getElementById(id);
 		this.setState({id:this.props.member_id,'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
 			this.handleSubmit(true,event)
 		})
 	}
+
 	handleSubmit(is_endoresment) {
 		var self_data = this.state
 		if(self_data.name !== ''){
@@ -164,11 +105,6 @@ class VipProposerFamily extends React.Component {
 				self_data.name = self_data.name.slice(0, 50)
 			}	
 	    }
-	    /*if(self_data.middle_name !== ''){
-	    	if(self_data.middle_name.length > 50){
-				self_data.middle_name = self_data.middle_name.slice(0, 50)
-			}	
-	    }*/
 	    if(self_data.last_name !== ''){
 	    	if(self_data.last_name.length > 50){
 				self_data.last_name = self_data.last_name.slice(0, 50)
@@ -177,26 +113,9 @@ class VipProposerFamily extends React.Component {
 	    if(!is_endoresment){
 	    	self_data.is_change = true
 	    }
-		// this.props.userData('self_data', self_data)
 		this.props.userDetails('self_data', self_data)
 	}
-	getTodayDate(){
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; 
-		var yyyy = today.getFullYear(); 
 
-		if(mm<10) 
-		{
-		    mm='0'+mm;
-		}
-		if(dd<10) 
-		{
-		    dd='0'+dd;
-		} 
-		today = yyyy+'-'+dd+'-'+mm;
-		return today
-	}
 	togglePopup(newProfileid, member_id, newProfile) {
 		let oldDate
 		let finalDate
@@ -230,44 +149,7 @@ class VipProposerFamily extends React.Component {
 			this.setState({showPopup: !this.state.showPopup})
 		}
 	}
-	/*handleGender(field, event) {
-		let gender_value = event.target.value
-		if(this.props.is_child_only){
-			if(gender_value == 'm'){
-  			this.setState({title:'mast.',relation:'son'})	
-	  		}else if(gender_value == 'f'){
-	  			this.setState({title:'miss',relation:'daughter'})	
-	  		}
-		}else{
-			if(gender_value == 'm'){
-  			this.setState({title:'mr.'})	
-	  		}else if(gender_value == 'f'){
-	  			this.setState({title:'mrs.'})	
-	  		}
-		}
-		this.setState({
-			gender: event.target.value, is_change:true
-		},() =>{
-			this.handleSubmit(false,event)
-		})
-	}*/
-	/*openDateModal() {
-	        this.setState({ dateModal: !this.state.dateModal })
-	}
-	selectDateFromCalendar(date) {
-        if (date) {
-            date = date.toDate()
-            var date = new Date(date)
-		    let mnth = ("0" + (date.getMonth()+1)).slice(-2)
-		    let day  = ("0" + date.getDate()).slice(-2);
-		    let actual_date =  [ date.getFullYear(), mnth, day ].join("-");
-            this.setState({ selectedDateSpan: actual_date, dateModal: false, currentDate: new Date(date).getDate(),dob: actual_date }, () => {
-                 this.handleSubmit(false)
-            })
-        } else {
-            this.setState({ dateModal: false })
-        }
-    }*/
+
     handleNameCharacters(field,event){
 		if(field == 'name'){
 			if(this.state.name.length == 50){
@@ -278,17 +160,6 @@ class VipProposerFamily extends React.Component {
 				event.preventDefault();
 	        }
     	}
-    	/*else if(field == 'middle_name'){
-			if(this.state.middle_name.length == 50){
-				event.preventDefault();
-	        }
-    	}*/
-
-	}
-	handleLastname(event){
-		this.setState({no_lname:!this.state.no_lname},() =>{
-			this.handleSubmit(false,event)
-		})
 	}
 
 	hideSelectProfilePopup() {
@@ -297,20 +168,8 @@ class VipProposerFamily extends React.Component {
         });
     }
 
-    daysInMonth(month, year) {
-        return new Date(year, month, 31).getDate();
-    }
-
     populateDates(member_id,toCreateOptions){
     	let age_threshold = 150
-    	// if(this.props.selected_plan && this.props.selected_plan.adult_count){
-    	// 	if(this.props.is_child_only){
-    	// 		age_threshold = this.props.selected_plan.threshold[0].child_max_age
-    	// 	}else{
-    	// 		age_threshold = this.props.selected_plan.threshold[0].max_age
-    	// 	}
-    	// }
-
     	let default_months=['01','02','03','04','05','06','07','08','09','10','11','12']
     	let self =this
     	var daydropdown = document.getElementById('daydropdown_'+member_id),
@@ -419,32 +278,6 @@ class VipProposerFamily extends React.Component {
 		let show_createApi_keys_child2 = []
 		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
-		/*if(this.props.is_child_only){
-			let show_createApi_keys = []
-			if(Object.keys(this.props.createApiErrorsChild).length > 0){
-			Object.entries(this.props.createApiErrorsChild).map(function([key, value]) {
-				if(key!=0 && key!=1){
-					Object.entries(value).map(function([field_name,field_value]) {
-						if(key == 2){
-							show_createApi_keys_child.push(field_name)
-						}else if(key == 3){
-							show_createApi_keys_child2.push(field_name)
-						}
-					})
-				}
-			})
-			}
-		}else{
-			if(Object.keys(this.props.createApiErrors).length > 0){
-				Object.entries(this.props.createApiErrors).map(function([key, value]) {
-						show_createApi_keys_adult.push(key)
-				})
-			}
-		}*/
-		let ErrorNameId
-		if(this.props.validatingNames.length>0){
-			ErrorNameId = this.props.validatingNames[0].split('=')[1]
-		}
 
 		if(this.props.members_proofs && this.props.members_proofs.length > 0){
 			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
@@ -453,11 +286,6 @@ class VipProposerFamily extends React.Component {
 			<div className="ins-sub-forms mrt-10" id={`member_${this.props.member_id}`}>
 				<div className="sub-form-input-data" style={{marginBottom:10}} >
 					<div>
-						{
-							/*this.props.is_endorsement?
-							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
-							:<p className="sub-form-hed">{this.props.is_child_only? `Member ${this.props.member_view_id+1}`:`Spouse`}</p>*/
-						}
 						{
 							this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0?<p className="sub-form-hed">{`Member ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.member_view_id+1}`}</p>:''
 						}
@@ -471,8 +299,6 @@ class VipProposerFamily extends React.Component {
 						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''
 					}
-					{/*<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
-					<span className="checkmark"></span></label>*/}
 					</div> 
 				</div>{}
 				<div className='widget' style={{padding:'10px'}} >
@@ -496,35 +322,8 @@ class VipProposerFamily extends React.Component {
 							</div>
 						:''}
 					{
-						/*this.props.is_child_only?
-						<div>
-						</div>
-						:<div>
-						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-						</div>*/
+						this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
 					}
-					
-					{
-						// !this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span abcdefgh" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
-					}
-					{
-						// this.props.validateOtherErrors.indexOf('title')> -1?
-						// <span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['sameGenderTitle']}</span>:''	
-					}
-					{	
-						/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('title')> -1?
-						<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].title[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('title')> -1?<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].title[0]}</span>:''
-						:show_createApi_keys_adult.indexOf('title')> -1?
-						<span className="fill-error-span">{this.props.createApiErrors.title[0]}</span>:''*/	
-					}
-
-					{/* {
-						this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
-					} */}
-					{
-								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
-								}
 					</div>
 					<div className= {this.state.is_disable ? 'click-disable' : ''}> 
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
@@ -532,35 +331,11 @@ class VipProposerFamily extends React.Component {
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 					</div>
 					<div className="row no-gutters">
-					{
-						/*this.props.is_child_only?
-						<div className="col-12">
-							<div className="ins-form-radio">
-								<div className="dtl-radio">
-									<label className="container-radio">Son
-										<input type="radio" name={`relation_${this.props.member_id}`} data-param='relation' value='son' checked={this.state.relation === 'son'} onChange={this.handleRelation.bind(this, 'son')} />
-										<span className="doc-checkmark"></span>
-									</label>
-								</div>
-								<div className="dtl-radio">
-									<label className="container-radio">Daughter
-										<input type="radio" data-param='relation' name={`relation_${this.props.member_id}`} value='daughter' checked={this.state.relation === 'daughter'} onChange={this.handleRelation.bind(this, 'daughter')} />
-										<span className="doc-checkmark"></span>
-									</label>
-								</div>
-							</div>
-							{
-								this.props.validateErrors.indexOf('relation')> -1?
-								<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
-							}
-						</div>
-						:''*/
-					}
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
 								<input type="text" style={{'textTransform': 'capitalize'}} 
 									id={`name_${this.props.member_id}`} 
-									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1 ?'fill-error':''}`} required 
 									autoComplete="first_name" 
 									name="name" data-param='name' 
 									value={this.state.name} 
@@ -573,33 +348,11 @@ class VipProposerFamily extends React.Component {
 								htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
-							{	
-								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('first_name')> -1?
-									<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('first_name')> -1?<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''
-								:show_createApi_keys_adult.indexOf('first_name')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	*/
-							}
 							{
 								this.props.validateErrors.indexOf('name')> -1?
 								commonMsgSpan:''
 							}
-							{
-								/*ErrorNameId == this.props.member_id?<span className="fill-error-span" style={{width:'320px'}}>{this.props.errorMessages['sameName']}</span>:''*/
-							}
 						</div>
-						{/*<div className="col-6">
-							<div className="ins-form-group inp-margin-right ">
-								<input type="text" style={{'textTransform': 'capitalize'}} id={`middle_name_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="middle_name" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} />
-								<label className="form-control-placeholder" htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
-								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-							</div>
-							{	
-								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('middle_name')> -1?
-									<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('middle_name')> -1?<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''
-								:show_createApi_keys_adult.indexOf('middle_name')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
-							}
-						</div>*/}
 						<div className="col-6">
 							<div className="ins-form-group ins-form-group inp-margin-right  ">
 								<input type="text" style={{'textTransform': 'capitalize'}} 
@@ -618,60 +371,11 @@ class VipProposerFamily extends React.Component {
 								<label className={this.state.is_disable ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
-							{	
-								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('last_name')> -1?
-									<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('last_name')> -1?<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''
-								:show_createApi_keys_adult.indexOf('last_name')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	*/
-							}
 							{
 								this.props.validateErrors.indexOf('last_name')> -1?
 								commonMsgSpan:''
 							}
 						</div>
-						{/*<div className="col-12" style={{marginTop:'-10px'}} >
-							<div className="member-dtls-chk">
-								<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{fontSize: 12, paddingLeft:24, lineHeight:'16px'}}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
-								<span className="checkmark small-checkmark"></span></label>
-							</div>
-						</div>*/}
-						{/*<div className="col-12">
-							<div className="ins-form-radio">
-								{
-									this.props.is_child_only?
-									<div className="ins-form-radio">
-									</div>	
-									:<div className="ins-form-radio">
-										<div className="dtl-radio">
-											<label className="container-radio">Male
-												<input type="radio" name={`gender_${this.props.member_id}`} data-param='gender' value='m' checked={this.state.gender === 'm'} onChange={this.handleGender.bind(this, 'm')} />
-												<span className="doc-checkmark"></span>
-											</label>
-										</div>
-										<div className="dtl-radio">
-											<label className="container-radio">Female
-												<input type="radio" data-param='gender' name={`gender_${this.props.member_id}`} value='f' checked={this.state.gender === 'f'} onChange={this.handleGender.bind(this, 'f')} />
-												<span className="doc-checkmark"></span>
-											</label>
-										</div>
-										<div className="dtl-radio">
-												<label className="container-radio">Others
-													<input type="radio" data-param='gender' name={`gender_${this.props.member_id}`} value='o' checked={this.state.gender === 'o'} onChange={this.handleGender.bind(this, 'o')} />
-													<span className="doc-checkmark"></span>
-												</label>
-										</div>
-									</div>
-								}
-							</div>
-							{
-								!this.props.is_child_only && this.props.validateErrors.indexOf('gender')> -1?
-								commonMsgSpan:''
-							}
-							{
-								this.props.validateOtherErrors.indexOf('gender')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['shouldGenderTitle']}</span>:''	
-							}
-						</div>*/}
 						<div className= {this.state.is_disable ? 'click-disable' : 'col-12'}>
 							<div className="ins-form-group mb-0">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
@@ -697,21 +401,6 @@ class VipProposerFamily extends React.Component {
 									</div>
 								</div>
 							</div>
-							{	
-								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?
-									<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('dob')> -1?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:''
-								:show_createApi_keys_adult.indexOf('dob')> -1?
-								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrors.dob[0]}</span>:''	*/
-							}
-							{
-								/*this.props.validateErrors.indexOf('dob')> -1?
-								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['child_age']}</span>:
-								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['adult_age']}</span>:''*/
-							}
-							{
-								/*this.props.validateDobErrors.indexOf('dob')> -1?
-								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''*/
-							}
 							{
 								this.props.validateErrors && this.props.validateErrors.indexOf('dob')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
 							}
@@ -731,7 +420,6 @@ class VipProposerFamily extends React.Component {
 						isSelectprofile = {true} 
 						vipClubMemberDetails ={this.props.vipClubMemberDetails[this.props.member_id]}
 						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
-						is_child_only = {this.props.is_child_only}
 					/> : ''
 				}
 			</div>
