@@ -1603,7 +1603,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         e.preventDefault();
                                                                                         this.props.select_opd_payment_type(6) } }>
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                            <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
                                                                                                 <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
@@ -1651,7 +1651,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     }}>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                            <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
@@ -1760,7 +1760,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                     : ''}
                                                                                 {
-                                                                                    !(is_selected_user_gold && vip_data.hosp_is_gold) && !is_vip_applicable && priceData.fees != 0 && display_docprime_discount>0 ? <div className="payment-detail d-flex">
+                                                                                    !(is_selected_user_gold && vip_data.hosp_is_gold) && !is_vip_applicable /*&& priceData.fees != 0 */&& parseInt(display_docprime_discount)>0 ? <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>Docprime Discount</p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>
@@ -1789,8 +1789,8 @@ class PatientDetailsNew extends React.Component {
                                                                                     //When Gold Membership is buying
                                                                                     this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Docprime Gold Membership </p>
-                                                                                        <p style={{ color: 'green' }}>+ &#8377; {this.props.selected_vip_plan.deal_price}</p>
+                                                                                        <p>Docprime Gold Membership </p>
+                                                                                        <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
                                                                                     </div>
                                                                                 }
                                                                             </div>
