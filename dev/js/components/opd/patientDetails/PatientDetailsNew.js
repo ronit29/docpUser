@@ -1110,6 +1110,7 @@ class PatientDetailsNew extends React.Component {
 
         GTM.sendEvent({ data: data })
         this.props.selectVipClubPlan('plan', plan)
+        this.toggleGoldPricePopup();
     }
 
     toggleGoldPricePopup = (value= false)=>{
