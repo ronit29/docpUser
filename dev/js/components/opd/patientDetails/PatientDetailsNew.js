@@ -1324,8 +1324,8 @@ class PatientDetailsNew extends React.Component {
         let display_total_mrp = parseInt(priceData.mrp) + treatment_mrp
         let display_docprime_discount  = display_total_mrp - (parseInt(priceData.deal_price) + treatment_Price)
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
-            display_total_mrp = (this.props.selected_vip_plan.opd.gold_price||0)
-            display_docprime_discount =0// display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
+            display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
+            display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
             finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
         }
 
@@ -1612,15 +1612,18 @@ class PatientDetailsNew extends React.Component {
                                                                                                     e.preventDefault();
                                                                                                     this.goToGoldPage();
                                                                                                 }}>?</span></h4>
-                                                                                                <span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>
-                                                                                            </div>
                                                                                                 {
-                                                                                                //     this.props.selected_vip_plan.opd.deal_price == this.props.selected_vip_plan.opd.mrp?
-                                                                                                    
-                                                                                                //     :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.deal_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
-                                                                                                // 
+                                                                                                //<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>    
                                                                                                 }
-                                                                                                <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" onChange={(e)=>{e.preventDefault();e.stopPropagation()}}/>
+                                                                                                
+                                                                                                {
+                                                                                                this.props.selected_vip_plan.opd.mrp == this.props.selected_vip_plan.opd.gold_price
+                                                                                                    ?<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>
+                                                                                                    :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
+                                                                                                 
+                                                                                                }
+                                                                                            </div>
+                                                                                            <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" onChange={(e)=>{e.preventDefault();e.stopPropagation()}}/>
                                                                                                 <span className="doc-checkmark"></span>
                                                                                             </label>
                                                                                         </div>
