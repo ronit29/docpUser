@@ -376,6 +376,7 @@ class VipClubMemberDetailsView extends React.Component {
 							members.gender = param.gender
 							members.profile = param.profile_id
 							members.id = param.id
+							members.is_primary_user = false
 							// data.members.push(members)
 							if(this.props.members_proofs && this.props.members_proofs.length>0){
 								is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
@@ -421,6 +422,7 @@ class VipClubMemberDetailsView extends React.Component {
 							members.gender = param.gender
 							members.profile = param.profile_id
 							members.id = param.id
+							members.is_primary_user = true
 							data.members.push(members)
 							pushData.members.push(param)
 							console.log(data)
