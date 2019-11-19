@@ -1116,6 +1116,15 @@ class PatientDetailsNew extends React.Component {
         this.setState({showGoldPriceList: value})
     }
 
+    goToGoldPage = ()=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'GoToOpdGoldPlanClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'go-to-opd-gold-plan-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-opd-summary-gold-clicked&lead_source=Docprime&booking_page=opd')
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1310,18 +1319,18 @@ class PatientDetailsNew extends React.Component {
 
         }
 
-        let extraParams = {
-            is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
-            total_amount_payable: total_amount_payable
-        }
-
         //SET PAYMENT SUMMARY PRICE
         let display_total_mrp = parseInt(priceData.mrp) + treatment_mrp
         let display_docprime_discount  = display_total_mrp - (parseInt(priceData.deal_price) + treatment_Price)
-        if(this.props.payment_type == 6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0) {
-            display_total_mrp = this.props.selected_vip_plan.mrp
-            display_docprime_discount = display_total_mrp-this.props.selected_vip_plan.deal_price
-            finalPrice = this.props.selected_vip_plan.deal_price
+        if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+            display_total_mrp = (this.props.selected_vip_plan.opd.gold_price||0)
+            display_docprime_discount =0// display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
+            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
+        }
+
+        let extraParams = {
+            is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
+            total_amount_payable: total_amount_payable
         }
         return (
             <div className="profile-body-wrap">
@@ -1343,7 +1352,7 @@ class PatientDetailsNew extends React.Component {
                 }
                 {
                     //Show Vip Gold Single Flow Price List
-                    this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan}/>
+                    this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={goToGoldPage}/>
                 }
                 {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :
@@ -1586,14 +1595,24 @@ class PatientDetailsNew extends React.Component {
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
                                                                             {
-                                                                                !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length &&
+                                                                                !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length ?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-summary-content">
                                                                                         <div className="payment-detail d-flex" onClick={() => {
                                                                                         this.props.select_opd_payment_type(6) } }>
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> <span className="gold-qus">?</span></h4>
-                                                                                                <span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.deal_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.mrp}`}</b></span>
+                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} onClick={(e)=>{
+                                                                                                    e.stopPropagation();
+                                                                                                    e.preventDefault();
+                                                                                                    this.goToGoldPage()
+                                                                                                }}/> <span className="gold-qus">?</span></h4>
+                                                                                                <span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>
+                                                                                                {
+                                                                                                //     this.props.selected_vip_plan.opd.deal_price == this.props.selected_vip_plan.opd.mrp?
+                                                                                                    
+                                                                                                //     :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.deal_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
+                                                                                                // 
+                                                                                                }
                                                                                                 <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" />
                                                                                                 <span className="doc-checkmark"></span>
                                                                                             </label>
@@ -1612,7 +1631,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         </div>
                                                                                     </div>
                                                                                     <hr />
-                                                                                </React.Fragment>
+                                                                                </React.Fragment>:''
                                                                             }
                                                                             {
                                                                                 enabled_for_prepaid_payment ?
@@ -1745,6 +1764,14 @@ class PatientDetailsNew extends React.Component {
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
                                                                                         </div>
                                                                                         : ''
+                                                                                }
+                                                                                {
+                                                                                    //When Gold Membership is buying
+                                                                                    this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p style={{ color: 'green' }}>Docprime Gold Membership </p>
+                                                                                        <p style={{ color: 'green' }}>+ &#8377; {this.props.selected_vip_plan.deal_price}</p>
+                                                                                    </div>
                                                                                 }
                                                                             </div>
                                                                             <hr />
