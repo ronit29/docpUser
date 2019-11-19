@@ -208,7 +208,7 @@ export default function (state = defaultState, action) {
                     // newState.currentSelectedVipMembersId=[]
                     
                     // newState.vipClubMemberDetails={}
-                    newState.members_proofs = []
+                    // newState.members_proofs = []
                     if(action.payload.data && action.payload.data.is_agent && Object.keys(newState.selected_vip_plan).length == 0){
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
