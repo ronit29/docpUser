@@ -1795,12 +1795,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                     <h4 className="title mb-20">Payment Mode</h4>
                                                                     <React.Fragment>
                                                                         <div className="payment-summary-content">
-                                                                            <div className="payment-detail d-flex" onClick={() => {
+                                                                            <div className="payment-detail d-flex" onClick={(e) => {
+                                                                            e.preventDefault();
                                                                             this.props.select_lab_payment_type(6) } }>
                                                                                 <label className="container-radio payment-type-radio">
-                                                                                    <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} onClick={this.goToGoldPage}/> <span className="gold-qus">?</span></h4>
+                                                                                <div onClick={(e)=>{e.stopPropagation();
+                                                                                    e.preventDefault();
+                                                                                }}>
+                                                                                    <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <span className="gold-qus" onClick={(e)=>{
+                                                                                                    e.stopPropagation();
+                                                                                                    e.preventDefault();
+                                                                                                    this.goToGoldPage()
+                                                                                                }}>?</span></h4>
                                                                                     <span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`}</span>
-                                                                                    <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" />
+                                                                                </div>
+                                                                                    <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on"  />
                                                                                     <span className="doc-checkmark"></span>
                                                                                 </label>
                                                                             </div>
@@ -1819,17 +1829,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                         </div>
                                                                         <hr />
                                                                     </React.Fragment>
-                                                                    <div className="payment-summary-content" onClick={() => {
+                                                                    <div className="payment-summary-content" onClick={(e) => {
+                                                                        e.preventDefault()
                                                                         this.props.select_lab_payment_type(1)
                                                                     }}>
                                                                         <div className="payment-detail d-flex">
                                                                             <label className="container-radio payment-type-radio">
+                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                e.preventDefault();
+                                                                            }}>
                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
                                                                                 <span className="payment-mode-amt">{display_radio_cod_price}</span>
                                                                                 {/* {
                                                                                 is_insurance_applicable ? ""
                                                                                     : <span className="save-upto">Save {percent_discount}%</span>
                                                                             } */}
+                                                                            </div>
 
                                                                                 <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
                                                                                 <span className="doc-checkmark"></span>

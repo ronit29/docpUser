@@ -1598,22 +1598,28 @@ class PatientDetailsNew extends React.Component {
                                                                                 !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length ?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-summary-content">
-                                                                                        <div className="payment-detail d-flex" onClick={() => {
+                                                                                        <div className="payment-detail d-flex" onClick={(e) => {
+                                                                                        e.preventDefault();
                                                                                         this.props.select_opd_payment_type(6) } }>
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} onClick={(e)=>{
+                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                                e.preventDefault();
+                                                                                            }}>
+                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                                <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
-                                                                                                    this.goToGoldPage()
-                                                                                                }}/> <span className="gold-qus">?</span></h4>
+                                                                                                    this.goToGoldPage();
+                                                                                                }}>?</span></h4>
                                                                                                 <span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>
+                                                                                            </div>
                                                                                                 {
                                                                                                 //     this.props.selected_vip_plan.opd.deal_price == this.props.selected_vip_plan.opd.mrp?
                                                                                                     
                                                                                                 //     :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.deal_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
                                                                                                 // 
                                                                                                 }
-                                                                                                <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" />
+                                                                                                <input checked={this.props.payment_type == 6} type="radio" name="payment-mode" value="on" onChange={(e)=>{e.preventDefault();e.stopPropagation()}}/>
                                                                                                 <span className="doc-checkmark"></span>
                                                                                             </label>
                                                                                         </div>
@@ -1635,21 +1641,26 @@ class PatientDetailsNew extends React.Component {
                                                                             }
                                                                             {
                                                                                 enabled_for_prepaid_payment ?
-                                                                                    <div className="payment-summary-content" onClick={() => {
+                                                                                    <div className="payment-summary-content" onClick={(e) => {
+                                                                                        e.preventDefault()
                                                                                         this.props.select_opd_payment_type(1)
                                                                                     }}>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
+                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                                e.preventDefault();
+                                                                                            }}>
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :
                                                                                                     vip_data.hosp_is_gold && is_selected_user_gold ? `₹ ${vip_data.vip_amount + vip_data.vip_convenience_amount}` :
                                                                                                         is_vip_applicable ? `₹ ${vip_data.vip_amount}` : this.getBookingAmount(total_wallet_balance, display_radio_cod_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
+                                                                                                </div>
                                                                                                 {/* {
                                                                                                 is_insurance_applicable ? ""
                                                                                                     : <span className="save-upto">Save {percent_discount}%</span>
                                                                                             } */}
 
-                                                                                                <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
+                                                                                                <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" onChange={(e)=>{e.preventDefault();e.stopPropagation()}}/>
                                                                                                 <span className="doc-checkmark"></span>
                                                                                             </label>
                                                                                         </div>
@@ -1663,10 +1674,14 @@ class PatientDetailsNew extends React.Component {
 
                                                                             {
                                                                                 !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold) ?
-                                                                                    <div className="test-report payment-detail mt-20" onClick={() => {
+                                                                                    <div className="test-report payment-detail mt-20" onClick={(e) => {
+                                                                                        e.preventDefault()
                                                                                         this.props.select_opd_payment_type(2)
                                                                                     }}>
                                                                                         <label className="container-radio payment-type-radio">
+                                                                                        <div onClick={(e)=>{e.stopPropagation();
+                                                                                                e.preventDefault();
+                                                                                            }}>
                                                                                             <h4 className="title payment-amt-label">Pay at Clinic</h4>
                                                                                             {
                                                                                                 enabled_for_cod_payment && priceData.is_cod_deal_price ?
@@ -1677,8 +1692,9 @@ class PatientDetailsNew extends React.Component {
                                                                                                     </React.Fragment>
                                                                                                     : <span className="payment-mode-amt">₹{clinic_mrp}</span>
                                                                                             }
+                                                                                        </div>
                                                                                             {/* <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span> */}
-                                                                                            <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
+                                                                                            <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" onChange={(e)=>{e.preventDefault();e.stopPropagation()}}/>
                                                                                             <span className="doc-checkmark"></span>
                                                                                         </label>
                                                                                     </div> : ''
