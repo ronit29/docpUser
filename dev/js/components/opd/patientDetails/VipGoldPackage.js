@@ -8,8 +8,13 @@ class VipGoldPackagePriceView extends React.PureComponent{
 			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
+				this.props.toggleGoldPricePopup()
 			}}>
-				<div className="search-el-popup">
+				<div className="search-el-popup" onClick={(e) => {
+					e.preventDefault()
+					e.stopPropagation()
+				
+					}}>
 					<div className="widget p-12">
 						<div className="p-relative">
 							<span className="ipd-pop-ild" onClick={(e) => {
