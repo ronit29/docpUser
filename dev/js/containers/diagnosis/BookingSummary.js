@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags, getLabVipGoldPlans, selectVipClubPlan, select_lab_payment_type } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -78,9 +78,11 @@ const mapStateToProps = (state) => {
         saved_patient_details,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold } = state.USER
     let LABS = state.LABS
-    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card } = state.LAB_SEARCH
+    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card , payment_type} = state.LAB_SEARCH
+    const { labGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
+
 
     return {
         corporateCoupon,
@@ -88,7 +90,8 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card,
+        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type
     }
 }
 
@@ -128,7 +131,10 @@ const mapDispatchToProps = (dispatch) => {
         unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
         sendSPOAgentBooking: (postData, cb) => dispatch(sendSPOAgentBooking(postData, cb)),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
-        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria))
+        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
+        getLabVipGoldPlans: (dataParams, cb) => dispatch(getLabVipGoldPlans(dataParams, cb)),
+        selectVipClubPlan: (type, selectedPlan, cb) => dispatch(selectVipClubPlan(type, selectedPlan, cb)),
+        select_lab_payment_type: (type) => dispatch(select_lab_payment_type(type))
     }
 }
 
