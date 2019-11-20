@@ -20,15 +20,10 @@ class VipProposer extends React.Component {
 			relation: 'SELF',
 			profile_flag: true,
 			profile_id: null,
-			disableFName: false,
-			disableLName: false,
-			disableEmail: false,
-			disableDob: false,
 			is_change: false,
 			year: '',
 			mnth: '',
 			day: '',
-			emailVerified:false,
 			profile:'',
 			relation_key:'SELF',
 			member_form_id:this.props.member_form_id,
@@ -36,9 +31,12 @@ class VipProposer extends React.Component {
 			showPopup:false,
 			isUserSelectedProfile:this.props.isUserSelectedProfile,
 			phone_number:null,
+			disableTitle:false,
+			disableFName: false,
+			disableLName: false,
+			disableEmail: false,
 			disablePhoneNo:false,
-			disableTitle:false
-
+			disableDob: false,
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleTitle = this.handleTitle.bind(this);
@@ -437,13 +435,6 @@ class VipProposer extends React.Component {
 				self.handleSubmit()
 			})
 		}
-	}
-
-	verifyEndorsementEmail(newemail){
-		this.setState({emailVerified:true,email:newemail},()=>{
-			this.props.checkIsEmailVerfied()
-			this.handleSubmit(true,true)
-		})
 	}
 
 	render() {
