@@ -355,8 +355,8 @@ class VipLoginPopup extends React.Component {
                         <div className="col-12">
                             <div className="ins-form-radio insradio-on-popup">
                                 {
-                                this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
-                                    Object.entries(this.props.profiles).map(function ([key, value]) {
+                                this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length >0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
+                                    Object.entries(this.props.USER.profiles).map(function ([key, value]) {
                                         if (currentSelectedProfiles.indexOf(parseInt(key)) == -1) {
                                             return <div key={key} className="dtl-radio">
                                                 <label className="container-radio">
@@ -368,7 +368,7 @@ class VipLoginPopup extends React.Component {
                                         }
                                     }, this)
                                 :''} 
-                                <span onClick={this.addMemberBySelf.bind(this)}>Add member</span>  
+                                <span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Member</span>  
                             </div>
                         </div>
                         <div className="procedures-btn-pop" onClick={this.closeSelectFromProfile.bind(this)}>

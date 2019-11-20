@@ -1,4 +1,5 @@
 import React from 'react';
+import InsuranceProofs from './insuranceProofs.js'
 
 class VipClubActivatedMemberDetails extends React.Component {
 
@@ -11,10 +12,15 @@ class VipClubActivatedMemberDetails extends React.Component {
 	}
 
 	render() {
+		let primary_user = {}
+		if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+            primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
+        }
 		return <section className="vip-user-details-container">
 					{this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0?
 						this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-						return <div key={key}className="ins-user-details-lisitng" id={val.id}>
+						return <React.Fragment>
+						<div key={key}className="ins-user-details-lisitng" id={val.id}>
 							<p className="sub-form-hed">Proposer</p>
 							<ul className="ins-usr-img-para pl-0">
 								<li>
@@ -37,6 +43,12 @@ class VipClubActivatedMemberDetails extends React.Component {
 								</li>
 							</ul>
 						</div>
+						{
+							Object.keys(primary_user).length > 0 && primary_user.document_ids == null?
+								<InsuranceProofs {...this.props} member_id = {primary_user.profile}/>
+								: ''
+						}
+						</React.Fragment>
 						})
 					:""}
 				</section>

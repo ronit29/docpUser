@@ -88,14 +88,21 @@ class VipClub extends React.Component {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
         let expiryDate = expiry_date.split(" ")
-        let primary_user = []
+        let primary_user = {}
         if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
             primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
         }
         return (
             <div className="profile-body-wrap" style={{ background: "" }}>
-                {/* <ProfileHeader /> */}
-                <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
+                <div className="d-none d-lg-block">
+                    <ProfileHeader />
+                </div>
+                <div className="d-lg-none d-block">
+                    <div className="vipBackIco" onClick={() => this.props.history.push('/')} style={{background:'#f78631'}}>
+                        <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
+                    </div>
+                </div>
+                {/*<div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')} style={{background:'#f78631'}}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
@@ -110,12 +117,10 @@ class VipClub extends React.Component {
                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                 <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                                 <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                                {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
                                     <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
-                                {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                             </div>
                         }
-                    </div>
+                    </div>*/}
                 {/* last screen design */}
                 <section className="container container-top-margin sub-pdng-add" style={{ marginTop: '' }}>
                     <div className="row main-row parent-section-row">
