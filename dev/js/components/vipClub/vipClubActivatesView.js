@@ -124,7 +124,7 @@ class VipClub extends React.Component {
                             <div className="container-fluid ">
                                 <div className="care-new-container font-analyze">
                                     {this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0  && Object.keys(primary_user).length > 0?
-                                        <div className="gold-white-bg-container mb-24 card-container" >
+                                        <div className="gold-white-bg-container card-container" >
                                             <div className="gold-card-section">
                                                 {/* <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/> */}
                                                 <img className="vipLogiImg-2 pd-12" style={{paddingBottom: 7}} src="/assets/img/docgold.png"  width="80px" />
@@ -140,9 +140,9 @@ class VipClub extends React.Component {
                                         </div>
                                     :''}
                                     {this.props.data.is_member_allowed?
-                                        <div className="gold-white-bg-container" style={{paddingTop:20,paddingBottom:0}}>
-                                            <div className="vip-act-pop ">
-                                                <div className="vip-wrn-img">
+                                        <div className="gold-white-bg-container mb-24" style={{paddingTop:0,paddingBottom:20}}>
+                                            <div className="vip-act-pop text-right" style={{display:'block'}}>
+                                                <div className="vip-wrn-img text-left">
                                                     <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
                                                     <div className="vip-wrn-content">
                                                         <h5>Your subscription is now active</h5>
