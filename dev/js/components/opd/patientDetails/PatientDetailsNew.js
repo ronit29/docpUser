@@ -1337,7 +1337,7 @@ class PatientDetailsNew extends React.Component {
         let is_time_selected = (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)
 
         let vip_discount_price = 0//finalPrice - (vip_gold_price + vip_convenience_amount)
-        let total_amount_payable = total_price
+        let total_amount_payable = finalPrice
         is_selected_user_gold = vip_data.cover_under_vip && is_selected_user_gold
         if (vip_data && (vip_data.is_enable_for_vip)) {
 
@@ -1366,6 +1366,7 @@ class PatientDetailsNew extends React.Component {
             display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
             finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
+            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price
         }
 
         let extraParams = {
