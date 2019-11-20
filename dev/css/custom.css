@@ -5439,7 +5439,7 @@ p.dp-gld-mem-grn {
     background-image: url(https://cdn.docprime.com/media/web/custom_images/bgcard.png);
     background-size: 115%;
     border-radius: 11px;
-    box-shadow: 0px 0px 6px 2px #0000008c;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.35);
     background-position: -14px -77px;
 }
 .gold-card-section > .shadow-img{
