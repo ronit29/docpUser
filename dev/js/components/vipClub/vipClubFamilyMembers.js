@@ -294,7 +294,7 @@ class VipProposerFamily extends React.Component {
 					{
 						this.props.show_selected_profiles.length>0 && !this.state.is_disable?
 						<div className="sub-form-hed-click" onClick={() => this.setState({
-						showPopup: true, userProfiles: this.props.USER})}>
+						showPopup: true})}>
 						Select from profile
 						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''
@@ -413,7 +413,7 @@ class VipProposerFamily extends React.Component {
 				</div>
 				
 				{this.state.showPopup ?
-					<VipLoginPopup {...this.state.userProfiles} {...this.props} 
+					<VipLoginPopup {...this.props} 
 						currentSelectedVipMembersId={this.props.currentSelectedVipMembersId} 
 						member_id={this.props.member_id} 
 						closePopup={this.togglePopup.bind(this)} 
