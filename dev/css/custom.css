@@ -156,7 +156,12 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .my-profile-item{cursor: pointer;}
 .notification-count{position: absolute; width: 22px; height: 22px; right: 20px; top: 50%; transform: translateY(-50%); border-radius: 50%; background-color: #f78631; display: flex; align-items: center; justify-content: center}
 .notification-count>span{color: #ffffff;}
-
+.notification-count.lft-notify{
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    padding: 0 5px;
+}
 /*===================
 	my appointments
 ====================*/
