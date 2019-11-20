@@ -194,7 +194,7 @@ class IpdLeadForm extends React.Component {
 				e.stopPropagation()
 				this.closePopUpClicked()
 			}}>
-				<div className="search-el-popup ipd-pop-width" onClick={(e) => {
+				<div className="search-el-popup ipd-pop-width booking-popup" onClick={(e) => {
 					e.preventDefault()
 					e.stopPropagation()
 				
@@ -216,7 +216,7 @@ class IpdLeadForm extends React.Component {
 										specialization_name?
 										<p className="ipd-needHelp">{`Need an appointment with ${is_vowel?'an':'a'} ${specialization_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:this.props.doctor_name?
-										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+										<p className="ipd-needHelp">{`Need to book an appointment with  this is testing ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:this.props.hospital_name?
 										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:''
@@ -253,6 +253,7 @@ class IpdLeadForm extends React.Component {
 										<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
 										:''
 									}
+									
 									{/*<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
@@ -290,7 +291,7 @@ class IpdLeadForm extends React.Component {
 													</div>
 													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
 													<div className="slt-nw-input radio-mbl mb-10">
-														<label className="slt-label" htmlFor="male" >*Gender:</label>
+														<label className="slt-label text-left" htmlFor="male" >*Gender:</label>
 														<div className="slt-label-radio ml-2">
 															<div className="dtl-radio">
 																<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male
@@ -305,6 +306,39 @@ class IpdLeadForm extends React.Component {
 																</label>
 															</div>
 														</div>
+													</div>
+													<div className="select-date-container">
+														<h5>*Preferred Date:</h5>
+														<div className="vertical-date-select-container" style={{marginBottom:0}}>
+															<div className="slect-date-heading">
+																<div className="vertical-date-listing">
+																	<ul className="ver-date-list-ul">
+																		<li>
+																			<p className="date-list-active">22<span>Fri</span></p>
+																		</li>
+																		<li>
+																			<p className="">29<span>Fri</span></p>
+																		</li>
+																		<li>
+																			<p className="">6<span>Fri</span></p>
+																		</li>
+																		<li style={{padding:0}}>
+																			<a>
+																				<img  src={ASSETS_BASE_URL + '/img/calnext.svg'} style={{width:22, marginTop:10}}/>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div className="select-date-container">
+														<h5>Preferred Time</h5>
+														<select>
+															<option>option 1</option>
+															<option>option 2</option>
+															<option>option 3</option>
+														</select>
 													</div>
 													<div className="ipd-lead-textarea">
 														<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments' value={this.state.comments} onChange={this.inputHandler.bind(this)}></textarea>
