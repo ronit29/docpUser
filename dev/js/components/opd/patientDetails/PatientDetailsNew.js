@@ -78,7 +78,8 @@ class PatientDetailsNew extends React.Component {
             isLensfitSpecific: parsed.isLensfitSpecific || false,
             show_banner: false,
             banner_decline: false,
-            showGoldPriceList: false
+            showGoldPriceList: false,
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
         }
     }
 
@@ -114,6 +115,10 @@ class PatientDetailsNew extends React.Component {
         }
 
         this.getVipGoldPriceList()
+        //To update Gold Plans on changing props
+        if(this.props.selected_vip_plan && this.props.selected_vip_plan.id && (this.props.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
+            this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
+        }
 
         if (this.props.location.search.includes("error_code")) {
             setTimeout(() => {
@@ -300,6 +305,11 @@ class PatientDetailsNew extends React.Component {
         //Ref to update date every time on route
         if (nextProps.selectedDateFormat && nextProps.selectedDateFormat != this.state.dateTimeSelectedValue) {
             this.setState({ dateTimeSelectedValue: nextProps.selectedDateFormat })
+        }
+
+        //To update Gold Plans on changing props
+        if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
+            this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor]) {
             let hospital = {}
@@ -1126,6 +1136,19 @@ class PatientDetailsNew extends React.Component {
         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-opd-summary-gold-clicked&lead_source=Docprime&booking_page=opd')
     }
 
+    getDataAfterLogin = ()=>{
+        if(this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length) {
+            let selectedPackage = this.props.odpGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
+            if(selectedPackage && selectedPackage.length==0) {
+                selectedPackage = this.props.odpGoldPredictedPrice.filter(x=>x.is_selected)
+            }
+            if(selectedPackage && selectedPackage.length) {
+                this.props.selectVipClubPlan('plan', selectedPackage[0])
+            }
+        }      
+        
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1267,8 +1290,6 @@ class PatientDetailsNew extends React.Component {
             payment_mode_count++
         if (enabled_for_cod_payment)
             payment_mode_count++
-        if(!this.props.is_any_user_buy_gold && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length)
-            payment_mode_count++
         // if (enabled_for_prepaid_payment && is_insurance_buy_able)
         //     payment_mode_count++
         let clinic_mrp = priceData.mrp
@@ -1328,6 +1349,10 @@ class PatientDetailsNew extends React.Component {
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
             finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
         }
+
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length 
+        if(showGoldTogglePaymentMode)
+        payment_mode_count++
 
         let extraParams = {
             is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
@@ -1481,7 +1506,7 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} />
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} getDataAfterLogin={this.getDataAfterLogin}/>
                                                                 {
                                                                     Object.values(selectedProcedures).length ?
                                                                         <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
@@ -1596,7 +1621,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
                                                                             {
-                                                                                !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length ?
+                                                                                showGoldTogglePaymentMode?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-summary-content">
                                                                                         <div className="payment-detail d-flex" onClick={(e) => {
