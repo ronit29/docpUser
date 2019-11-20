@@ -339,6 +339,10 @@ class VipLoginPopup extends React.Component {
                     currentSelectedProfiles.push(val[key])
                 })
             }
+            let primary_user = {}
+            if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+                    primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
+            }
             return (
                 <div>
                     <div className="cancel-overlay cancel-overlay-zindex" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
@@ -357,7 +361,7 @@ class VipLoginPopup extends React.Component {
                                 {
                                 this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length >0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
                                     Object.entries(this.props.USER.profiles).map(function ([key, value]) {
-                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1) {
+                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && value.id != primary_user.profile) {
                                             return <div key={key} className="dtl-radio">
                                                 <label className="container-radio">
                                                     {value.name}

@@ -55,7 +55,7 @@ class BookingSummaryViewNew extends React.Component {
             pincode: this.props.pincode,
             whatsapp_optin: true,
             pincodeMismatchError: false,
-            showConfirmationPopup: false,
+            showConfirmationPopup: 'close',
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-lpp'),
             isEmailNotValid:false,
@@ -68,7 +68,8 @@ class BookingSummaryViewNew extends React.Component {
             lensfit_decline:false,
             isLensfitSpecific:parsed.isLensfitSpecific|| false,
             showGoldPriceList: false,
-            selectedTestIds: []
+            selectedTestIds: [],
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
         }
     }
 
@@ -101,6 +102,11 @@ class BookingSummaryViewNew extends React.Component {
             this.props.history.replace(this.props.location.pathname)
         }
         this.getVipGoldPriceList(this.props);
+        if(this.props.selected_vip_plan && this.props.selected_vip_plan.id && (this.props.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
+            this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
+        }
+
+
         let patient = null
         if (this.props.selectedProfile && this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -184,6 +190,10 @@ class BookingSummaryViewNew extends React.Component {
         let isPickupStatusSame = false
         if(nextProps.selectedAppointmentType.r_pickup == this.props.selectedAppointmentType.r_pickup && nextProps.selectedAppointmentType.p_pickup == this.props.selectedAppointmentType.p_pickup){
             isPickupStatusSame = true    
+        }
+        //To update Gold Plans on changing props
+        if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
+            this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
@@ -477,7 +487,7 @@ class BookingSummaryViewNew extends React.Component {
 
         return <React.Fragment>
             <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
-            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} />
+            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} getDataAfterLogin={this.getDataAfterLogin}/>
             {
                 patient && is_home_charges_applicable?
                     <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -737,8 +747,8 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }
-        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true })
+        if (this.state.showConfirmationPopup == 'close' && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: 'open' })
             return
         }
         if(this.state.is_spo_appointment) {
@@ -1048,9 +1058,9 @@ class BookingSummaryViewNew extends React.Component {
 
     priceConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ showConfirmationPopup: choice })
+            this.setState({ showConfirmationPopup: 'close' })
         } else {
-            this.setState({ showConfirmationPopup: '' })
+            this.setState({ showConfirmationPopup: 'close' })
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
@@ -1152,6 +1162,19 @@ class BookingSummaryViewNew extends React.Component {
 
         GTM.sendEvent({ data: data })
         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-lab-summary-gold-clicked&lead_source=Docprime&booking_page=lab')
+    }
+
+    getDataAfterLogin = ()=>{
+        if(this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length) {
+            let selectedPackage = this.props.labGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
+            if(selectedPackage && selectedPackage.length==0) {
+                selectedPackage = this.props.labGoldPredictedPrice.filter(x=>x.is_selected)
+            }
+            if(selectedPackage && selectedPackage.length) {
+                this.props.selectVipClubPlan('plan', selectedPackage[0])
+            }
+        }      
+        
     }
     
     render() {
@@ -1526,7 +1549,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let currentTestsCount = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
             this.props.select_lab_payment_type(1)
@@ -1548,7 +1571,7 @@ class BookingSummaryViewNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
-                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
+                    this.state.showConfirmationPopup == 'open' && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isLab={true}/>
                         : ''
                 }
@@ -1898,7 +1921,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                                     {
                                                                                         //When Gold Membership is buying
-                                                                                        this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
+                                                                                        showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p>Docprime Gold Membership </p>
                                                                                             <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
@@ -2025,7 +2048,7 @@ class BookingSummaryViewNew extends React.Component {
                                     this.props.payment_type !=6 && (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
+                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -2037,7 +2060,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_amount_payable, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
                                 }
                             </div>
 

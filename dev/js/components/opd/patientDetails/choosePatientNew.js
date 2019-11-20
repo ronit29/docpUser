@@ -131,6 +131,7 @@ class ChoosePatientNewView extends React.Component {
                                 self.props.checkPrescription()
                                 self.props.clearTestForInsured()
                             }
+                            this.props.getDataAfterLogin()
                         })
                         self.setState({dob:null,email:null})
                     })

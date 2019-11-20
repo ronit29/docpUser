@@ -360,9 +360,36 @@ class VipClubMemberDetailsView extends React.Component {
 				let address
 				let pincode
 				var members = {}
+				let primary_user = {}
 				if (this.props.is_from_payment) {
 					let is_member_updated = []
 					let image_ids = []
+					if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+			            primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
+			        }
+					if(this.props.members_proofs && this.props.members_proofs.length>0 && Object.keys(primary_user).length >0){ //for self member_proofs
+						param = primary_user
+						members = {}
+						members.profile = param.profile
+						members.id = param.profile
+						members.is_primary_user = param.is_primary_user
+						members.title = primary_user.title
+						members.first_name = primary_user.first_name
+						members.last_name = primary_user.last_name
+						members.email = primary_user.email
+						members.dob = primary_user.dob
+						is_member_updated = this.props.members_proofs.filter((x=>x.id == param.profile))
+						if(is_member_updated && is_member_updated.length > 0){
+							if(is_member_updated[0].img_path_ids.length > 0){
+								image_ids = []
+								is_member_updated[0].img_path_ids.map((imgId,i)=>{
+									image_ids.push({'proof_file':imgId.id})
+								})
+							}
+							members.document_ids = image_ids
+						}
+						data.members.push(members)
+					}
 					this.props.currentSelectedVipMembersId.map((val, key) => {
 						if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
 							param = this.props.vipClubMemberDetails[val[key]]
@@ -371,11 +398,10 @@ class VipClubMemberDetailsView extends React.Component {
 							members.relation = param.relation_key
 							members.first_name = param.name
 							members.last_name = param.last_name
-							members.email = 'rj@gmail.com'
+							members.email = null
 							members.dob = param.dob
 							members.gender = param.gender
 							members.profile = param.profile_id
-							members.id = param.id
 							members.is_primary_user = false
 							// data.members.push(members)
 							if(this.props.members_proofs && this.props.members_proofs.length>0){
