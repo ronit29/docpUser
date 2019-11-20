@@ -59,7 +59,7 @@ class PatientDetailsNew extends React.Component {
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
             formData: '',
-            showConfirmationPopup: false,
+            showConfirmationPopup: 'close',
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,
@@ -538,8 +538,8 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
-        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6 ) ) || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true, show_banner: false })
+        if (this.state.showConfirmationPopup == 'close'  && !addToCart && (total_price == 0 || (is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6 ) ) || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: 'open', show_banner: false })
             return
         }
 
@@ -881,9 +881,9 @@ class PatientDetailsNew extends React.Component {
 
     priceConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ showConfirmationPopup: choice, show_banner: false })
+            this.setState({ showConfirmationPopup: 'close' })
         } else {
-            this.setState({ showConfirmationPopup: '', show_banner: false })
+            this.setState({ showConfirmationPopup: 'close'})
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
@@ -1342,7 +1342,7 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
-                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
+                    this.state.showConfirmationPopup == 'open' && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable={is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)} />
                         : ''
                 }

@@ -55,7 +55,7 @@ class BookingSummaryViewNew extends React.Component {
             pincode: this.props.pincode,
             whatsapp_optin: true,
             pincodeMismatchError: false,
-            showConfirmationPopup: false,
+            showConfirmationPopup: 'close',
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-lpp'),
             isEmailNotValid:false,
@@ -737,8 +737,8 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }
-        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true })
+        if (this.state.showConfirmationPopup == 'close' && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: 'open' })
             return
         }
         if(this.state.is_spo_appointment) {
@@ -1048,9 +1048,9 @@ class BookingSummaryViewNew extends React.Component {
 
     priceConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ showConfirmationPopup: choice })
+            this.setState({ showConfirmationPopup: 'close' })
         } else {
-            this.setState({ showConfirmationPopup: '' })
+            this.setState({ showConfirmationPopup: 'close' })
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
@@ -1548,7 +1548,7 @@ class BookingSummaryViewNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
-                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
+                    this.state.showConfirmationPopup == 'open' && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isLab={true}/>
                         : ''
                 }
