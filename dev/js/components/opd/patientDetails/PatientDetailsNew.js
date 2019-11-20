@@ -1291,7 +1291,7 @@ class PatientDetailsNew extends React.Component {
 
         if(resetPaymentType) {
 
-            if(enabled_for_cod) {
+            if(enabled_for_cod_payment) {
                 this.props.select_opd_payment_type(2)
             }else if(enabled_for_prepaid_payment){
                 this.props.select_opd_payment_type(1)
