@@ -1921,7 +1921,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                                     {
                                                                                         //When Gold Membership is buying
-                                                                                        this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
+                                                                                        showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p>Docprime Gold Membership </p>
                                                                                             <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>

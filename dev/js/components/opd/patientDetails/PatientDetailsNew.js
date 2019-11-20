@@ -1269,18 +1269,36 @@ class PatientDetailsNew extends React.Component {
         let cod_percentage_discount = (parseInt(docDiscount) / (parseInt(priceData.mrp)) * 100)
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
-        if( ((this.props.is_any_user_buy_gold || is_insurance_applicable) && this.props.payment_type==6) || this.props.payment_type!=6 ){
+        //Flag to show gold Single Flow Plans
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length 
+        if(showGoldTogglePaymentMode)
+        payment_mode_count++
 
-            if (!enabled_for_cod_payment && this.props.payment_type == 2) {
-                this.props.select_opd_payment_type(1)
-            } else if (enabled_for_cod_payment && !enabled_for_prepaid_payment) {
-                this.props.select_opd_payment_type(2)
-            } else if (enabled_for_cod_payment && this.props.payment_type == 2 && is_insurance_applicable) {
-                this.props.select_opd_payment_type(1)
-            }    
+        // if ( (!enabled_for_cod_payment || (enabled_for_cod_payment && is_insurance_applicable) ) && this.props.payment_type == 2) {
+        //     this.props.select_opd_payment_type(1)
+        // } else if (enabled_for_cod_payment && !enabled_for_prepaid_payment) {
+        //     this.props.select_opd_payment_type(2)
+        // }
+
+        let resetPaymentType = false
+        if(!showGoldTogglePaymentMode && this.props.payment_type ==6){
+            resetPaymentType = true
+        }else if( (!enabled_for_cod_payment || (enabled_for_cod_payment && is_insurance_applicable) ) && this.props.payment_type == 2 ){
+            resetPaymentType = true
+        }else if(!enabled_for_prepaid_payment && this.props.payment_type ==1){
+            resetPaymentType = true
         }
-        
 
+        if(resetPaymentType) {
+
+            if(enabled_for_cod) {
+                this.props.select_opd_payment_type(2)
+            }else if(enabled_for_prepaid_payment){
+                this.props.select_opd_payment_type(1)
+            }else if(showGoldTogglePaymentMode) {
+                this.props.select_opd_payment_type(6)
+            }
+        }
 
         if (hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured) {
             is_insurance_buy_able = true
@@ -1349,10 +1367,6 @@ class PatientDetailsNew extends React.Component {
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
             finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
         }
-
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length 
-        if(showGoldTogglePaymentMode)
-        payment_mode_count++
 
         let extraParams = {
             is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
@@ -1812,7 +1826,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 }
                                                                                 {
                                                                                     //When Gold Membership is buying
-                                                                                    this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
+                                                                                    showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Gold Membership </p>
                                                                                         <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
