@@ -1441,26 +1441,25 @@ class PatientDetailsNew extends React.Component {
                                                                                                 {this.state.is_cashback ? "Coupon" : "Coupon"} Applied
                                                                                             </h4>
                                                                                         </div>
-                                                                                        <div className=" d-flex">
-                                                                                            {
-                                                                                                this.props.payment_type == 2?''
-                                                                                                :<h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
+                                                                                        {this.props.payment_type == 2?''
+                                                                                            :<div className=" d-flex">
+                                                                                                <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
                                                                                                     {doctorCoupons[0].code}
                                                                                                 </h4>
-                                                                                            }
-                                                                                            <span className="visit-time-icon coupon-icon">
-                                                                                                <img onClick={(e) => {
-                                                                                                    e.stopPropagation();
-                                                                                                    let analyticData = {
-                                                                                                        'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
-                                                                                                        'couponId': doctorCoupons[0].coupon_id
-                                                                                                    }
-                                                                                                    GTM.sendEvent({ data: analyticData })
-                                                                                                    this.props.removeCoupons(this.props.selectedDoctor, doctorCoupons[0].coupon_id)
-                                                                                                    this.setState({ use_wallet: true, is_payment_coupon_applied: false })
-                                                                                                }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                                                            </span>
-                                                                                        </div>
+                                                                                                <span className="visit-time-icon coupon-icon">
+                                                                                                    <img onClick={(e) => {
+                                                                                                        e.stopPropagation();
+                                                                                                        let analyticData = {
+                                                                                                            'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
+                                                                                                            'couponId': doctorCoupons[0].coupon_id
+                                                                                                        }
+                                                                                                        GTM.sendEvent({ data: analyticData })
+                                                                                                        this.props.removeCoupons(this.props.selectedDoctor, doctorCoupons[0].coupon_id)
+                                                                                                        this.setState({ use_wallet: true, is_payment_coupon_applied: false })
+                                                                                                    }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        }
                                                                                     </div> :
                                                                                     <div>
                                                                                         {
