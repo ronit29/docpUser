@@ -88,7 +88,7 @@ class VipClub extends React.Component {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
         let expiryDate = expiry_date.split(" ")
-        let primary_user = []
+        let primary_user = {}
         if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
             primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
         }

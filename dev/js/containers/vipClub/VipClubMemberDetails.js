@@ -24,7 +24,6 @@ class VipClubMemberDetails extends React.Component{
     }
 
 	render(){
-        console.log(this.props.showVipDetailsView)
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView){
             return <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
