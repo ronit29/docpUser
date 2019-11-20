@@ -407,7 +407,7 @@ class VipProposerFamily extends React.Component {
 						</div>
 					</div>
 					{this.props.is_from_payment && !this.state.is_disable?
-						<InsuranceProofs {...this.props}/>
+						<InsuranceProofs {...this.props} is_primary_user = {false}/>
 					:''
 					}
 				</div>
