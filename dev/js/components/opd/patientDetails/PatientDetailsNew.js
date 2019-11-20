@@ -1442,9 +1442,12 @@ class PatientDetailsNew extends React.Component {
                                                                                             </h4>
                                                                                         </div>
                                                                                         <div className=" d-flex">
-                                                                                            <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
-                                                                                                {doctorCoupons[0].code}
-                                                                                            </h4>
+                                                                                            {
+                                                                                                this.props.payment_type == 2?''
+                                                                                                :<h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
+                                                                                                    {doctorCoupons[0].code}
+                                                                                                </h4>
+                                                                                            }
                                                                                             <span className="visit-time-icon coupon-icon">
                                                                                                 <img onClick={(e) => {
                                                                                                     e.stopPropagation();
