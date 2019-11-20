@@ -1549,7 +1549,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let currentTestsCount = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
             this.props.select_lab_payment_type(1)
