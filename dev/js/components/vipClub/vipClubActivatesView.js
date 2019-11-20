@@ -88,16 +88,20 @@ class VipClub extends React.Component {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
         let expiryDate = expiry_date.split(" ")
+        let primary_user = []
+        if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+            primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
+        }
         return (
             <div className="profile-body-wrap" style={{ background: "" }}>
                 {/* <ProfileHeader /> */}
                 <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
-                        <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
+                        <div className="vipBackIco" onClick={() => this.props.history.push('/')} style={{background:'#f78631'}}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
                         {
                             this.props.is_gold?
-                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                             <div className={`vip-logo-cont d-none ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                 <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
                                 <p className="scrl-cont-dat">You are a Docprime Gold Member </p>
                                 <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
@@ -119,21 +123,39 @@ class VipClub extends React.Component {
                         <div className="col-12 center-column">
                             <div className="container-fluid ">
                                 <div className="care-new-container font-analyze">
-                                    {this.props.data.is_member_allowed?
-                                        <div className="vip-act-pop mb-3">
-                                            <div className="vip-wrn-img">
-                                                <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
-                                                <div className="vip-wrn-content">
-                                                    <h5>Your subscription is now active</h5>
-                                                    {
-                                                        this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0?
-                                                        <p> {`You can add the remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members anytime until the expiry date.`}</p>
-
-                                                        :''
-                                                    }
+                                    {this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0  && Object.keys(primary_user).length > 0?
+                                        <div className="gold-white-bg-container mb-24 card-container" >
+                                            <div className="gold-card-section">
+                                                {/* <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/> */}
+                                                <img className="vipLogiImg-2 pd-12" style={{paddingBottom: 7}} src="/assets/img/docgold.png"  width="80px" />
+                                                <div className="gold-card-user text-right text-white pd-12" style={{paddingTop : 0}}>
+                                                    <h5>{primary_user.first_name} { primary_user.last_name}</h5>
+                                                    <h6>(Primary)</h6>
                                                 </div>
+                                                <div className="membership-validity-column pd-12 text-black text-center">
+                                                    <h4>Docprime Gold Member</h4>
+                                                    <h6>Valid till <strong>{expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]} </strong></h6>
+                                                </div>  
                                             </div>
-                                                <button onClick={this.AddMemberDetails.bind(this)}>Add member</button>
+                                        </div>
+                                    :''}
+                                    {this.props.data.is_member_allowed?
+                                        <div className="gold-white-bg-container" style={{paddingTop:20,paddingBottom:0}}>
+                                            <div className="vip-act-pop ">
+                                                <div className="vip-wrn-img">
+                                                    <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
+                                                    <div className="vip-wrn-content">
+                                                        <h5>Your subscription is now active</h5>
+                                                        {
+                                                            this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0?
+                                                            <p> {`You can add the remaining ${this.props.vip_club_db_data.data.plan[0].total_allowed_members - this.props.vip_club_db_data.data.user.plus_members.length} members anytime until the expiry date.`}</p>
+
+                                                            :''
+                                                        }
+                                                    </div>
+                                                </div>
+                                                    <button onClick={this.AddMemberDetails.bind(this)}>Add member</button>
+                                            </div>
                                         </div>
                                     :''
                                     }
@@ -204,18 +226,6 @@ class VipClub extends React.Component {
                                         </div>
                                     </div>
                                     :''}
-                                    <div className="vip-offer-cards mb-3 gold-card-section">
-                                        <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/>
-                                        <img className="vipLogiImg pd-12" src="/assets/img/docgold.png" />
-                                        <div className="gold-card-user text-right text-white pd-12">
-                                            <h5>Gurpreet Singh</h5>
-                                            <h6>(Primary)</h6>
-                                        </div>
-                                        <div className="membership-validity-column pd-12 text-black text-center">
-                                            <h4>Docprime Gold Member</h4>
-                                            <h6>Valid till <strong>27 Aug 2020 </strong></h6>
-                                        </div>  
-                                    </div>
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
                                         <div className="mb-24">
                                             <div className="vip-offer-cards p-12 text-center">

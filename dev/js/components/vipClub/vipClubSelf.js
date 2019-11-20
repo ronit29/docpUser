@@ -234,8 +234,6 @@ class VipProposer extends React.Component {
 				this.setState({profile_id:profile.profile?profile.profile:''})
 			}
 			this.setState({
-				// email: profile.isDummyUser ? '' : profile.email,
-				// dob: profile.isDummyUser ? '' : profile.dob
 				email: profile.email ? profile.email :'',
 				dob: profile.dob ? profile.dob :''
 			})
@@ -272,22 +270,6 @@ class VipProposer extends React.Component {
 			if(this.props.is_tobe_dummy_user){
 				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:null,disableTitle:false})
 			}
-			// this.setState({
-			// 	// disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
-			// 	// disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
-			// 	// disableName: !profile.isDummyUser && profile.name != '' ? true : false,
-			// 	// gender: profile.isDummyUser ? '' : profile.gender,
-			// 	email: profile.isDummyUser ? '' : profile.email,
-			// 	dob: profile.isDummyUser ? '' : profile.dob,
-			// 	id: profile.isDummyUser ? 0 : profile.id
-			// }, () => {
-			// 	if (profile.gender == 'm') {
-			// 		this.setState({ title: 'mr.' })
-			// 	} else if (profile.gender == 'f') {
-			// 			this.setState({ title: 'mrs.' })
-			// 	}
-			// 	this.handleSubmit(false,false)
-			// })
 		}
 	}
 
@@ -615,7 +597,7 @@ class VipProposer extends React.Component {
 						}
 					</div>
 					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
-							showPopup: true, userProfiles: this.props.USER,profile_flag:true})}>
+							showPopup: true, profile_flag:true})}>
 							Select from profile
 							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''}
@@ -626,7 +608,7 @@ class VipProposer extends React.Component {
 						: ''
 				}
 				{this.state.showPopup?
-					<VipLoginPopup {...this.state.userProfiles} {...this.props} 
+					<VipLoginPopup  {...this.props} 
 						currentSelectedVipMembersId={this.props.currentSelectedVipMembersId} 
 						member_id={this.props.member_id} 
 						closePopup={this.togglePopup.bind(this)} 

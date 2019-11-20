@@ -1603,7 +1603,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         e.preventDefault();
                                                                                         this.props.select_opd_payment_type(6) } }>
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                            <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
                                                                                                 <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
@@ -1651,7 +1651,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     }}>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div onClick={(e)=>{e.stopPropagation();
+                                                                                            <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
