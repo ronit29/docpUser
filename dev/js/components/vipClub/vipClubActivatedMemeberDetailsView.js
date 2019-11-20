@@ -45,7 +45,7 @@ class VipClubActivatedMemberDetails extends React.Component {
 						</div>
 						{
 							Object.keys(primary_user).length > 0 && primary_user.document_ids == null?
-								<InsuranceProofs {...this.props} />
+								<InsuranceProofs {...this.props} member_id = {primary_user.profile}/>
 								: ''
 						}
 						</React.Fragment>
