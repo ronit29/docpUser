@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner,
 
 
-selectVipClubPlan, getVipDashboardList, resetVipData
+selectVipClubPlan, getVipDashboardList, resetVipData, selectSearchType
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubActivatesView.js'
 import Loader from '../../components/commons/Loader'
@@ -101,7 +101,8 @@ const mapDispatchToProps = (dispatch) => {
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),
-        urlShortner: (url, cb) => dispatch(urlShortner(url, cb))
+        urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
     }
 }
 

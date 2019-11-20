@@ -84,6 +84,17 @@ class VipClub extends React.Component {
         document.execCommand("copy");
     }
 
+    navigateTo(where, type, data, e) {
+		if (e) {
+			e.preventDefault()
+			e.stopPropagation()
+		}
+		if (type) {
+			this.props.selectSearchType(type)
+		}
+		this.props.history.push(where)
+	}
+
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -229,7 +240,7 @@ class VipClub extends React.Component {
                                                     <p className="mr-t-5">Book <br/> Doctors</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                <a href="https://docprime.com/search" onClick={(e) => {
+                                                <a href="/search" onClick={(e) => {
                                                     e.preventDefault();
                                                     this.navigateTo("/search", 'lab')
                                                 }}><img src={ASSETS_BASE_URL + '/img/gl2.png'} /></a>
