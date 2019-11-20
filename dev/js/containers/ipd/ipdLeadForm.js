@@ -216,7 +216,7 @@ class IpdLeadForm extends React.Component {
 										specialization_name?
 										<p className="ipd-needHelp">{`Need an appointment with ${is_vowel?'an':'a'} ${specialization_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:this.props.doctor_name?
-										<p className="ipd-needHelp">{`Need to book an appointment with  this is testing ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:this.props.hospital_name?
 										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:''
