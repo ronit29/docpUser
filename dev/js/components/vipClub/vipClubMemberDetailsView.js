@@ -205,7 +205,7 @@ class VipClubMemberDetailsView extends React.Component {
 			currentSelectedProfiles.push(val[key])
 		})
 		let already_users_ids = []
-        if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+        if(this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
                 this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
                     already_users_ids.push(val.profile)
                 })

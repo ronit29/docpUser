@@ -160,7 +160,7 @@ class VipProposer extends React.Component {
 			if (newProfile.gender == 'm') {
 				this.setState({ title: 'mr.' })
 			} else if (newProfile.gender == 'f') {
-				this.setState({ title: 'mrs.' })
+				this.setState({ title: 'miss' })
 			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
@@ -212,7 +212,7 @@ class VipProposer extends React.Component {
 			if(profile.gender == 'm'){
 				this.setState({gender:profile.gender?profile.gender:'',title: 'mr.'})
 			}else if(profile.gender == 'f'){
-				this.setState({gender:profile.gender?profile.gender:'',title: 'mrs.'})
+				this.setState({gender:profile.gender?profile.gender:'',title: 'miss'})
 			}
 			if (profile.isDummyUser && profile.dob) {
 				this.setState({ day: null, year: null, mnth: null })
