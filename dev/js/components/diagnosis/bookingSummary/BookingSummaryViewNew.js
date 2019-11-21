@@ -2088,7 +2088,7 @@ class BookingSummaryViewNew extends React.Component {
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
-                                            {(this.state.is_spo_appointment || this.props.payment_type==6)?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
+                                            {(this.state.is_spo_appointment || (this.props.payment_type==6 || STORAGE.isAgent()) )?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
                                         </button>
                                         : ''
                                 }
