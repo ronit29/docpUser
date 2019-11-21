@@ -581,7 +581,7 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice >= 0 && (this.props.payment_type == 1 || this.props.payment_type == 6) && !is_insurance_applicable && !is_vip_applicable) {
+        if (this.props.disCountedOpdPrice >= 0 && (this.props.payment_type == 1 || this.props.payment_type == 6) && !is_insurance_applicable /*&& !is_vip_applicable*/) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -741,7 +741,10 @@ class PatientDetailsNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', null, null, (err, res) => {
+        let extraParams = {
+            landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`
+        }
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -1345,11 +1348,11 @@ class PatientDetailsNew extends React.Component {
 
             if (vip_data.hosp_is_gold && is_selected_user_gold) {
 
-                total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount
+                total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount - (this.props.disCountedOpdPrice||0)
                 vip_discount_price = total_price - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             } else {
                 if (is_vip_applicable) {
-                    total_amount_payable = vip_data.vip_amount
+                    total_amount_payable = vip_data.vip_amount - (this.props.disCountedOpdPrice||0)
                 } else if (vip_data.hosp_is_gold) {
                     vip_discount_price = total_price - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
                 }
@@ -1366,7 +1369,7 @@ class PatientDetailsNew extends React.Component {
             display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
             finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
-            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price
+            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price - (this.props.disCountedOpdPrice||0)
         }
 
         let extraParams = {
@@ -1530,8 +1533,8 @@ class PatientDetailsNew extends React.Component {
                                                                 }
 
                                                                 {
-                                                                    ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_insurance_applicable && !(vip_data && vip_data.hosp_is_gold && is_selected_user_gold) && this.props.payment_type!=6?
-                                                                        <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type == 2 ? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
+                                                                    ( ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_insurance_applicable )/*&& !(vip_data && vip_data.hosp_is_gold && is_selected_user_gold) && this.props.payment_type!=6*/?
+                                                                        <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type == 2? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                             {
                                                                                 doctorCoupons.length ?
                                                                                     <div className="widget-content d-flex jc-spaceb" >
@@ -1818,7 +1821,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </React.Fragment>
                                                                                     : ''}
                                                                                 {
-                                                                                    !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.disCountedOpdPrice && !this.state.is_cashback && this.props.payment_type!=6
+                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                         ? <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
@@ -1923,7 +1926,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                                 {
-                                                                    !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && !is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6) && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
+                                                                    /*!(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && */!is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6) && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
                                                                         <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                             <div className="widget-content">
                                                                                 <div className="select-pt-form">
@@ -1962,11 +1965,13 @@ class PatientDetailsNew extends React.Component {
                                         this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable} /> : ""
                                     }
 
-                                    {/* {
-                                    this.state.order_id ? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+                                    {
+
+                                    STORAGE.isAgent() && this.props.payment_type==6? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
-                                } */}
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>Send SMS</button>
+                                    
+                                    }
 
                                     <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 

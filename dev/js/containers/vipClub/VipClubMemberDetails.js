@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         resetVipData:() => dispatch(resetVipData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
-        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data, extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data,extraParams,  cb)),
         clearVipMemeberData:() =>dispatch(clearVipMemeberData())
     }
 }

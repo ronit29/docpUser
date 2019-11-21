@@ -572,6 +572,19 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    sendSingleFlowAgentBookingURL(){
+        let extraParams = {
+            landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectClinic}/bookdetails`
+        }
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
+    }
+
     proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, e) {
 
         if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
@@ -820,7 +833,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable) {
+        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable /*&& !is_vip_applicable*/) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -839,6 +852,15 @@ class BookingSummaryViewNew extends React.Component {
         
 
         if (addToCart) {
+
+
+            //Single Flow Agent Booking
+            if(STORAGE.isAgent() && this.props.payment_type==6 ) {
+                this.sendSingleFlowAgentBookingURL()
+                return 
+            }
+
+
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'LabAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-add-to-cart-clicked'
             }
@@ -1546,12 +1568,12 @@ class BookingSummaryViewNew extends React.Component {
             
             if(vip_data.is_gold && is_selected_user_gold) {
 
-                total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - (this.props.disCountedLabPrice || 0)
                 vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             }else{
 
                 if(is_vip_applicable) {
-                    total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                    total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - (this.props.disCountedLabPrice || 0)
                 }else if(vip_data.is_gold){
                     vip_discount_price = finalMrp - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
                 }
@@ -1573,7 +1595,7 @@ class BookingSummaryViewNew extends React.Component {
         let display_docprime_discount = finalMrp - finalPrice
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests) {
             display_docprime_discount = parseInt(gold_pricelist_mrp) - parseInt(gold_pricelist_deal_price)
-            total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price
+            total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price - (this.props.disCountedLabPrice || 0)
             total_price = total_amount_payable
         }
         let extraParams = {
@@ -1728,7 +1750,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_gold_applicable && this.props.payment_type!=6?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable /*&& !is_vip_gold_applicable && this.props.payment_type!=6*/?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -1952,7 +1974,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
                                                                                     {
-                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback && !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip) && this.props.payment_type!=6? <div className="payment-detail d-flex">
+                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback /*&& !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip) && this.props.payment_type!=6*/? <div className="payment-detail d-flex">
                                                                                                 <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                             </div>
@@ -2001,7 +2023,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                           !is_vip_gold_applicable && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                           /*!is_vip_gold_applicable && */!is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">
@@ -2059,14 +2081,14 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    this.props.payment_type !=6 && (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
+                                    (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                         } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
-                                            {this.state.is_spo_appointment?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
+                                            {(this.state.is_spo_appointment || this.props.payment_type==6)?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
                                         </button>
                                         : ''
                                 }

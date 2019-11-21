@@ -290,8 +290,8 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
-export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams, cb) => (dispatch) => {
-	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags, extraParams }).then(function (response) {
+export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags, ...extraParams }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
