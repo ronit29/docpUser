@@ -339,9 +339,11 @@ class VipLoginPopup extends React.Component {
                     currentSelectedProfiles.push(val[key])
                 })
             }
-            let primary_user = {}
+            let already_users_ids = []
             if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
-                    primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
+                    this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+                        already_users_ids.push(val.profile)
+                    })
             }
             return (
                 <div>
@@ -361,7 +363,8 @@ class VipLoginPopup extends React.Component {
                                 {
                                 this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length >0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
                                     Object.entries(this.props.USER.profiles).map(function ([key, value]) {
-                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && value.id != primary_user.profile) {
+                                        
+                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && already_users_ids.indexOf(parseInt(key)) == -1) {
                                             return <div key={key} className="dtl-radio">
                                                 <label className="container-radio">
                                                     {value.name}
@@ -371,8 +374,10 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                         }
                                     }, this)
-                                :''} 
-                                <span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Member</span>  
+                                :''}
+                                {this.props.is_from_payment?'' 
+                                :<span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Member</span>  
+                                }
                             </div>
                         </div>
                         <div className="procedures-btn-pop" onClick={this.closeSelectFromProfile.bind(this)}>
