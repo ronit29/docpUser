@@ -205,7 +205,7 @@ class VipClubMemberDetailsView extends React.Component {
 			currentSelectedProfiles.push(val[key])
 		})
 		let already_users_ids = []
-        if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+        if(this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
                 this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
                     already_users_ids.push(val.profile)
                 })
@@ -255,6 +255,7 @@ class VipClubMemberDetailsView extends React.Component {
 			data.utm_spo_tags = parsed
 			pushData.utm_spo_tags = parsed
 			pushData.plan = this.props.selected_vip_plan
+			pushData.dummy_data_type = 'PLAN_PURCHASE'
 			pushData.members = []
 			if (isSms) {
 				pushData.is_agent = true
@@ -423,7 +424,7 @@ class VipClubMemberDetailsView extends React.Component {
 								}
 								// members.id=param.id
 							}
-							pushData.members.push(members)
+							// pushData.members.push(members)
 				    		return data.members.push(members)
 						}
 					})

@@ -221,8 +221,8 @@ export const pushMembersData = (criteria) => (dispatch) =>{
     })
 }
 
-export const retrieveMembersData = (callback) => (dispatch) =>{
-    API_GET('api/v1/plus/show_dummy_data').then(function (response) {
+export const retrieveMembersData = (type,callback) => (dispatch) =>{
+    API_GET('api/v1/plus/show_dummy_data?dummy_data_type='+type).then(function (response) {
         dispatch({
             type:SHOW_VIP_MEMBERS_FORM,
             payload:response

@@ -19,7 +19,8 @@ class VipClubMemberDetails extends React.Component{
     }
 
     componentDidMount() {
-        this.props.retrieveMembersData()
+
+        this.props.retrieveMembersData('PLAN_PURCHASE')
         // this.props.citiesData()
     }
 
@@ -66,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         storeVipMemberProofs:(imgUrl,cb)=>dispatch(storeVipMemberProofs(imgUrl,cb)),
         removeVipMemberProof:(criteria)=>dispatch(removeVipMemberProof(criteria)),
         pushMembersData:(criteria) =>dispatch(pushMembersData(criteria)),
-        retrieveMembersData:(callback) => dispatch(retrieveMembersData(callback)),
+        retrieveMembersData:(type,callback) => dispatch(retrieveMembersData(type,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         resetVipData:() => dispatch(resetVipData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
