@@ -230,7 +230,7 @@ class LabProfileCard extends React.Component {
 
             <div className="cstm-docCard mb-3">
                 <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} >
-                    <div className="row no-gutters">
+                    <div className="row no-gutters" style={{paddingBottom:10}}>
                         <div className="col-8">
                             <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
@@ -276,7 +276,7 @@ class LabProfileCard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-4 booking-column">
                             
                             {
                                 false && !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip)?

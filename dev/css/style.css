@@ -12148,3 +12148,11 @@ padding: 0 10px;
 	color: #757575;
 	margin-right: 3px;
 }
+
+/** book now button allignment css**/
+.booking-column{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    
+}
