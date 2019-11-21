@@ -589,7 +589,8 @@ class VipClubMemberDetailsView extends React.Component {
 
 	sendSMS() {
 		let parsed = queryString.parse(this.props.location.search)
-		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, (err, res) => {
+		let extraParams = {}
+		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, extraParams, (err, res) => {
 			if (err) {
 				SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
 			} else {

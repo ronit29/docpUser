@@ -62,7 +62,7 @@ const mapDispatchToProps = (dispatch) => {
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, extraParams, cb)),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         savePincode: (pincode) => dispatch(savePincode(pincode)),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),

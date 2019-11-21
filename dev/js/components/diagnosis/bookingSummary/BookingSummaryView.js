@@ -189,7 +189,10 @@ class BookingSummaryView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms',null,null, (err, res) => {
+        let extraParams = {
+
+        }
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms',null,null, extraParams, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
