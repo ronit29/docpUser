@@ -1217,6 +1217,8 @@ class BookingSummaryViewNew extends React.Component {
         let vip_total_convenience_amount = 0
         let vip_total_gold_price = 0
         let vip_data  = {}
+        let is_all_enable_for_vip = true
+        let is_all_enable_for_gold = true
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -1258,7 +1260,6 @@ class BookingSummaryViewNew extends React.Component {
                 }
                 if(test.vip){
                     is_tests_covered_under_vip = test.vip.covered_under_vip
-                    vip_data = test.vip
                 }else{
 
                 }
@@ -1299,6 +1300,12 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_amount +=parseInt(twp.vip.vip_amount)
                 vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(twp.vip.vip_gold_price)
+                if(!(twp.vip.is_enable_for_vip) ){
+                    is_all_enable_for_vip = false
+                }
+                if( !(twp.vip.is_gold) ) {
+                    is_all_enable_for_gold = false
+                }
 
                 if(twp.is_radiology) {
                     r_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
@@ -1400,9 +1407,16 @@ class BookingSummaryViewNew extends React.Component {
             }
         }*/
         //VIP TOTAL DATA 
+
+        if( !(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length>0 ) ) {
+            is_all_enable_for_gold = false
+            is_all_enable_for_vip = false
+        }
         vip_data.vip_amount = vip_total_amount
         vip_data.vip_convenience_amount = vip_total_convenience_amount
         vip_data.vip_gold_price = vip_total_gold_price
+        vip_data.is_enable_for_vip = is_all_enable_for_vip
+        vip_data.is_gold = is_all_enable_for_gold
         //Check both pathology and radiology pickup status & toggle accordingly if not available
         if(!radiology_tests.length) {
             r_pickup_home = false
