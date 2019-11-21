@@ -12148,3 +12148,11 @@ padding: 0 10px;
 	color: #757575;
 	margin-right: 3px;
 }
+.hpl-logo-name{
+    width: 65px!important;
+    height: 65px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 2px;
+    object-fit: contain;
+}
