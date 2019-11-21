@@ -255,6 +255,7 @@ class VipClubMemberDetailsView extends React.Component {
 			data.utm_spo_tags = parsed
 			pushData.utm_spo_tags = parsed
 			pushData.plan = this.props.selected_vip_plan
+			pushData.dummy_data_type = 'PLAN_PURCHASE'
 			pushData.members = []
 			if (isSms) {
 				pushData.is_agent = true
@@ -423,7 +424,7 @@ class VipClubMemberDetailsView extends React.Component {
 								}
 								// members.id=param.id
 							}
-							pushData.members.push(members)
+							// pushData.members.push(members)
 				    		return data.members.push(members)
 						}
 					})
