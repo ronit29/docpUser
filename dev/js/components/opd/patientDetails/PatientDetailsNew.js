@@ -1368,7 +1368,7 @@ class PatientDetailsNew extends React.Component {
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
             display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
-            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price
+            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price - (this.props.disCountedOpdPrice||0)
             total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price - (this.props.disCountedOpdPrice||0)
         }
 
@@ -1830,11 +1830,11 @@ class PatientDetailsNew extends React.Component {
                                                                                 }
                                                                                 {
                                                                                     //When Gold Membership is buying
-                                                                                    showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price &&
+                                                                                    showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price?
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Gold Membership </p>
                                                                                         <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
-                                                                                    </div>
+                                                                                    </div>:''
                                                                                 }
                                                                             </div>
                                                                             <hr />
