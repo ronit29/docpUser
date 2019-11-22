@@ -1967,11 +1967,15 @@ class PatientDetailsNew extends React.Component {
 
                                     {
 
-                                    STORAGE.isAgent() && this.props.payment_type==6? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
-                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>Send SMS</button>
+                                    // STORAGE.isAgent() && this.props.payment_type==6? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button> : <button className="p-2 v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn" data-disabled={
+                                    //     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                    // } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>Send SMS</button>
                                     
                                     }
+
+                                    {
+                                       (STORAGE.isAgent() && this.props.payment_type==6)? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button>:''
+                                     }
 
                                     <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 
