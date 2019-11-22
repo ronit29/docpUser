@@ -2134,7 +2134,7 @@ class BookingSummaryViewNew extends React.Component {
                 </section>
                 <Disclaimer />
                 {
-                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab' /> : ""
+                    this.state.paymentData ? <PaymentForm multiOrder={this.props.payment_type===6} paymentData={this.state.paymentData} refs='lab' /> : ""
                 }
             </div>
 
