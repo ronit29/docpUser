@@ -106,7 +106,6 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
         }
 
-
         let patient = null
         if (this.props.selectedProfile && this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -572,15 +571,38 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    sendSingleFlowAgentBookingURL(){
-        let extraParams = {
-            landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectClinic}/bookdetails`
+    getBookingData(){
+        let test_ids = []
+        let coupon_data = {}
+        if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
+            test_ids = this.props.LABS[this.props.selectedLab].tests.map((x=>x.test_id))
+
         }
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
-            if (err) {
-                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
-            } else {
-                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+
+        if(this.props.labCoupons && this.props.labCoupons[this.props.selectedLab] && this.props.labCoupons[this.props.selectedLab].length) {
+            coupon_data = this.props.labCoupons[this.props.selectedLab][0]
+        }
+        return { test_ids, labId: this.props.selectedLab, pincode: this.state.pincode, profile: this.props.selectedProfile, selectedSlot: this.props.selectedSlot, coupon_data, payment_type: this.props.payment_type }
+    }
+
+    sendSingleFlowAgentBookingURL(postData){
+
+        let booking_data = this.getBookingData()
+        booking_data = {...postData, ...booking_data, is_single_flow_lab: true, dummy_data_type:'SINGLE_PURCHASE' }
+
+        this.props.pushMembersData(booking_data, (resp)=>{
+            if(resp.dummy_id){
+
+                let extraParams = {
+                    landing_url: `lab/${this.props.selectedLab}/book?dummy_id=${resp.dummy_id}&test_ids=${booking_data.test_ids}`
+                }
+                this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
+                    if (err) {
+                        SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+                    } else {
+                        SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+                    }
+                })
             }
         })
     }
@@ -764,7 +786,7 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ showConfirmationPopup: 'open' })
             return
         }
-        if(this.state.is_spo_appointment) {
+        if(this.state.is_spo_appointment || (this.props.payment_type==6 && STORAGE.isAgent())) {
             this.setState({ error: "" })
         }else {
             this.setState({ loading: true, error: "" })
@@ -856,7 +878,7 @@ class BookingSummaryViewNew extends React.Component {
 
             //Single Flow Agent Booking
             if(STORAGE.isAgent() && this.props.payment_type==6 ) {
-                this.sendSingleFlowAgentBookingURL()
+                this.sendSingleFlowAgentBookingURL(postData)
                 return 
             }
 

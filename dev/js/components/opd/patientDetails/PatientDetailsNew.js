@@ -765,7 +765,7 @@ class PatientDetailsNew extends React.Component {
     sendSingleFlowAgentBookingURL(postData={}) {
 
         let booking_data = this.getBookingData()
-        booking_data = {...postData, ...booking_data, is_single_flow_opd: true }
+        booking_data = {...postData, ...booking_data, is_single_flow_opd: true, dummy_data_type:'SINGLE_PURCHASE'  }
         this.props.pushMembersData(booking_data, (resp)=>{
             if(resp.dummy_id){
 

@@ -222,6 +222,10 @@ export const pushMembersData = (criteria, callback) => (dispatch) =>{
     if(criteria && criteria.is_single_flow_lab) {
         url+=`?is_single_flow_lab=${true}`
     }
+
+    if(criteria && criteria.dummy_data_type){
+        url+=`&dummy_data_type=${criteria.dummy_data_type}`
+    }
     return API_POST(url, criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
