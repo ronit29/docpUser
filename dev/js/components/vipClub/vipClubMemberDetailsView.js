@@ -22,7 +22,9 @@ class VipClubMemberDetailsView extends React.Component {
            	show_popup:false,
            	proceed:false,
            	popupMemData:{},
-           	is_tobe_dummy_user:false
+           	is_tobe_dummy_user:false,
+           	coupon_code:null,
+           	coupon_id:null
         }
     }
     componentDidMount(){
