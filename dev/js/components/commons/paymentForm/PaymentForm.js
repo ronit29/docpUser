@@ -44,7 +44,7 @@ class PaymentForm extends React.Component {
         return (
             <div>
 
-                <form id="paymentForm" ref="paymentForm" method="post" action={CONFIG.PG_URL} style={{ display: 'none' }}>
+                <form id="paymentForm" ref="paymentForm" method="post" action={this.props.multiOrder?CONFIG.PG_MULTI_ORDER_URL:CONFIG.PG_URL} style={{ display: 'none' }}>
                     <input type="text" name="name" defaultValue={this.props.paymentData['name']} />
                     <input type="text" name="custId" defaultValue={this.props.paymentData['custId']} />
                     <input type="text" name="mobile" defaultValue={this.props.paymentData['mobile']} />

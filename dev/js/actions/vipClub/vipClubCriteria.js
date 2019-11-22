@@ -212,17 +212,30 @@ export const removeVipMemberProof = (criteria) => (dispatch) => {
     })
 }
 
-export const pushMembersData = (criteria) => (dispatch) =>{
-    return API_POST('/api/v1/plus/push_dummy_data',criteria).then(function (response) {
-        // if(callback) callback(response);
+export const pushMembersData = (criteria, callback) => (dispatch) =>{
+    let url  = `/api/v1/plus/push_dummy_data`
+
+    if(criteria && criteria.is_single_flow_opd) {
+        url+=`?is_single_flow_opd=${true}`
+    }
+
+    if(criteria && criteria.is_single_flow_lab) {
+        url+=`?is_single_flow_lab=${true}`
+    }
+    return API_POST(url, criteria).then(function (response) {
+        if(callback) callback(response);
     }).catch(function (error) {
-        // if(callback) callback(error);
+        if(callback) callback(error);
         throw error
     })
 }
 
-export const retrieveMembersData = (type,callback) => (dispatch) =>{
-    API_GET('api/v1/plus/show_dummy_data?dummy_data_type='+type).then(function (response) {
+export const retrieveMembersData = (type,extraParams={},callback) => (dispatch) =>{
+    let url = `api/v1/plus/show_dummy_data?dummy_data_type=${type}`
+    if(extraParams && extraParams.dummy_id) {
+        url+=`&dummy_id=${extraParams.dummy_id}`
+    }
+    API_GET(url).then(function (response) {
         dispatch({
             type:SHOW_VIP_MEMBERS_FORM,
             payload:response

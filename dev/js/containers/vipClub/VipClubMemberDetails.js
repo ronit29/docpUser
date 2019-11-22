@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         storeVipMemberProofs:(imgUrl,cb)=>dispatch(storeVipMemberProofs(imgUrl,cb)),
         removeVipMemberProof:(criteria)=>dispatch(removeVipMemberProof(criteria)),
         pushMembersData:(criteria) =>dispatch(pushMembersData(criteria)),
-        retrieveMembersData:(type,callback) => dispatch(retrieveMembersData(type,callback)),
+        retrieveMembersData:(type, extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         resetVipData:() => dispatch(resetVipData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),

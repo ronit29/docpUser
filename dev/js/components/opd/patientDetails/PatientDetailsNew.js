@@ -120,6 +120,16 @@ class PatientDetailsNew extends React.Component {
             this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
         }
 
+        //Auto Select on Agent Login URL
+        if(parsed && parsed.is_single_flow && parsed.dummy_id) {
+            let extraParams = {
+                dummy_id: parsed.dummy_id
+            }
+            this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+                this.setOpdBooking(resp);
+            })
+        }
+
         if (this.props.location.search.includes("error_code")) {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
@@ -598,6 +608,13 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (addToCart) {
+            
+            //Single Flow Agent Booking
+            if(STORAGE.isAgent() && this.props.payment_type==6 ) {
+                this.sendSingleFlowAgentBookingURL(postData)
+                return 
+            }
+
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'OpdAddToCartClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-add-to-cart-clicked'
             }
@@ -740,17 +757,98 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    sendAgentBookingURL() {
-        let extraParams = {
-            landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`
-        }
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
-            if (err) {
-                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
-            } else {
-                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+    sendSingleFlowAgentBookingURL(postData={}) {
+
+        let booking_data = this.getBookingData()
+        booking_data = {...booking_data, is_single_flow_opd: true }
+        this.props.pushMembersData(booking_data, (resp)=>{
+            if(resp.dummy_id){
+
+                let extraParams = {
+                    landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails?dummy_id=${resp.dummy_id}`
+                }
+                this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
+                    if (err) {
+                        SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+                    } else {
+                        SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+                    }
+                })
             }
         })
+    }
+
+    buildOpdTimeSlot(data) {
+
+        let selectedDate = this.props.selectedSlot
+
+        let time = {
+            text: new Date(selectedDate.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+            deal_price: selectedDate.time.deal_price,
+            is_available: true,
+            mrp: selectedDate.time.mrp,
+            fees:selectedDate.time.fees,
+            price: selectedDate.time.deal_price,
+            title: new Date(selectedDate.date).getHours() >= 12 ? 'PM' : 'AM',
+            value: new Date(selectedDate.date).getHours() + new Date(selectedDate.date).getMinutes() / 60
+        }
+
+        return time
+
+    }
+
+    setOpdBooking(data) {
+
+        let { timeSlot, coupon_data, doctor_id, clinic_id, payment_type, profile_id } = data
+        
+        let extraTimeParams = null
+        if(timeSlot.date) {
+            extraTimeParams = this.getFormattedDate(timeSlot.date)
+        }
+        this.props.selectOpdTimeSLot(timeSlot, false, null, extraTimeParams)
+
+        if (coupon_data.coupon_code) {
+            let coupon_id = ''
+            let is_cashback = false
+    
+            if (coupon_code && Object.keys(coupon_code).length) {
+                coupon_id = coupon_code.id
+                is_cashback = coupon_code.is_cashback
+            }
+            if (coupon_code) {
+                this.props.applyCoupons('1', { code: coupon_data.coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, doctor_id)
+            }
+
+        }
+
+        this.props.select_opd_payment_type(payment_type)
+
+        this.props.selectProfile(profile_id)
+        // if (data.actual_data.procedure_ids && data.actual_data.procedure_ids.length) {
+        //     this.props.saveProfileProcedures('', '', data.actual_data.procedure_ids, true)
+        // }
+        // if (data.data.doctor && data.data.doctor.url) {
+        //     this.props.history.push(`/${data.data.doctor.url}/booking?doctor_id=${data.actual_data.doctor}&hospital_id=${data.actual_data.hospital}&cart_item=${this.props.id}`)
+        // } else {
+        //     this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails?cart_item=${this.props.id}`)
+        // }
+    }
+
+    getBookingData(){
+        let time_slot = this.buildOpdTimeSlot(data)
+        let timeSlot = {
+            date: new Date(this.props.selectedSlot.date),
+            slot: '',
+            time: time_slot,
+            selectedDoctor: this.props.selectedDoctor,
+            selectedClinic: this.props.selectedClinic
+        }
+        let coupon_data = {}
+        if(this.props.doctorCoupons && this.props.selectedDoctor && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length ){
+            coupon_data = this.props.doctorCoupons[this.props.selectedDoctor][0]
+        }
+
+        return { timeSlot, coupon_data: coupon_data, doctor_id:this.props.selectedDoctor, clinic_id: this.props.selectedClinic, payment_type: this.props.payment_type, profile_id: this.props.selectedProfile }
     }
 
     applyCoupons() {
@@ -1974,7 +2072,7 @@ class PatientDetailsNew extends React.Component {
                                     }
 
                                     {
-                                       (STORAGE.isAgent() && this.props.payment_type==6)? <button onClick={this.sendAgentBookingURL.bind(this)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button>:''
+                                       (STORAGE.isAgent() && this.props.payment_type==6)? <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button>:''
                                      }
 
                                     <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
@@ -2011,7 +2109,7 @@ class PatientDetailsNew extends React.Component {
                 }
                 <Disclaimer />
                 {
-                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
+                    this.state.paymentData ? <PaymentForm multiOrder={this.props.payment_type===6} paymentData={this.state.paymentData} refs='opd' /> : ""
                 }
 
             </div>
