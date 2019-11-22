@@ -239,7 +239,7 @@ class LabProfileCard extends React.Component {
                                             e.preventDefault();
                                         }}>
                                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
-                                                <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
+                                                <img alt={name} className="fltr-usr-image-lab hpl-logo-name" src={lab_thumbnail} />
                                             </InitialsPicture>
                                         </a>
                                     </div>
