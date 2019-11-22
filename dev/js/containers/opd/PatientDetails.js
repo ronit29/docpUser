@@ -174,7 +174,7 @@ const mapDispatchToProps = (dispatch) => {
         clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan()),
         getOpdVipGoldPlans: (extraDataParams, cb)=> dispatch(getOpdVipGoldPlans(extraDataParams, cb)),
         selectVipClubPlan: (type, selectedPlan, cb) => dispatch(selectVipClubPlan(type, selectedPlan, cb)),
-        pushMembersData:(criteria) =>dispatch(pushMembersData(criteria)),
+        pushMembersData:(criteria, callback) =>dispatch(pushMembersData(criteria, callback)),
         retrieveMembersData:(type,extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
  
     }

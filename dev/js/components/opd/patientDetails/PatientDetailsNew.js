@@ -121,7 +121,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         //Auto Select on Agent Login URL
-        if(parsed && parsed.is_single_flow && parsed.dummy_id) {
+        if(parsed && parsed.dummy_id) {
             let extraParams = {
                 dummy_id: parsed.dummy_id
             }
@@ -566,7 +566,12 @@ class PatientDetailsNew extends React.Component {
         if (this.state.loading) {
             return
         }
-        this.setState({ loading: true, error: "" })
+        
+        if(this.props.payment_type ==6 && STORAGE.isAgent()) {
+            this.setState({ error: "" })
+        }else{
+            this.setState({ loading: true, error: "" })
+        }
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -760,7 +765,7 @@ class PatientDetailsNew extends React.Component {
     sendSingleFlowAgentBookingURL(postData={}) {
 
         let booking_data = this.getBookingData()
-        booking_data = {...booking_data, is_single_flow_opd: true }
+        booking_data = {...postData, ...booking_data, is_single_flow_opd: true }
         this.props.pushMembersData(booking_data, (resp)=>{
             if(resp.dummy_id){
 
@@ -778,7 +783,7 @@ class PatientDetailsNew extends React.Component {
         })
     }
 
-    buildOpdTimeSlot(data) {
+    buildOpdTimeSlot() {
 
         let selectedDate = this.props.selectedSlot
 
@@ -835,7 +840,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     getBookingData(){
-        let time_slot = this.buildOpdTimeSlot(data)
+        let time_slot = this.buildOpdTimeSlot()
         let timeSlot = {
             date: new Date(this.props.selectedSlot.date),
             slot: '',
