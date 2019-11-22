@@ -220,12 +220,12 @@ class HomeView extends React.Component {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.props.specializations.slice(0,8)//this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0, 8)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.props.common_tests.slice(0,8)//this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0, 8)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
@@ -250,7 +250,7 @@ class HomeView extends React.Component {
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
 				<div className="col-md-5" key="spez">
 					<div className="right-card-container">
@@ -321,13 +321,13 @@ class HomeView extends React.Component {
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 
@@ -343,7 +343,7 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
 				<div className="col-md-5" key="upcom">
 					<div className="right-card-container">
@@ -371,19 +371,28 @@ class HomeView extends React.Component {
 						} */}
 
 						{
-							this.props.history ?
-								<TopChatWidget {...this.props} history={this.props.history} /> : ''
+							/*this.props.history ?
+								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
+
+						<div className="banner-cont-height home-page-banner-div d-lg-none d-md-block">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight mt-0"></div>
+							</div>
+							<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
+								<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbi-banner.png'} />
+							</div>
+						</div>
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 
