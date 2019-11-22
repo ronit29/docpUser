@@ -247,7 +247,7 @@ class VipClub extends React.Component {
                                                     <p className="mr-t-5">Book Lab <br/> Test</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <a href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
+                                                    <a target="_blank" href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
                                                         <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
                                                     </a>
                                                     <p className="mr-t-5">Order <br/> Medicines</p>
