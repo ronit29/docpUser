@@ -254,7 +254,7 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
     return API_POST(`/api/v1/common/predicted-price-via-plan/opd`, extraParams).then((response) =>{
         dispatch({
             type: GET_OPD_VIP_GOLD_PLANS,
-            payload: response
+            payload: response.vip_plans
         })
         let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
         dispatch({
@@ -262,10 +262,6 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             payload: {
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
-        })
-        dispatch({
-            type: GET_OPD_VIP_GOLD_PLANS,
-            payload: response.vip_plans
         })
     })
 }
@@ -275,7 +271,7 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
     return API_POST(`/api/v1/common/predicted-price-via-plan/lab`, extraParams).then((response) =>{
         dispatch({
             type: GET_LAB_VIP_GOLD_PLANS,
-            payload: response
+            payload: response.vip_plans
         })
         let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
         dispatch({
@@ -283,10 +279,6 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             payload: {
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
-        })
-        dispatch({
-            type: GET_LAB_VIP_GOLD_PLANS,
-            payload: response.vip_plans
         })
     })
 }
