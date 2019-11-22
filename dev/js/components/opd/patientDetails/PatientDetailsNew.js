@@ -126,7 +126,7 @@ class PatientDetailsNew extends React.Component {
                 dummy_id: parsed.dummy_id
             }
             this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
-                this.setOpdBooking(resp);
+                this.setOpdBooking(resp.data);
             })
         }
 
@@ -785,7 +785,10 @@ class PatientDetailsNew extends React.Component {
 
     buildOpdTimeSlot() {
 
-        let selectedDate = this.props.selectedSlot
+        let selectedDate = {...this.props.selectedSlot}
+        if(selectedDate.time) {
+            return {...selectedDate.time}
+        }
 
         let time = {
             text: new Date(selectedDate.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
