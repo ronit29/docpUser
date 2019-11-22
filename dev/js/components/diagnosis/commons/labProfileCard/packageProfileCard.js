@@ -251,7 +251,7 @@ class LabProfileCard extends React.Component {
                     {/* <div className="pkg-card-location p-relative">
                         <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div> */}
-                    <div className="pkg-card-content m-0">
+                    <div className="pkg-card-content m-0" style={{paddingBottom:10}}>
                         <div className="row no-gutters" >
                             <div className="col-8">
                                 <div className="pkg-cardleft-img nw-pkg-crd-img">
@@ -291,7 +291,7 @@ class LabProfileCard extends React.Component {
                                         : ''
                                 }
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 booking-column">
                                 <div className="pkg-card-price text-right">
                                     {
                                         (!is_vip_applicable || !vip.is_gold_member) && false?
@@ -372,7 +372,7 @@ class LabProfileCard extends React.Component {
                                     } 
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
-                                    <button className="pkg-btn-nw" style={{ width: '100%' }} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>Book Now</button>
+                                    <button className="pkg-btn-nw" style={{ width: '100%',marginBottom:0}} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>Book Now</button>
                                 </a>
                                 {/*
                                     !is_insurance_applicable && !included_in_user_plan && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
