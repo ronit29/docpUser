@@ -8,7 +8,7 @@
 */
 
 /*	Colors Swatch
-    primary : #f78631;
+    primary : var(--text--primary--color);
 */
 
 /*======================
@@ -108,7 +108,7 @@ footer{}
 	Skin Color
 =======================*/
 .skin-default{background-color: #f7f7f7}
-.skin-primary{background-color: #f78631}
+.skin-primary{background-color: var(--text--primary--color)}
 .skin-secondary{background-color: #006f7e}
 .skin-warning{background-color: #ff9800}
 .skin-danger{background-color: #d8262d}
@@ -119,8 +119,8 @@ footer{}
 .skin-transparent{background-color: transparent}
 
 .text-default{color:#607d8b!important }
-.text-primary{color: #f78631!important}
-a.text-primary:focus, a.text-primary:hover {color: #f78631!important;}
+.text-primary{color: var(--text--primary--color)!important}
+a.text-primary:focus, a.text-primary:hover {color: var(--text--primary--color)!important;}
 .text-secondary{color: #006f7e!important}
 .text-warning{color: #ff9800!important}
 .text-danger{color: #d8262d!important}
@@ -141,7 +141,7 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
 .form-group{margin-bottom: 13px;}
 
 .fc-input{width: 100%; background-color: #fff; padding: 5px; height: 40px; font-weight: 500; font-size: 14px; border: solid 1px rgba(0, 0, 0, 0.2); border-radius: 5px; outline: none !important;}
-.fc-input:focus{border-color: #f78631; border-radius: 5px;}
+.fc-input:focus{border-color: var(--text--primary--color); border-radius: 5px;}
 .fc-input.error-outline{border:1px solid #ff3d00}
 
 .fc-input.input-line{border: 0; border-radius: 0; border-bottom: 1px solid rgba(0, 0, 0, 0.2);}
@@ -199,14 +199,14 @@ input::placeholder { color: rgba(0, 0, 0, 0.5); font-weight: 500; font-style: no
 .v-btn-default.outline:hover{background-color: #ddd;  color: #666;} */
 
 /*primary*/
-.v-btn-primary{background-color: #f78631; color: #fff;}
+.v-btn-primary{background-color: var(--text--primary--color); color: #fff;}
 /* .v-btn-primary.active,
-.v-btn-primary:hover{background-color: #f78631;  color: #fff;}
+.v-btn-primary:hover{background-color: var(--text--primary--color);  color: #fff;}
 .v-btn-primary.disabled{background-color: #bbb;} */
 
-.v-btn-primary.outline{background-color: transparent; color: #f78631; border-color:#f78631;}
+.v-btn-primary.outline{background-color: transparent; color: var(--text--primary--color); border-color:var(--text--primary--color);}
 /* .v-btn-primary.outline.active,
-.v-btn-primary.outline:hover{background-color: #f78631;  color: #fff;} */
+.v-btn-primary.outline:hover{background-color: var(--text--primary--color);  color: #fff;} */
 
 /*secondary*/
 .v-btn-secondary{background-color: #eee; color: #888;}
@@ -337,8 +337,8 @@ ul.inline-list li{ display: inline-block;}
 fonts & text
 =======================*/
 /*link*/
-.link-text{color: #f78631; }
-.link-text:hover{color: #f78631;}
+.link-text{color: var(--text--primary--color); }
+.link-text:hover{color: var(--text--primary--color);}
 
 /*text size*/
 .text-xs{font-size: 12px !important;}
@@ -554,7 +554,7 @@ form .labelWrap label {
   position: absolute;
 }
 form .labelWrap label:hover {
-  color: #fe7108;
+  color: var(--text--primary--color);
 }
 form .labelWrap input {
   padding: 10px 15px;
@@ -591,7 +591,7 @@ form .labelWrap input:focus + label {
   box-shadow: 0 0 5px 0 white;
   width: auto;
   padding: 0 5px;
-  color: #f78631;
+  color: var(--text--primary--color);
 }
 form .labelWrap textarea + label {
   padding: 0;
@@ -605,7 +605,7 @@ form .labelWrap textarea + label {
   box-shadow: 0 0 5px 0 white;
   width: auto;
   padding: 0 5px;
-  color: #f78631;
+  color: var(--text--primary--color);
 }
 form .labelWrap input:valid {
   color: #555;
@@ -623,7 +623,7 @@ form .labelWrap input:valid + label {
   box-shadow: 0 0 5px 0 white;
   width: auto;
   padding: 0 5px;
-  color: #f78631;
+  color: var(--text--primary--color);
   font-weight: bold;
 }
 
@@ -661,7 +661,7 @@ input[type=number]::-webkit-outer-spin-button {
 .checkmark.circle{border-radius: 50%;}
 
 .ck-bx:hover input ~ .checkmark { background-color: #ccc;}
-.ck-bx input:checked ~ .checkmark { background-color: #f78631;border-color: transparent;}
+.ck-bx input:checked ~ .checkmark { background-color: var(--text--primary--color);border-color: transparent;}
 
 .checkmark:after { content: ""; position: absolute; display: none;}
 .ck-bx input:checked ~ .checkmark:after { display: block;}

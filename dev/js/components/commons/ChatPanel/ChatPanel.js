@@ -718,18 +718,18 @@ class ChatPanel extends React.Component {
                                         <div className="hd-chat" style={{ flex: 1 }}>
                                             {
                                                 this.props.location.search && this.props.location.search.includes('?botagent') ?
-                                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                    <p className="text-left header-text-chat">
                                                         <span className="hed-txt-lt">Get </span>
                                                         Help with Booking
                                                     </p>
                                                     :
                                                     this.props.chatPage ?
-                                                        <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <h1 className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </h1>
                                                         :
-                                                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <p className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </p>

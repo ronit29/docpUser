@@ -25,5 +25,5 @@
 }
 
 .error-link>a{
-	color: #f78631;
+	color: var(--text--primary--color);
 }
