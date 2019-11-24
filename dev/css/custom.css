@@ -5300,6 +5300,8 @@ p.dp-gld-mem-grn {
     border-right: 1px dashed rgba(0,0,0,0.2);
     display: inline-block;
     padding-right: 10px;
+    position: relative;
+    z-index: 11;
 }
 .vip-discount-col > .offer-col > p{
   font-size: 15px;
@@ -5325,6 +5327,8 @@ p.dp-gld-mem-grn {
     width: 62%;
     display: inline-block;
     padding: 10px 13px 0px 13px;
+    position: relative;
+    z-index: 11;
 }
 .discount-coupan-col > .coupan-col{
   border-radius: 9px;
@@ -5374,6 +5378,7 @@ p.dp-gld-mem-grn {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .order-now > img{

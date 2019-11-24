@@ -84,6 +84,17 @@ class VipClub extends React.Component {
         document.execCommand("copy");
     }
 
+    navigateTo(where, type, data, e) {
+		if (e) {
+			e.preventDefault()
+			e.stopPropagation()
+		}
+		if (type) {
+			this.props.selectSearchType(type)
+		}
+		this.props.history.push(where)
+	}
+
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -253,16 +264,24 @@ class VipClub extends React.Component {
                                         <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
                                             <div className="gold-benifi-cards-cont vip-club">
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                    <p className="mr-t-5">Book <br /> Doctors</p>
+                                                    <a href="/search" onClick={(e) => {
+                                                        e.preventDefault();
+                                                        this.navigateTo("/search", 'opd')
+                                                    }}><img src={ASSETS_BASE_URL + '/img/gl1.png'} /></a>
+                                                    <p className="mr-t-5">Book <br/> Doctors</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                    <p className="mr-t-5">Book Lab <br /> Test</p>
+                                                <a href="/search" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search", 'lab')
+                                                }}><img src={ASSETS_BASE_URL + '/img/gl2.png'} /></a>
+                                                    <p className="mr-t-5">Book Lab <br/> Test</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                    <p className="mr-t-5">Order <br /> Medicines</p>
+                                                    <a target="_blank" href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
+                                                        <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                    </a>
+                                                    <p className="mr-t-5">Order <br/> Medicines</p>
                                                 </div>
                                             </div>
                                         </div>

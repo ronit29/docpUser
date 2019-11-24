@@ -96,7 +96,7 @@ class VipGoldView extends React.Component {
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                <p>Order <br />Medicines</p>
+                                                <p> Save 23% <br/> on medicines</p>
                                             </div>
                                         </div>
 
@@ -274,7 +274,7 @@ class VipGoldView extends React.Component {
                                                     <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
-                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No Limits </p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Unlimted usage with no maximum cap </p>
                                                     <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this,true)}>T&amp;C Apply</a></p>
                                                 </div>
                                             </div>
@@ -298,7 +298,7 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">How I can avail discounts on medicines? </h2>
+                                                                <h2 className="fw-500">How can i avail discounts on medicines? </h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
