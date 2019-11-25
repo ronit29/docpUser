@@ -1220,6 +1220,80 @@ class BookingSummaryViewNew extends React.Component {
         }      
         
     }
+
+    getSelectedUserData(){
+        let total_amount_payable_without_coupon = null
+        let is_tests_covered_under_plan = true
+        let is_tests_covered_under_vip = true
+        let vip_data = {}
+        let vip_total_amount = 0
+        let vip_total_convenience_amount =0 
+        let vip_total_gold_price = 0
+        let is_all_enable_for_vip = true
+        let is_all_enable_for_gold = true
+        let labDetail = {}
+        if(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
+            let patient = null
+            labDetail = this.props.LABS[this.props.selectedLab].lab
+            let is_home_charges_applicable = false
+            if(is_home_collection_enabled && this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
+                is_home_charges_applicable = true
+            }
+
+            if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+                patient = this.props.profiles[this.props.selectedProfile]
+            }
+
+            this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+                
+                if (test.included_in_user_plan) {
+
+                } else {
+                    is_tests_covered_under_plan = false
+                }
+                if(test.vip){
+                    is_tests_covered_under_vip = test.vip.covered_under_vip
+                }else{
+
+                }
+
+                if(!(test.vip.is_enable_for_vip) ){
+                    is_all_enable_for_vip = false
+                }
+                if( !(test.vip.is_gold) ) {
+                    is_all_enable_for_gold = false
+                }
+
+                vip_total_amount +=parseInt(twp.vip.vip_amount)
+                vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
+                vip_total_gold_price += parseInt(test.vip.vip_gold_price)
+            })
+
+            total_amount_payable_without_coupon = hospital.deal_price
+            if(is_all_enable_for_vip){
+
+                
+                if(is_all_enable_for_gold && patient.is_vip_gold_member) {
+
+                    total_amount_payable = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                }else if(is_vip_applicable) {
+                        total_amount_payable = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                }
+
+            }
+
+            if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.lab && this.props.LABS[this.props.selectedLab].tests.length==1) {
+                total_amount_payable_without_coupon = null
+            }
+        }else{
+            is_tests_covered_under_plan = false
+            is_tests_covered_under_vip = false
+            is_all_enable_for_vip = false
+            is_all_enable_for_gold = false
+        }
+        return { total_amount_payable_without_coupon }
+
+    }
     
     render() {
         const parsed = queryString.parse(this.props.location.search)

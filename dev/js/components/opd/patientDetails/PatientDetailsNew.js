@@ -171,6 +171,10 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
+                let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                if(total_amount_payable_without_coupon){
+                    deal_price = total_amount_payable_without_coupon
+                }
                 this.setState({ 'pay_btn_loading': true })
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
@@ -193,6 +197,10 @@ class PatientDetailsNew extends React.Component {
                 }
                 deal_price += treatment_Price
                 this.setState({ 'pay_btn_loading': true })
+                let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                if(total_amount_payable_without_coupon){
+                    deal_price = total_amount_payable_without_coupon
+                }
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
@@ -283,6 +291,10 @@ class PatientDetailsNew extends React.Component {
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor, (success) => {
                             this.setState({ 'pay_btn_loading': false })
                         })
+                        let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                        if(total_amount_payable_without_coupon){
+                            deal_price = total_amount_payable_without_coupon
+                        }
                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                             this.setState({ 'pay_btn_loading': false })
                         })
@@ -351,6 +363,10 @@ class PatientDetailsNew extends React.Component {
 
                     deal_price += treatment_Price
                     // let validCoupon = this.getValidCoupon(doctorCoupons)
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                    if(total_amount_payable_without_coupon){
+                        deal_price = total_amount_payable_without_coupon
+                    }
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
@@ -397,6 +413,10 @@ class PatientDetailsNew extends React.Component {
                                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor, (success) => {
                                             this.setState({ 'pay_btn_loading': false })
                                         })
+                                        let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                                        if(total_amount_payable_without_coupon){
+                                            deal_price = total_amount_payable_without_coupon
+                                        }
                                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                                             this.setState({ 'pay_btn_loading': false })
                                         })
@@ -1258,6 +1278,44 @@ class PatientDetailsNew extends React.Component {
         
     }
 
+    getSelectedUserData(){
+
+        let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
+        let total_amount_payable_without_coupon = null
+        if(doctorDetails) {
+            let { hospitals } = doctorDetails
+            let hospital = {}
+            let patient = null
+
+            if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+                patient = this.props.profiles[this.props.selectedProfile]
+            }
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            
+                total_amount_payable_without_coupon = hospital.deal_price
+                if(patient && hospital && hospital.vip && hospital.vip.is_enable_for_vip && (patient.is_vip_gold_member || patient.is_vip_member) ){
+
+                    if (hospital.vip.hosp_is_gold && is_selected_user_gold) {
+
+                        total_amount_payable_without_coupon = hospital.vip.vip_amount + hospital.vip.vip_convenience_amount
+                    } else if (hospital.vip.cover_under_vip && patient.is_vip_member) {
+                            total_amount_payable_without_coupon = hospital.vip.vip_amount
+                    }
+                }
+
+                if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                    total_amount_payable_without_coupon = null
+                }
+            }
+        }
+        return { total_amount_payable_without_coupon }
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1474,8 +1532,8 @@ class PatientDetailsNew extends React.Component {
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
             display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
             display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
-            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price - (this.props.disCountedOpdPrice||0)
-            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price - (this.props.disCountedOpdPrice||0)
+            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
+            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
         }
 
         let extraParams = {
@@ -1639,7 +1697,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
 
                                                                 {
-                                                                    ( ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_insurance_applicable )/*&& !(vip_data && vip_data.hosp_is_gold && is_selected_user_gold) && this.props.payment_type!=6*/?
+                                                                    ( ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_insurance_applicable ) &&  this.props.payment_type!=6?
                                                                         <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type == 2? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                             {
                                                                                 doctorCoupons.length ?
@@ -1927,7 +1985,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </React.Fragment>
                                                                                     : ''}
                                                                                 {
-                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */this.props.payment_type!=6 && this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                         ? <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
