@@ -200,7 +200,7 @@ class VipProposer extends React.Component {
 		// this.populateDates()
 		let empty_state ={}
 		if(this.props.is_tobe_dummy_user){
-			this.setState({...empty_state})
+			this.setState({...empty_state,phone_number:null})
 		}
 
 		if(Object.keys(profile).length > 0){
