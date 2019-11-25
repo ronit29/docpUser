@@ -556,6 +556,16 @@ class PatientDetailsNew extends React.Component {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
+        //Check SBI UTM Tags
+        if(sessionStorage && sessionStorage.getItem('sbiSessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+
+            let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
+            if(tags.utm_tags){
+                
+                postData['utm_sbi_tags'] = tags.utm_tags
+            }
+        }
+
         let procedure_ids = []
         if (false && this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories) {
 
