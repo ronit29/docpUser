@@ -30,6 +30,10 @@ class PaymentForm extends React.Component {
         this.sendEvent()
     }
 
+    getPaymentNodeName(name, index) {
+        return `${name}[${index}]`
+    }
+
     render() {
 
         // let data = { "paymentMode": "CC", "responseCode": "227", "bankTxId": "", "txDate": "Jun 4, 2018 12:10:23 PM", "bankName": "SBI", "statusMsg": "Oops an error occurred. We will get back to you!", "currency": "INR", "statusCode": 1, "pgGatewayName": "MOCK", "responseMessage": "Your payment has been declined by your bank. Please contact your bank for any queries. If money has been deducted from your account, your bank will inform us within 48 hrs and we will refund the same", "txStatus": "TXN_FAILURE", "customerId": 51, "orderNo": this.props.paymentData['orderId'], "statusShortMsg": "Others", "email": "dummy_appointment@policybazaar.com", "pbGatewayName": "paytm", "mobile": "9999999997", productId: this.props.paymentData['productId'] }
@@ -44,12 +48,45 @@ class PaymentForm extends React.Component {
         return (
             <div>
 
-                <form id="paymentForm" ref="paymentForm" method="post" action={this.props.multiOrder?CONFIG.PG_MULTI_ORDER_URL:CONFIG.PG_URL} style={{ display: 'none' }}>
-                    <input type="text" name="name" defaultValue={this.props.paymentData['name']} />
+                <form id="paymentForm" ref="paymentForm" method="post" action={this.props.paymentData && this.props.paymentData['is_single_flow']?CONFIG.PG_MULTI_ORDER_URL:CONFIG.PG_URL} style={{ display: 'none' }}>
+                    {
+                        this.props.paymentData['is_single_flow']?
+                        <React.Fragment>
+                            {
+                                this.props.paymentData['items'].map((item, i)=>{
+                                    return <React.Fragment>
+                                        <input type="text" name={this.getPaymentNodeName('name', i)} id={item['name']} defaultValue={item['name']} />
+                                        <input type="text" name={this.getPaymentNodeName('productId', i)} id={item['productId']} defaultValue={item['productId']} />
+                                        <input type="text" name={this.getPaymentNodeName('txAmount', i)} id={item['txAmount']} defaultValue={item['txAmount']} />
+                                        <input type="text" name={this.getPaymentNodeName('orderId', i)} id={item['orderId']} defaultValue={item['orderId']} />
+                                        <input type="text" name={this.getPaymentNodeName('holdPayment', i)}  id={item['holdPayment']} defaultValue={item['holdPayment']} />
+                                        {
+                                            item && item['insurerCode']?
+                                            <input type="text" name={this.getPaymentNodeName('insurerCode', i)} id={item['insurerCode']} defaultValue={item['insurerCode']} />
+                                            :''
+                                        }
+                                    </React.Fragment>
+                                })
+                            }        
+                        </React.Fragment>
+                        :<React.Fragment>
+                            <input type="text" name="name" defaultValue={this.props.paymentData['name']} />
+                            <input type="text" name="productId" defaultValue={this.props.paymentData['productId']} />
+                            <input type="text" name="txAmount" defaultValue={this.props.paymentData['txAmount']} />
+                            <input type="text" name="orderId" defaultValue={this.props.paymentData['orderId']} />
+                            <input type="text" name="holdPayment" defaultValue={this.props.paymentData['holdPayment']} />
+                            {
+                                this.props.paymentData && this.props.paymentData['insurerCode']?
+                                <input type="text" name="insurerCode" defaultValue={this.props.paymentData['insurerCode']} />
+                                :''
+                            }
+                        </React.Fragment>   
+                    }
+                    
                     <input type="text" name="custId" defaultValue={this.props.paymentData['custId']} />
                     <input type="text" name="mobile" defaultValue={this.props.paymentData['mobile']} />
+
                     <input type="text" name="email" defaultValue={this.props.paymentData['email']} />
-                    <input type="text" name="productId" defaultValue={this.props.paymentData['productId']} />
                     <input type="text" name="surl" defaultValue={this.props.paymentData['surl']} />
                     <input type="text" name="furl" defaultValue={this.props.paymentData['furl']} />
                     {
@@ -57,10 +94,9 @@ class PaymentForm extends React.Component {
                         <input type="text" name="referenceId" defaultValue={this.props.paymentData['referenceId']} />
                         :''
                     }
-                    <input type="text" name="txAmount" defaultValue={this.props.paymentData['txAmount']} />
-                    <input type="text" name="orderId" defaultValue={this.props.paymentData['orderId']} />
+                    
                     <input type="text" name="hash" defaultValue={this.props.paymentData['hash']} />
-                    <input type="text" name="holdPayment" defaultValue={this.props.paymentData['holdPayment']} />
+                    
                     <input type="text" name="isPreAuth" defaultValue={this.props.paymentData['isPreAuth']} />
                     {
                         this.props.paymentData && this.props.paymentData['paytmMsg']?
@@ -75,11 +111,6 @@ class PaymentForm extends React.Component {
                             <input type="text" name="couponPgMode" defaultValue={this.props.paymentData['couponPgMode']} />
                         </React.Fragment>
                         : ''
-                    }
-                    {
-                        this.props.paymentData && this.props.paymentData['insurerCode']?
-                        <input type="text" name="insurerCode" defaultValue={this.props.paymentData['insurerCode']} />
-                        :''
                     }
                     
                 </form>
