@@ -198,7 +198,7 @@ class DesktopProfileHeader extends React.Component {
 
                     <div className="row align-items-center">
 
-                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
+                        <div className="col-lg-cstm-1 col-md-4 col-7 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
@@ -206,8 +206,9 @@ class DesktopProfileHeader extends React.Component {
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
-                            <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
+                            <a className="logo-ancher logo-width-cut sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
                                 <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
+                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
                                 <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
                             </a>
                         </div>
@@ -330,7 +331,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
+                        <div className="col-lg-9 col-md-8 col-5 ml-auto text-right d-lg-none pl-0">
                             {
                                 this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />

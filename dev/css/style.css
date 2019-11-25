@@ -14174,3 +14174,7 @@ div.doc-srch-fltr.vip-slct-pop {
     position: absolute;
     top: 10px;
 }
+.sbi-iconfx{
+    display: inline-flex;
+    width: 85%;
+}
