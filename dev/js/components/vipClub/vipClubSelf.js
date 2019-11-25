@@ -200,7 +200,7 @@ class VipProposer extends React.Component {
 		// this.populateDates()
 		let empty_state ={}
 		if(this.props.is_tobe_dummy_user){
-			this.setState({...empty_state})
+			this.setState({...empty_state,phone_number:null})
 		}
 
 		if(Object.keys(profile).length > 0){
@@ -544,7 +544,7 @@ class VipProposer extends React.Component {
 									value={this.state.phone_number} 
 									data-param='phone_number' 
 									onChange={this.handleChange.bind(this, 'phone_number')} 
-									onBlur={this.handleSubmit} 
+									onBlur={this.handleSubmit.bind(this, false,false)}
 									disabled={this.props.is_from_payment || this.state.disablePhoneNo ? 'disabled' : ''}  
 								/>
 								<label className={this.props.is_from_payment || this.state.disablePhoneNo ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`phone_${this.props.member_id}`}><span className="labelDot"></span>Phone Numer</label>

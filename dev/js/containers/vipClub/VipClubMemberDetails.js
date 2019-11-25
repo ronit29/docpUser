@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData } from '../../actions/index.js'
+import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData, getCoupons } from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Loader from '../../components/commons/Loader'
@@ -72,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         resetVipData:() => dispatch(resetVipData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
         sendAgentBookingURL: (orderId, type, purchase_type,query_data, extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data,extraParams,  cb)),
-        clearVipMemeberData:() =>dispatch(clearVipMemeberData())
+        clearVipMemeberData:() =>dispatch(clearVipMemeberData()),
+        getCoupons: (data) => dispatch(getCoupons(data)),
     }
 }
 
