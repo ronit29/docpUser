@@ -14153,6 +14153,10 @@ div.doc-srch-fltr.vip-slct-pop {
     .dsclmer-ftr {
         padding-bottom: 55px;
     }
+    .sbi-iconfx{
+        display: inline-flex;
+        width: 85%;
+    }
 }
 
 .ipd-adrs-tb {
@@ -14173,8 +14177,4 @@ div.doc-srch-fltr.vip-slct-pop {
 .footsvground{
     position: absolute;
     top: 10px;
-}
-.sbi-iconfx{
-    display: inline-flex;
-    width: 85%;
 }
