@@ -90,7 +90,7 @@ app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
 
 app.all('*', function (req, res) {
-    console.log('Enter Request');
+    console.log('Enter Requests');
     /**
      * Fetch Css files
      */
