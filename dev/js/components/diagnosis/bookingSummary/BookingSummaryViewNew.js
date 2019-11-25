@@ -278,6 +278,10 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', pay_btn_loading: true })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab, (success) => {
                     })
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                    if(total_amount_payable_without_coupon) {
+                        finalPrice = total_amount_payable_without_coupon
+                    }
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         this.setState({'pay_btn_loading': false})
                     })
@@ -295,6 +299,10 @@ class BookingSummaryViewNew extends React.Component {
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
                     this.setState({'pay_btn_loading': true})
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                    if(total_amount_payable_without_coupon) {
+                        finalPrice = total_amount_payable_without_coupon
+                    }
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
@@ -358,6 +366,10 @@ class BookingSummaryViewNew extends React.Component {
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab, (success) => {
                                 this.setState({'pay_btn_loading': false})
                             })
+                            let { total_amount_payable_without_coupon } = this.getSelectedUserData()
+                            if(total_amount_payable_without_coupon) {
+                                finalPrice = total_amount_payable_without_coupon
+                            }
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item, (err, data) => {
                                 this.setState({'pay_btn_loading': false})
                             })
@@ -1235,7 +1247,7 @@ class BookingSummaryViewNew extends React.Component {
         if(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
             let patient = null
             labDetail = this.props.LABS[this.props.selectedLab].lab
-            let is_home_charges_applicable = false
+            let is_home_collection_enabled = false
             if(is_home_collection_enabled && this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
                 is_home_charges_applicable = true
             }
@@ -1269,15 +1281,14 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
 
-            total_amount_payable_without_coupon = hospital.deal_price
             if(is_all_enable_for_vip){
 
                 
                 if(is_all_enable_for_gold && patient.is_vip_gold_member) {
 
-                    total_amount_payable = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                    total_amount_payable_without_coupon = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }else if(is_vip_applicable) {
-                        total_amount_payable = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                        total_amount_payable_without_coupon = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }
 
             }
@@ -1691,7 +1702,7 @@ class BookingSummaryViewNew extends React.Component {
         let display_docprime_discount = finalMrp - finalPrice
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests) {
             display_docprime_discount = parseInt(gold_pricelist_mrp) - parseInt(gold_pricelist_deal_price)
-            total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price - (this.props.disCountedLabPrice || 0)
+            total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price// - (this.props.disCountedLabPrice || 0)
             total_price = total_amount_payable
         }
         let extraParams = {
@@ -1846,7 +1857,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable /*&& !is_vip_gold_applicable && this.props.payment_type!=6*/?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && this.props.payment_type!=6/*&& !is_vip_gold_applicable && */?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -2070,7 +2081,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
                                                                                     {
-                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback /*&& !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip) && this.props.payment_type!=6*/? <div className="payment-detail d-flex">
+                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback && this.props.payment_type!=6/*&& !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip) && this.props.payment_type!=6*/? <div className="payment-detail d-flex">
                                                                                                 <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                             </div>

@@ -15,7 +15,7 @@ class VipClubMemberDetails extends React.Component{
         this.state={
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent,
-            is_gold:parsed.is_gold || false
+            is_gold:parsed.is_gold || false,
             is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false
         }
     }
