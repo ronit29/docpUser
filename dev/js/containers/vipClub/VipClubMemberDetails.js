@@ -14,13 +14,17 @@ class VipClubMemberDetails extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent
+            isAgent:parsed.is_agent,
+            is_gold:parsed.is_gold || false
         }
     }
 
     componentDidMount() {
 
         this.props.retrieveMembersData('PLAN_PURCHASE')
+        if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0) {
+            this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
+        }
         // this.props.citiesData()
     }
 

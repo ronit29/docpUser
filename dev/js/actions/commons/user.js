@@ -399,7 +399,7 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null, cart_item = null }) => (dispatch) => {
+export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null, cart_item = null, gold_plan_id = null }) => (dispatch) => {
 
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
@@ -436,6 +436,10 @@ export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id =
 
 	if (cart_item) {
 		url += `&cart_item=${cart_item}`
+	}
+
+	if (gold_plan_id) {
+		url += `&plan_id=${gold_plan_id}`
 	}
 
 	url += `&show_all=${true}`

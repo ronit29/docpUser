@@ -164,6 +164,9 @@ class VipLoginPopup extends React.Component {
                                     if(lead_data.is_agent){
                                         url += '&is_agent='+lead_data.is_agent
                                     }
+                                    if (lead_data.is_gold) {
+                                        url += '&is_gold=' + lead_data.is_gold
+                                    }
                                 if (Object.keys(self.props.selected_vip_plan).length > 0) {
                                     let extraParams = {}
                                     /*if(this.props.user_cities && this.props.user_cities.length){

@@ -143,6 +143,9 @@ class VipClubView extends React.Component {
                 if (lead_data.is_agent) {
                     url += '&is_agent=' + lead_data.is_agent
                 }
+                if (lead_data.is_gold) {
+                    url += '&is_gold=' + lead_data.is_gold
+                }
                 this.props.history.push(url)
                 // this.props.history.push('/vip-club-member-details')
             }
