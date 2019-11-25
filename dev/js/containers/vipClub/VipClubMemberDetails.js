@@ -16,13 +16,14 @@ class VipClubMemberDetails extends React.Component{
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent,
             is_gold:parsed.is_gold || false
+            is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false
         }
     }
 
     componentDidMount() {
 
         this.props.retrieveMembersData('PLAN_PURCHASE')
-        if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0) {
+        if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment) {
             this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
         }
         // this.props.citiesData()
@@ -31,7 +32,7 @@ class VipClubMemberDetails extends React.Component{
 	render(){
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView){
-            return <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
+            return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
         }else{
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
