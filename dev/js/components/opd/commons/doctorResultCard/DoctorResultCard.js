@@ -271,7 +271,7 @@ class DoctorProfileCard extends React.Component {
 
                     <div className="cstm-docCard-content">
 
-                        <div className="row no-gutters">
+                        <div className="row no-gutters" style={{paddingBottom:10}}>
                             <div className="col-8">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                     <h2 className="cstmDocName">{display_name}</h2>
@@ -328,73 +328,46 @@ class DoctorProfileCard extends React.Component {
                                         <RatingStars average_rating={average_rating} rating_count={rating_count || ''} width="12px" height="12px" /> : ''
                                 }
                             </div>
-                            <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
+                            <div className="col-4 booking-column" style={mrp == 0 ? { paddingTop: 40 } : {}}>
+                                <section>
+                                    {
+                                        false && !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !((is_vip_member || is_gold_member) && covered_under_vip) ?
+                                            <p className="cstm-doc-price">Docprime Price</p> : ''
+                                    }
 
-                                
-                                {
-                                    false && !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !((is_vip_member || is_gold_member) && covered_under_vip) ?
-                                        <p className="cstm-doc-price">Docprime Price</p> : ''
-                                }
-
-                                {  (!is_insurance_applicable && !show_common_prices)?
-                                    <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
-                                    :''
-                                }
-
-                                {
-                                    /*is_gold_member?'':
-                                    is_vip_applicable ?
-                                    <div className="text-right mb-2">
-                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
-                                    </div>
-                                    : ''*/
-                                }
-                                {
-                                    /*is_gold_member ?
-                                    <div className="text-right mb-2">
-                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                    </div>
-                                    : ''*/
-                                }
-                                {
-                                    /*is_gold_member ?
-                                        <p className="cst-doc-price">₹ {vip_gold_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : ''*/
-                                }
-
-                                {
-                                    /*is_gold_member?'':is_vip_applicable ?
-                                        <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : ''*/
-                                }
-                                {
-                                    is_insurance_applicable ?
-                                        <div>
-                                            <p className="cst-doc-price">₹ {0}</p>
-                                            <div className="ins-val-bx">Covered Under Insurance</div>
-                                        </div>
-                                        :show_common_prices
-                                        ?enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
-                                            <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                            : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
-                                                <p className="cst-doc-price">₹ {cod_deal_price}</p>
-                                                : enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
-                                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                                    : mrp && mrp != 0 ?
-                                                        <p className="cst-doc-price">₹ {mrp}</p>
-                                                        : mrp != null && enabled_for_hospital_booking ?
-                                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                    {  (!is_insurance_applicable && !show_common_prices)?
+                                        <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
                                         :''
-                                }
-                                {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && show_common_prices ?
-                                        <p className="cstm-cpn">{offPercent}% Off
-                                            {
-                                                deal_price != discounted_price ?
-                                                    <span><br />(includes Coupon)</span> : ''
-                                            }
-                                        </p> : ''
-                                }
+                                    }
+                                    {
+                                        is_insurance_applicable ?
+                                            <div>
+                                                <p className="cst-doc-price">₹ {0}</p>
+                                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                            </div>
+                                            :show_common_prices
+                                            ?enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
+                                                <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                                : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
+                                                    <p className="cst-doc-price">₹ {cod_deal_price}</p>
+                                                    : enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
+                                                        <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                                        : mrp && mrp != 0 ?
+                                                            <p className="cst-doc-price">₹ {mrp}</p>
+                                                            : mrp != null && enabled_for_hospital_booking ?
+                                                                <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                            :''
+                                    }
+                                    {
+                                        !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && show_common_prices ?
+                                            <p className="cstm-cpn">{offPercent}% Off
+                                                {
+                                                    deal_price != discounted_price ?
+                                                        <span><br />(includes Coupon)</span> : ''
+                                                }
+                                            </p> : ''
+                                    }
+                                </section>
                                 {
                                     /*is_insurance_applicable ?
                                         <div>
