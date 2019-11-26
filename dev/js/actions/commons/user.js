@@ -756,3 +756,40 @@ export const setPaymentStatus = (status = null) => (dispatch) => {
 		payload: status
 	})
 }
+
+export const SendIpdBookingEmail = (data,cb) => (dispatch)=>{
+	console.log(data)
+	debugger
+	let url = '/api/v1/notification/ipd/emailnotifications?'
+	    if(data.user){
+	        url += 'user='+data.user
+	    }
+	    if(data.doctor){
+	        url += '&doctor='+data.doctor
+	    }
+	    if(data.hospital){
+	        url += '&hospital='+data.hospital
+	    }
+	    if(data.phone_number){
+	        url += '&phone_number='+data.phone_number
+	    }
+	    if(data.preferred_date){
+	        url += '&preferred_date='+data.preferred_date
+	    }
+	    if(data.time_slot){
+	        url += '&time_slot='+data.time_slot
+	    }
+	    if(data.gender){
+	        url += '&gender='+data.gender
+	    }
+	    if(data.dob){
+	        url += '&dob='+data.dob
+	    }
+
+	// api/v1/notification/ipd/emailnotifications?hospital=1&phone_number=9971802614&doctor=1&user=1
+	// return API_POST(`/api/v1/user/send_cart_url`, postData).then((data)=> {
+	// 	if(cb)cb(null, data)
+	// }).catch((e)=>{
+ // 		if(cb)cb(e, null)
+	// })
+}
