@@ -13762,7 +13762,7 @@ p.pkgtstName.prcd-height {
 }
 
 .banner-home-scrollable {
-    white-space: nowrap;
+    display: flex;
     overflow-x: auto;
     width: 100%;
     top: 0;
