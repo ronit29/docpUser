@@ -452,13 +452,15 @@ class VipProposer extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : `member_${this.props.member_id}`}>
-					<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
-						<React.Fragment>
-							<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-							<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
-							<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-						</React.Fragment>
-					</div>
+					{this.props.show_extra_fields && !this.props.is_from_payment?
+						<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
+							<React.Fragment>
+								<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
+								<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
+								<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
+							</React.Fragment>
+						</div>
+					:''}
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
 							<input 

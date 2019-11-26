@@ -379,7 +379,7 @@ class VipLoginPopup extends React.Component {
                                     }, this)
                                 :''}
                                 {this.props.is_from_payment?'' 
-                                :<span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Member</span>  
+                                :<span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Profile</span>  
                                 }
                             </div>
                         </div>
