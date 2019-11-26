@@ -24,13 +24,19 @@ class VipClubMemberDetailsView extends React.Component {
            	popupMemData:{},
            	is_tobe_dummy_user:false,
            	coupon_code:null,
-           	coupon_id:null
+           	coupon_id:null,
+           	is_payment_coupon_applied:false
         }
     }
     componentDidMount(){
     	if(window){
     		window.scrollTo(0,0)
     	}
+    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment && this.props.vipCoupons.length >0) {
+	    		this.props.applyCouponDiscount({productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price
+	    		this.setState({is_payment_coupon_applied:true})
+	    	})
+	    }
     }
 
     addMembers(isFromDefaultUser){
@@ -758,6 +764,31 @@ class VipClubMemberDetailsView extends React.Component {
 											</div>
 										</div>
 										{!this.props.is_from_payment ?
+											this.props.vipCoupons && this.props.vipCoupons.length > 0?
+											<div className="widget cpn-blur mrb-15 cursor-pointer">
+												<div className="widget-content d-flex jc-spaceb" >
+	                                                <div className="d-flex">
+	                                                    <span className="coupon-img">
+	                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
+	                                                    </span>
+	                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
+	                                                        Coupon Applied
+	                                                    </h4>
+	                                                </div>
+	                                                <div className=" d-flex">
+	                                                    <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
+	                                                        {this.props.vipCoupons[0].code}
+	                                                    </h4>
+	                                                    <span className="visit-time-icon coupon-icon">
+	                                                        <img onClick={(e) => {
+	                                                            this.props.removeVipCoupons()
+	                                                            this.setState({  is_payment_coupon_applied: false })
+	                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+	                                                    </span>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+                                            :
 											<div className="widget cpn-blur mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
 												<div className="widget-content d-flex jc-spaceb" >
 			                                        <div className="d-flex">

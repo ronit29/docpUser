@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -299,3 +299,23 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
         })
     })
 }
+
+export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price})  => (dispatch) => {
+    API_POST(`/api/v1/coupon/discount`, {
+        coupon_code: [couponCode],
+        deal_price: deal_price,
+        product_id: productId,
+        plan_id:plan_id
+    }).then(function (response) {
+        console.log(response)  
+        debugger
+    }) 
+}
+
+export const removeVipCoupons =() =>(dispatch)=>{
+    dispatch({
+        type:REMOVE_VIP_COUPONS
+    })
+}
+
+
