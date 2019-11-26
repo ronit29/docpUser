@@ -56,7 +56,6 @@ class CouponSelectionView extends React.Component {
         if (parsed.deal_price) {
             deal_price = parseInt(parsed.deal_price)
         }
-        console.log(appointmentType)
         if (appointmentType == 'opd') {
             appointmentType = 1
         } else if (appointmentType == 'lab') {

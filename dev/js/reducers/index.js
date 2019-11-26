@@ -69,7 +69,7 @@ const INSURANCE_LIST_PRESIST = {
 const VIP_CLUB_CRITERIA_PRESIST = {
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData', 'odpGoldPredictedPrice', 'labGoldPredictedPrice']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData', 'odpGoldPredictedPrice', 'labGoldPredictedPrice', 'vipCoupons']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
