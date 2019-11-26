@@ -612,6 +612,14 @@ class VipClubMemberDetailsView extends React.Component {
 	proceedMembersNo(is_wait) {
 		this.setState({ show_popup: false, proceed: false, popupMemData: {} })
 	}
+	applyCoupons(){
+		let selected_plan_id = null
+		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment) {
+            // this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
+            selected_plan_id = this.props.selected_vip_plan.id
+		this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.is_gold?8:11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
+		}
+	}
 	render() {
 		let child
 		let adult
@@ -749,7 +757,23 @@ class VipClubMemberDetailsView extends React.Component {
 												}
 											</div>
 										</div>
-
+										{!this.props.is_from_payment ?
+											<div className="widget cpn-blur mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+												<div className="widget-content d-flex jc-spaceb" >
+			                                        <div className="d-flex">
+			                                            <span className="coupon-img">
+			                                                <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+			                                            </span>
+			                                            <h4 className="title coupon-text">
+			                                                HAVE A COUPON?
+			                                            </h4>
+			                                        </div>
+			                                        <div className="visit-time-icon coupon-icon-arrow">
+			                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+			                                        </div>
+			                                    </div>
+	                                        </div>
+                                    	:''}
 										{child}
 									</div>
 								</div>

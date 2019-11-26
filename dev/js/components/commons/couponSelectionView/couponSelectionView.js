@@ -56,11 +56,13 @@ class CouponSelectionView extends React.Component {
         if (parsed.deal_price) {
             deal_price = parseInt(parsed.deal_price)
         }
-
+        console.log(appointmentType)
         if (appointmentType == 'opd') {
             appointmentType = 1
         } else if (appointmentType == 'lab') {
             appointmentType = 2
+        } else if (appointmentType == 'vip') {
+            appointmentType = 3
         } else {
             appointmentType = ''
         }
@@ -71,6 +73,10 @@ class CouponSelectionView extends React.Component {
             }
             props.getCoupons({
                 productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile, deal_price: deal_price, cart_item
+            })
+        } else if(appointmentType == 3){
+             props.getCoupons({
+                productId:clinicId,gold_plan_id:id, deal_price:deal_price
             })
         } else {
             if (parsed.procedures_ids) {
@@ -139,6 +145,10 @@ class CouponSelectionView extends React.Component {
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons({
                     productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb, cart_item: this.state.cart_item
+                })
+            }else if(this.state.appointmentType == 3){
+                 this.props.getCoupons({
+                    productId:this.state.clinicId,gold_plan_id:this.state.id, deal_price:this.state.deal_price, coupon_code: this.state.couponText
                 })
             } else {
                 this.props.getCoupons({

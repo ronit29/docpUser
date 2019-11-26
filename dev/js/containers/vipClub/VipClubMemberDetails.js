@@ -23,16 +23,13 @@ class VipClubMemberDetails extends React.Component{
     componentDidMount() {
 
         this.props.retrieveMembersData('PLAN_PURCHASE')
-        if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment) {
-            this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
-        }
         // this.props.citiesData()
     }
 
 	render(){
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView){
-            return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
+            return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold}/>
         }else{
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
