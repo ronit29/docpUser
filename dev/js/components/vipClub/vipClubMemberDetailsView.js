@@ -790,15 +790,11 @@ class VipClubMemberDetailsView extends React.Component {
 	                                        </div>
                                             :
 											<div className="widget cpn-blur mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-												<div className="widget-content d-flex jc-spaceb" >
-			                                        <div className="d-flex">
-			                                            <span className="coupon-img">
-			                                                <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-			                                            </span>
-			                                            <h4 className="title coupon-text">
-			                                                HAVE A COUPON?
-			                                            </h4>
-			                                        </div>
+												<div className="widget-content d-flex jc-spaceb mt-10">
+													<h4 className="title coupon-text d-flex align-item-center m-0">
+														<img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon mr-10" />
+														<span>HAVE A COUPON?</span>   
+													</h4>
 			                                        <div className="visit-time-icon coupon-icon-arrow">
 			                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
 			                                        </div>
