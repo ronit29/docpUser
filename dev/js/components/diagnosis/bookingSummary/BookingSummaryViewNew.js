@@ -1279,8 +1279,8 @@ class BookingSummaryViewNew extends React.Component {
                     is_all_enable_for_gold = false
                 }
 
-                vip_total_amount +=parseInt(twp.vip.vip_amount)
-                vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
+                vip_total_amount +=parseInt(test.vip.vip_amount)
+                vip_total_convenience_amount += parseInt(test.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
 
