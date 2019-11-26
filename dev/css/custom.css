@@ -5234,6 +5234,8 @@ img.gld-cd-icon {
     border-right: 1px dashed rgba(0,0,0,0.2);
     display: inline-block;
     padding-right: 10px;
+    position: relative;
+    z-index: 11;
 }
 .vip-discount-col > .offer-col > p{
   font-size: 15px;
@@ -5259,6 +5261,8 @@ img.gld-cd-icon {
     width: 62%;
     display: inline-block;
     padding: 10px 13px 0px 13px;
+    position: relative;
+    z-index: 11;
 }
 .discount-coupan-col > .coupan-col{
   border-radius: 9px;
@@ -5308,6 +5312,7 @@ img.gld-cd-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .order-now > img{
