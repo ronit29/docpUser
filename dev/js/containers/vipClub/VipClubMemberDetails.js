@@ -46,11 +46,11 @@ class VipClubMemberDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { user_cities } = state.USER
+    let { user_cities, common_utm_tags } = state.USER
 
     let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data, members_proofs, showVipDetailsView,savedMemberData } = state.VIPCLUB
     return {
-        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData
+        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData, common_utm_tags
     }
 }
 

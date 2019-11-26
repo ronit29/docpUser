@@ -399,6 +399,19 @@ class VipClubMemberDetailsView extends React.Component{
 		    		pushData.members.push(self_profile)
 		    		console.log(data)
 		    		this.pushUserData(pushData)
+
+
+		    		//Check SBI UTM Tags
+			        if(sessionStorage && sessionStorage.getItem('sbiSessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+
+			            let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
+			            if(tags.utm_tags){
+			                
+			                data['utm_sbi_tags'] = tags.utm_tags
+			            }
+			        }
+
+
 		    		if(isSms){
 		    			this.sendSMS()
 		    		}else{
