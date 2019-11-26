@@ -1001,7 +1001,7 @@ class PatientDetailsNew extends React.Component {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
 
-        price_from_pg = price_to_pay - price_from_wallet
+        price_from_pg = price_to_pay //- price_from_wallet
 
         if (price_from_pg) {
             return `₹${price_from_pg}`
@@ -1971,7 +1971,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     : ''}
                                                                                 {
                                                                                     !(is_selected_user_gold && vip_data.hosp_is_gold) && !is_vip_applicable /*&& priceData.fees != 0 */&& parseInt(display_docprime_discount)>0 ? <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Docprime Discount</p>
+                                                                                        <p style={{ color: 'green' }}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>
                                                                                         : ''}
