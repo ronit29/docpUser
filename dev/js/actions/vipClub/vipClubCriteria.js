@@ -273,7 +273,13 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             type: GET_OPD_VIP_GOLD_PLANS,
             payload: response.vip_plans
         })
-        let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
+        let defaultSelectedPlan = []
+        if(extraParams && extraParams.already_selected_plan) {
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
+        }
+        if(defaultSelectedPlan && defaultSelectedPlan.length==0){
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);
+        }  
         dispatch({
             type: SELECT_VIP_CLUB_PLAN,
             payload: {
@@ -290,7 +296,13 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             type: GET_LAB_VIP_GOLD_PLANS,
             payload: response.vip_plans
         })
-        let defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);  
+        let defaultSelectedPlan = []
+        if(extraParams && extraParams.already_selected_plan) {
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
+        }
+        if(defaultSelectedPlan && defaultSelectedPlan.length==0){
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);
+        }  
         dispatch({
             type: SELECT_VIP_CLUB_PLAN,
             payload: {
