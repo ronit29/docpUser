@@ -56,7 +56,7 @@ class VipClubMemberDetailsView extends React.Component {
 			title: '',
 			profile:null,
 			profile_id:null,
-			phone_number:null,
+			phone_number:'',
 			isUserSelectedProfile:true,
 			day:null,
 			mnth:null,
@@ -72,6 +72,7 @@ class VipClubMemberDetailsView extends React.Component {
     		this.props.clearVipMemeberData()
 			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
 			member_dummy_data.id=0
+			member_dummy_data.is_tobe_dummy_user = true
 			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
     			this.props.userDetails('self_data', member_dummy_data)
     		})
@@ -85,6 +86,7 @@ class VipClubMemberDetailsView extends React.Component {
 			    		if(currentFormIdsCount <= total_allowed_members){
 							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount,isUserSelectedProfile:true})
 							member_dummy_data.id=currentFormIdsCount
+							member_dummy_data.is_tobe_dummy_user = false
 			    		}
 			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
 			    			this.props.userDetails('self_data', member_dummy_data)

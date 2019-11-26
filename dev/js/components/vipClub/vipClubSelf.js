@@ -30,13 +30,14 @@ class VipProposer extends React.Component {
 			userProfiles:{},
 			showPopup:false,
 			isUserSelectedProfile:this.props.isUserSelectedProfile,
-			phone_number:null,
+			phone_number:'',
 			disableTitle:false,
 			disableFName: false,
 			disableLName: false,
 			disableEmail: false,
 			disablePhoneNo:false,
 			disableDob: false,
+			is_tobe_dummy_user:false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleTitle = this.handleTitle.bind(this);
@@ -173,6 +174,7 @@ class VipProposer extends React.Component {
 				this.populateDates(newProfileid,false)
 			}
 			newProfile.isUserSelectedProfile=true
+			newProfile.is_tobe_dummy_user = false
 			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, 0)
 			this.setState({
@@ -199,8 +201,8 @@ class VipProposer extends React.Component {
 		let tempArray
 		// this.populateDates()
 		let empty_state ={}
-		if(this.props.is_tobe_dummy_user){
-			this.setState({...empty_state,phone_number:null})
+		if(profile.is_tobe_dummy_user){
+			this.setState({...empty_state,phone_number:''})
 		}
 
 		if(Object.keys(profile).length > 0){
@@ -263,10 +265,10 @@ class VipProposer extends React.Component {
 				disableEmail: !profile.isDummyUser && profile.email !== '' ? true : false,
 				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
 				disableDob: !profile.isDummyUser && profile.dob !== '' ? true : false,
-				disablePhoneNo: !profile.isDummyUser && profile.phone_number != null ? true: false	
+				disablePhoneNo: !profile.isDummyUser && profile.phone_number !== '' ? true: false	
 			})
-			if(this.props.is_tobe_dummy_user){
-				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:null,disableTitle:false})
+			if(profile.is_tobe_dummy_user){
+				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:'',disableTitle:false,is_tobe_dummy_user:profile.is_tobe_dummy_user})
 			}
 		}
 	}
@@ -452,7 +454,7 @@ class VipProposer extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : `member_${this.props.member_id}`}>
-					{this.props.show_extra_fields && !this.props.is_from_payment?
+					{this.state.is_tobe_dummy_user && !this.props.is_from_payment?
 						<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
 							<React.Fragment>
 								<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
