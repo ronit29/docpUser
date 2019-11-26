@@ -2080,7 +2080,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         </div> : ""
                                                                                     }
                                                                                     {display_docprime_discount && !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
-                                                                                        <p style={{color:'green'}}>Docprime Discount</p>
+                                                                                        <p style={{color:'green'}}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
                                                                                     {
