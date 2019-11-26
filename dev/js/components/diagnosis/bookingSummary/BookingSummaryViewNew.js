@@ -1246,6 +1246,7 @@ class BookingSummaryViewNew extends React.Component {
         let vip_total_gold_price = 0
         let is_all_enable_for_vip = true
         let is_all_enable_for_gold = true
+        let is_home_charges_applicable = false
         let labDetail = {}
         if(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
             let patient = null
@@ -1266,10 +1267,9 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
-                if(test.vip){
-                    is_tests_covered_under_vip = test.vip.covered_under_vip
-                }else{
-
+                    
+                if( test.vip && !(test.vip.covered_under_vip) ){
+                    is_tests_covered_under_vip = false    
                 }
 
                 if(!(test.vip.is_enable_for_vip) ){
@@ -1290,7 +1290,7 @@ class BookingSummaryViewNew extends React.Component {
                 if(is_all_enable_for_gold && patient.is_vip_gold_member) {
 
                     total_amount_payable_without_coupon = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
-                }else if(is_vip_applicable) {
+                }else if(patient.is_vip_member && is_tests_covered_under_vip) {
                         total_amount_payable_without_coupon = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }
 
