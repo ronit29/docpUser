@@ -2130,7 +2130,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                           /*!is_vip_gold_applicable && */!is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                           !is_vip_gold_applicable && this.props.payment_type!=6 && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">

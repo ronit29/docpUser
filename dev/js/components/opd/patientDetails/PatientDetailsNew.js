@@ -2090,7 +2090,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                                 {
-                                                                    /*!(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && */!is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6) && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
+                                                                    !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
                                                                         <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                             <div className="widget-content">
                                                                                 <div className="select-pt-form">
