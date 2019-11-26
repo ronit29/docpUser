@@ -33,9 +33,8 @@ class VipClubMemberDetailsView extends React.Component {
     		window.scrollTo(0,0)
     	}
     	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment && this.props.vipCoupons.length >0) {
-	    		this.props.applyCouponDiscount({productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price
-	    		this.setState({is_payment_coupon_applied:true})
-	    	})
+	    		this.props.applyCouponDiscount({ productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price })
+	    	this.setState({is_payment_coupon_applied:true,coupon_code:this.props.vipCoupons[0].code, coupon_id:this.props.vipCoupons[0].coupon_id })
 	    }
     }
 
@@ -465,6 +464,7 @@ class VipClubMemberDetailsView extends React.Component {
 							members.id = param.id
 							members.is_primary_user = true
 							data.members.push(members)
+							data['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
 							pushData.members.push(param)
 							console.log(data)
 							this.pushUserData(pushData)
