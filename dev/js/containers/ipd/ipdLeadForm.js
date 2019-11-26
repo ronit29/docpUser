@@ -307,7 +307,7 @@ class IpdLeadForm extends React.Component {
 															</div>
 														</div>
 													</div>
-													<div className="select-date-container">
+													{/*<div className="select-date-container">
 														<h5>*Preferred Date:</h5>
 														<div className="vertical-date-select-container" style={{marginBottom:0}}>
 															<div className="slect-date-heading">
@@ -339,7 +339,7 @@ class IpdLeadForm extends React.Component {
 															<option>option 2</option>
 															<option>option 3</option>
 														</select>
-													</div>
+													</div>*/}
 													<div className="ipd-lead-textarea">
 														<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments' value={this.state.comments} onChange={this.inputHandler.bind(this)}></textarea>
 													</div>
