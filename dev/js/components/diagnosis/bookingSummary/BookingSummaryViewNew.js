@@ -1284,7 +1284,7 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
 
-            if(is_all_enable_for_vip){
+            if(is_all_enable_for_vip && patient){
 
                 
                 if(is_all_enable_for_gold && patient.is_vip_gold_member) {
