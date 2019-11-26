@@ -261,6 +261,9 @@ class PatientDetailsNew extends React.Component {
             "start_time": null,
             "time_slot_start": null
         }
+        if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
+            extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
         this.props.getOpdVipGoldPlans(extraParams)
     }
 

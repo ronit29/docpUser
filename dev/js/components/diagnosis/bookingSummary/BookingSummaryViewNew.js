@@ -179,6 +179,9 @@ class BookingSummaryViewNew extends React.Component {
             "lab_tests": test_ids,
             "gold_vip_plan": []
         }
+        if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
+            extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
         this.props.getLabVipGoldPlans(extraParams)
     }
 
