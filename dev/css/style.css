@@ -13,10 +13,10 @@ body {
 
 .chatbox-right {
     border-radius: 5px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0 13px rgba(0, 0, 0, .4);
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 240px);
+    height: calc(100vh - 310px);
 }
 
 .chat-head {
@@ -2494,8 +2494,9 @@ p.rt-doc-nm {
 
 @media (min-width:767px) {
     .toast-tip-icon {
-        width: 100% !important;
+        width: 91% !important;
         position: relative!important;
+        transform: translate(-54%, -6%)!important;
     }
 }
 
@@ -2506,7 +2507,7 @@ p.rt-doc-nm {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     background: #a0a0a0;
-    border-radius: 10px;
+    border-radius: 5px;
     height: auto;
     width: 88%;
 }
@@ -14277,7 +14278,10 @@ div.doc-srch-fltr.vip-slct-pop {
 
 /***** sticky header css ****/
 
-.fixed-chatbox {
-    position: sticky;
-    top: 100px;
+@media (min-width:768px) {
+    .fixed-chatbox {
+        position: sticky;
+        top: 100px;
+        z-index: 11;
+    }
 }
