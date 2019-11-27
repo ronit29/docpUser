@@ -177,15 +177,19 @@ class ChatStatic extends React.Component {
                                             </div> 
                                             : 
                                             <div className="chat_footer">
-                                                <div className="toast-tip-icon">
-                                                    <span className="toast-close-btn" onClick={() => {
-                                                        this.setState({ openBanner: false })
-                                                    }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
-                                                    <div className="wrng-mssg-pop">
-                                                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
-                                                        <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                                                {
+                                                    this.state.openBanner && 
+                                                    <div className="toast-tip-icon">
+                                                        <span className="toast-close-btn" onClick={() => {
+                                                            this.setState({ openBanner: false })
+                                                        }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
+                                                        <div className="wrng-mssg-pop">
+                                                            <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
+                                                            <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                }
+                                                
                                                 <div className="write-msg-bx">
                                                     <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                                 </div>

@@ -2494,9 +2494,9 @@ p.rt-doc-nm {
 
 @media (min-width:767px) {
     .toast-tip-icon {
-        width: 91% !important;
+        width: 99% !important;
         position: relative!important;
-        transform: translate(-54%, -6%)!important;
+        transform: translate(-50%, -6%)!important;
     }
 }
 
@@ -14282,6 +14282,6 @@ div.doc-srch-fltr.vip-slct-pop {
     .fixed-chatbox {
         position: sticky;
         top: 100px;
-        z-index: 11;
+        z-index: 1;
     }
 }
