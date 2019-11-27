@@ -143,7 +143,7 @@ class VipClub extends React.Component {
                         <div className="col-12 center-column">
                             <div className="container-fluid ">
                                 <div className="care-new-container font-analyze">
-                                    {this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && Object.keys(primary_user).length > 0 ?
+                                    {this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0 && primary_user && Object.keys(primary_user).length > 0 ?
                                         <div className="gold-white-bg-container card-container" >
                                             <div className="gold-card-section">
                                                 {/* <img src="assets/img/whitebg.png" alt="Gold Customer" className="shadow-img"/> */}
