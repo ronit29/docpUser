@@ -1088,9 +1088,10 @@ class PatientDetailsNew extends React.Component {
     sendEmailNotification(){
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let selected_hospital = {}
+        let patient
+        
         if (doctorDetails) {
             let { hospitals } = doctorDetails
-
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
                     if (hsptl.hospital_id == this.state.selectedClinic) {
@@ -1099,9 +1100,8 @@ class PatientDetailsNew extends React.Component {
                 })
             }
         }
-        let patient
+        
         if (Object.keys(selected_hospital).length > 0 && selected_hospital.is_ipd_hospital && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser && this.props.selectedDateFormat) {
-            console.log(selected_hospital)
             let { date, time,selectedDoctor, selectedClinic } = this.props.selectedSlot
 
             if (date) {
