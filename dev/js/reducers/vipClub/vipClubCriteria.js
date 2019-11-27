@@ -204,7 +204,7 @@ export default function (state = defaultState, action) {
         case SHOW_VIP_MEMBERS_FORM:{
             let newState = {
                 ...state
-            } 
+            }
             if(action.payload.data && Object.keys(action.payload.data).length > 0 && action.payload.data.members && action.payload.data.members.length > 0){
                     // newState.currentSelectedVipMembersId=[]
                     
@@ -213,6 +213,10 @@ export default function (state = defaultState, action) {
                     if(action.payload.data && action.payload.data.is_agent && Object.keys(newState.selected_vip_plan).length == 0){
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
+                    }
+                    if(action.payload.data.coupon_data && action.payload.data.coupon_data.length > 0){
+                        newState.vipCoupons = []
+                        newState.vipCoupons = action.payload.data.coupon_data
                     }
                     newState.savedMemberData = action.payload.data.members
             }

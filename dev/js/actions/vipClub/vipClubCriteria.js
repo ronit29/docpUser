@@ -224,7 +224,7 @@ export const pushMembersData = (criteria, callback) => (dispatch) =>{
     }
 
     if(criteria && criteria.dummy_data_type){
-        url+=`&dummy_data_type=${criteria.dummy_data_type}`
+        url+=`?dummy_data_type=${criteria.dummy_data_type}`
     }
     return API_POST(url, criteria).then(function (response) {
         if(callback) callback(response);
@@ -312,16 +312,17 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
     })
 }
 
-export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price})  => (dispatch) => {
+export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price,cb})  => (dispatch) => {
     API_POST(`/api/v1/coupon/discount`, {
         coupon_code: [couponCode],
         deal_price: deal_price,
         product_id: productId,
-        plan_id:plan_id
+        plan:plan_id
     }).then(function (response) {
-        console.log(response)  
-        debugger
-    }) 
+        if (cb) cb(response)
+    }).catch(function (error) {
+        if (cb) cb(null)
+    })
 }
 
 export const removeVipCoupons =() =>(dispatch)=>{

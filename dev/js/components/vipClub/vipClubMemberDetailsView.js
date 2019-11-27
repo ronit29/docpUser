@@ -22,10 +22,10 @@ class VipClubMemberDetailsView extends React.Component {
            	show_popup:false,
            	proceed:false,
            	popupMemData:{},
-           	is_tobe_dummy_user:false,
            	coupon_code:null,
            	coupon_id:null,
-           	is_payment_coupon_applied:false
+           	is_payment_coupon_applied:false,
+           	coupon_discount:null
         }
     }
     componentDidMount(){
@@ -33,7 +33,13 @@ class VipClubMemberDetailsView extends React.Component {
     		window.scrollTo(0,0)
     	}
     	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment && this.props.vipCoupons.length >0) {
-	    		this.props.applyCouponDiscount({ productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price })
+	    		this.props.applyCouponDiscount({ productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price,
+	    		cb: (resp) => {
+	    			if(resp){
+	    				this.setState({coupon_discount:resp.discount})
+	    			}
+	    		} 
+	    	})
 	    	this.setState({is_payment_coupon_applied:true,coupon_code:this.props.vipCoupons[0].code, coupon_id:this.props.vipCoupons[0].coupon_id })
 	    }
     }
@@ -49,7 +55,7 @@ class VipClubMemberDetailsView extends React.Component {
 			title: '',
 			profile:null,
 			profile_id:null,
-			phone_number:null,
+			phone_number:'',
 			isUserSelectedProfile:true,
 			day:null,
 			mnth:null,
@@ -61,10 +67,10 @@ class VipClubMemberDetailsView extends React.Component {
     	let card
     	let membersId = []
     	if(isFromDefaultUser && !this.props.is_from_payment){
-    		this.setState({is_tobe_dummy_user:true})
     		this.props.clearVipMemeberData()
 			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
 			member_dummy_data.id=0
+			member_dummy_data.is_tobe_dummy_user = true
 			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
     			this.props.userDetails('self_data', member_dummy_data)
     		})
@@ -78,6 +84,7 @@ class VipClubMemberDetailsView extends React.Component {
 			    		if(currentFormIdsCount <= total_allowed_members){
 							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount,isUserSelectedProfile:true})
 							member_dummy_data.id=currentFormIdsCount
+							member_dummy_data.is_tobe_dummy_user = false
 			    		}
 			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
 			    			this.props.userDetails('self_data', member_dummy_data)
@@ -125,36 +132,15 @@ class VipClubMemberDetailsView extends React.Component {
 	    		}
 	    		if(!isDummyUser){
 		    		membersId.push({'0':loginUser, type: 'self',member_form_id:0,isUserSelectedProfile:false})
-		    		// if(props.is_from_payment){
-			    	// 	membersId.push({[1]: 1, type:'adult',member_form_id:1,isUserSelectedProfile:false})
-			    	// }
 				}else{
 					membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false})
-					// if(props.is_from_payment){
-					// 	membersId.push({[1]: 1, type:'adult',member_form_id:1,isUserSelectedProfile:false})
-					// }
 				}
 				props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true })
 			}
 		} else if (!this.state.saveMembers && Object.keys(props.selected_vip_plan).length > 0 && props.is_from_payment && Object.keys(props.vip_club_db_data).length > 0) {
 			if (props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0) {
-				// membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
-				// membersId.push({[1]: 1, type:'adult'})
 				if (!Object.keys(props.vipClubMemberDetails).length) {
-					// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-					// 	if(value.relation === 'SELF'){
-					// 		membersId.push({[0]:value.id, type: 'self',member_form_id:value.id,isUserSelectedProfile:false})
-					// 	}
-					// })
-					// Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-					// 	if(value.relation !== 'SELF'){
-					// 		membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id,isUserSelectedProfile:false})
-					// 	}
-					// })
-					// if(props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length == 1){
-					// 	membersId.push({[0]: 0, type:'adult',member_form_id:0,isUserSelectedProfile:false})
-					// }
 					membersId.push({ [0]: 0, type: 'adult', member_form_id: 0, isUserSelectedProfile: false })
 					this.setState({ saveMembers: true})
 				} else {
@@ -163,44 +149,8 @@ class VipClubMemberDetailsView extends React.Component {
 							membersId.push({ [key]: props.vipClubMemberDetails[val[key]].id, type: 'adult', member_form_id: props.vipClubMemberDetails[val[key]].id, isUserSelectedProfile: false })
 						}
 					})
-					// Object.entries(props.vipClubMemberDetails).map(function ([key, value]) {
-					// 	let found = false
-					// 	membersId.map(function (k, val) {
-					// 		if (parseInt(k.member_form_id) == parseInt(key)) {
-					// 			found = true
-					// 		}
-					// 	})
-					// 	if (!found) {
-					// 		membersId.push({ [value.id]: value.id, type: 'adult', member_form_id: value.id, isUserSelectedProfile: false })
-					// 	}
-					// })
 				}
-				// if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-				// 	Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-				// 		if(value.relation === 'SELF'){
-				// 			membersId.push({[0]:value.id, type: 'self',member_form_id:value.id,isUserSelectedProfile:false})
-				// 		}
-				// 	})
-				// 	Object.entries(props.vip_club_db_data.data.user.plus_members).map(function([key, value]) {
-				// 		if(value.relation !== 'SELF'){
-				// 			membersId.push({[parseInt(key)+1]:value.id, type: 'adult',member_form_id:value.id,isUserSelectedProfile:false})
-				// 		}
-				// 	})
-				// 	if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length){
-				// 		Object.entries(props.vipClubMemberDetails).map(function ([key, value]) {
-				// 			let found = false
-				// 			membersId.map(function(k,val){
-				// 				if(parseInt(k.member_form_id) == parseInt(key)){
-				// 					found = true
-				// 				}
-				// 			})
-				// 			if(!found){
-				// 				membersId.push({[value.id]:value.id , type:'adult',member_form_id:value.id,isUserSelectedProfile:false})
-				// 			}
-				// 		}) 
-				// 	}
-				// }
-
+				
 				props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true })
 			}
@@ -264,6 +214,7 @@ class VipClubMemberDetailsView extends React.Component {
 			pushData.plan = this.props.selected_vip_plan
 			pushData.dummy_data_type = 'PLAN_PURCHASE'
 			pushData.members = []
+			pushData.coupon_data = this.props.vipCoupons
 			if (isSms) {
 				pushData.is_agent = true
 			} else {
@@ -615,9 +566,11 @@ class VipClubMemberDetailsView extends React.Component {
 			}
 		})
 	}
+
 	proceedMembersNo(is_wait) {
 		this.setState({ show_popup: false, proceed: false, popupMemData: {} })
 	}
+
 	applyCoupons(){
 		let selected_plan_id = null
 		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment) {
@@ -626,6 +579,11 @@ class VipClubMemberDetailsView extends React.Component {
 		this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.is_gold?8:11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
 		}
 	}
+
+	goBack() {
+       this.props.history.go(-1)
+    }
+
 	render() {
 		let child
 		let adult
@@ -677,7 +635,6 @@ class VipClubMemberDetailsView extends React.Component {
 									member_form_id = {i}
 									isUserSelectedProfile = {false}
 									show_extra_fields = {show_extra_fields}
-									is_tobe_dummy_user={this.state.is_tobe_dummy_user}
 								/>
 				})
 			}
@@ -757,7 +714,6 @@ class VipClubMemberDetailsView extends React.Component {
 													isUserSelectedProfile={false}
 													addMembers={this.addMembers.bind(this)}
 													show_extra_fields = {show_extra_fields}
-													is_tobe_dummy_user = {this.state.is_tobe_dummy_user}
 												/>
 													: <VipClubActivatedMemberDetails {...this.props} />
 												}
@@ -766,26 +722,18 @@ class VipClubMemberDetailsView extends React.Component {
 										{!this.props.is_from_payment ?
 											this.props.vipCoupons && this.props.vipCoupons.length > 0?
 											<div className="widget cpn-blur mrb-15 cursor-pointer">
-												<div className="widget-content d-flex jc-spaceb" >
-	                                                <div className="d-flex">
-	                                                    <span className="coupon-img">
-	                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon" />
-	                                                    </span>
-	                                                    <h4 className="title coupon-text" style={{ color: 'green' }}>
-	                                                        Coupon Applied
-	                                                    </h4>
-	                                                </div>
-	                                                <div className=" d-flex">
-	                                                    <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
-	                                                        {this.props.vipCoupons[0].code}
-	                                                    </h4>
-	                                                    <span className="visit-time-icon coupon-icon">
-	                                                        <img onClick={(e) => {
-	                                                            this.props.removeVipCoupons()
-	                                                            this.setState({  is_payment_coupon_applied: false })
-	                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-	                                                    </span>
-	                                                </div>
+												<div className="widget-content d-flex jc-spaceb mt-10" >
+                                                    <h4 className="title coupon-text d-flex align-item-center m-0" style={{ color: 'green' }}>
+                                                    	<img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon mr-10" />
+                                                        <span>Coupon Applied</span>
+                                                    </h4>
+                                                    <h4 className="title m-0 d-flex align-item-center" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
+                                                        <span className="mr-10">{this.props.vipCoupons[0].code}</span>
+                                                        <img style={{width:17}} onClick={(e) => {
+                                                            this.props.removeVipCoupons()
+                                                            this.setState({  is_payment_coupon_applied: false })
+                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+                                                    </h4>
 	                                            </div>
 	                                        </div>
                                             :
@@ -811,19 +759,19 @@ class VipClubMemberDetailsView extends React.Component {
 								}
 							</section>
 							{
-								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isAgent ?
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isAgent ?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.isAgent === 'false' ?
-										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
 											<span className="foot-btn-sub-span"></span>
 										</button>
 										: ''
 							}
 
 							{
-								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
+								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
 									{
 										this.props.isAgent === 'true' && this.props.isSalesAgent ?
 											<React.Fragment>
@@ -831,13 +779,13 @@ class VipClubMemberDetailsView extends React.Component {
 													<button className="add-shpng-cart-btn" data-disabled="true" onClick={this.proceedPlan.bind(this, true)}>Send SMS
 												<span className="foot-btn-sub-span"></span>
 													</button>
-													<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+													<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
 														<span className="foot-btn-sub-span"></span>
 													</button>
 												</div>
 											</React.Fragment>
 											: !this.props.isAgent && this.props.isAgent === 'false' ?
-												<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+												<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
 													<span className="foot-btn-sub-span"></span>
 												</button>
 												: ''
@@ -845,7 +793,7 @@ class VipClubMemberDetailsView extends React.Component {
 								</div>
 							}
 							{
-								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
+								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
 									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>
@@ -853,7 +801,7 @@ class VipClubMemberDetailsView extends React.Component {
 							}
 
 							{
-								STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
+								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true)}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
@@ -863,6 +811,13 @@ class VipClubMemberDetailsView extends React.Component {
 										</button>
 										: ''
 
+							}
+							{
+								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?
+								<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.goBack.bind(this)}>Continue Booking
+										<span className="foot-btn-sub-span"></span>
+										</button>
+								:''
 							}
 						</div>
 						<ChatPanel />
