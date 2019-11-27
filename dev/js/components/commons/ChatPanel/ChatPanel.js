@@ -682,6 +682,15 @@ class ChatPanel extends React.Component {
             return (
                 <div className="fixed-chatbox">
                     {
+                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                            <BannerCarousel {...this.props} sliderLocation="home_page" />
+                            : ''
+                    }
+                    {
+                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                            <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
+                    }
+                    {
                         this.state.openRefundPopup &&
                         <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
 
@@ -811,13 +820,13 @@ class ChatPanel extends React.Component {
                         }
                     </div>
 
-                    <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
-                        {/* <div className="wrng-mssg">
+                    {/* <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
+                        <div className="wrng-mssg">
                             <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                             <span>
                                 Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
-                        </div> */}
-                    </div>
+                        </div>
+                    </div> */}
 
                     {
                         // this.props.articleData ?
@@ -838,15 +847,7 @@ class ChatPanel extends React.Component {
                         //         }
                         //     </div> : ''
                     }
-                    {
-                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                            <BannerCarousel {...this.props} sliderLocation="home_page" />
-                            : ''
-                    }
-                    {
-                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
-                            <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
-                    }
+                    
                 </div>
             );
         }
