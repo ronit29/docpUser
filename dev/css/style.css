@@ -14286,9 +14286,10 @@ div.doc-srch-fltr.vip-slct-pop {
     .fixed-chatbox {
         position: sticky;
         top: 100px;
-        z-index: 1;
+        z-index: 11;
     }
 }
+
 .initialsPicture-ds,
 .initialsPicture-dp {
     border: 1px solid #ddd;
