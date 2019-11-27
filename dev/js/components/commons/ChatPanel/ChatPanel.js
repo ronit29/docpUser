@@ -812,11 +812,11 @@ class ChatPanel extends React.Component {
                     </div>
 
                     <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
-                        <div className="wrng-mssg">
+                        {/* <div className="wrng-mssg">
                             <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                             <span>
                                 Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
-                        </div>
+                        </div> */}
                     </div>
 
                     {

@@ -1348,7 +1348,7 @@ p.top-head-link.card-lab-link span {
 .onload-chat .chat_footer {
     display: block;
     width: 94%;
-    padding: 0 18px 0px 0px;
+    padding: 0px 0px 0px 0px;
     margin: auto;
 }
 
@@ -2491,6 +2491,13 @@ p.rt-doc-nm {
 
 
 /* chat-toast-icon */
+
+@media (min-width:767px) {
+    .toast-tip-icon {
+        width: 100% !important;
+        position: relative!important;
+    }
+}
 
 .toast-tip-icon {
     position: fixed;

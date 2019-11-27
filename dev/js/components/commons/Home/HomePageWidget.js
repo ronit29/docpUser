@@ -42,7 +42,7 @@ class HomePageWidget extends React.Component {
                     <span className="ofr-ribbon home-ofr-ribbon">Upto {this.props.discount} Off</span>
                 </div>
                 <div className="card-body">
-                    <div className="row mb-2">
+                    <div className="row mb-2 d-flex justify-content-between">
 
                         {
                             this.props.list.map((listItem, i) => {

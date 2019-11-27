@@ -174,22 +174,33 @@ class ChatStatic extends React.Component {
                                             this.state.utm_term ? <div className="utm-chat-footer">
                                                 <button className="utm-chat-btn" onClick={this.checkOpenMobileChat.bind(this)}>Start Chat for "{this.state.BasicEnquiry}"</button>
                                                 <p className="utm-clear-chat" onClick={this.removeUTM.bind(this)}>OR<span className="utm-sapprater">Start chat for any other health concern?</span></p>
-                                            </div> : <div className="chat_footer">
-                                                    <div className="write-msg-bx">
-                                                        <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
-                                                    </div>
-                                                    <div className="send_icon">
-                                                        {
-                                                            this.props.is_religare?
-                                                            <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
-                                                                <img src={ASSETS_BASE_URL + "/img/rel_send.svg"} className="send-md-icon" />
-                                                            </a>
-                                                            :<a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
-                                                                <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
-                                                            </a>
-                                                        }
+                                            </div> 
+                                            : 
+                                            <div className="chat_footer">
+                                                <div className="toast-tip-icon">
+                                                    <span className="toast-close-btn" onClick={() => {
+                                                        this.setState({ openBanner: false })
+                                                    }}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} /></span>
+                                                    <div className="wrng-mssg-pop">
+                                                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
+                                                        <span>Not for emergencies! In the case of emergency please visit a hospital.  Chat is only applicable to Indian citizens currently residing in India.</span>
                                                     </div>
                                                 </div>
+                                                <div className="write-msg-bx">
+                                                    <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
+                                                </div>
+                                                <div className="send_icon">
+                                                    {
+                                                        this.props.is_religare?
+                                                        <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
+                                                            <img src={ASSETS_BASE_URL + "/img/rel_send.svg"} className="send-md-icon" />
+                                                        </a>
+                                                        :<a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
+                                                            <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
                                         }
                                     </div>
 
