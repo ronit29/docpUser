@@ -680,7 +680,7 @@ class ChatPanel extends React.Component {
             )
         } else {
             return (
-                <div>
+                <div className="fixed-chatbox">
                     {
                         this.state.openRefundPopup &&
                         <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />

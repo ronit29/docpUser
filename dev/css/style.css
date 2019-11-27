@@ -14247,13 +14247,17 @@ div.doc-srch-fltr.vip-slct-pop {
     margin-right: 3px;
 }
 
+
 /** book now button allignment css**/
-.booking-column{
+
+.booking-column {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-}  
-.hpl-logo-name, .fltr-usr-image-lab {
+}
+
+.hpl-logo-name,
+.fltr-usr-image-lab {
     width: 60px!important;
     height: 60px;
     border: 1px solid #ddd;
@@ -14261,4 +14265,12 @@ div.doc-srch-fltr.vip-slct-pop {
     padding: 2px;
     object-fit: contain;
     object-position: center;
+}
+
+
+/***** sticky header css ****/
+
+.fixed-chatbox {
+    position: sticky;
+    top: 100px;
 }
