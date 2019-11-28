@@ -568,6 +568,20 @@ class BookingView extends React.Component {
                                             this.props.history.push(`/user/opd/reports/${this.state.data.id}`)
                                         }} className="viewpresbtn">View Prescription</button> : ""
                                     }
+                                    {
+                                        this.state.data && this.state.data.appointment_via_sbi?
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <button className="doc-top-book-btn" onClick={()=>{}}>
+                                                                Book Now
+                                                        </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        :''
+                                    }
+
                                 </section> : <Loader />
                             }
 

@@ -26,7 +26,7 @@ class OrderSummaryView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchOrderSummary(this.props.match.params.id).then((res) => {
                 if (res.data && res.data.length) {
-                    this.setState({ items: res.data })
+                    this.setState({ items: res.data, data: res })
 
                     let orderId = this.props.match.params.id
                     let deal_price = 0
@@ -180,6 +180,19 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                     </div>
                                                 })
+                                            }
+                                            {
+                                                this.state.data && this.state.data.appointment_via_sbi?
+                                                <div className="container-fluid">
+                                                    <div className="row">
+                                                        <div className="col-12">
+                                                            <button className="doc-top-book-btn" onClick={()=>{}}>
+                                                                        Book Now
+                                                                </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                :''
                                             }
 
                                         </div>

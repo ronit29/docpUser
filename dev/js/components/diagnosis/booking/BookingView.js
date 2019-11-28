@@ -576,6 +576,19 @@ class BookingView extends React.Component {
                                                 this.props.history.push(`/user/lab/reports/${this.state.data.id}`)
                                             }} className="viewpresbtn">View Reports</button> : ""
                                         }
+                                        {
+                                            this.state.data && this.state.data.appointment_via_sbi?
+                                            <div className="container-fluid">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <button className="doc-top-book-btn" onClick={()=>{}}>
+                                                                    Book Now
+                                                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            :''
+                                        }
                                     </section> : <Loader />
                             }
 
