@@ -116,30 +116,30 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                         <div className={item.booking_id ? "" : "cart-card-blur-opacity"}>
                                                             {
-                                                                !item.is_vip_member && !item.covered_under_vip?
-                                                                <div className="shopng-cart-price">
-                                                                    {
-                                                                        item.payment_type == 3 ? <span>{item.data.profile && item.data.profile.name ? item.data.profile.name : ''}</span>
-                                                                            : item.payment_type == 1 || item.payment_type == 4 ? <p>
-                                                                                <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                                {" " + item.effective_price}
-                                                                            </p> : item.payment_type == 2 ?
-                                                                                    <p>
-                                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                                        {" " + item.cod_deal_price}
-                                                                                    </p>
-                                                                                    : <p>
-                                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                                        {" " + item.mrp}
-                                                                                    </p>
-                                                                    }
-                                                                </div>
-                                                                :<div className="shopng-cart-price">
-                                                                    <div className="text-right mb-2">
-                                                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                !item.is_vip_member && !item.covered_under_vip ?
+                                                                    <div className="shopng-cart-price">
+                                                                        {
+                                                                            item.payment_type == 3 ? <span>{item.data.profile && item.data.profile.name ? item.data.profile.name : ''}</span>
+                                                                                : item.payment_type == 1 || item.payment_type == 4 ? <p>
+                                                                                    <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                    {" " + item.effective_price}
+                                                                                </p> : item.payment_type == 2 ?
+                                                                                        <p>
+                                                                                            <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                            {" " + item.cod_deal_price}
+                                                                                        </p>
+                                                                                        : <p>
+                                                                                            <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                            {" " + item.mrp}
+                                                                                        </p>
+                                                                        }
                                                                     </div>
-                                                                    <p>₹ {item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
-                                                                </div>
+                                                                    : <div className="shopng-cart-price">
+                                                                        <div className="text-right mb-2">
+                                                                            <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                        </div>
+                                                                        <p>₹ {item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
+                                                                    </div>
                                                             }
                                                             <div className="widget-header dr-qucik-info">
                                                                 <div>
@@ -171,7 +171,7 @@ class OrderSummaryView extends React.Component {
                                                                 </ul>
                                                             </div>
                                                             {
-                                                                item.payment_mode && 
+                                                                item.payment_mode &&
                                                                 <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                                                                     <span>Payment mode</span>
                                                                     <span>{item.payment_mode}</span>
@@ -182,17 +182,15 @@ class OrderSummaryView extends React.Component {
                                                 })
                                             }
                                             {
-                                                this.state.data && this.state.data.appointment_via_sbi?
-                                                <div className="container-fluid">
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            <button className="doc-top-book-btn" onClick={()=>{}}>
-                                                                        Book Now
-                                                                </button>
-                                                        </div>
+                                                this.state.data && this.state.data.appointment_via_sbi ?
+
+                                                    <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                        <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { }}>
+                                                            Book Now
+                                                        </button>
                                                     </div>
-                                                </div>
-                                                :''
+
+                                                    : ''
                                             }
 
                                         </div>

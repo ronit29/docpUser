@@ -570,15 +570,13 @@ class BookingView extends React.Component {
                                     }
                                     {
                                         this.state.data && this.state.data.appointment_via_sbi?
-                                        <div className="container-fluid">
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <button className="doc-top-book-btn" onClick={()=>{}}>
+                                       
+                                                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={()=>{}}>
                                                                 Book Now
                                                         </button>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            
                                         :''
                                     }
 
