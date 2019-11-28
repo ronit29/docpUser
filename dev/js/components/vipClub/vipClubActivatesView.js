@@ -84,6 +84,17 @@ class VipClub extends React.Component {
         document.execCommand("copy");
     }
 
+    navigateTo(where, type, data, e) {
+		if (e) {
+			e.preventDefault()
+			e.stopPropagation()
+		}
+		if (type) {
+			this.props.selectSearchType(type)
+		}
+		this.props.history.push(where)
+	}
+
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -219,25 +230,34 @@ class VipClub extends React.Component {
                                     }
                                     {/* ================== gold benifits  ================== */}
                                     {this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0 ?
-                                        <div className="vip-offer-cards p-12 mb-24">
+                                        <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
                                             <div className="gold-benifi-cards-cont vip-club">
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                    <p>Book <br/> Doctors</p>
+                                                    <a href="/search" onClick={(e) => {
+                                                        e.preventDefault();
+                                                        this.navigateTo("/search", 'opd')
+                                                    }}><img src={ASSETS_BASE_URL + '/img/gl1.png'} /></a>
+                                                    <p className="mr-t-5">Book <br/> Doctors</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                    <p>Book Lab <br/> Test</p>
+                                                <a href="/search" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search", 'lab')
+                                                }}><img src={ASSETS_BASE_URL + '/img/gl2.png'} /></a>
+                                                    <p className="mr-t-5">Book Lab <br/> Test</p>
                                                 </div>
                                                 <div className="gold-benifi-cards mr-b-0">
-                                                    <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                    <p>Order <br/> Medicines</p>
+                                                    <a target="_blank" href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
+                                                        <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                    </a>
+                                                    <p className="mr-t-5">Order <br/> Medicines</p>
                                                 </div>
                                             </div>
                                         </div>
                                     :''}
                                     {/**vip discount dashboard**/}
-                                    <div className="vip-offer-cards vip-discount-col p-12 mb-24 ">
+                                    <div className="vip-discount-col p-12 mb-24 no-overflow">
+                                        <img className="bg-circle-img" src="/assets/img/circle-bg.png" alt="circle" />
                                         <div className="offer-col"> 
                                             <p>Upto 23% OFF <br/> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>

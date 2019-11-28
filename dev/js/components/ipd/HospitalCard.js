@@ -15,7 +15,7 @@ class HospitalCard extends React.Component {
          <div>
             <li className="cstm-docCard mb-3">
                <div className="cstm-docCard-content">
-                  <div className="row no-gutters">
+                  <div className="row no-gutters" style={{paddingBottom:10}}>
                      <div className="col-7">
                         <a href={`${data.url ? data.url : `/ipd/hospital/${data.id}`}`} onClick={(e) => {
                         e.preventDefault()

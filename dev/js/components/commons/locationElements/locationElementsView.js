@@ -80,7 +80,9 @@ class LocationElementsView extends React.Component {
         }
         if (e.target.getAttribute('id') === 'article-type-input-field') {
             var top = document.getElementsByClassName('articleTypeloc')[0];
-            window.scroll(0, top.offsetParent.offsetTop);
+            if(top.offsetParent) {
+                window.scroll(0, top.offsetParent.offsetTop);
+            }
         }
     }
 
