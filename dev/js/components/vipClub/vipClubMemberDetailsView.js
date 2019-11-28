@@ -580,10 +580,6 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	goBack() {
-       this.props.history.go(-1)
-    }
-
 	render() {
 		let child
 		let adult
@@ -759,7 +755,7 @@ class VipClubMemberDetailsView extends React.Component {
 								}
 							</section>
 							{
-								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isAgent ?
+								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isAgent ?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
 										<span className="foot-btn-sub-span"></span>
 									</button>
@@ -771,7 +767,7 @@ class VipClubMemberDetailsView extends React.Component {
 							}
 
 							{
-								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
+								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
 									{
 										this.props.isAgent === 'true' && this.props.isSalesAgent ?
 											<React.Fragment>
@@ -793,7 +789,7 @@ class VipClubMemberDetailsView extends React.Component {
 								</div>
 							}
 							{
-								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
+								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
 									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>
@@ -801,7 +797,7 @@ class VipClubMemberDetailsView extends React.Component {
 							}
 
 							{
-								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?'': STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
+								STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true)}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
@@ -811,13 +807,6 @@ class VipClubMemberDetailsView extends React.Component {
 										</button>
 										: ''
 
-							}
-							{
-								this.props.is_booking_page !=  '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?
-								<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.goBack.bind(this)}>Continue Booking
-										<span className="foot-btn-sub-span"></span>
-										</button>
-								:''
 							}
 						</div>
 						<ChatPanel />

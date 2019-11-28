@@ -16,8 +16,7 @@ class VipClubMemberDetails extends React.Component{
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent,
             is_gold:parsed.is_gold || false,
-            is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false,
-            is_booking_page:parsed.from_booking?parsed.from_booking:null
+            is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false
         }
     }
 
@@ -30,7 +29,7 @@ class VipClubMemberDetails extends React.Component{
 	render(){
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView){
-            return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold} is_booking_page={this.state.is_booking_page}/>
+            return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold} />
         }else{
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">

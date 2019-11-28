@@ -214,8 +214,7 @@ export default function (state = defaultState, action) {
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
                     }
-                    if(action.payload.data.coupon_data && action.payload.data.coupon_data.length > 0){
-                        newState.vipCoupons = []
+                    if(action.payload.data.coupon_data){
                         newState.vipCoupons = action.payload.data.coupon_data
                     }
                     newState.savedMemberData = action.payload.data.members
