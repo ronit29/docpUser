@@ -126,6 +126,25 @@ class App extends React.Component {
             this.props.setCommonUtmTags('chat', tags)
         }
 
+        //save UTM Tags for SBI
+        if(parsed.utm_source && parsed.utm_source=='sbi_utm'){
+            let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+            if(sessionStorage) {
+                sessionStorage.setItem('sbiSessionIdVal',sessionId)   
+            }
+            let tags = {
+                utm_tags: {
+                    utm_source: parsed.utm_source||'',
+                    utm_term: parsed.utm_term||'',
+                    utm_medium: parsed.utm_medium||'',
+                    utm_campaign: parsed.utm_campaign||''
+                },
+                time: new Date().getTime(),
+                currentSessionId: sessionId
+            }
+            this.props.setCommonUtmTags('sbi_utm', tags)
+        }
+
         // set summary page utm_source
         if (utm_tags.utm_source == 'alpha_december_18') {
             let validity = new Date()
