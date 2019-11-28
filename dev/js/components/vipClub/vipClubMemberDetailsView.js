@@ -91,20 +91,6 @@ class VipClubMemberDetailsView extends React.Component {
 			    		})
 			    	}
     		}
-	    // 	if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
-	    // 		membersId = [].concat(this.props.currentSelectedVipMembersId)
-	    // 		if(this.props.currentSelectedVipMembersId.length == 2){
-					// membersId.push({[2]: 2, type:'adult'})
-					// member_dummy_data.id=2
-	    // 		}
-	    // 		if(this.props.currentSelectedVipMembersId.length == 3){
-					// membersId.push({[3]: 3, type:'adult'})
-					// member_dummy_data.id=3
-	    // 		}
-	    // 		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-	    // 			this.props.userDetails('self_data', member_dummy_data)
-	    // 		})
-	    // 	}
 	    }
     }
 
@@ -220,12 +206,6 @@ class VipClubMemberDetailsView extends React.Component {
 			} else {
 				pushData.is_agent = false
 			}
-			// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-			// if(!isDummyUser){
-			// 	self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
-			// }else{
-			// 	self_profile = this.props.vipClubMemberDetails[0]	
-			// }	
 			let fields = []
 			this.props.currentSelectedVipMembersId.map((val, key) => {
 				if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
@@ -272,18 +252,6 @@ class VipClubMemberDetailsView extends React.Component {
 						}
 
 						if (!this.props.is_from_payment) {
-							// if(param.state == "" || param.state_code == ""){  
-							// 	is_disable = true
-							// 	fields.push('state')
-							// }
-							// if(param.address == ""){  
-							// 	is_disable = true
-							// 	fields.push('address')
-							// }
-							// if(param.pincode == ""){  
-							// 	is_disable = true
-							// 	fields.push('pincode')
-							// }
 							if(!param.phone_number && !param.isDummyUser){
 								is_disable = true
 								fields.push('phone_number')
@@ -540,10 +508,6 @@ class VipClubMemberDetailsView extends React.Component {
 	}
 
 	pushUserData(data) {
-		// let parsed = queryString.parse(this.props.location.search)
-		// if(this.props.vipPlusLead && parsed && parsed.utm_source) {
-		//        this.props.vipPlusLead({ ...data, utm_source:this.props.isSalesAgent })
-		//    }
 		this.props.pushMembersData(data)
 	}
 
@@ -594,13 +558,7 @@ class VipClubMemberDetailsView extends React.Component {
 			}
 		}
 		let show_extra_fields = false
-		// if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
-		// 	Object.entries(this.props.savedMemberData).map(function([key, value]) {
-		// 		if(value.relation == 'SELF'){
-		// 			proposer_id = value.id
-		// 		}
-		//   		})
-		// }
+		
 		if (this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0) {
 			this.props.currentSelectedVipMembersId.filter(x => x.isUserSelectedProfile).map((data, i) => {
 				proposer_id = data[i]
@@ -609,7 +567,7 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId = 0
-		// console.log(this.props.currentSelectedVipMembersId)
+		
 		if (this.props.is_from_payment && Object.keys(this.props.selected_vip_plan).length > 0) {
 
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
