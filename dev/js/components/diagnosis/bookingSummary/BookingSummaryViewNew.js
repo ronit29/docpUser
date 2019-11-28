@@ -1375,6 +1375,7 @@ class BookingSummaryViewNew extends React.Component {
         //Gold Radio button Selected Package Price List
         let gold_pricelist_mrp = 0
         let gold_pricelist_deal_price = 0
+        let gold_pricelist_convenience = 0
         if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
             is_tests_covered_under_insurance = true
 
@@ -1400,6 +1401,7 @@ class BookingSummaryViewNew extends React.Component {
                 if(!this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.tests && this.props.selected_vip_plan.tests[test.test_id]) {
                     gold_pricelist_mrp+= (this.props.selected_vip_plan.tests[test.test_id].mrp || 0)
                     gold_pricelist_deal_price+= (this.props.selected_vip_plan.tests[test.test_id].gold_price || 0)
+                    gold_pricelist_convenience+= (this.props.selected_vip_plan.tests[test.test_id].convenience_charge || 0)
                 }
             })
 
@@ -1704,8 +1706,8 @@ class BookingSummaryViewNew extends React.Component {
         //SET PAYMENT SUMMARY PRICE
         let display_docprime_discount = finalMrp - finalPrice
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests) {
-            display_docprime_discount = parseInt(gold_pricelist_mrp) - parseInt(gold_pricelist_deal_price)
-            total_amount_payable = parseInt(gold_pricelist_deal_price) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) + this.props.selected_vip_plan.deal_price// - (this.props.disCountedLabPrice || 0)
+            display_docprime_discount = parseInt(gold_pricelist_mrp) - ( parseInt(gold_pricelist_deal_price) + parseInt(gold_pricelist_convenience))
+            total_amount_payable = parseInt(gold_pricelist_deal_price) + parseInt(gold_pricelist_convenience) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) // - (this.props.disCountedLabPrice || 0)
             total_price = total_amount_payable
         }
         let extraParams = {
@@ -1982,8 +1984,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 }}>?</span></h4>
                                                                                     {
                                                                                      gold_pricelist_deal_price == gold_pricelist_mrp
-                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`}</span>
-                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
+                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
+                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
                                                                                      
                                                                                     }
                                                                                 </div>
