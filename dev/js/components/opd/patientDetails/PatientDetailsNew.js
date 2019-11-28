@@ -1285,6 +1285,7 @@ class PatientDetailsNew extends React.Component {
 
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let total_amount_payable_without_coupon = null
+        let is_selected_user_gold = false
         if(doctorDetails) {
             let { hospitals } = doctorDetails
             let hospital = {}
@@ -1292,6 +1293,7 @@ class PatientDetailsNew extends React.Component {
 
             if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
                 patient = this.props.profiles[this.props.selectedProfile]
+                is_selected_user_gold = this.props.profiles[this.props.selectedProfile].is_vip_gold_member
             }
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
