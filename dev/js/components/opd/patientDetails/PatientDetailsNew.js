@@ -983,7 +983,7 @@ class PatientDetailsNew extends React.Component {
         if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
-
+        
         price_from_pg = price_to_pay - price_from_wallet
 
         if (price_from_pg) {
@@ -1536,9 +1536,9 @@ class PatientDetailsNew extends React.Component {
         let display_docprime_discount  = display_total_mrp - (parseInt(priceData.deal_price) + treatment_Price)
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
             display_total_mrp = (this.props.selected_vip_plan.opd.mrp||0)
-            display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price||0)
-            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
-            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
+            display_docprime_discount =display_total_mrp-(this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
+            finalPrice = (this.props.selected_vip_plan.opd.gold_price ||0) +(this.props.selected_vip_plan.opd.convenience_charge) + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
+            total_amount_payable = this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge + this.props.selected_vip_plan.deal_price// - (this.props.disCountedOpdPrice||0)
         }
 
         let extraParams = {
@@ -1832,8 +1832,8 @@ class PatientDetailsNew extends React.Component {
                                                                                                 
                                                                                                 {
                                                                                                 this.props.selected_vip_plan.opd.mrp == this.props.selected_vip_plan.opd.gold_price
-                                                                                                    ?<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>
-                                                                                                    :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
+                                                                                                    ?<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`}</span>
+                                                                                                    :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
                                                                                                  
                                                                                                 }
                                                                                             </div>
