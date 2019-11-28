@@ -5,6 +5,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import TermsConditions from './termsConditions.js'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 
 class CouponSelectionView extends React.Component {
@@ -89,6 +90,30 @@ class CouponSelectionView extends React.Component {
         this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids, deal_price, cart_item })
     }
 
+    pushGoldData(coupon){
+        const parsed = queryString.parse(this.props.location.search)
+        let gold_push_data={}
+        let param
+        gold_push_data.plan = this.props.selected_vip_plan
+        gold_push_data.dummy_data_type = 'PLAN_PURCHASE'
+        gold_push_data.members = []
+        gold_push_data.coupon_data = []
+        gold_push_data.coupon_data.push(coupon)
+        gold_push_data.utm_spo_tags = parsed
+        this.props.currentSelectedVipMembersId.map((val, key) => {
+        if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
+            param = this.props.vipClubMemberDetails[val[key]]
+            gold_push_data.members.push(param)
+            }
+        })
+        if(STORAGE.isAgent()){
+            gold_push_data.is_agent = true
+        }else{
+            gold_push_data.is_agent = false
+        }
+        this.props.pushMembersData(gold_push_data)
+    }
+
     componentDidMount() {
         this.initialSetCoupons(this.props)
     }
@@ -102,6 +127,9 @@ class CouponSelectionView extends React.Component {
     toggleButtons(coupon, e) {
         if (coupon.valid) {
             this.setState({ coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: '' })
+            if(this.state.appointmentType == 3){
+                this.pushGoldData(coupon)
+            }
             this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id, (success) => {
             })
             this.props.history.go(-1)

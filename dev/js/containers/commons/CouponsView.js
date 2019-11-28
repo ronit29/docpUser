@@ -23,13 +23,13 @@ const mapStateToProps = (state) => {
 		selectedSlot
 	} = state.DOCTOR_SEARCH
 
-	let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data, members_proofs, showVipDetailsView,savedMemberData, vipCoupons } = state.VIPCLUB
+	let {  selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vipCoupons } = state.VIPCLUB
 
 	return {
 		applicableCoupons,
 		selectedSlot,
 		selectedProfile, profiles,
-		vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData, vipCoupons
+		 selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vipCoupons
 	}
 }
 
