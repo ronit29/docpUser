@@ -731,7 +731,7 @@ class VipClubMemberDetailsView extends React.Component {
                                                         <span className="mr-10">{this.props.vipCoupons[0].code}</span>
                                                         <img style={{width:17}} onClick={(e) => {
                                                             this.props.removeVipCoupons()
-                                                            this.setState({  is_payment_coupon_applied: false })
+                                                            this.setState({  is_payment_coupon_applied: false, coupon_discount:null })
                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                     </h4>
 	                                            </div>
