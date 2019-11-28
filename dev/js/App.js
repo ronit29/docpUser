@@ -132,6 +132,7 @@ class App extends React.Component {
             if(sessionStorage) {
                 sessionStorage.setItem('sbiSessionIdVal',sessionId)   
             }
+            STORAGE.setAnyCookie('sbi_utm', true, 30);
             let tags = {
                 utm_tags: {
                     utm_source: parsed.utm_source||'',
@@ -205,12 +206,13 @@ class App extends React.Component {
 
 
     render() {
+        let sbi_theming = STORAGE.getAnyCookie('sbi_utm');
 
         return (
             <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true)}>
                 <NotificationsBoot />
                 <BrowserRouter>
-                    <div>
+                    <div className={sbi_theming?'sbi-theming':'docprime-theming'}>
                         <Route path="/" component={logPageView} />
                         <Routes />
                     </div>

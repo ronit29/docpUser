@@ -159,6 +159,32 @@
 
     <style><%-bootstrap_file%></style>
     <style><%-css_file%></style>
+
+    <% if(show_sbi_theme){ %>
+
+      <style type="text/css">
+        body{
+          --background--main--dark: #178ddd;
+          --text--primary--color:#3593D2;
+          --gradient--dull--color:#65C5EB;
+          --text--primary--hover:#3593D2;
+          --text--dark--all:#2f2a6b;
+          --chat--light--color:#cdebff;
+        }
+      </style>
+    <% } else { %>
+         <style type="text/css">
+          body{
+            --background--main--dark: orange;
+            --text--primary--color:orange;
+            --gradient--dull--color:orange;
+            --text--primary--hover:orange;
+            --text--dark--all:orange;
+            --chat--light--color:orange;
+           }
+         </style>
+
+    <% }  %>
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

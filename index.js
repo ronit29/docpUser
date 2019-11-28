@@ -16,6 +16,7 @@ const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}asset-loadable.json`))
 const index_bundle = _find_index_bundle()
 const compression = require('compression')
 
+
 let cache = {
     html: "",
     storeData: "",
@@ -39,6 +40,8 @@ import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
 import Loadable from 'react-loadable';
 const helmet = require('helmet')
+//import STORAGE from './dev/js/helpers/storage'
+import CookieHelper from './dev/js/helpers/storage/cookie.js'
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
 
@@ -88,15 +91,40 @@ app.get('/disbaled-apple-app-site-association', function (req, res) {
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
+function getUtmParams(req, res){
+    try{
+        if(req && req.query && req.query.utm_source=='sbi_utm'){
+            res.cookie('sbi_utm',true, { maxAge: 900000});
+        }
+    }catch(e) {
+
+    }
+}
 
 app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
+
+    if(CookieHelper && CookieHelper.init){
+        CookieHelper.init(req);
+    }
+
+    getUtmParams(req, res);
+
      if(req.get('host') && req.get('host').includes('www.')) {
         let redirect_url = "https://docprime.com" + req.originalUrl
         res.writeHead(301, { "Location": redirect_url })
         return res.end()
+     }
+     let show_sbi_theme = false
+     if( (req && req.query && req.query.utm_source=='sbi_utm') || (req && req.cookies && req.cookies.sbi_utm) ) {
+        show_sbi_theme = true;
+        try{
+            res.cookie('sbi_utm',true, { maxAge: 900000});
+        }catch(e){
+
+        }
      }
     _readStyles().then((styleFiles) => {
 
@@ -194,7 +222,7 @@ app.all('*', function (req, res) {
                 _serverHit(req, 'server_done')
                 res.set('X-Frame-Options', 'sameorigin');
                 res.render('index.ejs', {
-                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles, show_sbi_theme
                 })
             }, 10000)
 
@@ -269,7 +297,7 @@ app.all('*', function (req, res) {
                     // }
 
                     res.render('index.ejs', {
-                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
+                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles, show_sbi_theme
                     })
 
                 } catch (e) {
@@ -281,7 +309,7 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles, show_sbi_theme
                     })
                 }
 
@@ -309,7 +337,7 @@ app.all('*', function (req, res) {
                     res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles, show_sbi_theme
                     })
                 }
             })
@@ -321,7 +349,7 @@ app.all('*', function (req, res) {
             }
             _serverHit(req, 'server_done')
             res.render('index.ejs', {
-                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
+                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles, show_sbi_theme
             })
         }
 
