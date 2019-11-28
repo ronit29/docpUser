@@ -230,6 +230,10 @@ class BookingView extends React.Component {
         this.props.history.push(`/lab/${this.state.data.lab.id}/book`)
     }
 
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
+    }
+
     render() {
         let profile = {}
         let lab_test = []
@@ -580,8 +584,8 @@ class BookingView extends React.Component {
                                             this.state.data && this.state.data.appointment_via_sbi ?
 
                                                 <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
-                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { }}>
-                                                        Book Now
+                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { this.navigateToSBI()}}>
+                                                        Go Back To SBIG Home
                                                         </button>
                                                 </div>
 
