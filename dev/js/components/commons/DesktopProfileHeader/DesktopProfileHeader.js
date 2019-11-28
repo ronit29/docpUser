@@ -17,6 +17,7 @@ class DesktopProfileHeader extends React.Component {
 
     componentDidMount() {
         this.setState({ showLeftMenu: true })
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,6 +30,29 @@ class DesktopProfileHeader extends React.Component {
                 }
             })
         }
+        window.addEventListener('scroll', () => {
+            const scrollHeight = window.pageYOffset;
+            const gHeader = document.getElementById('is_header');
+            gHeader.style.backgroundImage = "none";
+            
+            if(document.getElementById('lw-header')){
+                const secHeight = document.getElementById('lw-header');               
+                if(scrollHeight >= 30){
+                    secHeight.classList.add("d-none",'slideInUp');
+
+                }else{
+                    secHeight.classList.remove("d-none", 'slideInUp');
+                }
+            }
+            if(document.getElementById('listing-header')){
+                const lvHeader = document.getElementById('listing-header');             
+                if(scrollHeight >= 30){
+                    lvHeader.classList.add('d-flex','slideInDown')
+                }else{
+                    lvHeader.classList.remove('d-flex','slideInDown')
+                }
+            }
+        })
     }
 
     navigateTo(where, type) {
@@ -196,14 +220,13 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
 
-                    <div className="row align-items-center">
+                    <div className="row align-items-center" id="lw-header">
 
                         <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
-                                this.toggleLeftMenu()
-                            }}>
+                                this.toggleLeftMenu()}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
@@ -379,27 +402,50 @@ class DesktopProfileHeader extends React.Component {
 
                         {
                             this.state.medicinePopup ?
-                                <div className='col-12 mrb-15'>
-                                    <div className="search-show art-padding d-lg-none">
-                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-medicines")
-                                        }}>
-                                            <span>All Medicines</span>
-                                        </a>
+                            <div className='col-12 mrb-15'>
+                                <div className="search-show art-padding d-lg-none">
+                                    <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-medicines")
+                                    }}>
+                                        <span>All Medicines</span>
+                                    </a>
 
-                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-diseases")
-                                        }}>
-                                            <span>All Diseases</span>
-                                        </a>
-                                    </div>
+                                    <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-diseases")
+                                    }}>
+                                        <span>All Diseases</span>
+                                    </a>
                                 </div>
-                                : ''
+                            </div>
+                            : ''
                         }
 
                         <div className="col-12 d-lg-none">
+                            {
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                    <div onClick={this.openSearch.bind(this)}>
+                                        <div className="header-serach-input-div">
+                                            <span>Search Doctors &amp; Tests</span>
+                                        </div>
+                                        {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    </div>
+                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                </div> : ""
+                            }
+                        </div>
+                    </div>
+
+                    <div className="row listing-view-header" id="listing-header">
+                        <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                            e.stopPropagation()
+                            document.body.style.overflow = "hidden"
+                            this.toggleLeftMenu()}}>
+                            <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                        </div>
+                        <div className="col-10 d-lg-none pd-0">
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
                                     <div onClick={this.openSearch.bind(this)}>
