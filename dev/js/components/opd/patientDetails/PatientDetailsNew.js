@@ -1974,6 +1974,14 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                     : ''}
                                                                                 {
+                                                                                    //When Gold Membership is buying
+                                                                                    showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price?
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p>Docprime Gold Membership </p>
+                                                                                        <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
+                                                                                    </div>:''
+                                                                                }
+                                                                                {
                                                                                     !(is_selected_user_gold/* && vip_data.hosp_is_gold*/) && !is_vip_applicable /*&& priceData.fees != 0 */&& parseInt(display_docprime_discount)>0 ? <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {display_docprime_discount}</p>
@@ -1998,14 +2006,6 @@ class PatientDetailsNew extends React.Component {
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
                                                                                         </div>
                                                                                         : ''
-                                                                                }
-                                                                                {
-                                                                                    //When Gold Membership is buying
-                                                                                    showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.selected_vip_plan && this.props.selected_vip_plan.deal_price?
-                                                                                    <div className="payment-detail d-flex">
-                                                                                        <p>Docprime Gold Membership </p>
-                                                                                        <p> &#8377; {this.props.selected_vip_plan.deal_price}</p>
-                                                                                    </div>:''
                                                                                 }
                                                                             </div>
                                                                             <hr />
