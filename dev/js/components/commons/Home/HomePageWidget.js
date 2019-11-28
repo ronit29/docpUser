@@ -47,7 +47,7 @@ class HomePageWidget extends React.Component {
                         {
                             this.props.list.map((listItem, i) => {
                                 return <div className="col-4 home-card-col" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
-                                    <div className="grid-img-cnt brdr-btm">
+                                    <div className="grid-img-cnt doc-icon-col brdr-btm">
                                         {
                                             listItem.url ?
                                                 <a href={`/${listItem.url}`} onClick={(e) => e.preventDefault()}>
@@ -68,7 +68,7 @@ class HomePageWidget extends React.Component {
                         {
                             this.props.searchType ?
                                 <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
-                                    <div className="grid-img-cnt brdr-btm">
+                                    <div className="grid-img-cnt brdr-btm doc-icon-col">
                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
                                             <img className="img-fluid" src={ASSETS_BASE_URL + "/images/vall.png"} />
                                             <span>Search more {this.props.searchType}</span>
