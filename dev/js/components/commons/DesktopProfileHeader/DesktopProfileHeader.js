@@ -3,6 +3,7 @@ import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
 import LeftMenu from '../LeftMenu/LeftMenu.js'
 import IpdChatPanel from '../ChatPanel/ChatIpdPanel.js'
+import STORAGE from '../../../helpers/storage'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -205,16 +206,20 @@ class DesktopProfileHeader extends React.Component {
                                 this.toggleLeftMenu()
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
-                            </div>
-                            {
-                                sessionStorage && typeof sessionStorage =='object' && sessionStorage.getItem('sbiSessionIdVal')?
-                                <a className="logo-ancher logo-width-cut sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
-                                    <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
-                                </a>
-                                :''
-                            }
+                            </div>   
+                            <a className="logo-ancher logo-width-cut sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
+                                <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
+                                {
+                                    STORAGE && STORAGE.getAnyCookie('sbi_utm')?
+                                    <React.Fragment>
+                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                    </React.Fragment>
+                                    :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                }
+                                
+                                
+                            </a>
                             
                         </div>
 

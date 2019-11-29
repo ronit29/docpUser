@@ -118,13 +118,14 @@ app.all('*', function (req, res) {
         return res.end()
      }
      let show_sbi_theme = false
-     if( (req && req.query && req.query.utm_source=='sbi_utm') || (req && req.cookies && req.cookies.sbi_utm) ) {
-        show_sbi_theme = true;
-        try{
-            res.cookie('sbi_utm',true, { maxAge: 900000});
-        }catch(e){
 
-        }
+     try{
+         if( (req && req.query && req.query.utm_source=='sbi_utm') || (req && req.cookies && req.cookies.sbi_utm) || (req && req.headers && req.headers.cookie && req.headers.cookie.includes('sbi_utm') ) ) {
+            show_sbi_theme = true;
+            res.cookie('sbi_utm',true, { maxAge: 900000});
+         }
+     }catch(e){
+
      }
     _readStyles().then((styleFiles) => {
 

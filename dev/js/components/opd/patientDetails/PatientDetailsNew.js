@@ -557,7 +557,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         //Check SBI UTM Tags
-        if(sessionStorage && sessionStorage.getItem('sbiSessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+        if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
 
             let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
             if(tags.utm_tags){

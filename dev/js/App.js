@@ -130,7 +130,7 @@ class App extends React.Component {
         if(parsed.utm_source && parsed.utm_source=='sbi_utm'){
             let sessionId = Math.floor(Math.random() * 103)*21 + 1050
             if(sessionStorage) {
-                sessionStorage.setItem('sbiSessionIdVal',sessionId)   
+               // sessionStorage.setItem('sbiSessionIdVal',sessionId)   
             }
             STORAGE.setAnyCookie('sbi_utm', true, 30);
             let tags = {
