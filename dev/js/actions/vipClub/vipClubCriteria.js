@@ -278,7 +278,7 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
         }
         if(defaultSelectedPlan && defaultSelectedPlan.length==0){
-            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.default_single_booking);
         }  
         dispatch({
             type: SELECT_VIP_CLUB_PLAN,
@@ -301,7 +301,7 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
             defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
         }
         if(defaultSelectedPlan && defaultSelectedPlan.length==0){
-            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.is_selected);
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.default_single_booking);
         }  
         dispatch({
             type: SELECT_VIP_CLUB_PLAN,

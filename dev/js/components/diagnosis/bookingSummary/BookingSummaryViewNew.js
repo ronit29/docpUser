@@ -1707,7 +1707,7 @@ class BookingSummaryViewNew extends React.Component {
         let display_docprime_discount = finalMrp - finalPrice
         if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.tests) {
             display_docprime_discount = parseInt(gold_pricelist_mrp) - ( parseInt(gold_pricelist_deal_price) + parseInt(gold_pricelist_convenience))
-            total_amount_payable = parseInt(gold_pricelist_deal_price) + parseInt(gold_pricelist_convenience) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) // - (this.props.disCountedLabPrice || 0)
+            total_amount_payable = this.props.selected_vip_plan.deal_price + parseInt(gold_pricelist_deal_price) + parseInt(gold_pricelist_convenience) + (is_home_charges_applicable && labDetail?labDetail.home_pickup_charges:0) // - (this.props.disCountedLabPrice || 0)
             total_price = total_amount_payable
         }
         let extraParams = {
@@ -2193,7 +2193,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
+                                    this.props.payment_type!=6 && (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                         } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
