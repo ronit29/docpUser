@@ -1289,7 +1289,7 @@ class BookingSummaryViewNew extends React.Component {
                 
                 if(is_all_enable_for_gold && patient.is_vip_gold_member) {
 
-                    total_amount_payable_without_coupon = vip_total_gold_price +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
+                    total_amount_payable_without_coupon = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }else if(patient.is_vip_member && is_tests_covered_under_vip) {
                         total_amount_payable_without_coupon = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }

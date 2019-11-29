@@ -937,34 +937,34 @@ class PatientDetailsNew extends React.Component {
     getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price, is_vip_applicable, vip_amount, is_gold_member, vip_convenience_amount) {
 
         let price_from_wallet = 0
-        if (is_gold_member) {
-            if (vip_amount) {
-                let vip_price_pay = 0
-                if (false && this.state.use_wallet && total_wallet_balance) {
-                    price_from_wallet = Math.min(total_wallet_balance, (vip_amount + vip_convenience_amount))
-                }
+        // if (is_gold_member) {
+        //     if (vip_amount) {
+        //         let vip_price_pay = 0
+        //         if (false && this.state.use_wallet && total_wallet_balance) {
+        //             price_from_wallet = Math.min(total_wallet_balance, (vip_amount + vip_convenience_amount))
+        //         }
 
-                vip_price_pay = (vip_amount + vip_convenience_amount) - price_from_wallet
+        //         vip_price_pay = (vip_amount + vip_convenience_amount) - price_from_wallet
 
-                return `Confirm Booking ${vip_price_pay ? `(₹ ${vip_price_pay})` : ''}`
-            } else {
-                return `Confirm Booking`
-            }
-        }
-        if (is_vip_applicable) {
-            if (vip_amount) {
-                let vip_price_pay = 0
-                if (false && this.state.use_wallet && total_wallet_balance) {
-                    price_from_wallet = Math.min(total_wallet_balance, vip_amount)
-                }
+        //         return `Confirm Booking ${vip_price_pay ? `(₹ ${vip_price_pay})` : ''}`
+        //     } else {
+        //         return `Confirm Booking`
+        //     }
+        // }
+        // if (is_vip_applicable) {
+        //     if (vip_amount) {
+        //         let vip_price_pay = 0
+        //         if (false && this.state.use_wallet && total_wallet_balance) {
+        //             price_from_wallet = Math.min(total_wallet_balance, vip_amount)
+        //         }
 
-                vip_price_pay = vip_amount - price_from_wallet
+        //         vip_price_pay = vip_amount - price_from_wallet
 
-                return `Confirm Booking ${vip_price_pay ? `(₹ ${vip_price_pay})` : ''}`
-            } else {
-                return `Confirm Booking`
-            }
-        }
+        //         return `Confirm Booking ${vip_price_pay ? `(₹ ${vip_price_pay})` : ''}`
+        //     } else {
+        //         return `Confirm Booking`
+        //     }
+        // }
         if (this.props.payment_type != 1 && this.props.payment_type != 6) {
             if (enabled_for_cod_payment) {
                 if (is_cod_deal_price) {
@@ -980,7 +980,7 @@ class PatientDetailsNew extends React.Component {
 
         let price_from_pg = 0
 
-        if (this.state.use_wallet && total_wallet_balance) {
+        if (this.state.use_wallet && total_wallet_balance && !is_gold_member && !is_vip_applicable) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
         
@@ -1307,7 +1307,7 @@ class PatientDetailsNew extends React.Component {
 
                     if (/*hospital.vip.hosp_is_gold && */is_selected_user_gold) {
 
-                        total_amount_payable_without_coupon = hospital.vip.vip_gold_price// + hospital.vip.vip_convenience_amount
+                        total_amount_payable_without_coupon = hospital.vip.vip_amount// + hospital.vip.vip_convenience_amount
                     } else if (hospital.vip.cover_under_vip && patient.is_vip_member) {
                             total_amount_payable_without_coupon = hospital.vip.vip_amount
                     }
@@ -1526,6 +1526,7 @@ class PatientDetailsNew extends React.Component {
                    // vip_discount_price = total_price - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
                 }
             }
+            finalPrice = total_amount_payable
 
         } else {
 
