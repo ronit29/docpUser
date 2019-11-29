@@ -1517,11 +1517,11 @@ class PatientDetailsNew extends React.Component {
 
             if (/*vip_data.hosp_is_gold && */is_selected_user_gold) {
 
-                total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount - (this.props.disCountedOpdPrice||0)
+                total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount - (this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) )
                 vip_discount_price = total_price - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             } else {
                 if (is_vip_applicable) {
-                    total_amount_payable = vip_data.vip_amount - (this.props.disCountedOpdPrice||0)
+                    total_amount_payable = vip_data.vip_amount -  ( this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) )
                 } else if (vip_data.hosp_is_gold) {
                    // vip_discount_price = total_price - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
                 }
