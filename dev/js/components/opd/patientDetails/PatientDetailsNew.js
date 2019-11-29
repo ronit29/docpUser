@@ -576,10 +576,10 @@ class PatientDetailsNew extends React.Component {
                 this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
         }*/
-        if (false && !this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ show_banner: true })
-            return
-        }
+        // if (false && !this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
+        //     this.setState({ show_banner: true })
+        //     return
+        // }
 
         if (this.state.showConfirmationPopup == 'close'  && !addToCart && (total_price == 0 || (is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6 ) ) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: 'open', show_banner: false })
@@ -1549,9 +1549,9 @@ class PatientDetailsNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
-                    this.state.show_banner ?
+                    /*this.state.show_banner ?
                         <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable={is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)} />
-                        : ''
+                        : ''*/
                 }
                 {
                     this.state.showConfirmationPopup == 'open' && is_selected_user_insurance_status != 4 ?
