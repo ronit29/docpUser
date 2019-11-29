@@ -100,6 +100,7 @@ class CouponSelectionView extends React.Component {
         gold_push_data.coupon_data = []
         gold_push_data.coupon_data.push(coupon)
         gold_push_data.utm_spo_tags = parsed
+        gold_push_data.coupon_type = this.state.clinicId == 8?'gold': this.state.clinicId == 11 ? 'vip':''
         this.props.currentSelectedVipMembersId.map((val, key) => {
         if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
             param = this.props.vipClubMemberDetails[val[key]]
@@ -175,7 +176,7 @@ class CouponSelectionView extends React.Component {
                 })
             }else if(this.state.appointmentType == 3){
                  this.props.getCoupons({
-                    productId:this.state.clinicId,gold_plan_id:this.state.id, deal_price:this.state.deal_price, coupon_code: this.state.couponText
+                    productId:this.state.clinicId,gold_plan_id:this.state.id, deal_price:this.state.deal_price, coupon_code: this.state.couponText, save_in_store: false, cb: cb,
                 })
             } else {
                 this.props.getCoupons({
