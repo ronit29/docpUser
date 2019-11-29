@@ -1678,7 +1678,7 @@ class BookingSummaryViewNew extends React.Component {
 
             vip_discount_price = finalMrp - vip_data.vip_amount
             
-            if(vip_data.is_gold && is_selected_user_gold) {
+            if(/*vip_data.is_gold && */is_selected_user_gold) {
 
                 total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - (this.props.disCountedLabPrice || 0)
                 vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
@@ -1711,7 +1711,7 @@ class BookingSummaryViewNew extends React.Component {
             total_price = total_amount_payable
         }
         let extraParams = {
-            is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
+            is_gold_member: vip_data && /*vip_data.is_gold &&*/ is_selected_user_gold,
             total_amount_payable: total_amount_payable
         }
         return (
@@ -2054,12 +2054,12 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 :
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
-                                                                                    {vip_data && is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
+                                                                                    {vip_data && is_vip_applicable && !(vip_data /*&& vip_data.is_gold*/ && is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{color:'green'}}>- &#8377; {total_price - vip_data.vip_amount}</p>
                                                                                     </div>:''}
                                                                                     {
-                                                                                        vip_data && vip_data.is_gold && is_selected_user_gold && vip_discount_price?
+                                                                                        vip_data /*&& vip_data.is_gold */&& is_selected_user_gold && vip_discount_price?
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Docprime Gold Discount <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
                                                                                             <p style={{ color: 'green' }}>- &#8377; {vip_discount_price}</p>
@@ -2081,7 +2081,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    {display_docprime_discount && !is_vip_applicable && !(vip_data && vip_data.is_gold && is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
+                                                                                    {display_docprime_discount && !is_vip_applicable && !(vip_data/* && vip_data.is_gold */&& is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
