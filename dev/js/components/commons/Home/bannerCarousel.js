@@ -417,7 +417,7 @@ class BannerCarousel extends React.Component {
                         :
                         <div>
                             {/* code for banner carousel (visible only on desktop) */}
-                            <div className={this.props.hideClass ? `banner-carousel-div mrt-10 mrb-20 d-none ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20 d-none d-md-block`}>
+                            <div className={this.props.hideClass ? `banner-carousel-div  mrb-10 d-none ${this.props.hideClass}` : `banner-carousel-div mrb-10 d-none d-md-block`}>
                                 {
                                     offerVisible && Object.values(offerVisible).length ?
                                         <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
