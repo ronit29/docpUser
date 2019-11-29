@@ -454,6 +454,10 @@ class VipProposer extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : `member_${this.props.member_id}`}>
+						{
+							this.props.validateErrors.indexOf('title') > -1 ?
+								commonMsgSpan : ''
+						}
 					{this.state.is_tobe_dummy_user && !this.props.is_from_payment?
 						<div className={`col-12 ${this.state.disableTitle? 'disable-all':''}`}>
 							<React.Fragment>
