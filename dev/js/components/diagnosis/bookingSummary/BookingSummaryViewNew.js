@@ -1283,7 +1283,7 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_convenience_amount += parseInt(test.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
-
+            vip_total_convenience_amount = 0
             if(is_all_enable_for_vip && patient){
 
                 

@@ -1307,7 +1307,7 @@ class PatientDetailsNew extends React.Component {
 
                     if (/*hospital.vip.hosp_is_gold && */is_selected_user_gold) {
 
-                        total_amount_payable_without_coupon = hospital.vip.vip_amount + hospital.vip.vip_convenience_amount
+                        total_amount_payable_without_coupon = hospital.vip.vip_amount// + hospital.vip.vip_convenience_amount
                     } else if (hospital.vip.cover_under_vip && patient.is_vip_member) {
                             total_amount_payable_without_coupon = hospital.vip.vip_amount
                     }
