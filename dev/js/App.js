@@ -37,6 +37,7 @@ require('react-image-lightbox/style.css')
 require('../css/date.css')
 require('../css/style.css')
 
+var CryptoJS = require("crypto-js");
 const logPageView = () => {
 
     GTM.send_boot_events()
@@ -68,19 +69,27 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-
+        let user_profile_id = null
+        var ciphertext = null
         const parsed = queryString.parse(window.location.search)
         if (STORAGE.checkAuth()) {
             this.props.getCartItems()
-            STORAGE.getAuthToken().then((token) => {
-                if (token) {
-                    API_POST('/api/v1/user/api-token-refresh', {
-                        token: token
-                    }).then((data) => {
-                        // STORAGE.setAuthToken(data.token)
-                    })
-                }
-            })
+            if(this.props.profiles && Object.keys(this.props.profiles).length > 0){
+                user_profile_id = this.props.profiles[this.props.defaultProfile].id
+                ciphertext =  this.encrypt(user_profile_id)
+            }
+            let intervalId = setInterval(() => {
+                STORAGE.getAuthToken().then((token) => {
+                    if (token) {
+                        API_POST('/api/v1/user/api-token-refresh', {
+                            token: token,
+                            reset : ciphertext
+                        }).then((data) => {
+                            // STORAGE.setAuthToken(data.token)
+                        })
+                    }
+                })
+            }, 5000)
         }
 
         let OTT = parsed.access_token
@@ -178,6 +187,17 @@ class App extends React.Component {
 
     }
 
+    encrypt(user_profile_id) {
+    let encryptedData = `${user_profile_id}.${new Date().getTime()}`;
+      let msgString = encryptedData.toString();
+      var key = 'hpDqwzdpoQY8ymm5';
+      var iv = CryptoJS.lib.WordArray.random(16);
+      var encrypted = CryptoJS.AES.encrypt(msgString, key, {
+        iv: iv
+      });
+      return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+}
+
     toggleLeftMenu(toggle, defaultVal) {
         if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
             this.props.toggleLeftMenuBar(toggle, defaultVal)
@@ -209,7 +229,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let {
-        profiles, selectedProfile, summary_utm, summary_utm_validity
+        profiles, selectedProfile, summary_utm, summary_utm_validity, defaultProfile
     } = state.USER
 
     let {
@@ -222,7 +242,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_LABS
 
     return {
-        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package
+        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package, defaultProfile
     }
 }
 
