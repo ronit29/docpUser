@@ -89,7 +89,7 @@ class App extends React.Component {
                         })
                     }
                 })
-            }, 5000)
+            }, 50000)
         }
 
         let OTT = parsed.access_token
