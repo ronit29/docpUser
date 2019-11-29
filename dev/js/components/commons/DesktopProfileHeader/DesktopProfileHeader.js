@@ -32,26 +32,20 @@ class DesktopProfileHeader extends React.Component {
         }
         window.addEventListener('scroll', () => {
             const scrollHeight = window.pageYOffset;
-            const gHeader = document.getElementById('is_header');
-            gHeader.style.backgroundImage = "none";
-            
-            if(document.getElementById('lw-header')){
-                const secHeight = document.getElementById('lw-header');               
-                if(scrollHeight >= 30){
-                    secHeight.classList.add("d-none",'slideInUp');
+            if (window.innerWidth < 767){
+                const gHeader = document.getElementById('is_header');
+                 gHeader.style.backgroundImage = "none";
+                if(document.getElementById('listing-header')){
+                    const lvHeader = document.getElementById('listing-header');             
+                    if(scrollHeight >= 25){
+                        lvHeader.classList.add('listing-header')
+                    }else{
+                        lvHeader.classList.remove('listing-header')
 
-                }else{
-                    secHeight.classList.remove("d-none", 'slideInUp');
+                    }
                 }
-            }
-            if(document.getElementById('listing-header')){
-                const lvHeader = document.getElementById('listing-header');             
-                if(scrollHeight >= 30){
-                    lvHeader.classList.add('d-flex','slideInDown')
-                }else{
-                    lvHeader.classList.remove('d-flex','slideInDown')
-                }
-            }
+            }  
+            
         })
     }
 
@@ -424,7 +418,7 @@ class DesktopProfileHeader extends React.Component {
 
                         <div className="col-12 d-lg-none">
                             {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">
                                     <div onClick={this.openSearch.bind(this)}>
                                         <div className="header-serach-input-div">
                                             <span>Search Doctors &amp; Tests</span>
@@ -438,14 +432,14 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
 
-                    <div className="row listing-view-header" id="listing-header">
+                    <div className="row listing-view-header visible-col" id="listing-header">
                         <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
                             e.stopPropagation()
                             document.body.style.overflow = "hidden"
                             this.toggleLeftMenu()}}>
                             <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
                         </div>
-                        <div className="col-10 d-lg-none pd-0">
+                        <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
                             {
                                 this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
                                     <div onClick={this.openSearch.bind(this)}>
