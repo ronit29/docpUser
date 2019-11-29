@@ -242,6 +242,12 @@ class VipClubMemberDetailsView extends React.Component {
 							is_disable = true
 							fields.push('dob')
 						}
+						// if(param.is_tobe_dummy_user){
+						// 	if (param.title == "") {
+						// 		is_disable = true
+						// 		fields.push('title')
+						// 	}
+						// }
 						//common validation ends 
 
 						if(this.props.is_from_payment){
