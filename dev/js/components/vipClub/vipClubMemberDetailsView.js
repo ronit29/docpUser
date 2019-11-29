@@ -390,6 +390,7 @@ class VipClubMemberDetailsView extends React.Component {
 							members.is_primary_user = true
 							data.members.push(members)
 							data['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
+							data['coupon_type'] = this.props.is_gold?'gold':'vip'
 							pushData.members.push(param)
 							console.log(data)
 							this.pushUserData(pushData)

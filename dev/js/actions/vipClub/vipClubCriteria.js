@@ -242,7 +242,8 @@ export const retrieveMembersData = (type,extraParams={},callback) => (dispatch) 
     API_GET(url).then(function (response) {
         dispatch({
             type:SHOW_VIP_MEMBERS_FORM,
-            payload:response
+            payload:response,
+            extraParams: extraParams
         })
         if (callback) callback(response)
     }).catch(function (error) {

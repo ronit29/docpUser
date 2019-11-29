@@ -135,6 +135,7 @@ export default function (state = defaultState, action) {
             newState.LOAD_VIP_CLUB_DASHBOARD=false
             newState.showVipDetailsView=false
             newState.savedMemberData=[]
+            newState.vipCoupons= []
             return newState   
         }
 
@@ -214,8 +215,12 @@ export default function (state = defaultState, action) {
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
                     }
-                    if(action.payload.data.coupon_data){                 
-                        newState.vipCoupons = action.payload.data.coupon_data
+                    if(action.extraParams && Object.keys(action.extraParams).length){    
+                        if(action.extraParams.user_type && action.extraParams.user_type === action.payload.data.coupon_type &&  action.payload.data.coupon_data){                 
+                            newState.vipCoupons = action.payload.data.coupon_data
+                        }else{
+                            newState.vipCoupons = []
+                        }
                     }
                     newState.savedMemberData = action.payload.data.members
             }
