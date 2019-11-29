@@ -1108,7 +1108,7 @@ class PatientDetailsNew extends React.Component {
                 date = new Date(date).toDateString()
             }
             patient = this.props.profiles[this.props.selectedProfile]
-            let user_data=({user:patient.user , doctor:selectedDoctor, hospital:selectedClinic, phone_number:patient.phone_number, preferred_date:this.props.selectedDateFormat, time_slot:time.text , gender:patient.gender , dob:patient.dob })
+            let user_data=({user:patient.user , doctor:selectedDoctor, hospital:selectedClinic, phone_number:patient.phone_number, preferred_date:this.props.selectedDateFormat, time_slot:time.text , gender:patient.gender , dob:patient.dob, user_profile:patient.id })
             this.props.SendIpdBookingEmail(user_data)
         }
     }
