@@ -47,6 +47,11 @@ class UserFamily extends React.Component {
                 data.profile = id
                 this.props.preBooking(data)
             }
+            //Clear Tests if there is any gold profile
+            let selectedProfile = this.props.USER && this.props.USER.profiles && this.props.USER.profiles[id];
+            if(selectedProfile && (selectedProfile.is_vip_member || selectedProfile.is_vip_gold_member) && this.props.clearExtraTests){
+                this.props.clearExtraTests();
+            }
             this.props.history.go(-1)
         } else {
             this.props.history.push(`/user/edit/${id}`)

@@ -189,7 +189,9 @@ app.all('*', function (req, res) {
         /** 
          * Only when a route matches all criteria for SSR, we do SSR
          */
+         console.log(req.path);
          console.log('Routes REad');
+         console.log(promises && promises.length);
         if (promises && promises.length) {
 
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
@@ -281,7 +283,8 @@ app.all('*', function (req, res) {
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                        // Sentry.captureException(e)
                     }
-                    console.log('inside error',e);
+                    console.log('inside error');
+                    console.log(e);
                     clearTimeout(SSR_TIMER)
 
                     _serverHit(req, 'server_done')
@@ -291,7 +294,7 @@ app.all('*', function (req, res) {
                 }
 
             }).catch((error) => {
-                    console.log('inside GET. DDD error',e);
+                    console.log('inside GET. DDD error',error);
 
                 clearTimeout(SSR_TIMER)
 
