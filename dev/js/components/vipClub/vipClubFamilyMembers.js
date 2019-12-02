@@ -333,7 +333,7 @@ class VipProposerFamily extends React.Component {
 						{
 							this.props.validateErrors.indexOf('title') > -1 ?
 								<div style={{marginTop:10}}>
-									commonMsgSpan
+									{commonMsgSpan}
 								</div>
 								: ''
 						}
