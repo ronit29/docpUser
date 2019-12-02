@@ -542,9 +542,9 @@ class HomeView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/full-body-checkup-health-packages')
 							}}>Health Packages</a>
-							<a href="/online-consultation" onClick={(e) => {
+							<a href="/mobileviewchat" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo('/online-consultation')
+								this.navigateTo('/mobileviewchat')
 							}}>Online Doctor Consultation</a>
 							{/* <a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
 								e.preventDefault();
