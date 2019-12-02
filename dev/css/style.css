@@ -35,10 +35,10 @@ body {
 
 .chatbox-right {
     border-radius: 5px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0 13px rgba(0, 0, 0, .4);
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 240px);
+    height: calc(100vh - 310px);
 }
 
 .chat-head {
@@ -1370,7 +1370,7 @@ p.top-head-link.card-lab-link span {
 .onload-chat .chat_footer {
     display: block;
     width: 94%;
-    padding: 0 18px 0px 0px;
+    padding: 0px 0px 0px 0px;
     margin: auto;
 }
 
@@ -2507,6 +2507,14 @@ p.rt-doc-nm {
 
 /* chat-toast-icon */
 
+@media (min-width:767px) {
+    .toast-tip-icon {
+        width: 99% !important;
+        position: relative!important;
+        transform: translate(-50%, -6%)!important;
+    }
+}
+
 .toast-tip-icon {
     position: fixed;
     bottom: 5%;
@@ -2514,7 +2522,7 @@ p.rt-doc-nm {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     background: #a0a0a0;
-    border-radius: 10px;
+    border-radius: 5px;
     height: auto;
     width: 88%;
 }
@@ -6682,22 +6690,37 @@ button.add-shpng-cart-btn.update-btn {
     overflow: auto;
     padding-bottom: 30px;
 }
+<<<<<<< HEAD
 .header-box{
     background: var(--text--primary--color) url(/assets/images/doc-logo.png) no-repeat top right;
     padding: 15px 15px 30px;
+=======
+
+.header-box {
+    background: #f78631 url(/assets/images/doc-logo.png) no-repeat top right;
+    padding: 25px 15px;
+>>>>>>> master
     position: relative;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     box-shadow: 1px 1.7px 4px 0 rgba(0, 0, 0, 0.15);
     background-size: 34%;
+<<<<<<< HEAD
     /*background: var(--text--primary--color);*/
+=======
+>>>>>>> master
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .leftIntiaspic {
     height: 60px !important;
     width: 60px !important;
     float: left;
+    color: #fff!important;
+    border: 1px solid #fff!important;
 }
 
 .user-profile-img {
@@ -6712,8 +6735,8 @@ button.add-shpng-cart-btn.update-btn {
     padding-left: 15px;
     font-size: 18px;
     display: inline-block;
-    margin-top: 15px;
     width: 54%;
+    line-height: 22px;
 }
 
 .drop-list-menu li a {
@@ -13685,10 +13708,11 @@ p.pkgtstName.prcd-height {
 }
 
 .banner-home-scrollable {
-    white-space: nowrap;
+    display: flex;
     overflow-x: auto;
     width: 100%;
     top: 0;
+    height: 100%;
 }
 
 .banner-home-scrollable img {
@@ -14187,4 +14211,39 @@ div.doc-srch-fltr.vip-slct-pop {
 .footsvground{
     position: absolute;
     top: 10px;
+}
+
+/** book now button allignment css**/
+
+.booking-column {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.hpl-logo-name,
+.fltr-usr-image-lab {
+    width: 60px!important;
+    height: 60px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 2px;
+    object-fit: contain;
+    object-position: center;
+}
+
+
+/***** sticky header css ****/
+
+@media (min-width:768px) {
+    .fixed-chatbox {
+        position: sticky;
+        top: 100px;
+        z-index: 11;
+    }
+}
+
+.initialsPicture-ds,
+.initialsPicture-dp {
+    border: 1px solid #ddd;
 }
