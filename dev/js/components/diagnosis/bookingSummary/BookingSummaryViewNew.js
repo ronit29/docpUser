@@ -1674,6 +1674,9 @@ class BookingSummaryViewNew extends React.Component {
         let vip_discount_price = 0
         let total_amount_payable = total_price
 
+        if(!total_test_count && is_selected_user_gold){
+            is_vip_gold_applicable = true
+        }
         if(vip_data && (vip_data.is_enable_for_vip) ){
 
             vip_discount_price = finalMrp - vip_data.vip_amount
