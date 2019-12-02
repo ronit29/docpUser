@@ -108,7 +108,7 @@ class VipClub extends React.Component {
                 <div className="d-none d-lg-block">
                     <ProfileHeader />
                 </div>
-                <div className="d-lg-none d-block">
+                <div className= {`d-lg-none d-block ${this.props.is_gold?'d-none':''}`}>
                     <div className="vip-new-sub-header" onClick={() => this.props.history.push('/')} >
                             <svg xmlns="http://www.w3.org/2000/svg" width="15pt" height="18pt" viewBox="0 0 25 24" version="1.1">
                                 <g id="surface1">
@@ -117,27 +117,22 @@ class VipClub extends React.Component {
                             </svg>
                     </div>
                 </div>
-                {/*<div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
+
+                {this.props.is_gold?
+                <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')} style={{background:'#f78631'}}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
-                        {
-                            this.props.is_gold?
-                             <div className={`vip-logo-cont d-none ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
-                                <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
-                                <p className="scrl-cont-dat">You are a Docprime Gold Member </p>
-                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
-                            </div>
-                        :
                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                 <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                                 <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                                     <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             </div>
-                        }
-                    </div>*/}
+                    </div>
+                    :''
+                }
                 {/* last screen design */}
-                <section className="container container-top-margin md-top-mrgn-rmv" style={{ marginTop: '' }}>
+                <section className= {`container container-top-margin ${this.props.is_gold?'md-top-mrgn-rmv':'sub-pdng-add'}`} style={{ marginTop: '' }}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 center-column">
@@ -160,7 +155,7 @@ class VipClub extends React.Component {
                                         </div>
                                         : ''}
                                     {this.props.data.is_member_allowed ?
-                                        <div className="gold-white-bg-container mb-24" style={{ paddingTop: 0, paddingBottom: 20 }}>
+                                        <div className= {`${this.props.is_gold?'gold-white-bg-container mb-24':''}`} style={{ paddingTop: 0, paddingBottom: 20 }}>
                                             <div className="vip-act-pop text-right" style={{ display: 'block' }}>
                                                 <div className="vip-wrn-img text-left">
                                                     <img src={ASSETS_BASE_URL + "/img/tickicon.png"} />
