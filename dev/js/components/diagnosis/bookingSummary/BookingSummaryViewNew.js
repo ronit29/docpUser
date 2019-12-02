@@ -281,8 +281,8 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', pay_btn_loading: true })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab, (success) => {
                     })
-                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                    if(total_amount_payable_without_coupon) {
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData(this.props)
+                    if(total_amount_payable_without_coupon!= null) {
                         finalPrice = total_amount_payable_without_coupon
                     }
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
@@ -297,13 +297,13 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (this.props.selectedProfile!= nextProps.selectedProfile) ) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
                     this.setState({'pay_btn_loading': true})
-                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                    if(total_amount_payable_without_coupon) {
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData(this.props)
+                    if(total_amount_payable_without_coupon!= null) {
                         finalPrice = total_amount_payable_without_coupon
                     }
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
@@ -369,8 +369,8 @@ class BookingSummaryViewNew extends React.Component {
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab, (success) => {
                                 this.setState({'pay_btn_loading': false})
                             })
-                            let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                            if(total_amount_payable_without_coupon) {
+                            let { total_amount_payable_without_coupon } = this.getSelectedUserData(nextProps)
+                            if(total_amount_payable_without_coupon!= null) {
                                 finalPrice = total_amount_payable_without_coupon
                             }
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item, (err, data) => {
@@ -1236,7 +1236,7 @@ class BookingSummaryViewNew extends React.Component {
         
     }
 
-    getSelectedUserData(){
+    getSelectedUserData(props){
         let total_amount_payable_without_coupon = null
         let is_tests_covered_under_plan = true
         let is_tests_covered_under_vip = true
@@ -1248,19 +1248,19 @@ class BookingSummaryViewNew extends React.Component {
         let is_all_enable_for_gold = true
         let is_home_charges_applicable = false
         let labDetail = {}
-        if(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
+        if(props.LABS[props.selectedLab] && props.LABS[props.selectedLab].tests && props.LABS[props.selectedLab].tests.length) {
             let patient = null
-            labDetail = this.props.LABS[this.props.selectedLab].lab
+            labDetail = props.LABS[props.selectedLab].lab
             let is_home_collection_enabled = false
-            if(is_home_collection_enabled && this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
+            if(is_home_collection_enabled && props.selectedAppointmentType && (props.selectedAppointmentType.r_pickup=='home' || props.selectedAppointmentType.p_pickup=='home') ) {
                 is_home_charges_applicable = true
             }
 
-            if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
-                patient = this.props.profiles[this.props.selectedProfile]
+            if (props.profiles[props.selectedProfile] && !props.profiles[props.selectedProfile].isDummyUser) {
+                patient = props.profiles[props.selectedProfile]
             }
 
-            this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+            props.LABS[props.selectedLab].tests.map((test, i) => {
                 
                 if (test.included_in_user_plan) {
 
@@ -1296,7 +1296,7 @@ class BookingSummaryViewNew extends React.Component {
 
             }
 
-            if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.lab && this.props.LABS[this.props.selectedLab].tests.length==1) {
+            if(!props.is_any_user_buy_gold && props.payment_type == 6 && props.selected_vip_plan && props.selected_vip_plan.lab && props.LABS[props.selectedLab].tests.length==1) {
                 total_amount_payable_without_coupon = null
             }
         }else{
