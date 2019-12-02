@@ -277,7 +277,12 @@ class BookingView extends React.Component {
         if(is_vip_member && covered_under_vip){
             paymentMode = 'Docprime VIP Member'
         }
-        let docprime_gold_price = parseInt(mrp) -(parseInt(vip_convenient_price) +  parseInt(vip_amount) )
+        let docprime_gold_price = 0
+        if(is_vip_member || is_gold_vip) {
+            docprime_gold_price = parseInt(mrp) -(parseInt(vip_convenient_price) +  parseInt(vip_amount) )
+            discount = docprime_gold_price - effective_price
+        }
+        
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
@@ -488,19 +493,19 @@ class BookingView extends React.Component {
                                                                         is_vip_member && covered_under_vip && !is_gold_vip?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                 <p className="fw-500" style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid"src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
-                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - parseInt(vip_amount)}</p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - (parseInt(vip_amount) + discount)}</p>
                                                                             </div> : ''
                                                                     }
                                                                     {
                                                                         is_gold_vip &&
                                                                         <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                             <p className="fw-500" style={{ color: 'green' }}> Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/></p>
-                                                                            <p className="fw-500" style={{ color: 'green' }}>- &#8377; {docprime_gold_price}</p>
+                                                                            <p className="fw-500" style={{ color: 'green' }}>- &#8377; {docprime_gold_price- discount}</p>
                                                                         </div>
                                                                     }
                                                                     
                                                                     {
-                                                                        discount && payment_type!=3 && !is_vip_member && !covered_under_vip && !is_gold_vip?
+                                                                        discount && payment_type!=3 /*&& !is_vip_member && !covered_under_vip && !is_gold_vip*/?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                 <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
                                                                                 <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>

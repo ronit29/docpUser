@@ -171,8 +171,8 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
-                let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                if(total_amount_payable_without_coupon){
+                let { total_amount_payable_without_coupon } = this.getSelectedUserData(this.props)
+                if(total_amount_payable_without_coupon!= null){
                     deal_price = total_amount_payable_without_coupon
                 }
                 this.setState({ 'pay_btn_loading': true })
@@ -197,8 +197,8 @@ class PatientDetailsNew extends React.Component {
                 }
                 deal_price += treatment_Price
                 this.setState({ 'pay_btn_loading': true })
-                let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                if(total_amount_payable_without_coupon){
+                let { total_amount_payable_without_coupon } = this.getSelectedUserData(this.props)
+                if(total_amount_payable_without_coupon!= null){
                     deal_price = total_amount_payable_without_coupon
                 }
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
@@ -294,8 +294,8 @@ class PatientDetailsNew extends React.Component {
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor, (success) => {
                             this.setState({ 'pay_btn_loading': false })
                         })
-                        let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                        if(total_amount_payable_without_coupon){
+                        let { total_amount_payable_without_coupon } = this.getSelectedUserData(this.props)
+                        if(total_amount_payable_without_coupon!= null){
                             deal_price = total_amount_payable_without_coupon
                         }
                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
@@ -336,7 +336,7 @@ class PatientDetailsNew extends React.Component {
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
-        if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor]) {
+        if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
             let hospital = {}
             let doctorDetails = nextProps.DOCTORS[this.props.selectedDoctor]
 
@@ -366,8 +366,8 @@ class PatientDetailsNew extends React.Component {
 
                     deal_price += treatment_Price
                     // let validCoupon = this.getValidCoupon(doctorCoupons)
-                    let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                    if(total_amount_payable_without_coupon){
+                    let { total_amount_payable_without_coupon } = this.getSelectedUserData(nextProps)
+                    if(total_amount_payable_without_coupon!= null){
                         deal_price = total_amount_payable_without_coupon
                     }
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
@@ -416,8 +416,8 @@ class PatientDetailsNew extends React.Component {
                                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor, (success) => {
                                             this.setState({ 'pay_btn_loading': false })
                                         })
-                                        let { total_amount_payable_without_coupon } = this.getSelectedUserData()
-                                        if(total_amount_payable_without_coupon){
+                                        let { total_amount_payable_without_coupon } = this.getSelectedUserData(nextProps)
+                                        if(total_amount_payable_without_coupon!= null){
                                             deal_price = total_amount_payable_without_coupon
                                         }
                                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
@@ -1281,9 +1281,9 @@ class PatientDetailsNew extends React.Component {
         
     }
 
-    getSelectedUserData(){
+    getSelectedUserData(props){
 
-        let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
+        let doctorDetails = props.DOCTORS[props.selectedDoctor]
         let total_amount_payable_without_coupon = null
         let is_selected_user_gold = false
         if(doctorDetails) {
@@ -1291,9 +1291,9 @@ class PatientDetailsNew extends React.Component {
             let hospital = {}
             let patient = null
 
-            if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
-                patient = this.props.profiles[this.props.selectedProfile]
-                is_selected_user_gold = this.props.profiles[this.props.selectedProfile].is_vip_gold_member
+            if (props.profiles[props.selectedProfile] && !props.profiles[props.selectedProfile].isDummyUser) {
+                patient = props.profiles[props.selectedProfile]
+                is_selected_user_gold = props.profiles[props.selectedProfile].is_vip_gold_member
             }
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
@@ -1313,7 +1313,7 @@ class PatientDetailsNew extends React.Component {
                     }
                 }
 
-                if(!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                if(!props.is_any_user_buy_gold && props.payment_type == 6 && props.selected_vip_plan && props.selected_vip_plan.opd) {
                     total_amount_payable_without_coupon = null
                 }
             }
@@ -1423,7 +1423,7 @@ class PatientDetailsNew extends React.Component {
 
         let total_price = parseInt(priceData.mrp) //+ treatment_Price
         let finalPrice = total_price ? parseInt(total_price) : 0
-        let display_radio_cod_price = finalPrice - (this.props.disCountedOpdPrice || 0)
+        let display_radio_cod_price = parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice || 0)
         
 
         if (!this.state.is_cashback && this.props.payment_type!=6) {
