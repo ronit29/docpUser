@@ -61,11 +61,11 @@ class LeftMenu extends React.Component {
                           {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
                           <p className="d-flex align-item-center">
                             <InitialsPicture name={user.name} has_image={!!thumbnail} className="initialsPicture-dp leftIntiaspic">
-                              <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} style={{ width: '60px', height: '60px', float: 'left',color:'#ffffff' }} />
+                              <img src={thumbnail} className="img-fluid img-round" alt={user.name} title={user.name} style={{ width: '60px', height: '60px', float: 'left', color: '#ffffff' }} />
                             </InitialsPicture>
                             <span className="user-name">{user.name}</span>
                           </p>
-                          <span className="right-arrow r-arrow" style={{ marginTop:0}}></span>
+                          <span className="right-arrow r-arrow" style={{ marginTop: 0 }}></span>
                         </div>
                         : <div className="header-box" onClick={() => {
                           this.props.toggleLeftMenu()
@@ -73,7 +73,7 @@ class LeftMenu extends React.Component {
                         }}>
                           {/*<img src="/assets/images/profile-photo.jpeg" alt="profile-photo" className="user-profile-img" />*/}
                           <span className="user-name">Login</span>
-                          <span className="right-arrow r-arrow" style={{ marginTop:0}}></span>
+                          <span className="right-arrow r-arrow" style={{ marginTop: 0 }}></span>
                         </div>
                     }
                     <ul className="drop-list-menu list_1">
@@ -122,7 +122,8 @@ class LeftMenu extends React.Component {
                           : ''*/
                       }
                       <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
-                                    <span className={memberClass}>{memStatus}</span></a></li>
+                                    {/* <span className={memberClass}>{memStatus}</span> */}
+                                    </a></li>
 
                       <li><a onClick={(e) => {
                         e.preventDefault()
