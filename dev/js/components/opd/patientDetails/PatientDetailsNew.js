@@ -606,7 +606,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: is_vip_applicable ? false : this.state.use_wallet,
+            use_wallet: patient && patient.is_vip_member ? false : this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web: true
@@ -1762,7 +1762,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {
-                                                                    this.props.payment_type!=6 && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
+                                                                    !showGoldTogglePaymentMode && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
                                                                         <div className="widget cpn-blur mrb-15 cursor-pointer gold-green-cont" onClick={(e) => {
                                                                             e.stopPropagation();
                                                                             this.props.clearVipSelectedPlan()

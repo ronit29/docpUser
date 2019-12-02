@@ -819,7 +819,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: is_vip_applicable?false:this.state.use_wallet,
+            use_wallet: patient && patient.is_vip_member?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,

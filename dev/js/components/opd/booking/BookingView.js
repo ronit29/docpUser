@@ -281,7 +281,7 @@ class BookingView extends React.Component {
         let total_amount_payable = 0
         if(is_vip_member || is_gold_vip) {
             docprime_gold_price = parseInt(mrp) -(parseInt(vip_convenient_price) +  parseInt(vip_amount) )
-            discount =   parseInt(vip_amount) - effective_price 
+            discount =   (parseInt(vip_amount) + parseInt(vip_convenient_price) ) - effective_price 
             total_amount_payable = parseInt(mrp) - (docprime_gold_price + discount)
         }
         
