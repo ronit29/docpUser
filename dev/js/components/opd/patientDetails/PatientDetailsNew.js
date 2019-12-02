@@ -1871,8 +1871,8 @@ class PatientDetailsNew extends React.Component {
                                                                                             }}>
                                                                                                 <h4 className="title payment-amt-label">Online Payment</h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :
-                                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold ? `₹ ${vip_data.vip_amount + vip_data.vip_convenience_amount}` :
-                                                                                                        is_vip_applicable ? `₹ ${vip_data.vip_amount}` : this.getBookingAmount(total_wallet_balance, display_radio_cod_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
+                                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold ? `₹ ${(vip_data.vip_amount + vip_data.vip_convenience_amount)-(this.props.disCountedOpdPrice||0)}` :
+                                                                                                        is_vip_applicable ? `₹ ${(vip_data.vip_amount)-(this.props.disCountedOpdPrice||0) }` : this.getBookingAmount(total_wallet_balance, display_radio_cod_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
                                                                                                 </div>
                                                                                                 {/* {
                                                                                                 is_insurance_applicable ? ""
