@@ -1273,7 +1273,7 @@ class PatientDetailsNew extends React.Component {
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
-        let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
+        let showPopup = parsed.showPopup && parsed.showPopup=="true" && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
         let is_time_selected = (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)
 
         let vip_discount_price = 0//finalPrice - (vip_gold_price + vip_convenience_amount)
