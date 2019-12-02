@@ -606,7 +606,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: patient && patient.is_vip_member ? false : this.state.use_wallet,
+            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ? false : this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web: true
