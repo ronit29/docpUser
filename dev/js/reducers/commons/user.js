@@ -100,7 +100,7 @@ export default function (state = defaultState, action) {
                     newState.insurance_status = profile.insurance_status
                     newState.defaultProfile = profile.id
                 }
-                if(profile.is_vip_gold_member) {
+                if(profile.is_vip_gold_member || profile.is_vip_member) {
                     is_any_user_buy_gold = profile.id
                 }
                 profileMap[profile.id] = profile

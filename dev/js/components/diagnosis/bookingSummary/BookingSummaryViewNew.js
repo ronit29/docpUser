@@ -1674,6 +1674,9 @@ class BookingSummaryViewNew extends React.Component {
         let vip_discount_price = 0
         let total_amount_payable = total_price
 
+        if(!total_test_count && is_selected_user_gold){
+            is_vip_gold_applicable = true
+        }
         if(vip_data && (vip_data.is_enable_for_vip) ){
 
             vip_discount_price = finalMrp - vip_data.vip_amount
@@ -1794,7 +1797,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !is_default_user_under_vip && !(parsed && parsed.test_ids) ) ?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !is_default_user_under_vip && !(parsed && parsed.test_ids) && !is_vip_gold_applicable ) ?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                                 : ''
                                                                         }
