@@ -1442,7 +1442,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item && !is_insurance_applicable
         if(showGoldTogglePaymentMode)
         payment_mode_count++
 
