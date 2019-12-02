@@ -108,7 +108,7 @@ class VipClub extends React.Component {
                 <div className="d-none d-lg-block">
                     <ProfileHeader />
                 </div>
-                <div className= {`d-lg-none d-block ${this.props.is_gold?'d-none':''}`}>
+                <div className= {`d-lg-none d-block ${!this.props.is_gold?'d-none':''}`}>
                     <div className="vip-new-sub-header" onClick={() => this.props.history.push('/')} >
                             <svg xmlns="http://www.w3.org/2000/svg" width="15pt" height="18pt" viewBox="0 0 25 24" version="1.1">
                                 <g id="surface1">
@@ -118,8 +118,8 @@ class VipClub extends React.Component {
                     </div>
                 </div>
 
-                {this.props.is_gold?
-                <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
+                {this.props.is_gold?'':
+                    <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')} style={{background:'#f78631'}}>
                             <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
@@ -129,7 +129,6 @@ class VipClub extends React.Component {
                                     <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             </div>
                     </div>
-                    :''
                 }
                 {/* last screen design */}
                 <section className= {`container container-top-margin ${this.props.is_gold?'md-top-mrgn-rmv':'sub-pdng-add'}`} style={{ marginTop: '' }}>
