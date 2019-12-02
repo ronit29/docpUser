@@ -551,6 +551,30 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
+	removeCoupon(){
+		const parsed = queryString.parse(this.props.location.search)
+        let gold_push_data={}
+        let param
+        gold_push_data.plan = this.props.selected_vip_plan
+        gold_push_data.dummy_data_type = 'PLAN_PURCHASE'
+        gold_push_data.members = []
+        gold_push_data.coupon_data = []
+        gold_push_data.utm_spo_tags = parsed
+        gold_push_data.coupon_type = this.props.is_gold?'gold':'vip'
+        this.props.currentSelectedVipMembersId.map((val, key) => {
+        if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
+            param = this.props.vipClubMemberDetails[val[key]]
+            gold_push_data.members.push(param)
+            }
+        })
+        if(STORAGE.isAgent()){
+            gold_push_data.is_agent = true
+        }else{
+            gold_push_data.is_agent = false
+        }
+        this.props.pushMembersData(gold_push_data)
+		this.props.removeVipCoupons()
+	}
 	render() {
 		let child
 		let adult
@@ -691,7 +715,7 @@ class VipClubMemberDetailsView extends React.Component {
                                                     <h4 className="title m-0 d-flex align-item-center" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
                                                         <span className="mr-10">{this.props.vipCoupons[0].code}</span>
                                                         <img style={{width:17}} onClick={(e) => {
-                                                            this.props.removeVipCoupons()
+                                                            this.removeCoupon()
                                                             this.setState({  is_payment_coupon_applied: false, coupon_discount:null })
                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                     </h4>
