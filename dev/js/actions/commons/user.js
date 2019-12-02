@@ -765,3 +765,12 @@ export const setPaymentStatus = (status = null) => (dispatch) => {
 		payload: status
 	})
 }
+
+export const SendIpdBookingEmail = (data,cb) => (dispatch)=>{
+	console.log(data)
+	return API_POST('/api/v1/notification/ipd/emailnotifications', data).then((data)=> {
+		if(cb)cb(null, data)
+	}).catch((e)=>{
+ 		if(cb)cb(e, null)
+	})
+}

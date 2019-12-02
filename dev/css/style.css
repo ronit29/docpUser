@@ -3881,6 +3881,60 @@ label.procedure-check.ck-bx .checkmark {
     color: #f78361;
 }
 
+.speciality-footer-list li{
+	display: block;
+	/* padding-right: 4px; */
+	/* margin-right: 4px; */
+	/* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
+	line-height: 14px;
+	margin-bottom: 5px;
+}
+
+@media(max-width: 767px){
+	.speciality-footer-list li{
+		display: inline-block;
+		padding-right: 4px;
+		margin-right: 4px;
+		border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+	}
+	.mrgn-top-12{
+		margin-top: 0px !important;
+	}
+	.chatbox-right {
+		height: 290px;
+	}
+	
+	div.search-el-popup{
+		width: 90% !important;
+	}
+	header.searcLocationHeaderPadding{
+		padding-top: 70px !important;
+	}
+	.congrats-space{
+		width: 100% !important;
+		margin: 10px auto 30px auto !important;
+	}
+	.congrats-btn{
+		width: 100% !important;
+	}
+}
+header.searcLocationHeaderPadding{
+	padding-top: 0px;
+}
+
+.speciality-footer-list li:last-child{
+	padding-right: 0;
+	margin-right: 0;
+	border-right: none;
+}
+
+.view-more-coupons{
+	color: #f78631;
+	font-weight: 500;
+	text-align: right;
+	user-select: none;
+    cursor: pointer;
+}
 .speciality-footer-list li {
     display: block;
     /* padding-right: 4px; */

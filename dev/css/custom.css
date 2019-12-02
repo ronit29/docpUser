@@ -5504,3 +5504,28 @@ p.dp-gld-mem-grn {
     cursor: pointer;
 }
 /**** gold card css*****/
+/******ipd form ne column css******/
+
+.select-date-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.select-date-container > h5 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #757575;
+    margin-right: 10px;
+}
+
+.select-date-container > select{
+    width: 63%;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    height: 34px;
+}
+/******ipd form ne column css ends******/

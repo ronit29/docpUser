@@ -819,7 +819,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: patient && patient.is_vip_member?false:this.state.use_wallet,
+            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
@@ -870,7 +870,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.labCoupons && this.props.labCoupons[this.props.selectedLab] && this.props.labCoupons[this.props.selectedLab].length && this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable /*&& !is_vip_applicable*/) {
+        if (this.props.payment_type!=6 && this.props.labCoupons && this.props.labCoupons[this.props.selectedLab] && this.props.labCoupons[this.props.selectedLab].length && this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable /*&& !is_vip_applicable*/) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 

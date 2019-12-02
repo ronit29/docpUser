@@ -250,6 +250,7 @@ class PatientDetailsNew extends React.Component {
             }, 3000)
         }
 
+        this.sendEmailNotification()
     }
 
     getVipGoldPriceList(){
@@ -606,7 +607,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: patient && patient.is_vip_member ? false : this.state.use_wallet,
+            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ? false : this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web: true
@@ -619,7 +620,7 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if ( this.props.doctorCoupons && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length && this.props.disCountedOpdPrice >= 0 && (this.props.payment_type == 1 || this.props.payment_type == 6) && !is_insurance_applicable /*&& !is_vip_applicable*/) {
+        if ( this.props.doctorCoupons && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length && this.props.disCountedOpdPrice >= 0 && this.props.payment_type == 1 && !is_insurance_applicable /*&& !is_vip_applicable*/) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -1320,6 +1321,33 @@ class PatientDetailsNew extends React.Component {
         }
         return { total_amount_payable_without_coupon }
     }
+    sendEmailNotification(){
+        let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
+        let selected_hospital = {}
+        let patient
+        
+        if (doctorDetails) {
+            let { hospitals } = doctorDetails
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        selected_hospital = hsptl
+                    }
+                })
+            }
+        }
+        
+        if (Object.keys(selected_hospital).length > 0 && selected_hospital.is_ipd_hospital && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser && this.props.selectedDateFormat) {
+            let { date, time,selectedDoctor, selectedClinic } = this.props.selectedSlot
+
+            if (date) {
+                date = new Date(date).toDateString()
+            }
+            patient = this.props.profiles[this.props.selectedProfile]
+            let user_data=({user:patient.user , doctor:selectedDoctor, hospital:selectedClinic, phone_number:patient.phone_number, preferred_date:this.props.selectedDateFormat, time_slot:time.text , gender:patient.gender , dob:patient.dob, user_profile:patient.id })
+            this.props.SendIpdBookingEmail(user_data)
+        }
+    }
 
     render() {
         const parsed = queryString.parse(this.props.location.search)
@@ -1694,11 +1722,11 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} getDataAfterLogin={this.getDataAfterLogin}/>
-                                                                {
-                                                                    Object.values(selectedProcedures).length ?
-                                                                        <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
-                                                                        : ''/*<div className="clearfix pb-list proc-padding-list">
+                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin}/>
+                                                            {
+                                                                Object.values(selectedProcedures).length ?
+                                                                    <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
+                                                                    : ''/*<div className="clearfix pb-list proc-padding-list">
                                                                             <span className="test-price txt-ornage">₹ {priceData.deal_price}<span className="test-mrp">₹ {priceData.mrp}</span></span><span className="fw-500 test-name-item">Doctor consultation</span></div>*/
                                                                 }
 
