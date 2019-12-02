@@ -278,9 +278,11 @@ class BookingView extends React.Component {
             paymentMode = 'Docprime VIP Member'
         }
         let docprime_gold_price = 0
+        let total_amount_payable = 0
         if(is_vip_member || is_gold_vip) {
             docprime_gold_price = parseInt(mrp) -(parseInt(vip_convenient_price) +  parseInt(vip_amount) )
-            discount = docprime_gold_price - effective_price
+            discount =   parseInt(vip_amount) - effective_price 
+            total_amount_payable = parseInt(mrp) - (docprime_gold_price + discount)
         }
         
         return (
@@ -500,7 +502,7 @@ class BookingView extends React.Component {
                                                                         is_gold_vip &&
                                                                         <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                             <p className="fw-500" style={{ color: 'green' }}> Docprime Gold Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/></p>
-                                                                            <p className="fw-500" style={{ color: 'green' }}>- &#8377; {docprime_gold_price- discount}</p>
+                                                                            <p className="fw-500" style={{ color: 'green' }}>- &#8377; {docprime_gold_price}</p>
                                                                         </div>
                                                                     }
                                                                     
@@ -521,9 +523,9 @@ class BookingView extends React.Component {
                                                                         {
                                                                             payment_type == 2 ?
                                                                                 <p className="fw-500">&#8377; {parseInt(deal_price)}</p>
-                                                                                :is_gold_vip?<p className="fw-500">&#8377; {parseInt(vip_amount)+parseInt(vip_convenient_price)}</p>
+                                                                                :is_gold_vip?<p className="fw-500">&#8377; {total_amount_payable}</p>
                                                                                     :is_vip_member && covered_under_vip ?
-                                                                                    <p className="fw-500">&#8377; {parseInt(vip_amount)}</p>
+                                                                                    <p className="fw-500">&#8377; {total_amount_payable}</p>
                                                                                     :<p className="fw-500">&#8377; {parseInt(effective_price)}</p>
                                                                         }
                                                                     </div>
