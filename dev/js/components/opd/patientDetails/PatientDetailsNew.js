@@ -1762,7 +1762,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {
-                                                                    this.props.payment_type!=6 && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
+                                                                    !showGoldTogglePaymentMode && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
                                                                         <div className="widget cpn-blur mrb-15 cursor-pointer gold-green-cont" onClick={(e) => {
                                                                             e.stopPropagation();
                                                                             this.props.clearVipSelectedPlan()
