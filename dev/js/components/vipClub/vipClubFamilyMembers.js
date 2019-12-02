@@ -329,8 +329,15 @@ class VipProposerFamily extends React.Component {
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-					</div>
-					<div className="row no-gutters">
+					</div>					
+						{
+							this.props.validateErrors.indexOf('title') > -1 ?
+								<div style={{marginTop:10}}>
+									commonMsgSpan
+								</div>
+								: ''
+						}
+					<div className="row no-gutters">				
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
 								<input type="text" style={{'textTransform': 'capitalize'}} 

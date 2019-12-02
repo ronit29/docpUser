@@ -360,6 +360,7 @@ class VipClubMemberDetailsView extends React.Component {
 				    		return data.members.push(members)
 						}
 					})
+					console.log(data)
 					let popupMemData
 						popupMemData = data.members
 						this.setState({popupMemData:popupMemData})
@@ -639,7 +640,7 @@ class VipClubMemberDetailsView extends React.Component {
 										<div className="search-el-popup">
 											<div className="widget">
 												<div className="widget-content padiing-srch-el pb-0">
-													<p style={{ fontSize: '14px' }} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length - 1} Members Added</p>
+													<p style={{ fontSize: '14px' }} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length} Members Added</p>
 													<div className="vip-pop-table">
 														{
 															this.state.popupMemData && Object.keys(this.state.popupMemData).length > 0 ?
@@ -657,7 +658,13 @@ class VipClubMemberDetailsView extends React.Component {
 																					</tr>
 																					<tr>
 																						<td>{val.relation == "SPOUSE_FATHER" ? 'Father-in-law' : val.relation == 'SPOUSE_MOTHER' ? 'Mother-in-law' : val.relation}</td>
-																						<td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
+																						{
+																							val.title?
+																								<td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
+																							:val.gender?
+																								<td style={{ 'textTransform': 'capitalize' }} >{val.gender}</td>
+																							:''
+																						}
 																						<td>{val.dob}</td>
 																					</tr>
 																				</tbody>
