@@ -14237,3 +14237,16 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-dp {
     border: 1px solid #ddd;
 }
+/* ======================================= sbi banner ======================================= */
+.divHeight-sbi{
+    height: 0;
+    padding-bottom: 35%;
+    margin: 20px 0px;
+}
+.banner-cont-height.home-page-banner-div.d-md-block.sbi-ban-top {
+    margin: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    margin-bottom: 3px;
+}
+/* ======================================= sbi banner ======================================= */

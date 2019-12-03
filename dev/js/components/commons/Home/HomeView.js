@@ -267,7 +267,7 @@ class HomeView extends React.Component {
 						/>
 
 						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+							false && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
 								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
@@ -345,7 +345,7 @@ class HomeView extends React.Component {
 
 			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
-				<div className="col-md-7" key="upcom">
+				<div className="col-md-7 kkk" key="upcom">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						{/* {
@@ -375,15 +375,16 @@ class HomeView extends React.Component {
 								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
 
-						{/* <div className="banner-cont-height home-page-banner-div d-lg-none d-md-block">
+						<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top">
 							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight mt-0"></div>
+								<div className="divHeight-sbi mt-0"></div>
 							</div>
 							<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
-								<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbi-banner.png'} />
+								<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
 							</div>
-						</div> */}
-						<div className="banner-cont-height home-page-banner-div">
+						</div>
+						{
+							false && <div className="banner-cont-height home-page-banner-div">
 							<div className="hidderBanner banner-carousel-div d-md-none">
 								<div className="divHeight"></div>
 							</div>
@@ -393,6 +394,8 @@ class HomeView extends React.Component {
 							}
 						</div>
 
+						}
+						
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
 								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
