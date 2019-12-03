@@ -1471,6 +1471,11 @@ class PatientDetailsNew extends React.Component {
 
         //Flag to show gold Single Flow Plans
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item && !is_insurance_applicable
+        
+        //If Only COD applicable then don't show single flow gold
+        if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
+            showGoldTogglePaymentMode = false
+        }
         if(showGoldTogglePaymentMode)
         payment_mode_count++
 

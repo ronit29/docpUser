@@ -1104,7 +1104,11 @@ class BookingSummaryViewNew extends React.Component {
     clearTestForInsured() {
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && (this.props.profiles[this.props.defaultProfile].is_insured || this.props.profiles[this.props.defaultProfile].is_vip_member || this.props.profiles[this.props.defaultProfile].is_vip_gold_member)) {
 
-            this.props.clearExtraTests()
+            if(this.props.selectedLab && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length ==1){
+
+            }else{
+                this.props.clearExtraTests()    
+            }
             this.props.getLabById(this.props.selectedLab)
             return
         }
