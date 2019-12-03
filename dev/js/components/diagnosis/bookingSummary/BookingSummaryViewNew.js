@@ -297,7 +297,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (this.props.selectedProfile!= nextProps.selectedProfile) ) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (nextProps.selectedProfile && (this.props.selectedProfile!= nextProps.selectedProfile) ) ) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
@@ -1983,7 +1983,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div onClick={(e)=>{e.stopPropagation();
                                                                                     e.preventDefault();
                                                                                 }}>
-                                                                                    <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    this.props.select_lab_payment_type(6) } }> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                     <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -2021,10 +2023,12 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }}>
                                                                         <div className="payment-detail d-flex">
                                                                             <label className="container-radio payment-type-radio">
-                                                                            <div onClick={(e)=>{e.stopPropagation();
-                                                                                e.preventDefault();
-                                                                            }}>
-                                                                                <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                            <div>
+                                                                                <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                    e.preventDefault()
+                                                                                    e.stopPropagation()
+                                                                                    this.props.select_lab_payment_type(1)
+                                                                                }}>Online Payment</h4>
                                                                                 <span className="payment-mode-amt">{display_radio_cod_price}</span>
                                                                                 {/* {
                                                                                 is_insurance_applicable ? ""

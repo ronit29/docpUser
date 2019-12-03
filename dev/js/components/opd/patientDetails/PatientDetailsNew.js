@@ -1854,7 +1854,9 @@ class PatientDetailsNew extends React.Component {
                                                                                             <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
-                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                                <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                                e.preventDefault();
+                                                                                                this.props.select_opd_payment_type(6) } }> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                                 <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -1899,10 +1901,12 @@ class PatientDetailsNew extends React.Component {
                                                                                     }}>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
-                                                                                                e.preventDefault();
-                                                                                            }}>
-                                                                                                <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                                            <div className="no-cursor" >
+                                                                                                <h4 className="title payment-amt-label" nClick={(e) => {
+                                                                                                    e.preventDefault()
+                                                                                                    e.stopPropagation()
+                                                                                                    this.props.select_opd_payment_type(1)
+                                                                                                }}>Online Payment</h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :
                                                                                                     /*vip_data.hosp_is_gold && */is_selected_user_gold ? `₹ ${(vip_data.vip_amount + vip_data.vip_convenience_amount)-(this.props.disCountedOpdPrice||0)}` :
                                                                                                         is_vip_applicable ? `₹ ${(vip_data.vip_amount)-(this.props.disCountedOpdPrice||0) }` : this.getBookingAmount(total_wallet_balance, display_radio_cod_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
@@ -1931,10 +1935,11 @@ class PatientDetailsNew extends React.Component {
                                                                                         this.props.select_opd_payment_type(2)
                                                                                     }}>
                                                                                         <label className="container-radio payment-type-radio">
-                                                                                        <div onClick={(e)=>{e.stopPropagation();
-                                                                                                e.preventDefault();
-                                                                                            }}>
-                                                                                            <h4 className="title payment-amt-label">Pay at Clinic</h4>
+                                                                                        <div>
+                                                                                            <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                                e.preventDefault()
+                                                                                                this.props.select_opd_payment_type(2)
+                                                                                            }}>Pay at Clinic</h4>
                                                                                             {
                                                                                                 enabled_for_cod_payment && priceData.is_cod_deal_price ?
                                                                                                     <React.Fragment>
