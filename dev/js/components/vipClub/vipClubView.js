@@ -73,7 +73,6 @@ class VipClubView extends React.Component {
         this.setState({is_gold_clicked:false})
         let plan = plan_to_toggle
         plan.isForceUpdate = false
-        // plan_to_toggle.is_selected = true
         this.props.selectVipClubPlan('plan', plan, (resp) => {
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         })
@@ -95,7 +94,6 @@ class VipClubView extends React.Component {
         }else{
             plan = plan_to_toggle
         }
-        // plan.is_selected = true
         plan.isForceUpdate = false
         this.props.selectVipClubPlan('plan', plan, (resp) => {
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
@@ -145,6 +143,9 @@ class VipClubView extends React.Component {
                 if (lead_data.is_agent) {
                     url += '&is_agent=' + lead_data.is_agent
                 }
+                if (lead_data.is_gold) {
+                    url += '&is_gold=' + lead_data.is_gold
+                }
                 this.props.history.push(url)
                 // this.props.history.push('/vip-club-member-details')
             }
@@ -152,64 +153,6 @@ class VipClubView extends React.Component {
             this.props.citiesData()
             this.setState({ showPopup: true })
         }
-
-
-        // if (!this.props.isSalesAgent && !this.props.isAgent) {
-        //     if (STORAGE.checkAuth()) {
-        //         if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-        //             loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-        //             if (Object.keys(loginUser).length > 0) {
-        //                 this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
-        //                     let LeadIdData = {
-        //                         'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-        //                     }
-        //                     GTM.sendEvent({ data: LeadIdData })
-        //                 })
-        //             }
-        //             this.props.history.push('/vip-club-member-details')
-        //         }
-        //     } else {
-        //         this.props.citiesData()
-        //         this.setState({ showPopup: true })
-        //     }
-        // } else {
-        //     if (STORAGE.checkAuth()) {
-        //         // if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-        //         //     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-        //         //     if (Object.keys(loginUser).length > 0) {
-        //         //         if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
-        //         //             let data = {
-        //         //                 name: loginUser.name,
-        //         //                 phone_number: loginUser.phone_number,
-        //         //                 utm_source: lead_data.utm_source || '',
-        //         //                 utm_spo_tags : lead_data || ''
-        //         //             }
-        //         //             this.props.vipPlusLead(data)
-        //         //         }
-        //         //     }
-        //         // }
-        //         let url = '/vip-club-member-details?isDummy=true'
-        //         if (lead_data.utm_source) {
-        //             url += '&utm_source=' + lead_data.utm_source
-        //         }
-        //         if (lead_data.utm_term) {
-        //             url += '&utm_term=' + lead_data.utm_term
-        //         }
-        //         if (lead_data.utm_campaign) {
-        //             url += '&utm_campaign=' + lead_data.utm_campaign
-        //         }
-        //         if (lead_data.utm_medium) {
-        //             url += '&utm_medium=' + lead_data.utm_medium
-        //         }
-        //         if (lead_data.is_agent) {
-        //             url += '&is_agent=' + lead_data.is_agent
-        //         }
-        //         this.props.history.push(url)
-        //     } else {
-        //         this.props.citiesData()
-        //         this.setState({ showPopup: true })
-        //     }
-        // }
     }
 
     navigateTo(data, e) {

@@ -490,7 +490,9 @@ class ChatPanel extends React.Component {
     onIframeLoad(e){
         try{
             let target = e.target
-            (target.contentWindow||target.contentDocument).location.href;
+            if(target) {
+                (target.contentWindow||target.contentDocument).location.href;
+            }
         }catch(error){
             console.log('error in rendering chat iframe'+error);
         }

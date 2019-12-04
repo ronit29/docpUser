@@ -48,6 +48,9 @@ class DirectBooking extends React.Component {
                     if(callbackurl == 'lab' || callbackurl == 'opd'){
                         window.location.href = '/#' + callbackurl
                     }else{
+                        if(parsed.test_ids){
+                            callbackurl+='&test_ids='+parsed.test_ids
+                        }
                         this.props.history.push('/'+callbackurl)
                     }
                 }else{
