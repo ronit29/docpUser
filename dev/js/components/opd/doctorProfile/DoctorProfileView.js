@@ -323,6 +323,14 @@ class DoctorProfileView extends React.Component {
 
     }
 
+    goldClicked(id) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonBookableVipGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookable-vip-gold-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=docgoldlisting&lead_source=Docprime')
+    }
+
     render() {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
@@ -601,9 +609,21 @@ class DoctorProfileView extends React.Component {
                                                                                                     }
                                                                                                     {
                                                                                                         doctor.discounted_price && doctor.mrp ?
-                                                                                                            <div className="slideDocPrice">
+                                                                                                            <div className="slideDocPrice mb-0">
                                                                                                                 <span className="slideNamePrc">₹ {doctor.discounted_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                             </div> : ''
+                                                                                                    }
+                                                                                                    {
+                                                                                                        doctor.hospitals[0].enabled_for_online_booking 
+                                                                                                        && !doctor.hospitals[0].is_gold_member 
+                                                                                                        && !doctor.hospitals[0].is_vip_member
+                                                                                                        && doctor.discounted_price>(doctor.hospitals[0].vip_convenience_amount + doctor.hospitals[0].vip_gold_price) 
+                                                                                                        && doctor.hospitals[0].hosp_is_gold?
+                                                                                                        <div className="pkg-prc-ct home-screengoldprice mb-2" onClick={this.goldClicked.bind(this,doctor.id)}>
+                                                                                                            <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
+                                                                                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {doctor.hospitals[0].vip_convenience_amount + doctor.hospitals[0].vip_gold_price}</span><img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                                                                                            </div>
+                                                                                                        :''
                                                                                                     }
                                                                                                     <div className="slidBookBtn">
                                                                                                         <button style={{ cursor: 'pointer' }} onClick={(e) => this.navigateToDoctor(doctor, e)}>Book Now</button>
