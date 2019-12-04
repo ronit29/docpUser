@@ -120,10 +120,14 @@ app.all('*', function (req, res) {
      let show_sbi_theme = false
 
      try{
-         if( (req && req.query && req.query.utm_source=='sbi_utm') || (req && req.cookies && req.cookies.sbi_utm) || (req && req.headers && req.headers.cookie && req.headers.cookie.includes('sbi_utm') ) ) {
-            show_sbi_theme = true;
+         // if( (req && req.query && req.query.utm_source=='sbi_utm') || (req && req.cookies && req.cookies.sbi_utm) || (req && req.headers && req.headers.cookie && req.headers.cookie.includes('sbi_utm') ) ) {
+         //    show_sbi_theme = true;
+         //    res.cookie('sbi_utm',true, { maxAge: 900000});
+         // }
+        if( (req.get('host') && req.get('host').includes('sbi')) || (req && req.query && req.query.utm_source=='sbi_utm') ){ 
+            show_sbi_theme = true
             res.cookie('sbi_utm',true, { maxAge: 900000});
-         }
+        }
      }catch(e){
 
      }
