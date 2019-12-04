@@ -67,8 +67,6 @@ class ChoosePatientNewView extends React.Component {
                     ?
                     this.setState({
                         [e.target.name]: e.target.value, showVerify: true
-                    },()=>{
-                        this.props.nonIpdLeads(this.state.phoneNumber)
                     })
                     : this.setState({
                         [e.target.name]: e.target.value
@@ -98,6 +96,7 @@ class ChoosePatientNewView extends React.Component {
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
             return
         }
+        this.props.nonIpdLeads(this.state.phoneNumber)
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
             if (response.token) {

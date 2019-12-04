@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags, clearVipSelectedPlan } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -163,7 +163,8 @@ const mapDispatchToProps = (dispatch) => {
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
-        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag))
+        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
+        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan())
     }
 }
 
