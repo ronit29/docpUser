@@ -20,7 +20,8 @@ class VipClub extends React.Component{
             isAgent:parsed.is_agent ?parsed.is_agent:false,
             source:parsed.source,
             is_gold:parsed.is_gold?parsed.is_gold:false,
-            is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false
+            is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
+            is_booking_page:parsed.booking_page?parsed.booking_page:null
         }
     }
 
@@ -53,7 +54,7 @@ class VipClub extends React.Component{
             
                 {/*<VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>*/}
             
-                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan} is_booking_page={this.state.is_booking_page}/>
                        
             </React.Fragment>
         }else{
