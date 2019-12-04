@@ -391,7 +391,7 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />
                 {
-                    this.state.showNonIpdPopup == 'true' && this.state.show_popup == 1?
+                    this.state.showNonIpdPopup == 'true' && this.state.show_popup == 1 && this.props.LOADED_LABS_SEARCH?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_tobe_verified={this.state.is_tobe_verified}/>
                     :''
                 }
