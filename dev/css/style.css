@@ -14396,3 +14396,11 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-dp {
     border: 1px solid #ddd;
 }
+
+
+.payment-sub-heading{
+    display: block;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+}

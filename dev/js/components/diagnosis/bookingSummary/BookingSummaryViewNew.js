@@ -1979,7 +1979,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div onClick={(e)=>{e.stopPropagation();
                                                                                     e.preventDefault();
                                                                                 }}>
-                                                                                    <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <h4 className="title payment-amt-label"> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                     <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -2020,7 +2020,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                             <div onClick={(e)=>{e.stopPropagation();
                                                                                 e.preventDefault();
                                                                             }}>
-                                                                                <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                                <h4 className="title payment-amt-label">Only Lab booking
+                                                                                    <span className="payment-sub-heading">No discounts </span>
+                                                                                </h4>
                                                                                 <span className="payment-mode-amt">{display_radio_cod_price}</span>
                                                                                 {/* {
                                                                                 is_insurance_applicable ? ""
