@@ -819,7 +819,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ?false:this.state.use_wallet,
+            use_wallet: this.props.payment_type==6?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
@@ -1052,11 +1052,12 @@ class BookingSummaryViewNew extends React.Component {
         let price_from_pg = 0
         
         if(is_vip_applicable || (extraAllParams && extraAllParams.is_gold_member) ){
-            if(vip_amount){
-                return `Confirm Booking (₹ ${extraAllParams.total_amount_payable})`
-            }else{
-                return `Confirm Booking`
-            }
+            // if(vip_amount){
+            //     return `Confirm Booking (₹ ${extraAllParams.total_amount_payable})`
+            // }else{
+            //     return `Confirm Booking`
+            // }
+            price_to_pay = extraAllParams.total_amount_payable
         }
         if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
@@ -2138,7 +2139,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                           !is_vip_gold_applicable && this.props.payment_type!=6 && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                           this.props.payment_type!=6 && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">
