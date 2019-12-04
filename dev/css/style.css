@@ -14396,3 +14396,8 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-dp {
     border: 1px solid #ddd;
 }
+.non-doc-vip-ico{
+    width: 32px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+}

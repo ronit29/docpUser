@@ -608,7 +608,21 @@ class DoctorProfileView extends React.Component {
                                                                                                             <p className="slideDocExp" style={{ marginTop: 5 }} >{doctor.hospitals[0].hospital_name}</p> : ''
                                                                                                     }
                                                                                                     {
-                                                                                                        doctor.discounted_price && doctor.mrp ?
+                                                                                                        (doctor.hospitals[0].is_gold_member || doctor.hospitals[0].is_vip_member ) && doctor.hospitals[0].cover_under_vip ?
+                                                                                                            <div className="slideDocPrice mb-0">
+                                                                                                                {
+                                                                                                                  doctor.hospitals[0].is_gold_member?
+                                                                                                                    <span className="slideNamePrc">
+                                                                                                                        <img className="non-doc-vip-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                                                                                                    </span>
+                                                                                                                    :
+                                                                                                                    <span className="slideNamePrc">
+                                                                                                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                                                                    </span>   
+                                                                                                                }
+                                                                                                                <span className="slideNamePrc">₹ {doctor.hospitals[0].vip_convenience_amount + doctor.hospitals[0].vip_gold_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
+                                                                                                            </div>  
+                                                                                                        :doctor.discounted_price && doctor.mrp ?
                                                                                                             <div className="slideDocPrice mb-0">
                                                                                                                 <span className="slideNamePrc">₹ {doctor.discounted_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                             </div> : ''
