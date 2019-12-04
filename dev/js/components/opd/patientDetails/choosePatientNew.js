@@ -64,8 +64,11 @@ class ChoosePatientNewView extends React.Component {
         if (e.target.name == 'phoneNumber') {
             e.target.value.length <= 10
                 ? e.target.value.length == 10
-                    ? this.setState({
+                    ?
+                    this.setState({
                         [e.target.name]: e.target.value, showVerify: true
+                    },()=>{
+                        this.props.nonIpdLeads(this.state.phoneNumber)
                     })
                     : this.setState({
                         [e.target.name]: e.target.value

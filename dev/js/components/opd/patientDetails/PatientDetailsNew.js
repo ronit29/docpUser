@@ -251,6 +251,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         this.sendEmailNotification()
+        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(){
@@ -1349,6 +1350,56 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
+    nonIpdLeads(user_phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let data={}
+        let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
+        let selected_hospital = {}
+        let patient
+        let specialization
+        if (doctorDetails) {
+            let { hospitals , general_specialization } = doctorDetails
+            specialization = general_specialization
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        selected_hospital = hsptl
+                    }
+                })
+            }
+        }
+        if (Object.keys(selected_hospital).length > 0 && !selected_hospital.is_ipd_hospital) {
+            data.lead_type = 'DROPOFF'
+            data.lead_source = 'dropoff'
+            data.test_name = null
+            data.lab_name = null
+            data.doctor_name = selected_hospital.doctor
+            data.hospital_name = selected_hospital.hospital_name
+            data.specialty = specialization[0].name
+            data.source = parsed
+            data.exitpoint_url = 'http://docprime.com' +this.props.location.pathname
+            if(this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser){
+                patient = this.props.profiles[this.props.selectedProfile]
+                data.customer_name = patient.name
+                data.phone_number = patient.phone_number
+            }else{
+                data.customer_name = null
+                data.phone_number = null
+            }
+            if(user_phone_number){
+                data.phone_number = user_phone_number
+            }
+            if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length){
+                let { date, time,selectedDoctor } = this.props.selectedSlot
+                data.selected_time = time.text + time.title
+                data.selected_date = date
+            }else{
+                data.selected_time = null
+                data.selected_date = null
+            }
+            this.props.NonIpdBookingLead(data)
+        }
+    }
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1722,7 +1773,7 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin}/>
+                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
                                                                     <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
