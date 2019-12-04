@@ -39,40 +39,40 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
-    isDocCare(){
-        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
-            this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
-        }else{
-            this.props.history.push('/prime/plans') 
+    isDocCare() {
+        if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
+            this.props.history.push('/prime/success?user_plan=' + this.props.isUserCared.user_plan_id)
+        } else {
+            this.props.history.push('/prime/plans')
         }
     }
 
-    goToInsurance(isUserLoginInsured){
-        if(isUserLoginInsured){
-            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
-                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+    goToInsurance(isUserLoginInsured) {
+        if (isUserLoginInsured) {
+            if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5) {
                 this.props.history.push('/insurance/certificate')
-            }else{
+            } else {
                 this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
             }
-        }else{
+        } else {
             this.props.generateInsuranceLead()
             this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
         }
     }
 
-    getInsuranceBtnText(){
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
-        if(isUserLoginInsured){
-            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+    getInsuranceBtnText() {
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user ? this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user : false
+        if (isUserLoginInsured) {
+            if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
                 this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 ||
-                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5) {
                 return <button className="ins-userdetails-active">Active</button>
-            }else{
+            } else {
                 return <button className="ins-userdetails-buy">Buy Now</button>
             }
         }
-    }    
+    }
 
     render() {
         let currentRoomId = this.props.USER.currentRoomId
@@ -83,9 +83,9 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
-        
-        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user ? this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user : false
+
+        if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             memberClass = 'float-right ins-userdetails-active'
             memStatus = 'Active'
         }
@@ -151,6 +151,23 @@ class ProfileData extends React.Component {
                                         </a>
                                     </div>
                                 </div>
+                                <div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
+                                    Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
+                                </div>
+                                <div className="gold-benifi-cards-cont pdng-usr-dtls-slots mb-3 pr-0" style={{paddingLeft: '8px'}}>
+                                            <div className="gold-benifi-cards">
+                                                <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
+                                                <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
+                                            </div>
+                                            <div className="gold-benifi-cards">
+                                                <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
+                                                <p>Discounts on <br /><strong>5,000</strong> Labs</p>
+                                            </div>
+                                            <div className="gold-benifi-cards">
+                                                <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                <p> Save 23% <br/> on medicines</p>
+                                            </div>
+                                        </div>
                             </div>
                         </li>
                         {
@@ -226,20 +243,20 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
-                            <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
-                                <a>
-                                    <span className="icon icon-md nav-icon">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
-                                    </span>
-                                    <div className="nav-content">
-                                        <h4 className="title app-title">OPD Insurance
+                            CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
+                                <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
+                                    <a>
+                                        <span className="icon icon-md nav-icon">
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                        </span>
+                                        <div className="nav-content">
+                                            <h4 className="title app-title">OPD Insurance
                                         </h4>
-                                    </div>
-                                </a>
-                                {this.getInsuranceBtnText()}
-                            </li>
-                        :''
+                                        </div>
+                                    </a>
+                                    {this.getInsuranceBtnText()}
+                                </li>
+                                : ''
                         }
                         {CONFIG.ENABLE_VIP_CLUB?
                             <li onClick={(e) => {
@@ -257,42 +274,42 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Vip 
-                                        {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
+                                        {/* <button className="float-right ins-userdetails-buy">{memStatus}</button> */}
                                     </h4>
                                 </div>
                             </a>
                         </li>
                         :''}
-                        {CONFIG.ENABLE_VIP_GOLD?
+                        {CONFIG.ENABLE_VIP_GOLD ?
                             <li onClick={(e) => {
                                 let data = {
-                                'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
-                              }
-                              GTM.sendEvent({ data: data })
+                                    'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
                                 e.preventDefault()
                                 this.props.clearVipSelectedPlan()
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=profile-menu-gold-clicked&lead_source=Docprime')
-                              }} className="my-profile-item lst-spcng">
-                            <a>
-                                <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
-                                </span>
-                                <div className="nav-content" style={{width:'100%'}}>
-                                    <h4 className="title app-title">Docprime Gold 
+                            }} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content" style={{ width: '100%' }}>
+                                        <h4 className="title app-title">Docprime Gold
                                         {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
-                                    </h4>
-                                </div>
-                            </a>
-                        </li>
-                        :''}
+                                        </h4>
+                                    </div>
+                                </a>
+                            </li>
+                            : ''}
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
                                 </span>
-                                <div className="nav-content" style={{width:'100%'}}>
-                                    <h4 className="title app-title">Docprime Care 
-                                        <button className={memberClass}>{memStatus}</button>
+                                <div className="nav-content" style={{ width: '100%' }}>
+                                    <h4 className="title app-title">Docprime Care
+                                        {/* <button className={memberClass}>{memStatus}</button> */}
                                     </h4>
                                 </div>
                             </a>

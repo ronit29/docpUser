@@ -91,7 +91,7 @@ class VipGoldView extends React.Component {
                                         <div className="gold-benifi-cards-cont">
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                <p>Exclusive rates on<br /><strong>30,000</strong> Doctors</p>
+                                                <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
