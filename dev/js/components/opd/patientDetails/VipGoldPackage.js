@@ -31,7 +31,7 @@ class VipGoldPackagePriceView extends React.PureComponent {
 								{
 									this.props.vipGoldPlans && this.props.vipGoldPlans.length > 0 ?
 										this.props.vipGoldPlans.map((value, key) => {
-											return <div key={key} className={`gold-ofr-lising ${value.id == (this.props.selected_vip_plan && this.props.selected_vip_plan.id) ? 'gold-select' : ''}`} onClick={() => this.props.toggleGoldPlans(value)}>
+											return <div key={key} className={`gold-ofr-lising addpdng-popup ${value.id == (this.props.selected_vip_plan && this.props.selected_vip_plan.id) ? 'gold-select' : ''}`} onClick={() => this.props.toggleGoldPlans(value)}>
 												<div className="gold-mnthplan">
 													<p className="mnth-plan-gld">
 														Coverage: {value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}

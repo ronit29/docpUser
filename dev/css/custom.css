@@ -4834,6 +4834,9 @@ h4.gold-ofr-hdng {
     align-items: center;
     cursor: pointer;
 }
+.addpdng-popup{
+    padding: 10px 0px;
+}
 .gold-ofr-lising:last-child{
     border-bottom: 1px solid transparent;
 }
@@ -5177,6 +5180,9 @@ b.gd-cut-prc {
     border-radius: 5px;
     display: flex;
     align-items: center;
+}
+.booking-confirm-screen hr{
+    margin: 20px 0px;
 }
 .dp-gold-pay-lft {
     padding: 5px 5px;
