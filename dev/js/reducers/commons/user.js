@@ -65,7 +65,8 @@ const defaultState = {
     user_cities: [],
     iFrameUrls: [],
     chatPaymentStatus: null,
-    mobileVerificationDone: false
+    mobileVerificationDone: false,
+    is_any_user_buy_gold: null
 }
 
 export default function (state = defaultState, action) {
@@ -87,7 +88,7 @@ export default function (state = defaultState, action) {
                     newState.selectedProfile = null
                 }
             }
-
+            let is_any_user_buy_gold = null;
             newState.profiles = action.payload.reduce((profileMap, profile) => {
                 if (profile.is_default_user) {
                     if (!newState.selectedProfile) {
@@ -99,6 +100,9 @@ export default function (state = defaultState, action) {
                     newState.insurance_status = profile.insurance_status
                     newState.defaultProfile = profile.id
                 }
+                if(profile.is_vip_gold_member || profile.is_vip_member) {
+                    is_any_user_buy_gold = profile.id
+                }
                 profileMap[profile.id] = profile
                 return profileMap
             }, newState.profiles)
@@ -106,6 +110,8 @@ export default function (state = defaultState, action) {
             if (!newState.selectedProfile && action.payload.length) {
                 newState.selectedProfile = action.payload[0].id
             }
+
+            newState.is_any_user_buy_gold = is_any_user_buy_gold
 
             if (!newState.defaultProfile && action.payload.length) {
                 newState.defaultProfile = action.payload[0].id

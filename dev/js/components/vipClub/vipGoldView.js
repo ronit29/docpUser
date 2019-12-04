@@ -37,6 +37,9 @@ class VipGoldView extends React.Component {
 
         self.setState({ tabsValue: tabs })
     }
+    goBack() {
+       this.props.history.go(-1)
+    }
     render() {
         let self = this
 
@@ -420,9 +423,16 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
-                        <p>Continue</p>
-                    </button>
+                    {
+                        this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?
+                        <button className="vip-foot-btn p-3" onClick={this.goBack.bind(this)}>
+                            <p>Continue Booking</p>
+                        </button>
+                        :
+                        <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
+                            <p>Continue</p>
+                        </button>
+                    }
                 </section>
                 : <div></div>
         );
