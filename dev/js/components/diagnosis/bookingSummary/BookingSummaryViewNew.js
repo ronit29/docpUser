@@ -1332,7 +1332,7 @@ class BookingSummaryViewNew extends React.Component {
 
             data.lead_type = 'DROPOFF'
             data.lead_source = 'dropoff'
-            data.lab_name = this.props.LABS[this.props.selectedLab]
+            data.lab_name = this.props.LABS[this.props.selectedLab].lab.name
             data.exitpoint_url = 'http://docprime.com' + this.props.location.pathname
             data.source = parsed
             data.doctor_name = null
