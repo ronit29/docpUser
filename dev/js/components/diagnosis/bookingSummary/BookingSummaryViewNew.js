@@ -1322,7 +1322,12 @@ class BookingSummaryViewNew extends React.Component {
                 if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 selected_test = this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]
                 }
-                selected_test_name += test.test.name + ','
+                if(this.props.LABS[this.props.selectedLab].tests.length == 1){
+                    selected_test_name += test.test.name
+                }else{
+                    selected_test_name += test.test.name + ','
+                }
+                
             })
             if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
                 patient = this.props.profiles[this.props.selectedProfile]
