@@ -1344,7 +1344,7 @@ class BookingSummaryViewNew extends React.Component {
             }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test
-                data.selected_time = time.text +''+time.title
+                data.selected_time = time.text +' '+time.title
                 data.selected_date = date
             }else{
                 data.selected_time = null

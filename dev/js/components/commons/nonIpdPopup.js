@@ -36,8 +36,23 @@ class NonIpdPopupView extends React.Component {
 		}	
 	}
 
-	render() {
+	getCriteriaString(selectedCriterias) {
+        if (selectedCriterias && selectedCriterias.length) {
+            return selectedCriterias.reduce((final, curr, i) => {
+                if (i != 0) {
+                    final += ', '
+                }
+                final += `${curr.name}`
+                return final
+            }, "")
+        }
+    }
 
+	render() {
+		let criteriaStr 
+		if(this.props.is_lab && this.props.selectedCriterias && this.props.selectedCriterias){
+			 criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+		}
 			return (
 
 				<div className="booking-help-modal">
@@ -45,7 +60,7 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget cancel-appointment-div cancel-popup">
 						<div className="widget-header text-center action-screen-header">
 							<p className="fw-500 cancel-appointment-head">Need help in booking <br/>
-								<span className="text-capitalize" style={{fontWeight:400}}> Dynamic test name goes here ?</span>
+								<span className="text-capitalize" style={{fontWeight:400}}> {criteriaStr} ?</span>
 							</p>
 							{
 								this.props.is_force == 1?

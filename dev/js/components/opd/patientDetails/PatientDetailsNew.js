@@ -1391,7 +1391,7 @@ class PatientDetailsNew extends React.Component {
             }
             if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length){
                 let { date, time,selectedDoctor } = this.props.selectedSlot
-                data.selected_time = time.text + time.title
+                data.selected_time = time.text + ' ' + time.title
                 data.selected_date = date
             }else{
                 data.selected_time = null
