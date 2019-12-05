@@ -1339,6 +1339,9 @@ class BookingSummaryViewNew extends React.Component {
             data.hospital_name = null
             data.specialty = null
             data.test_name = selected_test_name
+            if(user_phone_number){
+                data.phone_number = user_phone_number
+            }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test
                 data.selected_time = time.text +''+time.title
