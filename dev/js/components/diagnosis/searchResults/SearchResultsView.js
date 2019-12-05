@@ -33,8 +33,7 @@ class SearchResultsView extends React.Component {
             setSearchId: false,
             quickFilter: {},
             showNonIpdPopup: parsed.show_popup,
-            show_popup:1,
-            is_tobe_verified:parsed.is_tobe_verified
+            to_be_force:1
         }
     }
 
@@ -358,10 +357,6 @@ class SearchResultsView extends React.Component {
             url += `${'&show_popup='+ this.state.showNonIpdPopup}`
         }
 
-        if(this.state.is_tobe_verified){
-            url += `${'&is_tobe_verified='+ this.state.is_tobe_verified}`
-        }
-
         if (this.state.lab_card) {
             url += `${is_params_exist ? '&' : '?'}lab_card=true`
             is_params_exist = true
@@ -400,12 +395,12 @@ class SearchResultsView extends React.Component {
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS'})
         console.log(data)
        this.props.NonIpdBookingLead(data) 
-       this.setState({show_popup:0})
+       this.setState({to_be_force:0})
     }
 
     closeIpdLeadPopup(from){
         if(from){
-            this.setState({show_popup:0})
+            this.setState({to_be_force:0})
         }
     }
 
@@ -433,8 +428,6 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
-        console.log(this.state.showNonIpdPopup)
-        console.log(this.state.show_popup)
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -446,8 +439,8 @@ class SearchResultsView extends React.Component {
                     next: next
                 }} noIndex={!this.state.seoFriendly} />
                 {
-                    this.state.showNonIpdPopup == 'true' && this.state.show_popup == 1 && this.props.LOADED_LABS_SEARCH?
-                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_tobe_verified={this.state.is_tobe_verified}/>
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} />
                     :''
                 }
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>

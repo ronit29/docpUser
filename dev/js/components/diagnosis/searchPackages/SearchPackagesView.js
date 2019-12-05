@@ -30,8 +30,7 @@ class SearchPackagesView extends React.Component {
             isCompare: false,
             quickFilter: {},
             showNonIpdPopup: parsed.show_popup,
-            show_popup:1,
-            is_tobe_verified:parsed.is_tobe_verified
+            to_be_force:1
         }
     }
 
@@ -326,10 +325,6 @@ class SearchPackagesView extends React.Component {
             url += `${'&show_popup='+ this.state.showNonIpdPopup}`
         }
 
-        if(this.state.is_tobe_verified){
-            url += `${'&is_tobe_verified='+ this.state.is_tobe_verified}`
-        }
-
         return url
     }
 
@@ -355,12 +350,12 @@ class SearchPackagesView extends React.Component {
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS'})
         console.log(data)
        this.props.NonIpdBookingLead(data) 
-       this.setState({show_popup:0})
+       this.setState({to_be_force:0})
     }
 
     closeIpdLeadPopup(from){
         if(from){
-            this.setState({show_popup:0})
+            this.setState({to_be_force:0})
         }
     }
 
@@ -391,7 +386,7 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />
                 {
-                    this.state.showNonIpdPopup == 'true' && this.state.show_popup == 1 && this.props.LOADED_LABS_SEARCH?
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_tobe_verified={this.state.is_tobe_verified}/>
                     :''
                 }

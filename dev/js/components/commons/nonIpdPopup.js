@@ -41,7 +41,7 @@ class NonIpdPopupView extends React.Component {
 		// console.log(this.state.phone_number)
 			return (
 
-				<div className="booking-help-modal" onClick={this.props.closeIpdLeadPopup.bind(this,this.props.is_tobe_verified && this.props.is_tobe_verified == 0?true:false)}>
+				<div className="booking-help-modal" onClick={this.props.closeIpdLeadPopup.bind(this,this.props.is_force == 1?true:false)}>
 					<div className="cancel-overlay"></div>
 					<div className="widget cancel-appointment-div cancel-popup">
 						<div className="widget-header text-center action-screen-header">
@@ -49,7 +49,7 @@ class NonIpdPopupView extends React.Component {
 								<span className="text-capitalize" style={{fontWeight:400}}> Dynamic test name goes here ?</span>
 							</p>
 							{
-								this.props.is_tobe_verified && this.props.is_tobe_verified == 0?
+								this.props.is_force == 1?
 									<a href="#" onClick={this.props.closeIpdLeadPopup.bind(this,true)} className="close-times-icon">&times;</a>
 								:''
 							}
