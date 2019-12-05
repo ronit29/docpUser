@@ -607,7 +607,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ? false : this.state.use_wallet,
+            use_wallet: this.props.payment_type==6 ? false : this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web: true
@@ -981,7 +981,7 @@ class PatientDetailsNew extends React.Component {
 
         let price_from_pg = 0
 
-        if (this.state.use_wallet && total_wallet_balance && !is_gold_member && !is_vip_applicable) {
+        if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
         
@@ -2126,7 +2126,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                                 {
-                                                                    !(/*vip_data.hosp_is_gold && */is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
+                                                                    /*!(is_selected_user_gold) && !is_vip_applicable && */this.props.payment_type!=6 && !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
                                                                         <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                             <div className="widget-content">
                                                                                 <div className="select-pt-form">
