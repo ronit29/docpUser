@@ -61,7 +61,7 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget cancel-appointment-div cancel-popup">
 						<div className="widget-header text-center action-screen-header">
 							<p className="fw-500 cancel-appointment-head">Need help in booking <br/>
-								<span className="text-capitalize" style={{fontWeight:400}}> {criteriaStr} ?</span>
+								<span className="fw-500 text-capitalize"> {criteriaStr} ?</span>
 							</p>
 							{
 								this.props.is_force == 1?
