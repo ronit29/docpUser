@@ -30,6 +30,7 @@ class NonIpdPopupView extends React.Component {
 				return
 			}else{
 				this.props.nonIpdLeads(this.state.phone_number)
+				SnackBar.show({ pos: 'bottom-center', text: "Your request has been submited" })	
 			}
 		}else{
 			SnackBar.show({ pos: 'bottom-center', text: "Please Enter phone number" })
