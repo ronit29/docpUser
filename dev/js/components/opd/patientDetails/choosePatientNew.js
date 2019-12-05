@@ -96,7 +96,6 @@ class ChoosePatientNewView extends React.Component {
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
             return
         }
-        this.props.nonIpdLeads(this.state.phoneNumber)
         let self = this
         this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
             if (response.token) {
@@ -279,7 +278,7 @@ class ChoosePatientNewView extends React.Component {
                 }
                 GTM.sendEvent({ data: analyticData })
             }
-
+            this.props.nonIpdLeads(this.state.phoneNumber)
             this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
                 if (error) {
                     setTimeout(() => {

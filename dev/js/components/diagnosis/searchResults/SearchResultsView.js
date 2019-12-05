@@ -392,7 +392,8 @@ class SearchResultsView extends React.Component {
 
     nonIpdLeads(phone_number){
         const parsed = queryString.parse(this.props.location.search)
-        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS'})
+        let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS',test_name:criteriaStr})
         console.log(data)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
@@ -401,6 +402,18 @@ class SearchResultsView extends React.Component {
     closeIpdLeadPopup(from){
         if(from){
             this.setState({to_be_force:0})
+        }
+    }
+
+    getCriteriaString(selectedCriterias) {
+        if (selectedCriterias && selectedCriterias.length) {
+            return selectedCriterias.reduce((final, curr, i) => {
+                if (i != 0) {
+                    final += ', '
+                }
+                final += `${curr.name}`
+                return final
+            }, "")
         }
     }
 

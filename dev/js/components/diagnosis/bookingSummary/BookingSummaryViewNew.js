@@ -1315,9 +1315,13 @@ class BookingSummaryViewNew extends React.Component {
         let patient = null
         let data={}
         let selected_test_name = ''
+        let selected_test
         if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
 
             this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+                if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
+                selected_test = this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]
+                }
                 selected_test_name += test.test.name + ','
             })
             if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
@@ -1335,9 +1339,9 @@ class BookingSummaryViewNew extends React.Component {
             data.hospital_name = null
             data.specialty = null
             data.test_name = selected_test_name
-            if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length){
-                let { date, time,selectedDoctor } = this.props.selectedSlot
-                data.selected_time = time.text + time.title
+            if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
+                let { date, time } = selected_test
+                data.selected_time = time.text +''+time.title
                 data.selected_date = date
             }else{
                 data.selected_time = null

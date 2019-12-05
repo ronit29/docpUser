@@ -6,14 +6,19 @@ import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
 import BannerCarousel from '../../commons/Home/bannerCarousel';
 import HelmetTags from '../../commons/HelmetTags';
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
+const queryString = require('query-string');
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             expandClick: true,
-            expandText: 'Expand All'
+            expandText: 'Expand All',
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -75,6 +80,20 @@ class ThyrocarePackageView extends React.Component {
         }
         GTM.sendEvent({ data: data })
         this.props.history.push('/vip-gold-details?is_gold=true&source=thyrocarePkgListing&lead_source=Docprime')
+    }
+
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS'})
+        console.log(data)
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            this.setState({to_be_force:0})
+        }
     }
 
     render() {
