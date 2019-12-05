@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, ADD_VIP_COUPONS, REMOVE_VIP_COUPONS
 } from '../../constants/types';
 
 const defaultState = {
@@ -11,7 +11,10 @@ currentSelectedVipMembersId:[],
 LOAD_VIP_CLUB_DASHBOARD:false,
 vip_club_db_data:{},
 showVipDetailsView:false,
-savedMemberData:[]
+savedMemberData:[],
+odpGoldPredictedPrice: [],
+labGoldPredictedPrice: [],
+vipCoupons:[]
 }
 
 const DUMMY_PROFILE = {
@@ -103,10 +106,10 @@ export default function (state = defaultState, action) {
             newState.currentSelectedVipMembersId.map((val,key) => {
                 if(parseInt(key) == parseInt(action.payload.param_id)){
                     newState.currentSelectedVipMembersId[key][action.payload.param_id] = action.payload.newProfileid
+                    newState.currentSelectedVipMembersId[key].isUserSelectedProfile = true
                     
                 }    
             })
-            
             return newState 
         }
 
@@ -132,6 +135,7 @@ export default function (state = defaultState, action) {
             newState.LOAD_VIP_CLUB_DASHBOARD=false
             newState.showVipDetailsView=false
             newState.savedMemberData=[]
+            newState.vipCoupons= []
             return newState   
         }
 
@@ -201,15 +205,22 @@ export default function (state = defaultState, action) {
         case SHOW_VIP_MEMBERS_FORM:{
             let newState = {
                 ...state
-            } 
+            }
             if(action.payload.data && Object.keys(action.payload.data).length > 0 && action.payload.data.members && action.payload.data.members.length > 0){
-                    newState.currentSelectedVipMembersId=[]
+                    // newState.currentSelectedVipMembersId=[]
                     
                     // newState.vipClubMemberDetails={}
-                    newState.members_proofs = []
+                    // newState.members_proofs = []
                     if(action.payload.data && action.payload.data.is_agent && Object.keys(newState.selected_vip_plan).length == 0){
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
+                    }
+                    if(action.extraParams && Object.keys(action.extraParams).length){    
+                        if(action.extraParams.user_type && action.extraParams.user_type === action.payload.data.coupon_type &&  action.payload.data.coupon_data){                 
+                            newState.vipCoupons = action.payload.data.coupon_data
+                        }else{
+                            newState.vipCoupons = []
+                        }
                     }
                     newState.savedMemberData = action.payload.data.members
             }
@@ -223,6 +234,50 @@ export default function (state = defaultState, action) {
             if(newState.selected_vip_plan && Object.keys(newState.selected_vip_plan).length){
                 newState.selected_vip_plan = {}
             }
+            return newState
+        }
+
+        case CLEAR_VIP_MEMBER_DATA:{
+            let newState = {
+                ...state
+            }
+            if(newState.vipClubMemberDetails && Object.keys(newState.vipClubMemberDetails).length){
+                newState.vipClubMemberDetails = {}
+            }
+            return newState
+        }
+
+        case GET_OPD_VIP_GOLD_PLANS: {
+            let newState = {
+                ...state
+            }
+            newState.odpGoldPredictedPrice = action.payload
+            return newState
+        }
+
+        case GET_LAB_VIP_GOLD_PLANS: {
+            let newState = {
+                ...state
+            }
+            newState.labGoldPredictedPrice = action.payload
+            return newState
+        }
+
+        case ADD_VIP_COUPONS: {
+            let newState = {
+                ...state,
+                vipCoupons: { ...state.vipCoupons }
+            }
+            newState.vipCoupons = []
+            newState.vipCoupons.push(action.payload)
+            return newState
+        }
+
+        case REMOVE_VIP_COUPONS: {
+            let newState = {
+                ...state
+            }
+            newState.vipCoupons = []
             return newState
         }
     }

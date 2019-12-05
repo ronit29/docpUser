@@ -5,6 +5,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import TermsConditions from './termsConditions.js'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp'
 
 class CouponSelectionView extends React.Component {
@@ -56,11 +57,12 @@ class CouponSelectionView extends React.Component {
         if (parsed.deal_price) {
             deal_price = parseInt(parsed.deal_price)
         }
-
         if (appointmentType == 'opd') {
             appointmentType = 1
         } else if (appointmentType == 'lab') {
             appointmentType = 2
+        } else if (appointmentType == 'vip') {
+            appointmentType = 3
         } else {
             appointmentType = ''
         }
@@ -72,6 +74,10 @@ class CouponSelectionView extends React.Component {
             props.getCoupons({
                 productId: 2, lab_id: id, test_ids: test_ids, profile_id: props.selectedProfile, deal_price: deal_price, cart_item
             })
+        } else if(appointmentType == 3){
+             props.getCoupons({
+                productId:clinicId,gold_plan_id:id, deal_price:deal_price
+            })
         } else {
             if (parsed.procedures_ids) {
                 procedures_ids = parsed.procedures_ids
@@ -82,6 +88,31 @@ class CouponSelectionView extends React.Component {
         }
 
         this.setState({ appointmentType: appointmentType, id: id, clinicId: clinicId, test_ids, procedures_ids, deal_price, cart_item })
+    }
+
+    pushGoldData(coupon){
+        const parsed = queryString.parse(this.props.location.search)
+        let gold_push_data={}
+        let param
+        gold_push_data.plan = this.props.selected_vip_plan
+        gold_push_data.dummy_data_type = 'PLAN_PURCHASE'
+        gold_push_data.members = []
+        gold_push_data.coupon_data = []
+        gold_push_data.coupon_data.push(coupon)
+        gold_push_data.utm_spo_tags = parsed
+        gold_push_data.coupon_type = this.state.clinicId == 8?'gold': this.state.clinicId == 11 ? 'vip':''
+        this.props.currentSelectedVipMembersId.map((val, key) => {
+        if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
+            param = this.props.vipClubMemberDetails[val[key]]
+            gold_push_data.members.push(param)
+            }
+        })
+        if(STORAGE.isAgent()){
+            gold_push_data.is_agent = true
+        }else{
+            gold_push_data.is_agent = false
+        }
+        this.props.pushMembersData(gold_push_data)
     }
 
     componentDidMount() {
@@ -97,6 +128,9 @@ class CouponSelectionView extends React.Component {
     toggleButtons(coupon, e) {
         if (coupon.valid) {
             this.setState({ coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: '' })
+            if(this.state.appointmentType == 3){
+                this.pushGoldData(coupon)
+            }
             this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id, (success) => {
             })
             this.props.history.go(-1)
@@ -139,6 +173,10 @@ class CouponSelectionView extends React.Component {
             if (this.state.appointmentType == 2) {
                 this.props.getCoupons({
                     productId: 2, lab_id: this.state.id, test_ids: this.state.test_ids, profile_id: this.props.selectedProfile, save_in_store: false, coupon_code: this.state.couponText, deal_price: this.state.deal_price, cb: cb, cart_item: this.state.cart_item
+                })
+            }else if(this.state.appointmentType == 3){
+                 this.props.getCoupons({
+                    productId:this.state.clinicId,gold_plan_id:this.state.id, deal_price:this.state.deal_price, coupon_code: this.state.couponText, save_in_store: false, cb: cb,
                 })
             } else {
                 this.props.getCoupons({

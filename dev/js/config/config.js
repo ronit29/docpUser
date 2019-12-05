@@ -17,6 +17,7 @@ const PROD_CONFIG = {
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     RAVEN_SERVER_DSN_KEY: "https://b8816627d7f84535bfd7d634d94916a3@sentry.io/1290505",
     PG_URL: "https://pay.docprime.com/dp/pay/dpOrder",
+    PG_MULTI_ORDER_URL: "https://pay.docprime.com/dp/dpMultiOrder",
     CHAT_URL: "https://telemed.docprime.com/livechat",
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "production",
@@ -42,6 +43,7 @@ const STAGING_CONFIG = {
     RAVEN_DSN_KEY: "https://293dcc01cda545df925ccb2f7837b6a3@sentry.io/1341625",
     RAVEN_SERVER_DSN_KEY: "https://43567a5b14bb4aee988d45a95d55cc9c@sentry.io/1290589",
     PG_URL: "https://payqa.docprime.com/dp/pay/dpOrder",
+    PG_MULTI_ORDER_URL: "https://payqa.docprime.com/dp/dpMultiOrder",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "staging",
@@ -61,13 +63,14 @@ const STAGING_CONFIG = {
 }
 
 const DEV_CONFIG = {
-    // API_BASE_URL: "http://10.0.88.148:8000",
+    // API_BASE_URL: "http://10.0.88.109:8000",
     API_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://payqa.docprime.com/dp/pay/dpOrder",
+    PG_MULTI_ORDER_URL: "https://payqa.docprime.com/dp/dpMultiOrder",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "dev",

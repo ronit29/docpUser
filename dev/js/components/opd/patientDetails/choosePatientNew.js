@@ -131,6 +131,10 @@ class ChoosePatientNewView extends React.Component {
                                 self.props.checkPrescription()
                                 self.props.clearTestForInsured()
                             }
+                            this.props.getDataAfterLogin()
+                            if (self.props.is_opd) {
+                                self.props.sendEmailNotification()
+                            }
                         })
                         self.setState({dob:null,email:null})
                     })

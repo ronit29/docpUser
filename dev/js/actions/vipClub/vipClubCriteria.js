@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -212,20 +212,38 @@ export const removeVipMemberProof = (criteria) => (dispatch) => {
     })
 }
 
-export const pushMembersData = (criteria) => (dispatch) =>{
-    return API_POST('/api/v1/plus/push_dummy_data',criteria).then(function (response) {
-        // if(callback) callback(response);
+export const pushMembersData = (criteria, callback) => (dispatch) =>{
+    let url  = `/api/v1/plus/push_dummy_data`
+
+    if(criteria && criteria.is_single_flow_opd) {
+        url+=`?is_single_flow_opd=${true}`
+    }
+
+    if(criteria && criteria.is_single_flow_lab) {
+        url+=`?is_single_flow_lab=${true}`
+    }
+
+    if(criteria && criteria.dummy_data_type){
+        url+=`?dummy_data_type=${criteria.dummy_data_type}`
+    }
+    return API_POST(url, criteria).then(function (response) {
+        if(callback) callback(response);
     }).catch(function (error) {
-        // if(callback) callback(error);
+        if(callback) callback(error);
         throw error
     })
 }
 
-export const retrieveMembersData = (callback) => (dispatch) =>{
-    API_GET('api/v1/plus/show_dummy_data').then(function (response) {
+export const retrieveMembersData = (type,extraParams={},callback) => (dispatch) =>{
+    let url = `api/v1/plus/show_dummy_data?dummy_data_type=${type}`
+    if(extraParams && extraParams.dummy_id) {
+        url+=`&dummy_id=${extraParams.dummy_id}`
+    }
+    API_GET(url).then(function (response) {
         dispatch({
             type:SHOW_VIP_MEMBERS_FORM,
-            payload:response
+            payload:response,
+            extraParams: extraParams
         })
         if (callback) callback(response)
     }).catch(function (error) {
@@ -243,3 +261,75 @@ export const clearVipSelectedPlan = () =>(dispatch) =>{
         type: CLEAR_VIP_SELECTED_PLAN
     })
 }
+export const clearVipMemeberData = () =>(dispatch) =>{
+    dispatch({
+        type: CLEAR_VIP_MEMBER_DATA
+    })
+}
+
+export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+
+    return API_POST(`/api/v1/common/predicted-price-via-plan/opd`, extraParams).then((response) =>{
+        dispatch({
+            type: GET_OPD_VIP_GOLD_PLANS,
+            payload: response.vip_plans
+        })
+        let defaultSelectedPlan = []
+        if(extraParams && extraParams.already_selected_plan) {
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
+        }
+        if(defaultSelectedPlan && defaultSelectedPlan.length==0){
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.default_single_booking);
+        }  
+        dispatch({
+            type: SELECT_VIP_CLUB_PLAN,
+            payload: {
+                selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
+            }
+        })
+    })
+}
+
+export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+
+    return API_POST(`/api/v1/common/predicted-price-via-plan/lab`, extraParams).then((response) =>{
+        dispatch({
+            type: GET_LAB_VIP_GOLD_PLANS,
+            payload: response.vip_plans
+        })
+        let defaultSelectedPlan = []
+        if(extraParams && extraParams.already_selected_plan) {
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.id== extraParams.already_selected_plan);
+        }
+        if(defaultSelectedPlan && defaultSelectedPlan.length==0){
+            defaultSelectedPlan = response.vip_plans && response.vip_plans.filter(x=>x.default_single_booking);
+        }  
+        dispatch({
+            type: SELECT_VIP_CLUB_PLAN,
+            payload: {
+                selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
+            }
+        })
+    })
+}
+
+export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price,cb})  => (dispatch) => {
+    API_POST(`/api/v1/coupon/discount`, {
+        coupon_code: [couponCode],
+        deal_price: deal_price,
+        product_id: productId,
+        plan:plan_id
+    }).then(function (response) {
+        if (cb) cb(response)
+    }).catch(function (error) {
+        if (cb) cb(null)
+    })
+}
+
+export const removeVipCoupons =() =>(dispatch)=>{
+    dispatch({
+        type:REMOVE_VIP_COUPONS
+    })
+}
+
+

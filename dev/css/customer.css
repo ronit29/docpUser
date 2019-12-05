@@ -2538,6 +2538,7 @@ p.rt-doc-nm {
     width: 100%;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24)!important;
     border-radius: 5px !important;
+    object-fit: contain;
 }
 
 .banner-carousel-div .clickable-banner {
@@ -3426,4 +3427,10 @@ ul.order-med-list a:hover {
     .buy-med-btn {
         top: 94px;
     }
+}
+
+.doc-icon-col>a>img {
+    width: 24px;
+    height: 37px!important;
+    object-fit: contain;
 }
