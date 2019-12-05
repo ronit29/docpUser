@@ -348,8 +348,10 @@ class SearchPackagesView extends React.Component {
     nonIpdLeads(phone_number){
         const parsed = queryString.parse(this.props.location.search)
         let package_name = null
-        if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length>0){
+        if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length>1){
             package_name = this.props.packagesList.result[0].name
+        }else{
+            package_name = 'Health Packages'
         }
         console.log(package_name)
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS',test_name:package_name})
