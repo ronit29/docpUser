@@ -14423,3 +14423,39 @@ div.doc-srch-fltr.vip-slct-pop {
         top: -15px;
     }
 }
+.close-times-icon {
+    font-size: 25px;
+    position: absolute;
+    right: 18px;
+    top: -1px;
+    margin: 0;
+    padding: 0;
+}
+
+.booking-help-modal>.cancel-appointment-div {
+    width: 380px;
+}
+
+.booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .booking-help-modal>.cancel-overlay {
+        z-index: 1111;
+    }
+    .booking-help-modal>.cancel-appointment-div {
+        width: 90%;
+        margin: 0 auto;
+        z-index: 1111;
+        bottom: auto!important;
+        top: 50%;
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+    }
+    .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+        font-size: 15px;
+    }
+}
