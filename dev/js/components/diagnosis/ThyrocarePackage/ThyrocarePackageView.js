@@ -186,7 +186,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>*/}
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,14947)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1380</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=14947"
