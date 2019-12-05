@@ -347,7 +347,12 @@ class SearchPackagesView extends React.Component {
 
     nonIpdLeads(phone_number){
         const parsed = queryString.parse(this.props.location.search)
-        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS'})
+        let package_name = null
+        if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length>0){
+            package_name = this.props.packagesList.result[0].name
+        }
+        console.log(package_name)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_tpye:'LABADS',test_name:package_name})
         console.log(data)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
@@ -387,7 +392,7 @@ class SearchPackagesView extends React.Component {
                 }} noIndex={false} />
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
-                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false}/>
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false} />
                     :''
                 }
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count > 0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content != null && this.props.forOrganicSearch ? this.props.packagesList.bottom_content : ''} page={1} isPackage={true}>

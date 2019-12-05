@@ -49,7 +49,7 @@ class NonIpdPopupView extends React.Component {
     }
 
 	render() {
-		let criteriaStr 
+		let criteriaStr = 'Health Packages'
 		if(this.props.is_lab && this.props.selectedCriterias && this.props.selectedCriterias){
 			 criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
 		}
