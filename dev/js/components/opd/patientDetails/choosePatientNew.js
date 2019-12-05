@@ -278,7 +278,7 @@ class ChoosePatientNewView extends React.Component {
                 }
                 GTM.sendEvent({ data: analyticData })
             }
-            this.props.nonIpdLeads(this.state.phoneNumber)
+            this.props.nonIpdLeads(this.state.phoneNumber,this.state.name)
             this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
                 if (error) {
                     setTimeout(() => {

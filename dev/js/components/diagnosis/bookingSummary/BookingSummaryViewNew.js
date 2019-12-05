@@ -1310,7 +1310,7 @@ class BookingSummaryViewNew extends React.Component {
 
     }
 
-    nonIpdLeads(user_phone_number){
+    nonIpdLeads(user_phone_number,user_name){
         const parsed = queryString.parse(this.props.location.search)    
         let patient = null
         let data={}
@@ -1341,6 +1341,7 @@ class BookingSummaryViewNew extends React.Component {
             data.test_name = selected_test_name
             if(user_phone_number){
                 data.phone_number = user_phone_number
+                data.customer_name = user_name
             }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test

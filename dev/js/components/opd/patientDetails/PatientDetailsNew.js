@@ -1350,7 +1350,7 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    nonIpdLeads(user_phone_number){
+    nonIpdLeads(user_phone_number,user_name){
         const parsed = queryString.parse(this.props.location.search)
         let data={}
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1388,6 +1388,7 @@ class PatientDetailsNew extends React.Component {
             }
             if(user_phone_number){
                 data.phone_number = user_phone_number
+                data.customer_name = user_name
             }
             if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length){
                 let { date, time,selectedDoctor } = this.props.selectedSlot
