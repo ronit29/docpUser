@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags, getLabVipGoldPlans, selectVipClubPlan, select_lab_payment_type, pushMembersData, retrieveMembersData, clearAllTests, selectProfile } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags, getLabVipGoldPlans, selectVipClubPlan, select_lab_payment_type, pushMembersData, retrieveMembersData, clearAllTests, selectProfile, NonIpdBookingLead } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -205,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
         retrieveMembersData:(type,extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
         clearAllTests: () => dispatch(clearAllTests()),
         selectProfile: (id) => dispatch(selectProfile(id)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 
