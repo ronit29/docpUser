@@ -14398,7 +14398,11 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-dp {
     border: 1px solid #ddd;
 }
-
+.non-doc-vip-ico{
+    width: 32px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+}
 
 .payment-sub-heading{
     display: block;
@@ -14423,5 +14427,41 @@ div.doc-srch-fltr.vip-slct-pop {
         padding: 15px;
         height: auto;
         top: -15px;
+    }
+}
+.close-times-icon {
+    font-size: 25px;
+    position: absolute;
+    right: 18px;
+    top: -1px;
+    margin: 0;
+    padding: 0;
+}
+
+.booking-help-modal>.cancel-appointment-div {
+    width: 380px;
+}
+
+.booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .booking-help-modal>.cancel-overlay {
+        z-index: 1111;
+    }
+    .booking-help-modal>.cancel-appointment-div {
+        width: 90%;
+        margin: 0 auto;
+        z-index: 1111;
+        bottom: auto!important;
+        top: 50%;
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+    }
+    .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+        font-size: 15px;
     }
 }
