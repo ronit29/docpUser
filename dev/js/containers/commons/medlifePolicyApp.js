@@ -11,7 +11,7 @@ class medlifePolicyApp extends React.Component {
 	render() {
 
 		return ( 
-			<div className="container about-container">
+			<div className="container about-container p-3">
                 <HelmetTags tagsData={{
                     title: ('Cancel Policy | docprime'),
                     description: ('docprime: docprime is one stop health care solution for patients and doctors. Patients can book doctors online and doctors can manage patients online.')
