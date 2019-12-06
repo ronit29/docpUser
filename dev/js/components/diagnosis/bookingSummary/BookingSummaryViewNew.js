@@ -166,6 +166,7 @@ class BookingSummaryViewNew extends React.Component {
                 }
             },3000)
         }
+        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(props){
@@ -501,7 +502,7 @@ class BookingSummaryViewNew extends React.Component {
 
         return <React.Fragment>
             <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
-            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} getDataAfterLogin={this.getDataAfterLogin}/>
+            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
             {
                 patient && is_home_charges_applicable?
                     <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -1308,6 +1309,57 @@ class BookingSummaryViewNew extends React.Component {
         }
         return { total_amount_payable_without_coupon }
 
+    }
+
+    nonIpdLeads(user_phone_number,user_name){
+        const parsed = queryString.parse(this.props.location.search)    
+        let patient = null
+        let data={}
+        let selected_test_name = ''
+        let selected_test
+        if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
+
+            this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+                if(this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
+                selected_test = this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]
+                }
+                if(this.props.LABS[this.props.selectedLab].tests.length == 1){
+                    selected_test_name += test.test.name
+                }else{
+                    selected_test_name += test.test.name + ','
+                }
+                
+            })
+            if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+                patient = this.props.profiles[this.props.selectedProfile]
+                data.customer_name = patient.name
+                data.phone_number = patient.phone_number
+            }
+
+            data.lead_type = 'DROPOFF'
+            data.lead_source = 'dropoff'
+            data.lab_name = this.props.LABS[this.props.selectedLab].lab.name
+            data.exitpoint_url = 'http://docprime.com' + this.props.location.pathname
+            data.source = parsed
+            data.doctor_name = null
+            data.hospital_name = null
+            data.specialty = null
+            data.test_name = selected_test_name
+            if(user_phone_number){
+                data.phone_number = user_phone_number
+                data.customer_name = user_name
+            }
+            if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
+                let { date, time } = selected_test
+                data.selected_time = time.text +' '+time.title
+                data.selected_date = date
+            }else{
+                data.selected_time = null
+                data.selected_date = null
+            }
+            this.props.NonIpdBookingLead(data)
+
+        }
     }
     
     render() {

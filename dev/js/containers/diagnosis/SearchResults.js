@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, NonIpdBookingLead } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder,clearVipSelectedPlan } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -175,7 +175,8 @@ const mapDispatchToProps = (dispatch) => {
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
-        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan())
+        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan()),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 
