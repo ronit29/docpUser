@@ -1902,7 +1902,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             {
                                                                                                 enabled_for_cod_payment && priceData.is_cod_deal_price ?
                                                                                                     <React.Fragment>
-                                                                                                        <span className="payment-mode-amt">₹{(priceData.is_cod_deal_price)-(this.props.disCountedOpdPrice||0)}</span>
+                                                                                                        <span className="payment-mode-amt">₹{(priceData.is_cod_deal_price)-(this.state.is_cashback?(this.props.disCountedOpdPrice||0):0}</span>
                                                                                                         {/* <span className="save-upto">Save {cod_percentage_discount}%
                                                                                             </span> */}
                                                                                                     </React.Fragment>
@@ -2084,7 +2084,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {
                                                                     /*!(is_selected_user_gold) && !is_vip_applicable && this.props.payment_type == 1 && */this.props.payment_type!=6 && !is_insurance_applicable  && total_wallet_balance && total_wallet_balance > 0 && display_total_mrp > 0 ?
-                                                                        <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
+                                                                        <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied || this.props.payment_type==2)? " disable_coupon" : "")}>
                                                                             <div className="widget-content">
                                                                                 <div className="select-pt-form">
                                                                                     <div className="referral-select mb-0">
