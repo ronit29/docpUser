@@ -3881,60 +3881,61 @@ label.procedure-check.ck-bx .checkmark {
     color: #f78361;
 }
 
-.speciality-footer-list li{
-	display: block;
-	/* padding-right: 4px; */
-	/* margin-right: 4px; */
-	/* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
-	line-height: 14px;
-	margin-bottom: 5px;
+.speciality-footer-list li {
+    display: block;
+    /* padding-right: 4px; */
+    /* margin-right: 4px; */
+    /* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
+    line-height: 14px;
+    margin-bottom: 5px;
 }
 
-@media(max-width: 767px){
-	.speciality-footer-list li{
-		display: inline-block;
-		padding-right: 4px;
-		margin-right: 4px;
-		border-right: 1.5px solid rgba(117, 117, 117, 0.8);
-	}
-	.mrgn-top-12{
-		margin-top: 0px !important;
-	}
-	.chatbox-right {
-		height: 290px;
-	}
-	
-	div.search-el-popup{
-		width: 90% !important;
-	}
-	header.searcLocationHeaderPadding{
-		padding-top: 70px !important;
-	}
-	.congrats-space{
-		width: 100% !important;
-		margin: 10px auto 30px auto !important;
-	}
-	.congrats-btn{
-		width: 100% !important;
-	}
-}
-header.searcLocationHeaderPadding{
-	padding-top: 0px;
+@media(max-width: 767px) {
+    .speciality-footer-list li {
+        display: inline-block;
+        padding-right: 4px;
+        margin-right: 4px;
+        border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+    }
+    .mrgn-top-12 {
+        margin-top: 0px !important;
+    }
+    .chatbox-right {
+        height: 290px;
+    }
+    div.search-el-popup {
+        width: 90% !important;
+    }
+    header.searcLocationHeaderPadding {
+        padding-top: 70px !important;
+    }
+    .congrats-space {
+        width: 100% !important;
+        margin: 10px auto 30px auto !important;
+    }
+    .congrats-btn {
+        width: 100% !important;
+    }
 }
 
-.speciality-footer-list li:last-child{
-	padding-right: 0;
-	margin-right: 0;
-	border-right: none;
+header.searcLocationHeaderPadding {
+    padding-top: 0px;
 }
 
-.view-more-coupons{
-	color: #f78631;
-	font-weight: 500;
-	text-align: right;
-	user-select: none;
+.speciality-footer-list li:last-child {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+}
+
+.view-more-coupons {
+    color: #f78631;
+    font-weight: 500;
+    text-align: right;
+    user-select: none;
     cursor: pointer;
 }
+
 .speciality-footer-list li {
     display: block;
     /* padding-right: 4px; */
@@ -13825,6 +13826,7 @@ p.pkgtstName.prcd-height {
 
 .banner-home-scrollable {
     display: flex;
+    align-items: center;
     overflow-x: auto;
     width: 100%;
     top: 0;
@@ -14395,4 +14397,65 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-ds,
 .initialsPicture-dp {
     border: 1px solid #ddd;
+}
+.non-doc-vip-ico{
+    width: 32px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+
+}
+/* .home-page-banner-div {
+    margin: 0px!important;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .12), 1px 1px 4px rgba(0, 0, 0, .24)!important;
+    border-radius: 5px;
+}
+
+.banner-home-scrollable>img {
+    box-shadow: none;
+    margin-bottom: 0px;
+    border-radius: 5px;
+} */
+
+@media (max-width:767px) {
+    .single-banner-div {
+        padding: 15px;
+        height: auto;
+        top: -15px;
+    }
+}
+.close-times-icon {
+    font-size: 25px;
+    position: absolute;
+    right: 18px;
+    top: -1px;
+    margin: 0;
+    padding: 0;
+}
+
+.booking-help-modal>.cancel-appointment-div {
+    width: 380px;
+}
+
+.booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .booking-help-modal>.cancel-overlay {
+        z-index: 1111;
+    }
+    .booking-help-modal>.cancel-appointment-div {
+        width: 90%;
+        margin: 0 auto;
+        z-index: 1111;
+        bottom: auto!important;
+        top: 50%;
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+    }
+    .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
+        font-size: 15px;
+    }
 }
