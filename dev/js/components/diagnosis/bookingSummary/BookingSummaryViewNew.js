@@ -2074,7 +2074,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                             }}>
                                                                                 <h4 className="title payment-amt-label">Only Lab booking
                                                                                     {
-                                                                                        total_price ==total_amount_payable ?
+                                                                                        total_price ==display_radio_cod_price ?
                                                                                     <span className="payment-sub-heading">No discounts </span>
                                                                                     :''
                                                                                     }
