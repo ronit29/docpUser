@@ -1954,7 +1954,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             {
                                                                                                 enabled_for_cod_payment && priceData.is_cod_deal_price ?
                                                                                                     <React.Fragment>
-                                                                                                        <span className="payment-mode-amt">₹{ (priceData.is_cod_deal_price)-(this.state.is_cashback?(this.props.disCountedOpdPrice||0):0)}</span>
+                                                                                                        <span className="payment-mode-amt">₹{ (priceData.is_cod_deal_price)-(this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) )}</span>
                                                                                                         {/* <span className="save-upto">Save {cod_percentage_discount}%
                                                                                             </span> */}
                                                                                                     </React.Fragment>
@@ -2114,7 +2114,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                                 {
                                                                                                     enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees != 0
-                                                                                                        ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)- (this.props.disCountedOpdPrice||0)}</h5>
+                                                                                                        ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)- (this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) )}</h5>
                                                                                                         :(this.props.payment_type == 1 && priceData.fees == 0)
                                                                                                                 ? <h5 className="payment-amt-value">{display_docprime_discount}</h5>
                                                                                                                 : <h5 className="payment-amt-value">&#8377; {display_total_mrp}</h5>
@@ -2204,7 +2204,7 @@ class PatientDetailsNew extends React.Component {
                                         {
                                             ((STORAGE.isAgent() || this.state.isMatrix) && !(enabled_for_cod_payment && this.props.payment_type == 2) ) || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, display_total_mrp, enabled_for_cod_payment, (priceData.is_cod_deal_price-(this.props.disCountedOpdPrice||0)), is_vip_applicable, vip_data.vip_amount, /*vip_data.hosp_is_gold && */is_selected_user_gold, vip_data.vip_convenience_amount)}</button>
+                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, display_total_mrp, enabled_for_cod_payment, (priceData.is_cod_deal_price-( this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) ) ), is_vip_applicable, vip_data.vip_amount, /*vip_data.hosp_is_gold && */is_selected_user_gold, vip_data.vip_convenience_amount)}</button>
                                         }
                                     </div>
                                 </div>
