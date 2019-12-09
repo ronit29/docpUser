@@ -279,6 +279,10 @@ class BookingView extends React.Component {
         if(is_vip_member && covered_under_vip){
             paymentMode = 'Docprime VIP Member'
         }
+
+        if(is_gold_vip) {
+            paymentMode = 'Docprime Gold Member'
+        }
         let docprime_gold_price = 0
         let total_amount_payable = 0
         if(is_vip_member || is_gold_vip) {

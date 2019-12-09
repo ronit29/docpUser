@@ -51,8 +51,13 @@ class NonIpdPopupView extends React.Component {
 
 	render() {
 		let criteriaStr = 'Health Packages'
-		if(this.props.is_lab && this.props.selectedCriterias && this.props.selectedCriterias){
-			 criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+		if(this.props.is_lab){
+			if(this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.length >0){
+				criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
+			}
+			// else if(this.props.selectedCriterias && this.props.selectedCriterias.length>0){
+			// 	criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+			// }
 		}
 			return (
 
@@ -61,7 +66,7 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget cancel-appointment-div cancel-popup">
 						<div className="widget-header text-center action-screen-header">
 							<p className="fw-500 cancel-appointment-head">Need help in booking <br/>
-								<span className="fw-500 text-capitalize"> {criteriaStr} ?</span>
+								<span className="fw-500 text-capitalize"> {criteriaStr}?</span>
 							</p>
 							{
 								this.props.is_force == 1?
