@@ -431,7 +431,7 @@ class DesktopProfileHeader extends React.Component {
                             }
                         </div>
                     </div>
-
+                    {/* listing view new header*/}
                     <div className="row listing-view-header visible-col" id="listing-header">
                         <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
                             e.stopPropagation()

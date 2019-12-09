@@ -3434,3 +3434,7 @@ ul.order-med-list a:hover {
     height: 37px!important;
     object-fit: contain;
 }
+
+.location-header-new {
+    padding-top: 0px!important;
+}

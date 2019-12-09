@@ -3962,7 +3962,7 @@ header.searcLocationHeaderPadding {
         width: 80% !important;
     }
     header.searcLocationHeaderPadding {
-        padding-top: 70px !important;
+        padding-top: 0px !important;
     }
     .congrats-space {
         width: 100% !important;
@@ -14318,6 +14318,7 @@ div.doc-srch-fltr.vip-slct-pop {
 
 
 /* =============== single flow vip =============== */
+
 .vip-wrng-mssg {
     border-radius: 10px;
     background-color: rgba(245, 226, 138, .4);
@@ -14329,40 +14330,49 @@ div.doc-srch-fltr.vip-slct-pop {
     font-size: 13px;
     margin-top: 4px;
 }
+
 .ins-usr-img-para li:last-child {
     margin: 0;
 }
-.vip-user-details-container .ins-user-details-lisitng{
+
+.vip-user-details-container .ins-user-details-lisitng {
     margin-bottom: 10px;
     border-bottom: 1px solid #ededed;
     margin: 0px -10px 10px -10px;
     padding: 0px 10px 10px 10px;
 }
-.vip-user-details-container .ins-user-details-lisitng:last-child{
-    
+
+.vip-user-details-container .ins-user-details-lisitng:last-child {
     margin-bottom: 0px;
     border: transparent;
     padding-bottom: 0;
 }
-.gold-pop-hdng{
+
+.gold-pop-hdng {
     text-align: center;
     font-weight: 500;
     font-size: 14px;
 }
-.gold-pop-pading{
+
+.gold-pop-pading {
     padding: 18px 0;
 }
-.gol-pop-custom-btn{
+
+.gol-pop-custom-btn {
     text-align: center;
     color: #f78631;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
 }
-.no-cursor{
+
+.no-cursor {
     cursor: auto;
 }
+
+
 /* =============== single flow vip =============== */
+
 
 /** book now button allignment css**/
 
