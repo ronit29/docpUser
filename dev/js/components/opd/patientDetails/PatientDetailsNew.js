@@ -1920,8 +1920,14 @@ class PatientDetailsNew extends React.Component {
                                                                                                 
                                                                                                 {
                                                                                                 this.props.selected_vip_plan.opd.mrp == this.props.selected_vip_plan.opd.gold_price
-                                                                                                    ?<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`}</span>
-                                                                                                    :<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
+                                                                                                    ?<span className="payment-mode-amt" onClick={(e) => {
+                                                                                                    e.stopPropagation()
+                                                                                                    e.preventDefault();
+                                                                                                    this.props.select_opd_payment_type(6) } }>{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`}</span>
+                                                                                                    :<span className="payment-mode-amt" onClick={(e) => {
+                                                                                                    e.stopPropagation()
+                                                                                                    e.preventDefault();
+                                                                                                    this.props.select_opd_payment_type(6) } }>{`₹${this.props.selected_vip_plan.opd.gold_price+this.props.selected_vip_plan.opd.convenience_charge}`} <b className="gd-cut-prc">{`₹${this.props.selected_vip_plan.opd.mrp}`}</b></span>    
                                                                                                  
                                                                                                 }
                                                                                             </div>
@@ -1953,12 +1959,12 @@ class PatientDetailsNew extends React.Component {
                                                                                     }}>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <label className="container-radio payment-type-radio">
-                                                                                            <div>
-                                                                                                <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                            <div onClick={(e) => {
                                                                                                     e.preventDefault()
                                                                                                     e.stopPropagation()
                                                                                                     this.props.select_opd_payment_type(1)
-                                                                                                }}>Only Doctor booking
+                                                                                                }}>
+                                                                                                <h4 className="title payment-amt-label">Only Doctor booking
                                                                                                     {
                                                                                                         priceData.mrp == display_radio_cod_price ?
                                                                                                         <span className="payment-sub-heading">No discounts</span>
@@ -1993,11 +1999,12 @@ class PatientDetailsNew extends React.Component {
                                                                                         this.props.select_opd_payment_type(2)
                                                                                     }}>
                                                                                         <label className="container-radio payment-type-radio">
-                                                                                        <div>
-                                                                                            <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                        <div onClick={(e) => {
+                                                                                                e.stopPropagation()
                                                                                                 e.preventDefault()
                                                                                                 this.props.select_opd_payment_type(2)
-                                                                                            }}>Pay at Clinic</h4>
+                                                                                            }}>
+                                                                                            <h4 className="title payment-amt-label">Pay at Clinic</h4>
                                                                                             {
                                                                                                 enabled_for_cod_payment && priceData.is_cod_deal_price ?
                                                                                                     <React.Fragment>

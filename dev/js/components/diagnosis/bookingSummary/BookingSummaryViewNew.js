@@ -2045,8 +2045,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 }}>?</span></h4>
                                                                                     {
                                                                                      gold_pricelist_deal_price == gold_pricelist_mrp
-                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
-                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
+                                                                                        ?<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
+                                                                                        :<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
                                                                                      
                                                                                     }
                                                                                 </div>
@@ -2075,12 +2081,12 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }}>
                                                                         <div className="payment-detail d-flex">
                                                                             <label className="container-radio payment-type-radio">
-                                                                            <div>
-                                                                                <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                            <div onClick={(e) => {
                                                                                     e.preventDefault()
                                                                                     e.stopPropagation()
                                                                                     this.props.select_lab_payment_type(1)
-                                                                                }}>Only Lab booking
+                                                                                }}>
+                                                                                <h4 className="title payment-amt-label">Only Lab booking
                                                                                     {
                                                                                         total_price ==display_radio_cod_price ?
                                                                                     <span className="payment-sub-heading">No discounts </span>
