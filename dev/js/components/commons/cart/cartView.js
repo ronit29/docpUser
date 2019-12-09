@@ -162,8 +162,7 @@ class CartView extends React.Component {
             }
         }
 
-        let use_wallet = is_any_vip_appointment?false:this.state.use_wallet
-        this.props.processCartItems(use_wallet, extraParams).then((data) => {
+        this.props.processCartItems(this.state.use_wallet, extraParams).then((data) => {
             if (data.payment_required) {
                 // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
                 this.processPayment(data)
@@ -393,12 +392,12 @@ class CartView extends React.Component {
                                                                             </div> : ''
                                                                         }
                                                                         {vip_amnt_price && is_gold_member ?
-                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
                                                                             :''
                                                                         }
                                                                         {is_gold_member?'': vip_amnt_price ?
-                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
                                                                             :''
                                                                         }
@@ -431,7 +430,7 @@ class CartView extends React.Component {
 
 
                                                     {
-                                                        !is_any_vip_appointment && !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                        !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="select-pt-form">
                                                                     <div className="referral-select">
