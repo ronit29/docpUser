@@ -60,7 +60,7 @@ class CartView extends React.Component {
         let vip_amnt_price =0
         let is_gold_member = false
         for (let item of cart_items) {
-            if (item.valid && (item.actual_data.payment_type == 1 || item.actual_data.payment_type == 5)) {
+            if (item.valid && (item.actual_data.payment_type == 1 || item.actual_data.payment_type == 5 || item.actual_data.payment_type == 6)) {
                 
 
                 //For Insured Appointments Do not add deal price to Amount Payable
@@ -68,7 +68,6 @@ class CartView extends React.Component {
 
                 }else{
                     if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
-
                         if(item.actual_data.vip_amount == 0){
                             vip_amnt_price += item.mrp
                         }else{
@@ -78,9 +77,11 @@ class CartView extends React.Component {
                             }else{
                                 vip_amnt_price += item.mrp - item.actual_data.vip_amount
                             }
+                            
                         }
                     }
                     total_mrp += item.mrp
+
                     if(!item.actual_data.cover_under_vip){
                         if(item.consultation && item.consultation.fees == 0){
                             dd = item.mrp
@@ -89,26 +90,27 @@ class CartView extends React.Component {
                         }
                         total_deal_price += dd
                         // total_deal_price += item.deal_price  
-                        total_home_pickup_charges += item.total_home_pickup_charges || 0
-                        if (item.data.coupons && item.data.coupons.length) {
-                            total_coupon_discount += item.coupon_discount
-                            total_coupon_cashback += item.coupon_cashback
-                            if (item.coupon_cashback <= 0) {
-                                if (coupon_breakup[item.data.coupons[0].code]) {
-                                    coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
-                                } else {
-                                    coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
-                                }
+                    }
+                    total_home_pickup_charges += item.total_home_pickup_charges || 0
+                    if(item.consultation && item.consultation.fees == 0){
+                        platformConvFees += parseInt(item.deal_price)
+                    }
+
+                    if (item.data.coupons && item.data.coupons.length) {
+                        total_coupon_discount += item.coupon_discount
+                        total_coupon_cashback += item.coupon_cashback
+                        if (item.coupon_cashback <= 0) {
+                            if (coupon_breakup[item.data.coupons[0].code]) {
+                                coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
                             } else {
-                                if (cashback_breakup[item.data.coupons[0].code]) {
-                                    cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
-                                } else {
-                                    cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
-                                }
+                                coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
                             }
-                        }
-                        if(item.consultation && item.consultation.fees == 0){
-                            platformConvFees += parseInt(item.deal_price)
+                        } else {
+                            if (cashback_breakup[item.data.coupons[0].code]) {
+                                cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
+                            } else {
+                                cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                            }
                         }
                     }
                 }
@@ -162,8 +164,7 @@ class CartView extends React.Component {
             }
         }
 
-        let use_wallet = is_any_vip_appointment?false:this.state.use_wallet
-        this.props.processCartItems(use_wallet, extraParams).then((data) => {
+        this.props.processCartItems(this.state.use_wallet, extraParams).then((data) => {
             if (data.payment_required) {
                 // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
                 this.processPayment(data)
@@ -379,7 +380,7 @@ class CartView extends React.Component {
                                                                                 <p>+ &#8377; {parseInt(total_home_pickup_charges)}</p>
                                                                             </div> : ""
                                                                         }
-
+                                                                                                                                          
                                                                         {
                                                                             total_coupon_discount ? <div>
                                                                                 {
@@ -393,12 +394,12 @@ class CartView extends React.Component {
                                                                             </div> : ''
                                                                         }
                                                                         {vip_amnt_price && is_gold_member ?
-                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
                                                                             :''
                                                                         }
                                                                         {is_gold_member?'': vip_amnt_price ?
-                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
                                                                             :''
                                                                         }
@@ -431,7 +432,7 @@ class CartView extends React.Component {
 
 
                                                     {
-                                                        !is_any_vip_appointment && !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                        !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="select-pt-form">
                                                                     <div className="referral-select">
