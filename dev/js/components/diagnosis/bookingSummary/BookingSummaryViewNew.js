@@ -1291,7 +1291,7 @@ class BookingSummaryViewNew extends React.Component {
                 if(is_all_enable_for_gold && patient.is_vip_gold_member) {
 
                     total_amount_payable_without_coupon = vip_total_amount +  vip_total_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
-                }else if(patient.is_vip_member && is_tests_covered_under_vip) {
+                }else if(patient.is_vip_member/* && is_tests_covered_under_vip*/) {
                         total_amount_payable_without_coupon = vip_total_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0)
                 }
 
@@ -1459,7 +1459,7 @@ class BookingSummaryViewNew extends React.Component {
 
         }
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-        is_vip_applicable = is_tests_covered_under_vip && is_selected_user_under_vip
+        is_vip_applicable = /*is_tests_covered_under_vip && */is_selected_user_under_vip
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
@@ -2109,7 +2109,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 :
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
-                                                                                    {vip_data && is_vip_applicable && !(vip_data /*&& vip_data.is_gold*/ && is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
+                                                                                    {vip_data && is_vip_applicable && !(vip_data /*&& vip_data.is_gold && is_tests_covered_under_vip*/  && is_selected_user_gold)? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{color:'green'}}>- &#8377; {total_price - vip_data.vip_amount}</p>
                                                                                     </div>:''}
