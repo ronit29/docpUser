@@ -2031,7 +2031,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div onClick={(e)=>{e.stopPropagation();
                                                                                     e.preventDefault();
                                                                                 }}>
-                                                                                    <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <h4 className="title payment-amt-label"> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                     <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -2072,7 +2072,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                             <div onClick={(e)=>{e.stopPropagation();
                                                                                 e.preventDefault();
                                                                             }}>
-                                                                                <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                                <h4 className="title payment-amt-label">Only Lab booking
+                                                                                    {
+                                                                                        total_price ==display_radio_cod_price ?
+                                                                                    <span className="payment-sub-heading">No discounts </span>
+                                                                                    :''
+                                                                                    }
+                                                                                </h4>
                                                                                 <span className="payment-mode-amt">{display_radio_cod_price}</span>
                                                                                 {/* {
                                                                                 is_insurance_applicable ? ""
@@ -2248,7 +2254,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    this.props.payment_type!=6 && (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) )?
+                                     ( STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured && this.props.payment_type!=6) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                         } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
