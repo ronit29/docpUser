@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS, ADD_VIP_COUPONS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import CONFIG from '../../config'
@@ -290,8 +290,8 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
-export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, cb) => (dispatch) => {
-	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags }).then(function (response) {
+export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags, ...extraParams }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
@@ -399,7 +399,7 @@ export const startLiveChat = (started = true, deleteRoomId = false) => (dispatch
 	})
 }
 
-export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null, cart_item = null }) => (dispatch) => {
+export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id = null, test_ids = null, coupon_code = null, save_in_store = true, profile_id = null, doctor_id = null, hospital_id = null, procedures_ids = null, cart_item = null, gold_plan_id = null }) => (dispatch) => {
 
 	let url = `/api/v1/coupon/applicablecoupons?`
 	if (productId) {
@@ -436,6 +436,10 @@ export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id =
 
 	if (cart_item) {
 		url += `&cart_item=${cart_item}`
+	}
+
+	if (gold_plan_id) {
+		url += `&plan_id=${gold_plan_id}`
 	}
 
 	url += `&show_all=${true}`
@@ -478,6 +482,11 @@ export const applyCoupons = (productId = '', couponData, couponId, hospitalId, c
 			type: ADD_OPD_COUPONS,
 			payload: couponData,
 			hospitalId: hospitalId
+		})
+	}else if(productId == 3){
+		dispatch({
+			type: ADD_VIP_COUPONS,
+			payload: couponData
 		})
 	} else {
 		dispatch({
@@ -754,5 +763,21 @@ export const setPaymentStatus = (status = null) => (dispatch) => {
 	dispatch({
 		type: SET_CHAT_PAYMENT_STATUS,
 		payload: status
+	})
+}
+
+export const SendIpdBookingEmail = (data,cb) => (dispatch)=>{
+	return API_POST('/api/v1/notification/ipd/emailnotifications', data).then((data)=> {
+		if(cb)cb(null, data)
+	}).catch((e)=>{
+ 		if(cb)cb(e, null)
+	})
+}
+
+export const NonIpdBookingLead = (data,cb) => (dispatch)=>{
+	return API_POST('/api/v1/common/push-leads', data).then((data)=> {
+		if(cb)cb(null, data)
+	}).catch((e)=>{
+ 		if(cb)cb(e, null)
 	})
 }

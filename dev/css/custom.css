@@ -6709,8 +6709,10 @@ h4.gold-ofr-hdng {
     align-items: center;
     cursor: pointer;
 }
-
-.gold-ofr-lising:last-child {
+.addpdng-popup{
+    padding: 10px 0px;
+}
+.gold-ofr-lising:last-child{
     border-bottom: 1px solid transparent;
 }
 
@@ -7099,6 +7101,75 @@ img.gld-cd-icon {
 
 
 /* ============ pharm-foot  ============ */
+/* ============ vip-gold-single-flow  ============ */
+.sng-gld-img {
+    margin: 0 4px;
+    width: 35px;
+}
+span.gold-qus {
+    background: #1b97fd;
+    color: white;
+    border-radius: 20px;
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+}
+b.gd-cut-prc {
+    color: #757575;
+    text-decoration: line-through;
+    margin-left: 1px;
+}
+.dp-gold-pln-change-container {
+    background: #eff4f6;
+    border: 1px solid #d0cccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+.booking-confirm-screen hr{
+    margin: 20px 0px;
+}
+.dp-gold-pay-lft {
+    padding: 5px 5px;
+    border-right: 1px solid #d0cccc;
+    flex-shrink: 0;
+    flex:1;
+}
+p.dp-gld-txt-mem {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+p.dp-gld-txt-mem span {
+    color: #f78631;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+p.dp-gld-txt-mem span img {
+    width: 9px;
+    margin-left: 2px;
+}
+p.dp-gld-mem-grn {
+    color: #468e33;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.dp-gold-pay-rgt {
+    padding: 0 8px;
+}
+.dp-gold-pay-rgt p {
+    font-weight: 500;
+}
+/* ============ vip-gold-single-flow  ============ */
 
 
 /*====terms and condition css===*/
@@ -7342,6 +7413,100 @@ img.gld-cd-icon {
 .mr-t-5 {
     margin-top: 5px!important;
 }
-
-
 /**** terms and condition page css*****/
+
+/**** gold card css*****/
+.card-container{
+    padding: 20px 30px 20px!important;
+}
+
+@media (min-width:767px){
+    .card-container{
+        padding: 20px 90px 20px!important;
+    }  
+}
+@media (max-width:767px){ 
+    .container-top-margin.md-top-mrgn-rmv{
+        margin-top: 0px;
+    }
+    .md-top-mrgn-rmv .card-container{
+        padding-top: 8px !important;
+    }
+}
+.gold-card-section{
+    background: #000000;
+    background-image: url(https://cdn.docprime.com/media/web/custom_images/bgcard.png);
+    background-size: 115%;
+    border-radius: 11px;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.18);
+    background-position: -14px -77px;
+}
+.gold-card-section > .shadow-img{
+    position: absolute;
+    top: -52px;
+    max-width: 100%;
+}
+.gold-card-section > .vipLogiImg-2{
+    display: block;
+}
+.gold-card-section > .gold-card-user > h5{
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.gold-card-section > .gold-card-user > h6{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.gold-card-section > .membership-validity-column{
+    background-image: linear-gradient(to left, #edd083, #e9bf72);
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+.gold-card-section > .membership-validity-column > h4{
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.gold-card-section > .membership-validity-column > h6{
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+}
+.vip-new-sub-header {
+    background: white;
+    padding: 5px 0px 0px 10px;
+}
+.vip-new-sub-header svg{
+    cursor: pointer;
+}
+/**** gold card css*****/
+/******ipd form ne column css******/
+
+.select-date-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.select-date-container > h5 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #757575;
+    margin-right: 10px;
+}
+
+.select-date-container > select{
+    width: 63%;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    height: 34px;
+}
+/******ipd form ne column css ends******/

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan, getOpdVipGoldPlans, selectVipClubPlan, pushMembersData, retrieveMembersData, selectProfile, SendIpdBookingEmail, NonIpdBookingLead } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -132,13 +132,14 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted, is_any_user_buy_gold } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     const { common_settings, selectedLocation } = state.SEARCH_CRITERIA_OPD
     const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
+    const { odpGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation, odpGoldPredictedPrice, selected_vip_plan, is_any_user_buy_gold
     }
 }
 
@@ -148,7 +149,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams, cb) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams, cb)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
-        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data, extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, extraParams, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback)),
         applyCoupons: (productId, couponData, couponId, hospitalId,callback) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId,callback)),
@@ -170,7 +171,14 @@ const mapDispatchToProps = (dispatch) => {
         submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
         agentLogin: (token, cb) => dispatch(agentLogin(token, cb)),
         codToPrepaid: (postData, cb) => dispatch(codToPrepaid(postData, cb)),
-        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan())
+        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan()),
+        getOpdVipGoldPlans: (extraDataParams, cb)=> dispatch(getOpdVipGoldPlans(extraDataParams, cb)),
+        selectVipClubPlan: (type, selectedPlan, cb) => dispatch(selectVipClubPlan(type, selectedPlan, cb)),
+        pushMembersData:(criteria, callback) =>dispatch(pushMembersData(criteria, callback)),
+        retrieveMembersData:(type,extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
+        selectProfile: (id) => dispatch(selectProfile(id)),
+        SendIpdBookingEmail:(data,cb) =>dispatch(SendIpdBookingEmail(data, cb)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 

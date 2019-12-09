@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, NonIpdBookingLead } from '../../actions/index.js'
 
 import ThyrocarePackageView from '../../components/diagnosis/ThyrocarePackage/ThyrocarePackageView.js';
 
@@ -36,7 +36,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb))
     }
 }
 

@@ -555,6 +555,13 @@ const PaypalCancellation = Loadable({
     webpack: () => [require.resolveWeak('./components/commons/PaypalCancellation.js')],
     loading,  
 })
+
+const MedlifePolicyApp = Loadable({
+    loader: () => import('./containers/commons/medlifePolicyApp.js'),
+    modules: ['./containers/commons/medlifePolicyApp.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/medlifePolicyApp.js')],
+    loading,
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -680,7 +687,6 @@ let routes = [
     { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
     { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
     { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true },
-    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
     { path: '/vip-club-details',exact:true, component: VipClubView},
     { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
     { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
@@ -688,6 +694,7 @@ let routes = [
     { path: '/terms-conditions-policy-paypal', exact:true, component:PaypalCancellation},
     { path: '/vip-gold-details',exact:true, component: VipClubView},
     { path: '/vip-club-gold-details',exact:true, component: VipClubView},
+    { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

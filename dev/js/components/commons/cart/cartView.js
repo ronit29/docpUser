@@ -208,7 +208,8 @@ class CartView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', null,null,(err, res) => {
+        let extraParams = {}
+        this.props.sendAgentBookingURL(null, 'sms', null,null, extraParams, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {

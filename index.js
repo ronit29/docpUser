@@ -90,6 +90,7 @@ app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
 
 app.all('*', function (req, res) {
+    console.log('Enter Requests');
     /**
      * Fetch Css files
      */
@@ -99,6 +100,7 @@ app.all('*', function (req, res) {
         return res.end()
      }
     _readStyles().then((styleFiles) => {
+        console.log('read styles');
 
         let css_file = styleFiles[0]
         let bootstrap_file = styleFiles[1]
@@ -187,10 +189,14 @@ app.all('*', function (req, res) {
         /** 
          * Only when a route matches all criteria for SSR, we do SSR
          */
+         console.log(req.path);
+         console.log('Routes REad');
+         console.log(promises && promises.length);
         if (promises && promises.length) {
 
             // set a timeout to check if SSR is taking too long, if it does , just render the normal page.
             let SSR_TIMER = setTimeout(() => {
+                console.log('timeout error');
                 _serverHit(req, 'server_done')
                 res.set('X-Frame-Options', 'sameorigin');
                 res.render('index.ejs', {
@@ -199,6 +205,7 @@ app.all('*', function (req, res) {
             }, 10000)
 
             Promise.all(promises).then(data => {
+                console.log('Inside PRomise');
                 try {
                     /**
                      * Context for async data loading -> mimic componentDidMount actions.
@@ -207,9 +214,9 @@ app.all('*', function (req, res) {
                     if (data && data[0]) {
                         context.data = data[0]
                     }
-
+                    console.log('Befor frames PRomise');
                     res.set('X-Frame-Options', 'sameorigin')
-
+                    console.log('After Frames PRomise');
                     
                     if (context.data && context.data.status && context.data.status == 404) {
 
@@ -276,7 +283,8 @@ app.all('*', function (req, res) {
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                        // Sentry.captureException(e)
                     }
-
+                    console.log('inside error');
+                    console.log(e);
                     clearTimeout(SSR_TIMER)
 
                     _serverHit(req, 'server_done')
@@ -286,6 +294,8 @@ app.all('*', function (req, res) {
                 }
 
             }).catch((error) => {
+                    console.log('inside GET. DDD error',error);
+
                 clearTimeout(SSR_TIMER)
 
                 /** 
@@ -339,12 +349,16 @@ if (CONFIG.RAVEN_SERVER_DSN_KEY && false) {
 }
 
 Loadable.preloadAll().then(() => {
+
     server.listen(process.env.PORT || 3000, (err) => {
         if (err) {
             return console.error(err);
         }
         console.info(`Server running on http://localhost:${process.env.PORT || 3000}`);
     });
+}).catch((e)=>{
+console.log('erorror in preload');
+console.log(e);
 })
 
 

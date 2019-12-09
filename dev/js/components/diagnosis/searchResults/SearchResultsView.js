@@ -9,6 +9,7 @@ import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 import GTM from '../../../helpers/gtm'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
@@ -20,6 +21,7 @@ class SearchResultsView extends React.Component {
             seoData = this.props.initialServerData.seoData
             footerData = this.props.initialServerData.footerData
         }
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             // seoData, 
             footerData,
@@ -29,7 +31,9 @@ class SearchResultsView extends React.Component {
             showChatWithus: false,
             search_id: '',
             setSearchId: false,
-            quickFilter: {}
+            quickFilter: {},
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -349,6 +353,10 @@ class SearchResultsView extends React.Component {
             url = `${window.location.pathname}`
         }
 
+        if(this.state.showNonIpdPopup){
+            url += `${'&show_popup='+ this.state.showNonIpdPopup}`
+        }
+
         if (this.state.lab_card) {
             url += `${is_params_exist ? '&' : '?'}lab_card=true`
             is_params_exist = true
@@ -382,6 +390,33 @@ class SearchResultsView extends React.Component {
         this.setState({quickFilter: filter})
     }
 
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:criteriaStr})
+        console.log(data)
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            this.setState({to_be_force:0})
+        }
+    }
+
+    getCriteriaString(selectedCriterias) {
+        if (selectedCriterias && selectedCriterias.length) {
+            return selectedCriterias.reduce((final, curr, i) => {
+                if (i != 0) {
+                    final += ', '
+                }
+                final += `${curr.name}`
+                return final
+            }, "")
+        }
+    }
+
     render() {
         let show_pagination = this.props.labList && this.props.labList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -406,7 +441,6 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
-
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -417,7 +451,11 @@ class SearchResultsView extends React.Component {
                     prev: prev,
                     next: next
                 }} noIndex={!this.state.seoFriendly} />
-
+                {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={true}/>
+                    :''
+                }
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>

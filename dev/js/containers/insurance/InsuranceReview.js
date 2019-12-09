@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
         insurancePay :(criteria,callback) => dispatch(insurancePay(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
         retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
-        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data, extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data,extraParams, cb)),
         resetUserInsuredData:(criteria) =>dispatch(resetUserInsuredData(criteria)),
         retrieveEndorsedData:(cb) =>dispatch(retrieveEndorsedData(cb)),
         createEndorsementData:(insurance_pay,cb) =>dispatch(createEndorsementData(insurance_pay,cb))
