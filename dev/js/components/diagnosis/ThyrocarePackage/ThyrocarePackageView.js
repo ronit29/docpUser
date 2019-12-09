@@ -92,6 +92,10 @@ class ThyrocarePackageView extends React.Component {
 
     closeIpdLeadPopup(from){
         if(from){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-cross-click'
+        }
+        GTM.sendEvent({ data: data })
             this.setState({to_be_force:0})
         }
     }
