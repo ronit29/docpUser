@@ -30,23 +30,25 @@ class DesktopProfileHeader extends React.Component {
                 }
             })
         }
-        window.addEventListener('scroll', () => {
-            const scrollHeight = window.pageYOffset;
-            if (window.innerWidth < 767){
-                const gHeader = document.getElementById('is_header');
-                 gHeader.style.backgroundImage = "none";
-                if(document.getElementById('listing-header')){
-                    const lvHeader = document.getElementById('listing-header');             
-                    if(scrollHeight >= 25){
-                        lvHeader.classList.add('listing-header')
-                    }else{
-                        lvHeader.classList.remove('listing-header')
-
+        if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
+            window.addEventListener('scroll', () => {
+                const scrollHeight = window.pageYOffset;
+                if (window.innerWidth < 767){
+                    const gHeader = document.getElementById('is_header');
+                    if(gHeader){
+                        gHeader.style.backgroundImage = "none";
                     }
-                }
-            }  
-            
-        })
+                    if(document.getElementById('listing-header')){
+                        const lvHeader = document.getElementById('listing-header');             
+                        if(scrollHeight >= 25){
+                            lvHeader.classList.add('listing-header')
+                        }else{
+                            lvHeader.classList.remove('listing-header')
+                        }
+                    }
+                }  
+            })
+        }
     }
 
     navigateTo(where, type) {
@@ -432,28 +434,30 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                     {/* listing view new header*/}
-                    <div className="row listing-view-header visible-col" id="listing-header">
-                        <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
-                            e.stopPropagation()
-                            document.body.style.overflow = "hidden"
-                            this.toggleLeftMenu()}}>
-                            <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
-                        </div>
-                        <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
-                            {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
-                                    <div onClick={this.openSearch.bind(this)}>
-                                        <div className="header-serach-input-div">
-                                            <span>Search Doctors &amp; Tests</span>
+                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                        <div className="row listing-view-header visible-col" id="listing-header">
+                            <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()}}>
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                            </div>
+                            <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
+                                {
+                                    this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                        <div onClick={this.openSearch.bind(this)}>
+                                            <div className="header-serach-input-div">
+                                                <span>Search Doctors &amp; Tests</span>
+                                            </div>
+                                            {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                         </div>
-                                        {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    </div>
-                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
-                                </div> : ""
-                            }
+                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                    </div> : ""
+                                }
+                            </div>
                         </div>
-                    </div>
+                    :''}
                 </div>
             </header>
         );

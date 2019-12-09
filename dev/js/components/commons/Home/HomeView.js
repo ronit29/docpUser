@@ -492,7 +492,7 @@ class HomeView extends React.Component {
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
 
 				{/* {
 					this.state.showPopup ?
