@@ -298,7 +298,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (this.props.selectedProfile!= nextProps.selectedProfile) ) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (nextProps.selectedProfile && (this.props.selectedProfile!= nextProps.selectedProfile) ) ) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
@@ -1106,7 +1106,11 @@ class BookingSummaryViewNew extends React.Component {
     clearTestForInsured() {
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && (this.props.profiles[this.props.defaultProfile].is_insured || this.props.profiles[this.props.defaultProfile].is_vip_member || this.props.profiles[this.props.defaultProfile].is_vip_gold_member)) {
 
-            this.props.clearExtraTests()
+            if(this.props.selectedLab && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length ==1){
+
+            }else{
+                this.props.clearExtraTests()    
+            }
             this.props.getLabById(this.props.selectedLab)
             return
         }
@@ -2032,7 +2036,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div onClick={(e)=>{e.stopPropagation();
                                                                                     e.preventDefault();
                                                                                 }}>
-                                                                                    <h4 className="title payment-amt-label"> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    this.props.select_lab_payment_type(6) } }> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                     <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -2040,8 +2046,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 }}>?</span></h4>
                                                                                     {
                                                                                      gold_pricelist_deal_price == gold_pricelist_mrp
-                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
-                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
+                                                                                        ?<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
+                                                                                        :<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
                                                                                      
                                                                                     }
                                                                                 </div>
@@ -2070,9 +2082,11 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }}>
                                                                         <div className="payment-detail d-flex">
                                                                             <label className="container-radio payment-type-radio">
-                                                                            <div onClick={(e)=>{e.stopPropagation();
-                                                                                e.preventDefault();
-                                                                            }}>
+                                                                            <div onClick={(e) => {
+                                                                                    e.preventDefault()
+                                                                                    e.stopPropagation()
+                                                                                    this.props.select_lab_payment_type(1)
+                                                                                }}>
                                                                                 <h4 className="title payment-amt-label">Only Lab booking
                                                                                     {
                                                                                         total_price ==display_radio_cod_price ?
