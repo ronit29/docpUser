@@ -1935,7 +1935,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                 }}>
                                                                                                 <h4 className="title payment-amt-label">Only Doctor booking
                                                                                                     {
-                                                                                                        priceData.mrp == display_radio_cod_price ?
+                                                                                                        priceData.mrp == display_radio_prepaid_price ?
                                                                                                         <span className="payment-sub-heading">No discounts</span>
                                                                                                         :''
                                                                                                     }
