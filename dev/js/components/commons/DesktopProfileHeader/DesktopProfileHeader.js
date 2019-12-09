@@ -17,20 +17,8 @@ class DesktopProfileHeader extends React.Component {
 
     componentDidMount() {
         this.setState({ showLeftMenu: true })
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.toggleHamburger != nextProps.toggleLeftMenu) {
-            this.setState({ toggleHamburger: nextProps.toggleLeftMenu }, () => {
-                if (this.state.toggleHamburger) {
-                    document.body.style.overflow = "hidden"
-                } else {
-                    document.body.style.overflow = ""
-                }
-            })
-        }
         if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
+            console.log('sss')
             window.addEventListener('scroll', () => {
                 const scrollHeight = window.pageYOffset;
                 if (window.innerWidth < 767){
@@ -49,6 +37,19 @@ class DesktopProfileHeader extends React.Component {
                 }  
             })
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.toggleHamburger != nextProps.toggleLeftMenu) {
+            this.setState({ toggleHamburger: nextProps.toggleLeftMenu }, () => {
+                if (this.state.toggleHamburger) {
+                    document.body.style.overflow = "hidden"
+                } else {
+                    document.body.style.overflow = ""
+                }
+            })
+        }
+        
     }
 
     navigateTo(where, type) {
@@ -216,7 +217,7 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
 
-                    <div className="row align-items-center" id="lw-header">
+                    <div className= {`row align-items-center ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header">
 
                         <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {

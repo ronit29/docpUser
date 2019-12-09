@@ -14415,6 +14415,10 @@ div.doc-srch-fltr.vip-slct-pop {
 .listing-view-header {
     display: none;
 }
+.lw-fixed-header{
+    position: fixed!important;
+    width: 100%;
+}
 
 @media (max-width:767px) {
     .doc-header {
@@ -14446,10 +14450,10 @@ div.doc-srch-fltr.vip-slct-pop {
     .doc-header {
         position: relative;
     }
-    .parent-section,
+    /* .parent-section,
     .headerSubLinkContainer {
         margin-top: 0px;
-    }
+    } */
     .search-bt-mr {
         margin-bottom: 10px!important;
     }
