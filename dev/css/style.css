@@ -14402,7 +14402,14 @@ div.doc-srch-fltr.vip-slct-pop {
     width: 32px;
     margin-right: 5px;
     margin-bottom: 4px;
+}
 
+.payment-sub-heading{
+    display: block;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+    margin-top: 5px;
 }
 /* .home-page-banner-div {
     margin: 0px!important;

@@ -1901,7 +1901,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
-                                                                                                <h4 className="title payment-amt-label"> Price with Docprime<img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                                <h4 className="title payment-amt-label">Doctor booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                                 <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -1949,7 +1949,13 @@ class PatientDetailsNew extends React.Component {
                                                                                             <div className="no-cursor" onClick={(e)=>{e.stopPropagation();
                                                                                                 e.preventDefault();
                                                                                             }}>
-                                                                                                <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                                                <h4 className="title payment-amt-label">Only Doctor booking
+                                                                                                    {
+                                                                                                        priceData.mrp == display_radio_cod_price ?
+                                                                                                        <span className="payment-sub-heading">No discounts</span>
+                                                                                                        :''
+                                                                                                    }
+                                                                                                </h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :
                                                                                                     /*vip_data.hosp_is_gold && */is_selected_user_gold ? `₹ ${(vip_data.vip_amount + vip_data.vip_convenience_amount)-(this.props.disCountedOpdPrice||0)}` :
                                                                                                         is_vip_applicable ? `₹ ${(vip_data.vip_amount)-(this.props.disCountedOpdPrice||0) }` : this.getBookingAmount(total_wallet_balance, display_radio_cod_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
