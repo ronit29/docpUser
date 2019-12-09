@@ -110,7 +110,7 @@ app.all('*', function (req, res) {
         CookieHelper.init(req);
     }
 
-    getUtmParams(req, res);
+    //getUtmParams(req, res);
 
      if(req.get('host') && req.get('host').includes('www.')) {
         let redirect_url = "https://docprime.com" + req.originalUrl
@@ -124,7 +124,7 @@ app.all('*', function (req, res) {
          //    show_sbi_theme = true;
          //    res.cookie('sbi_utm',true, { maxAge: 900000});
          // }
-        if( (req.get('host') && req.get('host').includes('sbi')) || (req && req.query && req.query.utm_source=='sbi_utm') ){ 
+        if( (req.get('host') && req.get('host').includes('sbi'))){ 
             show_sbi_theme = true
             res.cookie('sbi_utm',true, { maxAge: 900000});
         }
