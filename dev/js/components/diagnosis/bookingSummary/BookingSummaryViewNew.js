@@ -298,7 +298,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (this.props.selectedProfile!= nextProps.selectedProfile) ) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame || (nextProps.selectedProfile && (this.props.selectedProfile!= nextProps.selectedProfile) ) ) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
@@ -820,7 +820,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: (patient && patient.is_vip_member) || (this.props.payment_type==6) ?false:this.state.use_wallet,
+            use_wallet: this.props.payment_type==6?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
@@ -1053,11 +1053,12 @@ class BookingSummaryViewNew extends React.Component {
         let price_from_pg = 0
         
         if(is_vip_applicable || (extraAllParams && extraAllParams.is_gold_member) ){
-            if(vip_amount){
-                return `Confirm Booking (₹ ${extraAllParams.total_amount_payable})`
-            }else{
-                return `Confirm Booking`
-            }
+            // if(vip_amount){
+            //     return `Confirm Booking (₹ ${extraAllParams.total_amount_payable})`
+            // }else{
+            //     return `Confirm Booking`
+            // }
+            price_to_pay = extraAllParams.total_amount_payable
         }
         if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
@@ -1105,7 +1106,11 @@ class BookingSummaryViewNew extends React.Component {
     clearTestForInsured() {
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && (this.props.profiles[this.props.defaultProfile].is_insured || this.props.profiles[this.props.defaultProfile].is_vip_member || this.props.profiles[this.props.defaultProfile].is_vip_gold_member)) {
 
-            this.props.clearExtraTests()
+            if(this.props.selectedLab && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length ==1){
+
+            }else{
+                this.props.clearExtraTests()    
+            }
             this.props.getLabById(this.props.selectedLab)
             return
         }
@@ -2031,7 +2036,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div onClick={(e)=>{e.stopPropagation();
                                                                                     e.preventDefault();
                                                                                 }}>
-                                                                                    <h4 className="title payment-amt-label"> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
+                                                                                    <h4 className="title payment-amt-label" onClick={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    this.props.select_lab_payment_type(6) } }> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
                                                                                     <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
@@ -2039,8 +2046,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 }}>?</span></h4>
                                                                                     {
                                                                                      gold_pricelist_deal_price == gold_pricelist_mrp
-                                                                                        ?<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
-                                                                                        :<span className="payment-mode-amt">{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
+                                                                                        ?<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price + gold_pricelist_convenience}`}</span>
+                                                                                        :<span className="payment-mode-amt" onClick={(e) => {
+                                                                                        e.stopPropagation()
+                                                                                        e.preventDefault();
+                                                                                        this.props.select_lab_payment_type(6) } }>{`₹${gold_pricelist_deal_price+gold_pricelist_convenience}`} <b className="gd-cut-prc">{`₹${gold_pricelist_mrp}`}</b></span>    
                                                                                      
                                                                                     }
                                                                                 </div>
@@ -2069,9 +2082,11 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }}>
                                                                         <div className="payment-detail d-flex">
                                                                             <label className="container-radio payment-type-radio">
-                                                                            <div onClick={(e)=>{e.stopPropagation();
-                                                                                e.preventDefault();
-                                                                            }}>
+                                                                            <div onClick={(e) => {
+                                                                                    e.preventDefault()
+                                                                                    e.stopPropagation()
+                                                                                    this.props.select_lab_payment_type(1)
+                                                                                }}>
                                                                                 <h4 className="title payment-amt-label">Only Lab booking
                                                                                     {
                                                                                         total_price ==display_radio_cod_price ?
@@ -2196,7 +2211,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                           !is_vip_gold_applicable && this.props.payment_type!=6 && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                           this.props.payment_type!=6 && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">

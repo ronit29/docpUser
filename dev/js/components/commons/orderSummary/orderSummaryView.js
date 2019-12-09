@@ -136,9 +136,13 @@ class OrderSummaryView extends React.Component {
                                                                 </div>
                                                                 :<div className="shopng-cart-price">
                                                                     <div className="text-right mb-2">
-                                                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                        {
+                                                                            item.is_gold_member?
+                                                                            <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                                                            :<img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                        }
                                                                     </div>
-                                                                    <p>₹ {item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
+                                                                    <p>₹ {item.is_gold_member?item.effective_price:item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
                                                                 </div>
                                                             }
                                                             <div className="widget-header dr-qucik-info">
