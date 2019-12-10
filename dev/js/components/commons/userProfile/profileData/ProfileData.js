@@ -90,12 +90,31 @@ class ProfileData extends React.Component {
             memStatus = 'Active'
         }
 
+        let defaultProfile = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]:null;
+
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav new-profile-header-margin">
                 <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
+                            {
+                                false?
+                                <div className="gold-white-bg-container card-container" >
+                                    <div className="gold-card-section">
+                                        <img className="vipLogiImg-2 pd-12" style={{ paddingBottom: 7 }} src="/assets/img/docgold.png" width="80px" />
+                                        <div className="gold-card-user text-right text-white pd-12" style={{ paddingTop: 0 }}>
+                                            <h5>{primary_user.first_name} {primary_user.last_name}</h5>
+                                            <h6>(Primary)</h6>
+                                        </div>
+                                        <div className="membership-validity-column pd-12 text-black text-center">
+                                            <h4>Docprime Gold Member</h4>
+                                            <h6>Valid till <strong>{expiryDate[1] + ' ' + expiryDate[2] + ',' + ' ' + expiryDate[3]} </strong></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                :''
+                            }
                             {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
                                 <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>
@@ -151,10 +170,12 @@ class ProfileData extends React.Component {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
-                                    Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
-                                </div>
-                                <div className="gold-benifi-cards-cont pdng-usr-dtls-slots mb-3 pr-0" style={{paddingLeft: '8px'}}>
+                                {
+                                    <React.Fragment>
+                                        <div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
+                                            Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
+                                        </div>
+                                        <div className="gold-benifi-cards-cont pdng-usr-dtls-slots mb-3 pr-0" style={{paddingLeft: '8px'}}>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
                                                 <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
@@ -168,6 +189,8 @@ class ProfileData extends React.Component {
                                                 <p> Save 23% <br/> on medicines</p>
                                             </div>
                                         </div>
+                                    </React.Fragment>
+                                }
                             </div>
                         </li>
                         {
