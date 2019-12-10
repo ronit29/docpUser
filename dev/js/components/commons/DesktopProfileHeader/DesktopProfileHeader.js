@@ -18,7 +18,10 @@ class DesktopProfileHeader extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ showLeftMenu: true, showSBI: true })
+        this.setState({ showLeftMenu: true})
+        setTimeout(()=>{
+            this.setState({showSBI: true })
+        }, 100)
     }
 
     componentWillReceiveProps(nextProps) {

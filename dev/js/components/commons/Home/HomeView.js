@@ -39,8 +39,7 @@ class HomeView extends React.Component {
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
-			clickedOn: '',
-			showSBI: false
+			clickedOn: ''
 		}
 	}
 
@@ -69,7 +68,6 @@ class HomeView extends React.Component {
 		let data = { 'event': "viewHome" }
 
 		CRITEO.sendData(data)
-		this.setState({showSBI: true});
 	}
 
 
@@ -245,8 +243,7 @@ class HomeView extends React.Component {
 				SlabSequence = 2
 			}
 		}
-
-		let isSBI = this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+		let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
 
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
