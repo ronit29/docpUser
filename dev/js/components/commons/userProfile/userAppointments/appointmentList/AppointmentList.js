@@ -88,7 +88,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip, payment_mode } = this.props.data
+        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip, payment_mode, discount } = this.props.data
 
         let date = new Date(time_slot_start)
         let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
@@ -153,7 +153,7 @@ class AppointmentList extends React.Component {
                 }
                 {
                     deal_price && !is_vip_applicable?
-                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)}</span> : ''
+                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)- (discount?parseInt(discount):0)}</span> : ''
                 }
                 {
                     invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?

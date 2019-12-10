@@ -230,7 +230,7 @@ class AboutUs extends React.Component {
                                         </div>
                                         <div className="abt-content">
                                             <p>
-                                            Ashish Gupta is currently the CEO of Docprime.com and is responsible for running all facets of the business. He is passionate about the health industry and in his present position, committed to build an integrated ecosystem to bridge the gap between doctors and patients.  Prior to this, he served as the Chief Technology Officer (CTO) of Policybazaar.com which he joined in 2015. With an overall experience of 16 years, Ashish has been at a realm of many innovations. Before joining the revolutionary online insurance company, Ashish was the Vice-President and CTO at HealthKart, a premier e-health store. He also had his own start-up called CouponVoodoo.com, which aimed at simplifying a shopper’s buying decision based upon pricing.  His initial few jobs included being a management trainee with the automotive division of ICI Paints and learning and growing by being involved in other cross-functional roles. Apart from working, he enjoys traveling and exploring other countries or cities. A graduate in Chemical Engineering from IIT Delhi, Ashish loves being behind the wheels and going on long drives. 
+                                                Ashish Gupta is currently the CEO of Docprime.com and is responsible for running all facets of the business. He is passionate about the health industry and in his present position, committed to build an integrated ecosystem to bridge the gap between doctors and patients.  Prior to this, he served as the Chief Technology Officer (CTO) of Policybazaar.com which he joined in 2015. With an overall experience of 16 years, Ashish has been at a realm of many innovations. Before joining the revolutionary online insurance company, Ashish was the Vice-President and CTO at HealthKart, a premier e-health store. He also had his own start-up called CouponVoodoo.com, which aimed at simplifying a shopper’s buying decision based upon pricing.  His initial few jobs included being a management trainee with the automotive division of ICI Paints and learning and growing by being involved in other cross-functional roles. Apart from working, he enjoys traveling and exploring other countries or cities. A graduate in Chemical Engineering from IIT Delhi, Ashish loves being behind the wheels and going on long drives.
                                             </p>
                                         </div>
                                     </div>
@@ -238,15 +238,19 @@ class AboutUs extends React.Component {
                                 <div className="col-md-12 col-lg-6 mrng-bottom-20">
                                     <div className="about_mng_cards">
                                         <div className="abt-img-text">
-                                            <img src={ASSETS_BASE_URL + "/img/abt-img/ruch.png"} />
+                                            <img src={ASSETS_BASE_URL + "/img/abt-img/abhay.png"} />
                                             <div className="abt-usr-nm">
-                                                <h4>Richit Ummat</h4>
-                                                <p>Co-founder & </p>
-                                                <p>Chief Operating Officer - Docprime.com</p>
+                                                <h4>Abhay Singavi</h4>
+                                                {/* <p>Co-founder & </p> */}
+                                                <p>Chief Operating Officer</p>
+                                                <p>Docprime.com</p>
                                             </div>
                                         </div>
                                         <div className="abt-content">
-                                            <p>Richit Ummat is the Co-founder and COO of Docprime.com. Richit oversees day-to-day operations and processes at Docprime.com. He is also responsible for implementing effective policies in line with the company’s vision and mission. Prior to the current position, Richit served as the Director of Policybazaar.com. Before joining the Policybazaar.com Group, Richit worked with Apollo Munich Health Insurance Company Ltd. where he held various leadership roles across verticals. He also worked as National Sales Manager (Personal loans, Credit cards, EL & LAS) with Dhanlaxmi bank, and as Regional Sales Manager with Reliance Capital. Richit’s expertise lies in building businesses, strategic planning and forging partnerships. He is an MBA from Indian Institute of Foreign Trade. Other than work, his passion lies in travelling and watching movies. </p>
+                                            <p>Abhay Singavi is Chief Operating Officer at Docprime.com.  He is responsible for executing the company’s business strategy, driving the overall growth and performance of key business units. Abhay brings in more than 12 years of leadership experience in the healthcare sector.
+<br/>
+<br/>
+                                                 Prior to joining Docprime, Abhay was leading key strategic initiatives covering clinical outcomes, service excellence, operation optimization, business innovation and a variety of leadership roles at Medanta for 7 years. He was also youngest CEO in the healthcare industry while he served at Narayana Health group as CEO - Preventive Health where he was instrumental in handling the preventive health and wellness management across group.</p>
                                         </div>
                                     </div>
                                 </div>

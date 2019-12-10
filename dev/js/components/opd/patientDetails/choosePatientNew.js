@@ -64,7 +64,8 @@ class ChoosePatientNewView extends React.Component {
         if (e.target.name == 'phoneNumber') {
             e.target.value.length <= 10
                 ? e.target.value.length == 10
-                    ? this.setState({
+                    ?
+                    this.setState({
                         [e.target.name]: e.target.value, showVerify: true
                     })
                     : this.setState({
@@ -277,7 +278,7 @@ class ChoosePatientNewView extends React.Component {
                 }
                 GTM.sendEvent({ data: analyticData })
             }
-
+            this.props.nonIpdLeads(this.state.phoneNumber,this.state.name)
             this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
                 if (error) {
                     setTimeout(() => {
