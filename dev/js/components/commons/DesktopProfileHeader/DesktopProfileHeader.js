@@ -28,7 +28,7 @@ class DesktopProfileHeader extends React.Component {
                     }
                     if(document.getElementById('listing-header')){
                         const lvHeader = document.getElementById('listing-header');             
-                        if(scrollHeight >= 25){
+                        if(scrollHeight >= 30){
                             lvHeader.classList.add('listing-header')
                         }else{
                             lvHeader.classList.remove('listing-header')
