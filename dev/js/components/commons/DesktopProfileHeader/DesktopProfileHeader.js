@@ -12,12 +12,13 @@ class DesktopProfileHeader extends React.Component {
             headerButtonsState: false,
             medicinePopup: false,
             toggleHamburger: this.props.toggleLeftMenu || false,
-            showLeftMenu: false
+            showLeftMenu: false,
+            showSBI: false
         }
     }
 
     componentDidMount() {
-        this.setState({ showLeftMenu: true })
+        this.setState({ showLeftMenu: true, showSBI: true })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -210,7 +211,7 @@ class DesktopProfileHeader extends React.Component {
                             <a className="logo-ancher logo-width-cut sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
                                 <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
                                 {
-                                    document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                    this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
                                     <React.Fragment>
                                         {
                                             this.props.homePage?
