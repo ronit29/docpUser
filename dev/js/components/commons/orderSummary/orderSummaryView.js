@@ -126,7 +126,7 @@ class OrderSummaryView extends React.Component {
                                                                             </p> : item.payment_type == 2 ?
                                                                                     <p>
                                                                                         <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                                        {" " + item.cod_deal_price}
+                                                                                        {" " + ( parseInt(item.cod_deal_price)-(parseInt(item.discount)||0) ) }
                                                                                     </p>
                                                                                     : <p>
                                                                                         <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
