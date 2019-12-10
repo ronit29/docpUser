@@ -132,6 +132,12 @@ app.all('*', function (req, res) {
      }catch(e){
 
      }
+
+     //For local host
+     if( (req && req.query && req.query.utm_source && req.query.utm_source=='sbi_utm' ) ) {
+        show_sbi_theme = true
+     }
+
     _readStyles().then((styleFiles) => {
         console.log('read styles');
 
