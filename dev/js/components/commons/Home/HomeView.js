@@ -215,6 +215,14 @@ class HomeView extends React.Component {
 		this.setState({ showPopup: false })
 	}
 
+	sbiBannerClicked= ()=>{
+		let data = {
+				'Category': 'ConsumerApp', 'Action': 'SBIGOLDBANNER', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sbi-gold-banner'
+		}
+		GTM.sendEvent({ data: data })
+		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
+	}
+
 	render() {
 
 		let topSpecializations = []
@@ -385,7 +393,7 @@ class HomeView extends React.Component {
 										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 								}
 							</div>
-							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top">
+							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
 								<div className="hidderBanner banner-carousel-div d-md-none">
 									<div className="divHeight-sbi mt-0"></div>
 								</div>
