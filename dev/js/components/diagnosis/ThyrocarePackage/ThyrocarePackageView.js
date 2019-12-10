@@ -6,14 +6,19 @@ import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
 import BannerCarousel from '../../commons/Home/bannerCarousel';
 import HelmetTags from '../../commons/HelmetTags';
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
+const queryString = require('query-string');
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             expandClick: true,
-            expandText: 'Expand All'
+            expandText: 'Expand All',
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -75,6 +80,24 @@ class ThyrocarePackageView extends React.Component {
         }
         GTM.sendEvent({ data: data })
         this.props.history.push('/vip-gold-details?is_gold=true&source=thyrocarePkgListing&lead_source=Docprime')
+    }
+
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:'thyrocare aarogyam packages'})
+        console.log(data)
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-cross-click'
+        }
+        GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0})
+        }
     }
 
     render() {
@@ -167,7 +190,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>*/}
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,14947)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1250</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1380</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=14947"
@@ -1670,6 +1693,11 @@ class ThyrocarePackageView extends React.Component {
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
+                    {
+                            (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                            <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false}/>
+                            :''
+                        }
                 </section>
                 <Footer footerData={this.state.footerData} />
             </div>

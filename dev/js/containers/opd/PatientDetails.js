@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan, getOpdVipGoldPlans, selectVipClubPlan, pushMembersData, retrieveMembersData, selectProfile, SendIpdBookingEmail } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan, getOpdVipGoldPlans, selectVipClubPlan, pushMembersData, retrieveMembersData, selectProfile, SendIpdBookingEmail, NonIpdBookingLead } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -177,7 +177,8 @@ const mapDispatchToProps = (dispatch) => {
         pushMembersData:(criteria, callback) =>dispatch(pushMembersData(criteria, callback)),
         retrieveMembersData:(type,extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
         selectProfile: (id) => dispatch(selectProfile(id)),
-        SendIpdBookingEmail:(data,cb) =>dispatch(SendIpdBookingEmail(data, cb))
+        SendIpdBookingEmail:(data,cb) =>dispatch(SendIpdBookingEmail(data, cb)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 
