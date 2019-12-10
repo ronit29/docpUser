@@ -633,6 +633,16 @@ class PatientDetailsNew extends React.Component {
                 
                 postData['utm_sbi_tags'] = tags.utm_tags
             }
+        }else if(document && document.location && document.location.host &&  document.location.host.includes('sbi')){
+            postData['utm_sbi_tags'] = {
+                utm_tags: {
+                    utm_source: 'sbi_utm',
+                    utm_term: '',
+                    utm_medium: '',
+                    utm_campaign: ''
+                },
+                time: new Date().getTime(),
+            }
         }
 
         let procedure_ids = []
