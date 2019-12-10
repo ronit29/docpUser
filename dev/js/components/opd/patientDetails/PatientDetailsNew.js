@@ -1434,7 +1434,7 @@ class PatientDetailsNew extends React.Component {
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
-                    enabled_for_cod_payment = [4290, 3241, 3240, 3560].indexOf(hospital.hospital_id)==-1 && enabled_for_cod_payment
+                    enabled_for_prepaid_payment = [4290, 3241, 3240, 3560].indexOf(hospital.hospital_id)==-1 && enabled_for_prepaid_payment
                 })
             }
         }
