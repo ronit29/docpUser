@@ -401,6 +401,10 @@ class SearchResultsView extends React.Component {
 
     closeIpdLeadPopup(from){
         if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'NonIpdSearchListingCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-search-listing-cross-click'
+                }
+            GTM.sendEvent({ data: data })
             this.setState({to_be_force:0})
         }
     }
