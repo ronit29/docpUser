@@ -243,7 +243,7 @@ class ProfileData extends React.Component {
                             </li>
                         :''
                         }
-                        {CONFIG.ENABLE_VIP_CLUB && defaultProfile && defaultProfile.is_vip_member?
+                        {CONFIG.ENABLE_VIP_CLUB && defaultProfile && defaultProfile.is_vip_member && !defaultProfile.is_vip_gold_member?
                             <li onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'ProfileMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-vip-clicked'

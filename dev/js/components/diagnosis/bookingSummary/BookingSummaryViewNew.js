@@ -479,7 +479,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             case "patient": {
-                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.match.params.id}&is_insurance=${is_insurance_applicable}`)
+                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.selectedLab}&is_insurance=${is_insurance_applicable}`)
                 return
             }
 
