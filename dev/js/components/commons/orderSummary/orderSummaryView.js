@@ -26,7 +26,7 @@ class OrderSummaryView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchOrderSummary(this.props.match.params.id).then((res) => {
                 if (res.data && res.data.length) {
-                    this.setState({ items: res.data })
+                    this.setState({ items: res.data, data: res })
 
                     let orderId = this.props.match.params.id
                     let deal_price = 0
@@ -84,6 +84,10 @@ class OrderSummaryView extends React.Component {
         } else {
             this.props.history.push('/cart')
         }
+    }
+
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
     }
 
     render() {
@@ -175,7 +179,7 @@ class OrderSummaryView extends React.Component {
                                                                 </ul>
                                                             </div>
                                                             {
-                                                                item.payment_mode && 
+                                                                item.payment_mode &&
                                                                 <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                                                                     <span>Payment mode</span>
                                                                     <span>{item.payment_mode}</span>
@@ -184,6 +188,17 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                     </div>
                                                 })
+                                            }
+                                            {
+                                                this.state.data && this.state.data.appointment_via_sbi ?
+
+                                                    <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                        <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { this.navigateToSBI()}}>
+                                                            Go Back To SBIG Home
+                                                        </button>
+                                                    </div>
+
+                                                    : ''
                                             }
 
                                         </div>

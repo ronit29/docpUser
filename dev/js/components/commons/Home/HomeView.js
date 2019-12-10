@@ -39,7 +39,8 @@ class HomeView extends React.Component {
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
-			clickedOn: ''
+			clickedOn: '',
+			showSBI: false
 		}
 	}
 
@@ -68,7 +69,7 @@ class HomeView extends React.Component {
 		let data = { 'event': "viewHome" }
 
 		CRITEO.sendData(data)
-
+		this.setState({showSBI: true});
 	}
 
 
@@ -220,12 +221,12 @@ class HomeView extends React.Component {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.props.specializations.slice(0,8)//this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0, 8)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.props.common_tests.slice(0,8)//this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0, 8)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
@@ -245,12 +246,14 @@ class HomeView extends React.Component {
 			}
 		}
 
+		let isSBI = this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
 				<div className="col-md-7" key="spez">
 					<div className="right-card-container">
@@ -267,7 +270,7 @@ class HomeView extends React.Component {
 						/>
 
 						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+							!isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
 								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
@@ -321,13 +324,13 @@ class HomeView extends React.Component {
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 
@@ -343,9 +346,9 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
-				<div className="col-md-7" key="upcom">
+				<div className="col-md-7 kkk" key="upcom">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						{/* {
@@ -374,26 +377,36 @@ class HomeView extends React.Component {
 							/*this.props.history ?
 								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
-
-						<div className="banner-cont-height home-page-banner-div">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight"></div>
+						{
+							!isSBI?
+							<div className="banner-cont-height home-page-banner-div">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight"></div>
+								</div>
+								{
+									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+								}
 							</div>
-							{
-								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-							}
-						</div>
-
+							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight-sbi mt-0"></div>
+								</div>
+								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
+									<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
+								</div>
+							</div>
+						}
+						
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 

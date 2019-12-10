@@ -63,7 +63,7 @@ class ContactPoupView extends React.Component {
 						</div>
 						<button className="mobileNumber-fill-btn" onClick={this.submit.bind(this)}>Submit</button>
 					</div>
-					<p className="text-center fw-500 p-3 imptnt-cls" style={{ fontSize: 12, color: '#8a8a8a'}} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
+					<p className="text-center fw-500 p-3 imptnt-cls" style={{ fontSize: 12, color: '#8a8a8a'}} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
 				</div>
 			</div>
 		)
