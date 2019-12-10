@@ -162,7 +162,11 @@ const GTM = {
         }
 
         if (visitor_info && visitor_info.length) {
-            visitor_info = JSON.parse(visitor_info)
+            try{
+                visitor_info = JSON.parse(visitor_info)
+            }catch(e){
+
+            }
         }
 
         if (visitor_info && visitor_info.visit_id && visitor_info.visitor_id) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags, getLabVipGoldPlans, selectVipClubPlan, select_lab_payment_type, pushMembersData, retrieveMembersData, clearAllTests, selectProfile, NonIpdBookingLead } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -34,7 +34,10 @@ class BookingSummary extends React.Component {
             props.getCartItems()
         }
 
-        if(lab_id){
+        if(parsed.dummy_id) {
+            this.singleFlowLogin(props,lab_id)
+
+        }else if(lab_id){
             let testIds = props.lab_test_data[lab_id] || []
             testIds = testIds.map(x => x.id)
             let forceAddTestids = false
@@ -45,6 +48,69 @@ class BookingSummary extends React.Component {
 
             props.getLabById(lab_id, testIds, forceAddTestids)
         }
+    }
+
+    singleFlowLogin(props, lab_id){
+       // this.props.clearAllTests()
+        //Auto Select on Agent Login URL
+        const parsed = queryString.parse(props.location.search)
+        if(parsed && parsed.dummy_id) {
+            let extraParams = {
+                dummy_id: parsed.dummy_id
+            }
+            props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+                if(resp && resp.data){
+                    this.setLabBooking(resp.data)    
+                }
+                setTimeout(()=>{
+                    let testIds = props.lab_test_data[lab_id] || []
+                    testIds = testIds.map(x => x.id)
+                    let forceAddTestids = false
+                    if(parsed.test_ids) {
+                        testIds = parsed.test_ids.split(',')
+                        forceAddTestids = true
+                    }
+
+                    props.getLabById(lab_id, testIds, forceAddTestids)
+                },100)
+            })
+        }
+    }
+
+    setLabBooking(data) {
+
+        let { coupon_data } = data
+        // for (let curr_test of data.test_ids) {
+        //     let curr = {}
+        //     curr.id = curr_test
+        //     curr.extra_test = true
+        //     curr.lab_id = data.labId
+        //     this.props.toggleDiagnosisCriteria('test', curr, true)
+        // }
+
+        if (data && data.pincode) {
+            this.props.savePincode(data.pincode)
+        }
+
+        this.props.selectProfile(data.profile)
+        this.props.select_lab_payment_type(data.payment_type)
+        
+        this.props.selectLabTimeSLot(data.selectedSlot, false, null)
+
+        if (coupon_data.coupon_code) {
+            let coupon_id = ''
+            let is_cashback = false
+    
+            if (coupon_code && Object.keys(coupon_code).length) {
+                coupon_id = coupon_code.id
+                is_cashback = coupon_code.is_cashback
+            }
+            if (coupon_code) {
+                this.props.applyCoupons('2', { code: coupon_data.coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.labId)
+            }
+
+        }
+
     }
 
     componentWillReceiveProps(props){
@@ -78,9 +144,11 @@ const mapStateToProps = (state) => {
         saved_patient_details,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold } = state.USER
     let LABS = state.LABS
-    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card } = state.LAB_SEARCH
+    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card , payment_type} = state.LAB_SEARCH
+    const { labGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
+
 
     return {
         corporateCoupon,
@@ -88,7 +156,8 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card,
+        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type
     }
 }
 
@@ -101,7 +170,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
-        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,extraParams, cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, extraParams, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
         applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
@@ -128,7 +197,15 @@ const mapDispatchToProps = (dispatch) => {
         unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
         sendSPOAgentBooking: (postData, cb) => dispatch(sendSPOAgentBooking(postData, cb)),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
-        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria))
+        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria)),
+        getLabVipGoldPlans: (dataParams, cb) => dispatch(getLabVipGoldPlans(dataParams, cb)),
+        selectVipClubPlan: (type, selectedPlan, cb) => dispatch(selectVipClubPlan(type, selectedPlan, cb)),
+        select_lab_payment_type: (type) => dispatch(select_lab_payment_type(type)),
+        pushMembersData:(criteria, cb) =>dispatch(pushMembersData(criteria, cb)),
+        retrieveMembersData:(type,extraParams, callback) => dispatch(retrieveMembersData(type, extraParams, callback)),
+        clearAllTests: () => dispatch(clearAllTests()),
+        selectProfile: (id) => dispatch(selectProfile(id)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 

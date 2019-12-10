@@ -34,7 +34,7 @@ const DOCTOR_LIST_PRESIST = {
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'user_prescriptions', 'is_prescription_needed', 'selectedDateFormat', 'labCoupons']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'user_prescriptions', 'is_prescription_needed', 'selectedDateFormat', 'labCoupons', 'payment_type']
 }
 
 const USER_PERSIST = {
@@ -69,7 +69,7 @@ const INSURANCE_LIST_PRESIST = {
 const VIP_CLUB_CRITERIA_PRESIST = {
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData', 'odpGoldPredictedPrice', 'labGoldPredictedPrice', 'vipCoupons']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',

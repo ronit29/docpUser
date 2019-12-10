@@ -40,24 +40,10 @@ class VipLoginPopup extends React.Component {
             newProfileNames.last_name = tempArray.join(' ')
         } else {
             newProfileNames.name = newName[0]
+            newProfileNames.last_name = ''
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
         this.setState({ profile_id: profileid, newprofile: exactProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
-        /*if(this.props.is_child_only){
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-
-            today = yyyy + '-' + mm + '-' + dd;
-            var startDate = Date.parse(today);
-            var endDate = Date.parse(newProfile.dob);
-            var timeDiff = startDate - endDate;
-            let daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:daysDiff,age:newProfile.age})
-        }else{
-            this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge,age:newProfile.age})
-        }*/
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -177,6 +163,9 @@ class VipLoginPopup extends React.Component {
                                     }
                                     if(lead_data.is_agent){
                                         url += '&is_agent='+lead_data.is_agent
+                                    }
+                                    if (lead_data.is_gold) {
+                                        url += '&is_gold=' + lead_data.is_gold
                                     }
                                 if (Object.keys(self.props.selected_vip_plan).length > 0) {
                                     let extraParams = {}
@@ -303,32 +292,6 @@ class VipLoginPopup extends React.Component {
         let errorMessage
 
         this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)
-        /*if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
-            if(this.props.is_child_only){
-                threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
-                threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
-                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].child_min_age} days and ${this.props.selected_plan.threshold[0].child_max_age} years`
-            }else{
-                threshold_max_age = this.props.selected_plan.threshold[0].max_age
-                threshold_min_age = this.props.selected_plan.threshold[0].min_age
-                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].min_age} and ${this.props.selected_plan.threshold[0].max_age} years`
-            }
-        }
-        if(this.props.is_child_only){
-            if(this.state.selectedProfileAge > threshold_min_age && this.state.age < threshold_max_age){
-                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
-            }else{
-                SnackBar.show({ pos: 'bottom-center', text: errorMessage })   
-            }
-        }
-        if(!this.props.is_child_only){
-            if(this.state.selectedProfileAge > threshold_min_age && this.state.selectedProfileAge < threshold_max_age){
-                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
-            }else{
-               SnackBar.show({ pos: 'bottom-center', text: errorMessage })    
-            }
-        }*/
-
     }
 
     handleCityInut(type, event) {
@@ -366,12 +329,25 @@ class VipLoginPopup extends React.Component {
 
     }
 
+    addMemberBySelf(){
+        this.props.addMembers(true)
+        this.props.hideSelectProfilePopup()
+    }
+
     render() {
         if (this.props.isSelectprofile) {
             let currentSelectedProfiles = []
-            this.props.currentSelectedVipMembersId.map((val, key) => {
-                currentSelectedProfiles.push(val[key])
-            })
+            if(this.props.show_selected_profiles && this.props.show_selected_profiles.length >0){
+                this.props.currentSelectedVipMembersId.map((val, key) => {
+                    currentSelectedProfiles.push(val[key])
+                })
+            }
+            let already_users_ids = []
+            if(this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
+                    this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+                        already_users_ids.push(val.profile)
+                    })
+            }
             return (
                 <div>
                     <div className="cancel-overlay cancel-overlay-zindex" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
@@ -387,17 +363,24 @@ class VipLoginPopup extends React.Component {
                         </div>
                         <div className="col-12">
                             <div className="ins-form-radio insradio-on-popup">
-                                {Object.entries(this.props.profiles).map(function ([key, value]) {
-                                    if (currentSelectedProfiles.indexOf(parseInt(key)) == -1) {
-                                        return <div key={key} className="dtl-radio">
-                                            <label className="container-radio">
-                                                {value.name}
-                                                <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value, value.age)} />
-                                                <span className="doc-checkmark"></span>
-                                            </label>
-                                        </div>
-                                    }
-                                }, this)}
+                                {
+                                this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length >0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
+                                    Object.entries(this.props.USER.profiles).map(function ([key, value]) {
+                                        
+                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && already_users_ids.indexOf(parseInt(key)) == -1) {
+                                            return <div key={key} className="dtl-radio">
+                                                <label className="container-radio">
+                                                    {value.name}
+                                                    <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value, value.age)} />
+                                                    <span className="doc-checkmark"></span>
+                                                </label>
+                                            </div>
+                                        }
+                                    }, this)
+                                :''}
+                                {this.props.is_from_payment?'' 
+                                :<span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Profile</span>  
+                                }
                             </div>
                         </div>
                         <div className="procedures-btn-pop" onClick={this.closeSelectFromProfile.bind(this)}>
@@ -425,7 +408,6 @@ class VipLoginPopup extends React.Component {
                                                 <input type="text" id="name" className="fc-input text-center" placeholder="Enter your name" value={this.state.user_name} onChange={this.inputHandler.bind(this)} name="user_name" disabled={this.state.showOTP ? true : false} />
                                             </div>*/}
                                             <div className="adon-group enter-mobile-number">
-                                                <br /><br />
                                                 <input type="number" id="number" className="fc-input text-center" placeholder="Enter your mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
                                             </div>
                                             {/*<div className="adon-group enter-mobile-number">

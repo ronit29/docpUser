@@ -37,6 +37,25 @@ class VipGoldView extends React.Component {
 
         self.setState({ tabsValue: tabs })
     }
+    goBack() {
+        let selectPlan = this.props.selected_plan_data && this.props.selected_plan_data.id
+        if(selectPlan) {
+
+            let plan = []
+            if(this.props.is_booking_page == 'opd' && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length) {
+                plan = this.props.odpGoldPredictedPrice.filter(x=>x.id == selectPlan)
+
+            }else if (this.props.is_booking_page == 'lab' && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length){
+                plan = this.props.labGoldPredictedPrice.filter(x=>x.id == selectPlan)
+            }
+
+            if(plan && plan.length) {
+                this.props.selectVipClubPlan('', plan[0])
+            }
+
+        }
+       this.props.history.go(-1)
+    }
     render() {
         let self = this
 
@@ -420,9 +439,16 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
-                        <p>Continue</p>
-                    </button>
+                    {
+                        this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab')?
+                        <button className="vip-foot-btn p-3" onClick={this.goBack.bind(this)}>
+                            <p>Continue Booking</p>
+                        </button>
+                        :
+                        <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
+                            <p>Continue</p>
+                        </button>
+                    }
                 </section>
                 : <div></div>
         );

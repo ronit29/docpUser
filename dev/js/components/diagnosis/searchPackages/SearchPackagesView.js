@@ -9,6 +9,7 @@ import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 import GTM from '../../../helpers/gtm.js'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 const queryString = require('query-string');
 
 class SearchPackagesView extends React.Component {
@@ -20,13 +21,16 @@ class SearchPackagesView extends React.Component {
             seoData = this.props.initialServerData.seoData
             footerData = this.props.initialServerData.footerData
         }
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             seoData, footerData,
             showError: false,
             showChatWithus: false,
             isScroll: true,
             isCompare: false,
-            quickFilter: {}
+            quickFilter: {},
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -317,6 +321,10 @@ class SearchPackagesView extends React.Component {
             url += `&utm_source=${parsed.utm_source || ""}`
         }
 
+        if(this.state.showNonIpdPopup){
+            url += `${'&show_popup='+ this.state.showNonIpdPopup}`
+        }
+
         return url
     }
 
@@ -335,6 +343,27 @@ class SearchPackagesView extends React.Component {
 
     applyQuickFilter(filter) {
         this.setState({ quickFilter: filter })
+    }
+
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let package_name = null
+        if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length>1){
+            package_name = this.props.packagesList.result[0].name
+        }else{
+            package_name = 'Health Packages'
+        }
+        console.log(package_name)
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:package_name})
+        console.log(data)
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            this.setState({to_be_force:0})
+        }
     }
 
     render() {
@@ -363,6 +392,11 @@ class SearchPackagesView extends React.Component {
                     title: `${this.props.packagesList.title || ''}`,
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />
+                {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false} />
+                    :''
+                }
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count > 0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content != null && this.props.forOrganicSearch ? this.props.packagesList.bottom_content : ''} page={1} isPackage={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared} quickFilter={this.state.quickFilter} resetQuickFilters={this.resetQuickFilters.bind(this)} />
                     {

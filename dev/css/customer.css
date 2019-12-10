@@ -2502,6 +2502,7 @@ p.rt-doc-nm {
     width: 100%;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24)!important;
     border-radius: 5px !important;
+    object-fit: contain;
 }
 
 .banner-carousel-div .clickable-banner {

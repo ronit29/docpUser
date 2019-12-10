@@ -75,6 +75,7 @@ class InsuranceProofs extends React.Component {
                 if (data) {
                     let dataId = data.id
                     mem_data.id = this.props.member_id;
+                    mem_data.is_primary_user = this.props.is_primary_user;
                     mem_data.img_path_ids=[]
                     if(this.props.members_proofs.length > 0){
                         Object.entries(this.props.members_proofs).map(function([key, value]) {
