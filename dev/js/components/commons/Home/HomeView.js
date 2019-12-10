@@ -245,6 +245,8 @@ class HomeView extends React.Component {
 			}
 		}
 
+		let isSBI = document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
@@ -267,7 +269,7 @@ class HomeView extends React.Component {
 						/>
 
 						{
-							false && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+							!isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
 								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
@@ -374,26 +376,25 @@ class HomeView extends React.Component {
 							/*this.props.history ?
 								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
-
-						<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight-sbi mt-0"></div>
-							</div>
-							<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
-								<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
-							</div>
-						</div>
 						{
-							false && <div className="banner-cont-height home-page-banner-div">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight"></div>
+							!isSBI?
+							<div className="banner-cont-height home-page-banner-div">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight"></div>
+								</div>
+								{
+									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+								}
 							</div>
-							{
-								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-							}
-						</div>
-
+							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight-sbi mt-0"></div>
+								</div>
+								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
+									<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
+								</div>
+							</div>
 						}
 						
 						{

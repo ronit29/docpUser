@@ -206,13 +206,12 @@ class App extends React.Component {
 
 
     render() {
-        let sbi_theming = STORAGE.getAnyCookie('sbi_utm');
-
+        
         return (
             <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true)}>
                 <NotificationsBoot />
                 <BrowserRouter>
-                    <div className={sbi_theming?'sbi-theming':'docprime-theming'}>
+                    <div>
                         <Route path="/" component={logPageView} />
                         <Routes />
                     </div>
