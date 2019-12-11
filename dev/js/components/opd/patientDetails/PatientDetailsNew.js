@@ -1523,10 +1523,12 @@ class PatientDetailsNew extends React.Component {
         if(showGoldTogglePaymentMode)
         payment_mode_count++
 
+        let showCodPaymentMode = !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold) 
+
         let resetPaymentType = false
         if(!showGoldTogglePaymentMode && this.props.payment_type ==6){
             resetPaymentType = true
-        }else if( (!enabled_for_cod_payment || (enabled_for_cod_payment && is_insurance_applicable) ) && this.props.payment_type == 2 ){
+        }else if( (!showCodPaymentMode || (showCodPaymentMode && is_insurance_applicable) ) && this.props.payment_type == 2 ){
             resetPaymentType = true
         }else if(!enabled_for_prepaid_payment && this.props.payment_type ==1){
             resetPaymentType = true
@@ -1534,7 +1536,7 @@ class PatientDetailsNew extends React.Component {
 
         if(resetPaymentType) {
 
-            if(enabled_for_cod_payment) {
+            if(showCodPaymentMode) {
                 this.props.select_opd_payment_type(2)
             }else if(enabled_for_prepaid_payment){
                 this.props.select_opd_payment_type(1)
@@ -1546,10 +1548,9 @@ class PatientDetailsNew extends React.Component {
         if (hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured) {
             is_insurance_buy_able = true
         }
-
         if (enabled_for_prepaid_payment)
             payment_mode_count++
-        if (enabled_for_cod_payment)
+        if (showCodPaymentMode)
             payment_mode_count++
         // if (enabled_for_prepaid_payment && is_insurance_buy_able)
         //     payment_mode_count++
@@ -1982,7 +1983,7 @@ class PatientDetailsNew extends React.Component {
                                                                             }
 
                                                                             {
-                                                                                !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold) ?
+                                                                                showCodPaymentMode?
                                                                                     <div className="test-report payment-detail mt-20" onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.props.select_opd_payment_type(2)
