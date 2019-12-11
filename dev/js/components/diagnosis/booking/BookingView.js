@@ -179,29 +179,29 @@ class BookingView extends React.Component {
         let r_pickup = 'lab'
         //if(this.state.selected_timings_type){}
         let test_type = 0
-        if(this.state.data.lab_test){
-            this.state.data.lab_test.map((test)=>{
+        if (this.state.data.lab_test) {
+            this.state.data.lab_test.map((test) => {
                 test_ids.push(test.test_id)
                 test_type = test.test_type
             })
         }
         this.props.selectLabTimeSLot({ time: {} }, true)
-        let selected_timings_type = this.state.data && this.state.data.selected_timings_type=='separate'?'seperately':'all'
+        let selected_timings_type = this.state.data && this.state.data.selected_timings_type == 'separate' ? 'seperately' : 'all'
 
-        if(this.state.data){
-            if(this.state.data.is_home_pickup){
-                if(test_type==2){
+        if (this.state.data) {
+            if (this.state.data.is_home_pickup) {
+                if (test_type == 2) {
                     p_pickup = 'home'
-                    r_pickup='lab'
-                }else if(test_type==1){
+                    r_pickup = 'lab'
+                } else if (test_type == 1) {
                     r_pickup = 'home'
                     p_pickup = 'lab'
                 }
-            }else{
-                if(test_type==2){
+            } else {
+                if (test_type == 2) {
                     p_pickup = 'lab'
                     r_pickup = 'lab'
-                }else if(test_type==1){
+                } else if (test_type == 1) {
                     r_pickup = 'lab'
                     p_pickup = 'lab'
                 }
@@ -228,6 +228,10 @@ class BookingView extends React.Component {
         }
         GTM.sendEvent({ data: analyticData })
         this.props.history.push(`/lab/${this.state.data.lab.id}/book`)
+    }
+
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
     }
 
     render() {
@@ -438,13 +442,13 @@ class BookingView extends React.Component {
                                                                 <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>Visit Time
 
                                                                     {
-                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1)/* && (new Date(date).getTime() > new Date().getTime()) */?
+                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1)/* && (new Date(date).getTime() > new Date().getTime()) */ ?
                                                                             <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 
                                                                 </h4>
                                                                 <p className="date-time test-list fw-500">{new Date(date).toDateString()} | {new Date(date).toLocaleTimeString()}</p>
-                                                                
+
                                                                 {/*
                                                                     this.state.data.lab_test && this.state.data.lab_test.map((test, key)=>
                                                                         <div className="vst-content-bl" key={key}>
@@ -503,22 +507,22 @@ class BookingView extends React.Component {
                                                                             width: 16, marginRight: 5, verticalAlign: -3
                                                                         }} /></span>Payment Detail</h4>
                                                                         {
-                                                                            payment_type==3?'':
-                                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                                <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
-                                                                                <p className="fw-500">&#8377; {parseInt(mrp)}</p>
-                                                                            </div>
+                                                                            payment_type == 3 ? '' :
+                                                                                <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                    <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
+                                                                                    <p className="fw-500">&#8377; {parseInt(mrp)}</p>
+                                                                                </div>
                                                                         }
                                                                         {
-                                                                            discount && payment_type!=3?
+                                                                            discount && payment_type != 3 ?
                                                                                 <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                     <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
                                                                                     <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>
                                                                                 </div> : ''
                                                                         }
                                                                         {
-                                                                            payment_type==3?'':
-                                                                            <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
+                                                                            payment_type == 3 ? '' :
+                                                                                <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
                                                                         }
                                                                         <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                             <p className="fw-500">Amount Payable</p>
@@ -558,7 +562,7 @@ class BookingView extends React.Component {
                                                                                 Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
                                                                             <div>
                                                                                 <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                                                    <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                                                                    <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)`, cursor: 'pointer' }}>Know more</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -575,6 +579,17 @@ class BookingView extends React.Component {
                                             reports && reports.length ? <button onClick={() => {
                                                 this.props.history.push(`/user/lab/reports/${this.state.data.id}`)
                                             }} className="viewpresbtn">View Reports</button> : ""
+                                        }
+                                        {
+                                            this.state.data && this.state.data.appointment_via_sbi ?
+
+                                                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { this.navigateToSBI()}}>
+                                                        Go Back To SBIG Home
+                                                        </button>
+                                                </div>
+
+                                                : ''
                                         }
                                     </section> : <Loader />
                             }

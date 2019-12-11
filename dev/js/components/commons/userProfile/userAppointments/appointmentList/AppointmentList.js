@@ -45,19 +45,19 @@ class AppointmentList extends React.Component {
         status = parseInt(status)
         switch (status) {
             case 1: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Created</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Created</span>
             }
             case 2: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Booked</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Booked</span>
             }
             case 3: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Rescheduled</span>
             }
             case 4: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Rescheduled</span>
             }
             case 5: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Accepted</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Accepted</span>
             }
             case 6: {
                 return <span className="appointment-status" style={{ color: 'red' }}>Cancelled</span>
@@ -66,7 +66,7 @@ class AppointmentList extends React.Component {
                 return <span className="appointment-status" style={{ color: 'green' }}>Completed</span>
             }
             default: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Upcoming</span>
             }
         }
     }
@@ -88,7 +88,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip, payment_mode } = this.props.data
+        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip, payment_mode, discount } = this.props.data
 
         let date = new Date(time_slot_start)
         let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
@@ -153,7 +153,7 @@ class AppointmentList extends React.Component {
                 }
                 {
                     deal_price && !is_vip_applicable?
-                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)}</span> : ''
+                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)- (discount?parseInt(discount):0)}</span> : ''
                 }
                 {
                     invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?

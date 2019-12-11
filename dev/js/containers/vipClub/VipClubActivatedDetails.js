@@ -34,15 +34,20 @@ class VipClubActivatedDetails extends React.Component{
 
         var url_string = window.location.href;
         var url = new URL(url_string);
+        let primary_member_id = null
         var member_list_id = url.searchParams.get("id");
         if (member_list_id !== null) {
-            let gtmData = {
-                'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked'
-            }
-            GTM.sendEvent({ data: gtmData })
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,false,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
+                    console.log(resp)
+                    if(resp.data.user && Object.keys(resp.data.user).length > 0 ){
+                        primary_member_id =   resp.data.user.user
+                    }
+                    let gtmData = {
+                            'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked', 'user_id': primary_member_id
+                        }
+                        GTM.sendEvent({ data: gtmData })
                     this.setState({data:resp.data,is_gold:resp.data.plan[0].is_gold})
                 }
             })
@@ -50,7 +55,6 @@ class VipClubActivatedDetails extends React.Component{
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,true,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
-
                     this.setState({data:resp.data,is_gold:resp.data.plan[0].is_gold})
                 }
             })

@@ -210,6 +210,10 @@ class BookingView extends React.Component {
         this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
+    }
+
     render() {
         
         let doctor = {}
@@ -230,6 +234,7 @@ class BookingView extends React.Component {
         let vip_amount = 0
         let is_gold_vip = 0
         let vip_convenient_price = 0
+        let cod_discounted_price = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -247,6 +252,7 @@ class BookingView extends React.Component {
             vip_amount = this.state.data.vip.vip_amount
             is_gold_vip = this.state.data.vip.is_gold_member
             vip_convenient_price = this.state.data.vip.extra_charge
+            cod_discounted_price = this.state.data.discount
 
         }
 
@@ -259,7 +265,7 @@ class BookingView extends React.Component {
         }
 
         if (payment_type == 2) {
-            discount = mrp - deal_price
+            discount = parseInt(cod_discounted_price)
         } else {
             discount = mrp - effective_price
         }
@@ -378,7 +384,7 @@ class BookingView extends React.Component {
                                                 {
                                                     payment_type == 2 && status < 6 ? <div className="payAtclinic">
                                                         <h5>Pay at clinic</h5>
-                                                        <p>Please pay <b>₹ {deal_price}</b> at the time of appointment</p>
+                                                        <p>Please pay <b>₹ {parseInt(deal_price)- parseInt(cod_discounted_price)}</b> at the time of appointment</p>
 
                                                     </div> : ""
                                                 }
@@ -526,7 +532,7 @@ class BookingView extends React.Component {
                                                                         <p className="fw-500">Amount Payable</p>
                                                                         {
                                                                             payment_type == 2 ?
-                                                                                <p className="fw-500">&#8377; {parseInt(deal_price)}</p>
+                                                                                <p className="fw-500">&#8377; {parseInt(deal_price)- parseInt(cod_discounted_price)}</p>
                                                                                 :is_gold_vip?<p className="fw-500">&#8377; {total_amount_payable}</p>
                                                                                     :is_vip_member && covered_under_vip ?
                                                                                     <p className="fw-500">&#8377; {total_amount_payable}</p>
@@ -562,7 +568,7 @@ class BookingView extends React.Component {
                                                                             Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
                                                                         <div>
                                                                             <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                                                <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                                                                <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -579,6 +585,18 @@ class BookingView extends React.Component {
                                             this.props.history.push(`/user/opd/reports/${this.state.data.id}`)
                                         }} className="viewpresbtn">View Prescription</button> : ""
                                     }
+                                    {
+                                        this.state.data && this.state.data.appointment_via_sbi?
+                                       
+                                                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={()=>{this.navigateToSBI()}}>
+                                                                Go Back To SBIG Home
+                                                        </button>
+                                                </div>
+                                            
+                                        :''
+                                    }
+
                                 </section> : <Loader />
                             }
 

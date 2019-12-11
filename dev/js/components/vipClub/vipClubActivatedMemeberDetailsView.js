@@ -22,7 +22,7 @@ class VipClubActivatedMemberDetails extends React.Component {
 									<div className="img-list-width">
 										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 									</div>
-									<p style={{ 'textTransform': 'capitalize' }}>{val.first_name} {val.last_name} | {val.title == 'mr.'?'Male':'Female'}</p>
+									<p style={{ 'textTransform': 'capitalize' }}>{val.first_name} {val.last_name} | {val.title == 'mr.'?'Male':val.gender == 'm' ? 'Male':'Female'}</p>
 								</li>
 								{val.dob?
 									<li>

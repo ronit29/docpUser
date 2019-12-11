@@ -684,12 +684,12 @@ class ChatPanel extends React.Component {
             return (
                 <div className="fixed-chatbox">
                     {
-                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        false && this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                             <BannerCarousel {...this.props} sliderLocation="home_page" />
                             : ''
                     }
                     {
-                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                        false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
                             <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
                     }
                     {
@@ -729,18 +729,18 @@ class ChatPanel extends React.Component {
                                         <div className="hd-chat" style={{ flex: 1 }}>
                                             {
                                                 this.props.location.search && this.props.location.search.includes('?botagent') ?
-                                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                    <p className="text-left header-text-chat">
                                                         <span className="hed-txt-lt">Get </span>
                                                         Help with Booking
                                                     </p>
                                                     :
                                                     this.props.chatPage ?
-                                                        <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <h1 className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </h1>
                                                         :
-                                                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <p className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </p>

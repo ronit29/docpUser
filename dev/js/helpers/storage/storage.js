@@ -1,3 +1,5 @@
+import CookieHelper from './cookie.js'
+
 function deleteAllCookies() {
     if (document) {
         var cookies = document.cookie.split(";");
@@ -24,8 +26,8 @@ function setCookie(name, value, days) {
 }
 
 function getCookie(name) {
+    var nameEQ = name + "=";
     if (document) {
-        var nameEQ = name + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
@@ -33,6 +35,23 @@ function getCookie(name) {
             if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
         return null;
+    }else if(CookieHelper && CookieHelper.getReq){
+        try{
+            let req = CookieHelper.getReq();
+            if(req && req.headers && req.headers.cookie) {
+                let cookies = req.headers.cookie
+                var ca = cookies.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+        }catch(e){
+
+        }
+        
     }
 }
 
@@ -44,7 +63,7 @@ function eraseCookie(name) {
 
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
-    if (base64Url) {
+    if (base64Url && window) {
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
         return JSON.parse(window.atob(base64));
     } else {
@@ -101,7 +120,14 @@ const STORAGE = {
     setAppointmentDetails: (token) => {
         setCookie('booking_info', token, 5)
         return Promise.resolve(true)
+    },
+    setAnyCookie: (name, value, day) =>{
+        setCookie(name, value, day)
+    },
+    getAnyCookie: (name)=>{
+        return getCookie(name)
     }
+
 
 }
 

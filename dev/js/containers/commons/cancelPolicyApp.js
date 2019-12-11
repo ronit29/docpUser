@@ -54,7 +54,7 @@ class cancelPolicyApp extends React.Component {
 			                                    <strong>Third Party Cancellation (Provider Unavailable) -</strong> Occasionally, appointments may be canceled or postponed due to unavailability of the service provider. Should this occur, we will contact or inform you and you may reschedule your appointment as per your convenience.
 			                                </li>
 			                                <li>
-			                                    <strong>24 Hours Cancellation -</strong> Cancellation is allowed for all the appointments. In such cases, we will initiate the immediate refund of your money as per the process defined under Refund, Rescheduling, and Cancellation section of the  <u style={{color: '#f78631',cursor:'pointer',display:'inline-block'}} onClick={() =>this.props.history.push('/terms?forBookingScroll=true')}>End User Agreement.</u>
+			                                    <strong>24 Hours Cancellation -</strong> Cancellation is allowed for all the appointments. In such cases, we will initiate the immediate refund of your money as per the process defined under Refund, Rescheduling, and Cancellation section of the  <u style={{color: `var(--text--primary--color)` ,cursor:'pointer',display:'inline-block'}} onClick={() =>this.props.history.push('/terms?forBookingScroll=true')}>End User Agreement.</u>
 			                                </li>
 			                            </React.Fragment>
 			                    }
