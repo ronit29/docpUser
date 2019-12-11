@@ -1882,7 +1882,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {/*Payment Mode*/}
                                                                 {
-                                                                    payment_mode_count > 1 ? <div className="widget mrb-15">
+                                                                    (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
 
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
