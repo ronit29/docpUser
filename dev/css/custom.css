@@ -5536,3 +5536,9 @@ p.dp-gld-mem-grn {
     height: 34px;
 }
 /******ipd form ne column css ends******/
+
+/****** online doct chat view ******/
+div.onln-doc-cnslt div.chatbox-right {
+        height: calc(100vh - 200px);
+    }
+/****** online doct chat view ******/
