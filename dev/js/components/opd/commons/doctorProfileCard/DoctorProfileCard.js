@@ -166,7 +166,7 @@ class DoctorProfileCard extends React.Component {
                     }
                     {
                         experiences && experiences.length > 1 ?
-                            <h2 className="add-details">{expStr} & <span style={{ cursor: 'pointer', color: '#f78631' }} onClick={() => this.moreExpClick()}>{experiences.length - 1} more</span></h2>
+                            <h2 className="add-details">{expStr} & <span style={{ cursor: 'pointer', color: `var(--text--primary--color)` }} onClick={() => this.moreExpClick()}>{experiences.length - 1} more</span></h2>
                             : experiences ? <h2 className="add-details">{expStr}</h2> : ''
                     }
                     {

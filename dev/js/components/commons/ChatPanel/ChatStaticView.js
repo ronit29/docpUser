@@ -98,9 +98,9 @@ class ChatStatic extends React.Component {
                     <div className="hd-chat" style={{ flex: 1 }}>
                         {
                             this.props.chatPage ?
-                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt"></span>Online Doctor Consultation!</h1>
+                                <h1 className="text-left header-text-chat"><span className="hed-txt-lt"></span>Online Doctor Consultation!</h1>
                                 :
-                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt"></span>Online Doctor Consultation!</p>
+                                <p className="text-left header-text-chat"><span className="hed-txt-lt"></span>Online Doctor Consultation!</p>
                         }
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>

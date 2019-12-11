@@ -173,7 +173,7 @@ class ProfileData extends React.Component {
                                         <div>
                                             <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
                                             <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
+                                                <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: `var(--text--dark--all)`, cursor: 'pointer' }}>Terms & Conditions</p>
                                             </div>
                                         </div>
                                         <p className="view-more-coupons" onClick={() => {
@@ -198,7 +198,7 @@ class ProfileData extends React.Component {
                                         Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
                                     <div>
                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                            <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>
                                         </div>
                                     </div>
                                 </div>

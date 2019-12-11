@@ -846,6 +846,26 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
+        //Check SBI UTM Tags
+        if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+
+            let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
+            if(tags.utm_tags){
+                
+                postData['utm_sbi_tags'] = tags.utm_tags
+            }
+        }else if(document && document.location && document.location.host &&  document.location.host.includes('sbi')){
+            postData['utm_sbi_tags'] = {
+                utm_tags: {
+                    utm_source: 'sbi_utm',
+                    utm_term: '',
+                    utm_medium: '',
+                    utm_campaign: ''
+                },
+                time: new Date().getTime(),
+            }
+        }
+
 
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
             let tests = []
