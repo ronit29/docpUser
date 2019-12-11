@@ -8400,11 +8400,8 @@ p.dp-gld-mem-grn {
     .headerSubLinkContainer{
         display: none;
     }
-    /* .book-appointment-section{
-        margin-top: 0px!important;
-    } */
-}
-
-.vip-net-block{
-    top: 54px;
+    .vip-net-block{
+        top: 54px!important;
+        margin-top: -92px;
+    }
 }
