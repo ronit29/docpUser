@@ -8409,3 +8409,8 @@ p.dp-gld-mem-grn {
         /* margin-top: -92px; */
     }
 }
+/****** online doct chat view ******/
+div.onln-doc-cnslt div.chatbox-right {
+        height: calc(100vh - 200px);
+    }
+/****** online doct chat view ******/
