@@ -2142,7 +2142,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             : ''
                                                                                 }
                                                                                 {
-                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */this.props.payment_type!=6 && this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */!is_insurance_applicable && this.props.payment_type!=6 && this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                         ? <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
