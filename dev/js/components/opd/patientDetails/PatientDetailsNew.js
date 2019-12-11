@@ -1415,6 +1415,7 @@ class PatientDetailsNew extends React.Component {
         let is_default_user_under_vip = false
         let is_selected_user_gold = false
         let vip_data = {}
+        let hide_prepaid = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1426,7 +1427,7 @@ class PatientDetailsNew extends React.Component {
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
-                    enabled_for_prepaid_payment = [4290, 3241, 3240, 3560].indexOf(hospital.hospital_id)==-1 && enabled_for_prepaid_payment
+                    hide_prepaid = [4290, 3241, 3240, 3560].indexOf(hospital.hospital_id)==-1
                 })
             }
         }
@@ -1521,6 +1522,9 @@ class PatientDetailsNew extends React.Component {
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
             showGoldTogglePaymentMode = false
         }
+
+        //Hide Prepaid 
+        enabled_for_prepaid_payment = hide_prepaid && enabled_for_prepaid_payment
         if(showGoldTogglePaymentMode)
         payment_mode_count++
 
