@@ -92,7 +92,7 @@ class CartView extends React.Component {
                         // total_deal_price += item.deal_price  
                     }
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    if(item.consultation && item.consultation.fees == 0){
+                    if(item.consultation && item.consultation.fees == 0 && !item.actual_data.cover_under_vip){
                         platformConvFees += parseInt(item.deal_price)
                     }
 
