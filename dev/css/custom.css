@@ -4668,6 +4668,8 @@ h3.othr-cntr {
 }
 h3.othr-cntr span{
     color: var(--text--primary--color);
+    flex-shrink: 0;
+    margin-left: 5px;
 }
 /* ============ ipd slider card ============ */
 
@@ -8401,4 +8403,8 @@ p.dp-gld-mem-grn {
     /* .book-appointment-section{
         margin-top: 0px!important;
     } */
+}
+
+.vip-net-block{
+    top: 54px;
 }

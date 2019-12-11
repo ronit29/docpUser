@@ -201,7 +201,7 @@ class HospitalDetail extends React.Component {
                             __html: itemList_schema
                         }} /> : ""
                     }
-					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
+					<section className="container parent-section book-appointment-section breadcrumb-mrgn  hospital-view-section">
 						{
 							ipd_hospital_detail && ipd_hospital_detail.breadcrumb &&	
 								<BreadCrumbView breadcrumb={ipd_hospital_detail.breadcrumb} {...this.props} />
