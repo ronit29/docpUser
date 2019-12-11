@@ -98,7 +98,7 @@ export default function (state = defaultState, action) {
                 let forcedAddedTests = []
                 newState.lab_test_data[action.payload.labId] = []
                 action.payload.tests.map((x=>{
-                    forcedAddedTests.push({extra_test: true, id: x.test.id, lab_id: action.payload.labId, name: x.test.name, type: 'test',url: x.test.url, hide_price: x.hide_price })
+                    forcedAddedTests.push({extra_test: true, id: x.test.id, lab_id: action.payload.labId, name: x.test.name, type: 'test',url: x.test.url, hide_price: x.hide_price|| false })
                 }))
                 newState.lab_test_data[action.payload.labId] = forcedAddedTests
             }else if (action.payload.criteria.extra_test && action.payload.criteria.lab_id) {

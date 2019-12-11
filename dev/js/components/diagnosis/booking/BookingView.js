@@ -228,12 +228,12 @@ class BookingView extends React.Component {
         }
         GTM.sendEvent({ data: analyticData })
         let criteria = {}
-        criteria.id = this.state.data.lab  || ''
-        criteria.name = data[0] || ''
-        criteria.type = 'test'
-        criteria.url = ''
-        criteria.test_type = ''
-        this.props.toggleDiagnosisCriteria('test', criteria, true)
+        let extraParams = {
+            forceAddTestids: true,
+            labId: this.state.data.lab.id,
+            tests: this.state.data.lab_test
+        }
+        this.props.toggleDiagnosisCriteria('test', criteria, true, extraParams)
         this.props.history.push(`/lab/${this.state.data.lab.id}/book`)
     }
 
