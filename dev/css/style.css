@@ -14453,6 +14453,7 @@ div.doc-srch-fltr.vip-slct-pop {
     .lw-fixed-header{
         position: fixed!important;
         width: 100%;
+        top: 0px;
     }
     .search-bt-mr {
         margin-bottom: 10px!important;
