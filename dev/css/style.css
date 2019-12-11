@@ -841,6 +841,9 @@ p.top-head-link.card-lab-link span {
 /*header styling*/
 
 @media(max-width: 767px) {
+    .hs-card{
+        margin-top: 5px;
+    }
     .hide-762 {
         display: none;
     }
@@ -12023,7 +12026,7 @@ li {
         margin-top: 44px !important;
     }
     .pkgComapre {
-        margin-top: -10px!important;
+        margin-top: 0px;
     }
     .pkgComapre .filter-row {
         top: 44px;
@@ -14543,9 +14546,10 @@ div.doc-srch-fltr.vip-slct-pop {
 @media screen and (max-width:767px){
     .hospital-view-section{
         margin-top: 0px;
+        padding-top: 0px;
     }
-    .hospital-view-section > .parent-section-row >.center-column{
+    /* .hospital-view-section > .parent-section-row >.center-column{
         padding-left: 5px;
         padding-right:5px;
-    }
+    } */
 }

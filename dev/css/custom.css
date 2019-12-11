@@ -7336,6 +7336,7 @@ div.row.searchForVip {
     margin: 5px 0 12px 0 !important;
 }
 
+
 div.col-12.vip-srch-pdng-adj {
     padding: 10px 8px !important;
 }
@@ -7464,6 +7465,9 @@ button.vp-pop-ch-btn {
     }
     .cancel-overlay.vip-cncl-overlay {
         background-color: transparent;
+    }
+    div.row.searchForVip{
+        margin-top: 0px!important;
     }
 }
 
@@ -8402,6 +8406,6 @@ p.dp-gld-mem-grn {
     }
     .vip-net-block{
         top: 54px!important;
-        margin-top: -92px;
+        /* margin-top: -92px; */
     }
 }
