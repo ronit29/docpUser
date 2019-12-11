@@ -227,6 +227,13 @@ class BookingView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'RebookLabAppointmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'rebook-lab-appointment-clicked'
         }
         GTM.sendEvent({ data: analyticData })
+        let criteria = {}
+        let extraParams = {
+            forceAddTestids: true,
+            labId: this.state.data.lab.id,
+            tests: this.state.data.lab_test
+        }
+        this.props.toggleDiagnosisCriteria('test', criteria, true, extraParams)
         this.props.history.push(`/lab/${this.state.data.lab.id}/book`)
     }
 
