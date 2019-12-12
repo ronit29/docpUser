@@ -61,7 +61,7 @@ class Footer extends React.Component {
         }
 
         return (
-            <footer className={`${this.props.testsListPage ? `profile-footer stick-btm-footer` : `profile-footer`}`}>
+            <footer className={`${this.props.testsListPage ? `profile-footer stick-btm-footer` : `profile-footer fxd-ftr-btm-pdng`}`}>
                 {
                     menu.length > 0 ?
                         <div className="container-fluid footer-2">
