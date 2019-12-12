@@ -406,7 +406,7 @@ export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id =
 		url += `product_id=${productId}`
 	}
 
-	if (deal_price) {
+	if (deal_price >= 0) {
 		url += `&deal_price=${deal_price}`
 	}
 
