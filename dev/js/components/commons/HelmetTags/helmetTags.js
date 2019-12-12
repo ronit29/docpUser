@@ -41,6 +41,10 @@ class HelmetTags extends React.Component {
         if (canonicalUrl) {
             canonicalUrl = canonicalUrl.toLowerCase()
         }
+        let theme_color = "#ec720e"
+        if(document &&  typeof document =="object" && document.location && document.location.host && document.location.host.includes('sbi')){
+            theme_color = "#178ddd"
+        }
         return (
             <Helmet>
                 {
@@ -50,7 +54,7 @@ class HelmetTags extends React.Component {
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="theme-color" content="#ec720e" />
+                <meta name="theme-color" content={theme_color} />
                 <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no" />
                 <meta name="description" content={description} />
                 <meta name="keywords" content={keywords} />

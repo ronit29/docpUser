@@ -93,7 +93,7 @@ class LeftMenu extends React.Component {
                           }} href="#"><img style={{ position: 'relative', top: '15px' }} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
                           : ''}
                       {
-                        CONFIG.ENABLE_VIP_CLUB ?
+                        CONFIG.ENABLE_VIP_CLUB && user && user.is_vip_member && !user.is_vip_gold_member?
                           <li><a className="p-relative" onClick={(e) => {
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-vip-clicked'

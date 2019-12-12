@@ -248,7 +248,7 @@ class InsuranceReview extends React.Component{
 						<p className="rev-ins-header" style={{color:'#000000'}}> Review your details 
 							{
 							this.props.isAgent && this.props.isAgent == 'true'?''
-							:<a style={{color:'#f78630',float:'right'}} onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
+							:<a style={{color:`var(--text--dark--all)`,float:'right'}} onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
 								<img src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"}/> Edit
 							</a>
 							}

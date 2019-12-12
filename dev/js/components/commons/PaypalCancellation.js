@@ -28,7 +28,7 @@ export default ({ }) => {
                                 <h3>HOW TO AVAIL THE OFFER</h3>
                                 <ol>
                                     <li>Offer is valid for user's first transaction on paypal</li>
-                                    <li>Offer is valid for all bookings on done Docprime till 30th Nov 2019</li>
+                                    <li>Offer is valid for all bookings on done Docprime till 10th January 2020</li>
                                     <li>Maximum cashback amount is 50% of transaction amount upto Rs. 250</li>
                                     <li>Minimum transaction amount to be eligible for cashback voucher is Rs. 50</li>
                                     <li>Cashback voucher will be awarded to the user with 5 day delay</li>

@@ -95,6 +95,10 @@ class VipClub extends React.Component {
 		this.props.history.push(where)
 	}
 
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
+    }
+
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -393,7 +397,18 @@ class VipClub extends React.Component {
                             </div>
                         </div>
                         {
-                            this.state.openMedlifeTnC ? <VipTnC props={this.props} toggle={this.closeTncPopup.bind(this)} is_insurance_applicable={false} /> : ""
+                            this.props.data && this.props.data.plus_via_sbi?
+                           
+                                    <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                        <button className="v-btn-primary book-btn-mrgn-adjust " onClick={()=>{this.navigateToSBI()}}>
+                                                    Go Back To SBIG Home
+                                            </button>
+                                    </div>
+                                
+                            :''
+                        }
+                        {
+                        this.state.openMedlifeTnC ? <VipTnC props={this.props} toggle={this.closeTncPopup.bind(this)} is_insurance_applicable={false}/> : ""
                         }
                     </div>
                 </section>
