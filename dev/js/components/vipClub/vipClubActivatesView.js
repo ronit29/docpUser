@@ -225,7 +225,7 @@ class VipClub extends React.Component {
                                                                 <h5 className="vip-brder-hdng">Lab Tests</h5>
                                                                 <ul>
                                                                     <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.available_labtest_amount >= 99999?'Unlimited':this.props.data.plan[0].utilize.available_labtest_amount}  </span></p></li>
-                                                                    <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.available_labtest_amount} </span></p></li>
+                                                                    <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.lab_amount_utilized} </span></p></li>
                                                                     {this.props.data.plan[0].utilize.available_labtest_amount <=99999?
                                                                         <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available_labtest_amount}</span></p></li>
                                                                     :''}
