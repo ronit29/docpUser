@@ -20,7 +20,6 @@ class DesktopProfileHeader extends React.Component {
     componentDidMount() {
         this.setState({ showLeftMenu: true })
         if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
-            console.log('sss')
             window.addEventListener('scroll', () => {
                 const scrollHeight = window.pageYOffset;
                 if (window.innerWidth < 767){
