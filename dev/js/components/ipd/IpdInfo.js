@@ -242,8 +242,8 @@ class IpdView extends React.Component {
 	            	<BreadCrumbView breadcrumb={this.props.ipd_info.breadcrumb} {...this.props}/>
 	            	:''
 	            }
-
-           	  <h1 className="section-heading top-sc-head pt-0"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo && this.props.ipd_info.seo.location?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
+				
+           	  <h1 className="section-heading top-sc-head pt-0"> <span className="about-head"> {`${this.props.ipd_info && Object.keys(this.props.ipd_info).length?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo && this.props.ipd_info.seo.location?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
 					</h1>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">
