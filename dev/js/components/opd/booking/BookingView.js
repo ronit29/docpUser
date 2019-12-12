@@ -400,7 +400,7 @@ class BookingView extends React.Component {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
                                                         {
-                                                            STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member || is_gold_vip?'':status != 6 && status != 7 &&
+                                                            (STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member || is_gold_vip || payment_type==3)?'':status != 6 && status != 7 &&
                                                                 <div className="vip-content-book">
                                                                     <div>
                                                                         <p>

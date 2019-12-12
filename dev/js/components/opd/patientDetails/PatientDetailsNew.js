@@ -1415,6 +1415,7 @@ class PatientDetailsNew extends React.Component {
         let is_default_user_under_vip = false
         let is_selected_user_gold = false
         let vip_data = {}
+        let hide_prepaid = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1426,6 +1427,7 @@ class PatientDetailsNew extends React.Component {
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
+                    hide_prepaid = [4290, 3241, 3240, 3560].indexOf(hospital.hospital_id)==-1
                 })
             }
         }
@@ -1520,13 +1522,18 @@ class PatientDetailsNew extends React.Component {
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
             showGoldTogglePaymentMode = false
         }
+
+        //Hide Prepaid 
+        enabled_for_prepaid_payment = hide_prepaid && enabled_for_prepaid_payment
         if(showGoldTogglePaymentMode)
         payment_mode_count++
+
+        let showCodPaymentMode = !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold) 
 
         let resetPaymentType = false
         if(!showGoldTogglePaymentMode && this.props.payment_type ==6){
             resetPaymentType = true
-        }else if( (!enabled_for_cod_payment || (enabled_for_cod_payment && is_insurance_applicable) ) && this.props.payment_type == 2 ){
+        }else if( (!showCodPaymentMode || (showCodPaymentMode && is_insurance_applicable) ) && this.props.payment_type == 2 ){
             resetPaymentType = true
         }else if(!enabled_for_prepaid_payment && this.props.payment_type ==1){
             resetPaymentType = true
@@ -1534,7 +1541,7 @@ class PatientDetailsNew extends React.Component {
 
         if(resetPaymentType) {
 
-            if(enabled_for_cod_payment) {
+            if(showCodPaymentMode) {
                 this.props.select_opd_payment_type(2)
             }else if(enabled_for_prepaid_payment){
                 this.props.select_opd_payment_type(1)
@@ -1546,10 +1553,9 @@ class PatientDetailsNew extends React.Component {
         if (hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured) {
             is_insurance_buy_able = true
         }
-
         if (enabled_for_prepaid_payment)
             payment_mode_count++
-        if (enabled_for_cod_payment)
+        if (showCodPaymentMode)
             payment_mode_count++
         // if (enabled_for_prepaid_payment && is_insurance_buy_able)
         //     payment_mode_count++
@@ -1880,7 +1886,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {/*Payment Mode*/}
                                                                 {
-                                                                    payment_mode_count > 1 ? <div className="widget mrb-15">
+                                                                    (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
 
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
@@ -1937,7 +1943,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <hr />
+                                                                                    <hr className="aabb"/>
                                                                                 </React.Fragment>:''
                                                                             }
                                                                             {
@@ -1977,12 +1983,12 @@ class PatientDetailsNew extends React.Component {
                                                                             }
 
                                                                             {
-                                                                                !is_insurance_applicable && enabled_for_cod_payment && !is_vip_applicable ?
-                                                                                    <hr /> : ''
+                                                                                enabled_for_prepaid_payment && !is_insurance_applicable && enabled_for_cod_payment && !is_vip_applicable ?
+                                                                                    <hr className="aa"/> : ''
                                                                             }
 
                                                                             {
-                                                                                !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold) ?
+                                                                                showCodPaymentMode?
                                                                                     <div className="test-report payment-detail mt-20" onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.props.select_opd_payment_type(2)
@@ -2141,7 +2147,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             : ''
                                                                                 }
                                                                                 {
-                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */this.props.payment_type!=6 && this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                                   /* !(vip_data.hosp_is_gold && is_selected_user_gold) && !is_vip_applicable && this.props.payment_type!=6 && */!is_insurance_applicable && this.props.payment_type!=6 && this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                         ? <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>

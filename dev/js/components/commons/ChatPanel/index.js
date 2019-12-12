@@ -30,7 +30,7 @@ class ChatPanel extends React.Component {
         if (this.props.homePage && !this.props.chatPage)
             ct_style = "col-md-5 mb-3 d-none d-md-block"
         if(this.props.webChatPage)
-            ct_style = "col-md-7 mb-3"
+            ct_style = "col-md-7 mb-3 onln-doc-cnslt"
 /*      
         if((this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) || (this.props.showHalfScreenChat && !this.props.showDesktopIpd)) {
             ct_style = ''
