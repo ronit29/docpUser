@@ -362,7 +362,7 @@ class VipClub extends React.Component {
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td>{val.relation}</td>
-                                                                                        <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
+                                                                                        <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : val.gender == 'm'?'m': 'f'}</td>
                                                                                         <td>{val.dob}</td>
                                                                                     </tr>
                                                                                 </tbody>
