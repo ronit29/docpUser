@@ -220,16 +220,30 @@ class VipClub extends React.Component {
                                                                 :''}
                                                             </ul>
                                                         </div>
-                                                        <div className="vip-cnslt-card">
-                                                            <h5 className="vip-brder-hdng">Docprime Care</h5>
-                                                            <p className="vip-un-mem">Unlimited online consult for 8 members</p>
-                                                            <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
-                                                            {/*<div className="text-right">
-                                                                <button className="vip-crd-btn">Chat Now</button>
-                                                            </div>*/}
-                                                        </div>
+                                                        {is_corporate?
+                                                            <div className="vip-cnslt-card">
+                                                                <h5 className="vip-brder-hdng">Lab Tests</h5>
+                                                                <ul>
+                                                                    <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.available_labtest_amount >= 99999?'Unlimited':this.props.data.plan[0].utilize.available_labtest_amount}  </span></p></li>
+                                                                    <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.available_labtest_amount} </span></p></li>
+                                                                    {this.props.data.plan[0].utilize.available_labtest_amount <=99999?
+                                                                        <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available_labtest_amount}</span></p></li>
+                                                                    :''}
+                                                                </ul>
+                                                            </div>
+                                                        :
+                                                            <div className="vip-cnslt-card">
+                                                                <h5 className="vip-brder-hdng">Docprime Care</h5>
+                                                                <p className="vip-un-mem">Unlimited online consult for 8 members</p>
+                                                                <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
+                                                                {/*<div className="text-right">
+                                                                    <button className="vip-crd-btn">Chat Now</button>
+                                                                </div>*/}
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
+                                                {is_corporate?'':
                                                 <div className="vip-offer-cards mb-3">
                                                     <div className="vip-sbs-crd">
                                                         <h5 className="vip-brder-hdng">Full Body Health Package</h5>
@@ -251,11 +265,11 @@ class VipClub extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>}
                                             </React.Fragment>
                                             : ''
                                     }
-                                    {!this.props.is_gold ?
+                                    {!this.props.is_gold && !is_corporate?
                                         <div className="vip-offer-cards mb-3">
                                             <div className="vip-sbs-crd">
                                                 <h5 className="vip-brder-hdng">Tax Benefit</h5>
