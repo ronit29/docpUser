@@ -353,7 +353,7 @@ class HomeView extends React.Component {
 
 			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
-				<div className="col-md-7 kkk" key="upcom">
+				<div className="col-md-7" key="upcom">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
 						{/* {
