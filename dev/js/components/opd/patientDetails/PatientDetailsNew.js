@@ -1414,6 +1414,7 @@ class PatientDetailsNew extends React.Component {
         let is_selected_user_under_vip = false
         let is_default_user_under_vip = false
         let is_selected_user_gold = false
+        let cover_under_vip = false
         let vip_data = {}
         let hide_prepaid = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities ? this.props.DOCTORS[this.props.selectedDoctor].all_cities : []
@@ -1592,12 +1593,13 @@ class PatientDetailsNew extends React.Component {
 
         let vip_discount_price = 0//finalPrice - (vip_gold_price + vip_convenience_amount)
         let total_amount_payable = finalPrice
-        is_selected_user_gold = vip_data.cover_under_vip && is_selected_user_gold
+        // is_selected_user_gold = vip_data.cover_under_vip && is_selected_user_gold
+        cover_under_vip = vip_data.cover_under_vip
         if (vip_data && (vip_data.is_enable_for_vip)) {
 
             vip_discount_price = total_price - vip_data.vip_amount
 
-            if (/*vip_data.hosp_is_gold && */is_selected_user_gold) {
+            if (/*vip_data.hosp_is_gold && */is_selected_user_gold && cover_under_vip) {
 
                 total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount - (this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) )
                 vip_discount_price = total_price - (vip_data.vip_amount + vip_data.vip_convenience_amount)
@@ -1967,7 +1969,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                     }
                                                                                                 </h4>
                                                                                                 <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :
-                                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold ? `₹ ${(vip_data.vip_amount + vip_data.vip_convenience_amount)-(this.props.disCountedOpdPrice||0)}` :
+                                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold && cover_under_vip ? `₹ ${(vip_data.vip_amount + vip_data.vip_convenience_amount)-(this.props.disCountedOpdPrice||0)}` :
                                                                                                         is_vip_applicable ? `₹ ${(vip_data.vip_amount)-(this.props.disCountedOpdPrice||0) }` : this.getBookingAmount(total_wallet_balance, display_radio_prepaid_price, (parseInt(priceData.mrp) + treatment_mrp) )}</span>
                                                                                                 </div>
                                                                                                 {/* {
@@ -2059,14 +2061,14 @@ class PatientDetailsNew extends React.Component {
                                                                                     <p>&#8377; {display_total_mrp }</p>
                                                                                 </div>
                                                                                 {
-                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold && vip_discount_price ?
+                                                                                    /*vip_data.hosp_is_gold && */is_selected_user_gold && cover_under_vip && vip_discount_price ?
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p style={{ color: 'green' }}>Docprime Gold Discount <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} /></p>
                                                                                             <p style={{ color: 'green' }}>- &#8377; {vip_discount_price}</p>
                                                                                         </div>
                                                                                         : ''
                                                                                 }
-                                                                                {/*vip_data.hosp_is_gold && */is_selected_user_gold ? '' : is_vip_applicable && vip_discount_price ?
+                                                                                {/*vip_data.hosp_is_gold && */is_selected_user_gold && cover_under_vip ? '' : is_vip_applicable && vip_discount_price ?
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {vip_discount_price}</p>
@@ -2081,12 +2083,12 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>:''
                                                                                 }
                                                                                 {
-                                                                                    !(is_selected_user_gold/* && vip_data.hosp_is_gold*/) && !is_vip_applicable /*&& priceData.fees != 0 */&& parseInt(display_docprime_discount)>0 ? <div className="payment-detail d-flex">
+                                                                                    !(is_selected_user_gold/* && vip_data.hosp_is_gold*/) && !cover_under_vip && !is_vip_applicable /*&& priceData.fees != 0 */&& parseInt(display_docprime_discount)>0 ? <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{ color: 'green' }}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>
                                                                                         : ''}
-                                                                                {!is_vip_applicable && !(/*vip_data.hosp_is_gold && */is_selected_user_gold) && this.props.payment_type == 1 && priceData.fees == 0 ?
+                                                                                {!is_vip_applicable && !(/*vip_data.hosp_is_gold && */is_selected_user_gold) && !cover_under_vip && this.props.payment_type == 1 && priceData.fees == 0 ?
                                                                                     <React.Fragment>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p>Docprime price</p>
