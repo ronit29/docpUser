@@ -146,7 +146,7 @@ class OrderSummaryView extends React.Component {
                                                                             :<img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                                                         }
                                                                     </div>
-                                                                    <p>₹ {item.is_gold_member?item.effective_price:item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
+                                                                    <p>₹ {item.effective_price} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
                                                                 </div>
                                                             }
                                                             <div className="widget-header dr-qucik-info">
