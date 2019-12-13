@@ -398,7 +398,7 @@ class HomeView extends React.Component {
 									<div className="divHeight-sbi mt-0"></div>
 								</div>
 								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
-									<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
+									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
 								</div>
 							</div>
 						}
