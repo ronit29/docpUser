@@ -500,7 +500,7 @@ class HomeView extends React.Component {
 		}
 
 		return (
-			<div className="profile-body-wrap fxd-ftr-btm-pdng">
+			<div className="profile-body-wrap">
 				<HelmetTags tagsData={{
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 					ogUrl: 'https://docprime.com',
