@@ -388,7 +388,7 @@ class Article extends React.Component {
                                 }
                                 <div className="row main-row parent-section-row">
                                     <LeftBar />
-                                    <div className="col-12 col-md-7 col-lg-8 center-column">
+                                    <div className="col-12 col-md-7 center-column">
                                         {
                                             this.state.articleData ? <div className="container-fluid article-column">
 
@@ -626,14 +626,14 @@ class Article extends React.Component {
                                                 </div> : ''
                                         } */}
                                     </div>
-                                    <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
+                                    <RightBar colClass="col-12 col-lg-5" articleData={this.state.articleData} />
                                 </div>
 
                                 <div className="row">
                                     {
                                         this.state.articleLoaded ?
                                             this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
-                                                <div className="col-12 col-md-7 col-lg-8 center-column">
+                                                <div className="col-12 col-md-7 center-column">
                                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                                     {
                                                         this.state.articleData.comments.map((comment, key) => {
@@ -646,7 +646,7 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleLoaded ?
-                                            <div className="col-12 col-md-7 col-lg-8 center-column">
+                                            <div className="col-12 col-md-7 center-column">
                                                 <div className="widget mrb-15 mrng-top-12">
                                                     <div className="widget-content">
                                                         <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true} />
