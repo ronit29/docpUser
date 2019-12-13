@@ -114,7 +114,7 @@ class PatientDetailsNew extends React.Component {
             })
         }
 
-        this.getVipGoldPriceList()
+        this.getVipGoldPriceList(null)
         //To update Gold Plans on changing props
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id && (this.props.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
@@ -127,6 +127,7 @@ class PatientDetailsNew extends React.Component {
             }
             this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
                 this.setOpdBooking(resp.data);
+                this.getVipGoldPriceList(resp.data.plus_plan)
             })
         }
 
@@ -254,7 +255,8 @@ class PatientDetailsNew extends React.Component {
         this.nonIpdLeads()
     }
 
-    getVipGoldPriceList(){
+    getVipGoldPriceList(agent_selected_plan_id){
+        let  parsed = queryString.parse(this.props.location.search)
         let extraParams = {
             "doctor": this.props.selectedDoctor,
             "hospital": this.props.selectedClinic,
@@ -265,6 +267,9 @@ class PatientDetailsNew extends React.Component {
         }
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
             extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
+        if(parsed && parsed.dummy_id && agent_selected_plan_id) {
+            extraParams['already_selected_plan'] = agent_selected_plan_id
         }
         this.props.getOpdVipGoldPlans(extraParams)
     }
