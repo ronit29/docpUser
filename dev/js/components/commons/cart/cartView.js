@@ -396,9 +396,13 @@ class CartView extends React.Component {
                                                                         {
                                                                             vip_amnt_price?
                                                                                 is_gold_member?
-                                                                                <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                                <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Discount </p>
+                                                                                    <img style={{height:'15px', width:'35px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                                                                <p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                                 </div>
-                                                                                :<div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                                :<div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Vip Discount</p>
+                                                                                <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                                    <p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                                 </div>
                                                                             :''
 
