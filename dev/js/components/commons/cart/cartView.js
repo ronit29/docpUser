@@ -404,7 +404,7 @@ class CartView extends React.Component {
                                                                                     </p>
                                                                                     <p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                                 </div>
-                                                                                :<div className="payment-detail d-fle align-item-center">
+                                                                                :<div className="payment-detail d-flex align-item-center">
                                                                                     <p style={{color: 'green'}} className="d-flex align-item-center">
                                                                                         <span className="mr-2">Docprime Vip Discount</span>
                                                                                         <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
