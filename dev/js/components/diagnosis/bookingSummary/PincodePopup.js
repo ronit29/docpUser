@@ -30,7 +30,7 @@ class PincodePoupupView extends React.Component {
 
     _handleContinuePress(e) {
         if (e.key === 'Enter') {
-            this.submitPincode()
+            this.submitPincode(e)
         }
     }
 
