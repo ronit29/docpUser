@@ -727,9 +727,15 @@ class BookingSummaryViewNew extends React.Component {
         let is_tests_covered_under_vip = false
         let vip_amount
 
+        let is_selected_user_vip = true // to check is plus_plan is applicable or not
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
+            Object.entries(this.props.profiles).map(function ([key, value]) {
+                if(value.is_vip_member){
+                    is_selected_user_vip = false
+                }
+            })
         }
 
         let is_plan_applicable = false
@@ -837,7 +843,7 @@ class BookingSummaryViewNew extends React.Component {
                 postData['selected_timings_type'] = 'separate'
             }
         }
-        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length) {
+        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
         //Check SPO UTM Tags
