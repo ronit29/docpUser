@@ -13,8 +13,8 @@ class InfoView extends React.Component {
 
 		return(
 			<div className="profile-body-wrap">
-                <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                <ProfileHeader showSearch={true} new_fixed_header={1}/>
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn hospital-view-section">
 
 	                <div className="row main-row parent-section-row">
 	                    <LeftBar />
