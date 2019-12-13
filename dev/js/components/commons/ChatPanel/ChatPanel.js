@@ -684,7 +684,7 @@ class ChatPanel extends React.Component {
             return (
                 <div className="fixed-chatbox">
                     {
-                        false && this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                             <BannerCarousel {...this.props} sliderLocation="home_page" />
                             : ''
                     }
