@@ -19,10 +19,8 @@ class DesktopProfileHeader extends React.Component {
 
     componentDidMount() {
         this.setState({ showLeftMenu: true })
-        let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
-        console.log(isSBI)
-        console.log('isSBI')
-        if(!isSBI && this.props.new_fixed_header && this.props.new_fixed_header == 1){
+        
+        if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
             window.addEventListener('scroll', () => {
                 const scrollHeight = window.pageYOffset;
                 if (window.innerWidth < 767){
@@ -126,7 +124,6 @@ class DesktopProfileHeader extends React.Component {
     }
 
     render() {
-        let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
             profileData = this.props.profiles[this.props.defaultProfile]
@@ -226,7 +223,7 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
 
-                    <div className= {`row align-items-center ${!isSBI && this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header">
+                    <div className= {`row align-items-center ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header">
 
                         <div className="col-lg-cstm-1 col-md-4 col-7 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {
@@ -458,7 +455,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                     {/* listing view new header*/}
-                    {!isSBI && this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
                         <div className="row listing-view-header visible-col" id="listing-header">
                             <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
                                 e.stopPropagation()
