@@ -8414,3 +8414,51 @@ div.onln-doc-cnslt div.chatbox-right {
         height: calc(100vh - 200px);
     }
 /****** online doct chat view ******/
+/****** main popup ******/
+.mainPopupOverlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 999;
+    cursor: pointer;
+    user-select: none;
+}
+.popUpMainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.articleImgPop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.articleImgPop .gold-med-bnr{
+    width: 80%;
+    position: relative;
+    box-shadow: 1px 0px 10px 5px #423e3e;
+    border-radius: 4px;
+}
+.gold-med-cls{
+    position: absolute;
+    right: -9px;
+    top: -9px;
+    cursor: pointer;
+    width: 20px;
+}
+@media (max-width:767px){ 
+    .articleImgPop .gold-med-bnr{
+        width: 95%;
+    }
+}
+/****** main popup ******/

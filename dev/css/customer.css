@@ -3550,8 +3550,8 @@ ul.order-med-list a:hover {
 }
 
 .doc-icon-col>a>img {
-    width: 24px;
-    height: 37px !important;
+    width: 30px;
+    height: 37px!important;
     object-fit: contain;
 }
 
