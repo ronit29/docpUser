@@ -28,9 +28,9 @@ class DesktopProfileHeader extends React.Component {
                 if (window.innerWidth < 767){
                     const gHeader = document.getElementById('is_header');
                     const gHeaderHeight = gHeader.clientHeight;
-                    if(gHeader){
-                        gHeader.style.backgroundImage = "none";
-                    }
+                    // if(gHeader){
+                    //     gHeader.style.backgroundImage = "none";
+                    // }
                     if(document.getElementById('listing-header')){
                         const lvHeader = document.getElementById('listing-header');             
                         if(scrollHeight >= gHeaderHeight/2){
