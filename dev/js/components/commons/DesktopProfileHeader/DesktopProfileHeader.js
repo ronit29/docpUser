@@ -19,7 +19,8 @@ class DesktopProfileHeader extends React.Component {
 
     componentDidMount() {
         this.setState({ showLeftMenu: true })
-        if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
+        let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+        if(!isSBI && this.props.new_fixed_header && this.props.new_fixed_header == 1){
             window.addEventListener('scroll', () => {
                 const scrollHeight = window.pageYOffset;
                 if (window.innerWidth < 767){
