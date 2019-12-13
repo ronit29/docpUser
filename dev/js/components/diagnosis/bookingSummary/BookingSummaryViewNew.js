@@ -1084,7 +1084,7 @@ class BookingSummaryViewNew extends React.Component {
             // }
             price_to_pay = extraAllParams.total_amount_payable
         }
-        if (this.state.use_wallet && total_wallet_balance) {
+        if (this.state.use_wallet && total_wallet_balance && this.props.payment_type !=6) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
 
@@ -1093,7 +1093,7 @@ class BookingSummaryViewNew extends React.Component {
         if (price_from_pg) {
             return `Continue to pay (₹ ${price_from_pg})`
         }
-
+        
         return `Confirm Booking`
     }
 
