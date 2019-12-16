@@ -170,6 +170,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     getVipGoldPriceList(props){
+        let  parsed = queryString.parse(this.props.location.search)
         let test_ids = []
         if(props.LABS[props.selectedLab] && props.LABS[props.selectedLab].tests) {
             test_ids = props.LABS[props.selectedLab].tests.map(x=>x.test_id)
@@ -182,6 +183,9 @@ class BookingSummaryViewNew extends React.Component {
         }
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
             extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
+        if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
+            extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
         this.props.getLabVipGoldPlans(extraParams)
     }
@@ -723,9 +727,15 @@ class BookingSummaryViewNew extends React.Component {
         let is_tests_covered_under_vip = false
         let vip_amount
 
+        let is_selected_user_vip = true // to check is plus_plan is applicable or not
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
+            Object.entries(this.props.profiles).map(function ([key, value]) {
+                if(value.is_vip_member){
+                    is_selected_user_vip = false
+                }
+            })
         }
 
         let is_plan_applicable = false
@@ -833,7 +843,7 @@ class BookingSummaryViewNew extends React.Component {
                 postData['selected_timings_type'] = 'separate'
             }
         }
-        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length) {
+        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
         //Check SPO UTM Tags
@@ -1080,7 +1090,7 @@ class BookingSummaryViewNew extends React.Component {
             // }
             price_to_pay = extraAllParams.total_amount_payable
         }
-        if (this.state.use_wallet && total_wallet_balance) {
+        if (this.state.use_wallet && total_wallet_balance && this.props.payment_type !=6) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
 
@@ -1089,7 +1099,7 @@ class BookingSummaryViewNew extends React.Component {
         if (price_from_pg) {
             return `Continue to pay (₹ ${price_from_pg})`
         }
-
+        
         return `Confirm Booking`
     }
 
@@ -1780,7 +1790,7 @@ class BookingSummaryViewNew extends React.Component {
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item && !is_insurance_applicable
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
-            this.props.select_lab_payment_type(1)
+            this.props.select_lab_payment_type(6)
         }
 
         //SET PAYMENT SUMMARY PRICE
@@ -2178,7 +2188,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         </div> : ""
                                                                                     }
                                                                                     {display_docprime_discount && !is_vip_applicable && !(vip_data/* && vip_data.is_gold */&& is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
-                                                                                        <p style={{color:'green'}}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
+                                                                                        <p style={{color:'green'}}>{is_selected_user_gold && is_tests_covered_under_vip && this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
                                                                                     {

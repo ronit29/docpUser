@@ -62,6 +62,16 @@ class TopBar extends React.Component {
                 this.setState({ showLocationPopup: true, overlayVisible: true })
             }
         }
+
+        // filter sticky dynamic height js
+        // document.addEventListener('load', () => {
+        //     const  headHeight = document.getElementById('is_header');
+        //     headHeight.clientHeight;
+        //     const filterHeight = document.getElementById('fis_header');
+        //     filterHeight.style.top = headHeight.clientHeight;
+        //     console.log(filterHeight.style.top = headHeight.clientHeight);
+        // })
+
     }
 
     applyFilters() {
@@ -475,7 +485,7 @@ class TopBar extends React.Component {
                         </div>
                     </div> : ""
                 }
-                <div className="filter-row sticky-header mbl-stick"> 
+                <div className="filter-row sticky-header mbl-stick" id="fis_header">
                     <div className="filter-row sticky-header mbl-stick">
                         <section className="scroll-shadow-bar">
                             <div className="top-filter-tab-container">

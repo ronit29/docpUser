@@ -870,7 +870,7 @@ class TopBar extends React.Component {
                             </div>
                         </div> : ""
                 }
-                        <div className={`${this.props.fromVip?'vipNetTop':''} filter-row sticky-header mbl-stick`}>
+                        <div className={`${this.props.fromVip?'vipNetTop':''} filter-row sticky-header mbl-stick vip-net-block`}>
                             {this.props.breadcrumb && this.props.breadcrumb.length ?
                                 <div className="col-12 mrng-top-12 d-none d-md-block p-0">
                                     <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>

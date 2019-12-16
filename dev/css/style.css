@@ -841,6 +841,9 @@ p.top-head-link.card-lab-link span {
 /*header styling*/
 
 @media(max-width: 767px) {
+    .hs-card{
+        margin-top: 5px;
+    }
     .hide-762 {
         display: none;
     }
@@ -3877,6 +3880,119 @@ label.procedure-check.ck-bx .checkmark {
     font-weight: 500;
 }
 
+.speciality-footer-list a:hover {
+    color: #f78361;
+}
+
+.speciality-footer-list li {
+    display: block;
+    /* padding-right: 4px; */
+    /* margin-right: 4px; */
+    /* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
+    line-height: 14px;
+    margin-bottom: 5px;
+}
+
+@media(max-width: 767px) {
+    .speciality-footer-list li {
+        display: inline-block;
+        padding-right: 4px;
+        margin-right: 4px;
+        border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+    }
+    .mrgn-top-12 {
+        margin-top: 0px !important;
+    }
+    .chatbox-right {
+        height: 290px;
+    }
+    div.search-el-popup {
+        width: 90% !important;
+    }
+    header.searcLocationHeaderPadding {
+        padding-top: 70px !important;
+    }
+    .congrats-space {
+        width: 100% !important;
+        margin: 10px auto 30px auto !important;
+    }
+    .congrats-btn {
+        width: 100% !important;
+    }
+}
+
+header.searcLocationHeaderPadding {
+    padding-top: 0px;
+}
+
+.speciality-footer-list li:last-child {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+}
+
+.view-more-coupons {
+    color: #f78631;
+    font-weight: 500;
+    text-align: right;
+    user-select: none;
+    cursor: pointer;
+}
+
+.speciality-footer-list li {
+    display: block;
+    /* padding-right: 4px; */
+    /* margin-right: 4px; */
+    /* border-right: 1.5px solid rgba(117, 117, 117, 0.8); */
+    line-height: 14px;
+    margin-bottom: 5px;
+}
+
+@media(max-width: 767px) {
+    .speciality-footer-list li {
+        display: inline-block;
+        padding-right: 4px;
+        margin-right: 4px;
+        border-right: 1.5px solid rgba(117, 117, 117, 0.8);
+    }
+    .mrgn-top-12 {
+        margin-top: 0px !important;
+    }
+    .chatbox-right {
+        height: 290px;
+    }
+    div.search-el-popup {
+        width: 80% !important;
+    }
+    header.searcLocationHeaderPadding {
+        padding-top: 0px !important;
+    }
+    .congrats-space {
+        width: 100% !important;
+        margin: 10px auto 30px auto !important;
+    }
+    .congrats-btn {
+        width: 100% !important;
+    }
+}
+
+header.searcLocationHeaderPadding {
+    padding-top: 0px;
+}
+
+.speciality-footer-list li:last-child {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+}
+
+.view-more-coupons {
+    color: #f78631;
+    font-weight: 500;
+    text-align: right;
+    user-select: none;
+    cursor: pointer;
+}
 .speciality-footer-list a:hover{
     color: var(--text--primary--color);
 }
@@ -9693,7 +9809,7 @@ a.btn-search.btn-cnte {
 
 @media screen and (max-width: 991px) {
     .ipd-section .full-widget {
-        top: 89px;
+        top: 54px;
     }
     .stick-it {
         top: 89px !important;
@@ -11910,7 +12026,7 @@ li {
         margin-top: 44px !important;
     }
     .pkgComapre {
-        margin-top: 78px;
+        margin-top: 0px;
     }
     .pkgComapre .filter-row {
         top: 44px;
@@ -14205,6 +14321,7 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 /* =============== single flow vip =============== */
+
 .vip-wrng-mssg {
     border-radius: 10px;
     background-color: rgba(245, 226, 138, .4);
@@ -14216,40 +14333,49 @@ div.doc-srch-fltr.vip-slct-pop {
     font-size: 13px;
     margin-top: 4px;
 }
+
 .ins-usr-img-para li:last-child {
     margin: 0;
 }
-.vip-user-details-container .ins-user-details-lisitng{
+
+.vip-user-details-container .ins-user-details-lisitng {
     margin-bottom: 10px;
     border-bottom: 1px solid #ededed;
     margin: 0px -10px 10px -10px;
     padding: 0px 10px 10px 10px;
 }
-.vip-user-details-container .ins-user-details-lisitng:last-child{
-    
+
+.vip-user-details-container .ins-user-details-lisitng:last-child {
     margin-bottom: 0px;
     border: transparent;
     padding-bottom: 0;
 }
-.gold-pop-hdng{
+
+.gold-pop-hdng {
     text-align: center;
     font-weight: 500;
     font-size: 14px;
 }
-.gold-pop-pading{
+
+.gold-pop-pading {
     padding: 18px 0;
 }
-.gol-pop-custom-btn{
+
+.gol-pop-custom-btn {
     text-align: center;
     color: #f78631;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
 }
-.no-cursor{
+
+.no-cursor {
     cursor: auto;
 }
+
+
 /* =============== single flow vip =============== */
+
 
 /** book now button allignment css**/
 
@@ -14284,6 +14410,58 @@ div.doc-srch-fltr.vip-slct-pop {
 .initialsPicture-ds,
 .initialsPicture-dp {
     border: 1px solid #ddd;
+}
+
+
+/**** listing view header ******/
+
+.listing-view-header {
+    display: none;
+}
+
+
+@media (max-width:767px) {
+    .doc-header {
+        padding-bottom: 0px;
+    }
+    .listing-view-header {
+        display: flex;
+        margin-top: -10px;
+        padding: 10px 10px 10px;
+        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        position: fixed;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+        margin: 0px;
+        transform: translate3d(0, -121px, 0);
+        -webkit-transform: translateY(-112px);
+        transform: translateY(-112px);
+        will-change: transform;
+        -webkit-transition: -webkit-transform .25s ease-out;
+        transition: -webkit-transform .25s ease-out;
+        transition: transform .25s ease-out;
+        transition: transform .25s ease-out, -webkit-transform .25s ease-out;
+    }
+    #lw-header {
+        /* background-image: linear-gradient(to left, #f78631, #ff6d00); */
+        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        position: relative;
+    }
+    .doc-header {
+        position: relative;
+    }
+    .lw-fixed-header{
+        position: fixed!important;
+        width: 100%;
+        top: 0px;
+    }
+    .search-bt-mr {
+        margin-bottom: 10px!important;
+    }
+    .listing-header {
+        transform: translate3d(0px, 0px, 0px);
+    }
 }
 /* ======================================= sbi banner ======================================= */
 .divHeight-sbi{
@@ -14365,4 +14543,15 @@ div.doc-srch-fltr.vip-slct-pop {
     .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
         font-size: 15px;
     }
+}
+
+@media screen and (max-width:767px){
+    .hospital-view-section{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+    /* .hospital-view-section > .parent-section-row >.center-column{
+        padding-left: 5px;
+        padding-right:5px;
+    } */
 }
