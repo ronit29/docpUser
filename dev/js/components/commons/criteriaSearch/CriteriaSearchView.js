@@ -187,15 +187,15 @@ class CriteriaSearchView extends React.Component {
 
         let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0
         let showSearch = true
-        if(this.props.location &&  this.props.location.search && this.props.location.search.includes('fromVip')){
-            showSearch = false
-        }
+        // if(this.props.location &&  this.props.location.search && (this.props.location.search.includes('fromVip') || this.props.location.search.includes('fromGoldVip'))){
+        //     showSearch = false
+        // }
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/>
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1}/>
                 }
-                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?" pkgComapre":""} `}>
+                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section hospital-view-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?" pkgComapre":""} `}>
                     {
                         typeof navigator == 'object' && navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
                         :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    

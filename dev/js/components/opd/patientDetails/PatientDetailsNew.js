@@ -114,7 +114,7 @@ class PatientDetailsNew extends React.Component {
             })
         }
 
-        this.getVipGoldPriceList()
+        this.getVipGoldPriceList(null)
         //To update Gold Plans on changing props
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id && (this.props.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: this.props.selected_vip_plan.id})
@@ -127,6 +127,7 @@ class PatientDetailsNew extends React.Component {
             }
             this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
                 this.setOpdBooking(resp.data);
+                this.getVipGoldPriceList(resp.data.plus_plan)
             })
         }
 
@@ -254,7 +255,8 @@ class PatientDetailsNew extends React.Component {
         this.nonIpdLeads()
     }
 
-    getVipGoldPriceList(){
+    getVipGoldPriceList(agent_selected_plan_id){
+        let  parsed = queryString.parse(this.props.location.search)
         let extraParams = {
             "doctor": this.props.selectedDoctor,
             "hospital": this.props.selectedClinic,
@@ -265,6 +267,9 @@ class PatientDetailsNew extends React.Component {
         }
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
             extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
+        if(parsed && parsed.dummy_id && agent_selected_plan_id) {
+            extraParams['already_selected_plan'] = agent_selected_plan_id
         }
         this.props.getOpdVipGoldPlans(extraParams)
     }
@@ -544,6 +549,7 @@ class PatientDetailsNew extends React.Component {
         let is_selected_user_insured = false
         let is_vip_applicable = false
         let is_gold_applicable = false
+        let is_selected_user_vip = true // to check is plus_plan is applicable or not
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
@@ -565,12 +571,16 @@ class PatientDetailsNew extends React.Component {
                 is_vip_applicable = hospital.vip.is_vip_member && hospital.vip.cover_under_vip
             }
         }
-
+        
         if (this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
 
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            Object.entries(this.props.profiles).map(function ([key, value]) {
+                if(value.is_vip_member){
+                    is_selected_user_vip = false
+                }
+            })            
         }
-
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
@@ -616,7 +626,7 @@ class PatientDetailsNew extends React.Component {
             utm_tags: utm_tags,
             from_web: true
         }
-        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length) {
+        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
         let profileData = { ...patient }
@@ -980,7 +990,7 @@ class PatientDetailsNew extends React.Component {
 
         let price_from_pg = 0
 
-        if (this.state.use_wallet && total_wallet_balance) {
+        if (this.state.use_wallet && total_wallet_balance && this.props.payment_type !=6) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
         
