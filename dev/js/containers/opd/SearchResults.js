@@ -35,9 +35,10 @@ class SearchResults extends React.Component {
 
                 opdSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeOPDState(state))
-                    if(queryParams && queryParams.fromVip && queryParams.fromVip=="true") {
+                    if(queryParams && ((queryParams.fromVip && queryParams.fromVip=="true") || (queryParams.fromGoldVip && queryParams.fromGoldVip=="true"))) {
                         let extraData = {
-                            selectedLocation: state && state.selectedLocation?state.selectedLocation:{}
+                            selectedLocation: state && state.selectedLocation?state.selectedLocation:{},
+                            type:queryParams.fromVip?'vip':queryParams.fromGoldVip?'gold':null
                         }
                         store.dispatch(getNearbyHospitals(extraData))
                         store.dispatch(getTopHospitals(extraData))
