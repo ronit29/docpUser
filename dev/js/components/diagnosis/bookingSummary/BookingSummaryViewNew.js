@@ -1795,7 +1795,7 @@ class BookingSummaryViewNew extends React.Component {
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item && !is_insurance_applicable
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
-            this.props.select_lab_payment_type(6)
+            this.props.select_lab_payment_type(1)
         }
 
         //SET PAYMENT SUMMARY PRICE

@@ -25,16 +25,18 @@ class DesktopProfileHeader extends React.Component {
                 const scrollHeight = window.pageYOffset;
                 if (window.innerWidth < 767){
                     const gHeader = document.getElementById('is_header');
-                    const gHeaderHeight = gHeader.clientHeight;
-                    // if(gHeader){
-                    //     gHeader.style.backgroundImage = "none";
-                    // }
-                    if(document.getElementById('listing-header')){
-                        const lvHeader = document.getElementById('listing-header');             
-                        if(scrollHeight >= gHeaderHeight/2){
-                            lvHeader.classList.add('listing-header')
-                        }else{
-                            lvHeader.classList.remove('listing-header')
+                    if(gHeader){
+                        const gHeaderHeight = gHeader.clientHeight;
+                        // if(gHeader){
+                        //     gHeader.style.backgroundImage = "none";
+                        // }
+                        if(document.getElementById('listing-header')){
+                            const lvHeader = document.getElementById('listing-header');             
+                            if(scrollHeight >= gHeaderHeight/2){
+                                lvHeader.classList.add('listing-header')
+                            }else{
+                                lvHeader.classList.remove('listing-header')
+                            }
                         }
                     }
                 }  
