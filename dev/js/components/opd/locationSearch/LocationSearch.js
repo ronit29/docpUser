@@ -205,20 +205,24 @@ class LocationSearch extends React.Component {
                             {
                                 this.state.searchResults && this.state.searchResults.length && this.state.showLocationResult ?
                                     <section style={{ paddingBottom: 50, paddingTop: 0 }} className="locaton-detect-screen" >
-                                        <div className="widget-panel">
-                                            <h4 className="panel-title">Search Result</h4>
-                                            <div className="panel-content pd-0">
-                                                <ul className="list city-list">
-                                                    {
-                                                        this.state.searchResults.map((result, i) => {
-                                                            return <li key={i} onClick={this.selectLocation.bind(this, result)}>
-                                                                <a>{result.description}
-                                                                    <span className="city-loc">City</span>
-                                                                </a>
-                                                            </li>
-                                                        })
-                                                    }
-                                                </ul>
+                                        <div className=" widget widget-panel">
+                                            <h4 className="panel-title widget-panel-grey">Search Result</h4>
+                                            <div className="common-search-container pt-0">
+                                                <div className="common-listing-cont">
+                                                    <ul className="list city-list">
+                                                        {
+                                                            this.state.searchResults.map((result, i) => {
+                                                                return <li key={i} onClick={this.selectLocation.bind(this, result)}>
+                                                                    <p>
+                                                                        <a className="d-flex justify-content-between align-item-center w-100">{result.description}
+                                                                        <span className="city-loc">City</span>
+                                                                        </a>
+                                                                    </p>
+                                                                </li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </section> : ''

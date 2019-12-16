@@ -398,7 +398,7 @@ class HomeView extends React.Component {
 									<div className="divHeight-sbi mt-0"></div>
 								</div>
 								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
-									<img className="img-fluid m-0" src={ASSETS_BASE_URL + '/img/sbibanner1.jpeg'} />
+									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
 								</div>
 							</div>
 						}
@@ -500,7 +500,7 @@ class HomeView extends React.Component {
 		}
 
 		return (
-			<div className="profile-body-wrap fxd-ftr-btm-pdng">
+			<div className="profile-body-wrap">
 				<HelmetTags tagsData={{
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 					ogUrl: 'https://docprime.com',
@@ -510,7 +510,7 @@ class HomeView extends React.Component {
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
 
 				{/* {
 					this.state.showPopup ?
