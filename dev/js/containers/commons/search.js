@@ -39,7 +39,7 @@ class Search extends React.Component {
         this.props.resetFilters()
         // lab
         this.props.loadLabCommonCriterias()
-        this.props.loadOPDInsurance(selectedLocation)
+        // this.props.loadOPDInsurance(selectedLocation)
         // this.props.clearExtraTests()
     }
 
