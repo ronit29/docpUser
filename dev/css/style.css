@@ -8100,6 +8100,8 @@ li.pkgIncludeList {
     flex-shrink: 0;
     width: 14px;
     margin-right: 2px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .pkgLblheading {
