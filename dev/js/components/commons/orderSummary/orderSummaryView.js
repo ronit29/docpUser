@@ -32,6 +32,9 @@ class OrderSummaryView extends React.Component {
                     let deal_price = 0
                     let info = {}
                     info[orderId] = []
+                    let isLab = res.data[0].data.tests
+                    let isDoctor = res.data[0].data.doctor
+                    let appointmentId = res.data[0].booking_id
                     res.data.map((data) => {
                         info[orderId].push({ 'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price })
                         deal_price += parseInt(data.deal_price)
@@ -46,8 +49,21 @@ class OrderSummaryView extends React.Component {
                     info = JSON.stringify(info)
 
                     STORAGE.setAppointmentDetails(info).then((setCookie) => {
-
                         if (this.state.payment_success) {
+                            if(isLab && isLab.length >0){
+                                let labData = {
+                                    'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
+                                }
+
+                                GTM.sendEvent({ data: labData }, true, false)
+                            }
+
+                            if(isDoctor && Object.keys(isDoctor).length >0){
+                                let docData = {
+                                    'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
+                                }
+                                GTM.sendEvent({ data: docData }, true, false)
+                            }
 
                             let analyticData = {
                                 'Category': 'ConsumerApp', 'Action': 'OrderPlaced', 'CustomerID': GTM.getUserId(), 'leadid': orderId, 'event': 'order-booked'
