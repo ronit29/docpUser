@@ -19,7 +19,7 @@ class SearchResults extends React.Component {
             this.setState({ show404: true })
             this.props.toggle404(false)
         }
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static loadData(store, match, queryParams = {}) {
