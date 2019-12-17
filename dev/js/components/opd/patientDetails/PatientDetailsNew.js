@@ -1260,6 +1260,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     toggleGoldPricePopup = (value= false)=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ChangePlanOpdClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-plan-opd-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({showGoldPriceList: value})
     }
 
