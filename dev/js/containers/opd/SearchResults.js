@@ -38,7 +38,7 @@ class SearchResults extends React.Component {
                     if(queryParams && ((queryParams.fromVip && queryParams.fromVip=="true") || (queryParams.fromGoldVip && queryParams.fromGoldVip=="true"))) {
                         let extraData = {
                             selectedLocation: state && state.selectedLocation?state.selectedLocation:{},
-                            type:queryParams.fromVip?'vip':queryParams.fromGoldVip?'gold':null
+                            type:queryParams.fromVip?'is_vip':queryParams.fromGoldVip?'is_gold':null
                         }
                         store.dispatch(getNearbyHospitals(extraData))
                         store.dispatch(getTopHospitals(extraData))

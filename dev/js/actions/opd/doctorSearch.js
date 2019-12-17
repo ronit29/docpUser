@@ -2,6 +2,7 @@ import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELE
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
+const queryString = require('query-string');
 
 export const getDoctors = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
 
@@ -27,6 +28,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let group_ids = commonSelectedCriterias.filter(x => x.type == 'group_ids').map(x => x.id)
 
 	let sits_at = []
+	let parsed= {}
+	if (typeof window == "object") {
+		parsed = queryString.parse(window.location.search)
+	}
 	if(filterCriteria.sits_at_clinic) sits_at.push('Clinic');
 	if(filterCriteria.sits_at_hospital) sits_at.push('Hospital');
 	if(sits_at.length == 0) sits_at = [''];
@@ -98,6 +103,14 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	if (!!filterCriteria.hospital_id) {
 		url += `&hospital_id=${filterCriteria.hospital_id || ''}`
 	}
+
+	if(parsed && parsed.fromVip){
+        url+= `&is_vip=${parsed.fromVip || ''}`
+    }
+
+    if(parsed && parsed.fromGoldVip) {
+        url += `&is_gold=${parsed.fromGoldVip || ''}`
+    }
 
 	return API_GET(url).then(function (response) {
 

@@ -102,7 +102,7 @@ class SearchResultsView extends React.Component {
         if (this.state.fromVip) {
             let extraData = {
                 selectedLocation: this.props.selectedLocation,
-                type:parsed.fromVip?'vip':parsed.fromGoldVip?'gold':null
+                type:parsed.fromVip?'is_vip':parsed.fromGoldVip?'is_gold':null
             }
             this.props.getNearbyHospitals(extraData)
             this.props.getTopHospitals(extraData)
