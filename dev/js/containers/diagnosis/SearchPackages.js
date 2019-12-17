@@ -66,7 +66,7 @@ class SearchPackages extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     render() {
