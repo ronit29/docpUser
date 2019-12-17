@@ -14405,7 +14405,7 @@ div.doc-srch-fltr.vip-slct-pop {
     .fixed-chatbox {
         position: sticky;
         top: 100px;
-        z-index: 11;
+        z-index: 1;
     }
 }
 
