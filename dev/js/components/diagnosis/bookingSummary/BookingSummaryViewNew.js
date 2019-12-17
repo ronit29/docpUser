@@ -1252,6 +1252,11 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleGoldPricePopup = (value= false)=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ChangePlanLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-plan-lab-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({showGoldPriceList: value})
     }
 
