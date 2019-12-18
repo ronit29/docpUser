@@ -34,7 +34,7 @@ class CommonTnC extends React.Component{
                 <div className="sub-header d-none d-lg-block" />
                 <section className="container about-container">
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-12 terms-main-container">
                             {
                                 this.state.data && this.state.data.length?
                                 <div dangerouslySetInnerHTML={{ __html: this.state.data[0].body }}></div>
