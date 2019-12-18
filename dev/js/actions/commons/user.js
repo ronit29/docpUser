@@ -781,3 +781,17 @@ export const NonIpdBookingLead = (data,cb) => (dispatch)=>{
  		if(cb)cb(e, null)
 	})
 }
+
+export const getBannerInfo = (dataParams, cb) => (dispatch)=>{
+	
+	if(dataParams && dataParams.id) {
+		let url = `/api/v1/banner/detail/${dataParams.id}`
+	
+		return API_GET(url).then((data)=> {
+			if(cb)cb(null, data)
+		}).catch((e)=>{
+	 		if(cb)cb(e, null)
+		})
+	}
+	if(cb)cb(null);
+}
