@@ -8,6 +8,7 @@ import Calendar from 'rc-calendar';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 const moment = require('moment');
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
+import DateSelector from '../../commons/DateSelector.js'
 
 const stepperStyle = {
     padding: 60,
@@ -170,6 +171,10 @@ class UserSignupView extends React.Component {
         }
     }
 
+    getNewDate(newDate){
+        this.setState({dob:newDate})
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -295,6 +300,7 @@ class UserSignupView extends React.Component {
                                                                         </div>
                                                                     </div> : ""
                                                                 }
+                                                                <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)}/>
                                                             </form>
                                                         </div>
                                                     </div> : ""
