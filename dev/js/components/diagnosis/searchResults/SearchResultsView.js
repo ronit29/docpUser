@@ -394,7 +394,7 @@ class SearchResultsView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname})
-        console.log(data)
+        GTM.sendEvent({ data: data })
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }
