@@ -14561,14 +14561,3 @@ div.doc-srch-fltr.vip-slct-pop {
     } */
 }
 
-
-
-/* =========listing of terms and condition========== */
-.terms-main-container ol {
-    list-style: decimal;
-    padding-left: 15px;
-}
-.terms-main-container ol li {
-    list-style: decimal;
-}
-/* =========listing of terms and condition========== */
