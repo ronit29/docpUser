@@ -3,18 +3,10 @@ const queryString = require('query-string');
 
 
 class DateSelector extends React.Component {
-    constructor(props) {
-        super(props)
-
-        const parsed = queryString.parse(this.props.location.search)
-
-        this.state = {
-            newDob:null
-        }
-    }
 
     componentDidMount(){
         let self = this
+        let isValidDob
         document.getElementById('newDate').addEventListener('input', function(e){
           this.type = 'text';
           var input = this.value;
@@ -22,11 +14,13 @@ class DateSelector extends React.Component {
           var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
           if(values[0]) values[0] = self.checkValue(values[0], 31);
           if(values[1]) values[1] = self.checkValue(values[1], 12);
+          if(values.length ==3){
+             isValidDob = self.isValidDate(values[0],values[1],values[2])
+             self.props.getNewDate(values[2]+'-'+values[1]+'-'+values[1],isValidDob)  
+          }
           var output = values.map(function(v, i){
             return v.length == 2 && i < 2 ?  v + ' / ' : v;
           });
-
-          self.props.getNewDate(output)
           this.value = output.join('').substr(0, 14);
         });
         var year =''
@@ -37,14 +31,14 @@ class DateSelector extends React.Component {
           var input = this.value;
           var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
           var output = '';
-          document.getElementById('result').innerText = 'Enter date as   Day / Month / Year';
           if(values.length == 3){
             year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
             day = parseInt(values[0]);
             month = parseInt(values[1]);            
             output = input;
           };
-          self.props.getNewDate(day+'-'+month+'-'+year)
+          isValidDob = self.isValidDate(day,month,year)
+          self.props.getNewDate(year+'-'+month+'-'+day,isValidDob)
           this.value = output;
         });
     }
@@ -57,12 +51,28 @@ class DateSelector extends React.Component {
       };
       return str;
     }
+
+    isValidDate (d, m, y) {
+       var m = parseInt(m, 10) - 1;
+        return m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y);
+    }
+
+    daysInMonth (m, y) {
+      switch (m) {
+          case 1 :
+              return (y % 4 == 0 && y % 100) || y % 400 == 0 ? 29 : 28;
+          case 8 : case 3 : case 5 : case 10 :
+              return 30;
+          default :
+              return 31
+      }
+    }
     
     render() {
         return (
-           <div className="labelWrap">
-                <input type="tel" id="newDate"/>
-                <p id="result">Enter date as Month / Day / Year</p>
+           <div className="labelWrap" style={{border:this.props.is_dob_error?'1px solid red':''}}>
+                <input type="tel" id="newDate" ref='dob'/>
+                <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>
         </div>
         );
     }
