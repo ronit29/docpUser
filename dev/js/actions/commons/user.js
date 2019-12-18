@@ -406,7 +406,7 @@ export const getCoupons = ({ productId = '', deal_price = 0, cb = null, lab_id =
 		url += `product_id=${productId}`
 	}
 
-	if (deal_price) {
+	if (deal_price >= 0) {
 		url += `&deal_price=${deal_price}`
 	}
 
@@ -780,4 +780,18 @@ export const NonIpdBookingLead = (data,cb) => (dispatch)=>{
 	}).catch((e)=>{
  		if(cb)cb(e, null)
 	})
+}
+
+export const getBannerInfo = (dataParams, cb) => (dispatch)=>{
+	
+	if(dataParams && dataParams.id) {
+		let url = `/api/v1/banner/detail/${dataParams.id}`
+	
+		return API_GET(url).then((data)=> {
+			if(cb)cb(null, data)
+		}).catch((e)=>{
+	 		if(cb)cb(e, null)
+		})
+	}
+	if(cb)cb(null);
 }

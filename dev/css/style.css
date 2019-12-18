@@ -14509,6 +14509,9 @@ div.doc-srch-fltr.vip-slct-pop {
         height: auto;
         top: -15px;
     }
+    .col-4.home-card-col.md-list-hide:nth-of-type(9) {
+        display: none;
+    }
 }
 .close-times-icon {
     font-size: 25px;
@@ -14557,3 +14560,4 @@ div.doc-srch-fltr.vip-slct-pop {
         padding-right:5px;
     } */
 }
+

@@ -412,6 +412,9 @@ class PatientDetailsNew extends React.Component {
                 else {
                     //auto apply coupon if no coupon is apllied
                     // if (this.props.selectedDoctor && deal_price && nextProps.couponAutoApply) {
+                    if(Object.values(hospital).length && hospital.vip && Object.keys(hospital.vip).length && hospital.vip.is_vip_member && hospital.vip.cover_under_vip){
+                          deal_price = hospital.vip.vip_amount + hospital.vip.vip_convenience_amount
+                    }
                     if (this.props.selectedDoctor && deal_price) {
                         this.props.getCoupons({
                             productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
@@ -959,6 +962,9 @@ class PatientDetailsNew extends React.Component {
         }
 
         deal_price += treatment_Price
+        if(Object.values(hospital).length && hospital.vip && Object.keys(hospital.vip).length && hospital.vip.is_vip_member && hospital.vip.cover_under_vip){
+            deal_price = hospital.vip.vip_amount + hospital.vip.vip_convenience_amount
+        }
         return deal_price
     }
 
@@ -1260,6 +1266,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     toggleGoldPricePopup = (value= false)=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ChangePlanOpdClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-plan-opd-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({showGoldPriceList: value})
     }
 
@@ -1311,9 +1322,9 @@ class PatientDetailsNew extends React.Component {
 
                     if (/*hospital.vip.hosp_is_gold && */is_selected_user_gold) {
 
-                        total_amount_payable_without_coupon = hospital.vip.vip_amount// + hospital.vip.vip_convenience_amount
+                        total_amount_payable_without_coupon = hospital.vip.vip_amount + hospital.vip.vip_convenience_amount
                     } else if (hospital.vip.cover_under_vip && patient.is_vip_member) {
-                            total_amount_payable_without_coupon = hospital.vip.vip_amount
+                            total_amount_payable_without_coupon = hospital.vip.vip_amount  + hospital.vip.vip_convenience_amount
                     }
                 }
 
