@@ -62,7 +62,7 @@ class LabProfileCard extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
         }
         GTM.sendEvent({ data: data })
-
+        this.props.clearVipSelectedPlan()
         if (e.ctrlKey || e.metaKey) {
 
         } else {
