@@ -68,11 +68,11 @@ class CartView extends React.Component {
 
                 }else{
                     if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
+                        is_gold_member = item.actual_data.is_gold_member
                         if(item.actual_data.vip_amount == 0){
                             vip_amnt_price += item.mrp
                         }else{
                             if(item.actual_data.is_gold_member){
-                                is_gold_member = item.actual_data.is_gold_member
                                 vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
                             }else{
                                 vip_amnt_price += item.mrp - item.actual_data.vip_amount
@@ -92,7 +92,7 @@ class CartView extends React.Component {
                         // total_deal_price += item.deal_price  
                     }
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    if(item.consultation && item.consultation.fees == 0){
+                    if(item.consultation && item.consultation.fees == 0 && !item.actual_data.cover_under_vip){
                         platformConvFees += parseInt(item.deal_price)
                     }
 
@@ -393,15 +393,36 @@ class CartView extends React.Component {
                                                                                 }
                                                                             </div> : ''
                                                                         }
-                                                                        {vip_amnt_price && is_gold_member ?
+                                                                        {
+                                                                            vip_amnt_price?
+                                                                                is_gold_member?
+                                                                                <div className="payment-detail d-flex align-item-center">
+                                                                                    <p style={{color: 'green'}} className="d-flex align-item-center">
+                                                                                        <span className="mr-2"> Docprime Gold Discount </span>
+                                                                                        <img style={{height:'15px', width:'35px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                                                                        
+                                                                                    </p>
+                                                                                    <p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                                </div>
+                                                                                :<div className="payment-detail d-flex align-item-center">
+                                                                                    <p style={{color: 'green'}} className="d-flex align-item-center">
+                                                                                        <span className="mr-2">Docprime Vip Discount</span>
+                                                                                        <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                                    </p>
+                                                                                    <p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                                </div>
+                                                                            :''
+
+                                                                        }
+                                                                        {/*vip_amnt_price && is_gold_member ?
                                                                             <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
-                                                                            :''
+                                                                            :''*/
                                                                         }
-                                                                        {is_gold_member?'': vip_amnt_price ?
+                                                                        {/*is_gold_member?'': vip_amnt_price ?
                                                                             <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
-                                                                            :''
+                                                                            :''*/
                                                                         }
 
                                                                     </div>

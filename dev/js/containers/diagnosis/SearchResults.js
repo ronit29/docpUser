@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, NonIpdBookingLead } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder,clearVipSelectedPlan } from '../../helpers/urltoState'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, NonIpdBookingLead, clearVipSelectedPlan } from '../../actions/index.js'
+import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
 

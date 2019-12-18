@@ -330,10 +330,18 @@ class Article extends React.Component {
             <div className="articleImgPop">
                 <div className="p-relative gold-med-bnr">
                     <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-cross-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
                         event.stopPropagation();
                         this.setState({showMainPopup:false})}} />
                     <img className="img-fluid " src={ASSETS_BASE_URL + '/img/goldpopup-min.png'} onClick={(e)=>{
                         e.stopPropagation();
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
                         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
                     }}/>
                 </div>

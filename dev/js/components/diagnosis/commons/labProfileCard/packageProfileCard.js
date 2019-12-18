@@ -61,7 +61,6 @@ class LabProfileCard extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
         }
         GTM.sendEvent({ data: data })
-
         if (e.ctrlKey || e.metaKey) {
 
         } else {
@@ -101,6 +100,7 @@ class LabProfileCard extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
         }
         GTM.sendEvent({ data: data })
+        this.props.clearVipSelectedPlan()
         this.props.history.push(`/lab/${id}/book`)
     }
 

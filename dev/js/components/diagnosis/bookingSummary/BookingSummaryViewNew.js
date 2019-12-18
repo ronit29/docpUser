@@ -417,7 +417,12 @@ class BookingSummaryViewNew extends React.Component {
 
         nextProps.LABS[this.props.selectedLab].tests.map((twp, i) => {
             test_ids.push(twp.test_id)
-            let price = twp.deal_price
+            let price = null
+            if(twp.vip && Object.keys(twp.vip).length && twp.vip.is_vip_member && twp.vip.covered_under_vip){
+                price += twp.vip.vip_amount + twp.vip.vip_convenience_amount
+            }else{
+               price += twp.deal_price
+            }
             if (!twp.is_home_collection_enabled) {
                 is_home_collection_enabled = false
             }
@@ -1247,6 +1252,11 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleGoldPricePopup = (value= false)=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ChangePlanLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-plan-lab-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({showGoldPriceList: value})
     }
 
@@ -1319,7 +1329,7 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_convenience_amount += parseInt(test.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
-            vip_total_convenience_amount = 0
+            // vip_total_convenience_amount = 0
             if(is_all_enable_for_vip && patient){
 
                 
