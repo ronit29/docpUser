@@ -8,54 +8,72 @@ class DateSelector extends React.Component {
         super(props)
 
         this.state = {
-          newDob:null
+          newDob:null,
+          calcualatedAge:null,
+          toCalculateAge:true
         }
     }  
 
     componentDidMount(){
         let self = this
         let isValidDob
-        if(this.props.old_dob){
-          let oldDob = this.props.old_dob.split('-')
-          this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0]})
-        }
-
+        var output
         document.getElementById('newDate').addEventListener('input', function(e){
-          this.type = 'text';
-          var input = this.value;
-          if(/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-          var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
-          if(values[0]) values[0] = self.checkValue(values[0], 31);
-          if(values[1]) values[1] = self.checkValue(values[1], 12);
-          if(values.length ==3){
-             isValidDob = self.isValidDate(values[0],values[1],values[2])
-             self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[1],isValidDob)  
+            this.type = 'text';
+            var input = this.value;
+            if(/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+            var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
+            if(values[0]) values[0] = self.checkValue(values[0], 31);
+            if(values[1]) values[1] = self.checkValue(values[1], 12);
+            if(values.length ==3){
+               isValidDob = self.isValidDate(values[0],values[1],values[2])
+               if(values[2].length == 4){
+                  self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
+               }
+               self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob)  
+            }
+            output = values.map(function(v, i){
+              return v.length == 2 && i < 2 ?  v + ' / ' : v;
+            });
+            this.value = output.join('').substr(0, 14);
+        },()=>{
+          if(output){
+            self.setState({newDob:output})
           }
-          var output = values.map(function(v, i){
-            return v.length == 2 && i < 2 ?  v + ' / ' : v;
-          });
-          this.value = output.join('').substr(0, 14);
-          self.setState({newDob:output})
         });
         var year =''
         var day = ''
         var month = ''
         document.getElementById('newDate').addEventListener('blur', function(e){
-          this.type = 'tel';
-          var input = this.value;
-          var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
-          var output = '';
-          if(values.length == 3){
-            year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
-            day = parseInt(values[0]);
-            month = parseInt(values[1]);            
-            output = input;
-          };
-          isValidDob = self.isValidDate(day,month,year)
-          self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
-          this.value = output;
-          self.setState({newDob:output})
+            this.type = 'tel';
+            var input = this.value;
+            var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
+            var output = '';
+            if(values.length == 3){
+              year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
+              day = parseInt(values[0]);
+              month = parseInt(values[1]);            
+              output = input;
+            };
+            isValidDob = self.isValidDate(day,month,year)
+            self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
+            if(year.length == 4){
+              self.calculateAge(year+'-'+month+'-'+day)
+            }
+            this.value = output;
+            self.setState({newDob:output})
         });
+    }
+
+    componentWillReceiveProps(){
+        if(this.props.old_dob){
+            let oldDob = this.props.old_dob.split('-')
+            if(this.state.toCalculateAge){
+              this.calculateAge(this.props.old_dob)
+              this.setState({toCalculateAge:false})
+            }
+            this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0]})
+        }
     }
 
     checkValue(str, max){
@@ -82,11 +100,25 @@ class DateSelector extends React.Component {
               return 31
       }
     }
+
+    calculateAge(dateString) { // birthday is a date
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if(age >= 0){
+          this.setState({calcualatedAge:age})
+        }
+    }
     
     render() {
         return (
            <div className="labelWrap" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id="newDate" ref='dob' value={this.state.newDob}/>
+                <input type="tel" id="newDate" ref='dob' value={this.state.newDob}/> 
+                {this.state.calcualatedAge?this.state.calcualatedAge:''}
                 <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>
         </div>
         );

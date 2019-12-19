@@ -117,7 +117,7 @@ class EditProfile extends React.Component {
         let vals = ['email', 'phone_number','dob']
         vals.map((field) => {
             let validated = true
-            if(!this.state.isDobValidated){
+            if(this.state.profileData.dob == null && !this.state.isDobValidated){
                 validated = true
                 errors['dob'] = !validated
                 return
@@ -170,7 +170,6 @@ class EditProfile extends React.Component {
                 validated = false
                 return
             }
-            debugger
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
