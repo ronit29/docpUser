@@ -18,7 +18,8 @@ class DateSelector extends React.Component {
         let self = this
         let isValidDob
         var output
-        document.getElementById('newDate').addEventListener('input', function(e){
+        let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
+        document.getElementById(id).addEventListener('input', function(e){
             this.type = 'text';
             var input = this.value;
             if(/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
@@ -44,7 +45,7 @@ class DateSelector extends React.Component {
         var year =''
         var day = ''
         var month = ''
-        document.getElementById('newDate').addEventListener('blur', function(e){
+        document.getElementById(id).addEventListener('blur', function(e){
             this.type = 'tel';
             var input = this.value;
             var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
@@ -117,7 +118,7 @@ class DateSelector extends React.Component {
     render() {
         return (
            <div className="labelWrap" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id="newDate" ref='dob' value={this.state.newDob}/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob}/> 
                 {this.state.calcualatedAge?this.state.calcualatedAge:''}
                 <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>
         </div>
