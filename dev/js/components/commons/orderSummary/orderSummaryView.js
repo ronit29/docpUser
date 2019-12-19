@@ -55,14 +55,14 @@ class OrderSummaryView extends React.Component {
                                     'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
                                 }
 
-                                GTM.sendEvent({ data: labData }, true, false)
+                                GTM.sendEvent({ data: labData })
                             }
 
                             if(isDoctor && Object.keys(isDoctor).length >0){
                                 let docData = {
                                     'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
                                 }
-                                GTM.sendEvent({ data: docData }, true, false)
+                                GTM.sendEvent({ data: docData })
                             }
 
                             let analyticData = {

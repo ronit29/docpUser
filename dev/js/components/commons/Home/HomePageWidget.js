@@ -46,7 +46,7 @@ class HomePageWidget extends React.Component {
 
                         {
                             this.props.list.map((listItem, i) => {
-                                return <div className="col-4 home-card-col" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                                return <div className="col-4 home-card-col md-list-hide" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
                                     <div className="grid-img-cnt doc-icon-col brdr-btm">
                                         {
                                             listItem.url ?

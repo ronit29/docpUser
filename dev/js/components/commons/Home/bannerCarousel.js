@@ -195,6 +195,13 @@ class BannerCarousel extends React.Component {
                 'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
             }
             GTM.sendEvent({ data: data })
+        
+        }else if(offer.id) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
+            this.props.history.push(`terms-conditions/${offer.id}`);
         }
     }
 
@@ -410,7 +417,7 @@ class BannerCarousel extends React.Component {
                             {
                                 filteredBanners && filteredBanners.length ?
                                     filteredBanners.map((offer, i) => {
-                                        return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
+                                        return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={{ cursor: 'pointer'}} />
                                     }) : ''
                             }
                         </div>
@@ -420,7 +427,7 @@ class BannerCarousel extends React.Component {
                             <div className={this.props.hideClass ? `banner-carousel-div  mrb-10 d-none ${this.props.hideClass}` : `banner-carousel-div mrb-10 d-none d-md-block`}>
                                 {
                                     offerVisible && Object.values(offerVisible).length ?
-                                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
+                                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={{ cursor: 'pointer'}} />
                                         : ''
                                 }
                                 {
@@ -444,7 +451,7 @@ class BannerCarousel extends React.Component {
                                                 <div className={`${this.props.ipd ? 'ipd-banner-mbl' : ''} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20 ${this.props.sliderLocation == 'home_page'?'single-banner-div':''}` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' ? { position: 'absolute' } : { position: 'relative' }}>
                                                     {
                                                         filteredBanners.map((banner, index) => {
-                                                            return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={banner.url ? { cursor: 'pointer' } : {}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />
+                                                            return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={{ cursor: 'pointer'}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />
                                                         })
                                                     }
                                                 </div>
