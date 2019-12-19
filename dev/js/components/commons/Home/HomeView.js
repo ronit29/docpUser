@@ -227,12 +227,12 @@ class HomeView extends React.Component {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.props.specializations.slice(0, 8)//this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.props.common_tests.slice(0, 8)//this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0, 9)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
