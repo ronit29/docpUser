@@ -682,6 +682,10 @@ class ChatPanel extends React.Component {
             )
         } else {
             return (
+                <React.Fragment>
+                {
+                    this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                }
                 <div className="fixed-chatbox">
                     {
                         this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
@@ -815,9 +819,6 @@ class ChatPanel extends React.Component {
                                         }
                                     </div>
                                     {/* chat Body */}
-                                    {
-                                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
-                                    }
                                 </div>
                         }
                     </div>
@@ -851,6 +852,7 @@ class ChatPanel extends React.Component {
                     }
                     
                 </div>
+                </React.Fragment>
             );
         }
 

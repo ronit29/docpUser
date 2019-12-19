@@ -12,8 +12,8 @@ export default class Terms extends React.Component {
                         <p className="fw-500 cancel-appointment-head">Terms & Conditions</p>
                         <hr />
                     </div>
-                    <div className="terms-condition-div">
-                        <p className="terms-condition">{this.props.tnc}</p>
+                    <div className="terms-condition-div paypal-dtls-cont">
+                        <p className="terms-condition" dangerouslySetInnerHTML={{ __html: this.props.tnc }} ></p>
                     </div>
 
                     <div className="payment-content-btn text-center">
