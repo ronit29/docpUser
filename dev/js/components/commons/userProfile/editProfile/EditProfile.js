@@ -24,7 +24,9 @@ class EditProfile extends React.Component {
             whatsapp_optin:currentProfile.whatsapp_optin,
             isEmailVerified:false,
             isEmailUpdated:false,
-            isEmailError:false
+            isEmailError:false,
+            isDobValidated:false,
+            is_dob_error:false
         }
     }
 
@@ -77,6 +79,7 @@ class EditProfile extends React.Component {
                                 isEmailError={this.state.isEmailError} 
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
                                 is_profile_editable={is_profile_editable}
+                                is_dob_error = {this.state.is_dob_error}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 
@@ -91,9 +94,9 @@ class EditProfile extends React.Component {
         }
     }
 
-    updateProfile(key, value) {
+    updateProfile(key, value,isDobValidated) {
         this.state.profileData[key] = value
-        this.setState({ profileData: this.state.profileData })
+        this.setState({ profileData: this.state.profileData ,isDobValidated:isDobValidated})
     }
 
     verifyEndorsementEmail(newemail,verified,is_email_changed){        
@@ -111,9 +114,14 @@ class EditProfile extends React.Component {
         e.preventDefault()
 
         let errors = {}
-        let vals = ['email', 'phone_number']
+        let vals = ['email', 'phone_number','dob']
         vals.map((field) => {
             let validated = true
+            if(!this.state.isDobValidated){
+                validated = true
+                errors['dob'] = !validated
+                return
+            }
             switch (field) {
                 case "phone_number": {
                     if (!this.state.profileData[field]) {
@@ -156,6 +164,13 @@ class EditProfile extends React.Component {
                 this.setState({isEmailError:true})
                 return
             }
+
+            if(!this.state.isDobValidated){
+                this.setState({is_dob_error:true})
+                validated = false
+                return
+            }
+            debugger
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin

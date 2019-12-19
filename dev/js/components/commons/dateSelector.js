@@ -4,9 +4,22 @@ const queryString = require('query-string');
 
 class DateSelector extends React.Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+          newDob:null
+        }
+    }  
+
     componentDidMount(){
         let self = this
         let isValidDob
+        if(this.props.old_dob){
+          let oldDob = this.props.old_dob.split('-')
+          this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0]})
+        }
+
         document.getElementById('newDate').addEventListener('input', function(e){
           this.type = 'text';
           var input = this.value;
@@ -16,12 +29,13 @@ class DateSelector extends React.Component {
           if(values[1]) values[1] = self.checkValue(values[1], 12);
           if(values.length ==3){
              isValidDob = self.isValidDate(values[0],values[1],values[2])
-             self.props.getNewDate(values[2]+'-'+values[1]+'-'+values[1],isValidDob)  
+             self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[1],isValidDob)  
           }
           var output = values.map(function(v, i){
             return v.length == 2 && i < 2 ?  v + ' / ' : v;
           });
           this.value = output.join('').substr(0, 14);
+          self.setState({newDob:output})
         });
         var year =''
         var day = ''
@@ -38,8 +52,9 @@ class DateSelector extends React.Component {
             output = input;
           };
           isValidDob = self.isValidDate(day,month,year)
-          self.props.getNewDate(year+'-'+month+'-'+day,isValidDob)
+          self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
           this.value = output;
+          self.setState({newDob:output})
         });
     }
 
@@ -71,7 +86,7 @@ class DateSelector extends React.Component {
     render() {
         return (
            <div className="labelWrap" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id="newDate" ref='dob'/>
+                <input type="tel" id="newDate" ref='dob' value={this.state.newDob}/>
                 <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>
         </div>
         );

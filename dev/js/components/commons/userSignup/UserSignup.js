@@ -176,7 +176,7 @@ class UserSignupView extends React.Component {
         }
     }
 
-    getNewDate(newDate,isValidDob){
+    getNewDate(type,newDate,isValidDob){
         this.setState({dob:newDate,isDobValidated:isValidDob})
     }
 

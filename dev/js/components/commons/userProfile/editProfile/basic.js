@@ -6,6 +6,7 @@ import Loader from '../../Loader'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
 import VerifyEmail from '../../../insurance/verifyEmail.js'
+import DateSelector from '../../DateSelector.js'
 
 class BasicDetails extends React.Component {
     constructor(props) {
@@ -168,10 +169,10 @@ class BasicDetails extends React.Component {
                                         <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
                                     </div>
                                 </div>
-                                <div className="labelWrap">
+                                {/*<div className="labelWrap">
                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate == ''?dob:this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
                                     <label htmlFor="dob">Date of Birth</label>
-                                </div>
+                                </div>*/}
                                 {   
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                         <Calendar
@@ -185,6 +186,7 @@ class BasicDetails extends React.Component {
                                         />
                                     </div></div> : ""
                                 }
+                                <DateSelector {...this.props} getNewDate={this.props.updateProfile.bind(this)} old_dob={dob}/>
                                 {/* <div className="labelWrap">
                                 <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>
