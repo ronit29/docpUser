@@ -78,7 +78,7 @@ class App extends React.Component {
                 user_profile_id = this.props.profiles[this.props.defaultProfile].id
                 ciphertext =  this.encrypt(user_profile_id)
             }
-            debugger
+            console.log('in cond')
             let intervalId = setInterval(() => {
                 STORAGE.getAuthToken().then((token) => {
                     if (token) {
