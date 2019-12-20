@@ -79,7 +79,7 @@ class BookingView extends React.Component {
 
                         if(is_gold_user){
                             let vipBookedData = {
-                                'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked', 'user_id': GTM.getUserId()
+                                'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked', 'user_id': GTM.getUserId(), 'is_single_flow':true
                             }
                             GTM.sendEvent({ data: vipBookedData })
                         }
