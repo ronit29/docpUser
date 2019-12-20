@@ -682,6 +682,10 @@ class ChatPanel extends React.Component {
             )
         } else {
             return (
+                <React.Fragment>
+                {
+                    this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                }
                 <div className="fixed-chatbox">
                     {
                         this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
@@ -689,7 +693,7 @@ class ChatPanel extends React.Component {
                             : ''
                     }
                     {
-                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                        false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
                             <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
                     }
                     {
@@ -729,18 +733,18 @@ class ChatPanel extends React.Component {
                                         <div className="hd-chat" style={{ flex: 1 }}>
                                             {
                                                 this.props.location.search && this.props.location.search.includes('?botagent') ?
-                                                    <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                    <p className="text-left header-text-chat">
                                                         <span className="hed-txt-lt">Get </span>
                                                         Help with Booking
                                                     </p>
                                                     :
                                                     this.props.chatPage ?
-                                                        <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <h1 className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </h1>
                                                         :
-                                                        <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
+                                                        <p className="text-left header-text-chat">
                                                             {/* <span className="hed-txt-lt">Get a </span> */}
                                                             Online Doctor Consultation!
                                                         </p>
@@ -815,9 +819,6 @@ class ChatPanel extends React.Component {
                                         }
                                     </div>
                                     {/* chat Body */}
-                                    {
-                                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
-                                    }
                                 </div>
                         }
                     </div>
@@ -851,6 +852,7 @@ class ChatPanel extends React.Component {
                     }
                     
                 </div>
+                </React.Fragment>
             );
         }
 

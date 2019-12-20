@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality, getSponsoredList, getNearbyHospitals, toggleIPDCriteria, getTopHospitals, mergeIpdCriteria } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias,clearVipSelectedPlan } from '../../helpers/urltoState'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality, getSponsoredList, getNearbyHospitals, toggleIPDCriteria, getTopHospitals, mergeIpdCriteria, clearVipSelectedPlan } from '../../actions/index.js'
+import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
 
@@ -35,9 +35,10 @@ class SearchResults extends React.Component {
 
                 opdSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
                     store.dispatch(mergeOPDState(state))
-                    if(queryParams && queryParams.fromVip && queryParams.fromVip=="true") {
+                    if(queryParams && ((queryParams.fromVip && queryParams.fromVip=="true") || (queryParams.fromGoldVip && queryParams.fromGoldVip=="true"))) {
                         let extraData = {
-                            selectedLocation: state && state.selectedLocation?state.selectedLocation:{}
+                            selectedLocation: state && state.selectedLocation?state.selectedLocation:{},
+                            type:queryParams.fromVip?'is_vip':queryParams.fromGoldVip?'is_gold':null
                         }
                         store.dispatch(getNearbyHospitals(extraData))
                         store.dispatch(getTopHospitals(extraData))

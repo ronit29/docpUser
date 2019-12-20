@@ -41,7 +41,7 @@ class HomeChat extends React.Component {
         if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
 
             this.props.loadLabCommonCriterias()
-            this.props.loadOPDInsurance(this.props.selectedLocation)
+            // this.props.loadOPDInsurance(this.props.selectedLocation)
         }
         this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 

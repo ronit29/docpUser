@@ -45,19 +45,19 @@ class AppointmentList extends React.Component {
         status = parseInt(status)
         switch (status) {
             case 1: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Created</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Created</span>
             }
             case 2: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Booked</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Booked</span>
             }
             case 3: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Rescheduled</span>
             }
             case 4: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Rescheduled</span>
             }
             case 5: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Accepted</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Accepted</span>
             }
             case 6: {
                 return <span className="appointment-status" style={{ color: 'red' }}>Cancelled</span>
@@ -66,7 +66,7 @@ class AppointmentList extends React.Component {
                 return <span className="appointment-status" style={{ color: 'green' }}>Completed</span>
             }
             default: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: `var(--text--primary--color)` }}>Upcoming</span>
             }
         }
     }

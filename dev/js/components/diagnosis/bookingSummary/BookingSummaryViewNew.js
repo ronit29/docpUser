@@ -170,6 +170,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     getVipGoldPriceList(props){
+        let  parsed = queryString.parse(this.props.location.search)
         let test_ids = []
         if(props.LABS[props.selectedLab] && props.LABS[props.selectedLab].tests) {
             test_ids = props.LABS[props.selectedLab].tests.map(x=>x.test_id)
@@ -182,6 +183,9 @@ class BookingSummaryViewNew extends React.Component {
         }
         if(this.props.selected_vip_plan && this.props.selected_vip_plan.id) {
             extraParams['already_selected_plan'] = this.props.selected_vip_plan.id
+        }
+        if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
+            extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
         this.props.getLabVipGoldPlans(extraParams)
     }
@@ -413,7 +417,12 @@ class BookingSummaryViewNew extends React.Component {
 
         nextProps.LABS[this.props.selectedLab].tests.map((twp, i) => {
             test_ids.push(twp.test_id)
-            let price = twp.deal_price
+            let price = null
+            if(twp.vip && Object.keys(twp.vip).length && twp.vip.is_vip_member && twp.vip.covered_under_vip){
+                price += twp.vip.vip_amount + twp.vip.vip_convenience_amount
+            }else{
+               price += twp.deal_price
+            }
             if (!twp.is_home_collection_enabled) {
                 is_home_collection_enabled = false
             }
@@ -479,7 +488,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             case "patient": {
-                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.match.params.id}&is_insurance=${is_insurance_applicable}`)
+                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.selectedLab}&is_insurance=${is_insurance_applicable}`)
                 return
             }
 
@@ -723,9 +732,15 @@ class BookingSummaryViewNew extends React.Component {
         let is_tests_covered_under_vip = false
         let vip_amount
 
+        let is_selected_user_vip = true // to check is plus_plan is applicable or not
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
+            Object.entries(this.props.profiles).map(function ([key, value]) {
+                if(value.is_vip_member){
+                    is_selected_user_vip = false
+                }
+            })
         }
 
         let is_plan_applicable = false
@@ -833,7 +848,7 @@ class BookingSummaryViewNew extends React.Component {
                 postData['selected_timings_type'] = 'separate'
             }
         }
-        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length) {
+        if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
         //Check SPO UTM Tags
@@ -843,6 +858,26 @@ class BookingSummaryViewNew extends React.Component {
             if(spo_tags.utm_tags){
                 
                 postData['utm_spo_tags'] = spo_tags.utm_tags
+            }
+        }
+
+        //Check SBI UTM Tags
+        if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+
+            let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
+            if(tags.utm_tags){
+                
+                postData['utm_sbi_tags'] = tags.utm_tags
+            }
+        }else if(document && document.location && document.location.host &&  document.location.host.includes('sbi')){
+            postData['utm_sbi_tags'] = {
+                utm_tags: {
+                    utm_source: 'sbi_utm',
+                    utm_term: '',
+                    utm_medium: '',
+                    utm_campaign: ''
+                },
+                time: new Date().getTime(),
             }
         }
 
@@ -1060,7 +1095,7 @@ class BookingSummaryViewNew extends React.Component {
             // }
             price_to_pay = extraAllParams.total_amount_payable
         }
-        if (this.state.use_wallet && total_wallet_balance) {
+        if (this.state.use_wallet && total_wallet_balance && this.props.payment_type !=6) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
 
@@ -1069,7 +1104,7 @@ class BookingSummaryViewNew extends React.Component {
         if (price_from_pg) {
             return `Continue to pay (₹ ${price_from_pg})`
         }
-
+        
         return `Confirm Booking`
     }
 
@@ -1217,6 +1252,11 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleGoldPricePopup = (value= false)=>{
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'ChangePlanLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-plan-lab-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({showGoldPriceList: value})
     }
 
@@ -1289,7 +1329,7 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_convenience_amount += parseInt(test.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(test.vip.vip_gold_price)
             })
-            vip_total_convenience_amount = 0
+            // vip_total_convenience_amount = 0
             if(is_all_enable_for_vip && patient){
 
                 
@@ -2158,7 +2198,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         </div> : ""
                                                                                     }
                                                                                     {display_docprime_discount && !is_vip_applicable && !(vip_data/* && vip_data.is_gold */&& is_selected_user_gold && is_tests_covered_under_vip)? <div className="payment-detail d-flex">
-                                                                                        <p style={{color:'green'}}>{this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
+                                                                                        <p style={{color:'green'}}>{is_selected_user_gold && is_tests_covered_under_vip && this.props.payment_type==6?'Docprime Gold Discount':'Docprime Discount'}</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {display_docprime_discount}</p>
                                                                                     </div>:''}
                                                                                     {

@@ -180,7 +180,7 @@ class HospitalDetail extends React.Component {
         }
 		return(
 				<div className="profile-body-wrap">
-					<ProfileHeader showSearch={true} pageType='HospitalDetailPage'/>
+					<ProfileHeader showSearch={true} pageType='HospitalDetailPage' new_fixed_header={1}/>
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
@@ -201,7 +201,7 @@ class HospitalDetail extends React.Component {
                             __html: itemList_schema
                         }} /> : ""
                     }
-					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
+					<section className="container parent-section book-appointment-section breadcrumb-mrgn  hospital-view-section">
 						{
 							ipd_hospital_detail && ipd_hospital_detail.breadcrumb &&	
 								<BreadCrumbView breadcrumb={ipd_hospital_detail.breadcrumb} {...this.props} />

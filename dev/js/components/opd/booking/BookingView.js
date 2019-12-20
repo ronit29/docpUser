@@ -210,6 +210,10 @@ class BookingView extends React.Component {
         this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
+    }
+
     render() {
         
         let doctor = {}
@@ -396,7 +400,7 @@ class BookingView extends React.Component {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
                                                         {
-                                                            STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member || is_gold_vip?'':status != 6 && status != 7 &&
+                                                            (STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member || is_gold_vip || payment_type==3)?'':status != 6 && status != 7 &&
                                                                 <div className="vip-content-book">
                                                                     <div>
                                                                         <p>
@@ -564,7 +568,7 @@ class BookingView extends React.Component {
                                                                             Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
                                                                         <div>
                                                                             <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                                                <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                                                                <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -581,6 +585,18 @@ class BookingView extends React.Component {
                                             this.props.history.push(`/user/opd/reports/${this.state.data.id}`)
                                         }} className="viewpresbtn">View Prescription</button> : ""
                                     }
+                                    {
+                                        this.state.data && this.state.data.appointment_via_sbi?
+                                       
+                                                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                    <button className="v-btn-primary book-btn-mrgn-adjust " onClick={()=>{this.navigateToSBI()}}>
+                                                                Go Back To SBIG Home
+                                                        </button>
+                                                </div>
+                                            
+                                        :''
+                                    }
+
                                 </section> : <Loader />
                             }
 

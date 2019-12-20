@@ -84,6 +84,8 @@ class ProfileData extends React.Component {
         }
 
         let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+
+        let defaultProfile = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]:null
         
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
             memberClass = 'float-right ins-userdetails-active'
@@ -98,7 +100,7 @@ class ProfileData extends React.Component {
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
                             {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
-                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>
+                                {/*<p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>*/}
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
@@ -171,7 +173,7 @@ class ProfileData extends React.Component {
                                         <div>
                                             <p className="mrt-10" style={{ color: '#757575' }}>Use Coupon : <b className="fw-700" style={{ color: '#000000' }}>{coupon.code}</b></p>
                                             <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: '#f78631', cursor: 'pointer' }}>Terms & Conditions</p>
+                                                <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: `var(--text--dark--all)`, cursor: 'pointer' }}>Terms & Conditions</p>
                                             </div>
                                         </div>
                                         <p className="view-more-coupons" onClick={() => {
@@ -196,7 +198,7 @@ class ProfileData extends React.Component {
                                         Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
                                     <div>
                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
+                                            <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +243,7 @@ class ProfileData extends React.Component {
                             </li>
                         :''
                         }
-                        {CONFIG.ENABLE_VIP_CLUB?
+                        {CONFIG.ENABLE_VIP_CLUB && defaultProfile && defaultProfile.is_vip_member && !defaultProfile.is_vip_gold_member?
                             <li onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'ProfileMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-vip-clicked'
