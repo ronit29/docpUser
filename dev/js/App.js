@@ -78,6 +78,7 @@ class App extends React.Component {
                 user_profile_id = this.props.profiles[this.props.defaultProfile].id
                 ciphertext =  this.encrypt(user_profile_id)
             }
+            debugger
             let intervalId = setInterval(() => {
                 STORAGE.getAuthToken().then((token) => {
                     if (token) {
@@ -89,7 +90,7 @@ class App extends React.Component {
                         })
                     }
                 })
-            }, 50000)
+            }, 5000)
         }
 
         let OTT = parsed.access_token
