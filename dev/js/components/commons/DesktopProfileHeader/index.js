@@ -24,7 +24,7 @@ class DesktopProfileHeader extends React.Component {
             }
             this.props.getIsCareDetails()
         }
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     render() {

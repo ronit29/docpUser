@@ -11,7 +11,9 @@ const queryString = require('query-string');
 class BookingSummary extends React.Component {
     constructor(props) {
         super(props)
-
+        this.state={
+            agent_selected_plan_id:null
+        }
     }
 
     static contextTypes = {
@@ -60,7 +62,8 @@ class BookingSummary extends React.Component {
             }
             props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
                 if(resp && resp.data){
-                    this.setLabBooking(resp.data)    
+                    this.setLabBooking(resp.data) 
+                    this.setState({agent_selected_plan_id:resp.data.plus_plan})   
                 }
                 setTimeout(()=>{
                     let testIds = props.lab_test_data[lab_id] || []
@@ -129,7 +132,7 @@ class BookingSummary extends React.Component {
         let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} />
         );
     }
 }

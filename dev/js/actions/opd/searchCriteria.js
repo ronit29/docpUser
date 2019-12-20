@@ -270,7 +270,11 @@ export const getTopHospitals = (extraParams={}, cb) => (dispatch) => {
     }else{
         locality = "Delhi"
     }
-    return API_GET(`api/v1/doctor/top/hospitals?lat=${lat}&long=${long}&locality=${locality}`).then(function(response){
+    let url = `/api/v1/doctor/top/hospitals?lat=${lat}&long=${long}&locality=${locality}`
+    if(extraParams && extraParams.type){
+        url+= `&${extraParams.type}=true`    
+    }
+    return API_GET(url).then(function(response){
 
         dispatch({
             type: SAVE_TOP_HOSPITALS,

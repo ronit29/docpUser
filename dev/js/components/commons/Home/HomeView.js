@@ -68,7 +68,6 @@ class HomeView extends React.Component {
 		let data = { 'event': "viewHome" }
 
 		CRITEO.sendData(data)
-
 	}
 
 
@@ -216,16 +215,24 @@ class HomeView extends React.Component {
 		this.setState({ showPopup: false })
 	}
 
+	sbiBannerClicked= ()=>{
+		let data = {
+				'Category': 'ConsumerApp', 'Action': 'SBIGOLDBANNER', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sbi-gold-banner'
+		}
+		GTM.sendEvent({ data: data })
+		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
+	}
+
 	render() {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.props.specializations.slice(0,8)//this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.props.common_tests.slice(0,8)//this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0, 9)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
@@ -244,13 +251,14 @@ class HomeView extends React.Component {
 				SlabSequence = 2
 			}
 		}
+		let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
 
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
 				<div className="col-md-7" key="spez">
 					<div className="right-card-container">
@@ -267,7 +275,7 @@ class HomeView extends React.Component {
 						/>
 
 						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+							!isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
 								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 						}
 
@@ -321,13 +329,13 @@ class HomeView extends React.Component {
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 
@@ -343,7 +351,7 @@ class HomeView extends React.Component {
 
 		} else {
 
-			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat"/>)
+			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
 			slabOrder.push(
 				<div className="col-md-7" key="upcom">
 					<div className="right-card-container">
@@ -374,26 +382,36 @@ class HomeView extends React.Component {
 							/*this.props.history ?
 								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
-
-						<div className="banner-cont-height home-page-banner-div">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight"></div>
+						{
+							!isSBI?
+							<div className="banner-cont-height home-page-banner-div">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight"></div>
+								</div>
+								{
+									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+								}
 							</div>
-							{
-								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-							}
-						</div>
-
+							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight-sbi mt-0"></div>
+								</div>
+								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
+									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
+								</div>
+							</div>
+						}
+						
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
 								: ''
 						}
 
@@ -482,7 +500,7 @@ class HomeView extends React.Component {
 		}
 
 		return (
-			<div className="profile-body-wrap fxd-ftr-btm-pdng">
+			<div className="profile-body-wrap">
 				<HelmetTags tagsData={{
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 					ogUrl: 'https://docprime.com',
@@ -492,7 +510,7 @@ class HomeView extends React.Component {
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
 
 				{/* {
 					this.state.showPopup ?

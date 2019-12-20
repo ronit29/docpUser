@@ -17,7 +17,7 @@ class categoryTestResults extends React.Component {
     }
 
     componentDidMount() {
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
         let searchUrl = null
         if (this.props.match.url.includes('-tpcp')) {
             searchUrl = this.props.match.url.toLowerCase()

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon, editUserProfile, resetPkgCompare, clearVipSelectedPlan } from '../../actions/index.js'
+import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon, editUserProfile, resetPkgCompare, clearVipSelectedPlan, toggleDiagnosisCriteria } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 import FCM from '../../helpers/fcm'
@@ -54,7 +54,8 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         resetPkgCompare: () => dispatch(resetPkgCompare()),
-        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan())
+        clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan()),
+        toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters))
     }
 }
 

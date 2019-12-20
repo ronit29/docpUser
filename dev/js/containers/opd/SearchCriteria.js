@@ -16,7 +16,7 @@ class SearchCriteria extends React.Component {
     componentDidMount() {
         this.props.loadOPDCommonCriteria(this.props.selectedLocation)
         this.props.resetFilters()
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static contextTypes = {
