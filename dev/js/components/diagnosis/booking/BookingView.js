@@ -99,6 +99,10 @@ class BookingView extends React.Component {
                     }
                     info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': mrp, 'deal_price': deal_price })
                     info = JSON.stringify(info)
+                    let is_gold_user = false
+                        if(data && data.length && data[0].gold && Object.keys(data[0].gold).length){
+                            is_gold_user = data[0].gold.is_gold 
+                        }
                     STORAGE.setAppointmentDetails(info).then((setCookie) => {
 
                         if (this.state.payment_success) {
@@ -108,6 +112,14 @@ class BookingView extends React.Component {
                             }
 
                             GTM.sendEvent({ data: analyticData }, true, false)
+
+                            if(is_gold_user){
+                                let vipBookedData = {
+                                    'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked', 'user_id': GTM.getUserId()
+                                }
+                                GTM.sendEvent({ data: vipBookedData })
+                            }
+                            
                             let criteo_data =
                             {
                                 'event': "trackTransaction", 'id': appointmentId, 'item': [
