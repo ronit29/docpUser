@@ -562,6 +562,13 @@ const MedlifePolicyApp = Loadable({
     webpack: () => [require.resolveWeak('./containers/commons/medlifePolicyApp.js')],
     loading,
 })
+
+const CommonTnC = Loadable({
+    loader: () => import('./components/commons/commonTnC.js'),
+    modules: ['./components/commons/commonTnC.js'],
+    webpack: () => [require.resolveWeak('./components/commons/commonTnC.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -694,7 +701,8 @@ let routes = [
     { path: '/terms-conditions-policy-paypal', exact:true, component:PaypalCancellation},
     { path: '/vip-gold-details',exact:true, component: VipClubView},
     { path: '/vip-club-gold-details',exact:true, component: VipClubView},
-    { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp}
+    { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp},
+    { path: '/terms-conditions/:id',exact:true, component: CommonTnC }
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

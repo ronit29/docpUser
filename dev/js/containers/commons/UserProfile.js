@@ -40,7 +40,7 @@ class UserProfile extends React.Component {
             this.props.getCartItems()
             this.props.getIsCareDetails()
         }
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
 
     }
 

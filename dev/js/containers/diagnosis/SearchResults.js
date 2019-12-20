@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, NonIpdBookingLead } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder,clearVipSelectedPlan } from '../../helpers/urltoState'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, NonIpdBookingLead, clearVipSelectedPlan } from '../../actions/index.js'
+import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
 
@@ -19,7 +19,7 @@ class SearchResults extends React.Component {
             this.setState({ show404: true })
             this.props.toggle404(false)
         }
-        this.props.loadOPDInsurance(this.props.selectedLocation)
+        // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static loadData(store, match, queryParams = {}) {

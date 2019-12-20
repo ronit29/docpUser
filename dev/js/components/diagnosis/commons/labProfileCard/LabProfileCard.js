@@ -62,7 +62,7 @@ class LabProfileCard extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
         }
         GTM.sendEvent({ data: data })
-
+        this.props.clearVipSelectedPlan()
         if (e.ctrlKey || e.metaKey) {
 
         } else {
@@ -237,6 +237,7 @@ class LabProfileCard extends React.Component {
                                     <div className="text-center">
                                         <a href={`/${url}`} onClick={(e) => {
                                             e.preventDefault();
+                                            this.bookNowClicked(id, url);
                                         }}>
                                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
                                                 <img alt={name} className="fltr-usr-image-lab hpl-logo-name" src={lab_thumbnail} />
@@ -254,6 +255,7 @@ class LabProfileCard extends React.Component {
                                 <div className="cstm-doc-content-container">
                                     <a href={`/${url}`} onClick={(e) => {
                                         e.preventDefault();
+                                        this.bookNowClicked(id, url);
                                     }}>
                                         <h2 className="cstmDocName">{name}</h2>
                                     </a>

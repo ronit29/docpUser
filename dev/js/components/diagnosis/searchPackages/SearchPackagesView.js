@@ -354,7 +354,7 @@ class SearchPackagesView extends React.Component {
             package_name = 'Health Packages'
         }
         console.log(package_name)
-        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:package_name})
+        let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:package_name,exitpoint_url : 'http://docprime.com' + this.props.location.pathname})
         console.log(data)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
@@ -362,6 +362,10 @@ class SearchPackagesView extends React.Component {
 
     closeIpdLeadPopup(from){
         if(from){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonIpdPackageListingCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-package-listing-cross-click'
+        }
+        GTM.sendEvent({ data: data })
             this.setState({to_be_force:0})
         }
     }

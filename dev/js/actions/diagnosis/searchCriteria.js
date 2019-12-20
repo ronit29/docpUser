@@ -18,7 +18,18 @@ export const loadLabCommonCriterias = () => (dispatch) => {
 
 }
 
-export const toggleDiagnosisCriteria = (type, criteria, forceAdd = false) => (dispatch) => {
+export const toggleDiagnosisCriteria = (type, criteria, forceAdd = false, extraDataParams={}) => (dispatch) => {
+    if(extraDataParams && extraDataParams.forceAddTestids){
+        dispatch({
+            type: TOGGLE_DIAGNOSIS_CRITERIA,
+            payload: {
+                forceAddTestids: true,
+                tests: extraDataParams.tests,
+                labId: extraDataParams.labId
+            }
+        })
+        return;
+    }
     dispatch({
         type: TOGGLE_DIAGNOSIS_CRITERIA,
         payload: {

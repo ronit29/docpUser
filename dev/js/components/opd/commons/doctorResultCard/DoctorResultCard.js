@@ -36,7 +36,7 @@ class DoctorProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
 
         let { category_ids, procedure_ids } = this.trackingEventsBookNow(id)
-
+        this.props.clearVipSelectedPlan()
         if (e.ctrlKey || e.metaKey) {
 
         } else {
@@ -76,6 +76,7 @@ class DoctorProfileCard extends React.Component {
         }
         let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
+        this.props.clearVipSelectedPlan()
         if (url) {
             this.props.history.push(`/${url}/booking?doctor_id=${id}&hospital_id=${hospital_id}`)
         } else {

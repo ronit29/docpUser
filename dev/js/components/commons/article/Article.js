@@ -19,6 +19,7 @@ import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
 import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import MainPopup from '../mainPopup.js'
 import Loader from '../Loader';
 
 // import RelatedArticles from './RelatedArticles'
@@ -55,7 +56,9 @@ class Article extends React.Component {
             showPopup: false,
             medBtnTop: '',
             showPharmacyAtClient: false,
-            showPharmacyFooter: true
+            showPharmacyFooter: true,
+            showMainPopup: false,
+            isMedicinePage: this.props.match.url.includes('-mddp'),
         }
     }
 
@@ -84,7 +87,12 @@ class Article extends React.Component {
         setTimeout(()=>{
             this.setState({showPharmacyFooter: true})
         },6000)
-
+        
+        if(this.state.isMedicinePage){
+            setTimeout(() => {
+                this.setState({ showMainPopup: true })
+            }, 4000)
+        }
         if (window && this.props.match.path.split('-')[1] === 'mddp') {
             window.addEventListener('scroll', this.scrollHandler)
         }
@@ -317,6 +325,31 @@ class Article extends React.Component {
     hidePopup() {
         this.setState({ showPopup: false })
     }
+    mainPopupData() {
+        let data = (
+            <div className="articleImgPop">
+                <div className="p-relative gold-med-bnr">
+                    <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-cross-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        event.stopPropagation();
+                        this.setState({showMainPopup:false})}} />
+                    <img className="img-fluid " src={ASSETS_BASE_URL + '/img/goldpopup-min.png'} onClick={(e)=>{
+                        e.stopPropagation();
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
+                    }}/>
+                </div>
+            </div>
+        )
+        return data
+    }
+
 
     render() {
 
@@ -343,6 +376,11 @@ class Article extends React.Component {
             <div className="profile-body-wrap" style={showIframe && sessionId ? {} : { paddingBottom: 54 }}>
                 <ProfileHeader />
                 {
+                    this.state.showMainPopup ?
+                        <MainPopup resp={this.mainPopupData()} />
+                        : ''
+                }
+                {
                     this.state.articleData && showIframe && sessionId ?
                         <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : CONFIG.PHARMEASY_IFRAME_URL} className="pharmeasy-iframe"></iframe>
                         :
@@ -358,7 +396,7 @@ class Article extends React.Component {
                                 }
                                 <div className="row main-row parent-section-row">
                                     <LeftBar />
-                                    <div className="col-12 col-md-7 col-lg-8 center-column">
+                                    <div className="col-12 col-md-7 center-column">
                                         {
                                             this.state.articleData ? <div className="container-fluid article-column">
 
@@ -596,14 +634,14 @@ class Article extends React.Component {
                                                 </div> : ''
                                         } */}
                                     </div>
-                                    <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
+                                    <RightBar colClass="col-12 col-lg-5" articleData={this.state.articleData} />
                                 </div>
 
                                 <div className="row">
                                     {
                                         this.state.articleLoaded ?
                                             this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
-                                                <div className="col-12 col-md-7 col-lg-8 center-column">
+                                                <div className="col-12 col-md-7 center-column">
                                                     <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                                     {
                                                         this.state.articleData.comments.map((comment, key) => {
@@ -616,7 +654,7 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleLoaded ?
-                                            <div className="col-12 col-md-7 col-lg-8 center-column">
+                                            <div className="col-12 col-md-7 center-column">
                                                 <div className="widget mrb-15 mrng-top-12">
                                                     <div className="widget-content">
                                                         <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true} />

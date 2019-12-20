@@ -3,6 +3,7 @@ import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
 import LeftMenu from '../LeftMenu/LeftMenu.js'
 import IpdChatPanel from '../ChatPanel/ChatIpdPanel.js'
+import STORAGE from '../../../helpers/storage'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -11,12 +12,40 @@ class DesktopProfileHeader extends React.Component {
             headerButtonsState: false,
             medicinePopup: false,
             toggleHamburger: this.props.toggleLeftMenu || false,
-            showLeftMenu: false
+            showLeftMenu: false,
+            showSBI: false
         }
     }
 
     componentDidMount() {
         this.setState({ showLeftMenu: true })
+        
+        if(this.props.new_fixed_header && this.props.new_fixed_header == 1){
+            window.addEventListener('scroll', () => {
+                const scrollHeight = window.pageYOffset;
+                if (window.innerWidth < 767){
+                    const gHeader = document.getElementById('is_header');
+                    if(gHeader){
+                        const gHeaderHeight = gHeader.clientHeight;
+                        // if(gHeader){
+                        //     gHeader.style.backgroundImage = "none";
+                        // }
+                        if(document.getElementById('listing-header')){
+                            const lvHeader = document.getElementById('listing-header');             
+                            if(scrollHeight >= gHeaderHeight/2){
+                                lvHeader.classList.add('listing-header')
+                            }else{
+                                lvHeader.classList.remove('listing-header')
+                            }
+                        }
+                    }
+                }  
+            })
+        }
+        this.setState({ showLeftMenu: true})
+        setTimeout(()=>{
+            this.setState({showSBI: true })
+        }, 100)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,6 +58,7 @@ class DesktopProfileHeader extends React.Component {
                 }
             })
         }
+        
     }
 
     navigateTo(where, type) {
@@ -96,7 +126,6 @@ class DesktopProfileHeader extends React.Component {
     }
 
     render() {
-
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
             profileData = this.props.profiles[this.props.defaultProfile]
@@ -196,20 +225,33 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
 
-                    <div className="row align-items-center">
+                    <div className= {`row align-items-center ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header">
 
-                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
+                        <div className="col-lg-cstm-1 col-md-4 col-7 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
-                                this.toggleLeftMenu()
-                            }}>
+                                this.toggleLeftMenu()}}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
-                            </div>
-                            <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
+                            </div>   
+                            <a className="logo-ancher logo-width-cut sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
                                 <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
-                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                {
+                                    this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                    <React.Fragment>
+                                        {
+                                            this.props.homePage?
+                                            <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                            :''
+                                        }
+                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                    </React.Fragment>
+                                    :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                }
+                                
+                                
                             </a>
+                            
                         </div>
 
 
@@ -330,7 +372,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
+                        <div className="col-lg-9 col-md-8 col-5 ml-auto text-right d-lg-none pl-0">
                             {
                                 this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
                                     <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
@@ -379,29 +421,29 @@ class DesktopProfileHeader extends React.Component {
 
                         {
                             this.state.medicinePopup ?
-                                <div className='col-12 mrb-15'>
-                                    <div className="search-show art-padding d-lg-none">
-                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-medicines")
-                                        }}>
-                                            <span>All Medicines</span>
-                                        </a>
+                            <div className='col-12 mrb-15'>
+                                <div className="search-show art-padding d-lg-none">
+                                    <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-medicines")
+                                    }}>
+                                        <span>All Medicines</span>
+                                    </a>
 
-                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push("/all-diseases")
-                                        }}>
-                                            <span>All Diseases</span>
-                                        </a>
-                                    </div>
+                                    <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push("/all-diseases")
+                                    }}>
+                                        <span>All Diseases</span>
+                                    </a>
                                 </div>
-                                : ''
+                            </div>
+                            : ''
                         }
 
                         <div className="col-12 d-lg-none">
                             {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">
                                     <div onClick={this.openSearch.bind(this)}>
                                         <div className="header-serach-input-div">
                                             <span>Search Doctors &amp; Tests</span>
@@ -414,6 +456,31 @@ class DesktopProfileHeader extends React.Component {
                             }
                         </div>
                     </div>
+                    {/* listing view new header*/}
+                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                        <div className="row listing-view-header visible-col" id="listing-header">
+                            <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()}}>
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                            </div>
+                            <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
+                                {
+                                    this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                        <div onClick={this.openSearch.bind(this)}>
+                                            <div className="header-serach-input-div">
+                                                <span>Search Doctors &amp; Tests</span>
+                                            </div>
+                                            {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                        </div>
+                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                    </div> : ""
+                                }
+                            </div>
+                        </div>
+                    :''}
                 </div>
             </header>
         );

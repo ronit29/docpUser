@@ -195,8 +195,8 @@ class HomeChatView extends React.Component {
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
-			slabOrder.push(<ChatPanel key="1" homePage={true} chatPage={true} offerList={this.props.offerList} />)
-			slabOrder.push(
+			slabOrder.push(<ChatPanel key="1" homePage={true} chatPage={true} offerList={this.props.offerList} webChatPage={true}/>)
+			/*slabOrder.push(
 				<div key="2" className="col-md-5">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
@@ -220,9 +220,9 @@ class HomeChatView extends React.Component {
 							<span className="top-head-link card-lab-link" onClick={() => this.props.history.push('/doctorsignup')}>Register your clinic or Hospital <img width="18px" src={ASSETS_BASE_URL + "/img/arrow-link.svg"} /></span>
 						</div>
 					</div>
-				</div>)
+				</div>)*/
 
-			slabOrder.push(
+			/*slabOrder.push(
 				<div key="3" className="col-md-5">
 					<div className="right-card-container">
 						<UpComingAppointmentView {...this.props} />
@@ -273,15 +273,15 @@ class HomeChatView extends React.Component {
 				temp = slabOrder[j]
 				slabOrder[j] = slabOrder[j - 1]
 				slabOrder[j - 1] = temp
-			}
+			}*/
 
 		} else {
 
-			slabOrder.push(<ChatPanel key="12" homePage={true} chatPage={true} offerList={this.props.offerList} />)
-			slabOrder.push(
-				<div key="22" className="col-md-5">
-					<div className="right-card-container">
-						<UpComingAppointmentView {...this.props} />
+			slabOrder.push(<ChatPanel key="12" homePage={true} chatPage={true} offerList={this.props.offerList} webChatPage={true} />)
+			//slabOrder.push(
+				{/*<div key="22" className="col-md-5">*/}
+					{/*<div className="right-card-container">*/}
+						{/*<UpComingAppointmentView {...this.props} />*/}
 						{/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
@@ -305,19 +305,19 @@ class HomeChatView extends React.Component {
 						} */}
 
 						{
-							this.props.top_hospitals && this.props.top_hospitals.length ?
+							/*this.props.top_hospitals && this.props.top_hospitals.length ?
 								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
-								: ''
+								: ''*/
 						}
 
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+							/*this.props.ipd_procedures && this.props.ipd_procedures.length ?
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
-								: ''
+								: ''*/
 						}
 
 						{
-							this.props.common_package && this.props.common_package.length ?
+							/*this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
 									heading="Health Packages"
 									discount="50%"
@@ -329,7 +329,7 @@ class HomeChatView extends React.Component {
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
-								/> : ""
+								/> : ""*/
 						}
 
 						{/* x ray landing page cards */}
@@ -351,7 +351,7 @@ class HomeChatView extends React.Component {
 						</div> */}
 						{/* x ray landing page cards */}
 
-						<div className="banner-cont-height home-page-banner-div">
+						{/*<div className="banner-cont-height home-page-banner-div">
 							<div className="hidderBanner banner-carousel-div d-md-none">
 								<div className="divHeight"></div>
 							</div>
@@ -359,14 +359,14 @@ class HomeChatView extends React.Component {
 								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
 									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="online_consultation" /> : ''
 							}
-						</div>
+						</div>*/}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
 						</div> */}
 
-						<HomePageWidget
+						{/*<HomePageWidget
 							heading="Book Doctor Appointment"
 							discount="50%"
 							list={topSpecializations}
@@ -375,14 +375,14 @@ class HomeChatView extends React.Component {
 							{...this.props}
 							navTo="/search?from=home"
 							type="opd"
-						/>
+						/>*/}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
 							<button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
 						</div> */}
 
-						<HomePageWidget
+						{/*<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
 							list={topTests}
@@ -391,14 +391,15 @@ class HomeChatView extends React.Component {
 							{...this.props}
 							navTo="/search?from=home"
 							type="lab"
-						/>
+						/>*/}
 
-					</div>
-				</div>)
+					/*</div>
+				</div>*/
+				//)
 		}
 
 		return (
-			<div className="profile-body-wrap fxd-ftr-btm-pdng">
+			<div className="profile-body-wrap">
 
 				<HelmetTags tagsData={{
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
@@ -463,21 +464,21 @@ class HomeChatView extends React.Component {
 				</div>
 				<div className="chat-main-container">
 					<div className="container">
-						<div className="row">
+						<div className="row justify-content-center">
 							{slabOrder}
 						</div>
 					</div>
 
-					<Accordian />
+					{/*<Accordian />*/}
 					{
-						showPackageStrip ?
+						/*showPackageStrip ?
 							<PackageCompareStrip {...this.props} />
 							:
-							<FixedMobileFooter {...this.props} />
+							<FixedMobileFooter {...this.props} />*/
 					}
 
 				</div>
-				<Footer specialityFooterData={this.state.specialityFooterData} />
+				{/*<Footer specialityFooterData={this.state.specialityFooterData} />*/}
 			</div>
 		);
 	}

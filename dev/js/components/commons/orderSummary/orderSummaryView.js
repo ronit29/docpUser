@@ -26,12 +26,15 @@ class OrderSummaryView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchOrderSummary(this.props.match.params.id).then((res) => {
                 if (res.data && res.data.length) {
-                    this.setState({ items: res.data })
+                    this.setState({ items: res.data, data: res })
 
                     let orderId = this.props.match.params.id
                     let deal_price = 0
                     let info = {}
                     info[orderId] = []
+                    let isLab = res.data[0].data.tests
+                    let isDoctor = res.data[0].data.doctor
+                    let appointmentId = res.data[0].booking_id
                     res.data.map((data) => {
                         info[orderId].push({ 'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price })
                         deal_price += parseInt(data.deal_price)
@@ -46,8 +49,21 @@ class OrderSummaryView extends React.Component {
                     info = JSON.stringify(info)
 
                     STORAGE.setAppointmentDetails(info).then((setCookie) => {
-
                         if (this.state.payment_success) {
+                            if(isLab && isLab.length >0){
+                                let labData = {
+                                    'Category': 'ConsumerApp', 'Action': 'LabAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'lab-appointment-booked'
+                                }
+
+                                GTM.sendEvent({ data: labData })
+                            }
+
+                            if(isDoctor && Object.keys(isDoctor).length >0){
+                                let docData = {
+                                    'Category': 'ConsumerApp', 'Action': 'DoctorAppointmentBooked', 'CustomerID': GTM.getUserId(), 'leadid': appointmentId, 'event': 'doctor-appointment-booked'
+                                }
+                                GTM.sendEvent({ data: docData })
+                            }
 
                             let analyticData = {
                                 'Category': 'ConsumerApp', 'Action': 'OrderPlaced', 'CustomerID': GTM.getUserId(), 'leadid': orderId, 'event': 'order-booked'
@@ -84,6 +100,10 @@ class OrderSummaryView extends React.Component {
         } else {
             this.props.history.push('/cart')
         }
+    }
+
+    navigateToSBI(){
+        window.open('http://13.235.199.36/webcore/docprimecallback', '_blank')
     }
 
     render() {
@@ -175,7 +195,7 @@ class OrderSummaryView extends React.Component {
                                                                 </ul>
                                                             </div>
                                                             {
-                                                                item.payment_mode && 
+                                                                item.payment_mode &&
                                                                 <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                                                                     <span>Payment mode</span>
                                                                     <span>{item.payment_mode}</span>
@@ -184,6 +204,17 @@ class OrderSummaryView extends React.Component {
                                                         </div>
                                                     </div>
                                                 })
+                                            }
+                                            {
+                                                this.state.data && this.state.data.appointment_via_sbi ?
+
+                                                    <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ">
+                                                        <button className="v-btn-primary book-btn-mrgn-adjust " onClick={() => { this.navigateToSBI()}}>
+                                                            Go Back To SBIG Home
+                                                        </button>
+                                                    </div>
+
+                                                    : ''
                                             }
 
                                         </div>
