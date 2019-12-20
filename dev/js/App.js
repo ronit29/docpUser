@@ -72,6 +72,7 @@ class App extends React.Component {
         let user_profile_id = null
         var ciphertext = null
         const parsed = queryString.parse(window.location.search)
+        console.log('in condsssss')
         if (STORAGE.checkAuth()) {
             this.props.getCartItems()
             if(this.props.profiles && Object.keys(this.props.profiles).length > 0){
@@ -90,7 +91,7 @@ class App extends React.Component {
                         })
                     }
                 })
-            }, 5000)
+            }, 60000)
         }
 
         let OTT = parsed.access_token
