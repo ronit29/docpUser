@@ -203,7 +203,7 @@ class App extends React.Component {
                 if(sessionStorage) {
                     sessionStorage.setItem('sessionIdVal',sessionId)   
                 }
-                let common_utm_tags = {
+                let common_xtra_tags = {
                     utm_tags: {
                         utm_source: parsed.utm_source||'',
                         utm_term: parsed.utm_term||'',
@@ -213,10 +213,21 @@ class App extends React.Component {
                     time: new Date().getTime(),
                     currentSessionId: sessionId
                 }
-                this.props.setCommonUtmTags('common_utm_tags', common_utm_tags)
+                this.props.setCommonUtmTags('common_xtra_tags', common_xtra_tags)
             }
         }catch(e) {
 
+        }
+
+        //Clear Utm tags for SPO, after 15 minutes
+        let currentTime = new Date().getTime()
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='common_xtra_tags').length) {
+            let common_xtra_tags = this.props.common_utm_tags.filter(x=>x.type=='common_xtra_tags')[0]
+            let sessionVal = parseInt(sessionStorage.getItem('sessionIdVal'))
+            if(spo_tags.time && sessionVal == parseInt(common_xtra_tags.currentSessionId)){
+                let time_offset = (currentTime - common_xtra_tags.time)/60000
+                this.props.unSetCommonUtmTags('common_xtra_tags')
+            }
         }
 
     }

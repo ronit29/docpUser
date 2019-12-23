@@ -113,12 +113,12 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}, callback) => (dispatch) => {
+export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800
     let longitude = 77.216721
-    if (selectedLocation) {
+    if (data.selectedLocation) {
         lat = selectedLocation.geometry.location.lat
         long = selectedLocation.geometry.location.lng
 
@@ -127,26 +127,29 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
 
     }
     let plan={}
-        plan.plan_id= selectedPlan
+        plan.plan_id= data.selectedPlan
         plan.phone_number=''
-        plan.name = user_name
+        plan.name = data.user_name
         plan.source=''
-        if(lead_data && lead_data.source){
-            plan.source = lead_data.source
+        if(data.lead_data && data.lead_data.source){
+            plan.source = data.lead_data.source
         }
-        if(number == '' && lead_data &&  lead_data.phone_number){
-            plan.phone_number = lead_data.phone_number
+        if(data.number == '' && data.lead_data &&  data.lead_data.phone_number){
+            plan.phone_number = data.lead_data.phone_number
         }else{
-            plan.phone_number = number
+            plan.phone_number = data.number
         }
-        plan.lead_data = lead_data
-        plan.lead_source = lead_data.lead_source
+        plan.lead_data = data.lead_data
+        plan.lead_source = data.lead_data.lead_source
         if(latitude != lat && longitude != long){
             plan.latitude = latitude
             plan.longitude = longitude
         }
-    if(extraParams && extraParams.city_id) {
-        plan.city_id = extraParams.city_id
+    if(data.extraParams && data.extraParams.city_id) {
+        plan.city_id = data.extraParams.city_id
+    }
+    if(data.extraParams && Object.keys(data.extraParams).length){
+        plan.lead_data = {...data.lead_data, ...data.extraParams}
     }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
         if(callback) callback(response)
