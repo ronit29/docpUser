@@ -395,10 +395,10 @@ class VipLoginPopup extends React.Component {
                     <div className={`cancel-overlay cancel-overlay-zindex`} onClick={this.props.hideLoginPopup.bind(this)}>
                     </div>
                     <section className="mobile-verification-screen p-3">
-                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup`}>
+                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup p-3 `}>
                             <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             <div className="ins-form-slider">
-                                <div className="one">
+                                <div className="one d-none">
                                     <div className="widget-header text-center mv-header d-none">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your registered mobile number to login</h4>
                                     </div>
@@ -443,7 +443,7 @@ class VipLoginPopup extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="two">
+                                <div className="two d-none">
                                     <div className="widget-header text-center mv-header">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter the OTP we’ve sent to your mobile number</h4>
                                     </div>
@@ -486,6 +486,19 @@ class VipLoginPopup extends React.Component {
                                                     </button>
                                                 </div>
                                         }
+                                    </div>
+                                </div>
+                                <div className="three upload-prescription">
+                                    <div className="widget-header text-center mv-header p-0">
+                                        <h4 className="fw-500 text-md sign-up-mbl-text">Upload prescription</h4>
+                                    </div>
+                                    <div className="upload-prescription-column p-4 d-flex align-item-center justify-content-center flex-column">
+                                        {/* <img width="70px" src={ASSETS_BASE_URL + "/img/presc-icon.png"} /> */}
+                                        <img className="uploaded-presc-img" src="https://www.wikihow.com/images/thumb/0/02/Write-a-Prescription-Step-15.jpg/aid5679943-v4-1200px-Write-a-Prescription-Step-15.jpg" />
+                                        <button className="cstm-book-btn fw-500 d-flex align-item-center">
+                                             <img src={ASSETS_BASE_URL + "/img/up-arrow.png"} />
+                                             <span className="ml-3">Upload</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
