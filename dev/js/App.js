@@ -73,6 +73,7 @@ class App extends React.Component {
         var ciphertext = null
         const parsed = queryString.parse(window.location.search)
         if (STORAGE.checkAuth()) {
+            console.log('isauth')
             this.props.getCartItems()
             if(this.props.profiles && Object.keys(this.props.profiles).length > 0){
                 user_profile_id = this.props.profiles[this.props.defaultProfile].id
@@ -80,6 +81,7 @@ class App extends React.Component {
             }
             let intervalId = setInterval(() => {
                 STORAGE.getAuthToken().then((token) => {
+                    console.log('intoken')
                     if (token) {
                         API_POST('/api/v1/user/api-token-refresh', {
                             token: token,
@@ -89,7 +91,7 @@ class App extends React.Component {
                         })
                     }
                 })
-            }, 60000)
+            }, 300000)
         }
 
         let OTT = parsed.access_token
@@ -209,15 +211,22 @@ class App extends React.Component {
 
     encrypt(user_profile_id) {
         let date = Math.floor(new Date().getTime() / 1000)
-        let encryptedData = `${user_profile_id}.${date}}`;
+        let encryptedData = `${user_profile_id}.${date}`;
         let msgString = encryptedData.toString();
-        var key = 'hpDqwzdpoQY8ymm5';
+        var key = this.generateKeyFromPassword('hpDqwzdpoQY8ymm5');
         var iv = CryptoJS.lib.WordArray.random(16);
         var encrypted = CryptoJS.AES.encrypt(msgString, key, {
             iv: iv
         });
         return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
-}
+    }
+
+    generateKeyFromPassword(password) {
+      var userHash = CryptoJS.MD5(password);
+      var keyStr = userHash.toString().substring(0, 16);
+      var key = CryptoJS.enc.Utf8.parse(keyStr);
+      return key;
+    }
 
     toggleLeftMenu(toggle, defaultVal) {
         if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
