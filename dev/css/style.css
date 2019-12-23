@@ -3655,7 +3655,7 @@ span.tbl-price-span {
     display: block;
     position: relative;
     padding-left: 29px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
     cursor: pointer;
     font-size: 16px;
     -webkit-user-select: none;
@@ -4213,7 +4213,7 @@ header.searcLocationHeaderPadding{
 
 .serch-nw-inputs {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .serch-nw-inputs input.new-srch-inp {
