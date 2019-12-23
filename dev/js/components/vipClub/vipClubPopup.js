@@ -139,44 +139,44 @@ class VipLoginPopup extends React.Component {
                         //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                         // }
                         // GTM.sendEvent({ data: data })
-                        let api_params = {} 
+                        let api_params = {}
                         api_params.selectedLocation = this.props.selectedLocation
                         api_params.isSalesAgent = this.props.isSalesAgent
                         api_params.isAgent = this.props.isAgent
                         api_params.is_gold = this.props.is_gold
                         api_params.all = this.props.is_vip_gold
-                        this.props.getVipList(false, api_params,(resp) => {
+                        this.props.getVipList(false, api_params, (resp) => {
                             this.props.getUserProfile()
                             if (!resp.certificate) {
                                 let url = '/vip-club-member-details?isDummy=true'
-                                    if(lead_data.utm_source){
-                                        url += '&utm_source='+lead_data.utm_source
-                                    }
-                                    if(lead_data.utm_term){
-                                        url += '&utm_term='+lead_data.utm_term
-                                    }
-                                    if(lead_data.utm_campaign){
-                                        url += '&utm_campaign='+lead_data.utm_campaign
-                                    }
-                                    if(lead_data.utm_medium){
-                                        url += '&utm_medium='+lead_data.utm_medium
-                                    }
-                                    if(lead_data.is_agent){
-                                        url += '&is_agent='+lead_data.is_agent
-                                    }
-                                    if (lead_data.is_gold) {
-                                        url += '&is_gold=' + lead_data.is_gold
-                                    }
+                                if (lead_data.utm_source) {
+                                    url += '&utm_source=' + lead_data.utm_source
+                                }
+                                if (lead_data.utm_term) {
+                                    url += '&utm_term=' + lead_data.utm_term
+                                }
+                                if (lead_data.utm_campaign) {
+                                    url += '&utm_campaign=' + lead_data.utm_campaign
+                                }
+                                if (lead_data.utm_medium) {
+                                    url += '&utm_medium=' + lead_data.utm_medium
+                                }
+                                if (lead_data.is_agent) {
+                                    url += '&is_agent=' + lead_data.is_agent
+                                }
+                                if (lead_data.is_gold) {
+                                    url += '&is_gold=' + lead_data.is_gold
+                                }
                                 if (Object.keys(self.props.selected_vip_plan).length > 0) {
                                     let extraParams = {}
                                     /*if(this.props.user_cities && this.props.user_cities.length){
                                         extraParams.city_id = this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
                                     }*/
 
-                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name, extraParams, (resp)=>{
+                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber, lead_data, self.props.selectedLocation, self.state.user_name, extraParams, (resp) => {
                                         let LeadIdData = {
-                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                                            }
+                                            'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                        }
                                         GTM.sendEvent({ data: LeadIdData })
                                     })
                                 }
@@ -187,7 +187,7 @@ class VipLoginPopup extends React.Component {
                                     this.props.closeLeadPopup()
                                     this.props.history.push(url)
                                 }
-                            }else{
+                            } else {
                                 this.props.closeLeadPopup()
                                 this.props.history.push('vip-club-activated-details')
                                 // this.props.history.push('vip-club-activated-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)
@@ -329,7 +329,7 @@ class VipLoginPopup extends React.Component {
 
     }
 
-    addMemberBySelf(){
+    addMemberBySelf() {
         this.props.addMembers(true)
         this.props.hideSelectProfilePopup()
     }
@@ -337,16 +337,16 @@ class VipLoginPopup extends React.Component {
     render() {
         if (this.props.isSelectprofile) {
             let currentSelectedProfiles = []
-            if(this.props.show_selected_profiles && this.props.show_selected_profiles.length >0){
+            if (this.props.show_selected_profiles && this.props.show_selected_profiles.length > 0) {
                 this.props.currentSelectedVipMembersId.map((val, key) => {
                     currentSelectedProfiles.push(val[key])
                 })
             }
             let already_users_ids = []
-            if(this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
-                    this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-                        already_users_ids.push(val.profile)
-                    })
+            if (this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0) {
+                this.props.vip_club_db_data.data.user.plus_members.map((val, key) => {
+                    already_users_ids.push(val.profile)
+                })
             }
             return (
                 <div>
@@ -364,22 +364,22 @@ class VipLoginPopup extends React.Component {
                         <div className="col-12">
                             <div className="ins-form-radio insradio-on-popup">
                                 {
-                                this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length >0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length >0?
-                                    Object.entries(this.props.USER.profiles).map(function ([key, value]) {
-                                        
-                                        if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && already_users_ids.indexOf(parseInt(key)) == -1) {
-                                            return <div key={key} className="dtl-radio">
-                                                <label className="container-radio">
-                                                    {value.name}
-                                                    <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value, value.age)} />
-                                                    <span className="doc-checkmark"></span>
-                                                </label>
-                                            </div>
-                                        }
-                                    }, this)
-                                :''}
-                                {this.props.is_from_payment?'' 
-                                :<span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Profile</span>  
+                                    this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.show_selected_profiles && this.props.show_selected_profiles.length > 0 ?
+                                        Object.entries(this.props.USER.profiles).map(function ([key, value]) {
+
+                                            if (currentSelectedProfiles.indexOf(parseInt(key)) == -1 && already_users_ids.indexOf(parseInt(key)) == -1) {
+                                                return <div key={key} className="dtl-radio">
+                                                    <label className="container-radio">
+                                                        {value.name}
+                                                        <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value, value.age)} />
+                                                        <span className="doc-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        }, this)
+                                        : ''}
+                                {this.props.is_from_payment ? ''
+                                    : <span className="text-primary fw-500 my-profile-item" onClick={this.addMemberBySelf.bind(this)}>Add New Profile</span>
                                 }
                             </div>
                         </div>
@@ -389,14 +389,98 @@ class VipLoginPopup extends React.Component {
                     </div>
                 </div>
             )
-        } else {
+        } else if (this.props.is_see_more) {
             return (
                 <div className="col-12 col-md-7  center-column">
-                    <div className={`cancel-overlay cancel-overlay-zindex`} onClick={this.props.hideLoginPopup.bind(this)}>
+                    <div className={`cancel-overlay cancel-overlay-zindex`} onClick={this.props.closeLeadPopup.bind(this)}>
                     </div>
                     <section className="mobile-verification-screen p-3">
                         <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup`}>
-                            <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
+                            <div className="widget-header text-center action-screen-header">
+                                <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.closeLeadPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
+                                <p className="fw-500 cancel-appointment-head">Example</p>
+                            </div>
+                            <div className="gold-avail-popup-container">
+                                <div className="avl-card-list">
+                                    <div className="avl-left-cont">
+                                        <p>Doctor Appointments</p>
+                                        <span>Average 40% OFF</span>
+                                    </div>
+                                    <div className="avl-right-cont">
+                                        <div className="duo-price-cont">
+                                            <div className="duo-price">
+                                                <p>MRP</p>
+                                                <span className="cut-price">₹1000</span>
+                                            </div>
+                                            <div className="duo-price">
+                                                <p>You Pay</p>
+                                                <span className="b-0">₹600</span>
+                                            </div>
+                                        </div>
+                                        <div className="text-center avl-svng">
+                                            <p>Savings ₹400</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="avl-card-list">
+                                    <div className="avl-left-cont">
+                                        <p>Lab Tests</p>
+                                        <span>Average 50% OFF</span>
+                                    </div>
+                                    <div className="avl-right-cont">
+                                        <div className="duo-price-cont">
+                                            <div className="duo-price">
+                                                <p>MRP</p>
+                                                <span className="cut-price">₹1000</span>
+                                            </div>
+                                            <div className="duo-price">
+                                                <p>You Pay</p>
+                                                <span className="b-0">₹500</span>
+                                            </div>
+                                        </div>
+                                        <div className="text-center avl-svng">
+                                            <p>Savings ₹500</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="avl-card-list">
+                                    <div className="avl-left-cont">
+                                        <p>Medicines</p>
+                                        <span>Average 23% OFF</span>
+                                    </div>
+                                    <div className="avl-right-cont">
+                                        <div className="duo-price-cont">
+                                            <div className="duo-price">
+                                                <p>MRP</p>
+                                                <span className="cut-price">₹1000</span>
+                                            </div>
+                                            <div className="duo-price">
+                                                <p>You Pay</p>
+                                                <span className="b-0">₹770</span>
+                                            </div>
+                                        </div>
+                                        <div className="text-center avl-svng">
+                                            <p>Savings ₹230</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="avl-foot-cont">
+                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family member</p>
+                                    <p className="avl-cont"> ₹4520/yr</p>
+                                </div>
+                        </div>
+                    </section>
+                </div>
+            )
+        } else {
+            return (
+                <div className="col-12 col-md-7  center-column">
+                    <div className={`cancel-overlay cancel-overlay-zindex`} onClick={this.props.closeLeadPopup.bind(this)}>
+                    </div>
+                    <section className="mobile-verification-screen p-3">
+                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup`}>
+                            <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.closeLeadPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             <div className="ins-form-slider">
                                 <div className="one">
                                     <div className="widget-header text-center mv-header">

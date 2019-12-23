@@ -251,7 +251,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup ?
-                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} is_see_more={false}/> : ''
                     }
                     {!this.props.is_gold && !this.state.is_gold_clicked?
                          <VipPlanView {...this.props} 
