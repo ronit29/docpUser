@@ -14561,3 +14561,26 @@ div.doc-srch-fltr.vip-slct-pop {
     } */
 }
 
+/*upload prescription css*/
+.upload-prescription-widget{
+    padding:12px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.upload-prescription-widget > div > h6{
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.upload-prescription-widget > button{
+    font-size: 14px;
+    line-height: 1.09;
+    width:auto;
+    padding:8px 23px
+}
+@media (min-width:768px){
+    .upload-prescription-widget > div > h6{
+        font-size: 17px;
+        line-height: 17px;
+    } 
+}

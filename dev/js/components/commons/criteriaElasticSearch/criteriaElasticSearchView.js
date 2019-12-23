@@ -365,8 +365,8 @@ class CriteriaElasticSearchView extends React.Component {
                             <img className="search-back-main-ico" src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} onClick={()=> this.props.history.goBack()}/>
                             {
                                 // goback decides if search bar will be shown
-                                this.props.goBack ? "" :<React.Fragment>
-                                    <div className="widget mb-10">
+                                this.props.goBack ? "" :
+                                    <div className="widget mb-3">
                                         <div className="search-top-container">
                                             {/* <p className="srch-heading">Search</p> */}
                                             <div className="serch-nw-inputs-container">
@@ -424,13 +424,17 @@ class CriteriaElasticSearchView extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="widget mb-10 d-flex align-item-center">
-                                        <h4>Book Test <br/> from Prescription!</h4>
-                                        <button className="w-25 cstm-book-btn">Upload</button>
-                                    </div>
-                                </React.Fragment>
                             }
-
+                            {
+                                this.props.selected == 'lab'?
+                                <div className="widget mb-3 d-flex align-item-center justify-content-between upload-prescription-widget" >
+                                    <div className="d-flex align-item-center">
+                                        <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
+                                        <h6 className="fw-500 ml-2">Book Test <br/> from Prescription!</h6>
+                                    </div>
+                                    <button className="m-0 cstm-book-btn fw-500">Upload</button>
+                                </div> : ''
+                            }
                             {
                                 this.state.searchCities.length > 0 ?
                                     <section>
