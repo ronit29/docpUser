@@ -4,6 +4,7 @@ import GTM from '../../../helpers/gtm.js'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
 const queryString = require('query-string');
+import DateSelector from '../../commons/DateSelector.js'
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -24,7 +25,9 @@ class ChoosePatientNewView extends React.Component {
             formattedDate:'', 
             dateModal: false,
             isDobNotValid:false,
-            isNewPatient:false
+            isNewPatient:false,
+            is_dob_error:null,
+            isDobValidated:false
         }
     }
 
@@ -264,6 +267,20 @@ class ChoosePatientNewView extends React.Component {
             return
         }
 
+        if (this.state.dob == '' || this.state.dob == null) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
+            }, 500)
+            return
+        }
+
+        if (this.state.dob != null && !this.state.isDobValidated) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
+            }, 500)
+            return
+        }
+
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
@@ -308,6 +325,12 @@ class ChoosePatientNewView extends React.Component {
         }
 
     }
+    getNewDate(type,newDate,isValidDob){
+        this.setState({ dob: newDate,isDobValidated:isValidDob},()=>{
+            this.profileValidation()
+        })
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         
@@ -341,7 +364,7 @@ class ChoosePatientNewView extends React.Component {
                                     : ''*/
                             }
                             {   
-                                (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
+                                /*(this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
                                     <React.Fragment>
                                         {!this.props.patient.dob ?
                                             <div className="dob-summary-container">
@@ -373,7 +396,13 @@ class ChoosePatientNewView extends React.Component {
                                             </div>
                                         :''}
                                         </React.Fragment> 
-                                : ""
+                                : ""*/
+                            }
+
+                            {
+                                (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
+                                    <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob= {this.state.dob}/>
+                                :""
                             }
                              
                             <React.Fragment>
@@ -432,11 +461,12 @@ class ChoosePatientNewView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="slt-nw-input">
+                                <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                {/*<div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
                                     <input className="slt-text-input" autoComplete="off" type="text" name="dob" value={this.state.dob} onClick={this.openCalendar.bind(this,true)}  placeholder="" />
-                                </div>
-                                {this.state.dateModal ? 
+                                </div>*/}
+                                {/*this.state.dateModal ? 
                                     <div className="calendar-overlay">
                                         <div className="date-picker-modal">
                                             <Calendar
@@ -450,7 +480,7 @@ class ChoosePatientNewView extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                :''}
+                                :''*/}
                                 <div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
                                     <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />

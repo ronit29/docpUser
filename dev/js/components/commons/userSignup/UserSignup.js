@@ -137,7 +137,11 @@ class UserSignupView extends React.Component {
                 register = false
             }
         })
-        if(!this.state.isDobValidated){
+        if(this.state.dob == null && !this.state.isDobValidated){
+            register = false
+            this.setState({is_dob_error:true})
+        }
+        if(this.state.dob != null && !this.state.isDobValidated){
             register = false
             this.setState({is_dob_error:true})
         }
