@@ -399,7 +399,7 @@ class VipLoginPopup extends React.Component {
                             <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             <div className="ins-form-slider">
                                 <div className="one">
-                                    <div className="widget-header text-center mv-header">
+                                    <div className="widget-header text-center mv-header d-none">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your registered mobile number to login</h4>
                                     </div>
                                     <div className="widget-content text-center">

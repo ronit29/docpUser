@@ -22,6 +22,7 @@ import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import Loader from '../Loader';
+import VipLoginPopup from '../../vipClub/vipClubPopup.js'
 
 const GENDER = {
 	"m": "Male",
@@ -39,7 +40,8 @@ class HomeView extends React.Component {
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
-			clickedOn: ''
+			clickedOn: '',
+			show_popup:false
 		}
 	}
 
@@ -222,6 +224,10 @@ class HomeView extends React.Component {
 		GTM.sendEvent({ data: data })
 		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
 	}
+
+	closeLeadPopup() {
+        this.setState({ show_popup: false })
+    }
 
 	render() {
 
@@ -488,7 +494,7 @@ class HomeView extends React.Component {
 								<img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
 								<h6 className="fw-500 ml-2">Book Test <br/> from Prescription!</h6>
 							</div>
-							<button className="m-0 cstm-book-btn fw-500">Upload</button>
+							<button className="m-0 cstm-book-btn fw-500" onClick={()=>this.setState({show_popup:true})}>Upload</button>
 						</div>
 
 						{
@@ -594,6 +600,10 @@ class HomeView extends React.Component {
 				</div>
 				<div className="chat-main-container">
 					<div className="container">
+					{
+                        this.state.show_popup ?
+                            <VipLoginPopup {...this.props}  hideLoginPopup={this.closeLeadPopup.bind(this)}  closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                    }
 						<div className="row">
 							{slabOrder}
 						</div>

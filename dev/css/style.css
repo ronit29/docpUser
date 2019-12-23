@@ -14578,9 +14578,9 @@ div.doc-srch-fltr.vip-slct-pop {
     width:auto;
     padding:8px 23px
 }
-@media (min-width:768px){
+/* @media (min-width:768px){
     .upload-prescription-widget > div > h6{
         font-size: 17px;
         line-height: 17px;
     } 
-}
+} */
