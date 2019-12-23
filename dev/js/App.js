@@ -208,14 +208,15 @@ class App extends React.Component {
     }
 
     encrypt(user_profile_id) {
-    let encryptedData = `${user_profile_id}.${new Date().getTime()}`;
-      let msgString = encryptedData.toString();
-      var key = 'hpDqwzdpoQY8ymm5';
-      var iv = CryptoJS.lib.WordArray.random(16);
-      var encrypted = CryptoJS.AES.encrypt(msgString, key, {
-        iv: iv
-      });
-      return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+        let date = Math.floor(new Date().getTime() / 1000)
+        let encryptedData = `${user_profile_id}.${date}}`;
+        let msgString = encryptedData.toString();
+        var key = 'hpDqwzdpoQY8ymm5';
+        var iv = CryptoJS.lib.WordArray.random(16);
+        var encrypted = CryptoJS.AES.encrypt(msgString, key, {
+            iv: iv
+        });
+        return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
 }
 
     toggleLeftMenu(toggle, defaultVal) {
