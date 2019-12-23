@@ -466,7 +466,7 @@ class VipLoginPopup extends React.Component {
                                 </div>
                             </div>
                             <div className="avl-foot-cont">
-                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family member</p>
+                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family members</p>
                                     <p className="avl-cont"> ₹4520/yr</p>
                                 </div>
                         </div>

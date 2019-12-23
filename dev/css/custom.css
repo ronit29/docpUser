@@ -8468,7 +8468,7 @@ div.onln-doc-cnslt div.chatbox-right {
     background-image: url(/assets/img/gold-grnt.png);
     background-repeat: no-repeat;
     background-position: 98% 50%;
-    background-size: 15%;
+    background-size: 13%;
 }
 .gold-grntee-card-container {
     margin-bottom: 10px;
@@ -8485,7 +8485,7 @@ div.onln-doc-cnslt div.chatbox-right {
     padding-right: 15px;
 }
 .round-img-gld img {
-    width: 70px;
+    width: 50px;
 }
 .gold-grnte-content h4 {
     color: #27435b;
@@ -8611,5 +8611,10 @@ p.avl-cont {
     font-weight: 600;
     margin-top: 8px;
     font-size: 18px;
+}
+.gold-foot-bottom{
+    text-align: center;
+    font-weight: 500;
+    margin: 20px 0;
 }
 /****** gold guarantee ******/

@@ -188,7 +188,7 @@ class VipGoldView extends React.Component {
                                                     <img style={{width: ''}}  alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Potential savings of ₹4000+/year for a family</h4>
+                                                    <h4>Potential savings of ₹4500/year on OPD, Health check-ups and Medicines</h4>
                                                     <p className="gld-see-more p-0" onClick={()=>{this.setState({showPopup:true})}}>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'}/></p>
                                                 </div>
                                             </div>
@@ -383,11 +383,11 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 4)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">How do I become a gold member?</h2>
+                                                                <h2 className="fw-500">How does the lowest price gaurantee works?</h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(4) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(4) > -1 ? 'd-none' : ''}`}>
-                                                                Select the gold plan which suits you the best. Proceed with adding the primary member details and complete the payment. Post successful payment, you can continue adding other members or can start booking appointments at special discounted prices
+                                                                If you find a lower price for an appointment (same doctor or lab test at the same provider) on another internet platform, we will provide you with a free coupon of double the amount difference that can be redeemed against subsequent appointments. You can send us the proof of the difference (website screenshot, app image, product link etc) at customercare@docprime.com with your membership id and contact no. 
                                                                 </p>
                                                         </div>
 
@@ -451,7 +451,7 @@ class VipGoldView extends React.Component {
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(11) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(11) > -1 ? 'd-none' : ''}`}>
-                                                                We have a no questions asked refund policy within 15 days of purchase given no benefits have been availed under this bought plan. You can send us an email at customercare@docprime.com with your membership id and contact no. The refund will be credited in the original payment mode within 5- 7 working days.
+                                                                We have a no questions asked refund policy within 30 days of purchase given no benefits have been availed under this bought plan. You can send us an email at customercare@docprime.com with your membership id and contact no. The refund will be credited in the original payment mode within 5- 7 working days.
                                                                 </p>
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 12)}>
@@ -477,6 +477,7 @@ class VipGoldView extends React.Component {
                                                 </div>
                                             </div>
                                             <p className="gold-trms-cnd" onClick={() => this.props.history.push('/terms')}>Terms of Use</p>
+                                            <p className="gold-foot-bottom">You can cancel anytime within 30 days</p>
                                         </div>
                                     </div>
                                     {/* ================== gold slider ================== */}
@@ -485,6 +486,7 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </div>
+                    
                     {
                         this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
                             <button className="vip-foot-btn p-3" onClick={this.goBack.bind(this)}>
