@@ -196,6 +196,29 @@ class App extends React.Component {
             this.props.loadLabCommonCriterias()
         }
 
+        //Add UTM tags for building url
+        try{
+            if(parsed.utm_source){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let common_utm_tags = {
+                    utm_tags: {
+                        utm_source: parsed.utm_source||'',
+                        utm_term: parsed.utm_term||'',
+                        utm_medium: parsed.utm_medium||'',
+                        utm_campaign: parsed.utm_campaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.props.setCommonUtmTags('common_utm_tags', common_utm_tags)
+            }
+        }catch(e) {
+
+        }
+
     }
 
     toggleLeftMenu(toggle, defaultVal) {
