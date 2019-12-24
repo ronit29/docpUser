@@ -395,8 +395,10 @@ class VipLoginPopup extends React.Component {
                     <div className={`cancel-overlay cancel-overlay-zindex`} onClick={this.props.hideLoginPopup.bind(this)}>
                     </div>
                     <section className="mobile-verification-screen p-3">
-                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup p-3 `}>
-                            <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
+                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup p-0`}>
+                            {/* <span className="float-right" style={{ cursor: 'pointer'}} onClick={this.props.hideLoginPopup.bind(this)}>
+                                <img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} />
+                            </span> */}
                             <div className="ins-form-slider">
                                 <div className="one d-none">
                                     <div className="widget-header text-center mv-header d-none">
@@ -488,22 +490,62 @@ class VipLoginPopup extends React.Component {
                                         }
                                     </div>
                                 </div>
+
+                                {/* Upload prescription modal */}
                                 <div className="three upload-prescription">
-                                    <div className="widget-header text-center mv-header p-0">
-                                        <h4 className="fw-500 text-md sign-up-mbl-text">Upload prescription</h4>
+                                    <div className="widget-header text-center mv-header p-3">
+                                        <h4 className="fw-700 text-md">Upload Prescription</h4>
+                                        <a style={{ cursor: 'pointer', right:15,top:16, position: 'absolute' }} onClick={this.props.hideLoginPopup.bind(this)}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} />
+                                        </a>
                                     </div>
-                                    <div className="upload-prescription-column p-4 d-flex align-item-center justify-content-center flex-column">
-                                        {/* <img width="70px" src={ASSETS_BASE_URL + "/img/presc-icon.png"} /> */}
-                                        <img className="uploaded-presc-img" src="https://www.wikihow.com/images/thumb/0/02/Write-a-Prescription-Step-15.jpg/aid5679943-v4-1200px-Write-a-Prescription-Step-15.jpg" />
-                                        <button className="cstm-book-btn fw-500 d-flex align-item-center">
-                                             <img src={ASSETS_BASE_URL + "/img/up-arrow.png"} />
-                                             <span className="ml-3">Upload</span>
+                                    <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column">
+                                        <img className="prescription-placeholder" width="70" src={ASSETS_BASE_URL + "/img/presc-icon.png"} />
+                                        {/* <img className="prescription-uploaded-img" src="https://www.wikihow.com/images/thumb/0/02/Write-a-Prescription-Step-15.jpg/aid5679943-v4-1200px-Write-a-Prescription-Step-15.jpg" /> */}
+                                        {/* <h6 className="error-msg-text">Invalid Format</h6> */}
+                                        <button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
+                                             <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
+                                             <span className="ml-2">Upload</span>
                                         </button>
+                                        {/* <button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
+                                             <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
+                                             <span className="ml-2">Re-Upload</span>
+                                        </button> */}
                                     </div>
+                                    <div className="p-3 pb-0">
+                                        <div className="health-advisor-col d-flex p-2 align-items-start">
+                                            <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                            <p className="ml-2">Our health advisor will assist you in booking your tests</p>
+                                        </div>
+                                        <hr style={{marginTop: 11}}/>
+                                    </div>
+                                    {/* for insured person  */}
+                                    {/* <div className="p-3">
+                                        <div className="health-advisor-col d-flex p-2 align-items-start">
+                                            <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                            <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+                                        </div>
+                                    </div> */}
+                                    <div className="guidelines-col p-3 pt-0">
+                                        <h5 className="fw-500 text-black mb-3">Prescription Guidelines</h5>
+                                        <ul>
+                                            <li className="fw-500">Avoid blurred image</li>
+                                            <li className="fw-500">Supported files type: jpeg , jpg , png , pdf</li>
+                                            <li className="fw-500">Maximum allowed file size: 5MB</li>
+                                        </ul>
+                                    </div>
+                                    <button className="presc-submit-btn cstm-book-btn fw-700" style={{borderRadius:0}}>Submit</button>
                                 </div>
+
+                                {/* received prescription screen */}
+                                {/* <div className="received-prescription-section p-5 d-flex justify-content-center align-items-center flex-column">
+                                    <img width="57" src={ASSETS_BASE_URL + "/img/success-checked.svg"} />
+                                    <p>We have received your prescription. Our medical representative will call you for assistance</p>
+                                    <button className="cstm-book-btn fw-700" style={{width:120}}>Done</button>
+                                </div> */}
                             </div>
 
-                            <p className="text-center fw-500 p-3" style={{ fontSize: 12 }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
+                            {/* <p className="text-center fw-500 p-3" style={{ fontSize: 12 }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p> */}
                         </div>
                     </section>
                 </div>)

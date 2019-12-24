@@ -14579,18 +14579,90 @@ div.doc-srch-fltr.vip-slct-pop {
     padding:8px 23px
 }
 .upload-prescription > .upload-prescription-column{
-    width: 44%;
+    width: 210px;
     margin: 20px auto;
     border-radius: 10px;
-    border: solid 1px rgba(0, 0, 0, 0.5);
+    border: solid 1px rgba(0, 0, 0, 0.2);
     background-color: #efefef;
     padding: 5px;
 }
 .upload-prescription > .upload-prescription-column > button{
-    width: auto;
+    width: 135px;
     padding: 8px 20px;
-    margin-top: 20px;
 }
-.uploaded-presc-img{
+.upload-prescription > .upload-prescription-column > button >span{
+    width: 100%;
+}
+.prescription-placeholder{
+    margin: 30px 0;
+}
+.prescription-uploaded-img{
     max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/*error msg css*/
+.error-msg-text{
+    font-size: 14px;
+    font-weight: 500;
+    color: #fe0000;
+}
+.error-border-color{
+    border-color: #ff0000!important;
+}
+
+/**prescription guidelines css**/
+.prescription-guidelines> h5{
+    font-size: 16px;
+}
+
+.presc-submit-btn{
+    padding: 20px 0 26px!important;
+    font-size: 16px;
+}
+/*health advisor col*/
+.health-advisor-col{
+    border-radius: 5px;
+    background-color: rgba(66, 137, 254, 0.1)
+}
+.health-advisor-col > p{
+    font-weight: bold;
+    white-space: pre-wrap;
+}
+/*guidelines col*/
+.guidelines-col > ul{
+    padding-left: 15px;
+}
+.guidelines-col > ul > li{
+    color: #757575;
+    list-style: disc!important;
+    line-height: 23px;
+}
+
+/*received prescription css*/
+.received-prescription-section{
+    padding: 30px;
+    width: 400px;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.received-prescription-section > p{
+    white-space: normal;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    margin: 20px;
+    line-height: 21px;
+}
+
+@media screen and (max-width:600px){
+    .info-detail-icon{
+        margin-top: 2px;
+    }
+    .received-prescription-section{
+        width: 100%;
+    }
 }
