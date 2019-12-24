@@ -168,7 +168,7 @@ class VipGoldView extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <p className="gold-foot-bottom">You can cancel anytime within 30 days</p>
+                                        {/* <p className="gold-foot-bottom">You can cancel anytime within 30 days</p> */}
                                     </div>
                                     
 
@@ -181,8 +181,8 @@ class VipGoldView extends React.Component {
                                                     <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Lowest Price Guaranteed</h4>
-                                                    <p>Find a lower price on Doctor or Lab tests and get 2X of the amount difference</p>
+                                                    <h4>Risk-Free 100% Satisfaction Guarantee</h4>
+                                                    <p>Cancel and get full refund of your membership fee at any time if you are dissatisfied</p>
                                                 </div>
                                             </div>
                                             <div className="gold-grntee-card mb-3">
@@ -337,7 +337,7 @@ class VipGoldView extends React.Component {
                                                     <h5>How to avail Gold Benefits?</h5>
                                                 </div>
                                                 <ol>
-                                                    <li><p>Look for Exclusive Gold Member Discount Here</p>
+                                                    <li><p>Look for Exclusive Gold member discount here</p>
                                                     <img className="img-fluid" src={ASSETS_BASE_URL + '/img/avail.png'} />
                                                     </li>
                                                     <li>
@@ -349,7 +349,7 @@ class VipGoldView extends React.Component {
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">
                                                     <div className="acdn-title" onClick={this.ButtonHandler.bind(this, 0)}>
-                                                        <h2 className="fw-500" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
+                                                        <h2 className="fw-700" style={{ fontSize: '15px' }}>Frequently asked questions</h2>
                                                         <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(0) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                     </div>
                                                     {/* ===================inner accordion container=================== */}
@@ -365,7 +365,7 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">How can i avail discounts on medicines? </h2>
+                                                                <h2 className="fw-500">How can I avail discounts on medicines? </h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
@@ -383,7 +383,7 @@ class VipGoldView extends React.Component {
                                                                 You can add your family, extended family or friends under the plan
                                                                 </p>
                                                         </div>
-                                                        <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 4)}>
+                                                        {/* <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 4)}>
                                                             <div className="acdn-title">
                                                                 <h2 className="fw-500">How does the lowest price gaurantee works?</h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(4) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -391,7 +391,7 @@ class VipGoldView extends React.Component {
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(4) > -1 ? 'd-none' : ''}`}>
                                                                 If you find a lower price for an appointment (same doctor or lab test at the same provider) on another internet platform, we will provide you with a free coupon of double the amount difference that can be redeemed against subsequent appointments. You can send us the proof of the difference (website screenshot, app image, product link etc) at customercare@docprime.com with your membership id and contact no. 
                                                                 </p>
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 5)}>
                                                             <div className="acdn-title">
@@ -449,11 +449,11 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 11)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">I want to cancel my gold membership and get refund for the same. How do I cancel my membership? </h2>
+                                                                <h2 className="fw-500">How can I cancel my gold membership and get refund for the same? </h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(11) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(11) > -1 ? 'd-none' : ''}`}>
-                                                                We have a no questions asked refund policy within 30 days of purchase given no benefits have been availed under this bought plan. You can send us an email at customercare@docprime.com with your membership id and contact no. The refund will be credited in the original payment mode within 5- 7 working days.
+                                                                We assure you the best discounts and service quality on Docprime for full year. However, if you are still not satisfied for any reason, you can place a 100% refund request by sending an email at customercare@docprime.com with your contact no. The refund will be credited in the original payment mode within 5- 7 working days.
                                                                 </p>
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 12)}>
