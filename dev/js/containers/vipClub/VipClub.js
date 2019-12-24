@@ -35,7 +35,8 @@ class VipClub extends React.Component{
         }
         let extraData = {
             selectedLocation: this.props.selectedLocation,
-            from_vip:true
+            from_vip:true,
+            type:this.state.is_gold?'is_gold':'is_vip'
         }
         this.props.getNearbyHospitals(extraData);
         this.props.getTopHospitals(extraData);

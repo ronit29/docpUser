@@ -85,8 +85,10 @@ class ThyrocarePackageView extends React.Component {
     nonIpdLeads(phone_number){
         const parsed = queryString.parse(this.props.location.search)
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:'thyrocare aarogyam packages',exitpoint_url : 'http://docprime.com' + this.props.location.pathname})
-        console.log(data)
-       this.props.NonIpdBookingLead(data) 
+        let gtm_data = {
+            'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-submit-click'
+        }
+       this.props.NonIpdBookingLead(gtm_data) 
        this.setState({to_be_force:0})
     }
 

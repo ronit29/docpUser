@@ -8462,3 +8462,165 @@ div.onln-doc-cnslt div.chatbox-right {
     }
 }
 /****** main popup ******/
+/****** gold guarantee ******/
+
+.gold-grntee-card.gaurantee-img {
+    background-image: url(/assets/img/gold-grnt.png);
+    background-repeat: no-repeat;
+    background-position: 98% 50%;
+    background-size: 13%;
+}
+.gold-grntee-card-container {
+    margin-bottom: 10px;
+}
+.gold-grntee-card {
+    background: rgba(255, 110, 1, .1);
+    border: 1px dotted #ff6e01;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+}
+.round-img-gld {
+    padding-right: 15px;
+}
+.round-img-gld img {
+    width: 50px;
+}
+.gold-grnte-content h4 {
+    color: #27435b;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+.gold-grnte-content p {
+    font-size: 13px;
+    color: #757575;
+    font-weight: 500;
+    padding-right: 61px;
+}
+p.gld-see-more.p-0 {
+    display: inline-flex;
+    color: #f78631;
+    align-items: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+p.gld-see-more.p-0 img {
+    position: relative;
+    width: 13px;
+    transform: rotate(180deg);
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 9px;
+    left: 4px;
+    top: 1px;
+}
+.gold-avail-container{
+    border-bottom: 1px dashed #b0b0b0;
+    padding-bottom: 30px;
+}
+.gold-avail-container ol {
+    list-style: decimal;
+    padding-left: 20px;
+    margin-top: 12px;
+    font-weight: 500;
+}
+.gold-avail-container ol li {
+    list-style: decimal;
+    margin-bottom: 20px;
+}
+.gold-avail-container p {
+    font-weight: 500;
+    font-size: 14px;
+}
+.avl-card-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid #eae8e8;
+    padding: 10px 0px;
+}
+.avl-card-list:last-child {
+    border-bottom: none;
+}
+.gold-avail-popup-container {
+    margin-top: 20px;
+}
+.avl-left-cont p {
+    font-weight: 500;
+}
+.avl-left-cont span {
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+}
+.duo-price-cont {
+    display: flex;
+    align-items: flex-start;
+}
+.duo-price {
+    padding: 0 7px;
+}
+.duo-price p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #757575;
+    margin-bottom: 3px;
+}
+.duo-price span{
+    font-weight: 500;
+    border-right: 2px solid black;
+    padding-right: 12px;
+}
+span.cut-price {
+    text-decoration: line-through;
+}
+.avl-svng p {
+        color: #4ca417;
+        font-weight: 600;
+        background: rgba(76, 164, 23, .2);
+        display: inline-block;
+        padding: 2px 8px;
+        font-size: 12px;
+        margin: 5px 0 10px 0;
+        border-radius: 10px;
+    
+}
+.duo-price:last-child{
+    padding-right: 0px;
+}
+.b-0{
+    border: none !important;
+}
+.avl-foot-cont {
+    background: rgba(76, 164, 23, .1);
+    text-align: center;
+    padding: 11px 5px;
+    margin: 10px 20px 20px 20px;
+    border-radius: 10px;
+}
+p.avl-foot-text {
+    font-size: 15px;
+    font-weight: 600;
+    
+}
+span.avl-cont {
+    color: #4ca417;
+    font-size: 18px;
+    margin: 0 5px;
+}
+p.avl-cont {
+    color: #4ca417;
+    font-weight: 600;
+    margin-top: 8px;
+    font-size: 18px;
+}
+.gold-foot-bottom{
+    text-align: right;
+    font-weight: 600;
+    margin: 7px 5px 0px 0px;
+    color: #757575;
+    font-size: 12px;
+}
+/****** gold guarantee ******/
