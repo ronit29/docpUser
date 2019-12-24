@@ -249,8 +249,8 @@ class VipClubView extends React.Component {
                             this.props.is_gold?
                                 <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                     <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
-                                    <p className="scrl-cont-dat gld-hd-txt-algn">DISCOUNTS LIKE </p>
-                                    <h1 className="scrl-cont-dat">NEVER BEFORE</h1>
+                                    <p className="scrl-cont-dat gld-hd-txt-algn">Membership plan for </p>
+                                    <h1 className="scrl-cont-dat">exclusive discounts</h1>
                                     {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                                 </div>
                             :
@@ -264,7 +264,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup ?
-                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} is_see_more={false}/> : ''
                     }
                     {!this.props.is_gold && !this.state.is_gold_clicked?
                          <VipPlanView {...this.props} 

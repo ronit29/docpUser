@@ -228,7 +228,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
+                        CONFIG.ENABLE_INSURANCE && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
                             <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
                                 <a>
                                     <span className="icon icon-md nav-icon">
