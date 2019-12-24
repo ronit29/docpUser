@@ -449,11 +449,11 @@ class VipGoldView extends React.Component {
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 11)}>
                                                             <div className="acdn-title">
-                                                                <h2 className="fw-500">I want to cancel my gold membership and get refund for the same. How do I cancel my membership? </h2>
+                                                                <h2 className="fw-500">How can I cancel my gold membership and get refund for the same? </h2>
                                                                 <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(11) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                             </div>
                                                             <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(11) > -1 ? 'd-none' : ''}`}>
-                                                                We have a no questions asked refund policy within 30 days of purchase given no benefits have been availed under this bought plan. You can send us an email at customercare@docprime.com with your membership id and contact no. The refund will be credited in the original payment mode within 5- 7 working days.
+                                                                We assure you the best discounts and service quality on Docprime for full year. However, if you are still not satisfied for any reason, you can place a 100% refund request by sending an email at customercare@docprime.com with your contact no. The refund will be credited in the original payment mode within 5- 7 working days.
                                                                 </p>
                                                         </div>
                                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 12)}>
