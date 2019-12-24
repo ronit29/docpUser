@@ -1,5 +1,6 @@
 import CookieHelper from './cookie.js'
-
+var CryptoJS = require("crypto-js");
+import { API_POST } from '../../api/api.js';
 function deleteAllCookies() {
     if (document) {
         var cookies = document.cookie.split(";");
@@ -71,13 +72,28 @@ function parseJwt(token) {
     }
 };
 
+function generateKeyFromPassword(password) {
+    var userHash = CryptoJS.MD5(password);
+    var keyStr = userHash.toString().substring(0, 16);
+    var key = CryptoJS.enc.Utf8.parse(keyStr);
+    return key;
+}
+
 const STORAGE = {
     setAuthToken: (token) => {
         setCookie('tokenauth', token, 10)
         return Promise.resolve(true)
     },
-    getAuthToken: () => {
-        return Promise.resolve(getCookie('tokenauth'))
+    getAuthToken: (dataParams={}) => {
+        let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
+        let exp_time = getCookie('tokenRefreshTime')
+         exp_time = JSON.parse(exp_time)
+        if(exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 5000) && dataParams && !istokenRefreshCall){
+            let ciphertext =  STORAGE.encrypt(exp_time.payload.user_id)            
+            refreshTokenCall(exp_time.token,ciphertext)
+        }else{
+          return Promise.resolve(getCookie('tokenauth'))  
+        }        
     },
     checkAuth: () => {
         return !!getCookie('tokenauth')
@@ -126,7 +142,37 @@ const STORAGE = {
     },
     getAnyCookie: (name)=>{
         return getCookie(name)
+    },
+    setAuthTokenRefreshTime: (exp_time) => {
+        setCookie('tokenRefreshTime', exp_time, 10)
+        return Promise.resolve(true)
+    },
+
+    encrypt(user_profile_id) {
+        let date = Math.floor(new Date().getTime() / 1000)
+        let encryptedData = `${user_profile_id}.${date}`;
+        let msgString = encryptedData.toString();
+        var key = generateKeyFromPassword('hpDqwzdpoQY8ymm5');
+        var iv = CryptoJS.lib.WordArray.random(16);
+        var encrypted = CryptoJS.AES.encrypt(msgString, key, {
+            iv: iv
+        });
+        return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+    },
+    refreshTokenCall(token,ciphertext){
+        API_POST('/api/v1/user/api-token-refresh', {
+            token: token,
+            reset : ciphertext,
+            enableCall: true
+        }).then((data) => {
+            // STORAGE.setAuthToken(data.token)
+            console.log(data)
+
+            STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
+        })
     }
+
+
 
 
 }

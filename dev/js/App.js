@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags, OTTExchangeLogin } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags, OTTExchangeLogin, setRefreshTokenTime } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -37,7 +37,6 @@ require('react-image-lightbox/style.css')
 require('../css/date.css')
 require('../css/style.css')
 
-var CryptoJS = require("crypto-js");
 const logPageView = () => {
 
     GTM.send_boot_events()
@@ -77,21 +76,15 @@ class App extends React.Component {
             this.props.getCartItems()
             if(this.props.profiles && Object.keys(this.props.profiles).length > 0){
                 user_profile_id = this.props.profiles[this.props.defaultProfile].id
-                ciphertext =  this.encrypt(user_profile_id)
+                ciphertext =  STORAGE.encrypt(user_profile_id)
             }
             let intervalId = setInterval(() => {
                 STORAGE.getAuthToken().then((token) => {
-                    console.log('intoken')
                     if (token) {
-                        API_POST('/api/v1/user/api-token-refresh', {
-                            token: token,
-                            reset : ciphertext
-                        }).then((data) => {
-                            // STORAGE.setAuthToken(data.token)
-                        })
+                        STORAGE.refreshTokenCall(token,ciphertext)
                     }
                 })
-            }, 300000)
+            }, 270000)
         }
 
         let OTT = parsed.access_token
@@ -209,25 +202,6 @@ class App extends React.Component {
 
     }
 
-    encrypt(user_profile_id) {
-        let date = Math.floor(new Date().getTime() / 1000)
-        let encryptedData = `${user_profile_id}.${date}`;
-        let msgString = encryptedData.toString();
-        var key = this.generateKeyFromPassword('hpDqwzdpoQY8ymm5');
-        var iv = CryptoJS.lib.WordArray.random(16);
-        var encrypted = CryptoJS.AES.encrypt(msgString, key, {
-            iv: iv
-        });
-        return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
-    }
-
-    generateKeyFromPassword(password) {
-      var userHash = CryptoJS.MD5(password);
-      var keyStr = userHash.toString().substring(0, 16);
-      var key = CryptoJS.enc.Utf8.parse(keyStr);
-      return key;
-    }
-
     toggleLeftMenu(toggle, defaultVal) {
         if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
             this.props.toggleLeftMenuBar(toggle, defaultVal)
@@ -236,7 +210,6 @@ class App extends React.Component {
 
 
     render() {
-        
         return (
             <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true)}>
                 <NotificationsBoot />
@@ -301,7 +274,8 @@ const mapDispatchToProps = (dispatch) => {
         clearOpdSearchId: () => dispatch(clearOpdSearchId()),
         clearIpdSearchId: () => dispatch(clearIpdSearchId()),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
-        OTTExchangeLogin: (ott) => dispatch(OTTExchangeLogin(ott))
+        OTTExchangeLogin: (ott) => dispatch(OTTExchangeLogin(ott)),
+        setRefreshTokenTime:(data) =>dispatch(setRefreshTokenTime(data))
     }
 
 }
