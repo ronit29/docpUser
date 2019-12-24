@@ -545,7 +545,7 @@ class HomeView extends React.Component {
 								GTM.sendEvent({ data: data })
 								e.preventDefault();
 								this.props.clearVipSelectedPlan()
-								this.navigateTo("/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime", 'opd')
+								this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')
 							}}>Docprime <img src={ASSETS_BASE_URL + '/img/gold-lg.png'} style={{ width: 35, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
