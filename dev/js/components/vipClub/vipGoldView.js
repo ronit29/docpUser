@@ -178,7 +178,7 @@ class VipGoldView extends React.Component {
                                         <div className="gold-grntee-card-container">
                                             <div className="gold-grntee-card gaurantee-img mb-3">
                                                 <div className="round-img-gld">
-                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn.svg'} />
+                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
                                                     <h4>Risk-Free 100% Satisfaction Guarantee</h4>
