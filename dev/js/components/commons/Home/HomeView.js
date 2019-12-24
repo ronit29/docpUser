@@ -386,7 +386,7 @@ class HomeView extends React.Component {
 							!isSBI?
 							<div className="banner-cont-height home-page-banner-div">
 								<div className="hidderBanner banner-carousel-div d-md-none">
-									<div className="divHeight"></div>
+									<div className="divHeight m-0" style={{marginBottom:"5px!important"}}></div>
 								</div>
 								{
 									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
@@ -395,7 +395,7 @@ class HomeView extends React.Component {
 							</div>
 							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
 								<div className="hidderBanner banner-carousel-div d-md-none">
-									<div className="divHeight-sbi mt-0"></div>
+								<div className="divHeight m-0" style={{marginBottom:"5px!important"}}></div>
 								</div>
 								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
 									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
@@ -545,7 +545,7 @@ class HomeView extends React.Component {
 								GTM.sendEvent({ data: data })
 								e.preventDefault();
 								this.props.clearVipSelectedPlan()
-								this.navigateTo("/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime", 'opd')
+								this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')
 							}}>Docprime <img src={ASSETS_BASE_URL + '/img/gold-lg.png'} style={{ width: 35, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();

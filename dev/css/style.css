@@ -13817,7 +13817,7 @@ p.pkgtstName.prcd-height {
 
 .banner-home-scrollable {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     overflow-x: auto;
     width: 100%;
     top: 0;

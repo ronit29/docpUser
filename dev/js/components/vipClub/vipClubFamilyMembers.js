@@ -447,6 +447,7 @@ class VipProposerFamily extends React.Component {
 						isSelectprofile = {true} 
 						vipClubMemberDetails ={this.props.vipClubMemberDetails[this.props.member_id]}
 						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
+						is_see_more={false}
 					/> : ''
 				}
 			</div>

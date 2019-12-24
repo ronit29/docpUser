@@ -180,6 +180,7 @@ class LabProfileCard extends React.Component {
             }
             price = price + pickup_charges
             discounted_price = discounted_price + pickup_charges
+            mrp = mrp + pickup_charges
         }
 
         let offPercent = ''
