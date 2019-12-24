@@ -168,7 +168,9 @@ class VipGoldView extends React.Component {
                                                 }
                                             </div>
                                         </div>
+                                        <p className="gold-foot-bottom">You can cancel anytime within 30 days</p>
                                     </div>
+                                    
 
                                     {/* ================== gold HTML select  ================== */}
                                     {/* ================== gold slider ================== */}
@@ -335,7 +337,7 @@ class VipGoldView extends React.Component {
                                                     <h5>How to avail Gold Benefits?</h5>
                                                 </div>
                                                 <ol>
-                                                    <li><p>Look for Exlusive Gold Member Discount Here</p>
+                                                    <li><p>Look for Exclusive Gold Member Discount Here</p>
                                                     <img className="img-fluid" src={ASSETS_BASE_URL + '/img/avail.png'} />
                                                     </li>
                                                     <li>
@@ -477,7 +479,7 @@ class VipGoldView extends React.Component {
                                                 </div>
                                             </div>
                                             <p className="gold-trms-cnd" onClick={() => this.props.history.push('/terms')}>Terms of Use</p>
-                                            <p className="gold-foot-bottom">You can cancel anytime within 30 days</p>
+                                            
                                         </div>
                                     </div>
                                     {/* ================== gold slider ================== */}
