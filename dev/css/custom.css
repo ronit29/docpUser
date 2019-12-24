@@ -8516,6 +8516,10 @@ p.gld-see-more.p-0 img {
     left: 4px;
     top: 1px;
 }
+.gold-avail-container{
+    border-bottom: 1px dashed #b0b0b0;
+    padding-bottom: 30px;
+}
 .gold-avail-container ol {
     list-style: decimal;
     padding-left: 20px;
