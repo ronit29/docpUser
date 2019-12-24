@@ -828,7 +828,7 @@ class BookingSummaryViewNew extends React.Component {
         let start_time = this.props.selectedSlot.time.value
        */ let testIds = this.props.lab_test_data[this.props.selectedLab] || []
         testIds = testIds.map(x => x.id)
-
+        let utm_tags = this.getUtmTags()
         let postData = {
             lab: this.props.selectedLab,
             test_ids: testIds,
@@ -839,7 +839,8 @@ class BookingSummaryViewNew extends React.Component {
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
-            from_web: true
+            from_web: true,
+            utm_tags: utm_tags
         }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
@@ -1393,6 +1394,9 @@ class BookingSummaryViewNew extends React.Component {
                 data.phone_number = user_phone_number
                 data.customer_name = user_name
             }
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+            }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test
                 data.selected_time = time.text +' '+time.title
@@ -1404,6 +1408,24 @@ class BookingSummaryViewNew extends React.Component {
             this.props.NonIpdBookingLead(data)
 
         }
+    }
+
+    getUtmTags() {
+        const parsed = queryString.parse(this.props.location.search)
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
+        }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
+        return utm_tags
     }
     
     render() {

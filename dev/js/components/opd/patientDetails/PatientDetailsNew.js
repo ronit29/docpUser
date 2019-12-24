@@ -493,6 +493,11 @@ class PatientDetailsNew extends React.Component {
             referrer: document.referrer || '',
             gclid: parsed.gclid || ''
         }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
         return utm_tags
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
@@ -614,7 +619,6 @@ class PatientDetailsNew extends React.Component {
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
         let utm_tags = this.getUtmTags()
-
         let postData = {
             doctor: this.props.selectedDoctor,
             hospital: this.state.selectedClinic,
@@ -1415,6 +1419,10 @@ class PatientDetailsNew extends React.Component {
             }else{
                 data.selected_time = null
                 data.selected_date = null
+            }
+
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
             }
             this.props.NonIpdBookingLead(data)
         }
