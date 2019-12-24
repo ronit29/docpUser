@@ -629,6 +629,11 @@ class PatientDetailsNew extends React.Component {
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
+
+        // if(!hospital.enabled_for_prepaid && !hospital.enabled_for_cod) {
+        //     postData['payment_type'] = 1;
+        // }
+
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -1538,7 +1543,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable
         
         //If Only COD applicable then don't show single flow gold
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
