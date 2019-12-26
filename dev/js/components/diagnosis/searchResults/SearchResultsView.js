@@ -394,6 +394,9 @@ class SearchResultsView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'NonIpdSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-search-listing-Submit-click'}
         GTM.sendEvent({ data: gtm_data })
        this.props.NonIpdBookingLead(data) 
