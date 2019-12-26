@@ -69,7 +69,8 @@ class BookingSummaryViewNew extends React.Component {
             isLensfitSpecific:parsed.isLensfitSpecific|| false,
             showGoldPriceList: false,
             selectedTestIds: [],
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            enableDropOfflead:true
         }
     }
 
@@ -166,7 +167,6 @@ class BookingSummaryViewNew extends React.Component {
                 }
             },3000)
         }
-        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(props){
@@ -201,6 +201,9 @@ class BookingSummaryViewNew extends React.Component {
         //To update Gold Plans on changing props
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
+        }
+        if(this.state.enableDropOfflead){
+            this.nonIpdLeads()
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
@@ -1405,6 +1408,7 @@ class BookingSummaryViewNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+            this.setState({enableDropOfflead:false})
             this.props.NonIpdBookingLead(data)
 
         }

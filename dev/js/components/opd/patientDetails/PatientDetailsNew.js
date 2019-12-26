@@ -79,7 +79,8 @@ class PatientDetailsNew extends React.Component {
             show_banner: false,
             banner_decline: false,
             showGoldPriceList: false,
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            enableDropOfflead:true
         }
     }
 
@@ -252,7 +253,6 @@ class PatientDetailsNew extends React.Component {
         }
 
         this.sendEmailNotification()
-        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(agent_selected_plan_id){
@@ -342,6 +342,9 @@ class PatientDetailsNew extends React.Component {
         //To update Gold Plans on changing props
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
+        }
+        if(this.state.enableDropOfflead){
+            this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
             let hospital = {}
@@ -1424,6 +1427,7 @@ class PatientDetailsNew extends React.Component {
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
                 data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
             }
+            this.setState({enableDropOfflead:false})
             this.props.NonIpdBookingLead(data)
         }
     }
