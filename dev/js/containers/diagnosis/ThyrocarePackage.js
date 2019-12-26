@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, NonIpdBookingLead } from '../../actions/index.js'
+import { getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, NonIpdBookingLead, common_utm_tags } from '../../actions/index.js'
 
 import ThyrocarePackageView from '../../components/diagnosis/ThyrocarePackage/ThyrocarePackageView.js';
 
@@ -23,7 +23,8 @@ class ThyrocarePackage extends React.Component {
 const mapStateToProps = (state, passedProps) => {
 
     const {
-        offerList
+        offerList,
+        common_utm_tags
     } = state.USER
 
     return {

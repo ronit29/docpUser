@@ -1395,7 +1395,7 @@ class BookingSummaryViewNew extends React.Component {
                 data.customer_name = user_name
             }
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
-                data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+                data.utm_tags = this.getUtmTags()
             }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test
