@@ -115,7 +115,7 @@ class ProfileData extends React.Component {
                                 </div>
                                 :<div className="usr-dtls-startup">
                                         {/*<p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>*/}
-                                        <div className="row no-gutters pdng-bttm">
+                                        {/*<div className="row no-gutters pdng-bttm">
                                             <div className="col-4 mbl-usr-grd">
                                                 <span className="usr-dtls-free">FREE</span>
                                                 <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e) => {
@@ -166,22 +166,48 @@ class ProfileData extends React.Component {
                                                     </p>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                         {
                                             <React.Fragment>
-                                                <div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
-                                                    Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
-                                                </div>
+                                                {
+                                                    defaultProfile && (defaultProfile.insurance_status==1 || defaultProfile.insurance_status==4 || defaultProfile.insurance_status==5 || defaultProfile.is_vip_member)?''
+                                                    :<div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
+                                                        Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
+                                                    </div>
+                                                }
+                                                
                                                 <div className="gold-benifi-cards-cont pdng-usr-dtls-slots mb-3 pr-0" style={{paddingLeft: '8px'}}>
-                                                    <div className="gold-benifi-cards">
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/vip-club-details`)
+                                                    }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
                                                         <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
                                                     </div>
-                                                    <div className="gold-benifi-cards">
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/vip-club-details`)
+                                                    }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
                                                         <p>Discounts on <br /><strong>5,000</strong> Labs</p>
                                                     </div>
-                                                    <div className="gold-benifi-cards">
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'SaveMedicinesProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'save-medicines-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/all-medicines`)
+                                                    }}>
                                                         <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
                                                         <p> Save 23% <br/> on medicines</p>
                                                     </div>
@@ -264,14 +290,14 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                            CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
-                                <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
-                                    <a>
-                                        <span className="icon icon-md nav-icon">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
-                                        </span>
-                                        <div className="nav-content">
-                                            <h4 className="title app-title">OPD Insurance
+                        CONFIG.ENABLE_INSURANCE && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
+                            <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content">
+                                        <h4 className="title app-title">OPD Insurance
                                         </h4>
                                         </div>
                                     </a>

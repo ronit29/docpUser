@@ -79,7 +79,8 @@ class PatientDetailsNew extends React.Component {
             show_banner: false,
             banner_decline: false,
             showGoldPriceList: false,
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            paymentBtnClicked: false
         }
     }
 
@@ -629,6 +630,11 @@ class PatientDetailsNew extends React.Component {
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
+
+        // if(!hospital.enabled_for_prepaid && !hospital.enabled_for_cod) {
+        //     postData['payment_type'] = 1;
+        // }
+
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -702,6 +708,7 @@ class PatientDetailsNew extends React.Component {
         if (parsed && parsed.appointment_id && parsed.cod_to_prepaid == 'true') {
             postData['appointment_id'] = parsed.appointment_id
             postData['cod_to_prepaid'] = true
+            this.setState({paymentBtnClicked: true});
             this.props.codToPrepaid(postData, (err, data) => {
                 if (!err) {
                     /*if (data.is_agent) {
@@ -724,6 +731,7 @@ class PatientDetailsNew extends React.Component {
                         this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                     }
                 } else {
+                    this.setState({paymentBtnClicked: false});
                     let message
                     if (err.error) {
                         message = err.error
@@ -748,7 +756,7 @@ class PatientDetailsNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-
+        this.setState({paymentBtnClicked: true});
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 /*if (data.is_agent) {
@@ -771,6 +779,7 @@ class PatientDetailsNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
+                this.setState({paymentBtnClicked: false});
                 let message
                 if (err.error) {
                     message = err.error
@@ -1538,7 +1547,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable
         
         //If Only COD applicable then don't show single flow gold
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
@@ -1674,6 +1683,9 @@ class PatientDetailsNew extends React.Component {
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
                 }
                 {
+                    this.state.paymentBtnClicked?<Loader/>:''   
+                }
+                {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :
                         <section className="container container-top-margin">
                             <div className="row main-row parent-section-row">
@@ -1771,7 +1783,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                                 <span className="nw-pick-hdng">Time:</span>
                                                                                                                 <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
                                                                                                                     <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                                                    <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                                                    <input type="text" name="bday" onClick={() => this.navigateTo('time')} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
                                                                                                                     <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                                                                 </div>
                                                                                                             </div>

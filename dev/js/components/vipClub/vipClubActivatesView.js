@@ -157,7 +157,7 @@ class VipClub extends React.Component {
                                             </div>
                                         </div>
                                         : ''}
-                                    {this.props.data.is_member_allowed ?
+                                    {this.props.data.is_member_allowed?
                                         <div className= {`${this.props.is_gold?'gold-white-bg-container mb-24':''}`} style={{ paddingTop: 0, paddingBottom: 20 }}>
                                             <div className="vip-act-pop text-right" style={{ display: 'block' }}>
                                                 <div className="vip-wrn-img text-left">
@@ -189,9 +189,11 @@ class VipClub extends React.Component {
                                                         <div className="vip-cnslt-card">
                                                             <h5 className="vip-brder-hdng">In-Clinic Consultation</h5>
                                                             <ul>
-                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.doctor_consult_amount}  </span></p></li>
+                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.doctor_consult_amount >= 99999?'Unlimited':this.props.data.plan[0].utilize.doctor_consult_amount}  </span></p></li>
                                                                 <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.doctor_amount_utilized} </span></p></li>
-                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.doctor_amount_available}</span></p></li>
+                                                                {this.props.data.plan[0].utilize.doctor_amount_available <=99999?
+                                                                    <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.doctor_amount_available}</span></p></li>
+                                                                :''}
                                                             </ul>
                                                         </div>
                                                         <div className="vip-cnslt-card">
@@ -346,7 +348,7 @@ class VipClub extends React.Component {
                                                                 })
                                                             }
                                                             {
-                                                                this.props.data.is_member_allowed ?
+                                                                this.props.data.is_member_allowed?
                                                                     <li onClick={this.AddMemberDetails.bind(this)}>
                                                                         <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
                                                                     </li>

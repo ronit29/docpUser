@@ -160,7 +160,7 @@ class FixedMobileFooter extends React.Component {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-gold-clicked'
                         }
                         GTM.sendEvent({ data: data })
-                        this.navigateTo('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+                        this.navigateTo('/vip-gold-details?is_gold=true&source=mobile-footer-gold-clicked&lead_source=Docprime')
                     }}>
                         {/* <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} /> */}
                         <object className="footsvground">

@@ -69,7 +69,8 @@ class BookingSummaryViewNew extends React.Component {
             isLensfitSpecific:parsed.isLensfitSpecific|| false,
             showGoldPriceList: false,
             selectedTestIds: [],
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            paymentBtnClicked: false
         }
     }
 
@@ -977,6 +978,7 @@ class BookingSummaryViewNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
+        this.setState({paymentBtnClicked: true});
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
 
@@ -1010,6 +1012,7 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
+                this.setState({paymentBtnClicked: false});
                 let message 
                 if(err.error){
                     message = err.error
@@ -1797,7 +1800,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let currentTestsCount = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !is_insurance_applicable
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
             this.props.select_lab_payment_type(1)
@@ -1831,6 +1834,9 @@ class BookingSummaryViewNew extends React.Component {
                 {
                     //Show Vip Gold Single Flow Price List
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.labGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
+                }
+                {
+                    this.state.paymentBtnClicked?<Loader/>:''   
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
