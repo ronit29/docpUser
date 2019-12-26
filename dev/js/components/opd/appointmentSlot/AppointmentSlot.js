@@ -86,7 +86,8 @@ class AppointmentSlot extends React.Component {
         }
         // go back for goback
         if (this.state.goback) {
-            return this.props.history.go(-1)
+            this.props.history.go(-1)
+            return
         }
         if (this.state.selectedTimeSlot) {
             let data = {

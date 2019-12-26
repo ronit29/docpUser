@@ -97,7 +97,7 @@ class ThankYouPopUp extends React.Component {
 						</div>
 						<p className="thnks-content">Your feedback matters!</p>
 						<p className="thnks-content fw-500">REFER &amp; EARN!</p>
-						<p className="thanks-sub-content mrb-10">Refer your friends & earn ₹ 50</p>
+						<p className="thanks-sub-content mrb-10">Refer your friends & earn ₹ 200</p>
 						{
 							ReactShare && ReactShare.FacebookShareButton && (this.props.selectedRating == 4 || this.props.selectedRating == 5) ?
 								<div className="social-ico-styling d-flex">

@@ -16,7 +16,7 @@ class TopChatWidget extends React.Component {
 			}
 			GTM.sendEvent({ data: gtmData })
 			this.props.clearVipSelectedPlan()
-			this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+			this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-chat-widget-gold-clicked&lead_source=Docprime')
 		} else {
 			let gtmData = {
 				'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
