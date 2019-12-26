@@ -119,8 +119,8 @@ export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,select
     let latitude = 28.644800
     let longitude = 77.216721
     if (data.selectedLocation) {
-        lat = selectedLocation.geometry.location.lat
-        long = selectedLocation.geometry.location.lng
+        lat = data.selectedLocation.geometry.location.lat
+        long = data.selectedLocation.geometry.location.lng
 
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
