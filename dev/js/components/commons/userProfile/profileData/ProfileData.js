@@ -100,7 +100,7 @@ class ProfileData extends React.Component {
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
                             {
                                 defaultProfile && defaultProfile.is_vip_gold_member && defaultProfile.vip_data?
-                                <div className="gold-white-bg-container card-container" >
+                                <div className="gold-white-bg-container card-container m-0" onClick={()=>this.props.history.push('/vip-club-activated-details')}>
                                     <div className="gold-card-section">
                                         <img className="vipLogiImg-2 pd-12" style={{ paddingBottom: 7 }} src="/assets/img/docgold.png" width="80px" />
                                         <div className="gold-card-user text-right text-white pd-12" style={{ paddingTop: 0 }}>
