@@ -20,12 +20,16 @@ const SOCKET = (() => {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
                     const socket = io(CONFIG.SOCKET_BASE_URL, {
-                        path: CONFIG.SOCKET_BASE_PATH,
-                        query: {
-                            token: token
-                        }
+                        path: CONFIG.SOCKET_BASE_PATH
+                        // query: {
+                        //     token: token
+                        // }
                     });
-
+                    // socket.on('connection', (socketData)=>{
+                    //     console.log('REINITIALIZE TOKEN');
+                    //     socket.emit('getData', {token: token})
+                    // })
+                    socket.emit('getData', {token: token})
                     _initialized = true
                     _instance = socket
                     cb()
