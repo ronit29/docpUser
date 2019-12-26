@@ -21,8 +21,9 @@ class VipClubMemberDetails extends React.Component{
     }
 
     componentDidMount() {
-        let extraParams = {
-            user_type: this.state.is_gold?'gold':'vip'
+        let extraParams = {}
+        if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
+            extraParams['user_type']= this.props.selected_vip_plan.is_gold?'gold':'vip'
         }
         this.props.retrieveMembersData('PLAN_PURCHASE',extraParams)
         // this.props.citiesData()
