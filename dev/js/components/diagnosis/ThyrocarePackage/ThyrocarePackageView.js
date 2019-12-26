@@ -93,7 +93,7 @@ class ThyrocarePackageView extends React.Component {
         let gtm_data = {
             'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-submit-click'
         }
-       this.props.NonIpdBookingLead(gtm_data) 
+       this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }
 
