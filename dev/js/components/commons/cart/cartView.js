@@ -83,9 +83,9 @@ class CartView extends React.Component {
                             vip_amnt_price += item.mrp
                         }else{
                             if(item.actual_data.is_gold_member){
-                                vip_amnt_price += item.mrp - amount_to_be_paid
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
                             }else{
-                                vip_amnt_price += item.mrp - amount_to_be_paid
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
                             }                            
                         }   
                     }
