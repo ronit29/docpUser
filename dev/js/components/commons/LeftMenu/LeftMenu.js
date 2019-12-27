@@ -161,7 +161,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/referral')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer and Earn</a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer <span className="refer-bonus float-right">Earn ₹ 200</span></a></li>
 
                       <li className="pos-rel"><a onClick={(e) => {
                         e.preventDefault()
