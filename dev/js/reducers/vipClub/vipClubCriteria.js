@@ -207,11 +207,12 @@ export default function (state = defaultState, action) {
                 ...state
             }
             if(action.payload.data && Object.keys(action.payload.data).length > 0 && action.payload.data.members && action.payload.data.members.length > 0){
+                debugger
                     // newState.currentSelectedVipMembersId=[]
                     
                     // newState.vipClubMemberDetails={}
                     // newState.members_proofs = []
-                    if(action.payload.data && action.payload.data.is_agent && Object.keys(newState.selected_vip_plan).length == 0){
+                    if(action.payload.data && Object.keys(newState.selected_vip_plan).length == 0){
                         newState.selected_vip_plan={}
                         newState.selected_vip_plan=action.payload.data.plan
                     }
