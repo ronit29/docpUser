@@ -178,7 +178,7 @@ class VipGoldView extends React.Component {
                                         <div className="gold-grntee-card-container">
                                             <div className="gold-grntee-card gaurantee-img mb-3">
                                                 <div className="round-img-gld">
-                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn.svg'} />
+                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
                                                     <h4>Risk-Free 100% Satisfaction Guarantee</h4>
@@ -326,7 +326,7 @@ class VipGoldView extends React.Component {
                                                     <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                     <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
-                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Unlimted usage with no maximum cap </p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Unlimited usage with no maximum cap </p>
                                                     <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this, true)}>T&amp;C Apply</a></p>
                                                 </div>
                                             </div>

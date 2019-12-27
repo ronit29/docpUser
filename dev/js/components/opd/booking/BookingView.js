@@ -211,8 +211,16 @@ class BookingView extends React.Component {
         lead_data.source = 'AppointmentPaySuccess'
         lead_data.lead_source= 'AppointmentPaySuccess'
         lead_data.city_id = city_id
+        let extraParams = {}
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                extraParams = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+            }
+        // this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name, extraParams)
 
-        this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
+        this.props.generateVipClubLead({selectedPlan:'', number:number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:name, extraParams:extraParams,
+            cb: (resp) => {
+            }
+        })
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked',city_id: city_id
         }

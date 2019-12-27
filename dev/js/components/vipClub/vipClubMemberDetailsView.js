@@ -32,8 +32,8 @@ class VipClubMemberDetailsView extends React.Component {
     	if(window){
     		window.scrollTo(0,0)
     	}
-    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment && this.props.vipCoupons.length >0) {
-	    		this.props.applyCouponDiscount({ productId : this.props.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price,
+    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.vipCoupons.length >0) {
+	    		this.props.applyCouponDiscount({ productId : this.props.selected_vip_plan.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price,
 	    		cb: (resp) => {
 	    			if(resp){
 	    				this.setState({coupon_discount:resp.discount})
@@ -391,11 +391,12 @@ class VipClubMemberDetailsView extends React.Component {
 							members.is_primary_user = true
 							data.members.push(members)
 							data['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
-							data['coupon_type'] = this.props.is_gold?'gold':'vip'
+							data['coupon_type'] = this.props.selected_vip_plan.is_gold?'gold':'vip'
+							pushData['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
+							pushData['coupon_type'] = this.props.selected_vip_plan.is_gold?'gold':'vip'
 							pushData.members.push(param)
 							console.log(data)
 							this.pushUserData(pushData)
-
 
 							if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
 
@@ -567,10 +568,10 @@ class VipClubMemberDetailsView extends React.Component {
 
 	applyCoupons(){
 		let selected_plan_id = null
-		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.state.is_from_payment) {
+		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment) {
             // this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
             selected_plan_id = this.props.selected_vip_plan.id
-		this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.is_gold?8:11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
+		this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.selected_vip_plan.is_gold?8:11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
 		}
 	}
 
@@ -583,7 +584,7 @@ class VipClubMemberDetailsView extends React.Component {
         gold_push_data.members = []
         gold_push_data.coupon_data = []
         gold_push_data.utm_spo_tags = parsed
-        gold_push_data.coupon_type = this.props.is_gold?'gold':'vip'
+        gold_push_data.coupon_type = this.props.selected_vip_plan.is_gold?'gold':'vip'
         this.props.currentSelectedVipMembersId.map((val, key) => {
         if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
             param = this.props.vipClubMemberDetails[val[key]]

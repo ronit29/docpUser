@@ -173,12 +173,24 @@ class VipLoginPopup extends React.Component {
                                         extraParams.city_id = this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
                                     }*/
 
-                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber, lead_data, self.props.selectedLocation, self.state.user_name, extraParams, (resp) => {
+                                    if(self.props.common_utm_tags && self.props.common_utm_tags.length){
+                                        extraParams = self.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+                                    }
+
+                                     self.props.generateVipClubLead({selectedPlan:self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', number:self.state.phoneNumber, lead_data:lead_data, selectedLocation:self.props.selectedLocation, user_name:self.state.user_name, extraParams:extraParams,
+                                        cb: (resp) => {
+                                            let LeadIdData = {
+                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                            }
+                                            GTM.sendEvent({ data: LeadIdData })
+                                        }
+                                    })
+                                    /*self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name, extraParams, (resp)=>{
                                         let LeadIdData = {
                                             'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
                                         }
                                         GTM.sendEvent({ data: LeadIdData })
-                                    })
+                                    })*/
                                 }
                                 if (exists.user_exists) {
                                     this.props.closeLeadPopup()
