@@ -14561,3 +14561,9 @@ div.doc-srch-fltr.vip-slct-pop {
     } */
 }
 
+.refer-bonus{
+    background: #319bd6;
+    border-radius: 5px;
+    padding: 1px 10px;
+    color: #fff;
+}
