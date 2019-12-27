@@ -13823,7 +13823,23 @@ p.pkgtstName.prcd-height {
     top: 0;
     height: 100%;
 }
-
+.home-banner-pos{
+position:absolute;
+}
+.inner-banner-pos{
+position: absolute;
+right: 0px;
+padding: 0px;
+}
+.banner-margin-tap{
+    margin: 0px -15px;
+}
+.banner-md-margn {
+    margin: 0px;
+}
+.banner-md-margn div.banner-margin-tap {
+    margin: 0px;
+}
 .banner-home-scrollable img {
     border-radius: 4px;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
@@ -14299,6 +14315,12 @@ div.doc-srch-fltr.vip-slct-pop {
     .sbi-iconfx{
         display: inline-flex;
         width: 85%;
+    }
+    .banner-md-margn {
+        margin: 0px -15px; 
+    }
+    .banner-md-margn div.banner-margin-tap {
+        margin: 0px -15px;
     }
 }
 
