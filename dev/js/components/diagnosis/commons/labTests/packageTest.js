@@ -15,9 +15,13 @@ class PackageTest extends React.Component {
 
     render() {
         let { i, test, toggle } = this.props
-        let { deal_price, mrp, pre_test_info, insurance } = test
+        let { deal_price, mrp, pre_test_info, insurance, vip } = test
         let test_package = test.package || []
         let test_info
+        let price_to_pay = deal_price;
+        if(vip && (this.props.is_user_vip || this.props.is_user_gold_vip) ) {
+            price_to_pay = parseInt(vip.vip_amount||0) + parseInt(vip.vip_convenience_amount||0)
+        }
         if (test.test.show_details) {
             test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block', 'cursor':'pointer'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
@@ -25,7 +29,7 @@ class PackageTest extends React.Component {
         }
         return (
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix pdngRgt">
-                <label className={`${this.props.is_user_insured?'':'ck-bx'}`} style={{ fontWeight: '400', fontSize: '14px' }} >
+                <label className={`${(this.props.is_user_vip && !this.props.is_user_gold_vip)?'':'ck-bx'}`} style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name} {test.test.show_details?test_info:''}
                     </p>
@@ -39,7 +43,7 @@ class PackageTest extends React.Component {
                         </span> : ''
                     }
                     {
-                        this.props.is_user_insured?''   
+                        (this.props.is_user_vip && !this.props.is_user_gold_vip)?''   
                         :this.props.hide_price ?
                             <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
                             : <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
@@ -49,7 +53,7 @@ class PackageTest extends React.Component {
                     }
 
                     {
-                        this.props.is_user_insured?''
+                        this.props.is_user_vip && !this.props.is_user_gold_vip?''
                         :<span className="checkmark"></span>
                     }
 
@@ -75,12 +79,17 @@ class PackageTest extends React.Component {
                     
                 </div>
                 {
-                 this.props.is_plan_applicable || test.hide_price || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
-
+                 (this.props.is_user_vip && !this.props.is_user_gold_vip) || this.props.is_plan_applicable || test.hide_price || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? "" 
+                    :price_to_pay == mrp.split('.')[0]
+                        ?<span className="test-price text-sm">₹ {price_to_pay}</span>
+                        :<span className="test-price text-sm">₹ {price_to_pay}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
                 }
                     
                 {
-                    this.props.is_plan_applicable || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? <span className="test-price text-sm">₹ 0</span>:''
+                    this.props.is_plan_applicable || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? <span className="test-price text-sm">₹ 0</span>:''   
+                }
+                {
+                    (this.props.is_user_vip && !this.props.is_user_gold_vip)?<span className="test-price text-sm">₹ {price_to_pay}</span>:''
                 }
                 {/*                 
                 <div>

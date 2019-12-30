@@ -86,6 +86,7 @@ class LabTests extends React.Component {
         let selectedTestsCount = 0
         let vip_amount = 0
         let finalMrp = 0
+        let price_to_pay =0
 
         //For Insured Person Remove unselected Tests/Packages
 
@@ -113,16 +114,18 @@ class LabTests extends React.Component {
                         if(test.vip){
                             vip_amount+= parseInt(test.vip.vip_gold_price||0) + parseInt(test.vip.vip_convenience_amount||0)    
                         }
-                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount} is_user_insured={is_user_insured} is_vip_applicable={is_vip_applicable} />)
+                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount} is_user_insured={is_user_insured} is_vip_applicable={is_vip_applicable} is_user_vip={this.props.is_user_vip} is_user_gold_vip={this.props.is_user_gold_vip} />)
                     } else {
-                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount} is_vip_applicable={is_vip_applicable}/>)
+                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount} is_vip_applicable={is_vip_applicable} is_user_vip={this.props.is_user_vip} is_user_gold_vip={this.props.is_user_gold_vip} />)
                     }
 
                 } else {
                     if (test.is_selected) {
                         finalMrp+= parseInt(test.mrp)
-                        if(test.vip){
+                        price_to_pay = parseInt(test.deal_price);
+                        if(test.vip && (this.props.is_user_vip || this.props.is_user_gold_vip) ){
                             vip_amount+= parseInt(test.vip.vip_gold_price||0) + parseInt(test.vip.vip_convenience_amount||0)    
+                            price_to_pay = parseInt(test.vip.vip_amount||0) + parseInt(test.vip.vip_convenience_amount||0)
                         }
                         if (test.test.show_details) {
                             // test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
@@ -140,30 +143,31 @@ class LabTests extends React.Component {
                             <span className="test-price text-sm">Free</span>
                         </li>
                             : <li key={i + "srt"}>
-                                <label className={`${is_user_insured || is_vip_applicable || is_covered_under_gold?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
+                                <label className={`${(this.props.is_user_vip && !this.props.is_user_gold_vip)?'':'ck-bx'}`} style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details ? test_info : ''}
                                     {
-                                        is_user_insured || is_vip_applicable || is_covered_under_gold?''
-                                        :<input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />    
+                                        (this.props.is_user_vip && !this.props.is_user_gold_vip)?'':<input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />    
                                     }
                                     
                                     {
-                                        is_user_insured || is_vip_applicable || is_covered_under_gold?''
-                                        :<span className="checkmark" />
+                                        (this.props.is_user_vip && !this.props.is_user_gold_vip)?'':<span className="checkmark" />
                                     }
                                 </label>
                                 {
-                                    is_vip_applicable || is_covered_under_gold?''
-                                    :is_insurance_applicable || test.included_in_user_plan?
-                                        <span className="test-price text-sm">₹ 0 </span>
-                                    :
-                                    test.deal_price == test.mrp.split('.')[0]?
-                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
-                                    :
-                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                    // is_vip_applicable || is_covered_under_gold?''
+                                    // :
+                                    is_insurance_applicable || test.included_in_user_plan?
+                                     <span className="test-price text-sm">₹ 0 </span>
+                                    :price_to_pay == test.mrp.split('.')[0]?
+                                        <span className="test-price text-sm">&#8377; {price_to_pay}</span>
+                                        :<span className="test-price text-sm">&#8377; {price_to_pay}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
                     } else {
+                        price_to_pay = parseInt(test.deal_price);
+                        if(test.vip && (this.props.is_user_vip || this.props.is_user_gold_vip) ){
+                            price_to_pay = parseInt(test.vip.vip_amount||0) + parseInt(test.vip.vip_convenience_amount||0)
+                        }
                         if (test.test.show_details) {
                             test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block', 'cursor':'pointer'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
@@ -183,11 +187,10 @@ class LabTests extends React.Component {
                                 {    
                                     ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured) || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
-                                    :
-                                    test.deal_price == test.mrp.split('.')[0]?
-                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
-                                    :
-                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                        :price_to_pay == test.mrp.split('.')[0]?
+                                            <span className="test-price text-sm">&#8377; {price_to_pay}</span>
+                                            :<span className="test-price text-sm">&#8377; {price_to_pay}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span>
+                                            </span>
                                 }
                             </li>)
                     }
