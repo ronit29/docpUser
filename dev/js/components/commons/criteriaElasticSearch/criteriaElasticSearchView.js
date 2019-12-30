@@ -7,7 +7,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
 import InitialsPicture from '../initialsPicture'
-
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
 
 const debouncer = (fn, delay) => {
     let timer = null
@@ -427,13 +427,8 @@ class CriteriaElasticSearchView extends React.Component {
                             }
                             {
                                 this.props.selected == 'lab'?
-                                <div className="widget mb-3 d-flex align-item-center justify-content-between upload-prescription-widget" >
-                                    <div className="d-flex align-item-center">
-                                        <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
-                                        <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
-                                    </div>
-                                    <button className="m-0 cstm-book-btn fw-500">Upload</button>
-                                </div> : ''
+                                <PrescriptionUpload historyObj={this.props.history} search_lab={true}/>
+                                :''
                             }
                             {
                                 this.state.searchCities.length > 0 ?
