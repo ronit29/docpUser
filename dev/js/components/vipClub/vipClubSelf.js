@@ -577,7 +577,10 @@ class VipProposer extends React.Component {
 						</div>
 						:''
 					}
-					<div className="col-12"> <DateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
+					<div className="col-12">
+					<form>
+					<DateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
+					</form> 
 					</div>
 					{/*<div className="col-12">
 						<div className={`ins-form-group ${this.props.is_from_payment || this.state.disableDob ?'click-disable':''}`} >

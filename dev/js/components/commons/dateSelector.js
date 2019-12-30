@@ -117,9 +117,10 @@ class DateSelector extends React.Component {
     
     render() {
         return (
-           <div className="labelWrap" style={{border:this.props.is_dob_error?'1px solid red':''}}>
+           <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
                 <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob}/> 
-                {this.state.calcualatedAge?this.state.calcualatedAge:''}
+                <span className="input-year">{this.state.calcualatedAge?this.state.calcualatedAge:''} years</span>
+                <label className="sumry-lbl" for={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth</label>
                 <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>
         </div>
         );

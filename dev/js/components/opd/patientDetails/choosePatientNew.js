@@ -401,7 +401,10 @@ class ChoosePatientNewView extends React.Component {
 
                             {
                                 (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
-                                    <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob= {this.state.dob}/>
+                                    <div className="slt-nw-input summery-dob-cont">
+                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
+                                        <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                    </div>
                                 :""
                             }
                              
@@ -461,7 +464,11 @@ class ChoosePatientNewView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                <div className="slt-nw-input summery-dob-cont">
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
+                                    <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                </div>
+                                
                                 {/*<div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
                                     <input className="slt-text-input" autoComplete="off" type="text" name="dob" value={this.state.dob} onClick={this.openCalendar.bind(this,true)}  placeholder="" />
