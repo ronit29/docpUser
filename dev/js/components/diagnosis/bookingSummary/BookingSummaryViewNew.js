@@ -69,7 +69,8 @@ class BookingSummaryViewNew extends React.Component {
             isLensfitSpecific:parsed.isLensfitSpecific|| false,
             showGoldPriceList: false,
             selectedTestIds: [],
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            enableDropOfflead:true
         }
     }
 
@@ -166,7 +167,6 @@ class BookingSummaryViewNew extends React.Component {
                 }
             },3000)
         }
-        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(props){
@@ -201,6 +201,9 @@ class BookingSummaryViewNew extends React.Component {
         //To update Gold Plans on changing props
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
+        }
+        if(this.state.enableDropOfflead){
+            this.nonIpdLeads()
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
@@ -828,7 +831,7 @@ class BookingSummaryViewNew extends React.Component {
         let start_time = this.props.selectedSlot.time.value
        */ let testIds = this.props.lab_test_data[this.props.selectedLab] || []
         testIds = testIds.map(x => x.id)
-
+        let utm_tags = this.getUtmTags()
         let postData = {
             lab: this.props.selectedLab,
             test_ids: testIds,
@@ -839,7 +842,8 @@ class BookingSummaryViewNew extends React.Component {
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
-            from_web: true
+            from_web: true,
+            utm_tags: utm_tags
         }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
@@ -1393,6 +1397,9 @@ class BookingSummaryViewNew extends React.Component {
                 data.phone_number = user_phone_number
                 data.customer_name = user_name
             }
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                data.utm_tags = this.getUtmTags()
+            }
             if(selected_test && this.props.selectedSlot && Object.keys(this.props.selectedSlot).length  && this.props.selectedSlot.selectedTestsTimeSlot){
                 let { date, time } = selected_test
                 data.selected_time = time.text +' '+time.title
@@ -1401,9 +1408,28 @@ class BookingSummaryViewNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+            this.setState({enableDropOfflead:false})
             this.props.NonIpdBookingLead(data)
 
         }
+    }
+
+    getUtmTags() {
+        const parsed = queryString.parse(this.props.location.search)
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
+        }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
+        return utm_tags
     }
     
     render() {
@@ -1797,7 +1823,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let currentTestsCount = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !this.state.cart_item && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !is_insurance_applicable
 
         if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
             this.props.select_lab_payment_type(1)

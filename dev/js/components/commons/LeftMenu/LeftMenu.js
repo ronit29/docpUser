@@ -109,7 +109,7 @@ class LeftMenu extends React.Component {
 
 
                       {
-                        /*CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && (user_ins_status == 1 || user_ins_status == 5)?
+                        CONFIG.ENABLE_INSURANCE && (user_ins_status == 1 || user_ins_status == 5)?
                           <li><a onClick={(e) => {
                             let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'
@@ -119,7 +119,7 @@ class LeftMenu extends React.Component {
                             this.props.toggleLeftMenu()
                             this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
                           }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7? 'Active' : 'New'}</span></a></li>
-                          : ''*/
+                          : ''
                       }
                       <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
                                     {/* <span className={memberClass}>{memStatus}</span> */}
@@ -161,7 +161,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/referral')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer and Earn</a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer <span className="refer-bonus float-right">Earn ₹ 200</span></a></li>
 
                       <li className="pos-rel"><a onClick={(e) => {
                         e.preventDefault()

@@ -78,7 +78,7 @@ class VipClub extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { user_cities } = state.USER
+    let { user_cities, common_utm_tags } = state.USER
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan, odpGoldPredictedPrice, labGoldPredictedPrice } = state.VIPCLUB
     const {
         selectedLocation,
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
         nearbyHospitals
     } = state.SEARCH_CRITERIA_OPD
     return {
-        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice
+        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice, common_utm_tags
     }
 }
 
@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
         getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams,cb)),
+        generateVipClubLead:(data,cb) =>dispatch(generateVipClubLead(data,cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),

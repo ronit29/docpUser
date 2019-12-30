@@ -119,12 +119,25 @@ class VipClubView extends React.Component {
         if (STORAGE.checkAuth()) {
             if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                 loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                let extraParams = {}
+                if(this.props.common_utm_tags && this.props.common_utm_tags.length >0){
+                    extraParams = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+                }
                 if (Object.keys(loginUser).length > 0) {
-                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
-                        let LeadIdData = {
+                    // this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, extraParams, (resp)=>{
+                    //     let LeadIdData = {
+                    //         'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                    //     }
+                    //     GTM.sendEvent({ data: LeadIdData })
+                    // })
+
+                    this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
+                        cb: (resp) => {
+                            let LeadIdData = {
                             'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                            }
+                            GTM.sendEvent({ data: LeadIdData })
                         }
-                        GTM.sendEvent({ data: LeadIdData })
                     })
                 }
                 let url = '/vip-club-member-details?isDummy=true'
@@ -236,8 +249,8 @@ class VipClubView extends React.Component {
                             this.props.is_gold?
                                 <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                     <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
-                                    <p className="scrl-cont-dat gld-hd-txt-algn">DISCOUNTS LIKE </p>
-                                    <h1 className="scrl-cont-dat">NEVER BEFORE</h1>
+                                    <p className="scrl-cont-dat gld-hd-txt-algn">Membership plan for </p>
+                                    <h1 className="scrl-cont-dat">exclusive discounts</h1>
                                     {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                                 </div>
                             :
@@ -251,7 +264,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup ?
-                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} is_see_more={false}/> : ''
                     }
                     {!this.props.is_gold && !this.state.is_gold_clicked?
                          <VipPlanView {...this.props} 

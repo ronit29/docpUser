@@ -79,7 +79,8 @@ class PatientDetailsNew extends React.Component {
             show_banner: false,
             banner_decline: false,
             showGoldPriceList: false,
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            enableDropOfflead:true
         }
     }
 
@@ -252,7 +253,6 @@ class PatientDetailsNew extends React.Component {
         }
 
         this.sendEmailNotification()
-        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(agent_selected_plan_id){
@@ -342,6 +342,9 @@ class PatientDetailsNew extends React.Component {
         //To update Gold Plans on changing props
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
+        }
+        if(this.state.enableDropOfflead){
+            this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
             let hospital = {}
@@ -493,6 +496,11 @@ class PatientDetailsNew extends React.Component {
             referrer: document.referrer || '',
             gclid: parsed.gclid || ''
         }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
         return utm_tags
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
@@ -614,7 +622,6 @@ class PatientDetailsNew extends React.Component {
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
         let utm_tags = this.getUtmTags()
-
         let postData = {
             doctor: this.props.selectedDoctor,
             hospital: this.state.selectedClinic,
@@ -629,6 +636,11 @@ class PatientDetailsNew extends React.Component {
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
+
+        // if(!hospital.enabled_for_prepaid && !hospital.enabled_for_cod) {
+        //     postData['payment_type'] = 1;
+        // }
+
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -1411,6 +1423,11 @@ class PatientDetailsNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+            }
+            this.setState({enableDropOfflead:false})
             this.props.NonIpdBookingLead(data)
         }
     }
@@ -1538,7 +1555,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !this.state.cart_item && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable
         
         //If Only COD applicable then don't show single flow gold
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
@@ -1771,7 +1788,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                                 <span className="nw-pick-hdng">Time:</span>
                                                                                                                 <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
                                                                                                                     <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                                                    <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                                                    <input type="text" name="bday" onClick={() => this.navigateTo('time')} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
                                                                                                                     <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                                                                 </div>
                                                                                                             </div>
