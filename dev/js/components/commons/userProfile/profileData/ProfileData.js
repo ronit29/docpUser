@@ -184,7 +184,7 @@ class ProfileData extends React.Component {
                                                         }
                                                         GTM.sendEvent({ data: data })
                                                         this.props.clearVipSelectedPlan()
-                                                        this.props.history.push(`/vip-club-details`)
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
                                                         <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
@@ -195,7 +195,7 @@ class ProfileData extends React.Component {
                                                         }
                                                         GTM.sendEvent({ data: data })
                                                         this.props.clearVipSelectedPlan()
-                                                        this.props.history.push(`/vip-club-details`)
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
                                                         <p>Discounts on <br /><strong>5,000</strong> Labs</p>
