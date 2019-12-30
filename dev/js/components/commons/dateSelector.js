@@ -11,7 +11,8 @@ class DateSelector extends React.Component {
           newDob:null,
           calcualatedAge:null,
           toCalculateAge:true,
-          isValidDob:true
+          isValidDob:true,
+          isFocused:false
         }
     }
 
@@ -70,7 +71,7 @@ class DateSelector extends React.Component {
               self.calculateAge(year+'-'+month+'-'+day)
             }
             this.value = output;
-            self.setState({newDob:output,isValidDob:isValidDob})
+            self.setState({newDob:output,isValidDob:isValidDob,isFocused:false})
         });
     }
 
@@ -126,7 +127,7 @@ class DateSelector extends React.Component {
     render() {
         return (
            <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)}/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}}/> 
                 {
                   this.state.calcualatedAge && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge?this.state.calcualatedAge:''} years</span>
@@ -134,7 +135,7 @@ class DateSelector extends React.Component {
                   <span className="input-year dob-error">Invalid DOB</span>
                   :''
                 }
-                <label className="sumry-lbl" for={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
+                <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} for={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
                {/* <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>*/}
         </div>
         );
