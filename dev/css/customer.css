@@ -1956,7 +1956,9 @@ li.lst-bfr:before {
 }
 
 .ft-25 {
-    font-size: 25px;
+    font-size: 20px;
+    margin-top: 8px;
+    display: inline-block;
 }
 
 .book-appointment-section-login {
