@@ -8624,3 +8624,13 @@ p.avl-cont {
     font-size: 12px;
 }
 /****** gold guarantee ******/
+.rft-price-size{
+    font-size: 25px;
+    margin: 0 5px;
+    color: #1b97fd;
+}
+.cpn-font-sz{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
