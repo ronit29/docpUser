@@ -185,7 +185,6 @@ class UserSignupView extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -267,6 +266,7 @@ class UserSignupView extends React.Component {
                                                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
                                                                     <label htmlFor="dob">Date of Birth</label>
                                                                 </div>*/}
+                                                                 <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
 
                                                                 {   
                                                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
@@ -310,7 +310,6 @@ class UserSignupView extends React.Component {
                                                                         </div>
                                                                     </div> : ""
                                                                 }
-                                                                <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
                                                             </form>
                                                         </div>
                                                     </div> : ""

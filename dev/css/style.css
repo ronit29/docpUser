@@ -14592,6 +14592,10 @@ div.labelWrap.ddmminput input{
     color: white;
     font-size: 12px;
 }
+.ddmminput .input-year.dob-error{
+    background: white;
+    color: red;
+}
 div.labelWrap.ddmminput label.date-lbl-auto {
     padding: 0;
     top: -4px;
