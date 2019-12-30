@@ -1920,9 +1920,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            !is_selected_user_under_vip?
-                                                                            <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
-                                                                            :''
+                                                                            is_selected_user_under_vip && !is_selected_user_gold?''
+                                                                            :<a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
+                                                                            
                                                                         }
                                                                         {
                                                                             false && STORAGE.isAgent() && (is_insurance_applicable && prescriptionPicked) && (!is_default_user_insured && !is_corporate  && !(parsed && parsed.test_ids)/* && !is_vip_gold_applicable && !is_default_user_under_vip*/ ) ?

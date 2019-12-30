@@ -199,7 +199,7 @@ class LabTests extends React.Component {
 
         //For Insured Person Remove unselected Tests/Packages
 
-        if(is_user_insured || is_vip_applicable || is_covered_under_gold) {
+        if(this.props.is_user_vip && !this.props.is_user_gold_vip /*is_user_insured || is_vip_applicable || is_covered_under_gold*/) {
             unSelectedTests = []
             unSelectedPackage = []
         }

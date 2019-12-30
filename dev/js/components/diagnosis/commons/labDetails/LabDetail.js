@@ -167,14 +167,21 @@ class LabDetails extends React.Component {
                                     } */}
                                 </div>
                                 {
-                                    STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
-                                            this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
-                                    <div className="lb-viewmore">
-                                        {
-                                            /*!this.props.is_vip_applicable && !this.props.is_covered_under_gold */true && <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
-                                        }
+                                    // STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
+                                    //         this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
+                                    // <div className="lb-viewmore">
+                                    //     {
+                                    //         !this.props.is_vip_applicable && !this.props.is_covered_under_gold true && <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
+                                    //     }
+                                    // </div>
+                                    // : ''
+                                }
+
+                                {
+                                    this.props.is_user_vip && !this.props.is_user_gold_vip?''
+                                    :<div className="lb-viewmore">
+                                        <p onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">{`View all ${total_test_count?total_test_count:''} tests `}<img src={ASSETS_BASE_URL + '/images/right_arrow.png'}/></p>
                                     </div>
-                                    : ''
                                 }
                                 <LabTests {...this.props} />
 
