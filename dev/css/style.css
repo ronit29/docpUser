@@ -13845,7 +13845,13 @@ padding: 0px;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
 }
-
+.home-bnnr-mrgn{
+margin-bottom: 40px;
+}
+.home-banner-pos{
+    position: absolute;
+    top: 0px;
+}
 .hidderBanner {
     visibility: hidden;
 }
