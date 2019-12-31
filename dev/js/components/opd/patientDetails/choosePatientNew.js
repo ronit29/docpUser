@@ -4,7 +4,7 @@ import GTM from '../../../helpers/gtm.js'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
 const queryString = require('query-string');
-import DateSelector from '../../commons/DateSelector.js'
+import NewDateSelector from '../../commons/newDateSelector.js'
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -403,7 +403,7 @@ class ChoosePatientNewView extends React.Component {
                                 (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
                                     <div className="slt-nw-input summery-dob-cont">
                                         <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
-                                        <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                        <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
                                     </div>
                                 :""
                             }

@@ -3,7 +3,7 @@ import VipLoginPopup from './vipClubPopup.js'
 import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
-import DateSelector from '../commons/DateSelector.js'
+import NewDateSelector from '../commons/newDateSelector.js'
 
 class VipProposerFamily extends React.Component {
 	constructor(props) {
@@ -430,7 +430,7 @@ class VipProposerFamily extends React.Component {
 								this.props.validateErrors && this.props.validateErrors.indexOf('dob')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
 							}
 						</div>*/}
-						<div className="col-12"> <form><DateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true}/></form>
+						<div className="col-12"> <form><NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true}/></form>
 						</div>
 					</div>
 					{this.props.is_from_payment && !this.state.is_disable?

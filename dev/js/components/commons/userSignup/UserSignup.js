@@ -8,7 +8,7 @@ import Calendar from 'rc-calendar';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 const moment = require('moment');
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
-import DateSelector from '../../commons/DateSelector.js'
+import NewDateSelector from '../../commons/newDateSelector.js'
 
 const stepperStyle = {
     padding: 60,
@@ -266,7 +266,7 @@ class UserSignupView extends React.Component {
                                                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
                                                                     <label htmlFor="dob">Date of Birth</label>
                                                                 </div>*/}
-                                                                 <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                                                 <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
 
                                                                 {   
                                                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">

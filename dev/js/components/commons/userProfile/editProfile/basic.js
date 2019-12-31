@@ -6,7 +6,7 @@ import Loader from '../../Loader'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
 import VerifyEmail from '../../../insurance/verifyEmail.js'
-import DateSelector from '../../DateSelector.js'
+import NewDateSelector from '../../newDateSelector.js'
 
 class BasicDetails extends React.Component {
     constructor(props) {
@@ -186,7 +186,7 @@ class BasicDetails extends React.Component {
                                         />
                                     </div></div> : ""
                                 }
-                                <DateSelector {...this.props} getNewDate={this.props.updateProfile.bind(this)} old_dob={dob}/>
+                                <NewDateSelector {...this.props} getNewDate={this.props.updateProfile.bind(this)} old_dob={dob}/>
                                 {/* <div className="labelWrap">
                                 <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>

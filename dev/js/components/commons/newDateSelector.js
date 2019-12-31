@@ -2,7 +2,7 @@ import React from 'react';
 const queryString = require('query-string');
 
 
-class DateSelector extends React.Component {
+class NewDateSelector extends React.Component {
 
     constructor(props) {
         super(props)
@@ -15,7 +15,7 @@ class DateSelector extends React.Component {
           isFocused:false
         }
     }
-    
+
 
     onInpType(){
       let self = this
@@ -144,4 +144,4 @@ class DateSelector extends React.Component {
 }
 
 
-export default DateSelector
+export default NewDateSelector

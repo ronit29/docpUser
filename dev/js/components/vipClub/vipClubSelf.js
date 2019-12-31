@@ -4,7 +4,7 @@ import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 import VerifyEmail from './verifyEmail.js'
 import VipLoginPopup from './vipClubPopup.js'
-import DateSelector from '../commons/DateSelector.js'
+import NewDateSelector from '../commons/newDateSelector.js'
 const moment = require('moment')
 
 class VipProposer extends React.Component {
@@ -579,7 +579,7 @@ class VipProposer extends React.Component {
 					}
 					<div className="col-12">
 					<form>
-					<DateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
+					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
 					</form> 
 					</div>
 					{/*<div className="col-12">
