@@ -30,9 +30,13 @@ class NewDateSelector extends React.Component {
             if(values[0]) values[0] = self.checkValue(values[0], 31);
             if(values[1]) values[1] = self.checkValue(values[1], 12);
             if(values.length ==3){
-               isValidDob = self.isValidDate(values[0],values[1],values[2])
                if(values[2].length == 4){
-                  self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
+                  if(values[2] <= '1899'){
+                    isValidDob = false
+                  }else{
+                    isValidDob = self.isValidDate(values[0],values[1],values[2])
+                    self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
+                  }
                }
                self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob)  
             }
@@ -65,12 +69,16 @@ class NewDateSelector extends React.Component {
               day = parseInt(values[0]);
               month = parseInt(values[1]);            
               output = input;
+              if(year.length == 4){
+                if(year <= '1899'){
+                  isValidDob = false
+                }else{
+                  isValidDob = self.isValidDate(day,month,year)
+                  self.calculateAge(year+'-'+month+'-'+day)
+                }
+                self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
+              }
             };
-            isValidDob = self.isValidDate(day,month,year)
-            self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
-            if(year.length == 4){
-              self.calculateAge(year+'-'+month+'-'+day)
-            }
             this.value = output;
             self.setState({newDob:output,isValidDob:isValidDob,isFocused:false})
         });
