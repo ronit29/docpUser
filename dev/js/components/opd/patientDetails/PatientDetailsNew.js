@@ -1695,7 +1695,7 @@ class PatientDetailsNew extends React.Component {
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
                 }
                 {
-                    this.state.paymentBtnClicked?<Loader/>:''   
+                    this.state.paymentBtnClicked?<div className="bkng-time-overlay"><Loader/></div>:''   
                 }
                 {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :

@@ -1862,7 +1862,8 @@ class BookingSummaryViewNew extends React.Component {
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.labGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
                 }
                 {
-                    this.state.paymentBtnClicked?<Loader/>:''   
+                    this.state.paymentBtnClicked?
+                    <div className="bkng-time-overlay"><Loader/></div>:''   
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">

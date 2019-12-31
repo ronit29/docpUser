@@ -171,7 +171,7 @@ class ProfileData extends React.Component {
                                             <React.Fragment>
                                                 {
                                                     defaultProfile && (defaultProfile.insurance_status==1 || defaultProfile.insurance_status==4 || defaultProfile.insurance_status==5 || defaultProfile.is_vip_member)?''
-                                                    :<div className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><p>
+                                                    :<div className="usr-dtls-strt-txt pdng-usr-dtls-slots "><p className="fw-500">
                                                         Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
                                                     </div>
                                                 }
@@ -184,7 +184,7 @@ class ProfileData extends React.Component {
                                                         }
                                                         GTM.sendEvent({ data: data })
                                                         this.props.clearVipSelectedPlan()
-                                                        this.props.history.push(`/vip-club-details`)
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
                                                         <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
@@ -195,7 +195,7 @@ class ProfileData extends React.Component {
                                                         }
                                                         GTM.sendEvent({ data: data })
                                                         this.props.clearVipSelectedPlan()
-                                                        this.props.history.push(`/vip-club-details`)
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
                                                         <p>Discounts on <br /><strong>5,000</strong> Labs</p>
