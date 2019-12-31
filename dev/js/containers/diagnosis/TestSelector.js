@@ -36,6 +36,9 @@ const mapStateToProps = (state) => {
         currentLabSelectedTests
     } = state.SEARCH_CRITERIA_LABS
 
+    const { selectedProfile, profiles, defaultProfile, is_any_user_buy_gold } = state.USER
+
+
     let LABS = state.LABS
 
     return {
@@ -43,7 +46,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         selectedLocation,
         LABS,
-        currentLabSelectedTests
+        currentLabSelectedTests,
+        selectedProfile, profiles, defaultProfile, is_any_user_buy_gold
     }
 }
 
