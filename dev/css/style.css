@@ -1314,7 +1314,14 @@ p.top-head-link.card-lab-link span {
     position: absolute;
     top: 0px;
 }
-
+.bkng-time-overlay div.loaderCircular{
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #0000002b;
+}
 
 /* onload chat design */
 
