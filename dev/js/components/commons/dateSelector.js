@@ -15,6 +15,7 @@ class DateSelector extends React.Component {
           isFocused:false
         }
     }
+    
 
     onInpType(){
       let self = this
