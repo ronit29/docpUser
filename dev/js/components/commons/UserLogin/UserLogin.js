@@ -178,10 +178,10 @@ class UserLoginView extends React.Component {
                                 <div className="widget no-shadow no-round sign-up-container">
                                     <div className="widget-header text-center mv-header">
                                         {
-                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Get &#8377; 50 in your wallet</h3> : ""
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700 mb-2 cpn-font-sz">Get  <span className="rft-price-size">&#8377;200</span> in your wallet</h3> : ""
                                         }
                                         {
-                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700" style={{ fontSize: 16 }} >Signup &amp; get great offers on your doctor and lab appointments<br /></h3>
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your cashback from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700" style={{ fontSize: 16 }} >Signup &amp; get great offers on your doctor and lab appointments<br /></h3>
                                         }
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>

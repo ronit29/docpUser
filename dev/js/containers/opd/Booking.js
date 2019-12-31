@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
     let { rescheduleSlot } = state.DOCTOR_SEARCH
 
     let {
-        summary_utm, summary_utm_validity, newNotification, notifications, rated_appoinments, profiles, selectedProfile, defaultProfile
+        summary_utm, summary_utm_validity, newNotification, notifications, rated_appoinments, profiles, selectedProfile, defaultProfile, common_utm_tags
     } = state.USER
     const {
         selectedLocation
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile, summary_utm, summary_utm_validity, selectedLocation, defaultProfile
+        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile, summary_utm, summary_utm_validity, selectedLocation, defaultProfile, common_utm_tags
     }
 }
 
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
-        generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name, extraParams, cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,extraParams, cb)),
+        generateVipClubLead:(data, cb) =>dispatch(generateVipClubLead(data, cb)),
     }
 }
 
