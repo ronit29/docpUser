@@ -69,16 +69,25 @@ class CartView extends React.Component {
                 }else{
                     if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
                         is_gold_member = item.actual_data.is_gold_member
-                        if(item.actual_data.vip_amount == 0){
+                        // if(item.actual_data.vip_amount == 0){
+                        //     vip_amnt_price += item.mrp
+                        // }else{
+                        //     if(item.actual_data.is_gold_member){
+                        //         vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
+                        //     }else{
+                        //         vip_amnt_price += item.mrp - item.actual_data.vip_amount
+                        //     }
+                            
+                        // }
+                        if(item.actual_data.amount_to_be_paid == 0){
                             vip_amnt_price += item.mrp
                         }else{
                             if(item.actual_data.is_gold_member){
-                                vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
                             }else{
-                                vip_amnt_price += item.mrp - item.actual_data.vip_amount
-                            }
-                            
-                        }
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
+                            }                            
+                        }   
                     }
                     total_mrp += item.mrp
 

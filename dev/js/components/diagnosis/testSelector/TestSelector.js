@@ -159,6 +159,18 @@ class TestSelectorView extends React.Component {
         let testIds = []
         let allTests = this.state.searchResults
         let testVal = {}
+        let is_user_insured = false
+        let is_user_vip = false
+        let is_user_gold_vip = false
+
+        //Check for USER STATUS
+
+        if(this.props.profiles && this.props.profiles[this.props.defaultProfile]){
+            is_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_user_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
+            is_user_gold_vip = this.props.profiles[this.props.defaultProfile].is_vip_gold_member
+        }
+
         if (labData) {
 
             selectedTests.map((criteria) => {
@@ -275,11 +287,13 @@ class TestSelectorView extends React.Component {
                                                                                 {
                                                                                     test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan ?
                                                                                         <div className="test-price text-sm">&#8377; {0}</div>
-                                                                                        :
-                                                                                        test.deal_price == test.mrp.split('.')[0] ?
+                                                                                        :(is_user_vip || is_user_gold_vip)
+                                                                                          ?( (parseInt(test.vip.vip_gold_price) + parseInt(test.vip.vip_convenience_amount) ) == test.mrp.split('.')[0] ) ?
+                                                                                            <span className="test-price text-sm">&#8377; {parseInt(test.vip.vip_gold_price||0) + parseInt(test.vip.vip_convenience_amount||0)}</span>
+                                                                                            :<span className="test-price text-sm">&#8377; { parseInt(test.vip.vip_gold_price) + parseInt(test.vip.vip_convenience_amount) }<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                          :test.deal_price == test.mrp.split('.')[0] ?
                                                                                             <span className="test-price text-sm">&#8377; {test.deal_price}</span>
-                                                                                            :
-                                                                                            <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                            :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                             </li>
                                                                         })
