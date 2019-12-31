@@ -139,9 +139,10 @@ class PrescriptionView extends React.PureComponent {
 							<img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
 							<h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
 						</div>
+                        <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
 						{
                             STORAGE.checkAuth()
-                            ?<input type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            ?<input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
                             :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
 					</div>
@@ -155,9 +156,10 @@ class PrescriptionView extends React.PureComponent {
                             <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
                             <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
                         </div>
+                        <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
                         {
                             STORAGE.checkAuth()
-                            ?<input type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            ?<input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
                             :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
                     </div>
@@ -169,7 +171,7 @@ class PrescriptionView extends React.PureComponent {
                     <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
                         {
                             this.state.showLoginView?<LoginPopup afterUserLogin={this.afterUserLogin} locationObj={this.props.locationObj} historyObj= {this.props.historyObj}/>
-        					:<div className="three upload-prescription">
+        					:<div className="upload-prescription">
                                 <div className="widget-header text-center mv-header p-3">
                                     <h4 className="fw-700 text-md">Upload Prescription</h4>
                                     <a style={{ cursor: 'pointer', right:15,top:16, position: 'absolute' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
@@ -184,15 +186,20 @@ class PrescriptionView extends React.PureComponent {
                                     		<img className="prescription-uploaded-img" src={this.state.selected_file} /> 
                                     		<h6 className="error-msg-text">Invalid Format</h6>
                                     		<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
-        		                                 <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
-        		                                 {/*} <span className="ml-2">Re-Upload</span>*/}
-                                                 <input type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
+        		                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
+                                                <span>
+                                                    <label className="text-white" htmlFor="presc-upload">Re-Upload</label>
+                                                </span>
+                                                <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
         		                            </button>
                                     	</React.Fragment>
                                     	:<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
-        	                                 <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
+        	                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
                                              {/*} <span className="ml-2">Upload</span>*/}
-                                            <input type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
+                                            <span>
+                                                <label className="text-white" htmlFor="presc-upload">Upload</label>
+                                            </span>
+                                            <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
         	                            </button>
 
                                     }
