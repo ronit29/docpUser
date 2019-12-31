@@ -1771,6 +1771,7 @@ class BookingSummaryViewNew extends React.Component {
         let amtBeforeCoupon = 0
         let total_price = finalPrice
         let is_home_charges_applicable = false
+        let total_amount_payable_non_plan_user = 0
         if(is_home_collection_enabled && this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
             is_home_charges_applicable = true
         }
@@ -1786,6 +1787,7 @@ class BookingSummaryViewNew extends React.Component {
         total_price = is_corporate || is_insurance_applicable || is_plan_applicable ? 0 : total_price
         let is_vip_gold_applicable = /*is_tests_covered_under_vip && */( (is_selected_user_gold && vip_data && vip_data.is_gold) || is_selected_user_under_vip)
 
+        total_amount_payable_non_plan_user = total_price
         if(is_vip_gold_applicable){
             total_price = finalMrp
         }
@@ -1803,17 +1805,25 @@ class BookingSummaryViewNew extends React.Component {
         if(!total_test_count && is_selected_user_gold){
             is_vip_gold_applicable = true
         }
+
         if(vip_data && (vip_data.is_enable_for_vip) ){
-
-            vip_discount_price = finalMrp - vip_data.vip_amount
             
-            if(/*vip_data.is_gold && */is_selected_user_gold) {
+            if(is_selected_user_gold) {
 
-                total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - ( this.state.is_cashback?0:(this.props.disCountedLabPrice || 0) )
-                vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
+                if(finalPrice<(vip_data.vip_amount + vip_data.vip_convenience_amount) ){
+                    vip_data.is_enable_for_vip = false;
+                    is_vip_applicable = false;
+                    is_selected_user_gold = false;
+                    total_amount_payable = total_amount_payable_non_plan_user;
+                    total_price = total_amount_payable_non_plan_user;
+                }else {
+                    total_amount_payable = vip_data.vip_amount +  vip_data.vip_convenience_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - ( this.state.is_cashback?0:(this.props.disCountedLabPrice || 0) )
+                    vip_discount_price = finalMrp - (vip_data.vip_amount + vip_data.vip_convenience_amount)
+                }
             }else{
 
                 if(is_vip_applicable) {
+                    vip_discount_price = finalMrp - vip_data.vip_amount
                     total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable?labDetail.home_pickup_charges:0) - ( this.state.is_cashback?0:(this.props.disCountedLabPrice || 0) )
                 }else if(vip_data.is_gold){
                     vip_discount_price = finalMrp - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
