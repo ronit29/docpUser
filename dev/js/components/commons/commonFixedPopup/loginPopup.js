@@ -11,6 +11,7 @@ import CommonLoginPopup from './commonFixedPopup.js'
 3) historyObj= {this.props.history}, locationObj = {this.props.location}
 */
 class LoginPopup extends React.Component {
+    _mounted = false
     
     constructor(props) {
         super(props)
@@ -26,6 +27,13 @@ class LoginPopup extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this._mounted = true
+    }
+
+    componentWillUnmount(){
+        this._mounted = false  
+    }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
             this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "", error_message: '' })
@@ -57,10 +65,14 @@ class LoginPopup extends React.Component {
                     }
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
-                        this.setState({ otpTimeout: false })
+                        if(this._mounted){
+                            this.setState({ otpTimeout: false })
+                        }
                     }, 20000)
                     setTimeout(() => {
-                        this.setState({ enableOtpRequest: false })
+                        if(this._mounted){
+                            this.setState({ enableOtpRequest: false })   
+                        }
                     }, 60000)
 
                     if (fromPopup && document.getElementsByClassName('ins-form-slider')) {

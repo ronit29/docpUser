@@ -427,7 +427,7 @@ class CriteriaElasticSearchView extends React.Component {
                             }
                             {
                                 this.props.selected == 'lab'?
-                                <PrescriptionUpload historyObj={this.props.history} search_lab={true}/>
+                                <PrescriptionUpload historyObj={this.props.history} search_lab={true} locationObj = {this.props.location} profiles={this.props.profiles}/>
                                 :''
                             }
                             {

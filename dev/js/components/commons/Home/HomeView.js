@@ -490,7 +490,7 @@ class HomeView extends React.Component {
 							type="lab"
 						/>
 						
-						<PrescriptionUpload historyObj={this.props.history} is_home_page={true}/>
+						<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles}/>
 
 						{
 							this.props.package_categories && this.props.package_categories.length ?

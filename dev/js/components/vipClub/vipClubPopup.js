@@ -494,8 +494,8 @@ class VipLoginPopup extends React.Component {
                         <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup`}>
                             <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.closeLeadPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             <div className="ins-form-slider">
-                                <div className="one d-none">
-                                    <div className="widget-header text-center mv-header d-none">
+                                <div className="one">
+                                    <div className="widget-header text-center mv-header ">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your registered mobile number to login</h4>
                                     </div>
                                     <div className="widget-content text-center">
@@ -539,7 +539,7 @@ class VipLoginPopup extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="two d-none">
+                                <div className="two">
                                     <div className="widget-header text-center mv-header">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter the OTP we’ve sent to your mobile number</h4>
                                     </div>
