@@ -466,7 +466,7 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                                 <div className="slt-nw-input summery-dob-cont">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
-                                    <DateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
+                                    <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
                                 </div>
                                 
                                 {/*<div className="slt-nw-input">
