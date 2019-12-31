@@ -128,7 +128,7 @@ class NewDateSelector extends React.Component {
     render() {
         return (
            <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}}/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}}/> 
                 {
                   this.state.calcualatedAge && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge?this.state.calcualatedAge:''} years</span>
