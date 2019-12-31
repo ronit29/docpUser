@@ -12,12 +12,36 @@ class NewDateSelector extends React.Component {
           calcualatedAge:null,
           toCalculateAge:true,
           isValidDob:true,
-          isFocused:false
+          isFocused:false,
+          months:null
         }
     }
 
+    componentWillReceiveProps(){
+      var d = new Date();
+      var currentYear = d.getFullYear();
+      let isValidDob
+        if(this.props.old_dob && this.props.old_dob != ''){
+            let oldDob = this.props.old_dob.split('-')
+            if(this.state.toCalculateAge){
+              if(oldDob.length ==3){
+                if(oldDob[0].length ==4){
+                    if(oldDob[0] <= '1899' || oldDob[0] > currentYear){
+                      isValidDob = false
+                    }else{
+                      isValidDob = this.isValidDate(oldDob[2],oldDob[1],oldDob[0])
+                      this.calculateAge(oldDob[0]+'-'+oldDob[1]+'-'+oldDob[2])
+                    }
+                }
+              }
+              this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0],isValidDob:isValidDob,toCalculateAge:false})
+            }
+        }
+    }
 
     onInpType(){
+      var d = new Date();
+      var currentYear = d.getFullYear();
       let self = this
         let isValidDob
         var output
@@ -31,7 +55,7 @@ class NewDateSelector extends React.Component {
             if(values[1]) values[1] = self.checkValue(values[1], 12);
             if(values.length ==3){
                if(values[2].length == 4){
-                  if(values[2] <= '1899'){
+                  if(values[2] <= '1899' || values[2] > currentYear){
                     isValidDob = false
                   }else{
                     isValidDob = self.isValidDate(values[0],values[1],values[2])
@@ -54,6 +78,8 @@ class NewDateSelector extends React.Component {
     onInpBlur(){
       let self = this
         let isValidDob
+        var d = new Date();
+        var currentYear = d.getFullYear();
         var output
         let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
         var year =''
@@ -69,8 +95,8 @@ class NewDateSelector extends React.Component {
               day = parseInt(values[0]);
               month = parseInt(values[1]);            
               output = input;
-              if(year.length == 4){
-                if(year <= '1899'){
+              if(year.toString().length == 4){
+                if(year <= '1899' || year >currentYear){
                   isValidDob = false
                 }else{
                   isValidDob = self.isValidDate(day,month,year)
@@ -82,17 +108,6 @@ class NewDateSelector extends React.Component {
             this.value = output;
             self.setState({newDob:output,isValidDob:isValidDob,isFocused:false})
         });
-    }
-
-    componentWillReceiveProps(){
-        if(this.props.old_dob){
-            let oldDob = this.props.old_dob.split('-')
-            if(this.state.toCalculateAge){
-              this.calculateAge(this.props.old_dob)
-              this.setState({toCalculateAge:false})
-            }
-            this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0]})
-        }
     }
 
     checkValue(str, max){
@@ -128,9 +143,7 @@ class NewDateSelector extends React.Component {
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        if(age >= 0){
-          this.setState({calcualatedAge:age})
-        }
+        this.setState({calcualatedAge:age,months:m})
     }
     
     render() {
@@ -138,13 +151,15 @@ class NewDateSelector extends React.Component {
            <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
                 <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}}/> 
                 {
-                  this.state.calcualatedAge && this.state.isValidDob?
-                  <span className="input-year">{this.state.calcualatedAge?this.state.calcualatedAge:''} years</span>
+                  this.state.calcualatedAge >0 && this.state.isValidDob?
+                  <span className="input-year">{this.state.calcualatedAge} years</span>
+                  :this.state.calcualatedAge ==0 && this.state.isValidDob?
+                  <span className="input-year">{this.state.months} months</span>
                   : this.state.newDob && !this.state.isValidDob?
                   <span className="input-year dob-error">Invalid DOB</span>
                   :''
                 }
-                <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} for={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
+                <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} htmlFor={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
                {/* <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>*/}
         </div>
         );
