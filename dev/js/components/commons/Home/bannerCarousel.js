@@ -410,7 +410,7 @@ class BannerCarousel extends React.Component {
         let offerVisible = filteredBanners[this.state.index]
 
         return (
-            <div style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? {} : { margin: '0 -15px' }}>
+            <div className={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? '' : 'banner-margin-tap'}>
                 {
                     this.props.sliderLocation === "medicine_detail_page" ?
                         <div className="medic-img-slider">
@@ -448,7 +448,7 @@ class BannerCarousel extends React.Component {
                                     <div className="d-md-none">
                                         {
                                             filteredBanners && filteredBanners.length ?
-                                                <div className={`${this.props.ipd ? 'ipd-banner-mbl' : ''} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20 ${this.props.sliderLocation == 'home_page'?'single-banner-div':''}` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' ? { position: 'absolute' } : { position: 'relative' }}>
+                                                <div className={`${this.props.ipd ? 'ipd-banner-mbl' : this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' ?'home-banner-pos': 'inner-banner-pos'} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20 ${this.props.sliderLocation == 'home_page'?'single-banner-div':''}` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} >
                                                     {
                                                         filteredBanners.map((banner, index) => {
                                                             return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={{ cursor: 'pointer'}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />

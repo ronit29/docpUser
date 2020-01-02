@@ -170,7 +170,7 @@ class ChatPanel extends React.Component {
                                 if (typeof window == "object") {
                                     parsedHref = queryString.parse(window.location.search)
                                 }
-                                if(parsedHref && parsedHref.payment=='success'){
+                                if (parsedHref && parsedHref.payment == 'success') {
                                     extraParams.payment = true
                                 }
                                 this.props.setChatRoomId(data.data.rid, extraParams)
@@ -202,7 +202,7 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
-                            if(parsedHref && parsedHref.payment == 'success'){
+                            if (parsedHref && parsedHref.payment == 'success') {
                                 let buildUrl = this.buildUrl()
                                 this.props.history.replace(buildUrl)
                             }
@@ -273,7 +273,7 @@ class ChatPanel extends React.Component {
                                 'Category': 'Chat', 'Action': 'MobileVerificationFired', 'CustomerID': '', 'leadid': 0, 'event': 'mobile-verification-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
                             }
                             GTM.sendEvent({ data: analyticData })
-                            this.props.setChatRoomId(data.data.rid, {showDisabledPayment:true})
+                            this.props.setChatRoomId(data.data.rid, { showDisabledPayment: true })
                             break;
                         }
 
@@ -411,7 +411,7 @@ class ChatPanel extends React.Component {
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
-        if(parsedHref && parsedHref.payment == 'success'){
+        if (parsedHref && parsedHref.payment == 'success') {
             let buildUrl = this.buildUrl()
             this.props.history.replace(buildUrl)
         }
@@ -424,7 +424,7 @@ class ChatPanel extends React.Component {
 
     }
 
-    buildUrl(){
+    buildUrl() {
         return window.pathname;
     }
 
@@ -487,25 +487,25 @@ class ChatPanel extends React.Component {
         }
     }
 
-    onIframeLoad(e){
-        try{
+    onIframeLoad(e) {
+        try {
             let target = e.target
-            if(target) {
-                (target.contentWindow||target.contentDocument).location.href;
+            if (target) {
+                (target.contentWindow || target.contentDocument).location.href;
             }
-        }catch(error){
-            console.log('error in rendering chat iframe'+error);
+        } catch (error) {
+            console.log('error in rendering chat iframe' + error);
         }
     }
     refundClicked(isEnable) {
-        if(isEnable){
+        if (isEnable) {
             let data = {
                 'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
             }
             GTM.sendEvent({ data: data })
             this.toggleRefundPopup()
 
-        }else{
+        } else {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "No payment exists for this consultation" })
             }, 200)
@@ -630,7 +630,7 @@ class ChatPanel extends React.Component {
 
         let payment_disable = parsedHref && parsedHref.utm_campaign && parsedHref.utm_campaign.includes('AdDocChat') ? parsedHref.utm_campaign.includes('AdDocChat') : null
 
-        if(parsedHref.utm_campaign){
+        if (parsedHref.utm_campaign) {
             iframe_url += `&utm_campaign=${parsedHref.utm_campaign}`
         }
 
@@ -640,21 +640,21 @@ class ChatPanel extends React.Component {
             iframe_url += `&testing_mode=b`
         }
 
-        if(parsedHref && parsedHref.consultation_id){
+        if (parsedHref && parsedHref.consultation_id) {
             iframe_url += `&consultation_id=${parsedHref.consultation_id}`
         }
 
         let is_payment_for_current_room = null
         let show_disabled_refund_button = null
-        if(this.props.USER && this.props.USER.currentRoomId){
+        if (this.props.USER && this.props.USER.currentRoomId) {
 
-            if(this.props.USER.chatPaymentStatus == this.props.USER.currentRoomId){
+            if (this.props.USER.chatPaymentStatus == this.props.USER.currentRoomId) {
                 is_payment_for_current_room = true;
             }
-            
-            if(this.props.USER.mobileVerificationDone == this.props.USER.currentRoomId){
+
+            if (this.props.USER.mobileVerificationDone == this.props.USER.currentRoomId) {
                 show_disabled_refund_button = true
-            }   
+            }
         }
 
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
@@ -683,147 +683,154 @@ class ChatPanel extends React.Component {
         } else {
             return (
                 <React.Fragment>
-                {
-                    this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
-                }
-                <div className="fixed-chatbox">
                     {
-                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                            <BannerCarousel {...this.props} sliderLocation="home_page" />
-                            : ''
+                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                     }
-                    {
-                        false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
-                            <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
-                    }
-                    {
-                        this.state.openRefundPopup &&
-                        <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
-
-                    }
-                    {
-                        this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
-                            this.props.newChatBtn || this.props.newChatBtnAds ?
-                                <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
-                                    <span>{chatBtnContent2}</span>
-                                </section> : ""
-                        // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                        //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
-                        // </div>
-                        // <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
-                        //     <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
-                        // </div>
-                    }
-                    {
-                        this.props.searchTestInfoData && this.props.updateTabsValues && this.props.resp_test_id ?
-                            <div className="table-of-content-desktop mt-21">
-                                <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
-                            </div> : ''
-                    }
-                    <div className={`${this.state.showChatBlock ? "floating-chat " : ""} ${is_religare ? ' chat-rlgr-view' : ''}`}>
+                    <div className="fixed-chatbox">
+                        <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
+                            <div className="hidderBanner banner-carousel-div">
+                                <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+                            </div>
+                            <div className="home-banner-pos">
+                            {
+                                this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                    <BannerCarousel {...this.props} sliderLocation="home_page" />
+                                    : ''
+                            }
+                            </div>
+                        </div>
                         {
-                            this.state.showStaticView ?
-                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} />
-                                :
-                                <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
-
-                                    {/* chat header */}
-                                    <div className="chat-head">
-
-                                        <div className="hd-chat" style={{ flex: 1 }}>
-                                            {
-                                                this.props.location.search && this.props.location.search.includes('?botagent') ?
-                                                    <p className="text-left header-text-chat">
-                                                        <span className="hed-txt-lt">Get </span>
-                                                        Help with Booking
-                                                    </p>
-                                                    :
-                                                    this.props.chatPage ?
-                                                        <h1 className="text-left header-text-chat">
-                                                            {/* <span className="hed-txt-lt">Get a </span> */}
-                                                            Online Doctor Consultation!
-                                                        </h1>
-                                                        :
-                                                        <p className="text-left header-text-chat">
-                                                            {/* <span className="hed-txt-lt">Get a </span> */}
-                                                            Online Doctor Consultation!
-                                                        </p>
-                                            }
-                                        </div>
-                                        <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
-                                            {
-                                                !is_religare && show_disabled_refund_button && <p className={`cht-need-btn cursor-pntr mr-2 ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>
-                                                    <img src={ASSETS_BASE_URL + '/img/chat-rfnd.png'} style={{width: 28}} /> </p>
-                                            }
-                                            {
-                                                /*this.state.selectedRoom ? <span className="mr-2" onClick={() => {
-                                                    let data = {
-                                                        'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
-                                                    }
-                                                    GTM.sendEvent({ data: data })
-                                                    if (!this.state.callTimeout) {
-                                                        this.dispatchCustomEvent.call(this, 'call')
-                                                        this.setState({ callTimeout: true })
-                                                        setTimeout(() => {
-                                                            this.setState({ callTimeout: false })
-                                                        }, 10000)
-                                                    }
-                                                }}>
-                                                    <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
-
-                                                </span> : ""*/
-                                            }
-
-                                            {
-                                                is_religare ?
-                                                    <span onClick={this.toggleCancel.bind(this)}>
-                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
-
-                                                    </span>
-                                                    : <span onClick={this.toggleCancel.bind(this)}>
-                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
-
-                                                    </span>
-                                            }
-
-
-                                            {
-                                                this.state.showChatBlock
-                                                    ? is_religare ?
-                                                        <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
-                                                        : <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
-                                                    : ''
-                                            }
-                                        </div>
-                                    </div>
-                                    {/* chat header */}
-                                    {/* chat Body */}
-                                    <div className="chat-body">
-                                        {
-                                            STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame" onLoad={(e)=>this.onIframeLoad(e)} onError={(e)=>this.onIframeLoad(e)} ></iframe>
-                                        }
-                                        {
-                                            this.state.iframeLoading ?
-                                                <div className="loader-for-chat-div">
-                                                    <div className='loader-for-chat'>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                    </div>
-                                                    <p className="ldng-text">Connecting to the doctor...</p>
-                                                </div>
-                                                : ""
-                                        }
-                                    </div>
-                                    {/* chat Body */}
-                                </div>
+                            false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                                <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
                         }
-                    </div>
+                        {
+                            this.state.openRefundPopup &&
+                            <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
 
-                    {/* <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
+                        }
+                        {
+                            this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
+                                this.props.newChatBtn || this.props.newChatBtnAds ?
+                                    <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
+                                        <span>{chatBtnContent2}</span>
+                                    </section> : ""
+                            // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                            //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                            // </div>
+                            // <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
+                            //     <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
+                            // </div>
+                        }
+                        {
+                            this.props.searchTestInfoData && this.props.updateTabsValues && this.props.resp_test_id ?
+                                <div className="table-of-content-desktop mt-21">
+                                    <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
+                                </div> : ''
+                        }
+                        <div className={`${this.state.showChatBlock ? "floating-chat " : ""} ${is_religare ? ' chat-rlgr-view' : ''}`}>
+                            {
+                                this.state.showStaticView ?
+                                    <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} />
+                                    :
+                                    <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
+
+                                        {/* chat header */}
+                                        <div className="chat-head">
+
+                                            <div className="hd-chat" style={{ flex: 1 }}>
+                                                {
+                                                    this.props.location.search && this.props.location.search.includes('?botagent') ?
+                                                        <p className="text-left header-text-chat">
+                                                            <span className="hed-txt-lt">Get </span>
+                                                            Help with Booking
+                                                    </p>
+                                                        :
+                                                        this.props.chatPage ?
+                                                            <h1 className="text-left header-text-chat">
+                                                                {/* <span className="hed-txt-lt">Get a </span> */}
+                                                                Online Doctor Consultation!
+                                                        </h1>
+                                                            :
+                                                            <p className="text-left header-text-chat">
+                                                                {/* <span className="hed-txt-lt">Get a </span> */}
+                                                                Online Doctor Consultation!
+                                                        </p>
+                                                }
+                                            </div>
+                                            <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
+                                                {
+                                                    !is_religare && show_disabled_refund_button && <p className={`cht-need-btn cursor-pntr mr-2 ${is_payment_for_current_room ? '' : 'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>
+                                                        <img src={ASSETS_BASE_URL + '/img/chat-rfnd.png'} style={{ width: 28 }} /> </p>
+                                                }
+                                                {
+                                                    /*this.state.selectedRoom ? <span className="mr-2" onClick={() => {
+                                                        let data = {
+                                                            'Category': 'Chat', 'Action': 'CallBackRequested', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'callback-requested', 'RoomId': this.state.selectedRoom
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        if (!this.state.callTimeout) {
+                                                            this.dispatchCustomEvent.call(this, 'call')
+                                                            this.setState({ callTimeout: true })
+                                                            setTimeout(() => {
+                                                                this.setState({ callTimeout: false })
+                                                            }, 10000)
+                                                        }
+                                                    }}>
+                                                        <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
+    
+                                                    </span> : ""*/
+                                                }
+
+                                                {
+                                                    is_religare ?
+                                                        <span onClick={this.toggleCancel.bind(this)}>
+                                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
+
+                                                        </span>
+                                                        : <span onClick={this.toggleCancel.bind(this)}>
+                                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                                        </span>
+                                                }
+
+
+                                                {
+                                                    this.state.showChatBlock
+                                                        ? is_religare ?
+                                                            <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                                            : <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                        : ''
+                                                }
+                                            </div>
+                                        </div>
+                                        {/* chat header */}
+                                        {/* chat Body */}
+                                        <div className="chat-body">
+                                            {
+                                                STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame" onLoad={(e) => this.onIframeLoad(e)} onError={(e) => this.onIframeLoad(e)} ></iframe>
+                                            }
+                                            {
+                                                this.state.iframeLoading ?
+                                                    <div className="loader-for-chat-div">
+                                                        <div className='loader-for-chat'>
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                        </div>
+                                                        <p className="ldng-text">Connecting to the doctor...</p>
+                                                    </div>
+                                                    : ""
+                                            }
+                                        </div>
+                                        {/* chat Body */}
+                                    </div>
+                            }
+                        </div>
+
+                        {/* <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
                         <div className="wrng-mssg">
                             <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                             <span>
@@ -831,27 +838,27 @@ class ChatPanel extends React.Component {
                         </div>
                     </div> */}
 
-                    {
-                        // this.props.articleData ?
-                        //     <div className="related-articles-div">
-                        //         {
-                        //             this.props.articleData.linked.length ?
-                        //                 <div className="related-article-sub">
-                        //                     {
-                        //                         this.props.articleData.linked.map((linkedArticle, i) => {
-                        //                             return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
-                        //                         })
-                        //                     }
-                        //                 </div> : ''
-                        //         }
-                        //         {
-                        //             recentArticles && recentArticles.items && recentArticles.items.length ?
-                        //                 <RecentArticles recentArticlesItems={recentArticles.items} recentArticleTitle={recentArticles.title} /> : ''
-                        //         }
-                        //     </div> : ''
-                    }
-                    
-                </div>
+                        {
+                            // this.props.articleData ?
+                            //     <div className="related-articles-div">
+                            //         {
+                            //             this.props.articleData.linked.length ?
+                            //                 <div className="related-article-sub">
+                            //                     {
+                            //                         this.props.articleData.linked.map((linkedArticle, i) => {
+                            //                             return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
+                            //                         })
+                            //                     }
+                            //                 </div> : ''
+                            //         }
+                            //         {
+                            //             recentArticles && recentArticles.items && recentArticles.items.length ?
+                            //                 <RecentArticles recentArticlesItems={recentArticles.items} recentArticleTitle={recentArticles.title} /> : ''
+                            //         }
+                            //     </div> : ''
+                        }
+
+                    </div>
                 </React.Fragment>
             );
         }
