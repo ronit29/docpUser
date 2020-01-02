@@ -65,12 +65,12 @@ class NewDateSelector extends React.Component {
                }
             }
             output = values.map(function(v, i){
-              return v.length == 2 && i < 2 ?  v + '/' : v;
+              return v.length == 2 && i < 2 ?  (v + ' / ') : v;
             });
             this.value = output.join('').substr(0, 14);
         },()=>{
           if(output){
-            self.setState({newDob:output,isValidDob:isValidDob})
+            self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob})
           }
         });
     }
@@ -149,7 +149,7 @@ class NewDateSelector extends React.Component {
     render() {
         return (
            <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}} maxLength="10"/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}} maxLength="14"/> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge} years</span>
