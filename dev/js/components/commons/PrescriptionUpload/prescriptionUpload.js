@@ -34,6 +34,8 @@ class PrescriptionView extends React.PureComponent {
                 if(/(.png|.jpeg|.jpg|.pdf)/.test(file.name) ) {
 
                     if(file.name.includes('.pdf')){
+                        let file_pdf = URL.createObjectURL(file);
+                        this.setState({selected_file: file_pdf })
                         this.finishCrop(null, file)
                     }else{
 
@@ -48,8 +50,8 @@ class PrescriptionView extends React.PureComponent {
                             const imgExt = img1.ext
                             const file = Compress.convertBase64ToFile(base64str, imgExt)
                             this.getBase64(file, (dataUrl) => {
+                                this.setState({selected_file: dataUrl})
                                 this.finishCrop(dataUrl, null)
-                                this.setState({ dataUrl })
                             })
                         }).catch((e) => {
                             SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
@@ -60,7 +62,7 @@ class PrescriptionView extends React.PureComponent {
                 }else{
                     this.setState({show_error: true});
                 }
-                this.setState({selected_file: event.target.value, open_popup_overlay: true })
+                this.setState({ open_popup_overlay: true })
             }    
         }
 		
@@ -86,7 +88,7 @@ class PrescriptionView extends React.PureComponent {
         let existingData
         let img_tag = "prescription_file"
         this.setState({
-            dataUrl: null, isLoading: true
+            selected_file: null, isLoading: true
         }, () => {
             let form_data = new FormData()
             if (file) {
@@ -97,7 +99,6 @@ class PrescriptionView extends React.PureComponent {
             this.props.uploadPrescription(form_data, (data, err) => {
                 if (data) {
                     this.setState({ isLoading: false })
-                    //this.props.savePrescription(mem_data)
                 }
             })
         })
