@@ -88,7 +88,7 @@ class PrescriptionView extends React.PureComponent {
         let existingData
         let img_tag = "prescription_file"
         this.setState({
-            selected_file: null, isLoading: true
+            isLoading: true
         }, () => {
             let form_data = new FormData()
             if (file) {
@@ -115,7 +115,7 @@ class PrescriptionView extends React.PureComponent {
 
     cancelOverlay = (val) => {
         if(val==1) {
-            this.setState({open_popup_overlay: false});
+            this.setState({open_popup_overlay: false, selected_file: null});
         }
     }
 
