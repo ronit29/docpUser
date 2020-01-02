@@ -140,10 +140,12 @@ class PrescriptionView extends React.PureComponent {
 							<img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
 							<h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
 						</div>
-                        <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
 						{
                             STORAGE.checkAuth()
-                            ?<input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            ?<React.Fragment>
+                                <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
+                                <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            </React.Fragment>
                             :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
 					</div>
@@ -157,10 +159,12 @@ class PrescriptionView extends React.PureComponent {
                             <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
                             <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
                         </div>
-                        <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
                         {
                             STORAGE.checkAuth()
-                            ?<input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            ?<React.Fragment>
+                                <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
+                                <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            </React.Fragment>
                             :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
                     </div>
