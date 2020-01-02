@@ -34,7 +34,7 @@ class PrescriptionView extends React.PureComponent {
                 if(/(.png|.jpeg|.jpg|.pdf)/.test(file.name) ) {
 
                     if(file.name.includes('.pdf')){
-                        let file_pdf = ASSETS_BASE_URL + "/img/pdf.jpg"
+                        let file_pdf = ASSETS_BASE_URL + "/img/pdf-loading.png"
                         this.setState({selected_file: file_pdf })
                         this.finishCrop(null, file)
                     }else{
@@ -113,8 +113,10 @@ class PrescriptionView extends React.PureComponent {
         return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
 
-    cancelOverlay = (val) => {
+    cancelOverlay = (val=0) => {
         if(val==1) {
+            this.setState({open_popup_overlay: false, selected_file: null});
+        }else{
             this.setState({open_popup_overlay: false, selected_file: null});
         }
     }
@@ -175,15 +177,31 @@ class PrescriptionView extends React.PureComponent {
 					this.state.open_popup_overlay?
                     <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
                         {
-                            this.state.showLoginView?<LoginPopup afterUserLogin={this.afterUserLogin} locationObj={this.props.locationObj} historyObj= {this.props.historyObj}/>
+                            this.state.showLoginView?<LoginPopup afterUserLogin={this.afterUserLogin} locationObj={this.props.locationObj} historyObj= {this.props.historyObj} closePopup={this.cancelOverlay}/>
         					:<div className="upload-prescription">
                                 <div className="widget-header text-center mv-header p-3">
                                     <h4 className="fw-700 text-md">Upload Prescription</h4>
-                                    <a style={{ cursor: 'pointer', right:15,top:16, position: 'absolute' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
+                                    <a style={{ cursor: 'pointer', right:15,top:26, position: 'absolute' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} onClick={()=>this.cancelOverlay(1)}/>
                                     </a>
                                 </div>
-                                <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column">
+                                <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column" style={{position:'relative'}}>
+                                    {
+                                        this.state.isLoading?
+                                            <div className="ins-prf-img-grd d-block upload-presc-loading-pdf d-flex align-item-center justify-content-center">
+                                                <div className="loader-for-chat-div mt-0">
+                                                    <div className='loader-for-chat mb-0'>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            : ''
+                                    }
                                     <img className="prescription-placeholder" width="70" src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
                                     {
                                     	this.state.show_error?
@@ -209,7 +227,7 @@ class PrescriptionView extends React.PureComponent {
 
                                     }
                                 </div>
-                                {
+                                {/* {
                                     this.state.isLoading?
                                         <div className="ins-prf-img-grd d-block">
                                             <div className="loader-for-chat-div mt-0">
@@ -224,7 +242,7 @@ class PrescriptionView extends React.PureComponent {
                                             </div>
                                         </div>
                                         : ''
-                                }
+                                } */}
                                 <div className="p-3 pb-0">
                                     <div className="health-advisor-col d-flex p-2 align-items-start">
                                         <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
