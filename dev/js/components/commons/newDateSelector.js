@@ -61,11 +61,11 @@ class NewDateSelector extends React.Component {
                     isValidDob = self.isValidDate(values[0],values[1],values[2])
                     self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
                   }
+                  self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
                }
-               self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob)  
             }
             output = values.map(function(v, i){
-              return v.length == 2 && i < 2 ?  v + ' / ' : v;
+              return v.length == 2 && i < 2 ?  v + '/' : v;
             });
             this.value = output.join('').substr(0, 14);
         },()=>{
