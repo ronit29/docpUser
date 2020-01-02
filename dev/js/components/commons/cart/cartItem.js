@@ -310,7 +310,7 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount, is_gold_member, vip_convenience_amount } = this.props.actual_data
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount, is_gold_member, vip_convenience_amount, amount_to_be_paid } = this.props.actual_data
         if (date) {
             date = new Date(date)
         }
@@ -329,11 +329,11 @@ class CartItem extends React.Component {
                         {
                             is_gold_member
                             ?<div className="shopng-cart-price">
-                                <p>₹ {is_gold_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p>
+                                <p>₹ {amount_to_be_paid} <span className="shopng-cart-price-cut">₹ {mrp}</span></p>
                             </div>
                             : is_vip_applicable?
                             <div className="shopng-cart-price">
-                                <p>₹ {vip_amount} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
+                                <p>₹ {amount_to_be_paid} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
                                 </p>
                             </div>
                                 :''
@@ -463,10 +463,10 @@ class CartItem extends React.Component {
                                                     
                                                     {
                                                         is_gold_member?
-                                                        <span className="float-right fw-700">₹ {is_gold_price}<span className="test-mrp">₹ {mrp}</span>
+                                                        <span className="float-right fw-700">₹ {amount_to_be_paid}<span className="test-mrp">₹ {mrp}</span>
                                                         </span>
                                                         :is_vip_applicable?
-                                                        <span className="float-right fw-700">₹ {vip_amount}<span className="test-mrp">₹ {mrp}</span>
+                                                        <span className="float-right fw-700">₹ {amount_to_be_paid}<span className="test-mrp">₹ {mrp}</span>
                                                         </span>
                                                         :''
                                                     }

@@ -1314,7 +1314,14 @@ p.top-head-link.card-lab-link span {
     position: absolute;
     top: 0px;
 }
-
+.bkng-time-overlay div.loaderCircular{
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #0000002b;
+}
 
 /* onload chat design */
 
@@ -13823,13 +13830,35 @@ p.pkgtstName.prcd-height {
     top: 0;
     height: 100%;
 }
-
+.home-banner-pos{
+position:absolute;
+}
+.inner-banner-pos{
+position: absolute;
+right: 0px;
+padding: 0px;
+}
+.banner-margin-tap{
+    margin: 0px -15px;
+}
+.banner-md-margn {
+    margin: 0px;
+}
+.banner-md-margn div.banner-margin-tap {
+    margin: 0px;
+}
 .banner-home-scrollable img {
     border-radius: 4px;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
 }
-
+.home-bnnr-mrgn{
+margin-bottom: 40px;
+}
+.home-banner-pos{
+    position: absolute;
+    top: 0px;
+}
 .hidderBanner {
     visibility: hidden;
 }
@@ -14299,6 +14328,12 @@ div.doc-srch-fltr.vip-slct-pop {
     .sbi-iconfx{
         display: inline-flex;
         width: 85%;
+    }
+    .banner-md-margn {
+        margin: 0px -15px; 
+    }
+    .banner-md-margn div.banner-margin-tap {
+        margin: 0px -15px;
     }
 }
 

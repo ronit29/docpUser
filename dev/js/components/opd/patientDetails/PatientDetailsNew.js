@@ -80,6 +80,7 @@ class PatientDetailsNew extends React.Component {
             banner_decline: false,
             showGoldPriceList: false,
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            paymentBtnClicked: false,
             enableDropOfflead:true
         }
     }
@@ -714,6 +715,7 @@ class PatientDetailsNew extends React.Component {
         if (parsed && parsed.appointment_id && parsed.cod_to_prepaid == 'true') {
             postData['appointment_id'] = parsed.appointment_id
             postData['cod_to_prepaid'] = true
+            this.setState({paymentBtnClicked: true});
             this.props.codToPrepaid(postData, (err, data) => {
                 if (!err) {
                     /*if (data.is_agent) {
@@ -736,6 +738,7 @@ class PatientDetailsNew extends React.Component {
                         this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                     }
                 } else {
+                    this.setState({paymentBtnClicked: false});
                     let message
                     if (err.error) {
                         message = err.error
@@ -760,7 +763,7 @@ class PatientDetailsNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-
+        this.setState({paymentBtnClicked: true});
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 /*if (data.is_agent) {
@@ -783,6 +786,7 @@ class PatientDetailsNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
+                this.setState({paymentBtnClicked: false});
                 let message
                 if (err.error) {
                     message = err.error
@@ -1689,6 +1693,9 @@ class PatientDetailsNew extends React.Component {
                 {
                     //Show Vip Gold Single Flow Price List
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
+                }
+                {
+                    this.state.paymentBtnClicked?<div className="bkng-time-overlay"><Loader/></div>:''   
                 }
                 {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :
