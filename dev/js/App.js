@@ -65,28 +65,14 @@ import RatingsPopUp from './components/commons/ratingsProfileView/RatingsPopUp.j
 class App extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state={
+            toCallRefreshToken:false
+        }
     }
 
     componentDidMount() {
-        let user_profile_id = null
-        var ciphertext = null
         const parsed = queryString.parse(window.location.search)
-        if (STORAGE.checkAuth()) {
-            console.log('isauth')
-            this.props.getCartItems()
-            if(this.props.profiles && Object.keys(this.props.profiles).length > 0){
-                user_profile_id = this.props.profiles[this.props.defaultProfile].id
-                ciphertext =  STORAGE.encrypt(user_profile_id)
-            }
-            let intervalId = setInterval(() => {
-                STORAGE.getAuthToken().then((token) => {
-                    if (token) {
-                        STORAGE.refreshTokenCall(token,ciphertext)
-                    }
-                })
-            }, 270000)
-        }
-
         let OTT = parsed.access_token
         if (OTT && !STORAGE.checkAuth()) {
             this.props.OTTExchangeLogin(OTT).then(() => {
@@ -236,9 +222,33 @@ class App extends React.Component {
 
     }
 
+    componentWillReceiveProps(props){
+        this.tokenRefresh(props)
+    }
+
     toggleLeftMenu(toggle, defaultVal) {
         if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
             this.props.toggleLeftMenuBar(toggle, defaultVal)
+        }
+    }
+
+    tokenRefresh(props){
+        let user_profile_id = null
+        var ciphertext = null
+        
+        if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
+            props.getCartItems()
+            user_profile_id = props.profiles[props.defaultProfile].id
+            ciphertext =  STORAGE.encrypt(user_profile_id)
+
+            this.setState({toCallRefreshToken: true})
+            let intervalId = setInterval(() => {
+                STORAGE.getAuthToken().then((token) => {
+                    if (token) {
+                        STORAGE.refreshTokenCall(token,ciphertext)
+                    }
+                })
+            }, 270000)
         }
     }
 
