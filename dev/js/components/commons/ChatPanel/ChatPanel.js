@@ -687,18 +687,22 @@ class ChatPanel extends React.Component {
                         this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                     }
                     <div className="fixed-chatbox">
-                        <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
-                            <div className="hidderBanner banner-carousel-div">
-                                <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+                        {
+                            this.props.homePage?
+                            <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
+                                <div className="hidderBanner banner-carousel-div">
+                                    <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+                                </div>
+                                {
+                                    !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length?
+                                    <div className="home-banner-pos">
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" />
+                                    </div>
+                                    :''
+                                }
                             </div>
-                            <div className="home-banner-pos">
-                            {
-                                this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                    <BannerCarousel {...this.props} sliderLocation="home_page" />
-                                    : ''
-                            }
-                            </div>
-                        </div>
+                            :''
+                        }
                         {
                             false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
                                 <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
