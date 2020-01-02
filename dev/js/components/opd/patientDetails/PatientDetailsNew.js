@@ -79,7 +79,9 @@ class PatientDetailsNew extends React.Component {
             show_banner: false,
             banner_decline: false,
             showGoldPriceList: false,
-            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:''
+            selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            paymentBtnClicked: false,
+            enableDropOfflead:true
         }
     }
 
@@ -252,7 +254,6 @@ class PatientDetailsNew extends React.Component {
         }
 
         this.sendEmailNotification()
-        this.nonIpdLeads()
     }
 
     getVipGoldPriceList(agent_selected_plan_id){
@@ -342,6 +343,9 @@ class PatientDetailsNew extends React.Component {
         //To update Gold Plans on changing props
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
+        }
+        if(this.state.enableDropOfflead){
+            this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
             let hospital = {}
@@ -493,6 +497,11 @@ class PatientDetailsNew extends React.Component {
             referrer: document.referrer || '',
             gclid: parsed.gclid || ''
         }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
         return utm_tags
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
@@ -614,7 +623,6 @@ class PatientDetailsNew extends React.Component {
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
         let utm_tags = this.getUtmTags()
-
         let postData = {
             doctor: this.props.selectedDoctor,
             hospital: this.state.selectedClinic,
@@ -707,6 +715,7 @@ class PatientDetailsNew extends React.Component {
         if (parsed && parsed.appointment_id && parsed.cod_to_prepaid == 'true') {
             postData['appointment_id'] = parsed.appointment_id
             postData['cod_to_prepaid'] = true
+            this.setState({paymentBtnClicked: true});
             this.props.codToPrepaid(postData, (err, data) => {
                 if (!err) {
                     /*if (data.is_agent) {
@@ -729,6 +738,7 @@ class PatientDetailsNew extends React.Component {
                         this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                     }
                 } else {
+                    this.setState({paymentBtnClicked: false});
                     let message
                     if (err.error) {
                         message = err.error
@@ -753,7 +763,7 @@ class PatientDetailsNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-
+        this.setState({paymentBtnClicked: true});
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 /*if (data.is_agent) {
@@ -776,6 +786,7 @@ class PatientDetailsNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
+                this.setState({paymentBtnClicked: false});
                 let message
                 if (err.error) {
                     message = err.error
@@ -1416,6 +1427,11 @@ class PatientDetailsNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+
+            if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+                data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+            }
+            this.setState({enableDropOfflead:false})
             this.props.NonIpdBookingLead(data)
         }
     }
@@ -1677,6 +1693,9 @@ class PatientDetailsNew extends React.Component {
                 {
                     //Show Vip Gold Single Flow Price List
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
+                }
+                {
+                    this.state.paymentBtnClicked?<div className="bkng-time-overlay"><Loader/></div>:''   
                 }
                 {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :

@@ -39,40 +39,40 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
-    isDocCare(){
-        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
-            this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
-        }else{
-            this.props.history.push('/prime/plans') 
+    isDocCare() {
+        if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
+            this.props.history.push('/prime/success?user_plan=' + this.props.isUserCared.user_plan_id)
+        } else {
+            this.props.history.push('/prime/plans')
         }
     }
 
-    goToInsurance(isUserLoginInsured){
-        if(isUserLoginInsured){
-            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
-                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+    goToInsurance(isUserLoginInsured) {
+        if (isUserLoginInsured) {
+            if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5) {
                 this.props.history.push('/insurance/certificate')
-            }else{
+            } else {
                 this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
             }
-        }else{
+        } else {
             this.props.generateInsuranceLead()
             this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
         }
     }
 
-    getInsuranceBtnText(){
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
-        if(isUserLoginInsured){
-            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+    getInsuranceBtnText() {
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user ? this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user : false
+        if (isUserLoginInsured) {
+            if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
                 this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 ||
-                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5) {
                 return <button className="ins-userdetails-active">Active</button>
-            }else{
+            } else {
                 return <button className="ins-userdetails-buy">Buy Now</button>
             }
         }
-    }    
+    }
 
     render() {
         let currentRoomId = this.props.USER.currentRoomId
@@ -83,14 +83,14 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user ? this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user : false
 
-        let defaultProfile = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]:null
-        
-        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+        if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             memberClass = 'float-right ins-userdetails-active'
             memStatus = 'Active'
         }
+
+        let defaultProfile = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]:null;
 
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav new-profile-header-margin">
@@ -98,62 +98,124 @@ class ProfileData extends React.Component {
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
-                            {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
-                            <div className="usr-dtls-startup">
-                                {/*<p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>*/}
-                                <div className="row no-gutters pdng-bttm">
-                                    <div className="col-4 mbl-usr-grd">
-                                        <span className="usr-dtls-free">FREE</span>
-                                        <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e) => {
-                                            let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
-                                            }
-                                            GTM.sendEvent({ data: data })
-                                            this.props.clearVipSelectedPlan()
-                                            this.props.history.push(`/vip-club-details`)
-                                        }}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
-                                            <p>
-                                                <span>Unlimited chats</span>
-                                                with qualified doctors
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={(e) => {
-
-                                        let data = {
-                                            'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
-                                        }
-                                        GTM.sendEvent({ data: data })
-                                        this.props.clearVipSelectedPlan()
-                                        this.props.history.push(`/vip-club-details`)
-                                    }}>
-                                        <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
-                                            <p>
-                                                <span>Book Doctors </span>
-                                                Save 70%
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <div className="col-4 mbl-usr-grd" onClick={(e) => {
-                                        let data = {
-                                            'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
-                                        }
-                                        GTM.sendEvent({ data: data })
-                                        this.props.clearVipSelectedPlan()
-                                        this.props.history.push(`/vip-club-details`)
-                                    }}>
-                                        <a className="usr-dtls-anchor" href="javascript:void(0);">
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
-                                            <p>
-                                                <span>Book Tests </span>
-                                                25% OFF
-                                            </p>
-                                        </a>
+                            {
+                                defaultProfile && defaultProfile.is_vip_gold_member && defaultProfile.vip_data?
+                                <div className="gold-white-bg-container card-container m-0" onClick={()=>this.props.history.push('/vip-club-activated-details')}>
+                                    <div className="gold-card-section">
+                                        <img className="vipLogiImg-2 pd-12" style={{ paddingBottom: 7 }} src="/assets/img/docgold.png" width="80px" />
+                                        <div className="gold-card-user text-right text-white pd-12" style={{ paddingTop: 0 }}>
+                                            <h5>{defaultProfile.name}</h5>
+                                            <h6>(Primary)</h6>
+                                        </div>
+                                        <div className="membership-validity-column pd-12 text-black text-center">
+                                            <h4>Docprime Gold Member</h4>
+                                            <h6>Valid till <strong>{defaultProfile.vip_data.expiry_date||''} </strong></h6>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                :<div className="usr-dtls-startup">
+                                        {/*<p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>*/}
+                                        {/*<div className="row no-gutters pdng-bttm">
+                                            <div className="col-4 mbl-usr-grd">
+                                                <span className="usr-dtls-free">FREE</span>
+                                                <a className="usr-dtls-anchor" href="javascript:void(0);" onClick={(e) => {
+                                                    let data = {
+                                                        'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
+                                                    }
+                                                    GTM.sendEvent({ data: data })
+                                                    this.props.clearVipSelectedPlan()
+                                                    this.props.history.push(`/vip-club-details`)
+                                                }}>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
+                                                    <p>
+                                                        <span>Unlimited chats</span>
+                                                        with qualified doctors
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <div className="col-4 mbl-usr-grd" onClick={(e) => {
+
+                                                let data = {
+                                                    'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
+                                                }
+                                                GTM.sendEvent({ data: data })
+                                                this.props.clearVipSelectedPlan()
+                                                this.props.history.push(`/vip-club-details`)
+                                            }}>
+                                                <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
+                                                    <p>
+                                                        <span>Book Doctors </span>
+                                                        Save 70%
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <div className="col-4 mbl-usr-grd" onClick={(e) => {
+                                                let data = {
+                                                    'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
+                                                }
+                                                GTM.sendEvent({ data: data })
+                                                this.props.clearVipSelectedPlan()
+                                                this.props.history.push(`/vip-club-details`)
+                                            }}>
+                                                <a className="usr-dtls-anchor" href="javascript:void(0);">
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
+                                                    <p>
+                                                        <span>Book Tests </span>
+                                                        25% OFF
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>*/}
+                                        {
+                                            <React.Fragment>
+                                                {
+                                                    defaultProfile && (defaultProfile.insurance_status==1 || defaultProfile.insurance_status==4 || defaultProfile.insurance_status==5 || defaultProfile.is_vip_member)?''
+                                                    :<div className="usr-dtls-strt-txt pdng-usr-dtls-slots "><p className="fw-500">
+                                                        Become a Docprime <img style={{ width: '40px' }} src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid mr-0" /> member and get Discounts like never before</p>
+                                                    </div>
+                                                }
+                                                
+                                                <div className="gold-benifi-cards-cont pdng-usr-dtls-slots mb-3 pr-0" style={{paddingLeft: '8px'}}>
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
+                                                    }}>
+                                                        <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
+                                                        <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
+                                                    }}>
+                                                        <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
+                                                        <p>Discounts on <br /><strong>5,000</strong> Labs</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards" onClick={(e) => {
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'SaveMedicinesProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'save-medicines-profile-clicked'
+                                                        }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.history.push(`/all-medicines`)
+                                                    }}>
+                                                        <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                        <p> Save 23% <br/> on medicines</p>
+                                                    </div>
+                                                </div>
+                                            </React.Fragment>
+                                        }
+                                </div>
+                            }
                         </li>
                         {
                             coupon ? <li className="my-profile-item" style={{ cursor: 'auto' }}>
@@ -195,7 +257,7 @@ class ProfileData extends React.Component {
                                 <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
                                     <p className="ofr-bkg">
-                                        Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
+                                        Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 200</b> on completion of their first order</p>
                                     <div>
                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                             <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>
@@ -237,11 +299,11 @@ class ProfileData extends React.Component {
                                     <div className="nav-content">
                                         <h4 className="title app-title">OPD Insurance
                                         </h4>
-                                    </div>
-                                </a>
-                                {this.getInsuranceBtnText()}
-                            </li>
-                        :''
+                                        </div>
+                                    </a>
+                                    {this.getInsuranceBtnText()}
+                                </li>
+                                : ''
                         }
                         {CONFIG.ENABLE_VIP_CLUB && defaultProfile && defaultProfile.is_vip_member && !defaultProfile.is_vip_gold_member?
                             <li onClick={(e) => {
@@ -259,42 +321,42 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Vip 
-                                        {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
+                                        {/* <button className="float-right ins-userdetails-buy">{memStatus}</button> */}
                                     </h4>
                                 </div>
                             </a>
                         </li>
                         :''}
-                        {CONFIG.ENABLE_VIP_GOLD?
+                        {CONFIG.ENABLE_VIP_GOLD ?
                             <li onClick={(e) => {
                                 let data = {
-                                'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
-                              }
-                              GTM.sendEvent({ data: data })
+                                    'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
                                 e.preventDefault()
                                 this.props.clearVipSelectedPlan()
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=profile-menu-gold-clicked&lead_source=Docprime')
-                              }} className="my-profile-item lst-spcng">
-                            <a>
-                                <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
-                                </span>
-                                <div className="nav-content" style={{width:'100%'}}>
-                                    <h4 className="title app-title">Docprime Gold 
+                            }} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/gold-sm.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content" style={{ width: '100%' }}>
+                                        <h4 className="title app-title">Docprime Gold
                                         {/*<button className="float-right ins-userdetails-buy">{memStatus}</button>*/}
-                                    </h4>
-                                </div>
-                            </a>
-                        </li>
-                        :''}
+                                        </h4>
+                                    </div>
+                                </a>
+                            </li>
+                            : ''}
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
                                 </span>
-                                <div className="nav-content" style={{width:'100%'}}>
-                                    <h4 className="title app-title">Docprime Care 
-                                        <button className={memberClass}>{memStatus}</button>
+                                <div className="nav-content" style={{ width: '100%' }}>
+                                    <h4 className="title app-title">Docprime Care
+                                        {/* <button className={memberClass}>{memStatus}</button> */}
                                     </h4>
                                 </div>
                             </a>

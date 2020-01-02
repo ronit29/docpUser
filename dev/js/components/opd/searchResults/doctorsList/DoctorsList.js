@@ -460,9 +460,16 @@ class DoctorsList extends React.Component {
 
                                                             {
                                                                 i == 5 && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
-                                                                    <div className="col-12">
+                                                                    /*<div className="col-12">
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
-                                                                    </div> : ''
+                                                                    </div> : ''*/
+                                                                    <div className="banner-cont-height home-page-banner-div mb-3 mr-0 banner-md-margn">
+                                                                        <div className="hidderBanner banner-carousel-div d-md-none">
+                                                                            <div className="divHeight m-0" style={{marginBottom:"5px!important"}}></div>
+                                                                        </div>
+                                                                        <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
+                                                                    </div>
+                                                                    :''
                                                             }
 
                                                             <li>
