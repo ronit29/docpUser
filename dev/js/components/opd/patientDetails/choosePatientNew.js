@@ -170,6 +170,10 @@ class ChoosePatientNewView extends React.Component {
         if(data){
             this.setState({email:data.email?data.email:this.state.email,dob:data.dob?data.dob:this.state.dob},() => {
                 if(this.state.dob && this.state.email){
+                    if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+                        return
+                    }
                     this.setState({ isEmailNotValid: false, isDobNotValid:false })
                     data.dob = this.state.dob
                     data.email = this.state.email
