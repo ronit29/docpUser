@@ -42,7 +42,7 @@ class ReferralView extends React.Component {
     }
 
     getShareText() {
-        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 200 `
+        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 200 on the completion of your first appointment or the Gold Membership purchase. `
     }
 
     getFullText() {
