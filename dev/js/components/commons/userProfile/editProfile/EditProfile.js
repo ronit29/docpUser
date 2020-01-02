@@ -169,7 +169,7 @@ class EditProfile extends React.Component {
                             return  
                         }
                     }
-
+                    this.props.resetVipData()
                     this.props.history.go(-1)    
                     
                     
