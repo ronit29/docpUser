@@ -238,12 +238,11 @@ class App extends React.Component {
         
         if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
             props.getCartItems()
-            user_profile_id = props.profiles[props.defaultProfile].id
-            ciphertext =  STORAGE.encrypt(user_profile_id)
-
+            user_profile_id = STORAGE.getUserId()
             this.setState({toCallRefreshToken: true})
             let intervalId = setInterval(() => {
                 STORAGE.getAuthToken().then((token) => {
+                    ciphertext =  STORAGE.encrypt(user_profile_id)
                     if (token) {
                         STORAGE.refreshTokenCall(token,ciphertext)
                     }
