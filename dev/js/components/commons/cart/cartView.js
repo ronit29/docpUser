@@ -67,28 +67,6 @@ class CartView extends React.Component {
                 if(item.actual_data.is_appointment_insured){
 
                 }else{
-                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
-                        is_gold_member = item.actual_data.is_gold_member
-                        // if(item.actual_data.vip_amount == 0){
-                        //     vip_amnt_price += item.mrp
-                        // }else{
-                        //     if(item.actual_data.is_gold_member){
-                        //         vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
-                        //     }else{
-                        //         vip_amnt_price += item.mrp - item.actual_data.vip_amount
-                        //     }
-                            
-                        // }
-                        if(item.actual_data.amount_to_be_paid == 0){
-                            vip_amnt_price += item.mrp
-                        }else{
-                            if(item.actual_data.is_gold_member){
-                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
-                            }else{
-                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
-                            }                            
-                        }   
-                    }
                     total_mrp += item.mrp
 
                     if(!item.actual_data.cover_under_vip){
@@ -121,6 +99,29 @@ class CartView extends React.Component {
                                 cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
                             }
                         }
+                    }
+
+                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){ // gold price calculation
+                        is_gold_member = item.actual_data.is_gold_member
+                        // if(item.actual_data.vip_amount == 0){
+                        //     vip_amnt_price += item.mrp
+                        // }else{
+                        //     if(item.actual_data.is_gold_member){
+                        //         vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
+                        //     }else{
+                        //         vip_amnt_price += item.mrp - item.actual_data.vip_amount
+                        //     }
+                            
+                        // }
+                        if(item.actual_data.amount_to_be_paid == 0){
+                            vip_amnt_price += item.mrp
+                        }else{
+                            if(item.actual_data.is_gold_member){
+                                vip_amnt_price += item.mrp - total_coupon_discount - item.actual_data.amount_to_be_paid
+                            }else{
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
+                            }                            
+                        }   
                     }
                 }
 
@@ -391,18 +392,6 @@ class CartView extends React.Component {
                                                                         }
                                                                                                                                           
                                                                         {
-                                                                            total_coupon_discount ? <div>
-                                                                                {
-                                                                                    Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                        return <div className="payment-detail d-flex" key={j}>
-                                                                                            <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
-                                                                                            <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
-                                                                                        </div>
-                                                                                    })
-                                                                                }
-                                                                            </div> : ''
-                                                                        }
-                                                                        {
                                                                             vip_amnt_price?
                                                                                 is_gold_member?
                                                                                 <div className="payment-detail d-flex align-item-center">
@@ -423,17 +412,19 @@ class CartView extends React.Component {
                                                                             :''
 
                                                                         }
-                                                                        {/*vip_amnt_price && is_gold_member ?
-                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
-                                                                            </div>
-                                                                            :''*/
-                                                                        }
-                                                                        {/*is_gold_member?'': vip_amnt_price ?
-                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
-                                                                            </div>
-                                                                            :''*/
-                                                                        }
 
+                                                                        {
+                                                                            total_coupon_discount ? <div>
+                                                                                {
+                                                                                    Object.keys(coupon_breakup).map((cp, j) => {
+                                                                                        return <div className="payment-detail d-flex" key={j}>
+                                                                                            <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
+                                                                                            <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
+                                                                                        </div>
+                                                                                    })
+                                                                                }
+                                                                            </div> : ''
+                                                                        }
                                                                     </div>
                                                                     :''
                                                                 }
