@@ -34,7 +34,7 @@ class PrescriptionView extends React.PureComponent {
                 if(/(.png|.jpeg|.jpg|.pdf)/.test(file.name) ) {
 
                     if(file.name.includes('.pdf')){
-                        let file_pdf = URL.createObjectURL(file);
+                        let file_pdf = ASSETS_BASE_URL + "/img/pdf.jpg"
                         this.setState({selected_file: file_pdf })
                         this.finishCrop(null, file)
                     }else{
