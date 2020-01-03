@@ -91,7 +91,7 @@ const STORAGE = {
         let login_user_id = getCookie('user_id')
         if(exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 5000) && dataParams && !istokenRefreshCall){
             let ciphertext =  STORAGE.encrypt(login_user_id)            
-            STORAGE.refreshTokenCall(exp_time.token,ciphertext)
+            STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext)
         }else{
           return Promise.resolve(getCookie('tokenauth'))  
         }        
