@@ -272,10 +272,18 @@ class NewDateSelector extends React.Component {
         var birthDate = new Date(dateString);
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();
+        let dateFrom = new Date(birthDate.getFullYear() , birthDate.getMonth())
+        let dateTo = new Date(today.getFullYear(),today.getMonth())
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        this.setState({calcualatedAge:age,months:m})
+        let mnth_val = this.monthDiff(dateFrom,dateTo)
+        this.setState({calcualatedAge:age,months:mnth_val})
+    }
+
+    monthDiff(dateFrom, dateTo) {
+     return dateTo.getMonth() - dateFrom.getMonth() + 
+       (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
     }
     render() {
       let borderStyle
