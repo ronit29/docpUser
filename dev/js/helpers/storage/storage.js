@@ -1,6 +1,8 @@
 import CookieHelper from './cookie.js'
 var CryptoJS = require("crypto-js");
 import { API_POST } from '../../api/api.js';
+import SOCKET from '../socket'
+
 function deleteAllCookies() {
     if (document) {
         var cookies = document.cookie.split(";");
@@ -91,7 +93,8 @@ const STORAGE = {
         let login_user_id = getCookie('user_id')
         if(exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 5000) && dataParams && !istokenRefreshCall){
             let ciphertext =  STORAGE.encrypt(login_user_id)            
-            STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext)
+            let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext)
+            return Promise.resolve(token);
         }else{
           return Promise.resolve(getCookie('tokenauth'))  
         }        
@@ -146,6 +149,7 @@ const STORAGE = {
     },
     setAuthTokenRefreshTime: (exp_time) => {
         setCookie('tokenRefreshTime', exp_time, 10)
+
         return Promise.resolve(true)
     },
 
@@ -161,15 +165,20 @@ const STORAGE = {
         return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
     },
     refreshTokenCall(token,ciphertext){
-        API_POST('/api/v1/user/api-token-refresh', {
+        return API_POST('/api/v1/user/api-token-refresh', {
             token: token,
             reset : ciphertext,
             enableCall: true
         }).then((data) => {
-            STORAGE.setAuthToken(data.token)
+            STORAGE.setAuthToken(data.token).then((resp)=>{
+                SOCKET.refreshSocketConnection();
+            })
             console.log(data)
 
             STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
+            return data.token;
+        }).catch((e)=>{
+            return false
         })
     }
 
