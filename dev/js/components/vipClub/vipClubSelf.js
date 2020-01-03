@@ -176,6 +176,7 @@ class VipProposer extends React.Component {
 	    		})*/
 			}else{
 				// this.populateDates(newProfileid,false)
+				this.setState({dob:''})
 			}
 			newProfile.isUserSelectedProfile=true
 			newProfile.is_tobe_dummy_user = false
