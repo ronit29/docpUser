@@ -43,7 +43,7 @@ class NewDateSelector extends React.Component {
             this.value = output.join('').substr(0, 14);
             if(values.length ==3){
                if(values[2].length == 4){
-                  if(values[2] <= '1899' || values[2] > currentYear){
+                  if(values[2] <= '1920' || values[2] > currentYear){
                     isValidDob = false
                     inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
                   }else{
@@ -85,7 +85,7 @@ class NewDateSelector extends React.Component {
               };
               this.value = output;
               if(year.toString().length == 4){
-                if(year <= '1899' || year >currentYear){
+                if(year <= '1920' || year >currentYear){
                   inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
                 }else{
@@ -122,7 +122,7 @@ class NewDateSelector extends React.Component {
                   FormattedYear = oldDob[0]
                   FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
                   FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
-                  if(FormattedYear <= '1899' || FormattedYear > currentYear){
+                  if(FormattedYear <= '1920' || FormattedYear > currentYear){
                     isValidDob = false
                     inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   }else{
