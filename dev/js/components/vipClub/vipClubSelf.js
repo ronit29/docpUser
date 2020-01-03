@@ -579,7 +579,7 @@ class VipProposer extends React.Component {
 					}
 					<div className="col-12">
 					<form>
-					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
+					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id} disableDob={this.state.disableDob}/>
 					</form> 
 					</div>
 					{/*<div className="col-12">
