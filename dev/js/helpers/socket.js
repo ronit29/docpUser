@@ -49,7 +49,14 @@ const SOCKET = (() => {
         return _instance
     }
 
-    return { init, getInstance: getInstance.bind(this) }
+    const refreshSocketConnection =()=>{
+        if(_instance) {
+            _instance.disconnect();
+            init();
+        }
+    }
+
+    return { init, getInstance: getInstance.bind(this), refreshSocketConnection: refreshSocketConnection.bind(this) }
 
 })()
 
