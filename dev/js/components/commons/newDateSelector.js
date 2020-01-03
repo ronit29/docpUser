@@ -278,9 +278,6 @@ class NewDateSelector extends React.Component {
         this.setState({calcualatedAge:age,months:m})
     }
     render() {
-      // console.log(this.state.toCalculateAge)
-      console.log(this.state.newDob)
-      console.log(this.props.old_dob)
       let borderStyle
       if((this.props.is_dob_error || this.state.inValidText) && this.props.is_opd){
         borderStyle = {borderBottom:'1px solid red'}

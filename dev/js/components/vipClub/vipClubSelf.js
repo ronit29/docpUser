@@ -40,7 +40,7 @@ class VipProposer extends React.Component {
 			disableDob: false,
 			is_tobe_dummy_user:false,
 			isDobValidated:false,
-            is_dob_error:false
+            is_dob_error:false,
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleTitle = this.handleTitle.bind(this);
@@ -447,7 +447,7 @@ class VipProposer extends React.Component {
 	submitNewDob(type,newDate,isValidDob) {
 		let self = this
 		self.setState({
-			dob: newDate
+			dob: newDate, isDobValidated:isValidDob
 		}, () => {
 			self.handleSubmit()
 		})

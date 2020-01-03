@@ -281,7 +281,7 @@ class VipProposerFamily extends React.Component {
   		console.log(user_form_id)
 		let self = this
 		self.setState({
-			dob: newDate
+			dob: newDate, isDobValidated:isValidDob
 		}, () => {
 			self.handleSubmit()
 		})

@@ -25,7 +25,7 @@ class EditProfile extends React.Component {
             isEmailVerified:false,
             isEmailUpdated:false,
             isEmailError:false,
-            isDobValidated:false,
+            isDobValidated:currentProfile.dob?true:false,
             is_dob_error:false
         }
     }
