@@ -6062,6 +6062,7 @@ margin: 10px 0px;
 @media screen and (min-width: 0px) and (max-width: 480px) {
     .btn-share {
         width: 80%;
+        margin:auto;
     }
     .social-icon-referral ul li {
         padding: 26px 14px;
