@@ -233,22 +233,29 @@ class App extends React.Component {
     }
 
     tokenRefresh(props){
-        let user_profile_id = null
         var ciphertext = null
-        
         if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
             props.getCartItems()
-            user_profile_id = STORAGE.getUserId()
             this.setState({toCallRefreshToken: true})
             let intervalId = setInterval(() => {
-                STORAGE.getAuthToken().then((token) => {
-                    ciphertext =  STORAGE.encrypt(user_profile_id)
-                    if (token) {
-                        STORAGE.refreshTokenCall(token,ciphertext)
-                    }
-                })
+                if(STORAGE.checkAuth()){
+                    refreshApi()
+                }else{
+                    clearInterval(refreshApi)
+                    this.setState({toCallRefreshToken: true})
+                }
             }, 270000)
         }
+    }
+
+    refreshApi(){
+        STORAGE.getAuthToken().then((token) => {
+            let user_profile_id = STORAGE.getUserId()
+            ciphertext =  STORAGE.encrypt(user_profile_id)
+            if (token) {
+                STORAGE.refreshTokenCall(token,ciphertext,'app')
+            }
+        })
     }
 
 
