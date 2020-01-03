@@ -2127,11 +2127,12 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     <h4 className="title payment-amt-label" onClick={(e) => {
                                                                                     e.preventDefault();
                                                                                     this.props.select_lab_payment_type(6) } }> Lab booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
-                                                                                    <span className="gold-qus" onClick={(e)=>{
+                                                                                    {/* <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
                                                                                                     this.goToGoldPage()
-                                                                                                }}>?</span></h4>
+                                                                                                }}>?</span> */}
+                                                                                                </h4>
                                                                                     {
                                                                                      gold_pricelist_deal_price == gold_pricelist_mrp
                                                                                         ?<span className="payment-mode-amt" onClick={(e) => {
@@ -2151,14 +2152,24 @@ class BookingSummaryViewNew extends React.Component {
                                                                             </div>
                                                                             <div className="dp-gold-pln-change-container">
                                                                                 <div className="dp-gold-pay-lft">
-                                                                                    <p onClick={(event)=>{
+                                                                                    {/* <p onClick={(event)=>{
                                                                                         event.stopPropagation();
                                                                                         this.toggleGoldPricePopup(true)
-                                                                                    }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>Change Plan<img src={ASSETS_BASE_URL + '/images/down-arrow-o.png'}/></span></p>
+                                                                                    }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>Change Plan<img src={ASSETS_BASE_URL + '/images/down-arrow-o.png'}/></span></p> */}
+                                                                                    <p onClick={(e)=>{
+                                                                                                    e.stopPropagation();
+                                                                                                    e.preventDefault();
+                                                                                                    this.goToGoldPage()
+                                                                                                }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>(Know more)</span></p>
                                                                                     <p className="dp-gld-mem-grn">Extra savings on every appointment for 1 year</p>
                                                                                 </div>
                                                                                 <div className="dp-gold-pay-rgt">
-                                                                                    <p>{`₹${this.props.selected_vip_plan.deal_price}`}</p>
+                                                                                    <p>{`₹${this.props.selected_vip_plan.deal_price}`}
+                                                                                    <img src={ASSETS_BASE_URL + '/img/customer-icons/edit.svg'} onClick={(event)=>{
+                                                                                        event.stopPropagation();
+                                                                                        this.toggleGoldPricePopup(true)
+                                                                                    }} /> 
+                                                                                    </p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
