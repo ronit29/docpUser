@@ -129,7 +129,7 @@ class VipProposerFamily extends React.Component {
 				this.setState({ title: 'mrs.' })
 			}
 			if(newProfile && newProfile.dob){
-				this.setState({dob:newProfile.dob})
+				this.setState({dob:newProfile.dob,isDobValidated:true})
 			}
 			// if(newProfile && newProfile.dob){
 			// 	oldDate= newProfile.dob.split('-')

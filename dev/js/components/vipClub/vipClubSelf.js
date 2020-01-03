@@ -167,7 +167,7 @@ class VipProposer extends React.Component {
 				this.setState({ title: 'miss' })
 			}
 			if(newProfile && newProfile.dob){
-				this.setState({dob:newProfile.dob})
+				this.setState({dob:newProfile.dob,isDobValidated:true})
 				/*oldDate= newProfile.dob.split('-')
 				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    			// this.populateDates(newProfileid,false)
