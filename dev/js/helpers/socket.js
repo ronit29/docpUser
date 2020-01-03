@@ -25,11 +25,11 @@ const SOCKET = (() => {
                         //     token: token
                         // }
                     });
-                    // socket.on('connection', (socketData)=>{
-                    //     console.log('REINITIALIZE TOKEN');
-                    //     socket.emit('getData', {token: token})
-                    // })
-                    socket.emit('getData', {token: token})
+                    socket.on('reqData', (socketData)=>{
+                        console.log('REINITIALIZE TOKEN');
+                        socket.emit('getData', {token: token})
+                    })
+                    //socket.emit('getData', {token: token})
                     _initialized = true
                     _instance = socket
                     cb()
@@ -49,7 +49,14 @@ const SOCKET = (() => {
         return _instance
     }
 
-    return { init, getInstance: getInstance.bind(this) }
+    const refreshSocketConnection =()=>{
+        if(_instance) {
+            _instance.disconnect();
+            init();
+        }
+    }
+
+    return { init, getInstance: getInstance.bind(this), refreshSocketConnection: refreshSocketConnection.bind(this) }
 
 })()
 
