@@ -244,7 +244,7 @@ class App extends React.Component {
                     clearInterval(refreshApi)
                     this.setState({toCallRefreshToken: true})
                 }
-            }, 270000)
+            }, 60000)
         }
     }
 
