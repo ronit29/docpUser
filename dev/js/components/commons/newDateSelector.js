@@ -13,7 +13,8 @@ class NewDateSelector extends React.Component {
           toCalculateAge:true,
           isValidDob:true,
           isFocused:false,
-          months:null
+          months:null,
+          inValidText:''
         }
     }
 
@@ -21,6 +22,7 @@ class NewDateSelector extends React.Component {
       var d = new Date();
       var currentYear = d.getFullYear();
       let isValidDob
+      let inValidText=''
         if(this.props.old_dob && this.props.old_dob != ''){
             let oldDob = this.props.old_dob.split('-')
             if(this.state.toCalculateAge){
@@ -28,13 +30,14 @@ class NewDateSelector extends React.Component {
                 if(oldDob[0].length ==4){
                     if(oldDob[0] <= '1899' || oldDob[0] > currentYear){
                       isValidDob = false
+                      inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                     }else{
                       isValidDob = this.isValidDate(oldDob[2],oldDob[1],oldDob[0])
                       this.calculateAge(oldDob[0]+'-'+oldDob[1]+'-'+oldDob[2])
                     }
                 }
               }
-              this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0],isValidDob:isValidDob,toCalculateAge:false})
+              this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0],isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
             }
         }
     }
@@ -45,6 +48,7 @@ class NewDateSelector extends React.Component {
       let self = this
         let isValidDob
         var output
+        let inValidText=''
         let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
         document.getElementById(id).addEventListener('input', function(e){
             this.type = 'text';
@@ -53,25 +57,24 @@ class NewDateSelector extends React.Component {
             var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
             if(values[0]) values[0] = self.checkValue(values[0], 31);
             if(values[1]) values[1] = self.checkValue(values[1], 12);
-            if(values.length ==3){
-               if(values[2].length == 4){
-                  if(values[2] <= '1899' || values[2] > currentYear){
-                    isValidDob = false
-                  }else{
-                    isValidDob = self.isValidDate(values[0],values[1],values[2])
-                    self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
-                  }
-                  self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
-               }
-            }
             output = values.map(function(v, i){
               return v.length == 2 && i < 2 ?  (v + ' / ') : v;
             });
             this.value = output.join('').substr(0, 14);
-        },()=>{
-          if(output){
-            self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob})
-          }
+            if(values.length ==3){
+               if(values[2].length == 4){
+                  if(values[2] <= '1899' || values[2] > currentYear){
+                    isValidDob = false
+                    inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
+                  }else{
+                    isValidDob = self.isValidDate(values[0],values[1],values[2])
+                    inValidText  =''
+                    self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
+                  }
+                  self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
+                  self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob,inValidText:inValidText})
+               }
+            }
         });
     }
 
@@ -85,6 +88,7 @@ class NewDateSelector extends React.Component {
         var year =''
         var day = ''
         var month = ''
+        let inValidText = ''
         document.getElementById(id).addEventListener('blur', function(e){
             this.type = 'tel';
             var input = this.value;
@@ -94,19 +98,28 @@ class NewDateSelector extends React.Component {
               year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
               day = parseInt(values[0]);
               month = parseInt(values[1]);            
-              output = input;
+              // output = input;
+              if(!isNaN(d)){
+                var dates = [d.getMonth() + 1, d.getDate(), d.getFullYear()];
+                output = dates.map(function(v){
+                  v = v.toString();
+                  return v.length == 1 ? '0' + v : v;
+                }).join(' / ');
+              };
+              this.value = output;
               if(year.toString().length == 4){
                 if(year <= '1899' || year >currentYear){
+                  inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
                 }else{
+                  inValidText = ''
                   isValidDob = self.isValidDate(day,month,year)
                   self.calculateAge(year+'-'+month+'-'+day)
                 }
                 self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
+                self.setState({newDob:this.value,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
               }
-            };
-            this.value = output;
-            self.setState({newDob:output,isValidDob:isValidDob,isFocused:false})
+            }
         });
     }
 
@@ -145,10 +158,9 @@ class NewDateSelector extends React.Component {
         }
         this.setState({calcualatedAge:age,months:m})
     }
-    
     render() {
         return (
-           <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error?'1px solid red':''}}>
+           <div className="labelWrap ddmminput" style={{border:this.props.is_dob_error || this.state.inValidText?'1px solid red':''}}>
                 <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}} maxLength="14" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''}/> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
@@ -156,11 +168,11 @@ class NewDateSelector extends React.Component {
                   :this.state.calcualatedAge ==0 && this.state.isValidDob?
                   <span className="input-year">{this.state.months} months</span>
                   : this.state.newDob && !this.state.isValidDob?
-                  <span className="input-year dob-error">Invalid DOB</span>
+                  <span className="input-year dob-error">{this.state.inValidText?'':'Invalid DOB'}</span>
                   :''
                 }
                 <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} htmlFor={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
-               {/* <p id="result">{this.props.is_dob_error?'Enter Valid DOB':''}</p>*/}
+               {this.state.inValidText? <p style={{color:'red','font-size':9}}>{this.state.inValidText}</p>:''}
         </div>
         );
     }
