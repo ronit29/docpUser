@@ -18,33 +18,47 @@ class NewDateSelector extends React.Component {
         }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(nextProps){
       var d = new Date();
       var currentYear = d.getFullYear();
+      var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth()):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
       let isValidDob
       let inValidText=''
-        if(this.props.old_dob && this.props.old_dob != ''){
-            let oldDob = this.props.old_dob.split('-')
-            if(this.state.toCalculateAge){
+      let FormattedYear
+      let FormattedDay 
+      let FormattedMnth
+        if(nextProps.old_dob && nextProps.old_dob != ''){
+            let oldDob = nextProps.old_dob.split('-')
+            // if(this.state.toCalculateAge){
               if(oldDob.length ==3){
                 if(oldDob[0].length ==4){
-                    if(oldDob[0] <= '1899' || oldDob[0] > currentYear){
+                  FormattedYear = oldDob[0]
+                  FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
+                  FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
+                  if(FormattedYear <= '1899' || FormattedYear > currentYear){
+                    isValidDob = false
+                    inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+                  }else{
+                    if(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
                       isValidDob = false
-                      inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+                      inValidText =''
                     }else{
-                      isValidDob = this.isValidDate(oldDob[2],oldDob[1],oldDob[0])
-                      this.calculateAge(oldDob[0]+'-'+oldDob[1]+'-'+oldDob[2])
-                    }
+                      inValidText =''
+                      isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear)
+                      this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
+                    } 
+                  }
                 }
               }
-              this.setState({newDob:oldDob[2]+ '/' + oldDob[1]+ '/' + oldDob[0],isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
-            }
+              this.setState({newDob:FormattedDay+ ' / ' + FormattedMnth+ ' / ' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
+            // }
         }
     }
 
     onInpType(){
       var d = new Date();
       var currentYear = d.getFullYear();
+      var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth()):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
       let self = this
         let isValidDob
         var output
@@ -67,13 +81,22 @@ class NewDateSelector extends React.Component {
                     isValidDob = false
                     inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
                   }else{
-                    isValidDob = self.isValidDate(values[0],values[1],values[2])
-                    inValidText  =''
-                    self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])
+                    if(values[2]+'-'+values[1]+'-'+values[0] > currentExactDay){
+                      isValidDob = false
+                      inValidText =''
+                    }else{
+                      inValidText= ''
+                      isValidDob = self.isValidDate(values[0],values[1],values[2])
+                      self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])  
+                    }
+                    
                   }
                   self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
                   self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob,inValidText:inValidText})
                }
+            }
+            if(values.length == 1 && values[0]== ""){
+                self.setState({newDob:null,isValidDob:true,inValidText:''})
             }
         });
     }
@@ -83,6 +106,7 @@ class NewDateSelector extends React.Component {
         let isValidDob
         var d = new Date();
         var currentYear = d.getFullYear();
+        var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth()):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
         var output
         let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
         var year =''
@@ -112,9 +136,14 @@ class NewDateSelector extends React.Component {
                   inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
                 }else{
-                  inValidText = ''
-                  isValidDob = self.isValidDate(day,month,year)
-                  self.calculateAge(year+'-'+month+'-'+day)
+                  if(year+'-'+month+'-'+day > currentExactDay){
+                      isValidDob = false
+                      inValidText =''
+                  }else{
+                      inValidText = ''
+                      isValidDob = self.isValidDate(day,month,year)
+                      self.calculateAge(year+'-'+month+'-'+day)
+                  }
                 }
                 self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
                 self.setState({newDob:this.value,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
@@ -159,20 +188,31 @@ class NewDateSelector extends React.Component {
         this.setState({calcualatedAge:age,months:m})
     }
     render() {
+      // console.log(this.state.toCalculateAge)
+      // console.log(this.state.newDob)
+      // console.log(this.props.old_dob)
+      let borderStyle
+      if((this.props.is_dob_error || this.state.inValidText) && this.props.is_opd){
+        borderStyle = {borderBottom:'1px solid red'}
+      }else if(this.props.is_dob_error || this.state.inValidText){
+        borderStyle = {border:'1px solid red'}
+      }
+
         return (
            <div className="labelWrap ddmminput">
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}} maxLength="14" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={{border:this.props.is_dob_error || this.state.inValidText?'1px solid red':''}} /> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onChange={this.onInpType.bind(this)} onBlur = {this.onInpBlur.bind(this)} onFocus={()=>{this.setState({isFocused:true})}} maxLength="14" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} /> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge} years</span>
                   :this.state.calcualatedAge ==0 && this.state.isValidDob?
                   <span className="input-year">{this.state.months} months</span>
                   : this.state.newDob && !this.state.isValidDob?
-                  <span className="input-year dob-error">{this.state.inValidText?'':'Invalid DOB'}</span>
+                  this.state.inValidText?''
+                  :<span className="input-year dob-error">Invalid DOB</span>
                   :''
                 }
                 <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} htmlFor={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
-               {this.state.inValidText? <p style={{color:'red','font-size':9}}>{this.state.inValidText}</p>:''}
+               {this.state.inValidText? <p style={{color:'red',fontSize:9, position:'absolute'}}>{this.state.inValidText}</p>:''}
         </div>
         );
     }
