@@ -43,19 +43,16 @@ class NewDateSelector extends React.Component {
             this.value = output.join('').substr(0, 14);
             if(values.length ==3){
                if(values[2].length == 4){
-                  if(values[2] <= '1920' || values[2] > currentYear){
+                  if(values[2] <= (currentYear - 100)){
                     isValidDob = false
                     inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
-                  }else{
-                    if(values[2]+'-'+values[1]+'-'+values[0] > currentExactDay){
+                  }else if(values[2] > currentYear || values[2]+'-'+values[1]+'-'+values[0] > currentExactDay){
                       isValidDob = false
                       inValidText =''
-                    }else{
+                  }else{
                       inValidText= ''
                       isValidDob = self.isValidDate(values[0],values[1],values[2])
                       self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])  
-                    }
-                    
                   }
                   self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
                   self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob,inValidText:inValidText})
@@ -85,18 +82,16 @@ class NewDateSelector extends React.Component {
               };
               this.value = output;
               if(year.toString().length == 4){
-                if(year <= '1920' || year >currentYear){
+                if(year <= (currentYear - 100)){
                   inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
+                }else if(year >currentYear || year+'-'+month+'-'+day > currentExactDay){
+                  isValidDob = false
+                  inValidText =''
                 }else{
-                  if(year+'-'+month+'-'+day > currentExactDay){
-                      isValidDob = false
-                      inValidText =''
-                  }else{
-                      inValidText = ''
-                      isValidDob = self.isValidDate(day,month,year)
-                      self.calculateAge(year+'-'+month+'-'+day)
-                  }
+                  inValidText = ''
+                  isValidDob = self.isValidDate(day,month,year)
+                  self.calculateAge(year+'-'+month+'-'+day)
                 }
                 self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
                 self.setState({newDob:this.value,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
@@ -122,18 +117,16 @@ class NewDateSelector extends React.Component {
                   FormattedYear = oldDob[0]
                   FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
                   FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
-                  if(FormattedYear <= '1920' || FormattedYear > currentYear){
+                  if(FormattedYear <= (currentYear - 100)){
                     isValidDob = false
                     inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+                  }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
+                    isValidDob = false
+                    inValidText =''
                   }else{
-                    if(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
-                      isValidDob = false
-                      inValidText =''
-                    }else{
-                      inValidText =''
-                      isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear)
-                      this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
-                    } 
+                    inValidText =''
+                    isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear)
+                    this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
                   }
                 }
                 this.setState({newDob:FormattedDay+ ' / ' + FormattedMnth+ ' / ' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
