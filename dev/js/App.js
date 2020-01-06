@@ -239,7 +239,7 @@ class App extends React.Component {
             this.setState({toCallRefreshToken: true})
             let intervalId = setInterval(() => {
                 if(STORAGE.checkAuth()){
-                    refreshApi()
+                    this.refreshApi()
                 }else{
                     clearInterval(refreshApi)
                     this.setState({toCallRefreshToken: true})
