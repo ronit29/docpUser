@@ -19,6 +19,7 @@ const SOCKET = (() => {
             //Fetch userid with auth token to create a seperate room
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
+                    console.log('CONNECTIONNNNNNNNN', token);
                     const socket = io(CONFIG.SOCKET_BASE_URL, {
                         path: CONFIG.SOCKET_BASE_PATH
                         // query: {
@@ -26,8 +27,22 @@ const SOCKET = (() => {
                         // }
                     });
                     socket.on('reqData', (socketData)=>{
-                        console.log('REINITIALIZE TOKEN');
+                        console.log('REINITIALIZE TOKEN', token);
                         socket.emit('getData', {token: token})
+                    })
+                    socket.on('disconnect', ()=>{
+                        console.log(_instance);
+                        console.log('CLEAR DISCONNECT TOKEN')
+                        _instance = null
+                        init(() => {
+                                console.log('REconect reconnect');
+                                console.log(_instance);
+                            if (_instance) {
+                                _instance.on('notification', (data) => {
+                                    console.log('AFDADSFADSFFJDAFJASDJFJ FJASDFJSDAFJASDJFJSADJFJASDF JFJASDJFAJSDFJAS');
+                                })
+                            }
+                        })
                     })
                     //socket.emit('getData', {token: token})
                     _initialized = true
@@ -52,7 +67,15 @@ const SOCKET = (() => {
     const refreshSocketConnection =()=>{
         if(_instance) {
             _instance.disconnect();
-            init();
+            // _instance = null;
+            // init(() => {
+                
+            //     if (_instance) {
+            //         _instance.on('notification', (data) => {
+            //             console.log('AFDADSFADSFFJDAFJASDJFJ FJASDFJSDAFJASDJFJSADJFJASDF JFJASDJFAJSDFJAS');
+            //         })
+            //     }
+            // })
         }
     }
 
