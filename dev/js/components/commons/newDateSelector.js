@@ -189,11 +189,18 @@ class NewDateSelector extends React.Component {
       let inValidText = ''
       if(e.which === 8) {
         var val = this.state.newDob;
-        if(val.length == 3 || val.length == 6 || val.length == 4 || val.length == 1) {
-            val = val.slice(0, val.length-1);
-            this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
-        }else{
-            this.setState({isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
+        if(val.length == 0){
+            this.setState({newDob:null},()=>{
+              this.props.getNewDate('dob',null,false) 
+            })
+        }
+        if(val.length){
+          if(val.length == 3 || val.length == 6 || val.length == 4 || val.length == 1) {
+              val = val.slice(0, val.length-1);
+              this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
+          }else{
+              this.setState({isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
+          }
         }
       }
     }
@@ -209,13 +216,14 @@ class NewDateSelector extends React.Component {
       var val = e.target.value;
       let staticDay = ['1','2','3','0']
       let staticMnth = ['11','12','0','1']
+      let evenMnth = ['00','2','02','4','04','5','05','6','06','9','09','11']
         if(val.length == 1){
           if(staticDay.indexOf(val) == -1){
             val = '0'+val + '/'
           }
           this.setState({newDob:val})
         }else if (val.length === 2) {
-          if(val <=31){
+          if(val != "00" && val <=31){
             val += '/'
           }else{
             val  = val.charAt(0)
@@ -223,14 +231,29 @@ class NewDateSelector extends React.Component {
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length === 4){
           val = val.split('/')
-            if(staticMnth.indexOf(val[1]) == -1){
-              val = val[0] + '/' + '0'+val[1] + '/'
+            if((val[0] == '31') && evenMnth.indexOf(val[1]) != -1){
+              val = val[0]+'/'
+            }else if(val[0] == '30' && val[1] == '2'){
+              val = val[0]+'/'
             }else{
-              val = val[0] + '/' +val[1]
+              if(staticMnth.indexOf(val[1]) == -1){
+                val = val[0] + '/' + '0'+val[1] + '/'
+              }else{
+                val = val[0] + '/' +val[1]
+              }
             }
-          this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
+            this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if (val.length === 5) {
-          val += '/'
+           val = val.split('/')
+          if((val[0] == '31' || val[1] > 12) && evenMnth.indexOf(val[1]) != -1){
+              val = val[0]+'/'+ val[1].charAt(0)
+          }else if((val[0] == '30' || val[1] > 12) && evenMnth.indexOf(val[1]) != -1){
+            val = val[0]+'/'+ val[1].charAt(0)
+          }
+          else{
+              val = val[0]+'/'+ val[1] +'/'
+          }
+            // val += '/'
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length > 5){
           val = val.split('/')
