@@ -14662,4 +14662,9 @@ div.slt-nw-input.summery-dob-cont .labelWrap.ddmminput input{
 div.slt-nw-input.summery-dob-cont .sumry-lbl{
     display: none;
 }
+.dob-input-sub{
+    font-size: 9px;
+    font-weight: 600;
+    color: #b8b8b8;
+}
 /* ======================================= date month input ======================================= */

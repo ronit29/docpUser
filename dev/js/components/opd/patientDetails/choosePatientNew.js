@@ -407,7 +407,9 @@ class ChoosePatientNewView extends React.Component {
                             {
                                 (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob?
                                     <div className="slt-nw-input summery-dob-cont">
-                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
+                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
+                                        <p className="dob-input-sub">DD/MM/YYYY</p>
+                                        </label>
                                         <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true}/>
                                     </div>
                                 :""
@@ -470,7 +472,9 @@ class ChoosePatientNewView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="slt-nw-input summery-dob-cont">
-                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
+                                    <p className="dob-input-sub">DD/MM/YYYY</p>
+                                    </label>
                                     <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true}/>
                                 </div>
                                 
