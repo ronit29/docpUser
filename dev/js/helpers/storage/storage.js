@@ -91,7 +91,7 @@ const STORAGE = {
         let exp_time = getCookie('tokenRefreshTime')
          exp_time = JSON.parse(exp_time)
         let login_user_id = getCookie('user_id')
-        if(STORAGE.checkAuth() && exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 1000) && dataParams && !istokenRefreshCall){
+        if(STORAGE.checkAuth() && exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 1500) && dataParams && !istokenRefreshCall){
             let ciphertext =  STORAGE.encrypt(login_user_id)  
             let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext,'STORAGE')
             return Promise.resolve(token);
@@ -164,7 +164,8 @@ const STORAGE = {
         });
         return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
     },
-    refreshTokenCall(token,ciphertext){
+    refreshTokenCall(token,ciphertext,fromWhere){
+        console.log(fromWhere)
         return API_POST('/api/v1/user/api-token-refresh', {
             token: token,
             reset : ciphertext,
@@ -173,7 +174,7 @@ const STORAGE = {
             STORAGE.setAuthToken(data.token).then((resp)=>{
                 SOCKET.refreshSocketConnection();
             })
-            console.log(data)
+            // console.log(data)
 
             STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
             return data.token;

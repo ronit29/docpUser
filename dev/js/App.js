@@ -233,7 +233,6 @@ class App extends React.Component {
     }
 
     tokenRefresh(props){
-        var ciphertext = null
         if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
             props.getCartItems()
             this.setState({toCallRefreshToken: true})
@@ -249,9 +248,10 @@ class App extends React.Component {
     }
 
     refreshApi(){
+        var ciphertext = null
         STORAGE.getAuthToken().then((token) => {
             let user_profile_id = STORAGE.getUserId()
-            let ciphertext =  STORAGE.encrypt(user_profile_id)
+            ciphertext =  STORAGE.encrypt(user_profile_id)
             if (token) {
                 STORAGE.refreshTokenCall(token,ciphertext,'app').then((newToken)=>{
                     this.props.saveNewRefreshedToken(newToken);
