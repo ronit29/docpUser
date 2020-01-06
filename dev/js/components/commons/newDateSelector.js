@@ -216,7 +216,7 @@ class NewDateSelector extends React.Component {
       var val = e.target.value;
       let staticDay = ['1','2','3','0']
       let staticMnth = ['11','12','0','1']
-      let evenMnth = ['00','2','02','4','04','6','06','9','09']
+      let checkValidMonth = ['00','2','02','4','04','6','06','9','09']
         if(val.length == 1){
           if(staticDay.indexOf(val) == -1){
             val = '0'+val + '/'
@@ -231,7 +231,7 @@ class NewDateSelector extends React.Component {
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length === 4){
           val = val.split('/')
-            if((val[0] == '31') && evenMnth.indexOf(val[1]) != -1){
+            if((val[0] == '31') && checkValidMonth.indexOf(val[1]) != -1){
               val = val[0]+'/'
             }else if(val[0] == '30' && val[1] == '2'){
               val = val[0]+'/'
@@ -245,15 +245,14 @@ class NewDateSelector extends React.Component {
             this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if (val.length === 5) {
            val = val.split('/')
-          if((val[0] == '31' || val[1] > 12) && evenMnth.indexOf(val[1]) != -1){
+          if((val[0] == '31' || val[1] > 12) && checkValidMonth.indexOf(val[1]) != -1){
               val = val[0]+'/'+ val[1].charAt(0)
-          }else if((val[0] == '30' || val[1] > 12) && evenMnth.indexOf(val[1]) != -1){
+          }else if((val[0] == '30' || val[1] > 12) && checkValidMonth.indexOf(val[1]) != -1){
             val = val[0]+'/'+ val[1].charAt(0)
           }
           else{
               val = val[0]+'/'+ val[1] +'/'
           }
-            // val += '/'
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length > 5){
           val = val.split('/')
@@ -290,6 +289,7 @@ class NewDateSelector extends React.Component {
       if(dateOfBirth){
         dateOfBirth = dateOfBirth.split('/')
           if(dateOfBirth.length ==3){
+              dateOfBirth[2] = dateOfBirth[2] !== 4 ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
                if(dateOfBirth[2].length == 4){
                   if(dateOfBirth[2] <= (currentYear - 100)){
                     isValidDob = false
