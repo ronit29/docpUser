@@ -206,7 +206,7 @@ class NewDateSelector extends React.Component {
     }
 
     handleChange(e) {
-    var new_date = new Date();
+      var new_date = new Date();
       var currentYear = new_date.getFullYear();
       var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
       let self = this
@@ -280,6 +280,38 @@ class NewDateSelector extends React.Component {
         }
     }
 
+    isBlured(){
+      var new_date = new Date();
+      let isValidDob
+      let inValidText = ''
+      var dateOfBirth = this.state.newDob
+      var currentYear = new_date.getFullYear();
+      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
+      if(dateOfBirth){
+        dateOfBirth = dateOfBirth.split('/')
+          if(dateOfBirth.length ==3){
+               if(dateOfBirth[2].length == 4){
+                  if(dateOfBirth[2] <= (currentYear - 100)){
+                    isValidDob = false
+                    inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
+                  }else if(dateOfBirth[2] > currentYear || dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0] > currentExactDay){
+                      isValidDob = false
+                      inValidText =''
+                  }else{
+                      inValidText= ''
+                      isValidDob = this.isValidDate(dateOfBirth[0],dateOfBirth[1],dateOfBirth[2])
+                      this.calculateAge(dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0])  
+                  }
+                  this.props.getNewDate('dob',dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0],isValidDob) 
+                  this.setState({newDob:dateOfBirth[0] + '/' +dateOfBirth[1] + '/' + dateOfBirth[2],isValidDob:isValidDob,inValidText:inValidText})
+               }else{
+                  dateOfBirth = dateOfBirth[0] + '/' +dateOfBirth[1] + '/' + dateOfBirth[2]
+                  this.setState({newDob:dateOfBirth,isValidDob:isValidDob,inValidText:inValidText})
+                }
+            }
+      }
+    }
+
     render() {
       let borderStyle
       if((this.props.is_dob_error || this.state.inValidText) && this.props.is_summary){
@@ -290,7 +322,7 @@ class NewDateSelector extends React.Component {
 
         return (
            <div className="labelWrap ddmminput">
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onFocus={()=>{this.setState({isFocused:true})}} maxLength="10" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} placeholder={`${this.props.is_summary?'DD/MM/YYYY':''}`} onChange={this.handleChange.bind(this)} onKeyDown={this.keyPressFunc.bind(this)}/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onFocus={()=>{this.setState({isFocused:true})}} maxLength="10" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} placeholder={`${this.props.is_summary?'DD/MM/YYYY':''}`} onChange={this.handleChange.bind(this)} onKeyDown={this.keyPressFunc.bind(this)} onBlur={this.isBlured.bind(this)}/> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge} years</span>
