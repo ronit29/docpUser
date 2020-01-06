@@ -30,20 +30,20 @@ const SOCKET = (() => {
                         console.log('REINITIALIZE TOKEN', token);
                         socket.emit('getData', {token: token})
                     })
-                    socket.on('disconnect', ()=>{
-                        console.log(_instance);
-                        console.log('CLEAR DISCONNECT TOKEN')
-                        _instance = null
-                        init(() => {
-                                console.log('REconect reconnect');
-                                console.log(_instance);
-                            if (_instance) {
-                                _instance.on('notification', (data) => {
-                                    console.log('AFDADSFADSFFJDAFJASDJFJ FJASDFJSDAFJASDJFJSADJFJASDF JFJASDJFAJSDFJAS');
-                                })
-                            }
-                        })
-                    })
+                    // socket.on('disconnect', ()=>{
+                    //     console.log(_instance);
+                    //     console.log('CLEAR DISCONNECT TOKEN')
+                    //     _instance = null
+                    //     init(() => {
+                    //             console.log('REconect reconnect');
+                    //             console.log(_instance);
+                    //         if (_instance) {
+                    //             _instance.on('notification', (data) => {
+                    //                 console.log('AFDADSFADSFFJDAFJASDJFJ FJASDFJSDAFJASDJFJSADJFJASDF JFJASDJFAJSDFJAS');
+                    //             })
+                    //         }
+                    //     })
+                    // })
                     //socket.emit('getData', {token: token})
                     _initialized = true
                     _instance = socket
@@ -67,16 +67,16 @@ const SOCKET = (() => {
     const refreshSocketConnection =()=>{
         if(_instance) {
             _instance.disconnect();
-            // _instance = null;
-            // init(() => {
-                
-            //     if (_instance) {
-            //         _instance.on('notification', (data) => {
-            //             console.log('AFDADSFADSFFJDAFJASDJFJ FJASDFJSDAFJASDJFJSADJFJASDF JFJASDJFAJSDFJAS');
-            //         })
-            //     }
-            // })
+             _instance = null;
         }
+        // init(() => {
+                
+        //     if (_instance) {
+        //         _instance.on('notification', (data) => {
+        //             fetchNotifications();
+        //         })
+        //     }
+        // })
     }
 
     return { init, getInstance: getInstance.bind(this), refreshSocketConnection: refreshSocketConnection.bind(this) }
