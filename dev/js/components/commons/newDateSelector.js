@@ -83,6 +83,8 @@ class NewDateSelector extends React.Component {
             };
             this.value = output;
             if(year.toString().length == 4){
+                month = month.toString().length == 1? '0'+ month : month
+                day = day.toString().length == 1? '0'+ day : day
                 if(year <= (currentYear - 100)){
                   inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
@@ -203,7 +205,7 @@ class NewDateSelector extends React.Component {
                   :''
                 }
                 <label className= {`sumry-lbl ${this.state.newDob || this.state.isFocused?'is-inp-focused':''}`} htmlFor={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`}>Date of Birth (DD/MM/YYYY)</label>
-               {this.state.inValidText? <p style={{color:'red',fontSize:9, position:'absolute'}}>{this.state.inValidText}</p>:''}
+               {this.state.inValidText? <p className="fw-500" style={{color:'red',fontSize:9}}>{this.state.inValidText}</p>:''}
         </div>
         );
     }
