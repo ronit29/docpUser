@@ -19,9 +19,9 @@ class NewDateSelector extends React.Component {
     }
 
     componentDidMount(){
-      var d = new Date();
-      var currentYear = d.getFullYear();
-      var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth()):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
+      var new_date = new Date();
+      var currentYear = new_date.getFullYear();
+      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
       let self = this
       let isValidDob
       var output
@@ -72,16 +72,17 @@ class NewDateSelector extends React.Component {
               year = values[2].length !== 4 ? parseInt(values[2]) + 1900 : parseInt(values[2]);
               day = parseInt(values[0]);
               month = parseInt(values[1]);            
-              // output = input;
+              var d = new Date(year, month, day);           
               if(!isNaN(d)){
-                var dates = [d.getMonth() + 1, d.getDate(), d.getFullYear()];
+                var dates = [d.getDate(), d.getMonth(), d.getFullYear()];
                 output = dates.map(function(v){
                   v = v.toString();
                   return v.length == 1 ? '0' + v : v;
                 }).join(' / ');
               };
-              this.value = output;
-              if(year.toString().length == 4){
+            };
+            this.value = output;
+            if(year.toString().length == 4){
                 if(year <= (currentYear - 100)){
                   inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
                   isValidDob = false
@@ -94,9 +95,8 @@ class NewDateSelector extends React.Component {
                   self.calculateAge(year+'-'+month+'-'+day)
                 }
                 self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
-                self.setState({newDob:this.value,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
+                self.setState({newDob:output,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
               }
-            }
         });
     }
 
