@@ -8,7 +8,7 @@ class NewDateSelector extends React.Component {
         super(props)
 
         this.state = {
-          newDob:null,
+          newDob:'',
           calcualatedAge:null,
           toCalculateAge:true,
           isValidDob:true,
@@ -18,89 +18,89 @@ class NewDateSelector extends React.Component {
         }
     }
 
-    componentDidMount(){
-      var new_date = new Date();
-      var currentYear = new_date.getFullYear();
-      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
-      let self = this
-      let isValidDob
-      var output
-      let inValidText=''
-      let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
-        var year =''
-        var day = ''
-        var month = ''
-        document.getElementById(id).addEventListener('input', function(e){
-            this.type = 'text';
-            var input = this.value;
-            if(/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-            var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
-            if(values[0]) values[0] = self.checkValue(values[0], 31);
-            if(values[1]) values[1] = self.checkValue(values[1], 12);
-            output = values.map(function(v, i){
-              return v.length == 2 && i < 2 ?  (v + ' / ') : v;
-            });
-            this.value = output.join('').substr(0, 14);
-            if(values.length ==3){
-               if(values[2].length == 4){
-                  if(values[2] <= (currentYear - 100)){
-                    isValidDob = false
-                    inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
-                  }else if(values[2] > currentYear || values[2]+'-'+values[1]+'-'+values[0] > currentExactDay){
-                      isValidDob = false
-                      inValidText =''
-                  }else{
-                      inValidText= ''
-                      isValidDob = self.isValidDate(values[0],values[1],values[2])
-                      self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])  
-                  }
-                  self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
-                  self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob,inValidText:inValidText})
-               }
-            }
-            if(values.length == 1 && values[0]== ""){
-                self.setState({newDob:null,isValidDob:true,inValidText:'',calcualatedAge:null})
-            }
-        });
+    // componentDidMount(){
+    //   var new_date = new Date();
+    //   var currentYear = new_date.getFullYear();
+    //   var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
+    //   let self = this
+    //   let isValidDob
+    //   var output
+    //   let inValidText=''
+    //   let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
+    //     var year =''
+    //     var day = ''
+    //     var month = ''
+    //     document.getElementById(id).addEventListener('input', function(e){
+    //         this.type = 'text';
+    //         var input = this.value;
+    //         if(/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+    //         var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
+    //         if(values[0]) values[0] = self.checkValue(values[0], 31);
+    //         if(values[1]) values[1] = self.checkValue(values[1], 12);
+    //         output = values.map(function(v, i){
+    //           return v.length == 2 && i < 2 ?  (v + ' / ') : v;
+    //         });
+    //         this.value = output.join('').substr(0, 14);
+    //         if(values.length ==3){
+    //            if(values[2].length == 4){
+    //               if(values[2] <= (currentYear - 100)){
+    //                 isValidDob = false
+    //                 inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
+    //               }else if(values[2] > currentYear || values[2]+'-'+values[1]+'-'+values[0] > currentExactDay){
+    //                   isValidDob = false
+    //                   inValidText =''
+    //               }else{
+    //                   inValidText= ''
+    //                   isValidDob = self.isValidDate(values[0],values[1],values[2])
+    //                   self.calculateAge(values[2]+'-'+values[1]+'-'+values[0])  
+    //               }
+    //               self.props.getNewDate('dob',values[2]+'-'+values[1]+'-'+values[0],isValidDob) 
+    //               self.setState({newDob:output.join('').substr(0, 14),isValidDob:isValidDob,inValidText:inValidText})
+    //            }
+    //         }
+    //         if(values.length == 1 && values[0]== ""){
+    //             self.setState({newDob:null,isValidDob:true,inValidText:'',calcualatedAge:null})
+    //         }
+    //     });
 
-        document.getElementById(id).addEventListener('blur', function(e){
-            this.type = 'tel';
-            var input = this.value;
-            var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
-            var output = '';
-            if(values.length == 3){
-              year = values[2].length !== 4 ? parseInt(values[2]) + 1900 : parseInt(values[2]);
-              day = parseInt(values[0]);
-              month = parseInt(values[1]);            
-              var d = new Date(year, month, day);           
-              if(!isNaN(d)){
-                var dates = [d.getDate(), d.getMonth(), d.getFullYear()];
-                output = dates.map(function(v){
-                  v = v.toString();
-                  return v.length == 1 ? '0' + v : v;
-                }).join(' / ');
-              };
-            };
-            this.value = output;
-            if(year.toString().length == 4){
-                month = month.toString().length == 1? '0'+ month : month
-                day = day.toString().length == 1? '0'+ day : day
-                if(year <= (currentYear - 100)){
-                  inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
-                  isValidDob = false
-                }else if(year >currentYear || year+'-'+month+'-'+day > currentExactDay){
-                  isValidDob = false
-                  inValidText =''
-                }else{
-                  inValidText = ''
-                  isValidDob = self.isValidDate(day,month,year)
-                  self.calculateAge(year+'-'+month+'-'+day)
-                }
-                self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
-                self.setState({newDob:output,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
-              }
-        });
-    }
+    //     document.getElementById(id).addEventListener('blur', function(e){
+    //         this.type = 'tel';
+    //         var input = this.value;
+    //         var values = input.split('/').map(function(v){return v.replace(/\D/g, '')});
+    //         var output = '';
+    //         if(values.length == 3){
+    //           year = values[2].length !== 4 ? parseInt(values[2]) + 1900 : parseInt(values[2]);
+    //           day = parseInt(values[0]);
+    //           month = parseInt(values[1]);            
+    //           var d = new Date(year, month, day);           
+    //           if(!isNaN(d)){
+    //             var dates = [d.getDate(), d.getMonth(), d.getFullYear()];
+    //             output = dates.map(function(v){
+    //               v = v.toString();
+    //               return v.length == 1 ? '0' + v : v;
+    //             }).join(' / ');
+    //           };
+    //         };
+    //         this.value = output;
+    //         if(year.toString().length == 4){
+    //             month = month.toString().length == 1? '0'+ month : month
+    //             day = day.toString().length == 1? '0'+ day : day
+    //             if(year <= (currentYear - 100)){
+    //               inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+    //               isValidDob = false
+    //             }else if(year >currentYear || year+'-'+month+'-'+day > currentExactDay){
+    //               isValidDob = false
+    //               inValidText =''
+    //             }else{
+    //               inValidText = ''
+    //               isValidDob = self.isValidDate(day,month,year)
+    //               self.calculateAge(year+'-'+month+'-'+day)
+    //             }
+    //             self.props.getNewDate('dob',year+'-'+month+'-'+day,isValidDob)
+    //             self.setState({newDob:output,isValidDob:isValidDob,isFocused:false, inValidText:inValidText})
+    //           }
+    //     });
+    // }
 
     componentWillReceiveProps(nextProps){
       var d = new Date();
@@ -131,7 +131,7 @@ class NewDateSelector extends React.Component {
                     this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
                   }
                 }
-                this.setState({newDob:FormattedDay+ ' / ' + FormattedMnth+ ' / ' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
+                this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
               }
             // }
         }
@@ -183,6 +183,80 @@ class NewDateSelector extends React.Component {
      return dateTo.getMonth() - dateFrom.getMonth() + 
        (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
     }
+
+    keyPressFunc(e) {
+      let isValidDob = true
+      let inValidText = ''
+      if(e.which === 8) {
+        var val = this.state.newDob;
+        if(val.length == 3 || val.length == 6 || val.length == 4 || val.length == 1) {
+            val = val.slice(0, val.length-1);
+            this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
+        }else{
+            this.setState({isValidDob:isValidDob,inValidText:inValidText,calcualatedAge:null,months:null})
+        }
+      }
+    }
+
+    handleChange(e) {
+    var new_date = new Date();
+      var currentYear = new_date.getFullYear();
+      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
+      let self = this
+      let isValidDob = true
+      let inValidText=''
+      let id = this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate';
+      var val = e.target.value;
+      let staticDay = ['1','2','3','0']
+      let staticMnth = ['11','12','0','1']
+        if(val.length == 1){
+          if(staticDay.indexOf(val) == -1){
+            val = '0'+val + '/'
+          }
+          this.setState({newDob:val})
+        }else if (val.length === 2) {
+          if(val <=31){
+            val += '/'
+          }else{
+            val  = val.charAt(0)
+          }
+          this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
+        }else if(val.length === 4){
+          val = val.split('/')
+            if(staticMnth.indexOf(val[1]) == -1){
+              val = val[0] + '/' + '0'+val[1] + '/'
+            }else{
+              val = val[0] + '/' +val[1]
+            }
+          this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
+        }else if (val.length === 5) {
+          val += '/'
+          this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
+        }else if(val.length > 5){
+          val = val.split('/')
+          if(val.length ==3){
+               if(val[2].length == 4){
+                  if(val[2] <= (currentYear - 100)){
+                    isValidDob = false
+                    inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
+                  }else if(val[2] > currentYear || val[2]+'-'+val[1]+'-'+val[0] > currentExactDay){
+                      isValidDob = false
+                      inValidText =''
+                  }else{
+                      inValidText= ''
+                      isValidDob = this.isValidDate(val[0],val[1],val[2])
+                      this.calculateAge(val[2]+'-'+val[1]+'-'+val[0])  
+                  }
+                  this.props.getNewDate('dob',val[2]+'-'+val[1]+'-'+val[0],isValidDob) 
+                  this.setState({newDob:val[0] + '/' +val[1] + '/' + val[2],isValidDob:isValidDob,inValidText:inValidText})
+               }else{
+                  val = val[0] + '/' +val[1] + '/' + val[2]
+                  this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
+                }
+            }
+        }
+    }
+
     render() {
       let borderStyle
       if((this.props.is_dob_error || this.state.inValidText) && this.props.is_summary){
@@ -193,7 +267,7 @@ class NewDateSelector extends React.Component {
 
         return (
            <div className="labelWrap ddmminput">
-                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onFocus={()=>{this.setState({isFocused:true})}} maxLength="14" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} placeholder={`${this.props.is_summary?'DD/MM/YYYY':''}`}/> 
+                <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onFocus={()=>{this.setState({isFocused:true})}} maxLength="10" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} placeholder={`${this.props.is_summary?'DD/MM/YYYY':''}`} onChange={this.handleChange.bind(this)} onKeyDown={this.keyPressFunc.bind(this)}/> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
                   <span className="input-year">{this.state.calcualatedAge} years</span>
