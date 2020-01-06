@@ -4588,7 +4588,7 @@ ul li.time-slot-li-listing {
     display: flex;
     margin-bottom: 15px;
     position: relative;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .slt-label {
