@@ -216,7 +216,7 @@ class NewDateSelector extends React.Component {
       var val = e.target.value;
       let staticDay = ['1','2','3','0']
       let staticMnth = ['11','12','0','1']
-      let evenMnth = ['00','2','02','4','04','5','05','6','06','9','09','11']
+      let evenMnth = ['00','2','02','4','04','6','06','9','09']
         if(val.length == 1){
           if(staticDay.indexOf(val) == -1){
             val = '0'+val + '/'
@@ -325,9 +325,9 @@ class NewDateSelector extends React.Component {
                 <input type="tel" id={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} ref='dob' value={this.state.newDob?this.state.newDob:''} required name={`${this.props.is_gold?'newDate_'+this.props.user_form_id:'newDate'}`} onFocus={()=>{this.setState({isFocused:true})}} maxLength="10" disabled={this.props.user_form_id && this.props.disableDob?'disabled':''} style={borderStyle} placeholder={`${this.props.is_summary?'DD/MM/YYYY':''}`} onChange={this.handleChange.bind(this)} onKeyDown={this.keyPressFunc.bind(this)} onBlur={this.isBlured.bind(this)}/> 
                 {
                   this.state.calcualatedAge >0 && this.state.isValidDob?
-                  <span className="input-year">{this.state.calcualatedAge} years</span>
+                  <span className="input-year">{this.state.calcualatedAge} {this.state.calcualatedAge ==1?'year':'years'}</span>
                   :this.state.calcualatedAge ==0 && this.state.isValidDob?
-                  <span className="input-year">{this.state.months} months</span>
+                  <span className="input-year">{this.state.months} {this.state.months ==1?'month':'months'}</span>
                   : this.state.newDob && !this.state.isValidDob?
                   this.state.inValidText?''
                   :<span className="input-year dob-error">Invalid DOB</span>
