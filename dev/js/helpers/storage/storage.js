@@ -171,13 +171,15 @@ const STORAGE = {
             reset : ciphertext,
             enableCall: true
         }).then((data) => {
-            STORAGE.setAuthToken(data.token).then((resp)=>{
-                SOCKET.refreshSocketConnection();
-            })
-            // console.log(data)
+            if(data && Object.keys(data).length){
+                STORAGE.setAuthToken(data.token).then((resp)=>{
+                    SOCKET.refreshSocketConnection();
+                })
+                // console.log(data)
 
-            STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
-            return data.token;
+                STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
+                return data.token;
+            }
         }).catch((e)=>{
             return false
         })
