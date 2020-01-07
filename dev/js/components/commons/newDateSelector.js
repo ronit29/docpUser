@@ -117,8 +117,10 @@ class NewDateSelector extends React.Component {
               if(oldDob.length ==3){
                 if(oldDob[0].length ==4){
                   FormattedYear = oldDob[0]
-                  FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
-                  FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
+                  // FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
+                  // FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
+                  FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
+                  FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
                   if(FormattedYear <= (currentYear - 100)){
                     isValidDob = false
                     inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
@@ -312,7 +314,7 @@ class NewDateSelector extends React.Component {
       if(dateOfBirth){
         dateOfBirth = dateOfBirth.split('/')
           if(dateOfBirth.length ==3){
-              dateOfBirth[2] = dateOfBirth[2].length !== 4 ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
+              dateOfBirth[2] = dateOfBirth[2].length !== 4 && dateOfBirth[2].length ==2  ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
                if(dateOfBirth[2].length == 4){
                   if(dateOfBirth[2] <= (currentYear - 100)){
                     isValidDob = false
