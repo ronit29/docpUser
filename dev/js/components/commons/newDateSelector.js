@@ -231,6 +231,7 @@ class NewDateSelector extends React.Component {
         dateOfBirth = dateOfBirth.split('/')
           if(dateOfBirth.length ==3){
               dateOfBirth[2] = dateOfBirth[2].length !== 4 && dateOfBirth[2].length ==2  ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
+              dateOfBirth[1] = dateOfBirth[1].length != 2? '0'+dateOfBirth[1]:dateOfBirth[1]
                if(dateOfBirth[2].length == 4){
                   if(dateOfBirth[2] <= (currentYear - 100)){
                     isValidDob = false
