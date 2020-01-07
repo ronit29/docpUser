@@ -147,6 +147,8 @@ class NewDateSelector extends React.Component {
         }else if (val.length === 2) {
           if(val != "00" && val <=31){
             val += '/'
+          }else if(val.includes('/')){
+            val = '0'+val
           }else{
             val  = val.charAt(0)
           }
