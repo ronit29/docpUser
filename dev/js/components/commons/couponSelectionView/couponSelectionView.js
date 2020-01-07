@@ -38,7 +38,7 @@ class CouponSelectionView extends React.Component {
     }
 
     inputHandler(e) {
-        this.setState({ couponText: e.target.value })
+        this.setState({ couponText: e.target.value.toUpperCase() })
     }
 
     initialSetCoupons(props) {
@@ -208,7 +208,7 @@ class CouponSelectionView extends React.Component {
                                                 <div className="coupons-list">
                                                     <p className="pd-12 select-coupon-heading">Select Coupon</p>
                                                     <div className="coupon-search-input">
-                                                        <input placeholder="Enter Coupon here" onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
+                                                        <input placeholder="Enter Coupon here" style={{textTransform:'uppercase'}} onChange={this.inputHandler.bind(this)} value={this.state.couponText} />
                                                         <button onClick={this.applyTextCoupon.bind(this)}>Apply</button>
                                                         <p style={{ color: 'red' }}>{this.state.couponTextMessage}</p>
                                                     </div>
