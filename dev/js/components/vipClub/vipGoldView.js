@@ -62,6 +62,16 @@ class VipGoldView extends React.Component {
         this.setState({ showPopup: false })
     }
 
+    //this function is linked video player iframe
+    
+    playVideo(){
+        const frameVideo = document.getElementById("goldVideo");
+        const playIcon = document.getElementById('player-icon');
+        frameVideo.src += '&autoplay=1';
+        playIcon.style.opacity = "0";
+    }
+    
+
     render() {
         let self = this
 
@@ -331,6 +341,19 @@ class VipGoldView extends React.Component {
                                                 </div>
                                             </div>
                                             {/* ================== gold benifits  ================== */}
+
+                                            {/* ================== gold benefit video section  ================== */}
+                                            <div className="col-12 p-0">
+                                                <h4 className="vip-card-heading mb-24">See how it works</h4>
+                                                <div className="vip-offer-cards mb-24" style={{padding:5}}>
+                                                    <iframe id="goldVideo" style={{borderRadius:5}} width="100%" height="270" src="https://www.youtube.com/embed/Eb-ToKyHJ90?enablejsapi=1&controls=0&color=white&disablekb=1"  frameBorder="0" rel="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                                                    </iframe>
+                                                    <a className="video-player" onClick={this.playVideo.bind()}>
+                                                        <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {/* ================== gold benefit video section ends ================== */}
                                             {/* ================== gold avail section  ================== */}
                                             <div className="gold-avail-container">
                                                 <div className="pkgSliderHeading">

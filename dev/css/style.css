@@ -14605,3 +14605,18 @@ div.doc-srch-fltr.vip-slct-pop {
     padding: 1px 10px;
     color: #fff;
 }
+
+/*customize video play button on gold view landing page*/
+
+.video-player{
+    /* box-shadow: 0px 3px 8px 0 var(--black-40);
+    background-color: #f8f8f8; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#player-icon{
+    transition: .25s cubic-bezier(0.0,0.0,0.2,1);
+}
