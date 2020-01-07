@@ -218,8 +218,12 @@ class NewDateSelector extends React.Component {
       let staticMnth = ['11','12','0','1']
       let checkValidMonth = ['00','2','02','4','04','6','06','9','09']
         if(val.length == 1){
-          if(staticDay.indexOf(val) == -1){
-            val = '0'+val + '/'
+          if(isNaN(val)){
+            val = null
+          }else{
+            if(staticDay.indexOf(val) == -1){
+              val = '0'+val + '/'
+            }
           }
           this.setState({newDob:val})
         }else if (val.length === 2) {
@@ -230,49 +234,68 @@ class NewDateSelector extends React.Component {
           }
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length === 4){
-          val = val.split('/')
-            if((val[0] == '31') && checkValidMonth.indexOf(val[1]) != -1){
-              val = val[0]+'/'
-            }else if(val[0] == '30' && val[1] == '2'){
-              val = val[0]+'/'
+          val = val.split('/').map(function(v){return v.replace(/\D/g, '')})
+            if(val[1] ==""){
+              val = val[0] + '/'
             }else{
-              if(staticMnth.indexOf(val[1]) == -1){
-                val = val[0] + '/' + '0'+val[1] + '/'
+              if(val[0] == '31' && checkValidMonth.indexOf(val[1]) != -1){
+                val = val[0]+'/'
+              }else if(val[0] == '30' && val[1] == '2'){
+                val = val[0]+'/'
               }else{
-                val = val[0] + '/' +val[1]
+                if(staticMnth.indexOf(val[1]) == -1){
+                  val = val[0] + '/' + '0'+val[1] + '/'
+                }else{
+                  val = val[0] + '/' +val[1]
+                }
               }
             }
             this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if (val.length === 5) {
            val = val.split('/')
-          if((val[0] == '31' || val[1] > 12) && checkValidMonth.indexOf(val[1]) != -1){
+           if(isNaN(val[1])){
               val = val[0]+'/'+ val[1].charAt(0)
-          }else if((val[0] == '30' || val[1] > 12) && checkValidMonth.indexOf(val[1]) != -1){
-            val = val[0]+'/'+ val[1].charAt(0)
-          }
-          else{
-              val = val[0]+'/'+ val[1] +'/'
+           }else{
+            if(val[1] > 12){
+              val = val[0]+'/'+ val[1].charAt(0)
+            }else{
+              if(val[0] == '31'){
+                  if(checkValidMonth.indexOf(val[1]) != -1 || val[1] ==11){
+                    val = val[0]+'/'+ val[1].charAt(0)
+                  }else{
+                    val = val[0]+'/'+ val[1] +'/'  
+                  }
+              }else if(val[0] == '30' && checkValidMonth.indexOf(val[1]) != -1){
+                val = val[0]+'/'+ val[1].charAt(0)
+              }
+              else{
+                  val = val[0]+'/'+ val[1] +'/'
+              }
+            }
           }
           this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
         }else if(val.length > 5){
-          val = val.split('/')
+          val = val.split('/').map(function(v){return v.replace(/\D/g, '')})
           if(val.length ==3){
-               if(val[2].length == 4){
-                  if(val[2] <= (currentYear - 100)){
+                var FormattedDay = val[0].length == 2 && val[0] >31?'0'+val[0].charAt(0):val[0]
+                var FormattedMonth = val[1].length == 2 && val[1] >12?'0'+val[1].charAt(0):val[1]
+                var FormattedYear = val[2]
+               if(FormattedYear.length == 4){
+                  if(FormattedYear <= (currentYear - 100)){
                     isValidDob = false
                     inValidText="*Patient's age is not applicable. We serve patients less than 100 years old."
-                  }else if(val[2] > currentYear || val[2]+'-'+val[1]+'-'+val[0] > currentExactDay){
+                  }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMonth+'-'+FormattedDay > currentExactDay){
                       isValidDob = false
                       inValidText =''
                   }else{
                       inValidText= ''
-                      isValidDob = this.isValidDate(val[0],val[1],val[2])
-                      this.calculateAge(val[2]+'-'+val[1]+'-'+val[0])  
+                      isValidDob = this.isValidDate(FormattedDay,FormattedMonth,FormattedYear)
+                      this.calculateAge(FormattedYear+'-'+FormattedMonth+'-'+FormattedDay)  
                   }
-                  this.props.getNewDate('dob',val[2]+'-'+val[1]+'-'+val[0],isValidDob) 
-                  this.setState({newDob:val[0] + '/' +val[1] + '/' + val[2],isValidDob:isValidDob,inValidText:inValidText})
+                  this.props.getNewDate('dob',FormattedYear+'-'+FormattedMonth+'-'+FormattedDay,isValidDob) 
+                  this.setState({newDob:FormattedDay + '/' +FormattedMonth + '/' + FormattedYear,isValidDob:isValidDob,inValidText:inValidText})
                }else{
-                  val = val[0] + '/' +val[1] + '/' + val[2]
+                  val = FormattedDay + '/' +FormattedMonth + '/' + FormattedYear
                   this.setState({newDob:val,isValidDob:isValidDob,inValidText:inValidText})
                 }
             }
@@ -289,7 +312,7 @@ class NewDateSelector extends React.Component {
       if(dateOfBirth){
         dateOfBirth = dateOfBirth.split('/')
           if(dateOfBirth.length ==3){
-              dateOfBirth[2] = dateOfBirth[2] !== 4 ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
+              dateOfBirth[2] = dateOfBirth[2].length !== 4 ? (dateOfBirth[2] >='20'?('19'+ dateOfBirth[2]):('20' + dateOfBirth[2]))  : dateOfBirth[2]
                if(dateOfBirth[2].length == 4){
                   if(dateOfBirth[2] <= (currentYear - 100)){
                     isValidDob = false
