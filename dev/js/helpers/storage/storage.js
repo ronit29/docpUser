@@ -89,9 +89,13 @@ const STORAGE = {
     getAuthToken: (dataParams={}) => {
         let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
         let exp_time = getCookie('tokenRefreshTime')
+        try{
          exp_time = JSON.parse(exp_time)
+        }catch(e){
+
+        }
         let login_user_id = getCookie('user_id')
-        if(STORAGE.checkAuth() && exp_time && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){
+        if(STORAGE.checkAuth() && exp_time && exp_time.payload && x(exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){
             let ciphertext =  STORAGE.encrypt(login_user_id)  
             let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext,'FromSTORAGE')
             return Promise.resolve(token);
