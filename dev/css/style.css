@@ -14576,10 +14576,12 @@ div.doc-srch-fltr.vip-slct-pop {
         margin: 0 auto;
         z-index: 1111;
         bottom: auto!important;
-        top: 50%;
+        top:50%;
+        transform: translateY(-50%);
+        /* top: 50%;
         left: 50%;
         right: unset;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); */
     }
     .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
         font-size: 15px;

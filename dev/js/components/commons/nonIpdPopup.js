@@ -65,8 +65,9 @@ class NonIpdPopupView extends React.Component {
 					<div className="cancel-overlay"></div>
 					<div className="widget cancel-appointment-div cancel-popup">
 						<div className="widget-header text-center action-screen-header">
-							<p className="fw-500 cancel-appointment-head">Need help in booking <br/>
-								<span className="fw-500 text-capitalize"> {criteriaStr}?</span>
+							<p style={{fontWeight:'bold'}} className="cancel-appointment-head">Book
+								<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br/>
+								at the Lowest Prices!
 							</p>
 							{
 								this.props.is_force == 1?
@@ -74,16 +75,30 @@ class NonIpdPopupView extends React.Component {
 								:''
 							}
 						</div>
-						<div className="col-sm-12 pd-10 d-flex justify-content-center align-item-center flex-column" style={{margin:"15px 0 20px"}}>
-							<h4 className="fw-500">Get a free call back from our Health Advisor!</h4>
+						<div className="col-sm-12 pd-10">
+							<p className="fw-500 d-flex align-item-center mb-10" style={{fontSize:14}}>
+								<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> 
+								<span>Free  Lab Report Review from Doctors</span>
+							</p>
+							<p className="fw-500 d-flex align-item-center mb-10" style={{fontSize:14}}>
+								<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> 
+								<span>Lowest Price Guarantee</span>
+							</p>
+							<p className="fw-500 d-flex align-item-center" style={{fontSize:14}}>
+								<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> 
+								<span>Free Home Sample Collection</span>
+							</p>
+						</div>
+						<div className="clearfix"></div>	
+						<div className="col-sm-12 pd-10 d-flex justify-content-center align-item-center flex-column" style={{margin:"0px 0px 6px"}}>
 							<form className="col-sm-12 pd-0">
 								<div className="labelWrap mb-0">
 									<input type="number" placeholder="Enter your mobile number" onChange={this.onChangeHandler.bind(this)}/>
 								</div>
 							</form>
+							<p className="fw-500 col-sm-12 p-0 mr-t-5" style={{fontSize:11, fontStyle:'italic'}}>*Your booking details will be sent to this number</p>
 						</div>
-
-						<div className="payment-content-btn text-center m-0 pd-10">
+						<div className="payment-content-btn text-center m-0 pd-10 pt-0">
 							<button className="fw-500 text-white" style={{backgroundImage: "linear-gradient(to top, #f78631, #ff6d00)"}} onClick={this.submitLead.bind(this)}>Submit</button>
 						</div>
 					</div>
