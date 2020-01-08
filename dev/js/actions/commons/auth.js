@@ -317,7 +317,7 @@ export function chat_utm(term) {
     return Axios.get(url)
 } 
 
-export const clearInsurance = () => (dispatch) =>{
+export const clearInsurance = () => (dispatch) =>{ // to reset insurance data in store
     dispatch({
             type: CLEAR_INSURANCE
         })

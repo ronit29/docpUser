@@ -34,13 +34,13 @@ class InsuranceCertificateView extends React.Component {
 	}
 
 	goToEndorsement() {
-		this.props.clearInsurance()
+		this.props.clearInsurance()  // to reset insurance data in store
 		this.props.history.push('/insurance/insurance-endorsement-details')
 	}
 
 	goToBooking() {
 		let data = this.props.avail_now_data
-		this.props.clearAvailNowInsurance()
+		this.props.clearAvailNowInsurance() // to clear avail now from store
 		if (data && Object.keys(data).length > 0) {
 			if (data.type == 'lab') {
 				this.props.history.push(`/lab/${data.id}/book`)

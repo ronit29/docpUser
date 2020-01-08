@@ -15,12 +15,12 @@ class InsuranceEndorsementDetails extends React.Component{
     }
     componentDidMount() {
         let self = this
-        this.props.getEndorsedMemberList((mem_resp)=>{
+        this.props.getEndorsedMemberList((mem_resp)=>{ // to get the list of members which are allowed for endorsement
             if(mem_resp){
-                this.props.getInsurance(true,(resp)=>{
+                this.props.getInsurance(true,(resp)=>{ // to get insurance plans
                     if(resp && resp.insurance){
                         let plan = resp.insurance[0].plans.filter(x=>x.id == mem_resp.insurance_plan)[0]
-                        this.props.selectInsurancePlan('plan', plan)
+                        this.props.selectInsurancePlan('plan', plan) // to store selected plan by user
                         this.setState({members_data:mem_resp , insurance_data:resp})
                     }
                 })

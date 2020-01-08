@@ -14,7 +14,7 @@ class InsuranceCertificate extends React.Component{
     }
 
     componentDidMount(){
-        this.props.getInsuredProfile()
+        this.props.getInsuredProfile() // to get insured members data and certification details
         // this.props.getInsuredProfile((resp)=>{
         //     if(resp && resp.coi_url !=''){
         //         this.setState({showBtn:false})

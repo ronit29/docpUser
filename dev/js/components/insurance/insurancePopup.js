@@ -98,7 +98,7 @@ class InsurancePopup extends React.Component {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
                     if (Object.keys(this.props.selected_plan).length > 0) {
-                        this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data)
+                        this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data) // to create insurance lead for matrix
                     }
                     let data = {
                         'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
@@ -155,7 +155,7 @@ class InsurancePopup extends React.Component {
                         }
                         GTM.sendEvent({ data: data })
                         if (Object.keys(self.props.selected_plan).length > 0) {
-                            self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
+                            self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation) // to create insurance lead for matrix
                         }
                         this.props.getInsurance(false, (resp) => {
                             if (!resp.certificate) {

@@ -119,7 +119,7 @@ export const getInsuredProfile = (callback) => (dispatch) => {
     })
 }
 
-export const saveCurrentSelectedMembers = (membersId) => (dispatch) => {
+export const saveCurrentSelectedMembers = (membersId) => (dispatch) => { // to save current selected members data in store
     dispatch({
         type: SAVE_CURRENT_INSURED_MEMBERS,
         payload: membersId
@@ -138,7 +138,7 @@ export const resetSelectedPlans = () => (dispatch) => {
         type:RESET_INSURED_PLANS
     })
 }
-export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => { // to create insurance lead for matrix
     let lat
     let long
     let latitude = 28.644800
@@ -174,7 +174,7 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLoc
        if(callback) callback(error, null)
     })
 }
-export const pushUserData = (criteria,callback) => (dispatch) => {
+export const pushUserData = (criteria,callback) => (dispatch) => { // to save user entered details in dummy table
     return API_POST('/api/v1/insurance/push_insurance_data',criteria).then(function (response) {
         dispatch({
             type: PUSH_USER_DATA,
@@ -241,7 +241,7 @@ export const getEndorsedMemberList = (callback) => (dispatch) => {
 
 }
 
-export const pushUserEndorsedData = (criteria,callback) => (dispatch) => {
+export const pushUserEndorsedData = (criteria,callback) => (dispatch) => { // to save user entered details in dummy table
     return API_POST('/api/v1/insurance/push_endorsement_data',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -291,7 +291,7 @@ export const removeMemberProof = (criteria) => (dispatch) => {
         payload:criteria
     })
 }
-export const saveUserBankDetails = (criteria) => (dispatch) => {
+export const saveUserBankDetails = (criteria) => (dispatch) => { // to save user entered bank details in store
     dispatch({
         type:SAVE_INSURANCE_BANK_DETAILS,
         payload:criteria
@@ -312,12 +312,12 @@ export const saveAvailNowInsurance = (criteria) => (dispatch) => {
     })
 }
 
-export const clearAvailNowInsurance = () => (dispatch) => {
+export const clearAvailNowInsurance = () => (dispatch) => { // to clear avail now from store
     dispatch({
         type:CLEAR_AVAIL_NOW_INSURANCE
     })
 }
-export const cancelReason = (criteria) => (dispatch) => {
+export const cancelReason = (criteria) => (dispatch) => { // ask cancellation reason
     dispatch({
         type:CANCEL_REASON_INSURANCE,
         payload:criteria
