@@ -51,12 +51,12 @@ class HomePageWidget extends React.PureComponent {
                                         {
                                             listItem.url ?
                                                 <a href={`/${listItem.url}`} onClick={(e) => e.preventDefault()}>
-                                                    <img className="img-fluid" src={listItem.icon} />
+                                                    <img className="img-fluid" src={listItem.svg_image?listItem.svg_image:listItem.icon} />
                                                     <span>{listItem.name}</span>
                                                 </a>
                                                 :
                                                 <a href="javascript:void(0);">
-                                                    <img className="img-fluid" src={listItem.icon} />
+                                                    <img className="img-fluid" src={listItem.svg_image?listItem.svg_image:listItem.icon} />
                                                     <span>{listItem.name}</span>
                                                 </a>
                                         }

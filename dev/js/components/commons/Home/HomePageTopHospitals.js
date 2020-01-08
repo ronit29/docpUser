@@ -11,7 +11,9 @@ class TopHospitalWidgets extends React.PureComponent {
     }
 
     componentDidMount(){
-        this.setState({mergedState: true})
+        if(!this.props.topHospital){
+            this.setState({mergedState: true})
+        }
     }
 
 	navigateTo(data, e) {
@@ -91,7 +93,7 @@ class TopHospitalWidgets extends React.PureComponent {
         this.props.historyObj.push(`/ipd/searchHospitals`)   
     }
 	
-	render(){
+	render(){console.log('Top Hpospitalfasdf adsfadsfsdf fkhsdkfhjasdhkjfhjk');console.log(this.props);console.log(this.state);console.log('Prince');
 
         let { topHeading, dataType, showViewAll }  = this.props
 		return(
@@ -108,7 +110,7 @@ class TopHospitalWidgets extends React.PureComponent {
                     		this.props.top_data.slice(0,20).map((data, i) => {
                     			return <a key={this.state.mergedState?`${i}_list_${dataType}`:data.url?data.url:`${data.id}_${dataType}`} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
+				                                <img style={{width:82}} className="img-fluid" src={data.svg_image?data.svg_image:data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.seo_title?data.seo_title:data.h1_title?data.h1_title:data.name}
