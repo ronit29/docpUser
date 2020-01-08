@@ -76,7 +76,7 @@ class WhatsAppOptinView extends React.Component {
                 :<div className="widget mrb-15">
                         <div className="widget-content">
                             <div>
-                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,!this.state.whatsapp_optin_View)} checked={this.state.whatsapp_optin_View} /><span className="checkmark"></span></label>
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this,!this.state.whatsapp_optin_View)} checked={this.state.whatsapp_optin_View} /><span className="checkmark"></span></label>
                             </div>
                         </div>
                 </div>
