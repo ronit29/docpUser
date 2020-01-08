@@ -228,20 +228,25 @@ class VipClubMemberDetailsView extends React.Component {
 							fields.push('dob')
 						}
 
-						if (param.year == null || param.year == "") {
+						if(param.dob != null && !param.isDobValidated){
 							is_disable = true
 							fields.push('dob')
 						}
 
-						if (param.mnth == null || param.mnth == "") {
-							is_disable = true
-							fields.push('dob')
-						}
+						// if (param.year == null || param.year == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
 
-						if (param.day == null || param.day == "") {
-							is_disable = true
-							fields.push('dob')
-						}
+						// if (param.mnth == null || param.mnth == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
+
+						// if (param.day == null || param.day == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
 						// if(param.is_tobe_dummy_user){
 						// 	if (param.title == "") {
 						// 		is_disable = true
@@ -665,14 +670,16 @@ class VipClubMemberDetailsView extends React.Component {
 												<div className="widget-content padiing-srch-el pb-0">
 													<p style={{ fontSize: '14px' }} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length} Members Added</p>
 													<div className="vip-pop-table">
+														<div className="vip-sn-tbl m-0">
 														{
 															this.state.popupMemData && Object.keys(this.state.popupMemData).length > 0 ?
 																Object.entries(this.state.popupMemData).map(function ([key, val]) {
 																	return val.relation == 'SELF' || val.is_already_user ?
 																		''
-																		: <div className="vip-sn-tbl m-0" key={key}>
-																			<p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p>
-																			<table className="vip-acrd-content text-left">
+																		: <table key={key} className="vip-acrd-content text-left">
+																				<thead>
+																					<th colspan='3'><p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p></th>
+																				</thead>
 																				<tbody>
 																					<tr>
 																						<th>Relationship</th>
@@ -691,10 +698,10 @@ class VipClubMemberDetailsView extends React.Component {
 																						<td>{val.dob}</td>
 																					</tr>
 																				</tbody>
-																			</table>
-																		</div>
+																		</table>
 																})
 																: ''}
+															</div>
 													</div>
 
 													<div className="search-el-btn-container">
