@@ -277,9 +277,10 @@ class VipProposer extends React.Component {
 				this.setState({disableTitle:true})
 			}
 			this.setState({
-				disableEmail: !profile.isDummyUser && profile.email !== '' ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob !== '' ? true : false,
+				disableEmail: !profile.isDummyUser && profile.email == '' ? false : true,
+				disableEmail: !profile.isDummyUser && profile.email == null ? false : true,
+				disableDob: !profile.isDummyUser && profile.dob == null ? false : true,
+				disableDob: !profile.isDummyUser && profile.dob == '' ? false : true,
 				disablePhoneNo: !profile.isDummyUser && profile.phone_number == '' ? false: true,
 				disablePhoneNo: !profile.isDummyUser && profile.phone_number == null  ? false: true	
 			})
