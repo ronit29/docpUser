@@ -62,12 +62,12 @@ class VipProposer extends React.Component {
 					profile.id = 0
 					this.setState({id:0},()=>{
 						// this.populateDates()
-	    				this.getUserDetails(profile)	
+	    				this.getUserDetails(profile) // fill user details in form
 	    			})
 				}else{
 					this.setState({id:profile.id},()=>{
 						// this.populateDates()
-	    				this.getUserDetails(profile)	
+	    				this.getUserDetails(profile) // fill user details in form
 	    			})
 				}
 			}
@@ -78,7 +78,7 @@ class VipProposer extends React.Component {
 		let profileLength = Object.keys(props.USER.profiles).length;
 		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
-			if (Object.keys(props.vipClubMemberDetails).length > 0) {
+			if (Object.keys(props.vipClubMemberDetails).length > 0) { // retrieve already member details from user store
 				let profile
 				if (!isDummyUser) {
 					profile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
@@ -88,13 +88,13 @@ class VipProposer extends React.Component {
 				if(profile && Object.keys(profile).length){
 					this.setState({id:profile.id,profile_flag:false},()=>{
 						// this.populateDates()
-			    		this.getUserDetails(profile)	
+			    		this.getUserDetails(profile) // fill user details in form	
 			    	})
 			    }
 			}else if (props.USER.profiles[props.USER.defaultProfile]) {
 				let profile
 				let exitsting_user_profile
-				if(props.savedMemberData && props.savedMemberData.length > 0){
+				if(props.savedMemberData && props.savedMemberData.length > 0){ // retrieve already member details from user dummy table in case of agent
 					if(props.USER && Object.keys(props.USER).length && props.USER.profiles && Object.keys(props.USER.profiles).length){
 						exitsting_user_profile = Object.assign({}, props.USER.profiles[props.member_id])
 					}
@@ -109,22 +109,22 @@ class VipProposer extends React.Component {
 						}
 						this.setState({id:profile.id,profile_flag:false},()=>{
 							// this.populateDates()
-			    			this.getUserDetails(profile)	
+			    			this.getUserDetails(profile)	// fill user details in form
 			    		})
 					}
-				}else{
+				}else{ // retrieve already member details from user profiles
 					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 					if (profile && Object.keys(profile).length) {
 						if(profile.isDummyUser){
 							profile.id = 0
 							this.setState({id:0,profile_flag:false},()=>{
 								// this.populateDates()
-			    				this.getUserDetails(profile)	
+			    				this.getUserDetails(profile)// fill user details in form	
 			    			})
 						}else{
 							this.setState({id:profile.id,profile_flag:false},()=>{
 								// this.populateDates()
-			    				this.getUserDetails(profile)	
+			    				this.getUserDetails(profile)	// fill user details in form
 			    			})
 						}
 					}
@@ -165,7 +165,7 @@ class VipProposer extends React.Component {
 		// }
 	}
 
-	togglePopup(newProfileid, member_id, newProfile) {
+	togglePopup(newProfileid, member_id, newProfile) { //select from profile
 		let oldDate
 		let finalDate
 		if(newProfileid !== ''){
@@ -190,7 +190,7 @@ class VipProposer extends React.Component {
 			newProfile.isUserSelectedProfile=true
 			newProfile.is_tobe_dummy_user = false
 			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
-			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, 0)
+			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, 0) // select profile from option
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,

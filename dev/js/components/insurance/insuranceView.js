@@ -130,7 +130,7 @@ class Insurance extends React.Component {
 		// plan.insurer = this.props.insurnaceData['insurance'][0].id
 		// plan.stateData = this.props.insurnaceData['state']
 		// this.props.selectInsurancePlan('plan', plan)
-		this.props.resetSelectedPlans()
+		this.props.resetSelectedPlans() // to reset user selected plan
 		if (STORAGE.checkAuth()) {
 			let phoneNumber = ''
 			if (this.props.USER && this.props.USER.primaryMobile != '') {

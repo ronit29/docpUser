@@ -14,7 +14,7 @@ import VipTnC from './vipTncView.js'
 // import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
 
-class VipClub extends React.Component {
+class VipClub extends React.Component { // dashboard view
     constructor(props) {
         super(props)
         this.state = {

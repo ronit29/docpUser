@@ -56,16 +56,16 @@ class VipProposerFamily extends React.Component {
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
-					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.populateDates(props.member_id,true)
-					}
+					// if(!self.state.year && !self.state.mnth && !self.state.mnth){
+					//     self.populateDates(props.member_id,true)
+					// }
 				}
 			}else if(props.member_id >=0 && !this.state.setDefault){ 
 				this.setState({id: props.member_id, setDefault:true}, () => {
-					self.populateDates(self.props.member_id,true)
-					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.populateDates(self.props.member_id,true)
-					}
+					// self.populateDates(self.props.member_id,true)
+					// if(!self.state.year && !self.state.mnth && !self.state.mnth){
+					//     self.populateDates(self.props.member_id,true)
+					// }
 					this.setState({member_type:this.props.member_type,is_disable:false},() =>{
 						self.handleSubmit()
 					})
@@ -84,7 +84,7 @@ class VipProposerFamily extends React.Component {
 		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
-			this.props.userDetails('self_data', self_data)
+			this.props.userDetails('self_data', self_data) // to save user form details in store
 		})
 	}
 
@@ -116,7 +116,7 @@ class VipProposerFamily extends React.Component {
 	    if(!is_endoresment){
 	    	self_data.is_change = true
 	    }
-		this.props.userDetails('self_data', self_data)
+		this.props.userDetails('self_data', self_data) // to save user form details in store
 	}
 
 	togglePopup(newProfileid, member_id, newProfile) {
@@ -143,7 +143,7 @@ class VipProposerFamily extends React.Component {
 			// }
 	    	newProfile.isUserSelectedProfile = true
 			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
-			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id) // select profile from option
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,
