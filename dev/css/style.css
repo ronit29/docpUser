@@ -330,7 +330,7 @@ textarea.form-control.chat-text-area {
 
 /*side bar cards style sheet*/
 
-.right-card-container {}
+
 
 .card.cstm-card {
     background-color: #ffffff;
@@ -4588,7 +4588,7 @@ ul li.time-slot-li-listing {
     display: flex;
     margin-bottom: 15px;
     position: relative;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .slt-label {
@@ -14620,3 +14620,67 @@ div.doc-srch-fltr.vip-slct-pop {
 #player-icon{
     transition: .25s cubic-bezier(0.0,0.0,0.2,1);
 }
+/* ======================================= date month input ======================================= */
+.ddmminput{
+position: relative;
+}
+
+div.labelWrap.ddmminput input{
+    padding-right: 50px;
+    }
+
+.ddmminput .input-year{
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 18px;
+    background: #1b97fd;
+    font-weight: 500;
+    padding: 0 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+}
+.ddmminput .input-year.dob-error{
+    background: white;
+    color: red;
+}
+div.labelWrap.ddmminput label.date-lbl-auto {
+    padding: 0;
+    top: -4px;
+    left: 10px;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    background: white;
+    box-shadow: 0 0 5px 0 white;
+    width: auto;
+    padding: 0 5px;
+    color: var(--text--primary--color);
+    font-weight: bold;
+}
+div.slt-nw-input.summery-dob-cont .labelWrap.ddmminput{
+    width: 100%;
+}
+div.slt-nw-input.summery-dob-cont .labelWrap.ddmminput input{
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, .13);
+    outline: none;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    font-weight: 500;
+    padding: 4px;
+}
+div.slt-nw-input.summery-dob-cont .sumry-lbl{
+    display: none;
+}
+.dob-input-sub{
+    font-size: 9px;
+    font-weight: 600;
+    color: #b8b8b8;
+}
+/* ======================================= date month input ======================================= */

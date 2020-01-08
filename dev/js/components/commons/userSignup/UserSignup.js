@@ -8,6 +8,7 @@ import Calendar from 'rc-calendar';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 const moment = require('moment');
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
+import NewDateSelector from '../../commons/newDateSelector.js'
 
 const stepperStyle = {
     padding: 60,
@@ -42,7 +43,9 @@ class UserSignupView extends React.Component {
             referralCode: parsed.referral || null,
             have_referralCode: !!parsed.referral,
             dateModal: false,
-            whatsapp_optin:true
+            whatsapp_optin:true,
+            isDobValidated:false,
+            is_dob_error:false
         }
     }
 
@@ -118,10 +121,10 @@ class UserSignupView extends React.Component {
                     }
                     break
                 }
-                case "dob": {
-                    validated = this.refs[prp].value
+                /*case "dob": {
+                    validated = this.state.isDobValidated
                     break
-                }
+                }*/
                 default: {
                     validated = true
                     break
@@ -134,7 +137,14 @@ class UserSignupView extends React.Component {
                 register = false
             }
         })
-
+        if(this.state.dob == null && !this.state.isDobValidated){
+            register = false
+            this.setState({is_dob_error:true})
+        }
+        if(this.state.dob != null && !this.state.isDobValidated){
+            register = false
+            this.setState({is_dob_error:true})
+        }
         if (register) {
             let post_data = this.state
             if (this.state.referralCode && this.state.have_referralCode) {
@@ -168,6 +178,10 @@ class UserSignupView extends React.Component {
         if (e.key === 'Enter') {
             this.submitForm();
         }
+    }
+
+    getNewDate(type,newDate,isValidDob){
+        this.setState({dob:newDate,isDobValidated:isValidDob})
     }
 
     render() {
@@ -248,10 +262,11 @@ class UserSignupView extends React.Component {
                                                                     <label htmlFor="fname">{this.state.existingUser ? "Member" : "Patient"} Name</label>
                                                                     <span className="text-xs text-light">(Appointment valid only for the provided name)</span>
                                                                 </div>
-                                                                <div className="labelWrap">
+                                                                {/*<div className="labelWrap">
                                                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
                                                                     <label htmlFor="dob">Date of Birth</label>
-                                                                </div>
+                                                                </div>*/}
+                                                                 <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error}/>
 
                                                                 {   
                                                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">

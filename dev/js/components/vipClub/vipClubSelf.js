@@ -4,6 +4,7 @@ import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 import VerifyEmail from './verifyEmail.js'
 import VipLoginPopup from './vipClubPopup.js'
+import NewDateSelector from '../commons/newDateSelector.js'
 const moment = require('moment')
 
 class VipProposer extends React.Component {
@@ -37,7 +38,9 @@ class VipProposer extends React.Component {
 			disableEmail: false,
 			disablePhoneNo:false,
 			disableDob: false,
-			is_tobe_dummy_user:false
+			is_tobe_dummy_user:false,
+			isDobValidated:false,
+            is_dob_error:false,
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleTitle = this.handleTitle.bind(this);
@@ -58,12 +61,12 @@ class VipProposer extends React.Component {
 				if(profile.isDummyUser){
 					profile.id = 0
 					this.setState({id:0},()=>{
-						this.populateDates()
+						// this.populateDates()
 	    				this.getUserDetails(profile)	
 	    			})
 				}else{
 					this.setState({id:profile.id},()=>{
-						this.populateDates()
+						// this.populateDates()
 	    				this.getUserDetails(profile)	
 	    			})
 				}
@@ -84,7 +87,7 @@ class VipProposer extends React.Component {
 				}				
 				if(profile && Object.keys(profile).length){
 					this.setState({id:profile.id,profile_flag:false},()=>{
-						this.populateDates()
+						// this.populateDates()
 			    		this.getUserDetails(profile)	
 			    	})
 			    }
@@ -96,7 +99,7 @@ class VipProposer extends React.Component {
 					if(profile && profile.length > 0){
 						profile = profile[0]
 						this.setState({id:profile.id,profile_flag:false},()=>{
-							this.populateDates()
+							// this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
@@ -106,12 +109,12 @@ class VipProposer extends React.Component {
 						if(profile.isDummyUser){
 							profile.id = 0
 							this.setState({id:0,profile_flag:false},()=>{
-								this.populateDates()
+								// this.populateDates()
 			    				this.getUserDetails(profile)	
 			    			})
 						}else{
 							this.setState({id:profile.id,profile_flag:false},()=>{
-								this.populateDates()
+								// this.populateDates()
 			    				this.getUserDetails(profile)	
 			    			})
 						}
@@ -164,14 +167,16 @@ class VipProposer extends React.Component {
 				this.setState({ title: 'miss' })
 			}
 			if(newProfile && newProfile.dob){
-				oldDate= newProfile.dob.split('-')
+				this.setState({dob:newProfile.dob,isDobValidated:true})
+				/*oldDate= newProfile.dob.split('-')
 				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
-	    			this.populateDates(newProfileid,false)
+	    			// this.populateDates(newProfileid,false)
 	    			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 
 	    			this.setState({dob:finalDate})
-	    		})
+	    		})*/
 			}else{
-				this.populateDates(newProfileid,false)
+				// this.populateDates(newProfileid,false)
+				this.setState({dob:''})
 			}
 			newProfile.isUserSelectedProfile=true
 			newProfile.is_tobe_dummy_user = false
@@ -216,17 +221,17 @@ class VipProposer extends React.Component {
 			}else if(profile.gender == 'f'){
 				this.setState({gender:profile.gender?profile.gender:'',title: 'miss'})
 			}
-			if (profile.isDummyUser && profile.dob) {
-				this.setState({ day: null, year: null, mnth: null })
-				this.populateDates()
-			} else if (Object.keys(profile).length > 0 && profile.dob) {
-				oldDate = profile.dob.split('-')
-				this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
-					this.populateDates()
-				})
-			} else {
-				this.populateDates()
-			}
+			// if (profile.isDummyUser && profile.dob) {
+			// 	// this.setState({ day: null, year: null, mnth: null })
+			// 	// this.populateDates()
+			// } else if (Object.keys(profile).length > 0 && profile.dob) {
+			// 	oldDate = profile.dob.split('-')
+			// 	this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
+			// 		// this.populateDates()
+			// 	})
+			// } else {
+			// 	// this.populateDates()
+			// }
 			if(profile.id){
 				this.setState({profile_id:profile.id?profile.id:''})
 			}
@@ -439,8 +444,16 @@ class VipProposer extends React.Component {
 		}
 	}
 
+	submitNewDob(type,newDate,isValidDob) {
+		let self = this
+		self.setState({
+			dob: newDate, isDobValidated:isValidDob
+		}, () => {
+			self.handleSubmit()
+		})
+	}
+
 	render() {
-		console.log(this.props.member_id)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
@@ -566,6 +579,11 @@ class VipProposer extends React.Component {
 						:''
 					}
 					<div className="col-12">
+					<form>
+					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id} disableDob={this.state.disableDob}/>
+					</form> 
+					</div>
+					{/*<div className="col-12">
 						<div className={`ins-form-group ${this.props.is_from_payment || this.state.disableDob ?'click-disable':''}`} >
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
 							<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
@@ -594,7 +612,7 @@ class VipProposer extends React.Component {
 							this.props.validateErrors.indexOf('dob') > -1 ?
 								commonMsgSpan : ''
 						}
-					</div>
+					</div>*/}
 					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
 							showPopup: true, profile_flag:true})}>
 							Select from profile

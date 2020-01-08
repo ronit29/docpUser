@@ -22,7 +22,7 @@ const DUMMY_PROFILE = {
     id: 999999,
     is_default_user: true,
     name: "User",
-    dob: new Date(),
+    dob: null,
     isDummyUser: true
 }
 
