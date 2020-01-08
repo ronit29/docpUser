@@ -67,7 +67,7 @@ class HomePagePackageWidget extends React.PureComponent {
                     <div className='pkgCardsList d-inline-flex'>
                         {
                             this.props.list.map((listItem, i) => {
-                                return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                                return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem, true)}>
                                     {/*<span style={{fontSize:'10px'}} className="ofr-ribbon home-ofr-ribbon">{this.props.discount} Off</span>*/}
                                     <div className="pkgcardImgCont">
                                         <img className="img-fluid" src={listItem.icon} />

@@ -232,7 +232,7 @@ class HomeView extends React.Component {
             commonSelectedCriterias: [],
             nextSelectedCriterias: []
         })
-        this.props.historyObj.push(`/ipd/searchHospitals`)   
+        this.props.history.push(`/ipd/searchHospitals`)   
 	}
 
 	render() {
@@ -320,7 +320,7 @@ class HomeView extends React.Component {
 									heading="Health Packages"
 									discount="50%"
 									list={topPackages}
-									searchFunc={(ct) => this.searchLab(ct, true)}
+									searchFunc={this.searchLab}
 									type="package"
 									searchType="packages"
 									linkTo="/full-body-checkup-health-packages?from=home"
@@ -448,7 +448,7 @@ class HomeView extends React.Component {
 									heading="Health Packages"
 									discount="50%"
 									list={topPackages}
-									searchFunc={(ct) => this.searchLab(ct, true)}
+									searchFunc={this.searchLab}
 									type="package"
 									searchType="packages"
 									linkTo="/full-body-checkup-health-packages?from=home"
