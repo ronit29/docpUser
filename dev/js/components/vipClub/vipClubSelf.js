@@ -176,7 +176,7 @@ class VipProposer extends React.Component {
 	    		})*/
 			}else{
 				// this.populateDates(newProfileid,false)
-				this.setState({dob:''})
+				this.setState({dob:'',isDobValidated:false})
 			}
 			newProfile.isUserSelectedProfile=true
 			newProfile.is_tobe_dummy_user = false
@@ -240,7 +240,8 @@ class VipProposer extends React.Component {
 			}
 			this.setState({
 				email: profile.email ? profile.email :'',
-				dob: profile.dob ? profile.dob :''
+				dob: profile.dob ? profile.dob :'',
+				isDobValidated: profile.dob ? true:false
 			})
 			this.setState({...profile},()=>{
 				if(profile.name){

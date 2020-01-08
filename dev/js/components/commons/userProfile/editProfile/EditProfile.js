@@ -21,13 +21,22 @@ class EditProfile extends React.Component {
             errors: {
 
             },
-            whatsapp_optin:currentProfile.whatsapp_optin,
+            whatsapp_optin:false,
             isEmailVerified:false,
             isEmailUpdated:false,
             isEmailError:false,
-            isDobValidated:currentProfile.dob?true:false,
+            isDobValidated:false,
             is_dob_error:false
         }
+    }
+
+    componentDidMount(){
+        let currentProfile = null
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length){
+            currentProfile = {...this.props.USER.profiles[this.props.match.params.id]}
+            this.setState({profileData:currentProfile,isDobValidated:currentProfile.dob?true:false,whatsapp_optin:currentProfile.whatsapp_optin})   
+        }
+        
     }
 
 
@@ -96,7 +105,10 @@ class EditProfile extends React.Component {
 
     updateProfile(key, value,isDobValidated) {
         this.state.profileData[key] = value
-        this.setState({ profileData: this.state.profileData ,isDobValidated:isDobValidated})
+        if(key == 'dob'){
+            this.setState({isDobValidated:isDobValidated})
+        }
+        this.setState({ profileData: this.state.profileData})
     }
 
     verifyEndorsementEmail(newemail,verified,is_email_changed){        
