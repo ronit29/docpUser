@@ -1,6 +1,6 @@
 import React from 'react';
 
-class HomePageWidget extends React.Component {
+class HomePageWidget extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class HomePageWidget extends React.Component {
         if (this.props.type) {
             this.props.selectSearchType(this.props.type)
         }
-        this.props.history.push(where)
+        this.props.historyObj.push(where)
     }
 
     render() {

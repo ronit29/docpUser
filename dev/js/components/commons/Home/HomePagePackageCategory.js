@@ -1,7 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 
-class HomePagePackageCategory extends React.Component {
+class HomePagePackageCategory extends React.PureComponent {
 
     navigateTo(PkgData, e){
         let data = {
@@ -11,7 +11,7 @@ class HomePagePackageCategory extends React.Component {
 
         let packages={}
         let selectedPkgCompareIds=[]
-        this.props.history.push('/package/compare?category_ids='+ PkgData.id)
+        this.props.historyObj.push('/package/compare?category_ids='+ PkgData.id)
     }
 
     scroll(type) {
@@ -44,7 +44,7 @@ class HomePagePackageCategory extends React.Component {
        this.props.top_data.map((data, i) => {
             package_category_ids.push(data.id)
        })
-       this.props.history.push('/searchpackages?package_category_ids='+ package_category_ids)
+       this.props.historyObj.push('/searchpackages?package_category_ids='+ package_category_ids)
     }
 	
 	render(){

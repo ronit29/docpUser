@@ -1,7 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 
-class TopProcedureWidgets extends React.Component {
+class TopProcedureWidgets extends React.PureComponent {
 
     navigateTo(data, e) {
         e.preventDefault()
@@ -17,12 +17,12 @@ class TopProcedureWidgets extends React.Component {
         }
         GTM.sendEvent({ data: gtmData })
 
-        this.props.toggleIPDCriteria(selectedCriteria, true)
+        this.props.toggleIPDCriteria(selectedCriteria)
         
         if(data.url){
-            this.props.history.push(`/${data.url}?showPopup=true`)
+            this.props.historyObj.push(`/${data.url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
+            this.props.historyObj.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
         }
     }
 

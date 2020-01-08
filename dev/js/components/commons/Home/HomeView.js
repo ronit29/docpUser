@@ -269,9 +269,10 @@ class HomeView extends React.Component {
 							list={topSpecializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
 							searchType="specializations"
-							{...this.props}
+							historyObj ={this.props.history}
 							navTo="/search?from=home"
 							type="opd"
+							selectSearchType = {(val)=>this.props.selectSearchType(val)}
 						/>
 
 						{
@@ -295,9 +296,10 @@ class HomeView extends React.Component {
 							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
-							{...this.props}
+							historyObj ={this.props.history}
 							navTo="/search?from=home"
 							type="lab"
+							selectSearchType = {(val)=>this.props.selectSearchType(val)}
 						/>
 
 						{
@@ -313,29 +315,31 @@ class HomeView extends React.Component {
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
+									historyObj ={this.props.history}
+									selectSearchType = {(val)=>this.props.selectSearchType(val)}
 								/> : ""
 						}
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={(val)=>this.props.toggleIPDCriteria(val, true)}/>
 								: ''
 						}
 						{
 							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								<HomePagePackageCategory top_data={this.props.package_categories} historyObj ={this.props.history} />
 								: ''
 						}
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
+								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj ={this.props.history} mergeIpdCriteria={(val)=>this.props.mergeIpdCriteria(val)}/>
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
+								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj ={this.props.history} mergeIpdCriteria={(val)=>this.props.mergeIpdCriteria(val)}/>
 								: ''
 						}
 
@@ -405,13 +409,13 @@ class HomeView extends React.Component {
 						
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' />
+								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj ={this.props.history} mergeIpdCriteria={(val)=>this.props.mergeIpdCriteria(val)}/>
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} />
+								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj ={this.props.history} mergeIpdCriteria={(val)=>this.props.mergeIpdCriteria(val)}/>
 								: ''
 						}
 
@@ -421,9 +425,10 @@ class HomeView extends React.Component {
 							list={topSpecializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
 							searchType="specializations"
-							{...this.props}
+							historyObj ={this.props.history}
 							navTo="/search?from=home"
 							type="opd"
+							selectSearchType = {(val)=>this.props.selectSearchType(val)}
 						/>
 
 						{
@@ -439,6 +444,8 @@ class HomeView extends React.Component {
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
+									historyObj ={this.props.history}
+									selectSearchType = {(val)=>this.props.selectSearchType(val)}
 								/> : ""
 						}
 
@@ -478,20 +485,21 @@ class HomeView extends React.Component {
 							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
-							{...this.props}
+							historyObj ={this.props.history}
 							navTo="/search?from=home"
 							type="lab"
+							selectSearchType = {(val)=>this.props.selectSearchType(val)}
 						/>
 
 						{
 							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history}/>
 								: ''
 						}
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={(val)=>this.props.toggleIPDCriteria(val, true)}/>
 								: ''
 						}
 

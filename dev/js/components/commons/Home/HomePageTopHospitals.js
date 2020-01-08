@@ -1,7 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 
-class TopHospitalWidgets extends React.Component {
+class TopHospitalWidgets extends React.PureComponent {
 
     constructor(props){
         super(props)
@@ -48,7 +48,7 @@ class TopHospitalWidgets extends React.Component {
             redirectUrl+= '&get_feedback=1'
         }*/
 
-        this.props.history.push(redirectUrl)
+        this.props.historyObj.push(redirectUrl)
     }
 
     scroll(type) {
@@ -88,7 +88,7 @@ class TopHospitalWidgets extends React.Component {
             commonSelectedCriterias: [],
             nextSelectedCriterias: []
         })
-        this.props.history.push(`/ipd/searchHospitals`)   
+        this.props.historyObj.push(`/ipd/searchHospitals`)   
     }
 	
 	render(){
