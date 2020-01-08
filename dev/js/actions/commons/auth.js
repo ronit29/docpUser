@@ -115,6 +115,16 @@ export const logout = (roomId) => (dispatch) => {
     Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`).catch((e)=>{
         
     })
+    if (STORAGE.checkAuth()) {
+        STORAGE.getAuthToken().then((token) => {
+            if(token){
+                API_POST('/api/v1/user/logout', {
+                    token: token,
+                }).then((data) => {
+                })
+            }
+        })
+    }
     STORAGE.deleteAuth().then(() => {
         dispatch({
             type: RESET_AUTH,

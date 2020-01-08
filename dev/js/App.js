@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags, OTTExchangeLogin } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags, OTTExchangeLogin, setRefreshTokenTime, saveNewRefreshedToken } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -65,24 +65,14 @@ import RatingsPopUp from './components/commons/ratingsProfileView/RatingsPopUp.j
 class App extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state={
+            toCallRefreshToken:false
+        }
     }
 
     componentDidMount() {
-
         const parsed = queryString.parse(window.location.search)
-        if (STORAGE.checkAuth()) {
-            this.props.getCartItems()
-            STORAGE.getAuthToken().then((token) => {
-                if (token) {
-                    API_POST('/api/v1/user/api-token-refresh', {
-                        token: token
-                    }).then((data) => {
-                        // STORAGE.setAuthToken(data.token)
-                    })
-                }
-            })
-        }
-
         let OTT = parsed.access_token
         if (OTT && !STORAGE.checkAuth()) {
             this.props.OTTExchangeLogin(OTT).then(() => {
@@ -232,15 +222,46 @@ class App extends React.Component {
 
     }
 
+    componentWillReceiveProps(props){
+        this.tokenRefresh(props)
+    }
+
     toggleLeftMenu(toggle, defaultVal) {
         if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
             this.props.toggleLeftMenuBar(toggle, defaultVal)
         }
     }
 
+    tokenRefresh(props){
+        if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
+            props.getCartItems()
+            this.setState({toCallRefreshToken: true})
+            let intervalId = setInterval(() => {
+                if(STORAGE.checkAuth()){
+                    this.refreshApi()
+                }else{
+                    clearInterval(refreshApi)
+                    this.setState({toCallRefreshToken: true})
+                }
+            }, 300000)
+        }
+    }
+
+    refreshApi(){
+        var ciphertext = null
+        STORAGE.getAuthToken().then((token) => {
+            let user_profile_id = STORAGE.getUserId()
+            ciphertext =  STORAGE.encrypt(user_profile_id)
+            if (token) {
+                STORAGE.refreshTokenCall(token,ciphertext,'FromAPP').then((newToken)=>{
+                    this.props.saveNewRefreshedToken(newToken);
+                })
+            }
+        })
+    }
+
 
     render() {
-        
         return (
             <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true)}>
                 <NotificationsBoot />
@@ -263,7 +284,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     let {
-        profiles, selectedProfile, summary_utm, summary_utm_validity
+        profiles, selectedProfile, summary_utm, summary_utm_validity, defaultProfile
     } = state.USER
 
     let {
@@ -276,7 +297,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_LABS
 
     return {
-        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package
+        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package, defaultProfile
     }
 }
 
@@ -305,7 +326,9 @@ const mapDispatchToProps = (dispatch) => {
         clearOpdSearchId: () => dispatch(clearOpdSearchId()),
         clearIpdSearchId: () => dispatch(clearIpdSearchId()),
         setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
-        OTTExchangeLogin: (ott) => dispatch(OTTExchangeLogin(ott))
+        OTTExchangeLogin: (ott) => dispatch(OTTExchangeLogin(ott)),
+        setRefreshTokenTime:(data) =>dispatch(setRefreshTokenTime(data)),
+        saveNewRefreshedToken: (token) => dispatch(saveNewRefreshedToken(token))
     }
 
 }

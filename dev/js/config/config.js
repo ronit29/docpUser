@@ -63,11 +63,10 @@ const STAGING_CONFIG = {
 }
 
 const DEV_CONFIG = {
-    // API_BASE_URL: "http://10.0.88.148:8000",
-    API_BASE_URL: "https://docprime.com",
-    // SOCKET_BASE_URL: "http://10.0.28.67:4444",
-    SOCKET_BASE_URL: "https://docprime.com",
-    // SOCKET_BASE_URL: "http://localhost:4444",
+    API_BASE_URL: "https://kubeqa.docprime.com",
+    // API_BASE_URL: "http://10.0.88.129:8000",
+    SOCKET_BASE_URL: "https://kubeqa.docprime.com",
+    // SOCKET_BASE_URL: "http://10.0.88.129:3000",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://payqa.docprime.com/dp/pay/dpOrder",
     PG_MULTI_ORDER_URL: "https://payqa.docprime.com/dp/dpMultiOrder",

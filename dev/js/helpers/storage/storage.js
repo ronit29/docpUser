@@ -1,4 +1,7 @@
 import CookieHelper from './cookie.js'
+var CryptoJS = require("crypto-js");
+import { API_POST } from '../../api/api.js';
+import SOCKET from '../socket'
 
 function deleteAllCookies() {
     if (document) {
@@ -71,13 +74,35 @@ function parseJwt(token) {
     }
 };
 
+function generateKeyFromPassword(password) {
+    var userHash = CryptoJS.MD5(password);
+    var keyStr = userHash.toString().substring(0, 16);
+    var key = CryptoJS.enc.Utf8.parse(keyStr);
+    return key;
+}
+
 const STORAGE = {
     setAuthToken: (token) => {
         setCookie('tokenauth', token, 10)
         return Promise.resolve(true)
     },
-    getAuthToken: () => {
-        return Promise.resolve(getCookie('tokenauth'))
+    getAuthToken: (dataParams={}) => {
+        let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
+        let exp_time = {}
+        try{
+            exp_time = getCookie('tokenRefreshTime')
+            exp_time = JSON.parse(exp_time)
+        }catch(e){
+
+        }
+        let login_user_id = getCookie('user_id')
+        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){
+            let ciphertext =  STORAGE.encrypt(login_user_id)  
+            let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),ciphertext,'FromSTORAGE')
+            return Promise.resolve(token);
+        }else{
+          return Promise.resolve(getCookie('tokenauth'))  
+        }        
     },
     checkAuth: () => {
         return !!getCookie('tokenauth')
@@ -126,7 +151,47 @@ const STORAGE = {
     },
     getAnyCookie: (name)=>{
         return getCookie(name)
+    },
+    setAuthTokenRefreshTime: (exp_time) => {
+        setCookie('tokenRefreshTime', exp_time, 10)
+
+        return Promise.resolve(true)
+    },
+
+    encrypt(user_profile_id) {
+        let date = Math.floor(new Date().getTime() / 1000)
+        let encryptedData = `${user_profile_id}.${date}`;
+        let msgString = encryptedData.toString();
+        var key = generateKeyFromPassword('hpDqwzdpoQY8ymm5');
+        var iv = CryptoJS.lib.WordArray.random(16);
+        var encrypted = CryptoJS.AES.encrypt(msgString, key, {
+            iv: iv
+        });
+        return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+    },
+    refreshTokenCall(token,ciphertext,fromWhere){
+        console.log(fromWhere)
+        return API_POST('/api/v1/user/api-token-refresh', {
+            token: token,
+            reset : ciphertext,
+            enableCall: true,
+            fromWhere:fromWhere
+        }).then((data) => {
+            if(data && Object.keys(data).length){
+                STORAGE.setAuthToken(data.token).then((resp)=>{
+                    SOCKET.refreshSocketConnection();
+                })
+                // console.log(data)
+
+                STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
+                return data.token;
+            }
+        }).catch((e)=>{
+            return false
+        })
     }
+
+
 
 
 }
