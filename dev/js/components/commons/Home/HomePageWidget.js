@@ -8,7 +8,7 @@ class HomePageWidget extends React.PureComponent {
         }
     }
 
-    navigateTo(where, e) {
+    navigateTo = (where, e) =>{
         if (e) {
             e.preventDefault()
             e.stopPropagation()
@@ -21,6 +21,7 @@ class HomePageWidget extends React.PureComponent {
     }
 
     render() {
+
         return (
             <div className="card cstm-card mb-3">
                 <a className="anchor-link" id={`${this.props.type}`}></a>
@@ -45,8 +46,8 @@ class HomePageWidget extends React.PureComponent {
                     <div className="row mb-2 d-flex">
 
                         {
-                            this.props.list.map((listItem, i) => {
-                                return <div className="col-4 home-card-col md-list-hide" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                            this.props.list.slice(0,9).map((listItem, i) => {
+                                return <div className="col-4 home-card-col md-list-hide" key={i} onClick={()=>this.props.searchFunc(listItem)}>
                                     <div className="grid-img-cnt doc-icon-col brdr-btm">
                                         {
                                             listItem.url ?
@@ -69,7 +70,7 @@ class HomePageWidget extends React.PureComponent {
                             this.props.searchType ?
                                 <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
                                     <div className="grid-img-cnt brdr-btm doc-icon-col">
-                                        <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
+                                        <a href="javascript:void(0);" onClick={()=>this.navigateTo(this.props.navTo)}>
                                             <img className="img-fluid" src={ASSETS_BASE_URL + "/images/vall.png"} />
                                             <span>Search more {this.props.searchType}</span>
                                         </a>

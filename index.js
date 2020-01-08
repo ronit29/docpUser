@@ -279,7 +279,7 @@ app.all('*', function (req, res) {
                      * Store preloaded module's path- required while appending chunk in template
                      */
                     const modules = []
-                    const html = ReactDOMServer.renderToNodeStream(
+                    const html = ReactDOMServer.renderToString(
                         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
                             <Provider store={store}>
                                 <div>

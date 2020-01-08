@@ -82,19 +82,11 @@ class TopHospitalWidgets extends React.PureComponent {
     }
 
     viewAllClicked(){
-        let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
-        }
-        GTM.sendEvent({ data: gtmData })
-        this.props.mergeIpdCriteria({
-            commonSelectedCriterias: [],
-            nextSelectedCriterias: []
-        })
-        this.props.historyObj.push(`/ipd/searchHospitals`)   
+        this.props.nearbyHospitalViewAllClicked();
     }
 	
-	render(){console.log('Top Hpospitalfasdf adsfadsfsdf fkhsdkfhjasdhkjfhjk');console.log(this.props);console.log(this.state);console.log('Prince');
-
+	render(){
+        
         let { topHeading, dataType, showViewAll }  = this.props
 		return(
 		     <div className="pakg-slider-container mb-10">
