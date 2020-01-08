@@ -93,11 +93,20 @@ class VipProposer extends React.Component {
 			    }
 			}else if (props.USER.profiles[props.USER.defaultProfile]) {
 				let profile
+				let exitsting_user_profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
+					if(props.USER && Object.keys(props.USER).length && props.USER.profiles && Object.keys(props.USER.profiles).length){
+						exitsting_user_profile = Object.assign({}, props.USER.profiles[props.member_id])
+					}
 					profile = props.savedMemberData.filter((x=>x.id == props.member_id))
-
 					if(profile && profile.length > 0){
 						profile = profile[0]
+						if(exitsting_user_profile && Object.keys(exitsting_user_profile).length){
+							profile.name = exitsting_user_profile.name
+							profile.last_name = ""
+							profile.email = exitsting_user_profile.email
+							profile.dob = exitsting_user_profile.dob
+						}
 						this.setState({id:profile.id,profile_flag:false},()=>{
 							// this.populateDates()
 			    			this.getUserDetails(profile)	
@@ -176,7 +185,7 @@ class VipProposer extends React.Component {
 	    		})*/
 			}else{
 				// this.populateDates(newProfileid,false)
-				this.setState({dob:''})
+				this.setState({dob:'',isDobValidated:false})
 			}
 			newProfile.isUserSelectedProfile=true
 			newProfile.is_tobe_dummy_user = false
@@ -240,7 +249,8 @@ class VipProposer extends React.Component {
 			}
 			this.setState({
 				email: profile.email ? profile.email :'',
-				dob: profile.dob ? profile.dob :''
+				dob: profile.dob ? profile.dob :'',
+				isDobValidated: profile.dob ? true:false
 			})
 			this.setState({...profile},()=>{
 				if(profile.name){
@@ -267,10 +277,12 @@ class VipProposer extends React.Component {
 				this.setState({disableTitle:true})
 			}
 			this.setState({
-				disableEmail: !profile.isDummyUser && profile.email !== '' ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob !== '' ? true : false,
-				disablePhoneNo: !profile.isDummyUser && profile.phone_number !== '' ? true: false	
+				disableEmail: !profile.isDummyUser && profile.email == '' ? false : true,
+				disableEmail: !profile.isDummyUser && profile.email == null ? false : true,
+				disableDob: !profile.isDummyUser && profile.dob == null ? false : true,
+				disableDob: !profile.isDummyUser && profile.dob == '' ? false : true,
+				disablePhoneNo: !profile.isDummyUser && profile.phone_number == '' ? false: true,
+				disablePhoneNo: !profile.isDummyUser && profile.phone_number == null  ? false: true	
 			})
 			if(profile.is_tobe_dummy_user){
 				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:'',disableTitle:false,is_tobe_dummy_user:profile.is_tobe_dummy_user})
