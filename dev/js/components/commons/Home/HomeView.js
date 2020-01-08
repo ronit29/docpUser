@@ -323,18 +323,17 @@ class HomeView extends React.Component {
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
-									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
 									historyObj ={this.props.history}
-									selectSearchType = {(val)=>this.props.selectSearchType(val)}
+									selectSearchType = {this.props.selectSearchType}
 								/> : ""
 						}
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={(val)=>this.props.toggleIPDCriteria(val, true)}/>
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria}/>
 								: ''
 						}
 						{
@@ -452,12 +451,11 @@ class HomeView extends React.Component {
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
-									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
 									historyObj ={this.props.history}
-									selectSearchType = {(val)=>this.props.selectSearchType(val)}
+									selectSearchType = {this.props.selectSearchType}
 								/> : ""
 						}
 
@@ -511,7 +509,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={(val)=>this.props.toggleIPDCriteria(val, true)}/>
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria}/>
 								: ''
 						}
 

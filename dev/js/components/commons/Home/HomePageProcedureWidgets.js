@@ -17,7 +17,7 @@ class TopProcedureWidgets extends React.PureComponent {
         }
         GTM.sendEvent({ data: gtmData })
 
-        this.props.toggleIPDCriteria(selectedCriteria)
+        this.props.toggleIPDCriteria(selectedCriteria, true)
         
         if(data.url){
             this.props.historyObj.push(`/${data.url}?showPopup=true`)
