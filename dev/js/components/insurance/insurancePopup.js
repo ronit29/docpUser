@@ -89,7 +89,7 @@ class InsurancePopup extends React.Component {
         }
     }
 
-    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup=null) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup=null) { // to generate otp
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
@@ -131,7 +131,7 @@ class InsurancePopup extends React.Component {
         }
     }
 
-    verifyOTP() {
+    verifyOTP() { //verify user entered otp
         let parsed = queryString.parse(this.props.location.search)
         let self = this
         if (!this.state.otp) {
@@ -145,7 +145,7 @@ class InsurancePopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => { // to verify user entered otp
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message })
                 } else {
@@ -157,7 +157,7 @@ class InsurancePopup extends React.Component {
                         if (Object.keys(self.props.selected_plan).length > 0) {
                             self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation) // to create insurance lead for matrix
                         }
-                        this.props.getInsurance(false, (resp) => {
+                        this.props.getInsurance(false, (resp) => { // to get insurance plans
                             if (!resp.certificate) {
                                 if (this.props.isLead == 'proceed') {
                                     if (exists.user_exists) {
@@ -166,7 +166,7 @@ class InsurancePopup extends React.Component {
                                         // } else {
                                         //     this.props.closeLeadPopup()
                                         // }
-                                        this.props.closeLeadPopup()
+                                        this.props.closeLeadPopup() // to close lead form
                                         this.props.history.push('/insurance/insurance-plan-view')
                                     } else {
                                         // if (this.props.identifyUserClick == 'userClick') {
@@ -174,7 +174,7 @@ class InsurancePopup extends React.Component {
                                         // } else {
                                         //     this.props.closeLeadPopup()
                                         // }
-                                        this.props.closeLeadPopup()
+                                        this.props.closeLeadPopup() // to close lead form
                                         this.props.history.push('/insurance/insurance-plan-view')
                                     }
                                 } else {
@@ -196,7 +196,7 @@ class InsurancePopup extends React.Component {
 
     _handleKeyPress(e) {
         if (e.key === 'Enter') {
-            this.verifyOTP()
+            this.verifyOTP() // to verify user entered otp
         }
     }
 

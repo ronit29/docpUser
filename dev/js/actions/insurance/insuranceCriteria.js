@@ -34,7 +34,7 @@ export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     })
 
 }
-export const insurancePay = (criteria,callback) => (dispatch) => {
+export const insurancePay = (criteria,callback) => (dispatch) => { // to request payment
     return API_POST('/api/v1/insurance/create',criteria).then(function (response) {
         dispatch({
             type: INSURANCE_PAY,
@@ -51,7 +51,7 @@ export const insurancePay = (criteria,callback) => (dispatch) => {
     })
 
 }
-export const updateMemberList = (postData,callback) => (dispatch) => {
+export const updateMemberList = (postData,callback) => (dispatch) => { // update members selected list
     return API_POST('/api/v1/insurance/members/update',postData).then(function (response) {
         dispatch({
             type: UPDATE_MEMBER_LIST,
@@ -126,7 +126,7 @@ export const saveCurrentSelectedMembers = (membersId) => (dispatch) => { // to s
     })
 }
 
-export const resetSelectedInsuranceMembers = (member_id) => (dispatch) => {
+export const resetSelectedInsuranceMembers = (member_id) => (dispatch) => { // filter only visible forms objexts in the store
     dispatch({
         type: RESET_CURRENT_INSURED_MEMBERS,
         payload :member_id
@@ -260,7 +260,7 @@ export const retrieveEndorsedData = (callback) => (dispatch) => {
 
 }
 
-export const createEndorsementData = (criteria,callback) => (dispatch) => {
+export const createEndorsementData = (criteria,callback) => (dispatch) => { // submit endoresment data
     return API_POST('/api/v1/insurance/endorsement/create',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {

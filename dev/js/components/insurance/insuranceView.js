@@ -61,11 +61,11 @@ class Insurance extends React.Component {
 		}
 		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
 			//this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
-			this.inactivityTime()
+			this.inactivityTime() 
 		}
 	}
 
-	inactivityTime() {
+	inactivityTime() { // to check user inactive time on page and ask for login
     var time;
     let self =  this
     window.onload = resetTimer;
@@ -115,7 +115,7 @@ class Insurance extends React.Component {
 		this.props.selectInsurancePlan('plan', plan)
 		this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`, toggle: this.state.toggle == 'two' ? 'one' : 'one' })
 	}
-	proceedPlan() {
+	proceedPlan() { // to save user agreed plan and redirect to ask user details for policy
 		let self = this
 		let parsed = queryString.parse(this.props.location.search)
 		let plan = Object.assign({}, this.state.selected_plan_data)
