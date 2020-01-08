@@ -63,12 +63,24 @@ class VipGoldView extends React.Component {
     }
 
     //this function is linked video player iframe
-    
+    videoControl(){
+        const frameVideo = document.getElementById("goldVideo");
+        frameVideo.control = false;
+    }
     playVideo(){
         const frameVideo = document.getElementById("goldVideo");
         const playIcon = document.getElementById('player-icon');
-        frameVideo.src += '&autoplay=1';
-        playIcon.style.opacity = "0";
+        // frameVideo.controls = false;
+        frameVideo.addEventListener('ended', () => {
+            playIcon.style.opacity = 1;
+        })
+        if(frameVideo.paused == true){
+            frameVideo.play();
+            playIcon.style.opacity = 0;
+        }else{
+            frameVideo.pause();
+            playIcon.style.opacity = 1;
+        }
     }
     
 
@@ -352,9 +364,9 @@ class VipGoldView extends React.Component {
                                             <div className="col-12 p-0">
                                                 <h4 className="vip-card-heading mb-24">See how it works</h4>
                                                 <div className="vip-offer-cards mb-24" style={{padding:5}}>
-                                                    <iframe id="goldVideo" style={{borderRadius:5}} width="100%" height="270" src="https://www.youtube.com/embed/Eb-ToKyHJ90?enablejsapi=1&controls=0&color=white&disablekb=1"  frameBorder="0" rel="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
-                                                    </iframe>
-                                                    <a className="video-player" onClick={this.playVideo.bind()}>
+                                                    <video  id="goldVideo" preload="metadata" height="auto" src="assets/video/Gold-Promo-Video.mp4#t=1,27" onLoad={this.videoControl.bind()}>
+                                                    </video>
+                                                    <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo.bind()}>
                                                         <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video"/>
                                                     </a>
                                                 </div>
