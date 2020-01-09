@@ -276,14 +276,13 @@ class VipProposer extends React.Component {
 			if(!profile.isDummyUser && profile.name != '' && (profile.email != null || profile.email !='') && (profile.dob != null || profile.dob !='')){
 				this.setState({disableTitle:true})
 			}
-			this.setState({
-				disableEmail: !profile.isDummyUser && profile.email == '' ? false : true,
-				disableEmail: !profile.isDummyUser && profile.email == null ? false : true,
-				disableDob: !profile.isDummyUser && profile.dob == null ? false : true,
-				disableDob: !profile.isDummyUser && profile.dob == '' ? false : true,
-				disablePhoneNo: !profile.isDummyUser && profile.phone_number == '' ? false: true,
-				disablePhoneNo: !profile.isDummyUser && profile.phone_number == null  ? false: true	
-			})
+			if(!profile.isDummyUser){
+				this.setState({
+					disableEmail:  (profile.email == '' || profile.email == null)? false : true,
+					disableDob: (profile.dob == null || profile.dob == '') ? false : true,
+					disablePhoneNo: (profile.phone_number == '' || profile.phone_number == null) ? false: true
+				})
+			}
 			if(profile.is_tobe_dummy_user){
 				this.setState({disableFName:false,disableEmail:false,disableDob:false,disablePhoneNo:false,disableLName:false,disableName:false,phone_number:'',disableTitle:false,is_tobe_dummy_user:profile.is_tobe_dummy_user})
 			}
