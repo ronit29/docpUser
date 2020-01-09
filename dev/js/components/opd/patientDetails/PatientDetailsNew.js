@@ -107,6 +107,7 @@ class PatientDetailsNew extends React.Component {
             window.scrollTo(0, 0)
         }
         const parsed = queryString.parse(this.props.location.search)
+        //If token and appointment id is in url then do agent login, and fetch user related data & set state of the page 
         if (parsed.token && parsed.appointment_id) {
             this.props.agentLogin(parsed.token, () => {
                 this.props.select_opd_payment_type(1)
@@ -162,7 +163,7 @@ class PatientDetailsNew extends React.Component {
             this.setState({ couponApplied: false })
             return
         }
-
+        //If coupons data exist then apply for best coupons
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length) {
             let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor]
             if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.props.selectedDoctor) {
@@ -219,6 +220,7 @@ class PatientDetailsNew extends React.Component {
 
             }
         } else {
+            //auto apply coupons
             let deal_price = 0
             if (this.props.selectedSlot.time && this.props.selectedSlot.time.deal_price) {
                 deal_price = this.props.selectedSlot.time.deal_price
@@ -461,6 +463,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     profileDataCompleted(data) {
+        //function to check if profile data is filled by user or not, in case of non-logged in user
         this.setState({ formData: { ...data } })
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess || data.dob == '' || data.dob == null) {
             this.props.patientDetails(data)
@@ -506,12 +509,14 @@ class PatientDetailsNew extends React.Component {
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
         const parsed = queryString.parse(this.props.location.search)
+        
+        //To claim insurance status & claim
         if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
             window.scrollTo(0, 0)
             return
         }
-
+        //check if timeslot is selcted by user or not
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -519,6 +524,7 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
+        //Check if patient is selected or not
         if (!patient) {
             if (this.state.formData.name != '' && this.state.formData.gender != '' && this.state.formData.phoneNumber != '' && this.state.formData.email != '' && !this.state.formData.otpVerifySuccess) {
                 this.setState({ profileError: true });
@@ -532,12 +538,13 @@ class PatientDetailsNew extends React.Component {
                 return
             }
         }
-
+        //Check if patient emailid exist or not
         if (patient && !patient.email && this.props.is_integrated) {
             this.setState({ isEmailNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return
         }
+        //Check if patient dob exist or not
         if (patient && !patient.dob && this.props.is_integrated) {
             this.setState({ isDobNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
@@ -605,6 +612,7 @@ class PatientDetailsNew extends React.Component {
         //     return
         // }
 
+        //Confirmation popup for the tests, whose amount payable is 0
         if (this.state.showConfirmationPopup == 'close'  && !addToCart && (total_price == 0 || (is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6 ) ) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: 'open', show_banner: false })
             return
@@ -713,6 +721,7 @@ class PatientDetailsNew extends React.Component {
             return
         }
         if (parsed && parsed.appointment_id && parsed.cod_to_prepaid == 'true') {
+            //For Cod Appointments
             postData['appointment_id'] = parsed.appointment_id
             postData['cod_to_prepaid'] = true
             this.setState({paymentBtnClicked: true});
@@ -837,7 +846,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     sendSingleFlowAgentBookingURL(postData={}) {
-
+        //for agent login send single flow booking url
         let booking_data = this.getBookingData()
         booking_data = {...postData, ...booking_data, is_single_flow_opd: true, dummy_data_type:'SINGLE_PURCHASE'  }
         this.props.pushMembersData(booking_data, (resp)=>{
@@ -858,7 +867,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     buildOpdTimeSlot() {
-
+        //after agent login , build the state of the page e.g store
         let selectedDate = {...this.props.selectedSlot}
         if(selectedDate.time) {
             return {...selectedDate.time}

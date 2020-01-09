@@ -30,6 +30,7 @@ class BookingSummary extends React.Component {
         }
 
         if (STORAGE.checkAuth()) {
+            //Check if user is login, if logged in then fetch user related data
             props.getUserProfile()
             props.getUserAddress()
             props.fetchTransactions()
@@ -37,9 +38,11 @@ class BookingSummary extends React.Component {
         }
 
         if(parsed.dummy_id) {
+            //If dummy_id is availble in the url, then we logged in user & proceed with single flow journey
             this.singleFlowLogin(props,lab_id)
 
         }else if(lab_id){
+            //Select all the tests selected by the user in the previous page & hit api with the same
             let testIds = props.lab_test_data[lab_id] || []
             testIds = testIds.map(x => x.id)
             let forceAddTestids = false
@@ -81,7 +84,7 @@ class BookingSummary extends React.Component {
     }
 
     setLabBooking(data) {
-
+        //On Agent/Direct Login, set data for the lab page,e.g select timeslot, profileid, pickup type, tests, coupons  
         let { coupon_data } = data
         // for (let curr_test of data.test_ids) {
         //     let curr = {}
