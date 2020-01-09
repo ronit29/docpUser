@@ -51,7 +51,7 @@ class VipGoldView extends React.Component {
             }
 
             if (plan && plan.length) {
-                this.props.selectVipClubPlan('', plan[0])
+                this.props.selectVipClubPlan('', plan[0]) // toggle/select gold plan
             }
 
         }

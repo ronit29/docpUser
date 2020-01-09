@@ -54,7 +54,7 @@ export const getVipList = (is_endorsement,data,callback) => (dispatch) => { // t
 
 }
 
-export const selectVipClubPlan = (type, selected_vip_plan,callback) => (dispatch) => {
+export const selectVipClubPlan = (type, selected_vip_plan,callback) => (dispatch) => { // toggle/select vip plan
     dispatch({
         type: SELECT_VIP_CLUB_PLAN,
         payload: {
@@ -237,7 +237,7 @@ export const pushMembersData = (criteria, callback) => (dispatch) =>{ // to save
     })
 }
 
-export const retrieveMembersData = (type,extraParams={},callback) => (dispatch) =>{
+export const retrieveMembersData = (type,extraParams={},callback) => (dispatch) =>{ // to retrieve already pushed member data in case of agent or proposer it self
     let url = `api/v1/plus/show_dummy_data?dummy_data_type=${type}`
     if(extraParams && extraParams.dummy_id) {
         url+=`&dummy_id=${extraParams.dummy_id}`
@@ -270,7 +270,7 @@ export const clearVipMemeberData = () =>(dispatch) =>{  // reset vip or gold sto
     })
 }
 
-export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to get gold/vip plans specific to particular doctor/hospital
 
     return API_POST(`/api/v1/common/predicted-price-via-plan/opd`, extraParams).then((response) =>{
         dispatch({
@@ -293,7 +293,7 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
     })
 }
 
-export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
+export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to get gold/vip plans specific to particular lab
 
     return API_POST(`/api/v1/common/predicted-price-via-plan/lab`, extraParams).then((response) =>{
         dispatch({
@@ -320,7 +320,7 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => {
     })
 }
 
-export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price,cb})  => (dispatch) => {
+export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_price,cb})  => (dispatch) => { // get coupon discount
     API_POST(`/api/v1/coupon/discount`, {
         coupon_code: [couponCode],
         deal_price: deal_price,

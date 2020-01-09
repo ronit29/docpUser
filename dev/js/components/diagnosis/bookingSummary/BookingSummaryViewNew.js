@@ -188,7 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
-        this.props.getLabVipGoldPlans(extraParams)
+        this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 
     componentWillReceiveProps(nextProps) {
@@ -1266,7 +1266,7 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
-        this.props.selectVipClubPlan('plan', plan)
+        this.props.selectVipClubPlan('plan', plan) // toggle/select vip plan
         this.toggleGoldPricePopup()
     }
 
