@@ -82,6 +82,7 @@ class VipGoldView extends React.Component {
         })
         frameVideo.addEventListener('ended', () => {
             playIcon.style.opacity = 1;
+            
         })
         if(frameVideo.paused){
             frameVideo.play();
@@ -381,7 +382,7 @@ class VipGoldView extends React.Component {
 
                                             {/* ================== gold benefit video section  ================== */}
                                             <div className="col-12 p-0">
-                                                <h4 className="vip-card-heading mb-24">See how it works</h4>
+                                                <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                 <div className="vip-offer-cards mb-24" style={{padding:5}}>
                                                     <video  id="goldVideo" height="auto" src="https://chatfileupload.s3.ap-south-1.amazonaws.com//Gold+Promo+Video.mp4">
                                                     </video>
