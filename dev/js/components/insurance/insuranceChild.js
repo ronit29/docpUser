@@ -92,7 +92,7 @@ class InsuranceChild extends React.Component {
 		event.preventDefault();
 	}
 	togglePopup(newProfileid, member_id, newProfile) {
-		this.props.selectInsuranceProfile(newProfileid, member_id, newProfile)
+		this.props.selectInsuranceProfile(newProfileid, member_id, newProfile) // select from profile option
 		this.setState({
 			showPopup: !this.state.showPopup
 		});

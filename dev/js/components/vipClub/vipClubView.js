@@ -131,6 +131,8 @@ class VipClubView extends React.Component {
                     //     GTM.sendEvent({ data: LeadIdData })
                     // })
 
+                    
+                    // to create vip or gold member lead for matrix
                     this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
                         cb: (resp) => {
                             let LeadIdData = {

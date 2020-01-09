@@ -2,7 +2,7 @@ import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getVipList = (is_endorsement,data,callback) => (dispatch) => {
+export const getVipList = (is_endorsement,data,callback) => (dispatch) => { // to get vip plan list
     let is_vip_gold = false
     let lat
     let long
@@ -64,7 +64,7 @@ export const selectVipClubPlan = (type, selected_vip_plan,callback) => (dispatch
     if(callback) callback(selected_vip_plan)
 }
 
-export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previousProfile='') => (dispatch) => {
+export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previousProfile='') => (dispatch) => { // to save user form details in store
     dispatch({
         type: USER_SELF_DETAILS,
         payload: {
@@ -75,7 +75,7 @@ export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previo
     })
 
 }
-export const saveCurrentSelectedVipMembers = (membersId,callback) => (dispatch) => {
+export const saveCurrentSelectedVipMembers = (membersId,callback) => (dispatch) => { // save current visible form member or selected user profile id
     dispatch({
         type: SAVE_CURRENT_VIP_MEMBERS,
         payload: membersId
@@ -83,7 +83,7 @@ export const saveCurrentSelectedVipMembers = (membersId,callback) => (dispatch) 
     if(callback) callback(true) 
 }
 
-export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => {
+export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => { // select profile from option
     dispatch({
         type: SELECT_VIP_USER_PROFILE,
         payload: {
@@ -93,7 +93,7 @@ export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id)
 
 }
 
-export const vipClubPay = (criteria,callback) => (dispatch) => {
+export const vipClubPay = (criteria,callback) => (dispatch) => { // to request for payment
     return API_POST('/api/v1/plus/create',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -103,7 +103,7 @@ export const vipClubPay = (criteria,callback) => (dispatch) => {
 
 }
 
-export const addVipMembersData = (criteria,callback) => (dispatch) => {
+export const addVipMembersData = (criteria,callback) => (dispatch) => { // to add member details
     return API_POST('/api/v1/plus/add/members',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -113,7 +113,7 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ callback) => (dispatch) => {
+export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ callback) => (dispatch) => { // to create vip or gold member lead for matrix
     let lat
     let long
     let latitude = 28.644800
@@ -158,7 +158,7 @@ export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,select
     })
 }
 
-export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch) => {
+export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch) => { // to retrive vip or gold dashboard data
 
     return API_GET('/api/v1/plus/dashboard?id='+user_id+'&is_dashboard='+is_dashboard).then(function (response) {
         if(response){
@@ -186,14 +186,14 @@ export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch)
 
 }
 
-export const resetVipData = () =>(dispatch) =>{
+export const resetVipData = () =>(dispatch) =>{ // to set vip or gold sotre to initial state
     dispatch({
         type: RESET_VIP_CLUB
     })
 }
 
 
-export const uploadVipProof = (profileData, memberId,imgType,cb) => (dispatch) => {
+export const uploadVipProof = (profileData, memberId,imgType,cb) => (dispatch) => { // store selected proof to database
     API_POST(`/api/v1/common/upload/document-proof?type=${imgType}`,profileData).then(function (response) {
         if (cb) cb(response,null);
     }).catch(function (error) {
@@ -201,21 +201,21 @@ export const uploadVipProof = (profileData, memberId,imgType,cb) => (dispatch) =
     })
 }
 
-export const storeVipMemberProofs = (imgUrl,cb) => (dispatch) => {
+export const storeVipMemberProofs = (imgUrl,cb) => (dispatch) => { // to store member proof ids to the user store
     dispatch({
         type:SAVE_VIP_MEMBER_PROOFS,
         payload:imgUrl
     })
 }
 
-export const removeVipMemberProof = (criteria) => (dispatch) => {
+export const removeVipMemberProof = (criteria) => (dispatch) => { // to remove cancelled uploaded image
     dispatch({
         type:DELETE_VIP_MEMBER_PROOF,
         payload:criteria
     })
 }
 
-export const pushMembersData = (criteria, callback) => (dispatch) =>{
+export const pushMembersData = (criteria, callback) => (dispatch) =>{ // to save proposer/self data to the dummy table in case of agent or proposer self
     let url  = `/api/v1/plus/push_dummy_data`
 
     if(criteria && criteria.is_single_flow_opd) {
@@ -259,12 +259,12 @@ export const vipPlusLead = (data) => (dispatch) => {
     })
 }
 
-export const clearVipSelectedPlan = () =>(dispatch) =>{
+export const clearVipSelectedPlan = () =>(dispatch) =>{  // reset vip or gold selected plan to initial state
     dispatch({
         type: CLEAR_VIP_SELECTED_PLAN
     })
 }
-export const clearVipMemeberData = () =>(dispatch) =>{
+export const clearVipMemeberData = () =>(dispatch) =>{  // reset vip or gold store to initial state
     dispatch({
         type: CLEAR_VIP_MEMBER_DATA
     })
@@ -333,7 +333,7 @@ export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_
     })
 }
 
-export const removeVipCoupons =() =>(dispatch)=>{
+export const removeVipCoupons =() =>(dispatch)=>{ // to reset coupons to intial state
     dispatch({
         type:REMOVE_VIP_COUPONS
     })

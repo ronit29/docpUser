@@ -215,7 +215,7 @@ export const filterSelectedCriteria = (type) => (dispatch) => {
     })
 }
 
-export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => {
+export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => { // to get near by hospitals covered under gold or vip or near by location
 
     let lat = 28.644800
     let long = 77.216721
@@ -250,7 +250,7 @@ export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => {
     })
 }
 
-export const getTopHospitals = (extraParams={}, cb) => (dispatch) => {
+export const getTopHospitals = (extraParams={}, cb) => (dispatch) => { // to get near by  top hospitals covered under gold or vip or near by location
 
     let lat = 28.644800
     let long = 77.216721
