@@ -83,7 +83,7 @@ class VipGoldView extends React.Component {
         frameVideo.addEventListener('ended', () => {
             playIcon.style.opacity = 1;
         })
-        if(frameVideo.paused == true){
+        if(frameVideo.paused){
             frameVideo.play();
             playIcon.style.opacity = 0;
         }else{
