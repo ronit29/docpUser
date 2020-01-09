@@ -96,7 +96,7 @@ export const setCorporateCoupon = (coupon = "") => (dispatch) => {
         payload: coupon
     })
 }
-export const searchTestData = (test_ids, test_url, lab_id, state,no_labs, callback) => (dispatch) => {
+export const searchTestData = (test_ids, test_url, lab_id, state,no_labs, callback) => (dispatch) => {// get selected test/package details
 
     let url
     let lat = 28.644800
@@ -169,7 +169,7 @@ export const resetPkgCompare = () => (dispatch) => {
     })
 }
 
-export const getCompareList = (selectedIds,selectedLocation,searchByUrl,cat_ids,callback) => (dispatch) => {
+export const getCompareList = (selectedIds,selectedLocation,searchByUrl,cat_ids,callback) => (dispatch) => { // comparision results for selected packages
     let lat = 28.644800
     let long = 77.216721
     if (selectedLocation) {

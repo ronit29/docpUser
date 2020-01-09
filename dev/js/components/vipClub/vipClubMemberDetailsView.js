@@ -32,7 +32,7 @@ class VipClubMemberDetailsView extends React.Component {
     	if(window){
     		window.scrollTo(0,0)
     	}
-    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.vipCoupons.length >0) {
+    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.vipCoupons.length >0) { // get coupon discount
 	    		this.props.applyCouponDiscount({ productId : this.props.selected_vip_plan.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price,
 	    		cb: (resp) => {
 	    			if(resp){

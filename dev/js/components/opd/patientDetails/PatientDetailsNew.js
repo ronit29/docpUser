@@ -127,7 +127,7 @@ class PatientDetailsNew extends React.Component {
             let extraParams = {
                 dummy_id: parsed.dummy_id
             }
-            this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+            this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{ // to retrieve already pushed member data in case of agent or proposer it self
                 this.setOpdBooking(resp.data);
                 this.getVipGoldPriceList(resp.data.plus_plan)
             })
@@ -272,7 +272,7 @@ class PatientDetailsNew extends React.Component {
         if(parsed && parsed.dummy_id && agent_selected_plan_id) {
             extraParams['already_selected_plan'] = agent_selected_plan_id
         }
-        this.props.getOpdVipGoldPlans(extraParams)
+        this.props.getOpdVipGoldPlans(extraParams) // to get gold/vip plans specific to particular doctor/hospital
     }
 
     getValidCoupon(coupons) {
@@ -1277,7 +1277,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
-        this.props.selectVipClubPlan('plan', plan)
+        this.props.selectVipClubPlan('plan', plan) // toggle/select vip plan
         this.toggleGoldPricePopup();
     }
 

@@ -60,7 +60,7 @@ class BookingSummary extends React.Component {
             let extraParams = {
                 dummy_id: parsed.dummy_id
             }
-            props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+            props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{ // to retrieve already pushed member data in case of agent or proposer it self
                 if(resp && resp.data){
                     this.setLabBooking(resp.data) 
                     this.setState({agent_selected_plan_id:resp.data.plus_plan})   

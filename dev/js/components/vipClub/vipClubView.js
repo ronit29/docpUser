@@ -73,7 +73,7 @@ class VipClubView extends React.Component {
         this.setState({is_gold_clicked:false})
         let plan = plan_to_toggle
         plan.isForceUpdate = false
-        this.props.selectVipClubPlan('plan', plan, (resp) => {
+        this.props.selectVipClubPlan('plan', plan, (resp) => { // toggle/select vip plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         })
     }
@@ -95,7 +95,7 @@ class VipClubView extends React.Component {
             plan = plan_to_toggle
         }
         plan.isForceUpdate = false
-        this.props.selectVipClubPlan('plan', plan, (resp) => {
+        this.props.selectVipClubPlan('plan', plan, (resp) => { // toggle/select gold plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         })
     }
