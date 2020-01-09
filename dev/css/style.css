@@ -14693,4 +14693,16 @@ div.slt-nw-input.summery-dob-cont .sumry-lbl{
 #player-icon{
     transition: .25s cubic-bezier(0.0,0.0,0.2,1);
 }
+#video-time{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 2px 7px;
+    display: none;
+    width: 32px;
+}
 /* ======================================= Gold page video ends ======================================= */

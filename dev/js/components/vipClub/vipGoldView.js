@@ -63,14 +63,23 @@ class VipGoldView extends React.Component {
     }
 
     //this function is linked video player iframe
-    videoControl(){
-        const frameVideo = document.getElementById("goldVideo");
-        frameVideo.control = false;
-    }
-    playVideo(){
+    playVideo = () => {
         const frameVideo = document.getElementById("goldVideo");
         const playIcon = document.getElementById('player-icon');
-        // frameVideo.controls = false;
+        frameVideo.ontimeupdate = () => {
+            videoTimer()
+        }
+        function videoTimer() {
+            let t  = frameVideo.currentTime;
+            vidTimer.innerHTML = Math.round(t) + 's';
+        }
+        let vidTimer = document.getElementById('video-time');
+        vidTimer.style.display = "block";
+        document.addEventListener('scroll', () => {
+            frameVideo.pause();
+            playIcon.style.opacity = 1;
+            
+        })
         frameVideo.addEventListener('ended', () => {
             playIcon.style.opacity = 1;
         })
@@ -140,15 +149,15 @@ class VipGoldView extends React.Component {
                                         <div className="gold-benifi-cards-cont">
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                <p>Exclusive price on<br /><strong>30,000</strong> Doctors</p>
+                                                <p>Discounts on <br/><strong>Doctors &amp; Labs</strong></p>
                                             </div>
                                             <div className="gold-benifi-cards">
-                                                <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                <p>Discounts on <br /><strong>5,000</strong> Labs</p>
+                                                <img src={ASSETS_BASE_URL + '/img/med-report.svg'} />
+                                                <p>Free Report <br /><strong>Review by Doctors</strong></p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                <p> Save 23% <br /> on medicines</p>
+                                                <p>Upto <strong>23% OFF</strong> <br/> on Medicines </p>
                                             </div>
                                         </div>
 
@@ -222,6 +231,16 @@ class VipGoldView extends React.Component {
                                                     }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'}/></p>
                                                 </div>
                                             </div>
+                                            {/* consult doctor widget added */}
+                                            <div className="gold-grntee-card mb-3">
+                                                <div className="round-img-gld">
+                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                                </div>
+                                                <div className="gold-grnte-content">
+                                                    <h4>Consult Doctors for Free to review your Lab Reports</h4>
+                                                </div>
+                                            </div>
+                                            {/* consult doctor widget added end */}
                                         </div>
                                         <div className="gold-slider-container">
                                             {
@@ -364,29 +383,15 @@ class VipGoldView extends React.Component {
                                             <div className="col-12 p-0">
                                                 <h4 className="vip-card-heading mb-24">See how it works</h4>
                                                 <div className="vip-offer-cards mb-24" style={{padding:5}}>
-                                                    <video  id="goldVideo" preload="metadata" height="auto" src="assets/video/Gold-Promo-Video.mp4#t=1,27" onLoad={this.videoControl.bind()}>
+                                                    <video  id="goldVideo" height="auto" src="https://chatfileupload.s3.ap-south-1.amazonaws.com//Gold+Promo+Video.mp4">
                                                     </video>
-                                                    <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo.bind()}>
+                                                    <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
                                                         <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video"/>
                                                     </a>
+                                                    <h5 id="video-time" className="fw-500 text-center"></h5>
                                                 </div>
                                             </div>
                                             {/* ================== gold benefit video section ends ================== */}
-                                            {/* ================== gold avail section  ================== */}
-                                            <div className="gold-avail-container">
-                                                <div className="pkgSliderHeading">
-                                                    <h5>How to avail Gold Benefits?</h5>
-                                                </div>
-                                                <ol>
-                                                    <li><p>Look for Exclusive Gold member discount here</p>
-                                                    <img className="img-fluid" src={ASSETS_BASE_URL + '/img/avail.png'} />
-                                                    </li>
-                                                    <li>
-                                                        <p>Book an appointment and get exclusive discounts.</p>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                            {/* ================== gold avail section  ================== */}
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">
                                                     <div className="acdn-title" onClick={this.ButtonHandler.bind(this, 0)}>
