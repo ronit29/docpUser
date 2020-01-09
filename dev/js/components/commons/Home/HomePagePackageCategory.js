@@ -61,7 +61,7 @@ class HomePagePackageCategory extends React.PureComponent {
                     		this.props.top_data.map((data, i) => {
                     			return <a className="pkgcustCards health-pkg-card-width" key={i} onClick={this.navigateTo.bind(this, data)}>
 		                            <div className="pkgcardImgCont">
-		                                <img className="img-fluid" src={data.svg_image?data.svg_image:data.icon} />
+		                                <img className="img-fluid" src={data.svg_icon?data.svg_icon:data.icon} />
 		                            </div>
 		                            <p className="pkgtstName prcd-height">
 		                                {data.name}

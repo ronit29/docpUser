@@ -102,7 +102,7 @@ class TopHospitalWidgets extends React.PureComponent {
                     		this.props.top_data.slice(0,20).map((data, i) => {
                     			return <a key={this.state.mergedState?`${i}_list_${dataType}`:data.url?data.url:`${data.id}_${dataType}`} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img style={{width:82}} className="img-fluid" src={data.svg_image?data.svg_image:data.logo} />
+				                                <img style={{width:82}} className="img-fluid" src={data.svg_icon?data.svg_icon:data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.seo_title?data.seo_title:data.h1_title?data.h1_title:data.name}

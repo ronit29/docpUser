@@ -66,7 +66,7 @@ class TopProcedureWidgets extends React.PureComponent {
                     		this.props.top_data.map((data, i) => {
                     			return <a href={data.url?`${data.url}`:`ipdInfo?ipd_id=${data.id}`} className="pkgcustCards" key={this.props.mergeState?i:data.url?data.url:i} onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img className="img-fluid" src={data.svg_image?data.svg_image:data.icon} />
+				                                <img className="img-fluid" src={data.svg_icon?data.svg_icon:data.icon} />
 				                            </div>
 				                            <p className="pkgtstName prcd-height">
 				                                {data.name}
