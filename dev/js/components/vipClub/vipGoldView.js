@@ -64,6 +64,10 @@ class VipGoldView extends React.Component {
 
     //this function is linked video player iframe
     playVideo = () => {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'goldVideoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-video-clicked'
+        }
+        GTM.sendEvent({ data: data });
         const frameVideo = document.getElementById("goldVideo");
         const playIcon = document.getElementById('player-icon');
         frameVideo.ontimeupdate = () => {
