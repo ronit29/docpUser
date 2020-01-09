@@ -12,11 +12,11 @@ class UserAddress extends React.Component {
         // this.props.getUserAddress()
     }
 
-    addAddress() {
+    addAddress() { //add new address
         this.props.history.push('/user/address/add')
     }
 
-    editAddress(id) {
+    editAddress(id) { // edit existing address
         if (this.props.location.search.includes('pick=true')) {
             // pick address and go back, else go on to edit.
             this.props.selectPickupAddress(id)
@@ -26,7 +26,7 @@ class UserAddress extends React.Component {
         }
     }
 
-    updateAddress(addressData, e) {
+    updateAddress(addressData, e) { // update changes in address
         addressData.is_default = true
         this.props.updateUserAddress(addressData, (err, data) => {
             this.props.getUserAddress()

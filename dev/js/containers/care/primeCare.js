@@ -21,7 +21,7 @@ class primeCare extends React.Component {
 
     
     componentDidMount() {
-        this.props.getCareDetails((resp)=>{
+        this.props.getCareDetails((resp)=>{ // get care plans
             if(resp){
                 let feature_data = {}
                 resp.plans.map(function (plans) {

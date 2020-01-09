@@ -64,7 +64,7 @@ class CareLoginPopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
-                    this.props.getIsCareDetails((resp)=>{
+                    this.props.getIsCareDetails((resp)=>{ // get user subscription plan details
                         if(resp && resp.has_active_plan){
                             this.props.history.push('/prime/success?user_plan='+resp.user_plan_id) 
                         }else{
