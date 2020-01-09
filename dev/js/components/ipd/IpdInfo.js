@@ -45,7 +45,7 @@ class IpdView extends React.Component {
 			sections[prp] = this.refs[prp].offsetTop + headerHeight						
 
 		})
-
+		//if there is any tab name in landing url then we scroll to that tab position
 		let self = this
 		if(window && document){
 			window.onscroll = function() {
@@ -71,6 +71,7 @@ class IpdView extends React.Component {
 	}
 
 	toggleTabs(type){
+		//tabs in ipd info page
 		if(document.getElementById(type)){
 			let gtmData = {
 	            'Category': 'ConsumerApp', 'Action': 'IpdTabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-tab-clicked', selectedId: this.props.ipd_id || '', type: type

@@ -31,6 +31,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        //If user is logged in ,fetch user data
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
             this.props.getUpComingAppointment()

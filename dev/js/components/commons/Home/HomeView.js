@@ -256,6 +256,7 @@ class HomeView extends React.Component {
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
+		//For desktop View, get home page views
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
 			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} key="chat" />)
