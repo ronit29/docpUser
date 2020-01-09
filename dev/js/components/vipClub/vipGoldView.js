@@ -158,7 +158,7 @@ class VipGoldView extends React.Component {
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/med-report.svg'} />
-                                                <p>Free Report <br /><strong>Review by Doctors</strong></p>
+                                                <p>Free Lab Test <br/><strong>Report Review</strong></p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
@@ -242,7 +242,7 @@ class VipGoldView extends React.Component {
                                                     <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Consult Doctors for Free to review your Lab Reports</h4>
+                                                    <h4>Free lab test report review by top doctors on every booking.</h4>
                                                 </div>
                                             </div>
                                             {/* consult doctor widget added end */}
