@@ -16,7 +16,9 @@ class ReferralView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            referralCode: null
+            referralCode: null,
+            whatsapp_text:null,
+            share_text:null
         }
     }
 
@@ -28,7 +30,7 @@ class ReferralView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchReferralCode().then((res) => {
                 if (res && res.code) {
-                    this.setState({ referralCode: res.code })
+                    this.setState({ referralCode: res.code,share_text:resp.share_text,whatsapp_text:resp.whatsapp_text })
                 }
             }).catch((e) => {
 
@@ -53,7 +55,8 @@ class ReferralView extends React.Component {
         if (navigator.share && this.state.referralCode) {
             navigator.share({
                 title: 'DocPrime Referral Code',
-                text: this.getShareText(),
+                // text: this.getShareText(),
+                text: this.state.whatsapp_text,
                 url: this.getLink(),
             }).then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
