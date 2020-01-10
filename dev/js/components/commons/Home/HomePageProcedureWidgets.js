@@ -1,7 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 
-class TopProcedureWidgets extends React.Component {
+class TopProcedureWidgets extends React.PureComponent {
 
     navigateTo(data, e) {
         e.preventDefault()
@@ -20,9 +20,9 @@ class TopProcedureWidgets extends React.Component {
         this.props.toggleIPDCriteria(selectedCriteria, true)
         
         if(data.url){
-            this.props.history.push(`/${data.url}?showPopup=true`)
+            this.props.historyObj.push(`/${data.url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
+            this.props.historyObj.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
         }
     }
 
@@ -66,7 +66,7 @@ class TopProcedureWidgets extends React.Component {
                     		this.props.top_data.map((data, i) => {
                     			return <a href={data.url?`${data.url}`:`ipdInfo?ipd_id=${data.id}`} className="pkgcustCards" key={this.props.mergeState?i:data.url?data.url:i} onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img className="img-fluid" src={data.icon} />
+				                                <img className="img-fluid" src={data.svg_icon?data.svg_icon:data.icon} />
 				                            </div>
 				                            <p className="pkgtstName prcd-height">
 				                                {data.name}
