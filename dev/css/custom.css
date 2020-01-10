@@ -7726,7 +7726,9 @@ p.gold-sub-acrd-content {
 }
 
 .gold-accordion-container {
-    margin-top: 25px;
+    margin-top: 36px;
+    padding-top: 11px;
+    border-top: 1px dashed #b0b0b0;
 }
 
 .gold-crd-lft p {
@@ -7840,7 +7842,7 @@ img.gld-cd-icon {
 
 .gold-benifi-cards p {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
 }
 
