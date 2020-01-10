@@ -6,6 +6,7 @@ import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
 import WhatsAppOptinView from '../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import NewDateSelector from '../commons/newDateSelector.js'
 
 class IpdTabForm extends React.Component {
 
@@ -21,21 +22,22 @@ class IpdTabForm extends React.Component {
 			dateModal: false,
 			formattedDate: '',
 			submitFormSuccess: false,
-			whatsapp_optin: true
+			whatsapp_optin: true,
+			isDobValidated:false
 		}
 	}
 
 	componentDidMount() {
 		if (this.props.defaultProfile && !this.state.name && this.props.profiles && this.props.profiles[this.props.defaultProfile] && !this.props.profiles[this.props.defaultProfile].isDummyUser) {
 			let userData = this.props.profiles[this.props.defaultProfile]
-			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '' })
+			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '', isDobValidated:userData.dob?true:false })
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile] && !nextProps.profiles[nextProps.defaultProfile].isDummyUser) {
 			let userData = nextProps.profiles[nextProps.defaultProfile]
-			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '' })
+			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '', isDobValidated:userData.dob?true:false })
 		}
 	}
 
@@ -114,6 +116,10 @@ class IpdTabForm extends React.Component {
 			validateError.push('dob')
 		}
 
+		if(this.state.dob && !this.state.isDobValidated){
+			validateError.push('dob')
+		}
+		
 		if (validateError.length) {
 
 			this.setState({ validateError: validateError })
@@ -190,6 +196,11 @@ class IpdTabForm extends React.Component {
 
 	toggleWhatsap(e) {
         this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+    }
+
+    getNewDate(type,newDate,isValidDob){
+        this.setState({ dob: newDate,isDobValidated:isValidDob},()=>{
+        })
     }
 
 	render(){
@@ -285,11 +296,16 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
-					<div className="form-group fm-grp mrg-mt0">
-						<div className="lbl-txt">Date of Birth:</div>
-						<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('dob') > -1 ? 'error-on' : ''}`} name="dob" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} onFocus={this.openCalendar.bind(this)} /></div>
+					<div className="form-group fm-grp mrg-mt0 slt-nw-input summery-dob-cont">
+						<div className="lbl-txt">DOB:
+						<p className="dob-input-sub">dd/mm/yyyy</p>
+						</div>
+						<div className="input-form">
+							{/*<input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('dob') > -1 ? 'error-on' : ''}`} name="dob" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} onFocus={this.openCalendar.bind(this)} />*/}
+							<NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true}/>
+							</div>
 						{
-							this.state.validateError.indexOf('dob') > -1 ?
+							!this.state.dob && this.state.validateError.indexOf('dob') > -1 ?
 								<span className="error-msg">Required</span>
 								: ''
 						}
