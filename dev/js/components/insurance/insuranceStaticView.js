@@ -50,7 +50,7 @@ class InsuranceStaticView extends React.Component {
 		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
 			phoneNumber = this.props.USER.primaryMobile
 		}
-		this.props.generateInsuranceLead('', phoneNumber, lead_data, this.props.selectedLocation)
+		this.props.generateInsuranceLead('', phoneNumber, lead_data, this.props.selectedLocation) // to create insurance lead for matrix
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -113,7 +113,7 @@ class InsuranceStaticView extends React.Component {
 		// plan_to_toggle.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document
 		// plan_to_toggle.insurer = this.props.insurnaceData['insurance'][0].id
 		// plan_to_toggle.stateData = this.props.insurnaceData['state'] 
-		this.props.selectInsurancePlan('plan', plan)
+		this.props.selectInsurancePlan('plan', plan) // save user selected plan
 		this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`, toggle: this.state.toggle == 'two' ? 'one' : 'one' })
 	}
 
@@ -128,7 +128,7 @@ class InsuranceStaticView extends React.Component {
 			}
 			if (Object.keys(plan).length > 0) {
 				lead_data = parsed
-				this.props.generateInsuranceLead(plan.id, phoneNumber, lead_data, this.props.selectedLocation)
+				this.props.generateInsuranceLead(plan.id, phoneNumber, lead_data, this.props.selectedLocation) // to create insurance lead for matrix
 			}
 			this.props.history.push('/insurance/insurance-plan-view')
 		} else {
@@ -150,7 +150,7 @@ class InsuranceStaticView extends React.Component {
 		// plan.insurer = this.props.insurnaceData['insurance'][0].id
 		// plan.stateData = this.props.insurnaceData['state']
 		// this.props.selectInsurancePlan('plan', plan)
-		this.props.resetSelectedPlans()
+		this.props.resetSelectedPlans() // to reset user selected plan
 		if (STORAGE.checkAuth()) {
 			let phoneNumber = ''
 			if (this.props.USER && this.props.USER.primaryMobile != '') {
@@ -158,7 +158,7 @@ class InsuranceStaticView extends React.Component {
 			}
 			if (Object.keys(plan).length > 0) {
 				lead_data = parsed
-				this.props.generateInsuranceLead(plan.id, phoneNumber, lead_data, this.props.selectedLocation)
+				this.props.generateInsuranceLead(plan.id, phoneNumber, lead_data, this.props.selectedLocation) // to create insurance lead for matrix
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length

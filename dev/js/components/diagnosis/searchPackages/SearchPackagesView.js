@@ -51,7 +51,7 @@ class SearchPackagesView extends React.Component {
             window.scrollTo(0, 0)
         }
 
-        try{
+        try{ // save utm params if exists
             if(parsed.utm_source && parsed.utm_source=='OfflineAffiliate'){
                 let sessionId = Math.floor(Math.random() * 103)*21 + 1050
                 if(sessionStorage) {
@@ -83,8 +83,8 @@ class SearchPackagesView extends React.Component {
                 let time_offset = (currentTime - spo_tags.time)/60000
                 //Clear SPO utm tags after 15minutes
                 //900
-                if(time_offset>180) {
-                    this.props.unSetCommonUtmTags('spo')
+                if(time_offset>180) { // remove spo utm params if exists
+                    this.props.unSetCommonUtmTags('spo') 
                 }
             }
         }
@@ -113,7 +113,7 @@ class SearchPackagesView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(state = null, page = null, cb = null) {
+    getLabList(state = null, page = null, cb = null) { 
         const parsed = queryString.parse(this.props.location.search)
         if (page === null) {
             page = this.props.page
@@ -140,7 +140,7 @@ class SearchPackagesView extends React.Component {
         if(parsed.utm_source){
            extra_params.utm_source = parsed.utm_source || ""
         }
-        this.props.getPackages(state, page, false, null,extra_params, (...args) => {
+        this.props.getPackages(state, page, false, null,extra_params, (...args) => { //get searched packages result
             // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
@@ -153,7 +153,7 @@ class SearchPackagesView extends React.Component {
         })
     }
 
-    applyFilters(filterState) {
+    applyFilters(filterState) { // apply filters
         // this.props.mergeLABState({ filterCriteria: filterState })
         this.resetQuickFilters()
         this.props.mergeLABState({ filterCriteriaPackages: filterState })
@@ -166,7 +166,7 @@ class SearchPackagesView extends React.Component {
         this.setState({ quickFilter: {} })
     }
 
-    applyCategories(categoryState, filterstate) {
+    applyCategories(categoryState, filterstate) { // apply category filter
         let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
 
@@ -195,7 +195,7 @@ class SearchPackagesView extends React.Component {
         }
     }
 
-    comparePackage() {
+    comparePackage() { // to compare differnt packages 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
         }
@@ -222,13 +222,13 @@ class SearchPackagesView extends React.Component {
         } else {
             this.setState({ isCompare: !this.state.isCompare }, () => {
                 if (this.props.compare_packages && this.props.compare_packages.length > 0) {
-                    this.props.resetPkgCompare()
+                    this.props.resetPkgCompare() 
                 }
             })
         }
     }
 
-    toggleComparePackages(packageId, labId, pckImg, pckName) {
+    toggleComparePackages(packageId, labId, pckImg, pckName) { // toggle packages for comparision
         let packages = {}
         packages.id = packageId
         packages.lab_id = labId
@@ -237,7 +237,7 @@ class SearchPackagesView extends React.Component {
         this.props.togglecompareCriteria(packages)
     }
 
-    buildURI(state) {
+    buildURI(state) { // build url with differnt params or differnt filters
         let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages, page } = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
@@ -345,7 +345,7 @@ class SearchPackagesView extends React.Component {
         this.setState({ quickFilter: filter })
     }
 
-    nonIpdLeads(phone_number){
+    nonIpdLeads(phone_number){ // create of non ipd packages leads
         const parsed = queryString.parse(this.props.location.search)
         let package_name = null
         if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length>1){

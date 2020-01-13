@@ -89,14 +89,14 @@ class packagesList extends React.Component {
     loadMore(page) {
         this.setState({ hasMore: false, loading: true, page: page })
 
-        this.props.getLabList(null, page + 1, (hasMore) => {
+        this.props.getLabList(null, page + 1, (hasMore) => { //get searched packages result
             this.setState({ loading: false })
             setTimeout(() => {
                 this.setState({ hasMore })
             }, 1000)
         })
     }
-    testInfo() {
+    testInfo() { // redirect to included test details page
         var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
@@ -113,6 +113,7 @@ class packagesList extends React.Component {
     }
 
     applyQuickFilters(category, viewMore = false) {
+        // apply filters
         let filters = {
             catId: viewMore ? [] : [category],
             viewMore: viewMore

@@ -28,7 +28,7 @@ class VipClub extends React.Component{
     componentDidMount() {
         
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
+            this.props.getUserProfile() // to get loggedIn user profile
         }
         if (window) {
             window.scrollTo(0, 0)
@@ -38,15 +38,15 @@ class VipClub extends React.Component{
             from_vip:true,
             type:this.state.is_gold?'is_gold':'is_vip'
         }
-        this.props.getNearbyHospitals(extraData);
-        this.props.getTopHospitals(extraData);
+        this.props.getNearbyHospitals(extraData); // to get near by hospitals covered under gold or vip or near by location
+        this.props.getTopHospitals(extraData);// to get near by  top hospitals covered under gold or vip or near by location
         let data={}
         data.selectedLocation = this.props.selectedLocation
         data.isSalesAgent = this.state.isSalesAgent
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
-        this.props.getVipList(false,data)
+        this.props.getVipList(false,data) // to get vip plan list
 
     }
     render(){
@@ -59,7 +59,7 @@ class VipClub extends React.Component{
                        
             </React.Fragment>
         }else{
-            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
+            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){ // if already gold or vip user redirect to dashboard
                 this.props.history.replace('/vip-club-activated-details')
             }
             if(this.state.isSalesAgent && this.state.isAgent){

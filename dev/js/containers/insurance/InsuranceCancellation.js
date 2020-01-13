@@ -14,7 +14,7 @@ class InsuranceCancellation extends React.Component{
     }
 
     componentDidMount(){
-        this.props.cancelledInsuranceDetails(resp =>{
+        this.props.cancelledInsuranceDetails(resp =>{ // to get user cancelled details
             this.setState({data:resp})
         })
     }

@@ -15,12 +15,12 @@ class UserAppointmentsView extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getProfileAppointments(this.props.USER.selectedProfile)
+        this.props.getProfileAppointments(this.props.USER.selectedProfile) // get user appointments
     }
 
     componentWillReceiveProps(props) {
         if (this.props.USER.selectedProfile != props.USER.selectedProfile) {
-            this.props.getProfileAppointments(props.USER.selectedProfile)
+            this.props.getProfileAppointments(props.USER.selectedProfile) // get user appointments
         }
     }
 

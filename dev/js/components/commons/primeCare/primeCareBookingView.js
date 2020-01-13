@@ -53,7 +53,7 @@ class PrimeCareBookingView extends React.Component {
             this.props.createProfile(profileData, (err, res) => {
                 self.props.getUserProfile()
             })
-            self.props.createCareBooking(selectedPlan,(resp)=>{
+            self.props.createCareBooking(selectedPlan,(resp)=>{ //proceed to payment gate way
                 if(resp.payment_required){
                     // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
                     this.processPayment(resp)
@@ -62,7 +62,7 @@ class PrimeCareBookingView extends React.Component {
                 }        
             })
         }else{
-            this.props.createCareBooking(selectedPlan,(resp)=>{
+            this.props.createCareBooking(selectedPlan,(resp)=>{//proceed to payment gate way
                 if(resp.payment_required){
                     // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
                     this.processPayment(resp)

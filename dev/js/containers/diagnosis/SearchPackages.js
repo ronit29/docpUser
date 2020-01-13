@@ -25,7 +25,7 @@ class SearchPackages extends React.Component {
                     location_ms = parseInt(location_ms)
                 }
 
-                PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
+                PackageSearchStateBuilder(null, queryParams, true, location_ms).then((state) => { // build state in case of ssr
                     store.dispatch(mergeLABState(state))
 
                     let searchUrl = null
@@ -36,7 +36,7 @@ class SearchPackages extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    return store.dispatch(getPackages(state, page, true, searchUrl, {}, (loadMore, seoData) => {
+                    return store.dispatch(getPackages(state, page, true, searchUrl, {}, (loadMore, seoData) => { //get searched packages result
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null

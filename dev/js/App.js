@@ -233,6 +233,7 @@ class App extends React.Component {
     }
 
     tokenRefresh(props){
+        //Toekn Refresh to keep updating user token at regular intervals
         if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
             props.getCartItems()
             this.setState({toCallRefreshToken: true})

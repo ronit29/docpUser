@@ -23,7 +23,7 @@ class UserReview extends React.Component {
     }
 
     performLoginOps = () => {
-        this.props.getRatingCompliments((err, compliments) => {
+        this.props.getRatingCompliments((err, compliments) => {// get user ratings
             if (!err && compliments) {
                 this.setState({ compliments })
             }

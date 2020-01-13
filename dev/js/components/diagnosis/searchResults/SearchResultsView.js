@@ -41,6 +41,7 @@ class SearchResultsView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         if (this.props.mergeUrlState) {
             let getSearchId = true
+            //if search id exist in url then we get data for that search id from store
             if (this.props.location.search.includes('search_id')) {
 
                 if (this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data) {
@@ -68,6 +69,7 @@ class SearchResultsView extends React.Component {
                 }
             }
             if (getSearchId) {
+                //If no searchId in url then we create search id and store data corresponding to that search id
                 let filters = {}
                 filters.commonSelectedCriterias = this.props.nextSelectedCriterias
                 filters.filterCriteria = this.props.nextFilterCriteria
@@ -161,6 +163,7 @@ class SearchResultsView extends React.Component {
             this.setState({ setSearchId: true })
             this.getLabList(props)
         } else {
+            //Whenever location changes make api calls
             if (props.selectedLocation != this.props.selectedLocation && props.mergeUrlState) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
@@ -169,6 +172,7 @@ class SearchResultsView extends React.Component {
     }
 
     generateSearchId(uid_string) {
+        //method to generate search id
         uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
         var dt = new Date().getTime();
         var uuid = uid_string.replace(/[xy]/g, function (c) {
@@ -187,6 +191,7 @@ class SearchResultsView extends React.Component {
     }
 
     getLabList(state = null, page = null, cb = null) {
+        //apply filters and get updated data
         let searchUrl = null
         if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -214,6 +219,7 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         // clear LANDING_PAGE to enable loader
+        //apply filters 
         if (typeof window == 'object') {
             window.ON_LANDING_PAGE = false
         }
@@ -234,6 +240,7 @@ class SearchResultsView extends React.Component {
     }
 
     isFilterApplied(filterCriteria){
+        //check if any filters applied to the search
         let is_filter_applied = false
         if(filterCriteria){
             let sort_on = filterCriteria.sort_on || ""
@@ -274,6 +281,7 @@ class SearchResultsView extends React.Component {
     }
 
     buildURI(state) {
+        //keep on updating url with the updated filters 
         let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, page } = state
         let testIds = currentSearchedCriterias.filter(x => x.type == 'test').map(x => x.id)
 

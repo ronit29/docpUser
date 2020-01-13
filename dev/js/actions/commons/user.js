@@ -15,7 +15,7 @@ export const getUserProfile = () => (dispatch) => {
 	})
 }
 
-export const getProfileAppointments = (profile_id) => (dispatch) => {
+export const getProfileAppointments = (profile_id) => (dispatch) => { // get user appointments
 	API_GET(`/api/v1/user/appointment`).then(function (response) {
 
 		dispatch({
@@ -61,7 +61,7 @@ export const selectProfile = (profile_id, cb) => (dispatch) => {
 	})
 }
 
-export const editUserProfile = (profileData, profileId, cb) => (dispatch) => {
+export const editUserProfile = (profileData, profileId, cb) => (dispatch) => { // update profile
 	API_POST(`/api/v1/user/userprofile/${profileId}/edit`, profileData).then(function (response) {
 		dispatch({
 			type: APPEND_USER_PROFILES,
@@ -290,7 +290,7 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
-export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => {
+export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => { //send payment link in sms to user by agaent
 	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags, ...extraParams }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {

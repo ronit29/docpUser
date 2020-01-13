@@ -110,6 +110,7 @@ class SearchResultsView extends React.Component {
 
         if (this.props.mergeUrlState) {
             let getSearchId = true
+            //if search id exist in url then we get data for that search id from store
             if (this.props.location.search.includes('search_id')) {
 
                 if (this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data) {
@@ -139,6 +140,7 @@ class SearchResultsView extends React.Component {
             }
 
             if (getSearchId) {
+                //If no searchId in url then we create search id and store data corresponding to that search id
                 let filters = {}
                 filters.commonSelectedCriterias = this.props.nextSelectedCriterias
                 filters.filterCriteria = this.props.nextFilterCriteria
@@ -290,6 +292,7 @@ class SearchResultsView extends React.Component {
                 window.scrollTo(0, 0)
             }
         } else {
+            //Whenever location changes make api calls
             if (props.selectedLocation != this.props.selectedLocation && props.mergeUrlState) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
@@ -308,6 +311,7 @@ class SearchResultsView extends React.Component {
     }
 
     generateSearchId(uid_string) {
+        //method to generate search id
         uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
         var dt = new Date().getTime();
         var uuid = uid_string.replace(/[xy]/g, function (c) {
@@ -327,6 +331,7 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         // clear LANDING_PAGE to enable loader
+        //apply filters and get updated data
         if (typeof window == 'object') {
             window.ON_LANDING_PAGE = false
         }
@@ -346,7 +351,7 @@ class SearchResultsView extends React.Component {
     }
 
     buildURI(state) {
-
+        //keep on updating url with the updated filters 
         const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType, page } = state
@@ -509,6 +514,7 @@ class SearchResultsView extends React.Component {
     }
 
     getDoctorList(state = null, page = null, cb = null) {
+        //get doctor list on filters applied
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -601,6 +607,7 @@ class SearchResultsView extends React.Component {
     }
 
     searchDoctorSpecialization(speciality, isViewAll) {
+        //filter to search doctor specialization
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -657,6 +664,7 @@ class SearchResultsView extends React.Component {
             count = dataLength;
             dataLength = 
         }*/
+        //funciton to return search specialization to render
         let dataModel = []
         for (let i = 0; i < this.props.similar_specializations.length; i++) {
             if (flag && i % 2 == 0) {
@@ -693,6 +701,7 @@ class SearchResultsView extends React.Component {
     }
 
     sortFilterClicked() {
+        //function which called when we click on screen-filters 
         if (this.child && this.child.sortFilterClicked) {
             this.child.sortFilterClicked()
         }
