@@ -1804,7 +1804,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                                 <span className="nw-pick-hdng">Time:</span>
                                                                                                                 <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
                                                                                                                     <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                                                    <input type="text" name="bday" onClick={() => this.navigateTo('time')} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                                                    <input type="text" name="bday" onClick={() => {}} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
                                                                                                                     <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                                                                 </div>
                                                                                                             </div>
