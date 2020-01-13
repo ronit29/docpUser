@@ -29,7 +29,6 @@ class ReferralView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchReferralCode().then((res) => {
                 if (res && res.code) {
-                    console.log(res)
                     this.setState({ referralCode: res.code, whatsapp_text:res.whatsapp_text })
                 }
             }).catch((e) => {
@@ -64,8 +63,6 @@ class ReferralView extends React.Component {
     }
 
     render() {
-        console.log(this.state.whatsapp_text)
-        console.log(this.state.referralCode)
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
