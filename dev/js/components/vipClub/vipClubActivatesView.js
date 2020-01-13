@@ -107,6 +107,11 @@ class VipClub extends React.Component {
         if (this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0) {
             primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x => x.is_primary_user))[0]
         }
+        let is_corporate
+        if(!this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0){
+            is_corporate = this.props.data.plan[0].is_corporate
+        }
+
         return (
             <div className="profile-body-wrap" style={{ background: "" }}>
                 <div className="d-none d-lg-block">
