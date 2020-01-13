@@ -17,8 +17,7 @@ class ReferralView extends React.Component {
         super(props)
         this.state = {
             referralCode: null,
-            whatsapp_text:null,
-            share_text:null
+            whatsapp_text:null
         }
     }
 
@@ -30,7 +29,8 @@ class ReferralView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchReferralCode().then((res) => {
                 if (res && res.code) {
-                    this.setState({ referralCode: res.code,share_text:resp.share_text,whatsapp_text:resp.whatsapp_text })
+                    console.log(res)
+                    this.setState({ referralCode: res.code, whatsapp_text:res.whatsapp_text })
                 }
             }).catch((e) => {
 
@@ -44,7 +44,8 @@ class ReferralView extends React.Component {
     }
 
     getShareText() {
-        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 50 `
+        return this.state.whatsapp_text
+        // return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 50 `
     }
 
     getFullText() {
@@ -55,8 +56,7 @@ class ReferralView extends React.Component {
         if (navigator.share && this.state.referralCode) {
             navigator.share({
                 title: 'DocPrime Referral Code',
-                // text: this.getShareText(),
-                text: this.state.whatsapp_text,
+                text: this.getShareText(),
                 url: this.getLink(),
             }).then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
@@ -64,7 +64,8 @@ class ReferralView extends React.Component {
     }
 
     render() {
-
+        console.log(this.state.whatsapp_text)
+        console.log(this.state.referralCode)
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
@@ -117,11 +118,11 @@ class ReferralView extends React.Component {
                                                             {
                                                                 this.state.referralCode ? <ul className="text-center">
                                                                     <li><a href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></a></li>
-                                                                    <li><a href={`mailto:?subject=DocPrime Refer&body=${this.getFullText()}`}><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></a></li>
+                                                                    {/*<li><a href={`mailto:?subject=DocPrime Refer&body=${this.getFullText()}`}><img src={ASSETS_BASE_URL + "/img/email-icon.png"} alt="email" /></a></li>
                                                                     <li><a href={`sms:?&body=${this.getLink()}`}><img src={ASSETS_BASE_URL + "/img/chat-icon.png"} alt="chat" /></a></li>
                                                                     <li>
                                                                         <a id="fb-share" type="icon_link" onClick={() => { window.open(`http://www.facebook.com/sharer.php?s=100&p[title]=DocPrime Refer&p[summary]=${this.getShareText()}&p[url]=${this.getLink()}','sharer','toolbar=0,status=0,width=580,height=325`) }} href="javascript: void(0)"><img src={ASSETS_BASE_URL + "/img/facebook-icon.png"} alt="facebook" /></a>
-                                                                    </li>
+                                                                    </li>*/}
                                                                 </ul> : ""
                                                             }
                                                         </div>
