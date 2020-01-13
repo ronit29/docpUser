@@ -121,7 +121,7 @@ class EditProfile extends React.Component {
         }
     }
 
-    proceedUpdate(e) {
+    proceedUpdate(e) { // update profile
         e.stopPropagation()
         e.preventDefault()
 
@@ -185,7 +185,7 @@ class EditProfile extends React.Component {
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
-                this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
+                this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => { // update profile
                     this.setState({ loading: false })
                     if(err){
                         if(err.message){

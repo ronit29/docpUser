@@ -19,7 +19,7 @@ class UserReportsView extends React.Component {
 
     componentDidMount() {
         this.setState({ loading: true })
-        this.props.getAppointmentReports(this.state.id, this.state.type, (err, data) => {
+        this.props.getAppointmentReports(this.state.id, this.state.type, (err, data) => { // get user reports
             if (!err) {
                 this.setState({ reports: data, loading: false })
             } else {

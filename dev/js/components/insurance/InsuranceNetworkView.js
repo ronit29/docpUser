@@ -52,7 +52,7 @@ class InsuranceNetworkView extends React.Component {
 
     updateInsuranceNetwork(type, string, searchBy = '') {
         let { lat, long } = this.getLocation()
-        this.props.getInsuranceNetworks(lat, long, type, string, searchBy)
+        this.props.getInsuranceNetworks(lat, long, type, string, searchBy) // get user insurance networks
     }
 
     getLocation() {

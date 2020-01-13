@@ -1,7 +1,7 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getInsurance = (is_endorsement,callback) => (dispatch) => {
+export const getInsurance = (is_endorsement,callback) => (dispatch) => { // to get insurance plans
 
     return API_GET('/api/v1/insurance/list?is_endorsement='+is_endorsement).then(function (response) {
         dispatch({
@@ -19,7 +19,7 @@ export const getInsurance = (is_endorsement,callback) => (dispatch) => {
     })
 
 }
-export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
+export const getInsuranceMemberList = (member_list_id) => (dispatch) => { // get insured member details and list of dieases(faq's)
     return API_GET('/api/v1/insurance/members/list?id='+member_list_id).then(function (response) {
         dispatch({
             type: INSURE_MEMBER_LIST,
@@ -34,7 +34,7 @@ export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     })
 
 }
-export const insurancePay = (criteria,callback) => (dispatch) => {
+export const insurancePay = (criteria,callback) => (dispatch) => { // to request payment
     return API_POST('/api/v1/insurance/create',criteria).then(function (response) {
         dispatch({
             type: INSURANCE_PAY,
@@ -51,7 +51,7 @@ export const insurancePay = (criteria,callback) => (dispatch) => {
     })
 
 }
-export const updateMemberList = (postData,callback) => (dispatch) => {
+export const updateMemberList = (postData,callback) => (dispatch) => { // update members selected list
     return API_POST('/api/v1/insurance/members/update',postData).then(function (response) {
         dispatch({
             type: UPDATE_MEMBER_LIST,
@@ -67,7 +67,7 @@ export const updateMemberList = (postData,callback) => (dispatch) => {
     })
 
 }
-export const selectInsurancePlan = (type, selected_plan) => (dispatch) => {
+export const selectInsurancePlan = (type, selected_plan) => (dispatch) => { // to select insurance plan
     dispatch({
         type: SELECT_INSURANCE_PLAN,
         payload: {
@@ -76,7 +76,7 @@ export const selectInsurancePlan = (type, selected_plan) => (dispatch) => {
     })
 
 }
-export const userData = (type, self_data_values, forceAdd = false, previousProfile='') => (dispatch) => {
+export const userData = (type, self_data_values, forceAdd = false, previousProfile='') => (dispatch) => { // to save user entered details in dummy table
     dispatch({
         type: SELF_DATA,
         payload: {
@@ -87,7 +87,7 @@ export const userData = (type, self_data_values, forceAdd = false, previousProfi
     })
 
 }
-export const selectInsuranceProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => {
+export const selectInsuranceProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => { // select from profile option
     dispatch({
         type: SELECT_PROFILE,
         payload: {
@@ -107,7 +107,7 @@ export const getUserProfile = () => (dispatch) => {
 
     })
 }
-export const getInsuredProfile = (callback) => (dispatch) => {
+export const getInsuredProfile = (callback) => (dispatch) => { // to get insured members data and certification details
     return API_GET('/api/v1/insurance/profile').then(function (response) {
         dispatch({
             type: INSURED_PROFILE,
@@ -119,26 +119,26 @@ export const getInsuredProfile = (callback) => (dispatch) => {
     })
 }
 
-export const saveCurrentSelectedMembers = (membersId) => (dispatch) => {
+export const saveCurrentSelectedMembers = (membersId) => (dispatch) => { // to save current selected members data in store
     dispatch({
         type: SAVE_CURRENT_INSURED_MEMBERS,
         payload: membersId
     })
 }
 
-export const resetSelectedInsuranceMembers = (member_id) => (dispatch) => {
+export const resetSelectedInsuranceMembers = (member_id) => (dispatch) => { // filter only visible forms objexts in the store
     dispatch({
         type: RESET_CURRENT_INSURED_MEMBERS,
         payload :member_id
     })
 }
 
-export const resetSelectedPlans = () => (dispatch) => {
+export const resetSelectedPlans = () => (dispatch) => { // to reset user selected plan
     dispatch({
         type:RESET_INSURED_PLANS
     })
 }
-export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => { // to create insurance lead for matrix
     let lat
     let long
     let latitude = 28.644800
@@ -174,7 +174,7 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLoc
        if(callback) callback(error, null)
     })
 }
-export const pushUserData = (criteria,callback) => (dispatch) => {
+export const pushUserData = (criteria,callback) => (dispatch) => { // to save user entered details in dummy table
     return API_POST('/api/v1/insurance/push_insurance_data',criteria).then(function (response) {
         dispatch({
             type: PUSH_USER_DATA,
@@ -192,7 +192,7 @@ export const pushUserData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const retrieveUserData = (callback) => (dispatch) => {
+export const retrieveUserData = (callback) => (dispatch) => { // to retrieve user data in case of agent has loggedin instead of user 
     API_GET('/api/v1/insurance/show_insurance_data').then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
@@ -201,14 +201,14 @@ export const retrieveUserData = (callback) => (dispatch) => {
 
 }
 
-export const resetUserInsuredData = (criteria) => (dispatch) => {
+export const resetUserInsuredData = (criteria) => (dispatch) => { // to reset the insurance store to initial state
     dispatch({
         type:RESET_INSURED_DATA,
         payload:criteria
     })
 }
 
-export const cancelInsurance = (data,callback) => (dispatch) => {
+export const cancelInsurance = (data,callback) => (dispatch) => { // to submit user cancellation request
     return API_POST('/api/v1/insurance/cancel',data).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
@@ -216,7 +216,7 @@ export const cancelInsurance = (data,callback) => (dispatch) => {
     })
 }
 
-export const cancelledInsuranceDetails = (callback) => (dispatch) => {
+export const cancelledInsuranceDetails = (callback) => (dispatch) => { // to get user cancelled details
     API_GET('/api/v1/insurance/cancel-master').then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
@@ -224,7 +224,7 @@ export const cancelledInsuranceDetails = (callback) => (dispatch) => {
     })
 }
 
-export const getEndorsedMemberList = (callback) => (dispatch) => {
+export const getEndorsedMemberList = (callback) => (dispatch) => { // to get the list of members which are allowed for endorsement
     return API_GET('/api/v1/insurance/endorsement').then(function (response) {
         dispatch({
             type: ENDORSED_MEMBER_LIST,
@@ -241,7 +241,7 @@ export const getEndorsedMemberList = (callback) => (dispatch) => {
 
 }
 
-export const pushUserEndorsedData = (criteria,callback) => (dispatch) => {
+export const pushUserEndorsedData = (criteria,callback) => (dispatch) => { // to save user entered details in dummy table
     return API_POST('/api/v1/insurance/push_endorsement_data',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -251,7 +251,7 @@ export const pushUserEndorsedData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const retrieveEndorsedData = (callback) => (dispatch) => {
+export const retrieveEndorsedData = (callback) => (dispatch) => { // to retrieve user endorsement data (if user want's to update any of details in there policy details)
     API_GET('/api/v1/insurance/show_endorsement_data').then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
@@ -260,7 +260,7 @@ export const retrieveEndorsedData = (callback) => (dispatch) => {
 
 }
 
-export const createEndorsementData = (criteria,callback) => (dispatch) => {
+export const createEndorsementData = (criteria,callback) => (dispatch) => { // submit endoresment data
     return API_POST('/api/v1/insurance/endorsement/create',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -270,7 +270,7 @@ export const createEndorsementData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const uploadProof = (profileData, memberId,imgType,cb) => (dispatch) => {
+export const uploadProof = (profileData, memberId,imgType,cb) => (dispatch) => { // store selected proof to database
     API_POST(`/api/v1/insurance/member/${memberId}/upload?member=${memberId}&type=${imgType}`,profileData).then(function (response) {
         if (cb) cb(response,null);
     }).catch(function (error) {
@@ -285,19 +285,19 @@ export const storeMemberProofs = (imgUrl,cb) => (dispatch) => {
     })
 }
 
-export const removeMemberProof = (criteria) => (dispatch) => {
+export const removeMemberProof = (criteria) => (dispatch) => { // to remove cancelled uploaded image
     dispatch({
         type:DELETE_MEMBER_PROOF,
         payload:criteria
     })
 }
-export const saveUserBankDetails = (criteria) => (dispatch) => {
+export const saveUserBankDetails = (criteria) => (dispatch) => { // to save user entered bank details in store
     dispatch({
         type:SAVE_INSURANCE_BANK_DETAILS,
         payload:criteria
     })
 }
-export const uploadBankProof = (profileData,imgType,cb) => (dispatch) => {
+export const uploadBankProof = (profileData,imgType,cb) => (dispatch) => { // to upload proofs
     API_POST(`/api/v1/insurance/bank/upload`,profileData).then(function (response) {
         if (cb) cb(response,null);
     }).catch(function (error) {
@@ -312,18 +312,18 @@ export const saveAvailNowInsurance = (criteria) => (dispatch) => {
     })
 }
 
-export const clearAvailNowInsurance = () => (dispatch) => {
+export const clearAvailNowInsurance = () => (dispatch) => { // to clear avail now from store
     dispatch({
         type:CLEAR_AVAIL_NOW_INSURANCE
     })
 }
-export const cancelReason = (criteria) => (dispatch) => {
+export const cancelReason = (criteria) => (dispatch) => { // ask cancellation reason
     dispatch({
         type:CANCEL_REASON_INSURANCE,
         payload:criteria
     })
 }
-export const clearBankDetails = () => (dispatch) => {
+export const clearBankDetails = () => (dispatch) => { // to reset user enterted bank details
     dispatch({
         type:CLEAR_BANK_DETAILS_INSURANCE
     })

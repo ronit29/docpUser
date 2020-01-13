@@ -22,7 +22,7 @@ class DesktopProfileHeader extends React.Component {
             if (!this.props.profiles[this.props.selectedProfile]) {
                 this.props.getUserProfile()
             }
-            this.props.getIsCareDetails()
+            this.props.getIsCareDetails() // get user subscription plan details
         }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
     }

@@ -62,8 +62,9 @@ class Notifications extends React.Component {
                 document.body.appendChild(jsElm3);
 
             }
-
+            //Check for Socket connection and initiate if required
             this.initSocket(props)
+            //Check for FCM connection and initiate if required
             this.initFCM(props)
         }
     }

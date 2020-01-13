@@ -44,6 +44,7 @@ class BookingView extends React.Component {
         let appointmentId = this.props.match.params.refId
 
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot && Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).length) {
+           //On reshedule this function calls , to update the appointment status
             /*let tests = []
             Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).map((twp)=>{
 
@@ -82,7 +83,7 @@ class BookingView extends React.Component {
                 this.props.getUpcomingAppointments()
             })
         } else {
-
+            //get appoinment data 
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })

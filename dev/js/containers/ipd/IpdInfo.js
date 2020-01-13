@@ -103,7 +103,7 @@ class IpdInfoContainer extends React.Component{
 	}
 
 	buildUrl(props){
-
+		//build url for ipd procedure info
 		let lat = 28.644800
         let long = 77.216721
         let place_id = ""

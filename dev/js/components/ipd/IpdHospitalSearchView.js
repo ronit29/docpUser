@@ -40,7 +40,7 @@ class IpdHospitalView extends React.Component{
        // if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {
-
+                //if search id exist in url then we get data for that search id from store
                 if (this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data && Object.values(this.props.search_id_data[parsed.search_id].data).length) {
 
                     getSearchId = false
@@ -69,6 +69,7 @@ class IpdHospitalView extends React.Component{
             }
 
             if (getSearchId) {
+                //If no searchId in url then we create search id and store data corresponding to that search id
                 let filterCriteria = {}
                 let { criteria, filters } = this.buildUrlState(this.props.nextSelectedCriterias, this.props.nextFilterCriteria)
                 filterCriteria.commonSelectedCriterias = criteria
@@ -150,11 +151,13 @@ class IpdHospitalView extends React.Component{
             })
             
         }else if(nextProps.locationFetched != this.props.locationFetched){
+            //Whenever location changes make api calls
             this.getIpdHospitalList(nextProps)
         }
     }
 
     getIpdHospitalList(state, page=null, cb=null){
+        //apply filters and get updated data
         const parsed = queryString.parse(this.props.location.search)
         
         if (!state) {
@@ -181,6 +184,7 @@ class IpdHospitalView extends React.Component{
     }
 
 	buildURI(state) {
+        //keep on updating url with the updated filters 
         const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
@@ -260,6 +264,7 @@ class IpdHospitalView extends React.Component{
     }
 
     generateSearchId(uid_string) {
+        //method to generate search id
         uid_string = 'xyyyxxyx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
         var dt = new Date().getTime();
         var uuid = uid_string.replace(/[xy]/g, function (c) {

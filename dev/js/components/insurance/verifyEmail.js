@@ -1,7 +1,7 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
 
-class VerifyEmail extends React.Component {
+class VerifyEmail extends React.Component { // email verification
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -56,7 +56,7 @@ class VerifyEmail extends React.Component {
 				if(this.props.is_endorsement){
 					this.props.handleSubmit(false,true)	
 				}else{
-					this.props.verifyEndorsementEmail(this.state.email,false,true)
+					this.props.verifyEndorsementEmail(this.state.email,false,true) //verify email using otp
 				}
 			}
 		})

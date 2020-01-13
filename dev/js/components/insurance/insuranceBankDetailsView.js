@@ -124,9 +124,9 @@ class InsuranceCancellationView extends React.Component {
 				data.bank_address = this.state.address
 				data.image_ids = [{'document_image':this.state.img_id}]
 				data.cancel_reason = this.props.cancel_reason
-	        	this.props.cancelInsurance(data,(resp)=> {
+	        	this.props.cancelInsurance(data,(resp)=> { // to submit user cancellation request
 					if (resp.success) {
-						this.props.clearBankDetails()
+						this.props.clearBankDetails() // to reset user enterted bank details
 						this.setState({ policy_number:resp.policy_number,showCancelSection:false })
 					}
 				})
@@ -195,10 +195,10 @@ class InsuranceCancellationView extends React.Component {
             } else {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
-            this.props.uploadBankProof(form_data,'image', (data, err) => {
+            this.props.uploadBankProof(form_data,'image', (data, err) => { // to upload proofs
                 if (data) {
                 	this.setState({img_url:data.data.document_image,img_id:data.id,isLoading:false},()=>{
-                		this.props.saveUserBankDetails(this.state)
+                		this.props.saveUserBankDetails(this.state) // to save user entered bank details in store
                 	})
                 }
             })
@@ -216,12 +216,12 @@ class InsuranceCancellationView extends React.Component {
     
     removeImage(img){
         this.setState({img_url:null,img_id:null},()=>{
-        	this.props.saveUserBankDetails(this.state)
+        	this.props.saveUserBankDetails(this.state) // to save user entered bank details in store
         })
     }
 
     handleSubmit(){
-    	this.props.saveUserBankDetails(this.state)
+    	this.props.saveUserBankDetails(this.state) // to save user entered bank details in store
     }
     
 	render() {

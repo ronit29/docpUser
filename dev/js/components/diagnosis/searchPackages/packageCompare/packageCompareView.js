@@ -74,7 +74,7 @@ const queryString = require('query-string');
       }, 100)
     }
 
-    bookNow(id, url, test_id, test_name, e){
+    bookNow(id, url, test_id, test_name, e){ // redirect to package booking summary
       this.props.clearExtraTests()
         let testIds = test_id
         let new_test = {}
@@ -158,7 +158,7 @@ const queryString = require('query-string');
         this.setState({tabsValue : ids, viewAll:!this.state.viewAll})
     }
 
-    toggleShowDiff(){
+    toggleShowDiff(){ // show differnce b/w packages
       let data = {
             'Category': 'ConsumerApp', 'Action': 'ShoWDifferenceClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-difference-click'
         }

@@ -27,7 +27,7 @@ class InsuranceCancellationView extends React.Component {
 	}
 
 	cancelPolicy() {
-		this.submitOTPRequest(this.props,true,false)
+		this.submitOTPRequest(this.props,true,false) // to submit otp request
 		this.setState({ showCancelPopup: true })
 	}
 
@@ -38,7 +38,7 @@ class InsuranceCancellationView extends React.Component {
 		}
         if (number && number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" ,phoneNumber:number})
-            this.props.sendOTP(number,viaSms,viaWhatsapp,'insurance-cancel', (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp,'insurance-cancel', (error) => { // to submit otp request
                 if (error) {
                     this.setState({ validationError: "Could not generate OTP." })
                 } else {
@@ -61,7 +61,7 @@ class InsuranceCancellationView extends React.Component {
 		this.setState({otp : event.target.value},()=>{
 			if(this.state.otp.length == 6){
 				this.setState({isOtpEdit:false})
-				this.verifyOTP()	
+				this.verifyOTP() // to verify user entered otp
 			}
 		})
   	}
@@ -70,7 +70,7 @@ class InsuranceCancellationView extends React.Component {
         let self = this
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => { // to verify user entered otp
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message,otp:'',isOtpEdit:true})
                     SnackBar.show({ pos: 'bottom-center', text: exists.message})
@@ -90,7 +90,7 @@ class InsuranceCancellationView extends React.Component {
 	clickPopUp(type) {
 		if (type == 1) {
 			if(this.state.cancelReason != '' && this.state.opt_verified){
-				this.props.cancelReason(this.state.cancelReason)
+				this.props.cancelReason(this.state.cancelReason) // ask cancellation reason
 				this.props.history.push('/insurance/canceldetails')
 			}else{
 				if(this.state.cancelReason == ''){

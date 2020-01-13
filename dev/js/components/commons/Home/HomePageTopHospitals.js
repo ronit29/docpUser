@@ -1,7 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 
-class TopHospitalWidgets extends React.Component {
+class TopHospitalWidgets extends React.PureComponent {
 
     constructor(props){
         super(props)
@@ -11,7 +11,9 @@ class TopHospitalWidgets extends React.Component {
     }
 
     componentDidMount(){
-        this.setState({mergedState: true})
+        if(!this.props.topHospital){
+            this.setState({mergedState: true})
+        }
     }
 
 	navigateTo(data, e) {
@@ -48,7 +50,7 @@ class TopHospitalWidgets extends React.Component {
             redirectUrl+= '&get_feedback=1'
         }*/
 
-        this.props.history.push(redirectUrl)
+        this.props.historyObj.push(redirectUrl)
     }
 
     scroll(type) {
@@ -80,19 +82,11 @@ class TopHospitalWidgets extends React.Component {
     }
 
     viewAllClicked(){
-        let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
-        }
-        GTM.sendEvent({ data: gtmData })
-        this.props.mergeIpdCriteria({
-            commonSelectedCriterias: [],
-            nextSelectedCriterias: []
-        })
-        this.props.history.push(`/ipd/searchHospitals`)   
+        this.props.nearbyHospitalViewAllClicked();
     }
 	
 	render(){
-
+        
         let { topHeading, dataType, showViewAll }  = this.props
 		return(
 		     <div className="pakg-slider-container mb-10">
@@ -108,7 +102,7 @@ class TopHospitalWidgets extends React.Component {
                     		this.props.top_data.slice(0,20).map((data, i) => {
                     			return <a key={this.state.mergedState?`${i}_list_${dataType}`:data.url?data.url:`${data.id}_${dataType}`} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
+				                                <img style={{width:82}} className="img-fluid" src={data.svg_icon?data.svg_icon:data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.seo_title?data.seo_title:data.h1_title?data.h1_title:data.name}

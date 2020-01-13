@@ -43,7 +43,7 @@ class CartView extends React.Component {
         this.setState({ use_wallet: e.target.checked })
     }
 
-    getPriceBreakup(cart_items) {
+    getPriceBreakup(cart_items) { // calculate all final price(coupon,convience fee, vip or gold or insurance price) in case of multiple item or single item 
         if (!cart_items) {
             cart_items = []
         }
@@ -143,7 +143,7 @@ class CartView extends React.Component {
         }
     }
 
-    processCart(total_price,is_selected_user_insurance_status, is_any_vip_appointment) {
+    processCart(total_price,is_selected_user_insurance_status, is_any_vip_appointment) { // to process for payment
 
         if(is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
@@ -201,7 +201,7 @@ class CartView extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay) {
+    getBookingButtonText(total_wallet_balance, price_to_pay) { //get booking button text depend on multiple cases
         let price_from_wallet = 0
         let price_from_pg = 0
 
@@ -218,7 +218,7 @@ class CartView extends React.Component {
         return `Confirm Booking`
     }
 
-    sendAgentBookingURL() {
+    sendAgentBookingURL() { // send payment link to user in case of agent booking 
         let extraParams = {}
         this.props.sendAgentBookingURL(null, 'sms', null,null, extraParams, (err, res) => {
             if (err) {
@@ -229,7 +229,7 @@ class CartView extends React.Component {
         })
     }
 
-    priceConfirmationPopup(choice){
+    priceConfirmationPopup(choice){ // ask to confirm the appointment in case of insurnance or user payable amount is 0.
         if(!choice){
             this.setState({showConfirmationPopup:choice})
         }else{

@@ -51,7 +51,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
               data.push({package_id:ids[0], lab_id: ids[1]})
             })
           }
-          this.props.getCompareList(data,this.props.selectedLocation,package_url,category_ids,(resp)=>{
+          this.props.getCompareList(data,this.props.selectedLocation,package_url,category_ids,(resp)=>{ // comparision results for selected packages
             if(resp){
               let test = {}
                 resp.packages.map((pkg,i) =>{

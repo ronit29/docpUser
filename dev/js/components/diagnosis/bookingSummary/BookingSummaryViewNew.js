@@ -188,7 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
-        this.props.getLabVipGoldPlans(extraParams)
+        this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 
     componentWillReceiveProps(nextProps) {
@@ -615,7 +615,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     sendSingleFlowAgentBookingURL(postData){
-
+        //for agent login send booking url for single flow
         let booking_data = this.getBookingData()
         booking_data = {...postData, ...booking_data, is_single_flow_lab: true, dummy_data_type:'SINGLE_PURCHASE' }
 
@@ -638,17 +638,18 @@ class BookingSummaryViewNew extends React.Component {
 
     proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, e) {
 
+        //To claim insurance status & claim
         if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
             window.scrollTo(0, 0)
             return
         }
-
+        //check if any test is selcted by user or not
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
             return
         }
-
+        //check if timeslots of all selected tests are selcted by user or not
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
             let found = false
             this.props.LABS[this.props.selectedLab].tests.map((test)=>{
@@ -673,21 +674,25 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        //Check if patient is selected or not
         if (!patient) {
             SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
             window.scrollTo(0, 0)
             return
         }
+        //Check if patient emailid exist or not
         if(patient && !patient.email){
             this.setState({isEmailNotValid:true})
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return 
         }
+        //Check if patient dob exist or not
         if(patient && !patient.dob){
             this.setState({isDobNotValid:true})
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
             return 
         }
+        //Check if patient address is selected or not
         if (!addressPicked) {
             this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });
@@ -697,6 +702,7 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        //Check if pincode selected by user matches with the pincode of the address selected by the user
         if (addressPicked && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
 
             let validateAddressPincode = false
@@ -807,6 +813,7 @@ class BookingSummaryViewNew extends React.Component {
         }*/
         is_vip_applicable = /*is_tests_covered_under_vip &&*/ is_selected_user_under_vip
         let prescriptionIds = []
+        //Check if prior to test, prescription exist for the insured customer or not
         if (prescriptionPicked && is_insurance_applicable) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
                 SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
@@ -817,6 +824,8 @@ class BookingSummaryViewNew extends React.Component {
                 })
             }
         }
+
+        //Confirmation popup for the tests, whose amount payable is 0
         if (this.state.showConfirmationPopup == 'close' && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: 'open' })
             return
@@ -886,7 +895,7 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
-
+        //build data for every selected tests with their selected timeslot.
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
             let tests = []
 
@@ -930,7 +939,7 @@ class BookingSummaryViewNew extends React.Component {
         
 
         if (addToCart) {
-
+            //On add to Cart Clicked
 
             //Single Flow Agent Booking
             if(STORAGE.isAgent() && this.props.payment_type==6 ) {
@@ -991,6 +1000,7 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.unSetCommonUtmTags('spo')
                 }
                 
+                //Remove coupons and clear prescription after appointment creation
                 if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
                     this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     this.props.clearPrescriptions()
@@ -1002,7 +1012,7 @@ class BookingSummaryViewNew extends React.Component {
                     return
                 }
                 if (data.payment_required) {
-                    // send to payment selection page
+                    // if payment is required, send to payment selection page
                     let analyticData = {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
@@ -1011,6 +1021,7 @@ class BookingSummaryViewNew extends React.Component {
                     this.processPayment(data)
 
                 } else {
+
                     this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     // send back to appointment page
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
@@ -1048,6 +1059,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     sendAgentBookingURL() {
+        //for agent login send booking url
         let postData = {}
         if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
 
@@ -1254,7 +1266,7 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
-        this.props.selectVipClubPlan('plan', plan)
+        this.props.selectVipClubPlan('plan', plan) // toggle/select vip plan
         this.toggleGoldPricePopup()
     }
 

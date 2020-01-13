@@ -21,9 +21,9 @@ class InsuranceReview extends React.Component{
         let self = this
         let parsed = queryString.parse(this.props.location.search)
         if(parsed.is_endorsement){
-            this.props.getInsurance(true,(response)=>{
+            this.props.getInsurance(true,(response)=>{ // to get insurance plans
                 if(!response.certificate){
-                    this.props.retrieveEndorsedData((resp)=>{
+                    this.props.retrieveEndorsedData((resp)=>{ // to retrieve user endorsement data (if user want's to update any of details in there policy details)
                         this.setState({data:resp.data,is_endorsement:true, isAgent:parsed.isAgent})
                     })
                 }
@@ -31,9 +31,9 @@ class InsuranceReview extends React.Component{
         }else{
             this.props.getInsurance(false,(response)=>{
                 if(!response.certificate){
-                    this.props.retrieveUserData((resp)=>{
+                    this.props.retrieveUserData((resp)=>{ // to retrieve user data in case of agent has loggedin instead of user 
                         if(resp && !resp.error){
-                            this.props.resetUserInsuredData(resp.data)
+                            this.props.resetUserInsuredData(resp.data) // to reset the insurance store to initial state
                             this.setState({data:resp.data})
                         }
                     })
@@ -47,7 +47,7 @@ class InsuranceReview extends React.Component{
             <InsuranceReviewView {...this.props} data={this.state.data} is_endorsement={this.state.is_endorsement} isAgent={this.state.isAgent}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){ // if user is already an insurance customer so redirect on insured dashboard page
                 this.props.history.push('/insurance/certificate')
             }
             return(

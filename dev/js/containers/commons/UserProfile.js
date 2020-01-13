@@ -34,11 +34,11 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.getUserAddress()
-            this.props.getCoupons({})
-            this.props.getCartItems()
-            this.props.getIsCareDetails()
+            this.props.getUserProfile() // get loggedIn user profiles
+            this.props.getUserAddress() // get user address
+            this.props.getCoupons({}) // get user specific coupons
+            this.props.getCartItems() // get user cart items
+            this.props.getIsCareDetails() // get user subscription plan details
         }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
 
