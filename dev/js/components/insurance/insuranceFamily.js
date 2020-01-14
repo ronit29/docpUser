@@ -226,7 +226,7 @@ class InsuranceOthers extends React.Component {
 				this.populateDates(newProfileid,false)
 			}
 	    	
-			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id) // select from profile option
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,

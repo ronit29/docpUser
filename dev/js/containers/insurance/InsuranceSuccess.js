@@ -18,7 +18,7 @@ class InsuranceSuccess extends React.Component{
         GTM.sendEvent({ data: data })
 
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
+            this.props.getUserProfile() // to get loggedIn user profile
         }
     }
 

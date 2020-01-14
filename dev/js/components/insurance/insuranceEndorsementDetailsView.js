@@ -43,7 +43,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     		card = this.props.endorseData.members.map((member, i) => {
 						membersId.push({[i]: member.id})
 					})
-    		this.props.saveCurrentSelectedMembers(membersId)
+    		this.props.saveCurrentSelectedMembers(membersId) // to save current selected members data in store
 			this.setState({ saveMembers: true})
 
     	}
@@ -501,7 +501,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-		this.props.pushUserEndorsedData(insuranceUserData)
+		this.props.pushUserEndorsedData(insuranceUserData) // to save user entered details in dummy table
     }
 
 	render(){

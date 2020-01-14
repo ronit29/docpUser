@@ -22,7 +22,7 @@ class primeCareBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
 
-        this.props.getCareDetails((resp)=>{
+        this.props.getCareDetails((resp)=>{ // get care plans
             let feature_detail = resp.plans.filter(x => x.id == parsed.plan_id)
             feature_detail[0].feature_details = resp.feature_details
             this.setState({data:feature_detail})

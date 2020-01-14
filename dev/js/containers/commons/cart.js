@@ -21,9 +21,9 @@ class Cart extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.getCartItems()
-            this.props.fetchTransactions()
+            this.props.getUserProfile() // get loggedIn user profiles
+            this.props.getCartItems() // get cart items
+            this.props.fetchTransactions() // get already done transaction details
         }
     }
 

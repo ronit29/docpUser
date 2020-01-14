@@ -3,6 +3,7 @@ import VipLoginPopup from './vipClubPopup.js'
 import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
+import NewDateSelector from '../commons/newDateSelector.js'
 
 class VipProposerFamily extends React.Component {
 	constructor(props) {
@@ -29,16 +30,18 @@ class VipProposerFamily extends React.Component {
     	    is_disable:false,
     	    member_form_id:this.props.member_form_id,
     	    is_already_user:false,
-    	    isUserSelectedProfile:this.props.isUserSelectedProfile
+    	    isUserSelectedProfile:this.props.isUserSelectedProfile,
+    	    isDobValidated:false,
+            is_dob_error:false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentDidMount(){
 		let profile
-		if(!this.state.year && !this.state.mnth && !this.state.mnth){
-			this.populateDates(this.props.member_id,true)
-		}
+		// if(!this.state.year && !this.state.mnth && !this.state.mnth){
+		// 	this.populateDates(this.props.member_id,true)
+		// }
 	}
 
 	componentWillReceiveProps(props) {
@@ -53,16 +56,16 @@ class VipProposerFamily extends React.Component {
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
-					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.populateDates(props.member_id,true)
-					}
+					// if(!self.state.year && !self.state.mnth && !self.state.mnth){
+					//     self.populateDates(props.member_id,true)
+					// }
 				}
 			}else if(props.member_id >=0 && !this.state.setDefault){ 
 				this.setState({id: props.member_id, setDefault:true}, () => {
-					self.populateDates(self.props.member_id,true)
-					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.populateDates(self.props.member_id,true)
-					}
+					// self.populateDates(self.props.member_id,true)
+					// if(!self.state.year && !self.state.mnth && !self.state.mnth){
+					//     self.populateDates(self.props.member_id,true)
+					// }
 					this.setState({member_type:this.props.member_type,is_disable:false},() =>{
 						self.handleSubmit()
 					})
@@ -81,7 +84,7 @@ class VipProposerFamily extends React.Component {
 		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
-			this.props.userDetails('self_data', self_data)
+			this.props.userDetails('self_data', self_data) // to save user form details in store
 		})
 	}
 
@@ -113,7 +116,7 @@ class VipProposerFamily extends React.Component {
 	    if(!is_endoresment){
 	    	self_data.is_change = true
 	    }
-		this.props.userDetails('self_data', self_data)
+		this.props.userDetails('self_data', self_data) // to save user form details in store
 	}
 
 	togglePopup(newProfileid, member_id, newProfile) {
@@ -126,18 +129,21 @@ class VipProposerFamily extends React.Component {
 				this.setState({ title: 'mrs.' })
 			}
 			if(newProfile && newProfile.dob){
-				oldDate= newProfile.dob.split('-')
-				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
-	    			this.populateDates(newProfileid,false)
-	    			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 
-	    			this.setState({dob:finalDate})
-	    		})
-			}else{
-				this.populateDates(newProfileid,false)
+				this.setState({dob:newProfile.dob,isDobValidated:true})
 			}
+			// if(newProfile && newProfile.dob){
+			// 	oldDate= newProfile.dob.split('-')
+			// 	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
+	  //   			this.populateDates(newProfileid,false)
+	  //   			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 
+	  //   			this.setState({dob:finalDate})
+	  //   		})
+			// }else{
+			// 	this.populateDates(newProfileid,false)
+			// }
 	    	newProfile.isUserSelectedProfile = true
 			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
-			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id) // select profile from option
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,
@@ -271,6 +277,15 @@ class VipProposerFamily extends React.Component {
       }
   	}
 
+  	submitNewDob(type,newDate,isValidDob,user_form_id) {
+		let self = this
+		self.setState({
+			dob: newDate, isDobValidated:isValidDob
+		}, () => {
+			self.handleSubmit()
+		})
+	}
+
 	render() {
 		console.log(this.props.validateErrors)
 		let show_createApi_keys_adult = []
@@ -300,7 +315,8 @@ class VipProposerFamily extends React.Component {
 					</div>:''
 					}
 					</div> 
-				</div>{}
+				</div>
+
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
 						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && Object.keys(this.props.vip_club_db_data.data.relation_master).length > 0?
@@ -325,6 +341,7 @@ class VipProposerFamily extends React.Component {
 						this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
 					}
 					</div>
+
 					<div className= {this.state.is_disable ? 'click-disable' : ''}> 
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
@@ -383,7 +400,7 @@ class VipProposerFamily extends React.Component {
 								commonMsgSpan:''
 							}
 						</div>
-						<div className= {this.state.is_disable ? 'click-disable' : 'col-12'}>
+						{/*<div className= {this.state.is_disable ? 'click-disable' : 'col-12'}>
 							<div className="ins-form-group mb-0">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
@@ -411,6 +428,8 @@ class VipProposerFamily extends React.Component {
 							{
 								this.props.validateErrors && this.props.validateErrors.indexOf('dob')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
 							}
+						</div>*/}
+						<div className="col-12"> <form><NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true}/></form>
 						</div>
 					</div>
 					{this.props.is_from_payment && !this.state.is_disable?

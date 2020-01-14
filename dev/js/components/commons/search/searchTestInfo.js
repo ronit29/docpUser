@@ -100,7 +100,7 @@ class SearchTestView extends React.Component {
             test_id = ''
         }
 
-        this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs)
+        this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs) // get selected test/package details
     }
 
 
@@ -112,7 +112,8 @@ class SearchTestView extends React.Component {
         }
     }
 
-    frequentlyAddTest(field, name, show_details, event) {
+    frequentlyAddTest(field, name, show_details, event) { 
+        // adding more test 
         let self = this
         let url_string = window.location.href
         let url = new URL(url_string);
@@ -210,6 +211,7 @@ class SearchTestView extends React.Component {
     }
 
     proceedBookNow(lab_name = "") {
+        //book now 
         let test = {}
         let found = false
         let selectedCriteria = []

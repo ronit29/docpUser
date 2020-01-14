@@ -23,11 +23,11 @@ class UserFamily extends React.Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-    addProfile() {
+    addProfile() { // to add new profile
         this.props.history.push('/addprofile?existing=true')
     }
 
-    editProfile(id) {
+    editProfile(id) { // to edit existing profile
         const parsed = queryString.parse(this.props.location.search)
         if (this.props.location.search.includes('pick=true')) {
             // pick paitent and go back, else go on to edit.

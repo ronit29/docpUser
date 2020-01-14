@@ -39,7 +39,7 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
-    isDocCare() {
+    isDocCare() { // redirect to care page or to care dashboard
         if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             this.props.history.push('/prime/success?user_plan=' + this.props.isUserCared.user_plan_id)
         } else {
@@ -47,7 +47,7 @@ class ProfileData extends React.Component {
         }
     }
 
-    goToInsurance(isUserLoginInsured) {
+    goToInsurance(isUserLoginInsured) { // redirect to insurance plan page or to insured dashboard
         if (isUserLoginInsured) {
             if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
                 this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5) {
@@ -62,6 +62,7 @@ class ProfileData extends React.Component {
     }
 
     getInsuranceBtnText() {
+        // set button text as person user policy status active/inactive/ cancelled
         let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user ? this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user : false
         if (isUserLoginInsured) {
             if (this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
@@ -183,7 +184,7 @@ class ProfileData extends React.Component {
                                                             'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
                                                         }
                                                         GTM.sendEvent({ data: data })
-                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.clearVipSelectedPlan() // reset gld or vip store to default state
                                                         this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
@@ -194,7 +195,7 @@ class ProfileData extends React.Component {
                                                             'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
                                                         }
                                                         GTM.sendEvent({ data: data })
-                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.clearVipSelectedPlan() // reset gld or vip store to default state
                                                         this.props.history.push(`/vip-gold-details?is_gold=true&source=user-profile-page`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
@@ -205,7 +206,7 @@ class ProfileData extends React.Component {
                                                             'Category': 'ConsumerApp', 'Action': 'SaveMedicinesProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'save-medicines-profile-clicked'
                                                         }
                                                         GTM.sendEvent({ data: data })
-                                                        this.props.clearVipSelectedPlan()
+                                                        this.props.clearVipSelectedPlan() // reset gld or vip store to default state
                                                         this.props.history.push(`/all-medicines`)
                                                     }}>
                                                         <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
@@ -238,7 +239,7 @@ class ProfileData extends React.Component {
                                                 <p onClick={() => this.toggleTandC()} className="text-xs fw-500" style={{ color: `var(--text--dark--all)`, cursor: 'pointer' }}>Terms & Conditions</p>
                                             </div>
                                         </div>
-                                        <p className="view-more-coupons" onClick={() => {
+                                        <p className="view-more-coupons" onClick={() => { // redirect to more available coupons
                                             this.props.history.push('/user/coupons')
                                         }}>View more offers</p>
                                     </div>
@@ -246,7 +247,7 @@ class ProfileData extends React.Component {
                             </li> : ""
                         }
 
-                        <li className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
+                        <li className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => { // redirect to referral section
                             this.props.history.push('/referral')
                         }}>
                             <div className="usr-dtls-off-act">
@@ -305,14 +306,16 @@ class ProfileData extends React.Component {
                                 </li>
                                 : ''
                         }
+
                         {CONFIG.ENABLE_VIP_CLUB && defaultProfile && defaultProfile.is_vip_member && !defaultProfile.is_vip_gold_member?
+                            // redirect to  vip plan page
                             <li onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'ProfileMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-vip-clicked'
                               }
                               GTM.sendEvent({ data: data })
                                 e.preventDefault()
-                                this.props.clearVipSelectedPlan()
+                                this.props.clearVipSelectedPlan() // reset gld or vip store to default state
                                 this.props.history.push('/vip-club-details?source=profile-menu-vip-clicked&lead_source=Docprime')
                               }} className="my-profile-item lst-spcng">
                             <a>
@@ -328,13 +331,14 @@ class ProfileData extends React.Component {
                         </li>
                         :''}
                         {CONFIG.ENABLE_VIP_GOLD ?
+                            // redirect to  vip gold page
                             <li onClick={(e) => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'ProfileMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'profile-menu-gold-clicked'
                                 }
                                 GTM.sendEvent({ data: data })
                                 e.preventDefault()
-                                this.props.clearVipSelectedPlan()
+                                this.props.clearVipSelectedPlan() // reset gld or vip store to default state
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=profile-menu-gold-clicked&lead_source=Docprime')
                             }} className="my-profile-item lst-spcng">
                                 <a>
@@ -349,6 +353,7 @@ class ProfileData extends React.Component {
                                 </a>
                             </li>
                             : ''}
+                            {/* redirect to  docprime care page*/}
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -361,6 +366,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                        {/*Prescriptions page */}
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -373,6 +379,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                        {/*Appointments page*/}
                         <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -407,6 +414,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        {/*user family section*/}
                         <li onClick={this.gotTo.bind(this, 'family')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -417,6 +425,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                        {/* user reviews*/}
                         <li onClick={() => this.props.history.push(`/myratings`)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -437,6 +446,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        {/* user wallet section*/}
                         <li onClick={() => {
                             this.props.history.push('/wallet')
                         }} className="my-profile-item lst-spcng">
@@ -449,6 +459,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                    { /*user address section*/}
                         <li onClick={() => {
                             this.props.history.push('/user/address')
                         }} className="my-profile-item lst-spcng">
@@ -461,6 +472,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li>
+                    {/*user notifications*/}
                         <li onClick={() => {
                             this.props.history.push('/notifications')
                         }} className="my-profile-item lst-spcng">
@@ -479,6 +491,7 @@ class ProfileData extends React.Component {
                                     </div> : ''
                             }
                         </li>
+                    {/*logout*/}
                         <li onClick={() => {
                             this.props.logout(currentRoomId)
                         }} className="my-profile-item lst-spcng ">

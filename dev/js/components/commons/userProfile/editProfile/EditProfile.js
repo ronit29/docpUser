@@ -21,11 +21,22 @@ class EditProfile extends React.Component {
             errors: {
 
             },
-            whatsapp_optin:currentProfile.whatsapp_optin,
+            whatsapp_optin:false,
             isEmailVerified:false,
             isEmailUpdated:false,
-            isEmailError:false
+            isEmailError:false,
+            isDobValidated:false,
+            is_dob_error:false
         }
+    }
+
+    componentDidMount(){
+        let currentProfile = null
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length){
+            currentProfile = {...this.props.USER.profiles[this.props.match.params.id]}
+            this.setState({profileData:currentProfile,isDobValidated:currentProfile.dob?true:false,whatsapp_optin:currentProfile.whatsapp_optin})   
+        }
+        
     }
 
 
@@ -77,6 +88,7 @@ class EditProfile extends React.Component {
                                 isEmailError={this.state.isEmailError} 
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
                                 is_profile_editable={is_profile_editable}
+                                is_dob_error = {this.state.is_dob_error}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 
@@ -91,9 +103,12 @@ class EditProfile extends React.Component {
         }
     }
 
-    updateProfile(key, value) {
+    updateProfile(key, value,isDobValidated) {
         this.state.profileData[key] = value
-        this.setState({ profileData: this.state.profileData })
+        if(key == 'dob'){
+            this.setState({isDobValidated:isDobValidated})
+        }
+        this.setState({ profileData: this.state.profileData})
     }
 
     verifyEndorsementEmail(newemail,verified,is_email_changed){        
@@ -106,14 +121,19 @@ class EditProfile extends React.Component {
         }
     }
 
-    proceedUpdate(e) {
+    proceedUpdate(e) { // update profile
         e.stopPropagation()
         e.preventDefault()
 
         let errors = {}
-        let vals = ['email', 'phone_number']
+        let vals = ['email', 'phone_number','dob']
         vals.map((field) => {
             let validated = true
+            if(this.state.profileData.dob == null && !this.state.isDobValidated){
+                validated = true
+                errors['dob'] = !validated
+                return
+            }
             switch (field) {
                 case "phone_number": {
                     if (!this.state.profileData[field]) {
@@ -156,10 +176,16 @@ class EditProfile extends React.Component {
                 this.setState({isEmailError:true})
                 return
             }
+
+            if(!this.state.isDobValidated){
+                this.setState({is_dob_error:true})
+                validated = false
+                return
+            }
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
-                this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
+                this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => { // update profile
                     this.setState({ loading: false })
                     if(err){
                         if(err.message){
@@ -169,7 +195,7 @@ class EditProfile extends React.Component {
                             return  
                         }
                     }
-
+                    this.props.resetVipData()
                     this.props.history.go(-1)    
                     
                     

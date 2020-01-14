@@ -27,7 +27,7 @@ class VipClubMemberDetails extends React.Component{
         // }
         // extraParams['user_type']= this.props.selected_vip_plan.is_gold?'gold':'vip'
         extraParams['user_type']= 'gold'
-        this.props.retrieveMembersData('PLAN_PURCHASE',extraParams)
+        this.props.retrieveMembersData('PLAN_PURCHASE',extraParams) // to retrieve already pushed member data in case of agent or proposer it self
         // this.props.citiesData()
     }
 

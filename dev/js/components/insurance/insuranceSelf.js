@@ -54,7 +54,7 @@ class InsuranceSelf extends React.Component {
 		let profile
 		if (this.props.self_data_values[this.props.USER.defaultProfile] && !this.props.is_endorsement) {
 			profile = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])
-			this.getUserDetails(profile)
+			this.getUserDetails(profile) // fill user details in form
 			//this.setState({...this.props.self_data_values[this.props.USER.defaultProfile]},()=>{
 			//if(this.state.gender == 'm'){
 			// 	this.setState({title:'mr.'},()=>{
@@ -108,7 +108,7 @@ class InsuranceSelf extends React.Component {
 				} else {
 					profile = Object.assign({}, props.self_data_values[0])
 				}
-				this.getUserDetails(profile)
+				this.getUserDetails(profile) // fill user details in form
 				if (Object.keys(profile).length) {
 					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
 						if (profile.gender == 'm') {
@@ -124,13 +124,13 @@ class InsuranceSelf extends React.Component {
 				} else {
 					this.setState({ profile_flag: false })
 					let new_profile = props.USER.profiles[props.USER.defaultProfile]
-					this.getUserDetails(new_profile)
+					this.getUserDetails(new_profile) // fill user details in form
 				}
 			} else if (props.USER.profiles[props.USER.defaultProfile]) {
 				this.setState({ profile_flag: false })
 				let profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 				newName = profile.name.split(" ")
-				this.getUserDetails(profile)
+				this.getUserDetails(profile) // fill user details in form
 				this.populateDates()
 			}
 		} else if (props.is_endorsement) {
@@ -138,7 +138,7 @@ class InsuranceSelf extends React.Component {
 		}
 	}
 
-	getUserDetails(profile) {
+	getUserDetails(profile) { // fill user details in store
 		let newName = []
 		let oldDate
 		let tempArray
@@ -217,10 +217,10 @@ class InsuranceSelf extends React.Component {
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
 			self_data.is_change = true
-			this.props.userData('self_data', self_data)
+			this.props.userData('self_data', self_data) // to save entered data in store
 		})
 	}
-	handleSubmit(is_endoresment,is_endorse_email) {
+	handleSubmit(is_endoresment,is_endorse_email) { 
 		let profile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 		if (!profile.isDummyUser) {
 			this.setState({ profile_id: this.props.member_id })

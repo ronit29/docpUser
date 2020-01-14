@@ -20,7 +20,7 @@ class Insurance extends React.Component{
     componentDidMount() {
         
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
+            this.props.getUserProfile() // to get loggedIn user profile
         }
         /*this.props.getInsurance(resp=>{
             if(!resp.certificate){
@@ -30,7 +30,7 @@ class Insurance extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getInsurance(false)
+        this.props.getInsurance(false) // to get insurance plans
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
@@ -38,7 +38,7 @@ class Insurance extends React.Component{
                 <InsuranceComponent {...this.props}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){ // if user is already an insurance customer so redirect on insured dashboard page
                 this.props.history.push('/insurance/certificate')
             }
             return(

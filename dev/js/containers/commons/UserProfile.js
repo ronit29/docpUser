@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking,loadOPDInsurance, sendOtpOnEmail ,submitEmailOTP, clearVipSelectedPlan} from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking,loadOPDInsurance, sendOtpOnEmail ,submitEmailOTP, clearVipSelectedPlan, resetVipData} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -34,11 +34,11 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.getUserAddress()
-            this.props.getCoupons({})
-            this.props.getCartItems()
-            this.props.getIsCareDetails()
+            this.props.getUserProfile() // get loggedIn user profiles
+            this.props.getUserAddress() // get user address
+            this.props.getCoupons({}) // get user specific coupons
+            this.props.getCartItems() // get user cart items
+            this.props.getIsCareDetails() // get user subscription plan details
         }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
 
@@ -112,7 +112,8 @@ const mapDispatchToProps = (dispatch) => {
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
         sendOtpOnEmail:(criteria,callback)=>dispatch(sendOtpOnEmail(criteria,callback)),
         submitEmailOTP: (data, cb) => dispatch(submitEmailOTP(data, cb)),
-        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan())
+        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan()),
+        resetVipData:() => dispatch(resetVipData())
     }
 }
 

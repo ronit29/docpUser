@@ -416,7 +416,7 @@ class InsuranceInputView extends React.Component{
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveUserData(this.props)
+    		this.SaveUserData(this.props) // to save user entered details
 			this.props.history.push('/insurance/insurance-user-details-review')
     	}
     }
@@ -437,7 +437,7 @@ class InsuranceInputView extends React.Component{
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-		this.props.pushUserData(insuranceUserData)
+		this.props.pushUserData(insuranceUserData) // to save user entered details in dummy table
     }
 
     checkIsEmailVerfied(){

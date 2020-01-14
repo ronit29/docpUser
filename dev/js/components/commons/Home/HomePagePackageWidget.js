@@ -1,6 +1,6 @@
 import React from 'react';
 
-class HomePagePackageWidget extends React.Component {
+class HomePagePackageWidget extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class HomePagePackageWidget extends React.Component {
         if (this.props.type) {
             this.props.selectSearchType(this.props.type)
         }
-        this.props.history.push(where)
+        this.props.historyObj.push(where)
     }
 
 
@@ -53,7 +53,7 @@ class HomePagePackageWidget extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
         }
         GTM.sendEvent({ data: data })
-        this.props.history.push('/vip-gold-details?is_gold=true&source=homepagepackagegoldlisting&lead_source=Docprime')
+        this.props.historyObj.push('/vip-gold-details?is_gold=true&source=homepagepackagegoldlisting&lead_source=Docprime')
     }
 
     render() {
@@ -67,7 +67,7 @@ class HomePagePackageWidget extends React.Component {
                     <div className='pkgCardsList d-inline-flex'>
                         {
                             this.props.list.map((listItem, i) => {
-                                return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                                return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem, true)}>
                                     {/*<span style={{fontSize:'10px'}} className="ofr-ribbon home-ofr-ribbon">{this.props.discount} Off</span>*/}
                                     <div className="pkgcardImgCont">
                                         <img className="img-fluid" src={listItem.icon} />
