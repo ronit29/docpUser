@@ -6126,13 +6126,21 @@ margin: 10px 0px;
     text-align: center;
     font-weight: 500;
     color: #3a3939;
+    background: #efefef;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
 
 .inviteCodeShare span {
     display: block;
     font-weight: 600;
     font-size: 28px;
-    margin-top: 8px;
 }
 
 .rfrl-avl-balance {
@@ -14706,3 +14714,38 @@ div.slt-nw-input.summery-dob-cont .sumry-lbl{
     width: 32px;
 }
 /* ======================================= Gold page video ends ======================================= */
+/* ======================================= refer whatsapp ======================================= */
+span.refr-sub-cpy{
+    font-size: 10px;
+    border-left: 1px solid #b1aeae;
+    margin: 0;
+    padding: 5px 5px;
+    color: #757575;
+    cursor: pointer;
+}
+.refr-sub-cpy img{
+    margin-right: 3px;
+    width: 13px;
+}
+
+    .ref-whtsp:hover{
+color: white;
+    }
+.ref-whtsp{
+    background: #25d366;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    justify-content: center;
+}
+a.text-center.ref-whtsp img {
+    width: 22px;
+    margin-right: 8px;
+}
+/* ======================================= refer whatsapp ======================================= */

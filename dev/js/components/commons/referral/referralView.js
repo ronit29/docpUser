@@ -112,7 +112,12 @@ class ReferralView extends React.Component {
                                                 </div>
                                                 {
                                                     STORAGE.checkAuth() ? <div>
-                                                        <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
+                                                        <h4 className="inviteCodeShare"><span>{this.state.referralCode}</span>
+                                                       <span className="refr-sub-cpy">
+                                                       <img className="img-fluid" src={ASSETS_BASE_URL + '/img/copy.svg'}/>
+                                                       Tap to copy
+                                                       </span>
+                                                        </h4>
 
                                                         {/*<div className="social-icon-referral">
                                                             {
@@ -136,7 +141,7 @@ class ReferralView extends React.Component {
                                                         }
                                                         {
                                                             this.state.referralCode ? 
-                                                                <a className="text-center" href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" />Share on Whatsapp</a>
+                                                                <a className="text-center ref-whtsp" href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} alt="whatsapp" />Share on Whatsapp</a>
                                                             :''
                                                         }
                                                     </div> : <a style={{ marginTop: 10 }} onClick={() => {
