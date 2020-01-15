@@ -14724,6 +14724,7 @@ div.slt-nw-input.summery-dob-cont .sumry-lbl{
     text-align: center;
     margin-bottom: 15px;
     outline: none;
+    font-weight: 500;
 }
 button.med-popBtn {
     display: block;
