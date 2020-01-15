@@ -336,7 +336,7 @@ class Article extends React.Component {
                         GTM.sendEvent({ data: data })
                         event.stopPropagation();
                         this.setState({showMainPopup:false})}} />
-                    <img className="img-fluid " src={ASSETS_BASE_URL + '/img/goldpopup-min.png'} onClick={(e)=>{
+                    <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={(e)=>{
                         e.stopPropagation();
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
@@ -344,6 +344,11 @@ class Article extends React.Component {
                         GTM.sendEvent({ data: data })
                         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
                     }}/>
+                    <div className="med-popUpInput-cont">
+                        <input type="text" placeholder="Enter your mobile number" />
+                        <button type="button" className="med-popBtn">Enter your mobile number <span className="circle-arrow"><i></i></span></button>
+                    </div>
+
                 </div>
             </div>
         )

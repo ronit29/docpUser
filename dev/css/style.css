@@ -14707,3 +14707,55 @@ div.slt-nw-input.summery-dob-cont .sumry-lbl{
     width: 32px;
 }
 /* ======================================= Gold page video ends ======================================= */
+/* ======================================= popup updated  ======================================= */
+.med-popUpInput-cont {
+    background-image: linear-gradient(to left, #edd083, #e9bf72);
+    padding: 17px 0;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.med-popUpInput-cont input {
+    width: 90%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #8b6d2a;
+    background: #f9efd5;
+    text-align: center;
+    margin-bottom: 15px;
+    outline: none;
+}
+button.med-popBtn {
+    display: block;
+    margin: auto;
+    color: #171c42;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: -2px 5.7px 16px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+span.circle-arrow {
+    border: 1px solid #9a7323;
+    border-radius: 50pc;
+    display: inline-flex;
+    margin-left: 6px;
+    padding: 4px;
+    height: 15px;
+    width: 15px;
+    align-items: center;
+}
+span.circle-arrow i {
+    border: solid #9a7323;
+    border-width: 0px 1px 1px 0;
+    display: inline-block;
+    padding: 2px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: relative;
+    left: -1px;
+}
+/* ======================================= popup updated  ======================================= */
