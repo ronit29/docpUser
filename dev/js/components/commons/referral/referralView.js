@@ -18,7 +18,8 @@ class ReferralView extends React.Component {
         super(props)
         this.state = {
             referralCode: null,
-            whatsapp_text:null
+            whatsapp_text:null,
+            referral_amt:null
         }
     }
 
@@ -30,7 +31,7 @@ class ReferralView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchReferralCode().then((res) => {
                 if (res && res.code) {
-                    this.setState({ referralCode: res.code, whatsapp_text:res.whatsapp_text })
+                    this.setState({ referralCode: res.code, whatsapp_text:res.whatsapp_text, referral_amt:res.referral_amt })
                 }
             }).catch((e) => {
 
@@ -90,7 +91,7 @@ class ReferralView extends React.Component {
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
-                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 200 on <br /> Signup
+                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.state.referral_amt} on <br /> Signup
                                                             <div className="badge badge-refer">2</div>
                                                         </div>
 
@@ -105,7 +106,7 @@ class ReferralView extends React.Component {
                                                         </div>
 
                                                         <div className="text-step">
-                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 200 on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
+                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.state.referral_amt} on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
                                                         </div>
                                                     </div>
                                                 </div>
