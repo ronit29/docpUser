@@ -241,7 +241,7 @@ class App extends React.Component {
                 if(STORAGE.checkAuth()){
                     this.refreshApi()
                 }else{
-                    clearInterval(refreshApi)
+                    clearInterval(this.refreshApi)
                     this.setState({toCallRefreshToken: true})
                 }
             }, 300000)
