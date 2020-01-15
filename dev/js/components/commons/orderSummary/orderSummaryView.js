@@ -169,7 +169,7 @@ class OrderSummaryView extends React.Component {
                                                                 <div>
                                                                     <div>
                                                                         <InitialsPicture name={item.data.doctor ? item.data.doctor.name : item.data.lab.name} has_image={!!item.data.thumbnail} className="initialsPicture-dbd mt-0">
-                                                                            <img src={item.data.thumbnail} style={{ width: 50 }} className="img-fluid img-round" />
+                                                                            <img src={item.data.thumbnail} className="fltr-usr-image-lab" />
                                                                         </InitialsPicture>
                                                                     </div>
                                                                 </div>
