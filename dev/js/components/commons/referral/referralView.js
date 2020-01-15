@@ -112,12 +112,15 @@ class ReferralView extends React.Component {
                                                 </div>
                                                 {
                                                     STORAGE.checkAuth() ? <div>
-                                                        <h4 className="inviteCodeShare"><span>{this.state.referralCode}</span>
-                                                       <span className="refr-sub-cpy">
-                                                       <img className="img-fluid" src={ASSETS_BASE_URL + '/img/copy.svg'}/>
-                                                       Tap to copy
-                                                       </span>
-                                                        </h4>
+                                                            <CopyToClipboard text={this.getLink()} onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Referral Link Copied" }); }}>
+                                                                <h4 className="inviteCodeShare">
+                                                                <span>{this.state.referralCode}</span>
+                                                                <span className="refr-sub-cpy">
+                                                                    <img className="img-fluid" src={ASSETS_BASE_URL + '/img/copy.svg'}/>
+                                                                   Tap to copy
+                                                                   </span>
+                                                                </h4>
+                                                            </CopyToClipboard>
 
                                                         {/*<div className="social-icon-referral">
                                                             {
