@@ -14738,6 +14738,7 @@ button.med-popBtn {
     display: flex;
     align-items: center;
     cursor: pointer;
+    background: white;
 }
 span.circle-arrow {
     border: 1px solid #9a7323;

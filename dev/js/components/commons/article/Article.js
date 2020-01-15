@@ -387,7 +387,7 @@ class Article extends React.Component {
                         this.setState({showMainPopup:false})}} />
                     <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={this.navigateToGold}/>
                     <div className="med-popUpInput-cont">
-                        <input type="number" placeholder="Enter your mobile number" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
+                        <input type="number" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
                         <button type="button" onClick={this.navigateToGold} className="med-popBtn">Become Gold Member Now <span className="circle-arrow"><i></i></span></button>
                     </div>
 
