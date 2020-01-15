@@ -154,15 +154,15 @@ class VipGoldView extends React.Component {
                                         <div className="gold-benifi-cards-cont">
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                <p>Discounts on <br/><strong>Doctors &amp; Labs</strong></p>
+                                                <p>Exclusive prices on <br/><strong>30,000 </strong> Doctors</p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/med-report.svg'} />
-                                                <p>Free Lab Test <br/><strong>Report Review</strong></p>
+                                                <p>Big Discounts on <br/><strong>5,000 </strong> Labs</p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                <p>Upto <strong>23% OFF</strong> <br/> on Medicines </p>
+                                                <p>Save <strong>23% </strong> <br/> on Medicines </p>
                                             </div>
                                         </div>
 
@@ -217,8 +217,8 @@ class VipGoldView extends React.Component {
                                                     <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Risk-Free 100% Satisfaction Guarantee</h4>
-                                                    <p>Cancel and get full refund of your membership fee at any time if you are dissatisfied</p>
+                                                    <h4>100% Satisfaction Guarantee</h4>
+                                                    <p>Cancel anytime within a year and get full refund. No questions asked.</p>
                                                 </div>
                                             </div>
                                             <div className="gold-grntee-card mb-3">
@@ -242,7 +242,7 @@ class VipGoldView extends React.Component {
                                                     <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Free lab test report review by top doctors on every booking.</h4>
+                                                    <h4>Free Doctor Consultation after every Lab appointment</h4>
                                                 </div>
                                             </div>
                                             {/* consult doctor widget added end */}
