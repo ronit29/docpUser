@@ -162,7 +162,7 @@ class VipClub extends React.Component { // dashboard view
                                             </div>
                                         </div>
                                         : ''}
-                                    {this.props.data.is_member_allowed?
+                                    {this.props.data.is_member_allowed && !is_corporate?
                                         <div className= {`${this.props.is_gold?'gold-white-bg-container mb-24':''}`} style={{ paddingTop: 0, paddingBottom: 20 }}>
                                             <div className="vip-act-pop text-right" style={{ display: 'block' }}>
                                                 <div className="vip-wrn-img text-left">
@@ -367,7 +367,7 @@ class VipClub extends React.Component { // dashboard view
                                                                 })
                                                             }
                                                             {
-                                                                this.props.data.is_member_allowed?
+                                                                this.props.data.is_member_allowed && !is_corporate?
                                                                     <li onClick={this.AddMemberDetails.bind(this)}>
                                                                         <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
                                                                     </li>
