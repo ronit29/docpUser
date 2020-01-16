@@ -1158,16 +1158,16 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     clearTestForInsured() {
-        if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && (this.props.profiles[this.props.defaultProfile].is_insured || this.props.profiles[this.props.defaultProfile].is_vip_member || this.props.profiles[this.props.defaultProfile].is_vip_gold_member)) {
+        // if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && (this.props.profiles[this.props.defaultProfile].is_insured || this.props.profiles[this.props.defaultProfile].is_vip_member || this.props.profiles[this.props.defaultProfile].is_vip_gold_member)) {
 
-            if(this.props.selectedLab && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length ==1){
+        //     if(this.props.selectedLab && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length ==1){
 
-            }else{
-                this.props.clearExtraTests()    
-            }
-            this.props.getLabById(this.props.selectedLab)
-            return
-        }
+        //     }else{
+        //         this.props.clearExtraTests()    
+        //     }
+        //     this.props.getLabById(this.props.selectedLab)
+        //     return
+        // }
     }
 
     searchTests() {
@@ -1849,9 +1849,9 @@ class BookingSummaryViewNew extends React.Component {
 
         let currentTestsCount = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && currentTestsCount ==1 && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && !is_insurance_applicable
 
-        if( (!showGoldTogglePaymentMode || currentTestsCount>1) && this.props.payment_type==6 ) {
+        if( !showGoldTogglePaymentMode && this.props.payment_type==6 ) {
             this.props.select_lab_payment_type(1)
         }
 
@@ -1893,7 +1893,7 @@ class BookingSummaryViewNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.LABS[this.props.selectedLab] ?
+                                this.props.LABS[this.props.selectedLab] && this.props.show_vip_non_login_card?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
