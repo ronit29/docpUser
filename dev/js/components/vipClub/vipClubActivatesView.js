@@ -134,7 +134,7 @@ class VipClub extends React.Component { // dashboard view
                         </div>
                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                 <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                                <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                                <p className="scrl-cont-dat">{is_corporate?"Your a Docprime VIP Member":"Save 70% on your family's medical bills"}</p>
                                     <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             </div>
                     </div>
@@ -182,6 +182,37 @@ class VipClub extends React.Component { // dashboard view
                                         </div>
                                         : ''
                                     }
+                                    {!this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0  && is_corporate?
+                                        <div>
+                                                <div className="vip-acnt-heading">
+                                                        <h5>VIP Benefits</h5>
+                                                    </div>
+                                                <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
+                                                <div className="gold-benifi-cards-cont vip-club">
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                        <a href="/search" onClick={(e) => {
+                                                            e.preventDefault();
+                                                            this.navigateTo("/search", 'opd')
+                                                        }}><img src={ASSETS_BASE_URL + '/img/gl1.png'} /></a>
+                                                        <p className="mr-t-5">Book <br/> Doctors</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                    <a href="/search" onClick={(e) => {
+                                                        e.preventDefault();
+                                                        this.navigateTo("/search", 'lab')
+                                                    }}><img src={ASSETS_BASE_URL + '/img/gl2.png'} /></a>
+                                                        <p className="mr-t-5">Book Lab <br/> Test</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                        <a target="_blank" href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
+                                                            <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                        </a>
+                                                        <p className="mr-t-5">Order <br/> Medicines</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        : ''}
                                     {
                                         !this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
                                             <React.Fragment>
