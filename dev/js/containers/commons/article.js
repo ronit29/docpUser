@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState,NonIpdBookingLead } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -57,7 +57,7 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData = staticContext.data
     }
     let {
-        profiles, defaultProfile, offerList, articleData, user_cities, iFrameUrls
+        profiles, defaultProfile, offerList, articleData, user_cities, iFrameUrls,common_utm_tags
     } = state.USER
 
     let {
@@ -97,7 +97,7 @@ const mapStateToProps = (state, passedProps) => {
     })()
     return {
         initialServerData,
-        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls
+        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls,common_utm_tags
     }
 }
 
@@ -116,7 +116,8 @@ const mapDispatchToProps = (dispatch) => {
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         submitMedicineLead: (data, callback) => dispatch(submitMedicineLead(data, callback)),
         citiesData: () => dispatch(citiesData()),
-        iFrameState: (url, emptyUrls) => dispatch(iFrameState(url, emptyUrls))
+        iFrameState: (url, emptyUrls) => dispatch(iFrameState(url, emptyUrls)),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
     }
 }
 
