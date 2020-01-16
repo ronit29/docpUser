@@ -21,7 +21,7 @@ import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.j
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import MainPopup from '../mainPopup.js'
 import Loader from '../Loader';
-
+const queryString = require('query-string');
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -59,6 +59,8 @@ class Article extends React.Component {
             showPharmacyFooter: true,
             showMainPopup: false,
             isMedicinePage: this.props.match.url.includes('-mddp'),
+            phone_number:"",
+            inValidPhno:false
         }
     }
 
@@ -325,6 +327,53 @@ class Article extends React.Component {
     hidePopup() {
         this.setState({ showPopup: false })
     }
+
+    handleChange = (e) => {
+        this.setState({phone_number:e.target.value}) 
+    }
+
+    navigateToGold = (e) =>{
+        let self = this
+        const parsed = queryString.parse(this.props.location.search) 
+        if(this.state.phone_number == "" && this.state.phone_number.length <10){
+            this.setState({inValidPhno:true})
+        }else{
+            if(!this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/) || this.state.phone_number.length >10){
+              this.setState({inValidPhno:true})  
+            }else{
+                let Lead_data = {}
+                Lead_data.lead_type = 'MEDICINE'
+                Lead_data.lead_source = 'medicine'
+                Lead_data.exitpoint_url = 'http://docprime.com' + this.props.location.pathname
+                Lead_data.source = parsed
+                Lead_data.phone_number = this.state.phone_number
+                if(self.props.common_utm_tags && self.props.common_utm_tags.length){
+                    Lead_data.utm_tags = self.getUtmTags()
+                }
+                self.props.NonIpdBookingLead(Lead_data)
+                let data = {
+                'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
+                }
+                GTM.sendEvent({ data: data })
+                this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
+            }
+        }
+    }
+    getUtmTags() {
+        const parsed = queryString.parse(this.props.location.search)
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+        }
+
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+
+        return utm_tags
+    }
     mainPopupData() {
         let data = (
             <div className="articleImgPop">
@@ -336,14 +385,12 @@ class Article extends React.Component {
                         GTM.sendEvent({ data: data })
                         event.stopPropagation();
                         this.setState({showMainPopup:false})}} />
-                    <img className="img-fluid " src={ASSETS_BASE_URL + '/img/goldpopup-min.png'} onClick={(e)=>{
-                        e.stopPropagation();
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
-                        }
-                        GTM.sendEvent({ data: data })
-                        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
-                    }}/>
+                    <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={this.navigateToGold}/>
+                    <div className="med-popUpInput-cont">
+                        <input type="number" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
+                        <button type="button" onClick={this.navigateToGold} className="med-popBtn">Become Gold Member Now <span className="circle-arrow"><i></i></span></button>
+                    </div>
+
                 </div>
             </div>
         )
