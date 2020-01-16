@@ -1289,6 +1289,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     getDataAfterLogin = ()=>{
+        this.props.fetchData(this.props)
         if(this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length) {
             let selectedPackage = this.props.labGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
             if(selectedPackage && selectedPackage.length==0) {

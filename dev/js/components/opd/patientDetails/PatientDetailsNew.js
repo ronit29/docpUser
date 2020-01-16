@@ -1309,6 +1309,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     getDataAfterLogin = ()=>{
+        this.props.fetchData(this.props, this.state.selectedClinic, true)
         if(this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length) {
             let selectedPackage = this.props.odpGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
             if(selectedPackage && selectedPackage.length==0) {

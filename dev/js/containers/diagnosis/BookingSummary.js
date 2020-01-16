@@ -135,7 +135,7 @@ class BookingSummary extends React.Component {
         let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} fetchData={this.fetchData.bind(this)}/>
         );
     }
 }
