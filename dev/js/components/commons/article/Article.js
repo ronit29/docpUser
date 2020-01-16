@@ -337,9 +337,11 @@ class Article extends React.Component {
         const parsed = queryString.parse(this.props.location.search) 
         if(this.state.phone_number == "" && this.state.phone_number.length <10){
             this.setState({inValidPhno:true})
+             SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
         }else{
             if(!this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/) || this.state.phone_number.length >10){
               this.setState({inValidPhno:true})  
+              SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
             }else{
                 let Lead_data = {}
                 Lead_data.lead_type = 'MEDICINE'
