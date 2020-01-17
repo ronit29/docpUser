@@ -11,6 +11,7 @@ import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
+import VipReviewSection from './vipReviewSection.js'
 
 class VipGoldView extends React.Component {
     constructor(props) {
@@ -218,7 +219,7 @@ class VipGoldView extends React.Component {
                                                 </div>
                                                 <div className="gold-grnte-content">
                                                     <h4>100% Satisfaction Guarantee</h4>
-                                                    <p>Cancel anytime within a year and get full refund. No questions asked.</p>
+                                                    <p>Cancel anytime within a year and get full refund. No questions asked</p>
                                                 </div>
                                             </div>
                                             <div className="gold-grntee-card mb-3">
@@ -396,6 +397,9 @@ class VipGoldView extends React.Component {
                                                     <h5 id="video-time" className="fw-500 text-center"></h5>
                                                 </div>
                                             </div>
+                                            {/* ================== gold benefit Review starts ================== */}
+                                            <VipReviewSection />
+                                            {/* ================== gold benefit Review End ================== */}
                                             {/* ================== gold benefit video section ends ================== */}
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">
