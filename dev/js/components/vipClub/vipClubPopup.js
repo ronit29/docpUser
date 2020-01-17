@@ -181,7 +181,7 @@ class VipLoginPopup extends React.Component {
                                      self.props.generateVipClubLead({selectedPlan:self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', number:self.state.phoneNumber, lead_data:lead_data, selectedLocation:self.props.selectedLocation, user_name:self.state.user_name, extraParams:extraParams,
                                         cb: (resp) => {
                                             let LeadIdData = {
-                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                                'Category': 'ConsumerApp', 'Action': 'VipPopupLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-popup-lead-clicked', 'source': lead_data.source || ''
                                             }
                                             GTM.sendEvent({ data: LeadIdData })
                                         }

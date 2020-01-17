@@ -113,7 +113,7 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => { // to ad
 
 }
 
-export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ callback) => (dispatch) => { // to create vip or gold member lead for matrix
+export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ cb) => (dispatch) => { // to create vip or gold member lead for matrix
     let lat
     let long
     let latitude = 28.644800
@@ -152,9 +152,9 @@ export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,select
         plan.lead_data = {...data.lead_data, ...data.extraParams}
     }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
-        if(callback) callback(response)
+        if(data.cb) data.cb(response)
     }).catch(function (error) {
-       if(callback) callback(error)
+       if(data.cb) cb(error)
     })
 }
 

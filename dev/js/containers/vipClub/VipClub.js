@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
         getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        generateVipClubLead:(data,cb) =>dispatch(generateVipClubLead(data,cb)),
+        generateVipClubLead:(data) =>dispatch(generateVipClubLead(data)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
