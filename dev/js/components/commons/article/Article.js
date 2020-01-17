@@ -337,9 +337,11 @@ class Article extends React.Component {
         const parsed = queryString.parse(this.props.location.search) 
         if(this.state.phone_number == "" && this.state.phone_number.length <10){
             this.setState({inValidPhno:true})
+             SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
         }else{
             if(!this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/) || this.state.phone_number.length >10){
               this.setState({inValidPhno:true})  
+              SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
             }else{
                 let Lead_data = {}
                 Lead_data.lead_type = 'MEDICINE'
@@ -387,7 +389,7 @@ class Article extends React.Component {
                         this.setState({showMainPopup:false})}} />
                     <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={this.navigateToGold}/>
                     <div className="med-popUpInput-cont">
-                        <input type="number" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
+                        <input type="tel" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
                         <button type="button" onClick={this.navigateToGold} className="med-popBtn">Become Gold Member Now <span className="circle-arrow"><i></i></span></button>
                     </div>
 

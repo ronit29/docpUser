@@ -110,6 +110,7 @@ const STORAGE = {
     deleteAuth: () => {
         eraseCookie('tokenauth')
         // deleteAllCookies()
+        eraseCookie('tokenRefreshTime')
         return Promise.resolve()
     },
     isAgent: () => {
@@ -170,7 +171,6 @@ const STORAGE = {
         return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
     },
     refreshTokenCall(token,ciphertext,fromWhere){
-        console.log(fromWhere)
         return API_POST('/api/v1/user/api-token-refresh', {
             token: token,
             reset : ciphertext,
@@ -181,8 +181,6 @@ const STORAGE = {
                 STORAGE.setAuthToken(data.token).then((resp)=>{
                     SOCKET.refreshSocketConnection();
                 })
-                // console.log(data)
-
                 STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
                 return data.token;
             }
