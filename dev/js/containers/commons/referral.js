@@ -27,8 +27,9 @@ class Referral extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    let { refer_amount } = state.USER
     return {
-
+        refer_amount
     }
 }
 

@@ -65,7 +65,6 @@ class ReferralView extends React.Component {
     }
 
     render() {
-        if(this.state.referralCode){
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
@@ -91,7 +90,7 @@ class ReferralView extends React.Component {
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
-                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.state.referral_amt} on <br /> Signup
+                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on <br /> Signup
                                                             <div className="badge badge-refer">2</div>
                                                         </div>
 
@@ -106,7 +105,7 @@ class ReferralView extends React.Component {
                                                         </div>
 
                                                         <div className="text-step">
-                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.state.referral_amt} on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
+                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,12 +166,6 @@ class ReferralView extends React.Component {
                 <Disclaimer />
             </div>
         );
-        }else{
-            return <div className="profile-body-wrap lgn-ovrflow">
-                <ProfileHeader />
-                <Loader />
-            </div>
-        }
     }
 }
 
