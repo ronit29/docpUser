@@ -333,33 +333,38 @@ class Article extends React.Component {
     }
 
     navigateToGold = (e) =>{
-        let self = this
-        const parsed = queryString.parse(this.props.location.search) 
-        if(this.state.phone_number == "" && this.state.phone_number.length <10){
-            this.setState({inValidPhno:true})
-             SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
-        }else{
-            if(!this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/) || this.state.phone_number.length >10){
-              this.setState({inValidPhno:true})  
-              SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
-            }else{
-                let Lead_data = {}
-                Lead_data.lead_type = 'MEDICINE'
-                Lead_data.lead_source = 'medicine'
-                Lead_data.exitpoint_url = 'http://docprime.com' + this.props.location.pathname
-                Lead_data.source = parsed
-                Lead_data.phone_number = this.state.phone_number
-                if(self.props.common_utm_tags && self.props.common_utm_tags.length){
-                    Lead_data.utm_tags = self.getUtmTags()
-                }
-                self.props.NonIpdBookingLead(Lead_data)
-                let data = {
-                'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
-                }
-                GTM.sendEvent({ data: data })
-                this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
-            }
+        let data = {
+        'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
         }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
+        // let self = this
+        // const parsed = queryString.parse(this.props.location.search) 
+        // if(this.state.phone_number == "" && this.state.phone_number.length <10){
+        //     this.setState({inValidPhno:true})
+        //      SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
+        // }else{
+        //     if(!this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/) || this.state.phone_number.length >10){
+        //       this.setState({inValidPhno:true})  
+        //       SnackBar.show({ pos: 'bottom-center', text: "Please enter valid phone number" })
+        //     }else{
+        //         let Lead_data = {}
+        //         Lead_data.lead_type = 'MEDICINE'
+        //         Lead_data.lead_source = 'medicine'
+        //         Lead_data.exitpoint_url = 'http://docprime.com' + this.props.location.pathname
+        //         Lead_data.source = parsed
+        //         Lead_data.phone_number = this.state.phone_number
+        //         if(self.props.common_utm_tags && self.props.common_utm_tags.length){
+        //             Lead_data.utm_tags = self.getUtmTags()
+        //         }
+        //         self.props.NonIpdBookingLead(Lead_data)
+        //         let data = {
+        //         'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-clicked'
+        //         }
+        //         GTM.sendEvent({ data: data })
+        //         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-medicine-banner-gold-clicked&lead_source=Docprime')
+        //     }
+        // }
     }
     getUtmTags() {
         const parsed = queryString.parse(this.props.location.search)
@@ -389,7 +394,7 @@ class Article extends React.Component {
                         this.setState({showMainPopup:false})}} />
                     <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={this.navigateToGold}/>
                     <div className="med-popUpInput-cont">
-                        <input type="tel" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
+                        {/*<input type="tel" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>*/}
                         <button type="button" onClick={this.navigateToGold} className="med-popBtn">Become Gold Member Now <span className="circle-arrow"><i></i></span></button>
                     </div>
 
