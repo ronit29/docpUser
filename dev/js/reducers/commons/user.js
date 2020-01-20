@@ -583,9 +583,11 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            console.log(action.payload)
-            debugger
-            // newState.refer_amount 
+            if(action.payload && Object.keys(action.payload).length){
+                newState.refer_amount  = action.payload.referral_amt    
+            }else{
+                newState.refer_amount  = defaultState.refer_amount
+            }
             return newState   
         }
 
