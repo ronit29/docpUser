@@ -714,6 +714,10 @@ class PatientDetailsNew extends React.Component {
                 let message = "Error adding to cart!"
                 if (err.message) {
                     message = err.message
+                    if(message.includes('Item already exists in cart.')){
+                        this.props.history.push('/cart')
+                        return;
+                    }
                 }
                 this.setState({ loading: false, error: message })
                 SnackBar.show({ pos: 'bottom-center', text: message });
