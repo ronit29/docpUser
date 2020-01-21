@@ -411,7 +411,7 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details clearfix">
-                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb" onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
+                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-ls" style={{float:'right'}} onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
                                                                     <img className="fltr-usr-image-lab" style={{ float:'right',cursor: 'pointer' }} src={lab_thumbnail} />
                                                                 </InitialsPicture>
 

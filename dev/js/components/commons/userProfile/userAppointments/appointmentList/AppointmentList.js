@@ -95,7 +95,7 @@ class AppointmentList extends React.Component {
         return (
             <li style={{ position: 'relative', paddingTop: 32, cursor: 'unset' }}>
                 <span className="icon consultant-dp">
-                    <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-appointment" style={{ position: 'relative' }}>
+                    <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className={lab_name ? 'initialsPicture-ls': 'initialsPicture-appointment'} style={{ position: 'relative' }}>
                         <img src={doctor_thumbnail} className={doctor_thumbnail ? 'img-fluid img-round my-appont-img': 'd-none'} />
                         <img src={lab_thumbnail} className={lab_thumbnail ? 'fltr-usr-image-lab': 'd-none'}/>
                         {type == 'doctor' ? <img src={ASSETS_BASE_URL + "/img/customer-icons/stethoscope.svg"} className="appointment-icon" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/beaker.svg"} className="appointment-icon" />}

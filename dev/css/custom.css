@@ -7294,6 +7294,7 @@ img.img-fluid.vp-cls-img {
     min-width: 80%;
     min-height: 100px;
     padding: 8px 10px;
+    border-right: 1px solid #e2e2e2;
 }
 
 .pkgcustCards.vip-cmmnt-card h4 {
