@@ -191,6 +191,9 @@ export const OTTLogin = (ott) => (dispatch) => {
                         type: APPEND_USER_PROFILES,
                         payload: response
                     })
+                    dispatch({
+                        type: RESET_VIP_CLUB
+                    })
                     resolve()
                 })
             }).catch(function (error) {
