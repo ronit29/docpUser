@@ -81,6 +81,11 @@ export default function (state = defaultState, action) {
 
             // add a dummy profile to keep system in working state
             // TODO: do this better way
+            if(action.allUsers){
+                newState.profiles = {}
+                newState.selectedProfile = null
+
+            }
             if (action.payload && action.payload.length == 0) {
                 action.payload.push(DUMMY_PROFILE)
             } else {

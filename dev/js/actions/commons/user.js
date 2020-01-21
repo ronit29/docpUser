@@ -7,7 +7,8 @@ export const getUserProfile = () => (dispatch) => {
 	return API_GET('/api/v1/user/userprofile').then(function (response) {
 		dispatch({
 			type: APPEND_USER_PROFILES,
-			payload: response
+			payload: response,
+			allUsers: true
 		})
 
 	}).catch(function (error) {
