@@ -91,15 +91,33 @@ app.get('/disbaled-apple-app-site-association', function (req, res) {
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
-function getUtmParams(req, res){
+function generateUUID() {
+    //method to generate search id
+    let uid_string = 'xxyyxxxx-xxyx-4xxx-ynbx-xzxyyyxlxxxx'
+    var dt = new Date().getTime();
+    var uuid = uid_string.replace(/[xy]/g, function (c) {
+        var r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+}
+
+function saveUID(req, res){
     try{
-        if(req && req.query && req.query.utm_source=='sbi_utm'){
-            res.cookie('sbi_utm',true, { maxAge: 900000});
+        if( req.headers && req.headers.cookie && req.headers.cookie.includes('browserDocprimeId')) {
+            //console.log('SErver cookie is ', req.cookie('browserDocprimeId'))
+        }else{
+            let uuid = generateUUID();
+            //console.log("Server iss.  ", uuid)
+            res.cookie('browserDocprimeId',uuid, { maxAge: 900000});
         }
+        
     }catch(e) {
 
     }
 }
+
 
 app.all('*', function (req, res) {
     console.log('Enter Requests');
@@ -111,7 +129,7 @@ app.all('*', function (req, res) {
         CookieHelper.init(req);
     }
 
-    //getUtmParams(req, res);
+    saveUID(req, res);
 
      if(req.get('host') && req.get('host').includes('www.')) {
         let redirect_url = "https://docprime.com" + req.originalUrl

@@ -82,6 +82,15 @@ class App extends React.Component {
             })
         }
 
+        //Create Unique UUID for the user/browser
+        
+        if(STORAGE.getAnyCookie('browserDocprimeId')){
+
+        }else{
+            this.generateUUID();
+        }
+        
+
         let location_ms = null
         if (window.location.pathname.includes('location=')) {
             location_ms = window.location.pathname.split('location=')[1]
@@ -222,6 +231,18 @@ class App extends React.Component {
 
     }
 
+    generateUUID() {
+        //method to generate search id
+        let uid_string = 'xxyyxxxx-xxyx-4xxx-ynbx-xzxyyyxlxxxx'
+        var dt = new Date().getTime();
+        var uuid = uid_string.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        STORAGE.setAnyCookie('browserDocprimeId', uuid, 365)
+    }
+
     componentWillReceiveProps(props){
         this.tokenRefresh(props)
     }
@@ -237,12 +258,13 @@ class App extends React.Component {
         if (STORAGE.checkAuth() && !this.state.toCallRefreshToken && props.profiles && Object.keys(props.profiles).length > 0) {
             props.getCartItems()
             this.setState({toCallRefreshToken: true})
+            this.refreshApi();
             let intervalId = setInterval(() => {
                 if(STORAGE.checkAuth()){
                     this.refreshApi()
                 }else{
-                    clearInterval(this.refreshApi)
-                    this.setState({toCallRefreshToken: true})
+                    clearInterval(intervalId)
+                    this.setState({toCallRefreshToken: false})
                 }
             }, 300000)
         }

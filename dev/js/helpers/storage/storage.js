@@ -89,14 +89,19 @@ const STORAGE = {
     getAuthToken: (dataParams={}) => {
         let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
         let exp_time = {}
+        let time_diff = null
         try{
             exp_time = getCookie('tokenRefreshTime')
             exp_time = JSON.parse(exp_time)
+            time_diff = getAnyCookie('server_device_time_diff');
+            if(time_diff){
+                time_diff = parseInt(time_diff);
+            }
         }catch(e){
 
         }
         
-        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){  
+        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && time_diff &&  (exp_time.payload.exp*1000 < new Date().getTime() + time_diff) && dataParams && !istokenRefreshCall){  
             let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),'FromSTORAGE',true)
             return Promise.resolve(token);
         }else{
@@ -184,6 +189,8 @@ const STORAGE = {
                     STORAGE.setAuthToken(data.token).then((resp)=>{
                         SOCKET.refreshSocketConnection();
                     })
+                    let time_diff = data.payload.orig_iat *1000 - new Date().getTime();
+                    STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
                     STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
                     return data.token;
                 }
