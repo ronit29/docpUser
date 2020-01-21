@@ -128,7 +128,11 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.currentSelectedVipMembersId=[]
-            newState.selected_vip_plan={}
+            if(action.summaryPage){
+
+            }else{
+                newState.selected_vip_plan={}
+            }
             newState.vipClubMemberDetails={}
             newState.members_proofs = []
             newState.vipClubList=[]

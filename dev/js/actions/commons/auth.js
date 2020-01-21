@@ -43,7 +43,7 @@ export const sendOTP = (number,viaSms,viaWhatsapp,message_type, cb) => (dispatch
 
 }
 
-export const submitOTP = (number, otp, cb) => (dispatch) => {
+export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
     dispatch({
         type: SUBMIT_OTP_REQUEST,
         payload: {}
@@ -69,7 +69,8 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         })
 
         dispatch({
-            type: RESET_VIP_CLUB
+            type: RESET_VIP_CLUB,
+            summaryPage: extraParams && extraParams.summaryPage?extraParams.summaryPage:null
         })
 
         if (cb) cb(response);

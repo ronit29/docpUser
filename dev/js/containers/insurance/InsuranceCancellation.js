@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
         cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb)),
         cancelReason:(criteria) => dispatch(cancelReason(criteria)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp,extraParamsData,  cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
     }
 }
 

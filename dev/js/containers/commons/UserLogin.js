@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         fetchReferralCode: (code) => dispatch(fetchReferralCode(code)),
         clearInsurance: () => dispatch(clearInsurance()),

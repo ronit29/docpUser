@@ -91,7 +91,8 @@ class UserLoginView extends React.Component {
         }
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            let extraParamsData = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParamsData, (exists) => {
                 if (exists.token) {
                     const parsed = queryString.parse(this.props.location.search)
                     this.props.clearInsurance()

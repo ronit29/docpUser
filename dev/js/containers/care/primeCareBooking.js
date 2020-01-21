@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCareDetails: (callback) => dispatch(getCareDetails(callback)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         getUserProfile: () => dispatch(getUserProfile()),
