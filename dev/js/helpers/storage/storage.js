@@ -183,7 +183,7 @@ const STORAGE = {
                 reset : ciphertext,
                 enableCall: true,
                 fromWhere:fromWhere,
-                forceUpdate:isForceUpdate
+                force_update:isForceUpdate
             }).then((data) => {
                 if(data && Object.keys(data).length){
                     STORAGE.setAuthToken(data.token).then((resp)=>{
