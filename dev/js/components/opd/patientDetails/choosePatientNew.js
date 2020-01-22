@@ -5,6 +5,7 @@ import Calendar from 'rc-calendar';
 const moment = require('moment');
 const queryString = require('query-string');
 import NewDateSelector from '../../commons/newDateSelector.js'
+import STORAGE from '../../../helpers/storage'
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -27,7 +28,10 @@ class ChoosePatientNewView extends React.Component {
             isDobNotValid: false,
             isNewPatient: false,
             is_dob_error: null,
-            isDobValidated: false
+            isDobValidated: false,
+            otp:null,
+            showLogin:false,
+            askUserDetails:false
         }
     }
 
@@ -36,7 +40,7 @@ class ChoosePatientNewView extends React.Component {
 
             if (this.props.saved_patient_details && Object.keys(this.props.saved_patient_details).length) {
 
-                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false }, () => {
+                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false,showLogin:false,otp:null }, () => {
                     this.profileValidation()
                 })
 
@@ -51,8 +55,8 @@ class ChoosePatientNewView extends React.Component {
                 let popup1 = nextProps.ipdPopupData['popup1']
 
                 if (popup1 && Object.keys(popup1).length && popup1.doctor == this.props.selectedDoctor) {
-
-                    this.setState({ name: popup1 && popup1.first_name ? popup1.first_name : '', phoneNumber: popup1 && popup1.phone_number ? popup1.phone_number : '', gender: popup1 && popup1.gender ? popup1.gender : '', showVerify: true, isPopupDataFilled: true }, () => {
+                    console.log(popup1)
+                    this.setState({ name: popup1 && popup1.first_name ? popup1.first_name : '', phoneNumber: popup1 && popup1.phone_number ? popup1.phone_number : '', gender: popup1 && popup1.gender ? popup1.gender : '', showVerify: popup1 && popup1.phone_number.length == 10?true:false, isPopupDataFilled: true, showLogin:false,otp:null }, () => {
                         this.profileValidation()
                     })
                 }
@@ -70,6 +74,17 @@ class ChoosePatientNewView extends React.Component {
                     ?
                     this.setState({
                         [e.target.name]: e.target.value, showVerify: true
+                    })
+                    : this.setState({
+                        [e.target.name]: e.target.value
+                    })
+                : this.setState({ showVerify: true })
+        } else if (e.target.name == 'otp') {
+            e.target.value.length <= 6
+                ? e.target.value.length == 6
+                    ?
+                    this.setState({
+                        [e.target.name]: e.target.value
                     })
                     : this.setState({
                         [e.target.name]: e.target.value
@@ -126,9 +141,7 @@ class ChoosePatientNewView extends React.Component {
                         }
                         self.props.submitIPDForm(formData, this.props.selectedLocation)
                     }
-
-                    self.props.createProfile(this.state, (err, res) => {
-                        //self.setState({data:true})
+                    if(response.user_exists){
                         self.props.getUserProfile().then(() => {
 
                             if (self.props.is_lab) {
@@ -140,8 +153,24 @@ class ChoosePatientNewView extends React.Component {
                                 self.props.sendEmailNotification()
                             }
                         })
-                        self.setState({ dob: null, email: null })
-                    })
+                    }else{
+                        this.setState({askUserDetails:true})   
+                    }
+                    // self.props.createProfile(this.state, (err, res) => {
+                    //     //self.setState({data:true})
+                    //     self.props.getUserProfile().then(() => {
+
+                    //         if (self.props.is_lab) {
+                    //             self.props.checkPrescription()
+                    //             self.props.clearTestForInsured()
+                    //         }
+                    //         this.props.getDataAfterLogin()
+                    //         if (self.props.is_opd) {
+                    //             self.props.sendEmailNotification()
+                    //         }
+                    //     })
+                    //     self.setState({ dob: null, email: null })
+                    // })
                 })
             } else {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Otp" })
@@ -239,7 +268,111 @@ class ChoosePatientNewView extends React.Component {
     verify(resendFlag = false, viaSms, viaWhatsapp) {
         let self = this
 
-        if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
+        // if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
+        //     setTimeout(() => {
+        //         if (!this.state.name) {
+        //             SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
+        //         } else {
+        //             SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
+        //         }
+        //     }, 500)
+        //     return
+        // }
+
+        // if (this.state.gender == '') {
+        //     setTimeout(() => {
+        //         SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
+        //     }, 500)
+        //     return
+        // }
+
+        // if (this.state.email == '') {
+        //     setTimeout(() => {
+        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+        //     }, 500)
+        //     return
+        // }
+
+        // if (!this.state.email.match(/\S+@\S+\.\S+/)) {
+        //     setTimeout(() => {
+        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+        //     }, 500)
+        //     return
+        // }
+
+        // if (this.state.dob == '' || this.state.dob == null) {
+        //     setTimeout(() => {
+        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
+        //     }, 500)
+        //     return
+        // }
+
+        // if (this.state.dob != null && !this.state.isDobValidated) {
+        //     setTimeout(() => {
+        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
+        //     }, 500)
+        //     return
+        // }
+
+
+
+        if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
+            this.setState({ validationError: "" })
+
+            if (resendFlag) {
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
+                }
+                GTM.sendEvent({ data: analyticData })
+            } else {
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
+                }
+                GTM.sendEvent({ data: analyticData })
+            }
+            this.props.nonIpdLeads(this.state.phoneNumber)
+            this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
+                if (error) {
+                    setTimeout(() => {
+                        SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
+                    }, 500)
+                    //self.setState({ validationError: "Could not generate OTP." })
+                } else {
+                    if (viaWhatsapp) {
+                        this.setState({ enableOtpRequest: true })
+                    } else {
+                        this.setState({ enableOtpRequest: false })
+                    }
+                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false, showLogin:true })
+                    setTimeout(() => {
+                        this.setState({ otpTimeout: false })
+                    }, 20000)
+                    setTimeout(() => {
+                        this.setState({ enableOtpRequest: false })
+                    }, 60000)
+                }
+            })
+        } else {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please provide a valid number (10 digits)" })
+            }, 500)
+            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
+        }
+
+    }
+    getNewDate(type, newDate, isValidDob) {
+        this.setState({ dob: newDate, isDobValidated: isValidDob }, () => {
+            this.profileValidation()
+        })
+    }
+
+    editPhoneNumber(){
+        this.setState({showOtp:false,showLogin:false,otp:null})
+        document.getElementById('otpMob').focus();
+    }
+
+    addUserProfile(){
+       if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
             setTimeout(() => {
                 if (!this.state.name) {
                     SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
@@ -283,64 +416,31 @@ class ChoosePatientNewView extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
             }, 500)
             return
-        }
+        } 
 
-        if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
-            this.setState({ validationError: "" })
+        this.props.profileDataCompleted(this.state)
+        this.props.createProfile(this.state, (err, res) => {
+            this.props.getUserProfile().then(() => {
 
-            if (resendFlag) {
-                let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
+                if (this.props.is_lab) {
+                    this.props.checkPrescription()
+                    this.props.clearTestForInsured()
                 }
-                GTM.sendEvent({ data: analyticData })
-            } else {
-                let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
-                }
-                GTM.sendEvent({ data: analyticData })
-            }
-            this.props.nonIpdLeads(this.state.phoneNumber, this.state.name)
-            this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
-                if (error) {
-                    setTimeout(() => {
-                        SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
-                    }, 500)
-                    //self.setState({ validationError: "Could not generate OTP." })
-                } else {
-                    if (viaWhatsapp) {
-                        this.setState({ enableOtpRequest: true })
-                    } else {
-                        this.setState({ enableOtpRequest: false })
-                    }
-                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false })
-                    setTimeout(() => {
-                        this.setState({ otpTimeout: false })
-                    }, 20000)
-                    setTimeout(() => {
-                        this.setState({ enableOtpRequest: false })
-                    }, 60000)
+                this.props.getDataAfterLogin()
+                if (this.props.is_opd) {
+                    this.props.sendEmailNotification()
                 }
             })
-        } else {
-            setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please provide a valid number (10 digits)" })
-            }, 500)
-            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
-        }
-
-    }
-    getNewDate(type, newDate, isValidDob) {
-        this.setState({ dob: newDate, isDobValidated: isValidDob }, () => {
-            this.profileValidation()
+            this.setState({ dob: null, email: null })
         })
     }
 
     render() {
         const parsed = queryString.parse(this.props.location.search)
-
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {/* =================== New Login Flow Start =================== */}
+                {!this.props.patient?
                 <div className="widget-content">
                     <div className="otp-heading">
                         <h4 className="title d-flex mb-0">
@@ -349,55 +449,69 @@ class ChoosePatientNewView extends React.Component {
                         <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                     </div>
                     <div className="otp-container">
-                        {/* =================== otp section ===================*/}
-                        <form>
+                        {
+                        !STORAGE.checkAuth()?
+                        <form> {/* =================== otp section ===================*/}
                             <div className="labelWrap">
                                 <div className="p-relative">
-                                    <input type="text" required id="otpMob" />
+                                    <input type="text" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
                                     <label for="otpMob">Mobile number</label>
-                                    <button className="otp-edit">Edit</button>
+                                    {
+                                        this.state.showOtp?
+                                        <button className="otp-edit" onClick={(e) =>{e.preventDefault(); this.editPhoneNumber()}}>Edit</button>
+                                        :''
+                                    }
                                 </div>
                             </div>
-                            <div className="labelWrap">
-                                <div className="p-relative">
-                                    <input type="text" required id="otpNumber" />
-                                    <label for="otpNumber">Enter 6 digit OTP</label>
-                                    <div className="otp-edit">
-                                        <p className="otp-rsnd">Resend</p>
-                                        <span className="otp-timer">00:30</span>
+                            {
+                                this.state.showOtp ?
+                                <div className="labelWrap">
+                                    <div className="p-relative">
+                                        <input type="number" required id="otpNumber" autoComplete="off" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" value={this.state.otp}/>
+                                        <label for="otpNumber">Enter 6 digit OTP</label>
+                                        <div className="otp-edit">
+                                            {this.state.enableOtpRequest ? ''
+                                            :<React.Fragment>
+                                            <p className="otp-rsnd" onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}}>Resend</p>
+                                            <span className="otp-timer">00:30</span>
+                                            </React.Fragment>
+                                            }
+                                        </div>
                                     </div>
+                                    <p className="get-otp" onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
                                 </div>
-                                <p className="get-otp">Get OTP on Whatsapp</p>
-                            </div>
-                            <div className="input-booking-smswhts d-flex align-flex-sp-bt">
-                                <button className="input-sms-whts">
-                                    <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
-                                <button className="input-sms-ver mr-0">
-                                    <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
-                                <button className="otp-login-btn d-none">
+                            :""}
+                            <div className= {`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin?'otpLogin':''}`} >
+                                {
+                                    this.state.showLogin?
+                                    <button className="otp-login-btn" onClick={(e) =>{e.preventDefault(); this.submitOTPRequest()}}>
                                     Login
                                     </button>
-                            </div>
+                                    :<React.Fragment>
+                                    <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
+                                        <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
+                                    <button className="input-sms-ver mr-0" onClick={(e) => {e.preventDefault(); this.verify(false, true, false)}}>
+                                        <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
+                                    </React.Fragment>
+                                }
+
+                            </div>  
                         </form>
-                        {/* =================== otp section ===================*/}
-
-
-                        {/* =================== patient details section ===================*/}
-                        <form>
+                        :<form> {/* =================== patient details section ===================*/}
                             <div className="labelWrap">
                                 <div className="p-relative">
-                                    <input type="text" id="otpMobver" />
+                                    <input type="text" id="otpMobver" className="click-disable" value = {this.state.phoneNumber} autoComplete="off"/>
                                     <label for="otpMobver">Mobile number</label>
                                     <p className="num-verified"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/chk-green.svg'} /> Verified</p>
                                 </div>
                             </div>
                             <div>
-                                <button className="label-names-buttons btn-active" name="title" value='mr.' data-param='title'  >Male</button>
-                                <button className="label-names-buttons " name="title" value='mr.' data-param='title'  >Female</button>
+                                <button className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)}>Male</button>
+                                <button className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)}>Female</button>
                             </div>
                             <div className="labelWrap">
                                 <div className="p-relative">
-                                    <input type="text" required id="ptntName" />
+                                    <input type="text" required id="ptntName" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
                                     <label for="ptntName">Name</label>
                                 </div>
                             </div>
@@ -406,29 +520,74 @@ class ChoosePatientNewView extends React.Component {
 
                             <div className="labelWrap">
                                 <div className="p-relative">
-                                    <input type="text" required id="ptntEmail" />
+                                    <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
                                     <label for="ptntEmail">Email</label>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button type="button" className="ptnt-dtls-cnfrm">Confirm</button>
+                                <button type="button" className="ptnt-dtls-cnfrm" onClick={(e) =>{e.preventDefault(); this.addUserProfile()}}>Confirm</button>
 
                             </div>
-                        </form>
+                        </form>}
                         {/* =================== patient details section ===================*/}
-                        <form>
-
-                        </form>
-
                     </div>
-
                 </div>
-                {/* =================== New Login Flow End =================== */}
-
-                {
+                : <div className="widget-content">
+                    <div className="lab-visit-time d-flex jc-spaceb">
+                        <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
+                            <h4 className="title d-flex"><span>
+                                <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                            </span>Patient</h4>
+                        </div>
+                        <div className="mbl-view-formatting text-right">
+                            <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
+                        </div>
+                    </div>
+                    {
+                        (this.props.is_opd || this.props.is_lab) && !this.props.patient.email ?
+                            <div className="slt-nw-input">
+                                <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
+                                <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
+                            </div>
+                            : ''
+                    }
+                    {
+                        (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
+                            <div className="slt-nw-input summery-dob-cont">
+                                <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
+                                <p className="dob-input-sub">dd/mm/yyyy</p>
+                                </label>
+                                <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true} />
+                            </div>
+                            : ""
+                    }
+                    <React.Fragment>
+                        {this.state.dob || this.state.email ?
+                            <div className="text-right">
+                                <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
+                            </div>
+                            : (parsed && parsed.cod_to_prepaid == 'true') ? '' :
+                                <div className="text-right">
+                                    <a href="#" onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        this.props.navigateTo('patient', this.props.is_insurance_applicable)
+                                    }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                </div>
+                        }
+                        <div className="">
+                            {this.props.show_insurance_error && this.props.insurance_error_msg ?
+                                <p className="gyn-text">{this.props.insurance_error_msg}</p>
+                                : ''
+                            }
+                        </div>
+                    </React.Fragment>
+                </div>
+                 }
+                { // old logic
                     this.props.patient ?
                         <div className="widget-content">
-                            <div className="lab-visit-time d-flex jc-spaceb">
+                            {/*<div className="lab-visit-time d-flex jc-spaceb"> // new comment
                                 <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
                                     <h4 className="title d-flex"><span>
                                         <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
@@ -437,14 +596,14 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="mbl-view-formatting text-right">
                                     <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
                                 </div>
-                            </div>
+                            </div>*/}
                             {
-                                (this.props.is_opd || this.props.is_lab) && !this.props.patient.email ?
+                                /*(this.props.is_opd || this.props.is_lab) && !this.props.patient.email ? // new comment
                                     <div className="slt-nw-input">
                                         <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
                                         <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
                                     </div>
-                                    : ''
+                                    : ''*/
                             }
                             {
                                 /*this.props.is_lab && this.props.patient.dob ?
@@ -489,18 +648,18 @@ class ChoosePatientNewView extends React.Component {
                                 : ""*/
                             }
 
-                            {
-                                (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
+                            {// new comment
+                               /* (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
                                     <div className="slt-nw-input summery-dob-cont">
                                         <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
                                         <p className="dob-input-sub">dd/mm/yyyy</p>
                                         </label>
                                         <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true} />
                                     </div>
-                                    : ""
+                                    : ""*/
                             }
 
-                            <React.Fragment>
+                            {/*<React.Fragment> // new comment
                                 {this.state.dob || this.state.email ?
                                     <div className="text-right">
                                         <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
@@ -520,9 +679,10 @@ class ChoosePatientNewView extends React.Component {
                                         : ''
                                     }
                                 </div>
-                            </React.Fragment>
+                            </React.Fragment>*/}
                         </div>
-                        : <div className="widget-content">
+                        : ''}
+                       {/* <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
                                 <h4 className="title d-flex"><span>
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
@@ -562,26 +722,6 @@ class ChoosePatientNewView extends React.Component {
                                     </label>
                                     <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true} />
                                 </div>
-
-                                {/*<div className="slt-nw-input">
-                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
-                                    <input className="slt-text-input" autoComplete="off" type="text" name="dob" value={this.state.dob} onClick={this.openCalendar.bind(this,true)}  placeholder="" />
-                                </div>*/}
-                                {/*this.state.dateModal ? 
-                                    <div className="calendar-overlay">
-                                        <div className="date-picker-modal">
-                                            <Calendar
-                                                showWeekNumber={false}
-                                                defaultValue={moment(new Date())}
-                                                disabledDate={(date) => {
-                                                    return date.diff(moment((new Date)), 'days') > -1
-                                                }}
-                                                showToday
-                                                onSelect={this.selectDateFromCalendar.bind(this)}
-                                            />
-                                        </div>
-                                    </div>
-                                :''*/}
                                 <div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
                                     <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
@@ -620,7 +760,7 @@ class ChoosePatientNewView extends React.Component {
                                 }
 
                             </div>
-                        </div>
+                        </div>*/}
                 }
             </div>
         );

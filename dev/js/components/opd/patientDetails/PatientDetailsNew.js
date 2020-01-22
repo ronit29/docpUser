@@ -1743,6 +1743,7 @@ class PatientDetailsNew extends React.Component {
                                                                     selectClinic={this.selectClinic.bind(this)}
                                                                 />
                                                                 {/* new time slot */}
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -1836,7 +1837,6 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
                                                                     <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
