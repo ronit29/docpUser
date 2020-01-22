@@ -93,7 +93,7 @@ const STORAGE = {
         try{
             exp_time = getCookie('tokenRefreshTime')
             exp_time = JSON.parse(exp_time)
-            time_diff = getAnyCookie('server_device_time_diff');
+            time_diff = getDeviceId('server_device_time_diff');
             if(time_diff){
                 time_diff = parseInt(time_diff);
             }
@@ -201,6 +201,26 @@ const STORAGE = {
         }else{
             return Promise.resolve(getCookie('tokenauth')) 
         }
+    },
+    getDeviceId: (name)=>{
+        var deviceId = getCookie(name)
+        if(deviceId){
+            return deviceId
+        }
+        return STORAGE.generateUUID();
+    },
+
+    generateUUID() {
+        //method to generate search id
+        let uid_string = 'xxyyxxxx-xxyx-4xxx-ynbx-xzxyyyxlxxxx'
+        var dt = new Date().getTime();
+        var uuid = uid_string.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        STORAGE.setAnyCookie('browserDocprimeId', uuid, 365)
+        return uuid;
     }
 
 

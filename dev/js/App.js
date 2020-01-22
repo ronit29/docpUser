@@ -84,7 +84,7 @@ class App extends React.Component {
 
         //Create Unique UUID for the user/browser
         
-        if(STORAGE.getAnyCookie('browserDocprimeId')){
+        if(STORAGE.getDeviceId('browserDocprimeId')){
 
         }else{
             this.generateUUID();
