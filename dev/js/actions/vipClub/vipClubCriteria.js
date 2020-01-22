@@ -178,7 +178,7 @@ export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch)
     }).catch(function (error) {
             dispatch({
                 type: VIP_CLUB_DASHBOARD_DATA,
-                payload: error
+                payload: null
             })
         if(callback) callback(error)
         throw error

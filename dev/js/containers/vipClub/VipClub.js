@@ -19,7 +19,8 @@ class VipClub extends React.Component{
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent ?parsed.is_agent:false,
             source:parsed.source,
-            is_gold:parsed.is_gold?parsed.is_gold:false,
+            // is_gold:parsed.is_gold?parsed.is_gold:false,
+            is_gold:this.props.match.url.includes('vip-gold-details'),
             is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
             is_booking_page:parsed.booking_page?parsed.booking_page:null
         }

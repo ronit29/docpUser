@@ -49,8 +49,7 @@ class VipProposer extends React.Component {
 	componentDidMount() {
 		let profile
 		let isDummyUser
-		let profileLength = Object.keys(this.props.USER.profiles).length;
-		if (profileLength > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
+		if (this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
 			if (!isDummyUser) {
 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 			} else {
@@ -75,8 +74,7 @@ class VipProposer extends React.Component {
 	}
 	componentWillReceiveProps(props) {
 		let self = this
-		let profileLength = Object.keys(props.USER.profiles).length;
-		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
+		if (props.USER && props.USER.profiles && Object.keys(props.USER.profiles).length > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) { // retrieve already member details from user store
 				let profile
@@ -91,7 +89,7 @@ class VipProposer extends React.Component {
 			    		this.getUserDetails(profile) // fill user details in form	
 			    	})
 			    }
-			}else if (props.USER.profiles[props.USER.defaultProfile]) {
+			}else if (props.USER && props.USER.profiles && Object.keys(props.USER.profiles).length > 0  && props.USER.profiles[props.USER.defaultProfile]) {
 				let profile
 				let exitsting_user_profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){ // retrieve already member details from user dummy table in case of agent

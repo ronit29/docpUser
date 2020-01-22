@@ -954,9 +954,9 @@ class BookingSummaryViewNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
-                if (!this.state.cart_item && !this.state.is_spo_appointment) {
-                    this.props.clearExtraTests()
-                }
+                // if (!this.state.cart_item && !this.state.is_spo_appointment) {
+                //     this.props.clearExtraTests()
+                // }
 
                 if(this.state.is_spo_appointment) {
                     this.sendAgentBookingURL()
@@ -967,6 +967,10 @@ class BookingSummaryViewNew extends React.Component {
                 let message = "Error adding to cart!"
                 if (err.message) {
                     message = err.message
+                    if(message.includes('Item already exists in cart.')){
+                        this.props.history.push('/cart')
+                        return;
+                    }
                 }
                 this.setState({ loading: false, error: message })
                 SnackBar.show({ pos: 'bottom-center', text: message });

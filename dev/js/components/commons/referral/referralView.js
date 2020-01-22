@@ -10,13 +10,16 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar'
 import STORAGE from '../../../helpers/storage'
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
+import Loader from '../Loader';
 
 
 class ReferralView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            referralCode: null
+            referralCode: null,
+            whatsapp_text:null,
+            referral_amt:null
         }
     }
 
@@ -28,7 +31,7 @@ class ReferralView extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.fetchReferralCode().then((res) => {
                 if (res && res.code) {
-                    this.setState({ referralCode: res.code })
+                    this.setState({ referralCode: res.code, whatsapp_text:res.whatsapp_text, referral_amt:res.referral_amt })
                 }
             }).catch((e) => {
 
@@ -42,7 +45,8 @@ class ReferralView extends React.Component {
     }
 
     getShareText() {
-        return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 50 `
+        return this.state.whatsapp_text
+        // return `Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get Rs 50 `
     }
 
     getFullText() {
@@ -61,7 +65,6 @@ class ReferralView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap lgn-ovrflow">
                 <ProfileHeader />
@@ -87,7 +90,7 @@ class ReferralView extends React.Component {
                                                     </div>
                                                     <div className="steps step-2">
                                                         <div className="text-step text-step-2">
-                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 200 on <br /> Signup
+                                                            Your friends get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on <br /> Signup
                                                             <div className="badge badge-refer">2</div>
                                                         </div>
 
@@ -102,15 +105,23 @@ class ReferralView extends React.Component {
                                                         </div>
 
                                                         <div className="text-step">
-                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> 200 on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
+                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {
                                                     STORAGE.checkAuth() ? <div>
-                                                        <h4 className="inviteCodeShare" style={{ margin: '10px 0px' }}>Share your invite code<span>{this.state.referralCode}</span></h4>
+                                                            <CopyToClipboard text={this.getLink()} onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Referral Link Copied" }); }}>
+                                                                <h4 className="inviteCodeShare">
+                                                                <span>{this.state.referralCode}</span>
+                                                                <span className="refr-sub-cpy">
+                                                                    <img className="img-fluid" src={ASSETS_BASE_URL + '/img/copy.svg'}/>
+                                                                   Tap to copy
+                                                                   </span>
+                                                                </h4>
+                                                            </CopyToClipboard>
 
-                                                        <div className="social-icon-referral">
+                                                        {/*<div className="social-icon-referral">
                                                             {
                                                                 this.state.referralCode ? <ul className="text-center">
                                                                     <li><a href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/whatsapp-icon.png"} alt="whatsapp" /></a></li>
@@ -121,14 +132,19 @@ class ReferralView extends React.Component {
                                                                     </li>
                                                                 </ul> : ""
                                                             }
-                                                        </div>
+                                                        </div>*/}
                                                         {
-                                                            navigator && navigator.share ? <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a> : <CopyToClipboard text={this.getLink()}
+                                                            /*navigator && navigator.share ? <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a> : <CopyToClipboard text={this.getLink()}
                                                                 onCopy={() => { SnackBar.show({ pos: 'bottom-center', text: "Referral Link Copied" }); }}>
                                                                 <span style={{ cursor: 'pointer' }}>
                                                                     <a onClick={this.share.bind(this)} href="javascript:void(0);" className="btn-share"><img src={ASSETS_BASE_URL + "/img/share-icon.png"} alt="share" /> Share Referral Link</a>
                                                                 </span>
-                                                            </CopyToClipboard>
+                                                            </CopyToClipboard>*/
+                                                        }
+                                                        {
+                                                            this.state.referralCode ? 
+                                                                <a className="text-center ref-whtsp" href={"whatsapp://send?text=" + this.getFullText()}><img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} alt="whatsapp" />Share on Whatsapp</a>
+                                                            :''
                                                         }
                                                     </div> : <a style={{ marginTop: 10 }} onClick={() => {
                                                         this.props.history.push('/login')
