@@ -110,7 +110,7 @@ function saveUID(req, res){
         }else{
             let uuid = generateUUID();
             //console.log("Server iss.  ", uuid)
-            res.cookie('browserDocprimeId',uuid, { maxAge: 365*900000});
+            res.cookie('browserDocprimeId',uuid, { maxAge: 365*60*900000});
         }
         
     }catch(e) {
