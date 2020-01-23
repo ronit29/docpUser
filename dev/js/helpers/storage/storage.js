@@ -191,7 +191,11 @@ const STORAGE = {
                         SOCKET.refreshSocketConnection();
                     })
                     let time_diff = data.payload.orig_iat *1000 - new Date().getTime();
-                    STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
+                    if(STORAGE.getAnyCookie('server_device_time_diff')){
+
+                    }else{
+                        STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
+                    }
                     STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
                     return data.token;
                 }

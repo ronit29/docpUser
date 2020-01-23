@@ -60,8 +60,11 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         if(response.orig_iat){
 
             let time_diff = response.orig_iat *1000 - new Date().getTime();
-            STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
-        
+            if(STORAGE.getAnyCookie('server_device_time_diff')){
+
+            }else{
+                STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
+            }        
         }
 
         clearStoreOnLogin()(dispatch);
