@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS , GET_REFER_AMOUNT } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS , GET_REFER_AMOUNT, CLEAR_SAVED_PATIENT_DETAILS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -129,6 +129,9 @@ export const logout = (roomId) => (dispatch) => {
         dispatch({
             type: RESET_AUTH,
             payload: {}
+        })
+        dispatch({
+            type:CLEAR_SAVED_PATIENT_DETAILS
         })
         setTimeout(() => {
             // send to login page

@@ -46,6 +46,9 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+        if(STORAGE.checkAuth() && !this.props.patient){
+            this.setState({askUserDetails:true})
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -55,7 +58,6 @@ class ChoosePatientNewView extends React.Component {
                 let popup1 = nextProps.ipdPopupData['popup1']
 
                 if (popup1 && Object.keys(popup1).length && popup1.doctor == this.props.selectedDoctor) {
-                    console.log(popup1)
                     this.setState({ name: popup1 && popup1.first_name ? popup1.first_name : '', phoneNumber: popup1 && popup1.phone_number ? popup1.phone_number : '', gender: popup1 && popup1.gender ? popup1.gender : '', showVerify: popup1 && popup1.phone_number.length == 10?true:false, isPopupDataFilled: true, showLogin:false,otp:null }, () => {
                         this.profileValidation()
                     })
@@ -141,9 +143,9 @@ class ChoosePatientNewView extends React.Component {
                         }
                         self.props.submitIPDForm(formData, this.props.selectedLocation)
                     }
-                    if(response.user_exists){
+                    if(response.user_exists == 1){
                         self.props.getUserProfile().then(() => {
-
+                            self.setState({askUserDetails:false})
                             if (self.props.is_lab) {
                                 self.props.checkPrescription()
                                 self.props.clearTestForInsured()
@@ -153,8 +155,8 @@ class ChoosePatientNewView extends React.Component {
                                 self.props.sendEmailNotification()
                             }
                         })
-                    }else{
-                        this.setState({askUserDetails:true})   
+                    }else if(response.user_exists == 0){
+                        self.setState({askUserDetails:true})   
                     }
                     // self.props.createProfile(this.state, (err, res) => {
                     //     //self.setState({data:true})
@@ -268,54 +270,6 @@ class ChoosePatientNewView extends React.Component {
     verify(resendFlag = false, viaSms, viaWhatsapp) {
         let self = this
 
-        // if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
-        //     setTimeout(() => {
-        //         if (!this.state.name) {
-        //             SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
-        //         } else {
-        //             SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
-        //         }
-        //     }, 500)
-        //     return
-        // }
-
-        // if (this.state.gender == '') {
-        //     setTimeout(() => {
-        //         SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
-        //     }, 500)
-        //     return
-        // }
-
-        // if (this.state.email == '') {
-        //     setTimeout(() => {
-        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-        //     }, 500)
-        //     return
-        // }
-
-        // if (!this.state.email.match(/\S+@\S+\.\S+/)) {
-        //     setTimeout(() => {
-        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
-        //     }, 500)
-        //     return
-        // }
-
-        // if (this.state.dob == '' || this.state.dob == null) {
-        //     setTimeout(() => {
-        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
-        //     }, 500)
-        //     return
-        // }
-
-        // if (this.state.dob != null && !this.state.isDobValidated) {
-        //     setTimeout(() => {
-        //         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
-        //     }, 500)
-        //     return
-        // }
-
-
-
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
@@ -356,7 +310,6 @@ class ChoosePatientNewView extends React.Component {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please provide a valid number (10 digits)" })
             }, 500)
-            //this.setState({ validationError: "Please provide a valid number (10 digits)" })
         }
 
     }
@@ -371,7 +324,7 @@ class ChoosePatientNewView extends React.Component {
         document.getElementById('otpMob').focus();
     }
 
-    addUserProfile(){
+    addUserProfile(){ //new logic
        if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
             setTimeout(() => {
                 if (!this.state.name) {
@@ -431,7 +384,7 @@ class ChoosePatientNewView extends React.Component {
                     this.props.sendEmailNotification()
                 }
             })
-            this.setState({ dob: null, email: null })
+            this.setState({ dob: null, email: null,askUserDetails:false })
         })
     }
 
@@ -442,12 +395,14 @@ class ChoosePatientNewView extends React.Component {
                 {/* =================== New Login Flow Start =================== */}
                 {!this.props.patient?
                 <div className="widget-content">
+                    {!STORAGE.checkAuth()?
                     <div className="otp-heading">
                         <h4 className="title d-flex mb-0">
                             Please enter your mobile number
                         </h4>
                         <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                     </div>
+                    :''}
                     <div className="otp-container">
                         {
                         !STORAGE.checkAuth()?
@@ -497,7 +452,8 @@ class ChoosePatientNewView extends React.Component {
 
                             </div>  
                         </form>
-                        :<form> {/* =================== patient details section ===================*/}
+                        :this.state.askUserDetails && !this.props.patient && STORAGE.checkAuth()?
+                        <form> {/* =================== patient details section ===================*/}
                             <div className="labelWrap">
                                 <div className="p-relative">
                                     <input type="text" id="otpMobver" className="click-disable" value = {this.state.phoneNumber} autoComplete="off"/>
@@ -528,7 +484,8 @@ class ChoosePatientNewView extends React.Component {
                                 <button type="button" className="ptnt-dtls-cnfrm" onClick={(e) =>{e.preventDefault(); this.addUserProfile()}}>Confirm</button>
 
                             </div>
-                        </form>}
+                        </form>
+                        :''}
                         {/* =================== patient details section ===================*/}
                     </div>
                 </div>
@@ -586,8 +543,8 @@ class ChoosePatientNewView extends React.Component {
                  }
                 { // old logic
                     this.props.patient ?
-                        <div className="widget-content">
-                            {/*<div className="lab-visit-time d-flex jc-spaceb"> // new comment
+                        <div className="d-none">
+                            {/*<div className="lab-visit-time d-flex jc-spaceb">
                                 <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
                                     <h4 className="title d-flex"><span>
                                         <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
@@ -598,7 +555,7 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                             </div>*/}
                             {
-                                /*(this.props.is_opd || this.props.is_lab) && !this.props.patient.email ? // new comment
+                                /*(this.props.is_opd || this.props.is_lab) && !this.props.patient.email ? 
                                     <div className="slt-nw-input">
                                         <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
                                         <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
@@ -648,8 +605,8 @@ class ChoosePatientNewView extends React.Component {
                                 : ""*/
                             }
 
-                            {// new comment
-                               /* (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
+                            {
+                                /*(this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
                                     <div className="slt-nw-input summery-dob-cont">
                                         <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
                                         <p className="dob-input-sub">dd/mm/yyyy</p>
@@ -659,7 +616,7 @@ class ChoosePatientNewView extends React.Component {
                                     : ""*/
                             }
 
-                            {/*<React.Fragment> // new comment
+                            {/*<React.Fragment>
                                 {this.state.dob || this.state.email ?
                                     <div className="text-right">
                                         <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
@@ -681,9 +638,9 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                             </React.Fragment>*/}
                         </div>
-                        : ''}
-                       {/* <div className="widget-content">
-                            <div className="lab-visit-time d-flex jc-spaceb">
+                        : 
+                        <div className="d-none">
+                            {/*<div className="lab-visit-time d-flex jc-spaceb">
                                 <h4 className="title d-flex"><span>
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                 </span>Patient</h4>
@@ -758,9 +715,8 @@ class ChoosePatientNewView extends React.Component {
                                         </div>
                                         : ''
                                 }
-
-                            </div>
-                        </div>*/}
+                            </div>*/}
+                        </div>
                 }
             </div>
         );
