@@ -325,11 +325,7 @@ class HospitalDetailView extends React.Component {
 
     nonIpdLeads(phone_number){
         const parsed = queryString.parse(this.props.location.search)
-        let criteriaStr
-        let { hospital_data } = this.props
-		    if(hospital_data) {
-		    	criteriaStr = hospital_data.name
-		    }
+        let criteriaStr = this.props.ipd_hospital_detail.name
         let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',hospital_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:null,hospital_id:null,doctor_name:null})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
