@@ -117,7 +117,10 @@ class ChoosePatientNewView extends React.Component {
             return
         }
         let self = this
-        this.props.submitOTP(this.state.phoneNumber, this.state.otp, (response) => {
+        let extraParamsData = {
+            summaryPage: true
+        }
+        this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParamsData, (response) => {
             if (response.token) {
 
                 let data = {

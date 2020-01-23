@@ -135,7 +135,7 @@ class BookingSummary extends React.Component {
         let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} fetchData={this.fetchData.bind(this)}/>
         );
     }
 }
@@ -185,7 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp,extraParamsData,  cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         savePincode: (pincode) => dispatch(savePincode(pincode)),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),

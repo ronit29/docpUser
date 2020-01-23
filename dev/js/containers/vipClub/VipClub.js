@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(data) =>dispatch(generateVipClubLead(data)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         citiesData: () => dispatch(citiesData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),

@@ -411,7 +411,7 @@ class HomeView extends React.Component {
 							</div>
 							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
 								<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight m-0" style={{marginBottom:"5px!important"}}></div>
+								<div className="divHeight-sbi mt-0" style={{marginBottom:"8px!important"}}></div>
 								</div>
 								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
 									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />

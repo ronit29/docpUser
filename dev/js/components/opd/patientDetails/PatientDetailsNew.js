@@ -1007,12 +1007,12 @@ class PatientDetailsNew extends React.Component {
         if (this.props.payment_type != 1 && this.props.payment_type != 6) {
             if (enabled_for_cod_payment) {
                 if (is_cod_deal_price) {
-                    return `Confirm Booking (₹ ${is_cod_deal_price})`
+                    return `Confirm Booking ${is_cod_deal_price>0?`(₹ ${is_cod_deal_price})`:''}`
                 } else {
-                    return `Confirm Booking (₹ ${mrp})`
+                    return `Confirm Booking ${mrp>0?`(₹ ${mrp})`:''}`
                 }
             } else {
-                return `Confirm Booking (₹ ${mrp})`
+                return `Confirm Booking ${mrp>0?`(₹ ${mrp})`:''}`
             }
 
         }
@@ -1313,6 +1313,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     getDataAfterLogin = ()=>{
+        this.props.fetchData(this.props, this.state.selectedClinic, true)
         if(this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length) {
             let selectedPackage = this.props.odpGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
             if(selectedPackage && selectedPackage.length==0) {
@@ -1572,7 +1573,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable && (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)< display_radio_prepaid_price
         
         //If Only COD applicable then don't show single flow gold
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
@@ -1596,13 +1597,12 @@ class PatientDetailsNew extends React.Component {
         }
 
         if(resetPaymentType) {
-
-            if(showCodPaymentMode) {
+            if(showGoldTogglePaymentMode) {
+                this.props.select_opd_payment_type(6)
+            }else if(showCodPaymentMode) {
                 this.props.select_opd_payment_type(2)
             }else if(enabled_for_prepaid_payment){
                 this.props.select_opd_payment_type(1)
-            }else if(showGoldTogglePaymentMode) {
-                this.props.select_opd_payment_type(6)
             }
         }
 

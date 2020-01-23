@@ -69,8 +69,9 @@ class InsuranceCancellationView extends React.Component {
     verifyOTP() {
         let self = this
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
-            this.setState({ validationError: "" })
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => { // to verify user entered otp
+			this.setState({ validationError: "" })
+			let extraParamsData = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParamsData, (exists) => { // to verify user entered otp
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message,otp:'',isOtpEdit:true})
                     SnackBar.show({ pos: 'bottom-center', text: exists.message})
