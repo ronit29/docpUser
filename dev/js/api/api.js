@@ -12,7 +12,7 @@ let axiosInstance = Axios.create({
 
 function rejectHandler(response, urlInfo, callback) {
 
-    if (urlInfo && urlInfo.url && urlInfo.url.includes('api-token-refresh') /*&& response && response.response && (response.response.status == 401)*/ ) {
+    if (urlInfo && urlInfo.url && urlInfo.url.includes('api-token-refresh') && response && response.response && (response.response.status <= 500) ) {
         STORAGE.deleteAuth().then(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
