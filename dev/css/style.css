@@ -14563,10 +14563,11 @@ div.doc-srch-fltr.vip-slct-pop {
 .close-times-icon {
     font-size: 25px;
     position: absolute;
-    right: 18px;
-    top: -1px;
+    right: 3px;
+    top: -14px;
     margin: 0;
     padding: 0;
+    color: #333 !important;
 }
 
 .booking-help-modal>.cancel-appointment-div {
