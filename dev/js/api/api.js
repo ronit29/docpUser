@@ -18,7 +18,7 @@ function rejectHandler(response, urlInfo, callback) {
             NAVIGATE.navigateTo('/')
             // clear entire store (initially peristed)
         })
-    }else if(response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token){
+    }else if(response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token && STORAGE.checkAuth()){
         STORAGE.refreshTokenCall(urlInfo.token, 'API', true).then(()=>{
 
             if(urlInfo.type=='API_GET'){
