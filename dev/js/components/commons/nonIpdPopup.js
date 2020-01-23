@@ -91,7 +91,7 @@ class NonIpdPopupView extends React.Component {
 					</p>
 		}else if(this.props.is_dpp){
 			criteriaStr = this.props.DOCTORS[this.props.doctor_id].display_name
-			common_msg = <p style={{fontWeight:'bold'}} className="cancel-appointment-head">Appointment at
+			common_msg = <p style={{fontWeight:'bold'}} className="cancel-appointment-head">Appointment with
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br/>
 						at the Lowest Price!
 					</p>
@@ -100,7 +100,7 @@ class NonIpdPopupView extends React.Component {
 		    if(hospital_data) {
 		    	criteriaStr = hospital_data.name
 		    }
-		    common_msg = <p style={{fontWeight:'bold'}} className="cancel-appointment-head">Appointment with
+		    common_msg = <p style={{fontWeight:'bold'}} className="cancel-appointment-head">Appointment at
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br/>
 						at the Lowest Price!
 					</p>
