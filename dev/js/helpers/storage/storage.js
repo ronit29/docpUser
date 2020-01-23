@@ -93,7 +93,7 @@ const STORAGE = {
         try{
             exp_time = getCookie('tokenRefreshTime')
             exp_time = JSON.parse(exp_time)
-            time_diff = getDeviceId('server_device_time_diff');
+            time_diff = getAnyCookie('server_device_time_diff');
             if(time_diff){
                 time_diff = parseInt(time_diff);
             }
@@ -103,6 +103,7 @@ const STORAGE = {
         
         if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && time_diff &&  (exp_time.payload.exp*1000 < new Date().getTime() + time_diff) && dataParams && !istokenRefreshCall){  
             let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),'FromSTORAGE',true)
+            //console.log('getWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');console.log(token);
             return Promise.resolve(token);
         }else{
           return Promise.resolve(getCookie('tokenauth'))  
@@ -204,6 +205,7 @@ const STORAGE = {
     },
     getDeviceId: (name)=>{
         var deviceId = getCookie(name)
+        //console.log(document.cookie);console.log(deviceId);
         if(deviceId){
             return deviceId
         }
@@ -219,8 +221,9 @@ const STORAGE = {
             dt = Math.floor(dt / 16);
             return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
+        let deviceId = uuid; 
         STORAGE.setAnyCookie('browserDocprimeId', uuid, 365)
-        return uuid;
+        return deviceId;
     }
 
 
