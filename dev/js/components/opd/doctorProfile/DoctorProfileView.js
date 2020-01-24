@@ -28,6 +28,7 @@ import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
 import NonBookableDoctor from './nonBookableDoctor.js'
 import VIPPopup from './vipProfilePopup.js'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 
 const queryString = require('query-string');
 
@@ -38,6 +39,7 @@ class DoctorProfileView extends React.Component {
         if (this.props.initialServerData) {
             footerData = this.props.initialServerData.footerData
         }
+        const parsed = queryString.parse(this.props.location.search)
         this.state = {
             footerData,
             seoFriendly: this.props.match.url.includes('-dpp'),
@@ -57,7 +59,9 @@ class DoctorProfileView extends React.Component {
             showSecondPopup: false,
             firstLeadId: '',
             closeNonBookable: false,
-            showVipPopup: false
+            showVipPopup: false,
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -331,6 +335,38 @@ class DoctorProfileView extends React.Component {
         this.props.history.push('/vip-gold-details?is_gold=true&source=docgoldlisting&lead_source=Docprime')
     }
 
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+        let criteriaStr = this.props.DOCTORS[doctor_id].display_name
+        let hospital_id
+        let selected_hospital = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
+        if(selected_hospital.length){
+            hospital_id = selected_hospital[0].hospital_id
+        }
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click'}
+        GTM.sendEvent({ data: gtm_data })
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DocAdsDppCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-cross-click'
+                }
+            GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0})
+        }
+    }
+
     render() {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
@@ -446,6 +482,11 @@ class DoctorProfileView extends React.Component {
                     nearbyDoctors && Object.keys(nearbyDoctors).length && !this.state.closeNonBookable ?
                         <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]} />
                         : ''
+                }
+                {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
