@@ -529,24 +529,25 @@ class ChoosePatientNewView extends React.Component {
                             <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
                         </div>
                     </div>
-                    {
-                        (this.props.is_opd || this.props.is_lab) && !this.props.patient.email ?
-                            <div className="slt-nw-input">
-                                <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
-                                <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
+                    {(this.props.is_opd || this.props.is_lab) && (!this.props.patient.email || !this.props.patient.dob )?
+                    <div className="otp-container">
+                    <form>
+                    {!this.props.patient.email ?
+                        <div className="labelWrap">
+                                <div className="p-relative">
+                                    <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" autoComplete="off" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { border: '1px solid red' } : {}}/>
+                                    <label for="ptntEmail">Email</label>
+                                </div>
                             </div>
-                            : ''
+                        : ''
                     }
-                    {
-                        (this.props.is_opd || this.props.is_lab) && !this.props.patient.dob ?
-                            <div className="slt-nw-input summery-dob-cont">
-                                <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:
-                                <p className="dob-input-sub">dd/mm/yyyy</p>
-                                </label>
-                                <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={true} />
-                            </div>
-                            : ""
+                    {!this.props.patient.dob?
+                        <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
+                        : ""
                     }
+                    </form>
+                    </div>
+                    :''}
                     <React.Fragment>
                         {this.state.dob || this.state.email ?
                             <div className="text-right">
