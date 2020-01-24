@@ -14837,6 +14837,11 @@ color: #757575;
 font-weight: 500;
 font-size: 12px;
 }
+.otp-rsnd-active{
+color: #f78631;
+font-weight: 500;
+font-size: 12px;
+}
 .otp-timer{
 font-size: 12px;
 }
