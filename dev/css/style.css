@@ -14354,7 +14354,10 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 .fot{
-    stroke:none;fill-rule:nonzero;fill:url(#linear0);
+    stroke:none;
+    fill-rule:nonzero;
+    /* fill:url(#linear0); */
+    fill: var(--text--primary--color);
 }
 .foot-strt{
     stop-color:var(--gradient--dull--color);stop-opacity:1;
