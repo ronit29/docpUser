@@ -380,7 +380,7 @@ class VipLoginPopup extends React.Component {
                                 <div className="avl-card-list">
                                     <div className="avl-left-cont">
                                         <p>Lab Tests</p>
-                                        <span>Average 50% OFF</span>
+                                        <span>Average 45% OFF</span>
                                     </div>
                                     <div className="avl-right-cont">
                                         <div className="duo-price-cont">
@@ -390,11 +390,11 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹500</span>
+                                                <span className="b-0">₹550</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹500</p>
+                                            <p>Savings ₹450</p>
                                         </div>
                                     </div>
                                 </div>
@@ -407,22 +407,22 @@ class VipLoginPopup extends React.Component {
                                         <div className="duo-price-cont">
                                             <div className="duo-price">
                                                 <p>MRP</p>
-                                                <span className="cut-price">₹1000</span>
+                                                <span className="cut-price">₹700</span>
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹770</span>
+                                                <span className="b-0">₹540</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹230</p>
+                                            <p>Savings ₹160</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="avl-foot-cont">
-                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family members</p>
-                                    <p className="avl-cont"> ₹4520/yr</p>
+                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1010 X 6</span> Family members</p>
+                                    <p className="avl-cont"> ₹6060/yr</p>
                                 </div>
                         </div>
                     </section>
