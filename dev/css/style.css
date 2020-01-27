@@ -14810,3 +14810,15 @@ span.circle-arrow i {
     left: -1px;
 }
 /* ======================================= popup updated  ======================================= */
+/* ======================================= popup DPP HPP  ======================================= */
+.docImg-Popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fltr-crd-img.text-center.doc-img-popupSection {
+    margin-right: 10px;
+    width: 60px;
+}
+
+/* ======================================= popup DPP HPP  ======================================= */
