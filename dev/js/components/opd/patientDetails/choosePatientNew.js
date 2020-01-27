@@ -389,12 +389,14 @@ class ChoosePatientNewView extends React.Component {
 
     resendOtpCountDown(){
         let self = this
-        var timeLeft = 10;
+        var timeLeft = 59;
         var timerId = setInterval(countdown, 1000);
         let timeElm = document.getElementById('timeElm');
         function countdown() {
           if (timeLeft == 0) {
-            timeElm.innerHTML = '';
+            if(timeElm){
+                timeElm.innerHTML = '';
+            }
             self.setState({otpTimeout:true})
             clearTimeout(timerId);
           } else {
