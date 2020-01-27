@@ -1,5 +1,6 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
+import InitialsPicture from '../commons/initialsPicture'
 
 
 class NonIpdPopupView extends React.Component {
@@ -66,6 +67,7 @@ class NonIpdPopupView extends React.Component {
 
 	render() {
 		let criteriaStr = 'Health Packages'
+		var thumbnail = null;
 		let common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book
 										<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br />
 			at the Lowest Prices!
@@ -90,13 +92,20 @@ class NonIpdPopupView extends React.Component {
 					</p>
 		} else if (this.props.is_dpp) {
 			criteriaStr = this.props.DOCTORS[this.props.doctor_id].display_name
+			thumbnail = this.props.DOCTORS[this.props.doctor_id].thumbnail
 			common_msg = <div className="docImg-Popup">
-				<div className="fltr-crd-img text-center doc-img-popupSection">
+			{/*	<div className="fltr-crd-img text-center doc-img-popupSection">
 					<div>
-						<img src="https://cdn.docprime.com/media/doctor/images/80x80/dr-atul-grover-dermatologist.jpg" className="img-fluid img-round" alt="" />
+						<img src={thumbnail} alt="" />
 					</div>
 					<span className="fltr-rtng">Verified</span>
-				</div>
+				</div>*/}
+				{
+					thumbnail?	
+					<InitialsPicture name={criteriaStr} has_image={!!thumbnail} className="initialsPicture-dp doc-img-popupSection">
+							<img src={thumbnail} className="img-fluid img-round" alt={`${criteriaStr}`} title={criteriaStr} />
+					</InitialsPicture>
+				:''}
 				<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br/>
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 				</p>
