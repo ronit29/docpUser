@@ -42,6 +42,8 @@ import Loadable from 'react-loadable';
 const helmet = require('helmet')
 //import STORAGE from './dev/js/helpers/storage'
 import CookieHelper from './dev/js/helpers/storage/cookie.js'
+import RedisCacheHelper from './dev/js/helpers/storage/redis-helper.js'
+
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
 
@@ -204,7 +206,59 @@ app.all('*', function (req, res) {
                 /**
                  * If a component needs preloading, chain preload followed by loadData if required
                  */
-                if (route.component.preload) {
+                 //For Article Page,get/set props from REDIS
+                if(req && req.path && ( req.path.match('-mddp') || req.path.match('-dsdp') || req.path.match('-mddp') ) ){
+                    let article_url = match.url
+                    article_url = article_url.toLowerCase().substring(1, article_url.length)
+                    let dataParams = {
+                        article_url: article_url
+                    }
+                    try{
+                        promises.push(RedisCacheHelper.getArticle(dataParams).then((data)=>{
+                            if (route.component.preload) {
+                                route.component.preload().then(r => {
+                                    return r.default || r
+                                }).then((c) => {
+
+                                    if(c.buildStateFromRedis){
+                                        return c.buildStateFromRedis(data, store)
+                                    }else if (c.loadData) {
+                                        return c.loadData(store, match, req.query)
+                                    }
+                                    return {}
+                                })
+                            } else {
+                                if(route.component.buildStateFromRedis){
+                                    return route.component.buildStateFromRedis(data, store)
+                                }else if (route.component.loadData) {
+                                    return route.component.loadData(store, match, req.query)
+                                } else {
+                                    return Promise.resolve({})
+                                }
+                            } 
+                        } )
+                    )
+                    }catch(e){
+
+                        if (route.component.preload) {
+                            promises.push(route.component.preload().then(r => {
+                                return r.default || r
+                            }).then((c) => {
+                                if (c.loadData) {
+                                    return c.loadData(store, match, req.query)
+                                }
+                                return {}
+                            }))
+                        } else {
+                            if (route.component.loadData) {
+                                promises.push(route.component.loadData(store, match, req.query))
+                            } else {
+                                promises.push(Promise.resolve({}))
+                            }
+                        }
+
+                    }
+                }else if (route.component.preload) {
                     promises.push(route.component.preload().then(r => {
                         return r.default || r
                     }).then((c) => {
