@@ -642,6 +642,11 @@ class PatientDetailsNew extends React.Component {
             utm_tags: utm_tags,
             from_web: true
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
@@ -1440,6 +1445,12 @@ class PatientDetailsNew extends React.Component {
             }else{
                 data.selected_time = null
                 data.selected_date = null
+            }
+
+            let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                data.visit_id = visitor_info.visit_id
+                data.visitor_id = visitor_info.visitor_id
             }
 
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
