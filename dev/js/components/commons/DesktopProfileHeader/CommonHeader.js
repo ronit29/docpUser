@@ -4,6 +4,7 @@ import GTM from '../../../helpers/gtm'
 import LeftMenu from '../LeftMenu/LeftMenu.js'
 import IpdChatPanel from '../ChatPanel/ChatIpdPanel.js'
 import STORAGE from '../../../helpers/storage'
+import { toggleProfileProcedures } from '../../../actions/opd/doctorSearch';
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -125,6 +126,18 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
+    //--- New top header mobile view
+    d_list() {
+        let chevDown, topHead, listItemView;
+        chevDown = document.getElementById('downIcon');
+        topHead = document.getElementById('headerTop');
+        listItemView = document.getElementById('listView');
+        
+        chevDown.classList.toggle("r-90");
+        topHead.classList.toggle("top-header-mobile");
+        listItemView.classList.toggle('d-block');
+    }
+    //--- New top header mobile view
     render() {
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
@@ -441,13 +454,13 @@ class DesktopProfileHeader extends React.Component {
             //         :''}
             //     </div>
             // </header>
-            <header>
-                <div className="container-fluid d-flex justify-content-between align-item-center top-header">
+            <header className="new-common-header">
+                {/* top header */}
+                <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
                     <h6>Group company of policyBajar</h6>
-                    <a className="down-list" onClick>
-                        <img  src={ASSETS_BASE_URL + "/img/chev.svg"} alt="Down list"/>
+                    <a id="downIcon" className="down-list" onClick={this.d_list}>
                     </a>
-                    <ul>
+                    <ul id="listView">
                         <li className="text-capitalize">
                             <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                             <span className="ml-2">docprime gold</span>
@@ -458,6 +471,51 @@ class DesktopProfileHeader extends React.Component {
                         <li className="text-capitalize">Online consultation</li>
                     </ul>
                 </div>
+                {/* top header */}
+                {/* new main header */}
+                <div className="container-fluid main-header">
+                    {
+                        this.state.toggleHamburger ?
+                            <div className="cancel-overlay cl-overlay" onClick={(e) => {
+                                e.stopPropagation()
+                                this.toggleLeftMenu()
+                            }}>
+                            </div>
+                            : ''
+                    }
+
+                    {
+                        this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
+                    }
+                    <div className="menu-icon" onClick={(e) => {
+                        e.stopPropagation()
+                        document.body.style.overflow = "hidden"
+                        this.toggleLeftMenu()}}>
+                            <ul>
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                            </ul>
+                    </div>
+                    <a className="sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
+                        <div className="d-none d-lg-block">
+                            <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
+                        </div>
+                        {
+                            this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                            <React.Fragment>
+                                {
+                                    this.props.homePage?
+                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                    :''
+                                }
+                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                            </React.Fragment>
+                            :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                        }
+                    </a>
+                </div>
+                {/* new main header */}
             </header>
         );
     }

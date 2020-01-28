@@ -11,7 +11,7 @@ const BASE_CONFIG = {
 }
 
 const PROD_CONFIG = {
-    API_BASE_URL: "https://docprime.com",
+    API_BASE_URL: "https://kubeqa.docprime.com",
     SOCKET_BASE_URL: "https://docprime.com",
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",

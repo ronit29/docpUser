@@ -1,3 +1,9 @@
+.new-common-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+}
 /***** Top Header CSS Start ****/
 .top-header{
     background: var(--top--header--light--background);
@@ -11,8 +17,12 @@
 }
 .top-header > .down-list{
     display: none;
-    transform: rotate(-90deg) scale(1.5);
     cursor: pointer;
+    width: 9px;
+    height: 9px;
+    transform: rotate(133deg);
+    border-left: 2px solid #000;
+    border-top: 2px solid #000;
 }
 .top-header ul{
     display: flex;
@@ -30,17 +40,35 @@
 .top-header ul li:hover{
     color: var(--text--primary--color);
 }
+.r-90{
+    transform: rotate(223deg)!important;
+}
 
 /***** Top Header CSS Ends ****/
 
+/***** Main Header CSS Starts ****/
+.main-header{
+    background: var(--white-background);
+    box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
+}
+.menu-icon{
+    float: left;
+    margin: 27px 15px 0px 45px;
+}
+.menu-icon > ul{
+    cursor: pointer;
+}
+.menu-icon > ul >li{
+    width: 30px;
+    height: 2px;
+    margin-bottom: 7px;
+    background: var(--text--primary--color);
+}
+/***** Main Header CSS Ends ****/
+
 /***** Responsive Media CSS starts ****/
 @media screen and (max-width:767px){
-    .top-header-mobile{
-        position: fixed;
-        z-index: 111;
-        height: 100vh;
-        align-items: baseline!important;
-    }
+    
     .top-header > .down-list{
         display: block;
     }
@@ -59,6 +87,12 @@
     }
     .top-header > ul > li:last-child{
         border-bottom: none;
+    }
+    .top-header-mobile{
+        position: fixed;
+        z-index: 111;
+        height: 100vh;
+        align-items: baseline!important;
     }
 }
 @media (min-width:768px) and (max-width:992px){
