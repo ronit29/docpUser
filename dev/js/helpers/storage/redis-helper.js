@@ -2,30 +2,44 @@ const redis = require('redis');
 import { API_GET } from '../../api/api.js';
 import CONFIG from '../../config'
 
-let client = redis.createClient({
-    port      : 6379,               // replace with your port
-    host      : CONFIG.REDIS_HOST,  // replace with your hostanme or IP address
-    password  : undefined,    // replace with your password
-  });
+let client = null;
+try{
+	client = redis.createClient({
+	    port      : 6379,               // replace with your port
+	    host      : CONFIG.REDIS_HOST,  // replace with your hostanme or IP address
+	    password  : undefined,    // replace with your password
+	  });
+}catch(e){
+
+}
+
 
 var RedisHelper = {
 
 	setData:(key, data)=>{
-		client.set(key, JSON.stringify(data))
+		if(client){
+			client.set(key, JSON.stringify(data))
+			client.expire(key, 30);
+		}	
 	},
 	getData:(key, cb)=>{
-		client.get(key, function(err, resp){
-			if(err || !resp){
-				cb(null)
-			}else{
-				try{
-					cb(JSON.parse(resp));
-				}catch(e){
-					client.del(key);
-					cb(null);
+		if(client){
+			client.get(key, function(err, resp){
+				if(err || !resp){
+					cb(null)
+				}else{
+					try{
+						cb(JSON.parse(resp));
+					}catch(e){
+						client.del(key);
+						cb(null);
+					}
 				}
-			}
-		})
+			})
+		}else{
+			cb(null)
+		}
+
 	},
 	getArticle:(dataParams)=>{
 		return new Promise((resolve, reject)=>{
