@@ -1855,7 +1855,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && !is_insurance_applicable
 
-        if( !showGoldTogglePaymentMode && this.props.payment_type==6 ) {
+        if( !showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.show_lab_payment_mode ) {
             this.props.select_lab_payment_type(1)
         }
 
@@ -2127,7 +2127,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                         {/******Payment Mode **********/}
                                                         {
-                                                            showGoldTogglePaymentMode? 
+                                                            showGoldTogglePaymentMode && this.props.show_lab_payment_mode? 
                                                             <div className="widget mrb-15">
 
                                                                 <div className="widget-content">

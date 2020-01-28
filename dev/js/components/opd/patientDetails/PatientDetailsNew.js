@@ -1596,7 +1596,7 @@ class PatientDetailsNew extends React.Component {
             resetPaymentType = true
         }
 
-        if(resetPaymentType) {
+        if(resetPaymentType && this.props.show_doctor_payment_mode) {
             if(showGoldTogglePaymentMode) {
                 this.props.select_opd_payment_type(6)
             }else if(showCodPaymentMode) {
@@ -1946,7 +1946,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {/*Payment Mode*/}
                                                                 {
-                                                                    (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
+                                                                    this.props.show_doctor_payment_mode && (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
 
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
