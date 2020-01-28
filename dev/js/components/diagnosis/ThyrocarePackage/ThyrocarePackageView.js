@@ -89,6 +89,12 @@ class ThyrocarePackageView extends React.Component {
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
+
+        let visitor_info = GTM.getVisitorInfo()
+        if(visitor_info && visitor_info.visit_id){
+            data.visit_id = visitor_info.visit_id
+            data.visitor_id = visitor_info.visitor_id
+        }
         
         let gtm_data = {
             'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-submit-click'
