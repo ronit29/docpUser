@@ -14816,9 +14816,9 @@ span.circle-arrow i {
     align-items: center;
     justify-content: center;
 }
-.fltr-crd-img.text-center.doc-img-popupSection {
-    margin-right: 10px;
-    width: 60px;
+.doc-img-popupSection {
+    margin-right: 12px;
+    width: 50px;
 }
 
 /* ======================================= popup DPP HPP  ======================================= */
