@@ -134,6 +134,8 @@ export default function (state = defaultState, action) {
 
             }else{
                 newState.selected_vip_plan={}
+                newState.show_doctor_payment_mode = false
+                newState.show_lab_payment_mode = false
             }
             newState.vipClubMemberDetails={}
             newState.members_proofs = []
@@ -142,8 +144,6 @@ export default function (state = defaultState, action) {
             newState.showVipDetailsView=false
             newState.savedMemberData=[]
             newState.vipCoupons= []
-            newState.show_doctor_payment_mode = false
-            newState.show_lab_payment_mode = false
             return newState   
         }
 
