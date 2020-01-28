@@ -150,7 +150,7 @@ const mapStateToProps = (state) => {
         saved_patient_details,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold, user_loggedIn_number } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card , payment_type} = state.LAB_SEARCH
     const { labGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
@@ -163,7 +163,7 @@ const mapStateToProps = (state) => {
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
         couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card,
-        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type
+        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type, user_loggedIn_number
     }
 }
 

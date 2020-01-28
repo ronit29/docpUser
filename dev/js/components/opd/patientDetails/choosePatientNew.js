@@ -486,7 +486,7 @@ class ChoosePatientNewView extends React.Component {
                             <form> {/* =================== patient details section ===================*/}
                                 <div className="labelWrap">
                                     <div className="p-relative">
-                                        <input type="number" id="otpMobver" className="click-disable" value = {this.state.phoneNumber} autoComplete="off"/>
+                                        <input type="number" id="otpMobver" className="click-disable" value = {this.props.user_loggedIn_number?this.props.user_loggedIn_number:this.state.phoneNumber?this.state.phoneNumber:''} autoComplete="off"/>
                                         <label for="otpMobver">Mobile number</label>
                                         <p className="num-verified"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/chk-green.svg'} /> Verified</p>
                                     </div>
