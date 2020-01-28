@@ -1,0 +1,21 @@
+/***** Top Header CSS Start ****/
+.top-header{
+    background: var(--top--header--light--background);
+    font-size: 13px;
+    color: #000000;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+.top-header ul li{
+    cursor: pointer;
+    margin-left: 50px;
+    text-transform: capitalize;
+    transition: 0.3s ease-in-out;
+}
+.top-header ul li:first-child{
+    margin-left: 0px;
+}
+.top-header ul li:hover{
+    color: var(--text--primary--color);
+}
+/***** Top Header CSS Ends ****/
