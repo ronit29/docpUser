@@ -444,7 +444,10 @@ class DesktopProfileHeader extends React.Component {
             <header>
                 <div className="container-fluid d-flex justify-content-between align-item-center top-header">
                     <h6>Group company of policyBajar</h6>
-                    <ul className="d-flex">
+                    <a className="down-list" onClick>
+                        <img  src={ASSETS_BASE_URL + "/img/chev.svg"} alt="Down list"/>
+                    </a>
+                    <ul>
                         <li className="text-capitalize">
                             <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                             <span className="ml-2">docprime gold</span>

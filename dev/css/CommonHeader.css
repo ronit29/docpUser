@@ -4,10 +4,22 @@
     font-size: 13px;
     color: #000000;
     padding: 10px 20px;
-    font-weight: 500;
+}
+
+.top-header h6{
+    font-weight: 400;
+}
+.top-header > .down-list{
+    display: none;
+    transform: rotate(-90deg) scale(1.5);
+    cursor: pointer;
+}
+.top-header ul{
+    display: flex;
 }
 .top-header ul li{
     cursor: pointer;
+    font-weight: 500;
     margin-left: 50px;
     text-transform: capitalize;
     transition: 0.3s ease-in-out;
@@ -18,4 +30,43 @@
 .top-header ul li:hover{
     color: var(--text--primary--color);
 }
+
 /***** Top Header CSS Ends ****/
+
+/***** Responsive Media CSS starts ****/
+@media screen and (max-width:767px){
+    .top-header-mobile{
+        position: fixed;
+        z-index: 111;
+        height: 100vh;
+        align-items: baseline!important;
+    }
+    .top-header > .down-list{
+        display: block;
+    }
+    .top-header ul{
+        display: none;
+        position: absolute;
+        width: 89%;
+        top: 43px;
+    }
+    .top-header > ul > li{
+        border-bottom: 1px dashed rgba(117, 117, 117, 0.41);
+        padding: 20px 0;
+        width: 100%;
+        font-weight: 400;
+        margin-left: 0px;
+    }
+    .top-header > ul > li:last-child{
+        border-bottom: none;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .top-header{
+        display: block!important;
+    }
+    .top-header h6{
+       margin-bottom: 10px;
+    }
+}
+/***** Responsive Media CSS Ends ****/
