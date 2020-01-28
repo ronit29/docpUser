@@ -412,45 +412,31 @@ class DesktopProfileHeader extends React.Component {
             //                 : ''
             //             }
 
-            //             <div className="col-12 d-lg-none">
-            //                 {
-            //                     this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">
-            //                         <div onClick={this.openSearch.bind(this)}>
-            //                             <div className="header-serach-input-div">
-            //                                 <span>Search Doctors &amp; Tests</span>
-            //                             </div>
-            //                             {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-            //                             <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-            //                         </div>
-            //                         <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
-            //                     </div> : ""
-            //                 }
-            //             </div>
             //         </div>
             //         {/* listing view new header*/}
             //         {this.props.new_fixed_header && this.props.new_fixed_header == 1?
-            //             <div className="row listing-view-header visible-col" id="listing-header">
-            //                 <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
-            //                     e.stopPropagation()
-            //                     document.body.style.overflow = "hidden"
-            //                     this.toggleLeftMenu()}}>
-            //                     <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
-            //                 </div>
-            //                 <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
-            //                     {
-            //                         this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
-            //                             <div onClick={this.openSearch.bind(this)}>
-            //                                 <div className="header-serach-input-div">
-            //                                     <span>Search Doctors &amp; Tests</span>
-            //                                 </div>
-            //                                 {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-            //                                 <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-            //                             </div>
-            //                             <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
-            //                         </div> : ""
-            //                     }
-            //                 </div>
-            //             </div>
+                        // <div className="row listing-view-header visible-col" id="listing-header">
+                        //     <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                        //         e.stopPropagation()
+                        //         document.body.style.overflow = "hidden"
+                        //         this.toggleLeftMenu()}}>
+                        //         <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                        //     </div>
+                        //     <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
+                        //         {
+                        //             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                        //                 <div onClick={this.openSearch.bind(this)}>
+                        //                     <div className="header-serach-input-div">
+                        //                         <span>Search Doctors &amp; Tests</span>
+                        //                     </div>
+                        //                     {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                        //                     <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                        //                 </div>
+                        //                 <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                        //             </div> : ""
+                        //         }
+                        //     </div>
+                        // </div>
             //         :''}
             //     </div>
             // </header>
@@ -473,7 +459,7 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 {/* top header */}
                 {/* new main header */}
-                <div className="container-fluid main-header">
+                <div className="container-fluid main-header d-flex align-item-center flex-wrap">
                     {
                         this.state.toggleHamburger ?
                             <div className="cancel-overlay cl-overlay" onClick={(e) => {
@@ -509,11 +495,73 @@ class DesktopProfileHeader extends React.Component {
                                     <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
                                     :''
                                 }
-                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
                             </React.Fragment>
-                            :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                            :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
                         }
                     </a>
+                    <a className="ml-3 home-icon-view d-none d-lg-block">
+                        <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
+                    </a>
+                    <div className="header-search-full-widht d-flex align-items-center justify-content-end">
+                        {
+                            hideSearch ? "" : <div className="head-links hed-links-search-flex">
+                                <div className="serch-nw-inputs new-home-full-widht" >
+                                    <div onClick={this.openSearch.bind(this)}>
+                                        <div className="header-serach-input-div">
+                                            <span>Search Doctors &amp; Tests</span>
+                                        </div>
+                                        {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    </div>
+                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    {/* mobile view search box */}
+                    
+                    <div className="col-12 d-lg-none p-0">
+                        {
+                            this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">
+                                <div onClick={this.openSearch.bind(this)}>
+                                    <div className="header-serach-input-div">
+                                        <span>Search Doctors &amp; Tests</span>
+                                    </div>
+                                    {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                </div>
+                                <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                            </div> : ""
+                        }
+                    </div>
+
+                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                        <div className="row listing-view-header visible-col " id="listing-header">
+                            <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()}}>
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                            </div>
+                            <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
+                                {
+                                    this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                        <div onClick={this.openSearch.bind(this)}>
+                                            <div className="header-serach-input-div">
+                                                <span>Search Doctors &amp; Tests</span>
+                                            </div>
+                                            {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                        </div>
+                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                    </div> : ""
+                                }
+                            </div>
+                        </div>
+                    :''}
+                    {/* mobile view search box ends */}
                 </div>
                 {/* new main header */}
             </header>

@@ -10,6 +10,7 @@
     font-size: 13px;
     color: #000000;
     padding: 10px 20px;
+    margin-bottom: -1px;
 }
 
 .top-header h6{
@@ -53,7 +54,7 @@
 }
 .menu-icon{
     float: left;
-    margin: 27px 15px 0px 45px;
+    margin: 5px 15px 0px 45px;
 }
 .menu-icon > ul{
     cursor: pointer;
@@ -64,11 +65,20 @@
     margin-bottom: 7px;
     background: var(--text--primary--color);
 }
+
+.home-icon-view{
+    height: 100%;
+    display: inline-block;
+    padding: 28px 14px;
+    border-bottom: 1px solid #f1853b;
+}
 /***** Main Header CSS Ends ****/
 
 /***** Responsive Media CSS starts ****/
 @media screen and (max-width:767px){
-    
+    .top-header{
+        padding: 10px;
+    }
     .top-header > .down-list{
         display: block;
     }
@@ -93,6 +103,13 @@
         z-index: 111;
         height: 100vh;
         align-items: baseline!important;
+    }
+    .menu-icon{
+        margin: 6px 8px 0px 6px;
+    }
+    .menu-icon > ul >li{
+        width: 26px;
+        margin-bottom: 5px;
     }
 }
 @media (min-width:768px) and (max-width:992px){
