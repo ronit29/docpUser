@@ -256,7 +256,7 @@ class App extends React.Component {
             let user_profile_id = STORAGE.getUserId()
             if (token && user_profile_id) {
                 ciphertext =  STORAGE.encrypt(user_profile_id)
-                STORAGE.refreshTokenCall(token,ciphertext,'FromAPP').then((newToken)=>{
+                STORAGE.refreshTokenCall({token:token,ciphertext:ciphertext,fromWhere:'FromAPP'}).then((newToken)=>{
                     this.props.saveNewRefreshedToken(newToken);
                 })
             }
