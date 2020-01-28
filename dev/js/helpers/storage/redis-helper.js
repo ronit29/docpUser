@@ -19,7 +19,7 @@ var RedisHelper = {
 	setData:(key, data)=>{
 		if(client){
 			client.set(key, JSON.stringify(data))
-			client.expire(key, 30);
+			client.expire(key, 30 * 86400);
 		}	
 	},
 	getData:(key, cb)=>{
