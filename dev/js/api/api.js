@@ -49,10 +49,7 @@ const API_GET = (url) => {
 
         return new Promise((resolve, reject) => {
             let headers = {}
-            let browserUID = STORAGE.getDeviceId('browserDocprimeId')
-
             if (token) headers['Authorization'] = `Token ${token}`
-            headers['device-id'] = browserUID
             axiosInstance({
                 method: 'get',
                 url: url,
@@ -77,10 +74,8 @@ const API_POST = (url, data) => {
     return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
-            let browserUID = STORAGE.getDeviceId('browserDocprimeId')
             
             if (token) headers['Authorization'] = `Token ${token}`
-            headers['device-id'] = browserUID
             axiosInstance({
                 method: 'post',
                 url: url,

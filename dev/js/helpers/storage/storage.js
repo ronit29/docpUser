@@ -89,21 +89,15 @@ const STORAGE = {
     getAuthToken: (dataParams={}) => {
         let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
         let exp_time = {}
-        let time_diff = null
         try{
             exp_time = getCookie('tokenRefreshTime')
             exp_time = JSON.parse(exp_time)
-            time_diff = getAnyCookie('server_device_time_diff');
-            if(time_diff){
-                time_diff = parseInt(time_diff);
-            }
         }catch(e){
 
         }
         
-        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && time_diff &&  (exp_time.payload.exp*1000 < new Date().getTime() + time_diff) && dataParams && !istokenRefreshCall){  
-            let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),'FromSTORAGE',true)
-            //console.log('getWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');console.log(token);
+        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){  
+            let token = STORAGE.refreshTokenCall(getCookie('tokenauth'),'FromSTORAGE',false)
             return Promise.resolve(token);
         }else{
           return Promise.resolve(getCookie('tokenauth'))  
@@ -190,12 +184,6 @@ const STORAGE = {
                     STORAGE.setAuthToken(data.token).then((resp)=>{
                         SOCKET.refreshSocketConnection();
                     })
-                    let time_diff = data.payload.orig_iat *1000 - new Date().getTime();
-                    if(STORAGE.getAnyCookie('server_device_time_diff')){
-
-                    }else{
-                        STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
-                    }
                     STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
                     return data.token;
                 }
@@ -206,28 +194,6 @@ const STORAGE = {
         }else{
             return Promise.resolve(getCookie('tokenauth')) 
         }
-    },
-    getDeviceId: (name)=>{
-        var deviceId = getCookie(name)
-        //console.log(document.cookie);console.log(deviceId);
-        if(deviceId){
-            return deviceId
-        }
-        return STORAGE.generateUUID();
-    },
-
-    generateUUID() {
-        //method to generate search id
-        let uid_string = 'xxyyxxxx-xxyx-4xxx-ynbx-xzxyyyxlxxxx'
-        var dt = new Date().getTime();
-        var uuid = uid_string.replace(/[xy]/g, function (c) {
-            var r = (dt + Math.random() * 16) % 16 | 0;
-            dt = Math.floor(dt / 16);
-            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-        let deviceId = uuid; 
-        STORAGE.setAnyCookie('browserDocprimeId', uuid, 365)
-        return deviceId;
     }
 
 

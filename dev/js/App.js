@@ -82,15 +82,6 @@ class App extends React.Component {
             })
         }
 
-        //Create Unique UUID for the user/browser
-        
-        if(STORAGE.getDeviceId('browserDocprimeId')){
-
-        }else{
-            this.generateUUID();
-        }
-        
-
         let location_ms = null
         if (window.location.pathname.includes('location=')) {
             location_ms = window.location.pathname.split('location=')[1]
@@ -233,18 +224,6 @@ class App extends React.Component {
 
     }
 
-    generateUUID() {
-        //method to generate search id
-        let uid_string = 'xxyyxxxx-xxyx-4xxx-ynbx-xzxyyyxlxxxx'
-        var dt = new Date().getTime();
-        var uuid = uid_string.replace(/[xy]/g, function (c) {
-            var r = (dt + Math.random() * 16) % 16 | 0;
-            dt = Math.floor(dt / 16);
-            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-        STORAGE.setAnyCookie('browserDocprimeId', uuid, 365)
-    }
-
     componentWillReceiveProps(props){
         this.tokenRefresh(props)
     }
@@ -276,7 +255,6 @@ class App extends React.Component {
         STORAGE.getAuthToken().then((token) => {
             if (token) {
                 STORAGE.refreshTokenCall(token,'FromAPP',true).then((newToken)=>{
-                    //console.log('NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');console.log(newToken);
                     this.props.saveNewRefreshedToken(newToken);
                 })
             }

@@ -57,16 +57,6 @@ export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
         STORAGE.setAuthToken(response.token)
         STORAGE.setUserId(response.user_id)
 
-        if(response.orig_iat){
-
-            let time_diff = response.orig_iat *1000 - new Date().getTime();
-            if(STORAGE.getAnyCookie('server_device_time_diff')){
-
-            }else{
-                STORAGE.setAnyCookie('server_device_time_diff', time_diff, 10)
-            }        
-        }
-
         clearStoreOnLogin()(dispatch);
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
