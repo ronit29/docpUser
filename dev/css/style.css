@@ -14668,6 +14668,13 @@ div.doc-srch-fltr.vip-slct-pop {
     border-radius: 5px;
     margin-bottom: 15px;
 }
+.upload-presc-loading-pdf{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    border-radius: 5px;
+}
 
 /*error msg css*/
 .error-msg-text{
@@ -14685,7 +14692,7 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 .presc-submit-btn{
-    padding: 20px 0 26px!important;
+    padding: 20px 0 20px!important;
     font-size: 16px;
 }
 /*health advisor col*/
