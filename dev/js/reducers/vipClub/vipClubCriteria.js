@@ -269,7 +269,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.labGoldPredictedPrice = action.payload
-            newState.show_lab_payment_mode = false
+            newState.show_lab_payment_mode = true
             return newState
         }
 
