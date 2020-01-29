@@ -22,7 +22,7 @@ class primeCareBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
 
-        this.props.getCareDetails((resp)=>{
+        this.props.getCareDetails((resp)=>{ // get care plans
             let feature_detail = resp.plans.filter(x => x.id == parsed.plan_id)
             feature_detail[0].feature_details = resp.feature_details
             this.setState({data:feature_detail})
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCareDetails: (callback) => dispatch(getCareDetails(callback)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         getUserProfile: () => dispatch(getUserProfile()),

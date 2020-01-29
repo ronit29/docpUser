@@ -19,7 +19,8 @@ class VipClub extends React.Component{
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent ?parsed.is_agent:false,
             source:parsed.source,
-            is_gold:parsed.is_gold?parsed.is_gold:false,
+            // is_gold:parsed.is_gold?parsed.is_gold:false,
+            is_gold:this.props.match.url.includes('vip-gold-details'),
             is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
             is_booking_page:parsed.booking_page?parsed.booking_page:null
         }
@@ -28,7 +29,7 @@ class VipClub extends React.Component{
     componentDidMount() {
         
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
+            this.props.getUserProfile() // to get loggedIn user profile
         }
         if (window) {
             window.scrollTo(0, 0)
@@ -38,15 +39,15 @@ class VipClub extends React.Component{
             from_vip:true,
             type:this.state.is_gold?'is_gold':'is_vip'
         }
-        this.props.getNearbyHospitals(extraData);
-        this.props.getTopHospitals(extraData);
+        this.props.getNearbyHospitals(extraData); // to get near by hospitals covered under gold or vip or near by location
+        this.props.getTopHospitals(extraData);// to get near by  top hospitals covered under gold or vip or near by location
         let data={}
         data.selectedLocation = this.props.selectedLocation
         data.isSalesAgent = this.state.isSalesAgent
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
-        this.props.getVipList(false,data)
+        this.props.getVipList(false,data) // to get vip plan list
 
     }
     render(){
@@ -59,7 +60,7 @@ class VipClub extends React.Component{
                        
             </React.Fragment>
         }else{
-            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
+            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){ // if already gold or vip user redirect to dashboard
                 this.props.history.replace('/vip-club-activated-details')
             }
             if(this.state.isSalesAgent && this.state.isAgent){
@@ -95,9 +96,9 @@ const mapDispatchToProps = (dispatch) => {
         getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        generateVipClubLead:(data,cb) =>dispatch(generateVipClubLead(data,cb)),
+        generateVipClubLead:(data) =>dispatch(generateVipClubLead(data)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         citiesData: () => dispatch(citiesData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),

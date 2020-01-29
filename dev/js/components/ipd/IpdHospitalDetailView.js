@@ -24,6 +24,7 @@ import CommentBox from '../commons/article/ArticleCommentBox.js'
 import Reply from '../commons/article/Reply.js'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
+import NonIpdPopupView from '../commons/nonIpdPopup.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -31,6 +32,7 @@ class HospitalDetailView extends React.Component {
 
 	constructor(props) {
 		super(props)
+		const parsed = queryString.parse(this.props.location.search)
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
@@ -40,7 +42,9 @@ class HospitalDetailView extends React.Component {
 			showSecondPopup: false,
 			firstLeadId:'',
 			replyOpenFor: '',
-			comment:''
+			comment:'',
+			showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
 		}
 	}
 
@@ -319,20 +323,43 @@ class HospitalDetailView extends React.Component {
         this.setState({ comment: e.target.value })
     }
 
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let criteriaStr = this.props.ipd_hospital_detail.name
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',hospital_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:null,hospital_id:null,doctor_name:null})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsHppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click'}
+        GTM.sendEvent({ data: gtm_data })
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DocAdsHppCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-cross-click'
+                }
+            GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0})
+        }
+    }
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
 
 		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
 
-		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted
+		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted && !this.state.showNonIpdPopup 
 
 		let landing_page = false
 		if (typeof window == 'object' && window.ON_LANDING_PAGE) {
 			landing_page = true
 		}
 
-		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
+		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup && !this.state.showNonIpdPopup
 
 
 		let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
@@ -359,6 +386,12 @@ class HospitalDetailView extends React.Component {
 									<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} />
 									: ''
 							}
+
+							{
+			                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+			                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_hpp={true} hospital_data={this.props.ipd_hospital_detail}/>
+			                    :''
+			                }
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />
 

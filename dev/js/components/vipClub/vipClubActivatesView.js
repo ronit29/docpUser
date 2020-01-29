@@ -14,7 +14,7 @@ import VipTnC from './vipTncView.js'
 // import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
 
-class VipClub extends React.Component {
+class VipClub extends React.Component { // dashboard view
     constructor(props) {
         super(props)
         this.state = {
@@ -107,6 +107,11 @@ class VipClub extends React.Component {
         if (this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0) {
             primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x => x.is_primary_user))[0]
         }
+        let is_corporate = false
+        if(!this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0){
+            is_corporate = this.props.data.plan[0].is_corporate
+        }
+
         return (
             <div className="profile-body-wrap" style={{ background: "" }}>
                 <div className="d-none d-lg-block">
@@ -129,7 +134,7 @@ class VipClub extends React.Component {
                         </div>
                             <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                 <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                                <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                                <p className="scrl-cont-dat">{is_corporate?"Your a Docprime VIP Member":"Save 70% on your family's medical bills"}</p>
                                     <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             </div>
                     </div>
@@ -157,7 +162,7 @@ class VipClub extends React.Component {
                                             </div>
                                         </div>
                                         : ''}
-                                    {this.props.data.is_member_allowed?
+                                    {this.props.data.is_member_allowed && !is_corporate?
                                         <div className= {`${this.props.is_gold?'gold-white-bg-container mb-24':''}`} style={{ paddingTop: 0, paddingBottom: 20 }}>
                                             <div className="vip-act-pop text-right" style={{ display: 'block' }}>
                                                 <div className="vip-wrn-img text-left">
@@ -177,6 +182,37 @@ class VipClub extends React.Component {
                                         </div>
                                         : ''
                                     }
+                                    {!this.props.is_gold && this.props.data && Object.keys(this.props.data).length > 0  && is_corporate?
+                                        <div>
+                                                <div className="vip-acnt-heading">
+                                                        <h5>VIP Benefits</h5>
+                                                    </div>
+                                                <div className="vip-offer-cards p-12 mb-24 pd-r-0 pd-l-0">
+                                                <div className="gold-benifi-cards-cont vip-club">
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                        <a href="/search" onClick={(e) => {
+                                                            e.preventDefault();
+                                                            this.navigateTo("/search", 'opd')
+                                                        }}><img src={ASSETS_BASE_URL + '/img/gl1.png'} /></a>
+                                                        <p className="mr-t-5">Book <br/> Doctors</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                    <a href="/search" onClick={(e) => {
+                                                        e.preventDefault();
+                                                        this.navigateTo("/search", 'lab')
+                                                    }}><img src={ASSETS_BASE_URL + '/img/gl2.png'} /></a>
+                                                        <p className="mr-t-5">Book Lab <br/> Test</p>
+                                                    </div>
+                                                    <div className="gold-benifi-cards mr-b-0">
+                                                        <a target="_blank" href="https://www.medlife.com/app/?banner_url=https://media.medlife.com/PTR/docprime.jpg#/root/login/LoginLandingOld" >
+                                                            <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
+                                                        </a>
+                                                        <p className="mr-t-5">Order <br/> Medicines</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        : ''}
                                     {
                                         !this.props.is_gold && this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
                                             <React.Fragment>
@@ -196,16 +232,30 @@ class VipClub extends React.Component {
                                                                 :''}
                                                             </ul>
                                                         </div>
-                                                        <div className="vip-cnslt-card">
-                                                            <h5 className="vip-brder-hdng">Docprime Care</h5>
-                                                            <p className="vip-un-mem">Unlimited online consult for 8 members</p>
-                                                            <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
-                                                            {/*<div className="text-right">
-                                                                <button className="vip-crd-btn">Chat Now</button>
-                                                            </div>*/}
-                                                        </div>
+                                                        {is_corporate?
+                                                            <div className="vip-cnslt-card">
+                                                                <h5 className="vip-brder-hdng">Lab Tests</h5>
+                                                                <ul>
+                                                                    <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.available_labtest_amount >= 99999?'Unlimited':this.props.data.plan[0].utilize.available_labtest_amount}  </span></p></li>
+                                                                    <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.lab_amount_utilized} </span></p></li>
+                                                                    {this.props.data.plan[0].utilize.available_labtest_amount <=99999?
+                                                                        <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available_labtest_amount}</span></p></li>
+                                                                    :''}
+                                                                </ul>
+                                                            </div>
+                                                        :
+                                                            <div className="vip-cnslt-card">
+                                                                <h5 className="vip-brder-hdng">Docprime Care</h5>
+                                                                <p className="vip-un-mem">Unlimited online consult for 8 members</p>
+                                                                <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
+                                                                {/*<div className="text-right">
+                                                                    <button className="vip-crd-btn">Chat Now</button>
+                                                                </div>*/}
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
+                                                {is_corporate?'':
                                                 <div className="vip-offer-cards mb-3">
                                                     <div className="vip-sbs-crd">
                                                         <h5 className="vip-brder-hdng">Full Body Health Package</h5>
@@ -227,11 +277,11 @@ class VipClub extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>}
                                             </React.Fragment>
                                             : ''
                                     }
-                                    {!this.props.is_gold ?
+                                    {!this.props.is_gold && !is_corporate?
                                         <div className="vip-offer-cards mb-3">
                                             <div className="vip-sbs-crd">
                                                 <h5 className="vip-brder-hdng">Tax Benefit</h5>
@@ -338,7 +388,7 @@ class VipClub extends React.Component {
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td>{val.relation}</td>
-                                                                                        <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
+                                                                                        <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : val.gender == 'm'?'m': 'f'}</td>
                                                                                         <td>{val.dob}</td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -348,7 +398,7 @@ class VipClub extends React.Component {
                                                                 })
                                                             }
                                                             {
-                                                                this.props.data.is_member_allowed?
+                                                                this.props.data.is_member_allowed && !is_corporate?
                                                                     <li onClick={this.AddMemberDetails.bind(this)}>
                                                                         <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
                                                                     </li>

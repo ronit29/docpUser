@@ -16,7 +16,7 @@ class packagesList extends React.Component {
             renderBlock: false,
             page: 0,
             readMore: 'search-details-data-less',
-            catIds:[]
+            catIds: []
         }
     }
 
@@ -44,7 +44,7 @@ class packagesList extends React.Component {
         }, 100)
         
         */
-        this.setState({...this.props.filterCriteriaPackages})
+        this.setState({ ...this.props.filterCriteriaPackages })
         setTimeout(() => {
             this.setState({ hasMore: true })
         }, 0)
@@ -64,8 +64,8 @@ class packagesList extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if(props.filterCriteriaPackages) {
-            this.setState({catIds:props.filterCriteriaPackages.catIds||[]})
+        if (props.filterCriteriaPackages) {
+            this.setState({ catIds: props.filterCriteriaPackages.catIds || [] })
         }
     }
 
@@ -89,14 +89,14 @@ class packagesList extends React.Component {
     loadMore(page) {
         this.setState({ hasMore: false, loading: true, page: page })
 
-        this.props.getLabList(null, page + 1, (hasMore) => {
+        this.props.getLabList(null, page + 1, (hasMore) => { //get searched packages result
             this.setState({ loading: false })
             setTimeout(() => {
                 this.setState({ hasMore })
             }, 1000)
         })
     }
-    testInfo() {
+    testInfo() { // redirect to included test details page
         var url_string = window.location.href;
         var url = new URL(url_string);
         var test_ids = url.searchParams.get("test_ids");
@@ -112,9 +112,10 @@ class packagesList extends React.Component {
         this.props.history.push('/tax-saver-health-packages-tc')
     }
 
-    applyQuickFilters(category, viewMore=false){ 
+    applyQuickFilters(category, viewMore = false) {
+        // apply filters
         let filters = {
-            catId: viewMore?[]:[category],
+            catId: viewMore ? [] : [category],
             viewMore: viewMore
         }
         let gtmData = {
@@ -154,7 +155,7 @@ class packagesList extends React.Component {
                 }
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid cardMainPaddingRmv" style={{minHeight: '60vh'}}>
+                        <div className="container-fluid cardMainPaddingRmv" style={{ minHeight: '60vh' }}>
                             {
                                 this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count > 0 ?
                                     <div className="search-result-card-collpase">
@@ -200,31 +201,34 @@ class packagesList extends React.Component {
 
                                                     return <React.Fragment key={i}>
 
-                                                            {
-                                                                i==3 && !this.state.catIds.length && this.props.packagesList && this.props.packagesList.categories && this.props.packagesList.categories.length?
+                                                        {
+                                                            i == 3 && !this.state.catIds.length && this.props.packagesList && this.props.packagesList.categories && this.props.packagesList.categories.length ?
                                                                 <div className="sort-sub-filter-container mb-3">
                                                                     <p>Filter by <span className="fw-700"> Test Category </span><span className="fw-500 sort-more-filter" onClick={this.applyQuickFilters.bind(this, '', true)}>More filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
-                                                                    {
-                                                                        this.props.packagesList.categories.map((category, j) => {
-                                                                            return <button key={j} className={`${this.state.catIds && this.state.catIds.indexOf(category.id) > -1 ?'srt-act':''}`} id={category.id} onClick={this.applyQuickFilters.bind(this, category.id, false)}> {category.name}</button>
-                                                                        })
-                                                                    }
+                                                                        {
+                                                                            this.props.packagesList.categories.map((category, j) => {
+                                                                                return <button key={j} className={`${this.state.catIds && this.state.catIds.indexOf(category.id) > -1 ? 'srt-act' : ''}`} id={category.id} onClick={this.applyQuickFilters.bind(this, category.id, false)}> {category.name}</button>
+                                                                            })
+                                                                        }
                                                                     </div>
                                                                 </div>
-                                                                :''    
-                                                            }
+                                                                : ''
+                                                        }
 
-                                                            {
-                                                                i==5 && this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
-                                                                    <div className="col-12">
-                                                                        <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
-                                                                    </div> : ''
-                                                            }
-                                                            <li id={`scrollById_${packages.id}`}>
-                                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                                            </li>
-                                                           </React.Fragment>
+                                                        {
+                                                            i == 5 && this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                                                <div className="banner-cont-height home-page-banner-div mb-3 mr-0 banner-md-margn">
+                                                                    <div className="hidderBanner banner-carousel-div d-md-none">
+                                                                        <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+                                                                    </div>
+                                                                    <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
+                                                                </div> : ''
+                                                        }
+                                                        <li id={`scrollById_${packages.id}`}>
+                                                            <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                                        </li>
+                                                    </React.Fragment>
                                                 })
                                                     : ''
                                             }
@@ -284,9 +288,9 @@ class packagesList extends React.Component {
                         </div>
                 }
                 {
-                    !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
-                    <SelectedPkgStrip {...this.props} toggleComparePackages={this.props.toggleComparePackages.bind(this)}/>
-                    :''
+                    !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?
+                        <SelectedPkgStrip {...this.props} toggleComparePackages={this.props.toggleComparePackages.bind(this)} />
+                        : ''
                 }
             </section>
         );

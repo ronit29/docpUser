@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS, ADD_VIP_COUPONS } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS, ADD_VIP_COUPONS, GET_REFRESH_NEW_TOKEN, GET_REFER_AMOUNT } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import CONFIG from '../../config'
@@ -7,7 +7,8 @@ export const getUserProfile = () => (dispatch) => {
 	return API_GET('/api/v1/user/userprofile').then(function (response) {
 		dispatch({
 			type: APPEND_USER_PROFILES,
-			payload: response
+			payload: response,
+			allUsers: true
 		})
 
 	}).catch(function (error) {
@@ -15,7 +16,7 @@ export const getUserProfile = () => (dispatch) => {
 	})
 }
 
-export const getProfileAppointments = (profile_id) => (dispatch) => {
+export const getProfileAppointments = (profile_id) => (dispatch) => { // get user appointments
 	API_GET(`/api/v1/user/appointment`).then(function (response) {
 
 		dispatch({
@@ -61,7 +62,7 @@ export const selectProfile = (profile_id, cb) => (dispatch) => {
 	})
 }
 
-export const editUserProfile = (profileData, profileId, cb) => (dispatch) => {
+export const editUserProfile = (profileData, profileId, cb) => (dispatch) => { // update profile
 	API_POST(`/api/v1/user/userprofile/${profileId}/edit`, profileData).then(function (response) {
 		dispatch({
 			type: APPEND_USER_PROFILES,
@@ -247,6 +248,14 @@ export const fetchArticle = (id, preview = null, cb) => (dispatch) => {
 	})
 }
 
+export const buildArticleStoreFromRedis = (data, cb) => (dispatch) => {
+	dispatch({
+		type: APPEND_ARTICLE_DATA,
+		payload: data
+	})
+	if(cb) cb(true);
+}
+
 export const fetchPgData = (id, cb) => (dispatch) => {
 	API_GET(`/api/v1/user/pgdata/${id}`).then(function (response) {
 		if (cb) cb(null, response);
@@ -290,7 +299,7 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
-export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => {
+export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, extraParams={}, cb) => (dispatch) => { //send payment link in sms to user by agaent
 	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags, ...extraParams }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
@@ -794,4 +803,21 @@ export const getBannerInfo = (dataParams, cb) => (dispatch)=>{
 		})
 	}
 	if(cb)cb(null);
+}
+
+export const saveNewRefreshedToken = (token) => (dispatch) =>{
+	dispatch({
+            type: 'GET_REFRESH_NEW_TOKEN',
+            payload: token
+        })
+}
+
+export const getReferAmnt = () => (dispatch) =>{
+    API_GET(`/api/v1/user/get_referral_amt`).then(function (response) {
+        dispatch({
+            type:GET_REFER_AMOUNT,
+            payload:response
+        })  
+    }).catch(function (error) {
+    })
 }

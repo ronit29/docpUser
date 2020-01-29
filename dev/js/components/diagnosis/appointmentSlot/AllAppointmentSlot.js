@@ -32,6 +32,7 @@ class AppointmentSlot extends React.Component {
     }
 
     proceed(e) {
+        //user select the timeslot & click the button to proceed
         e.preventDefault()
         e.stopPropagation()
         let selectedDate = null
@@ -77,6 +78,7 @@ class AppointmentSlot extends React.Component {
     }
 
     selectTimeSlot(slot) {
+        //user select time 
         let extraTimeParams = {
             type: this.state.selectedAppointmentType
         }
@@ -124,6 +126,7 @@ class AppointmentSlot extends React.Component {
         }
 
         if(this.props.selectedSlot && this.props.selectedSlot.date){
+            //when component load ,it check if any timeslot selected earlier by user for the lab/doctor,if selected then bydefault we select them on page load
             this.getTimeSlots(new Date(this.props.selectedSlot.date))
         }else{
 
@@ -176,6 +179,7 @@ class AppointmentSlot extends React.Component {
     }
 
     getFormattedDate(date){
+        //function which return date in yyyy-mm-dd format
         date = new Date(date)
         var dd = date.getDate();
 
@@ -196,6 +200,7 @@ class AppointmentSlot extends React.Component {
     }
 
     enableProceed(enable, slot={}){
+        //function which keep on checking on every time selection that whether time is selected or not
         const parsed = queryString.parse(this.props.location.search)
         let isAllTimeSelected = false
         if(this.state.timeSlotsData) {
@@ -221,10 +226,12 @@ class AppointmentSlot extends React.Component {
     }
 
     handleToggleType(type) {
+        //function which get timeslot for particular toggle type e.g all, seperately
         this.setState({ selectedAppointmentType: type })
     }
 
     getTimeSlotStatus(slotData=null){
+        //In case of tests selected by user 'seperately', this function will return if all the times of selected tests are selected by the user or not
         let isAllTimeSelected = false
         let selectedSlot = this.props.selectedSlot
         if(slotData) {

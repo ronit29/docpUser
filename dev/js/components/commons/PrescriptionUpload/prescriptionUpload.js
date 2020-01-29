@@ -20,7 +20,8 @@ class PrescriptionView extends React.PureComponent {
 			open_popup_overlay: false,
 			selected_file: '',
             showLoginView: false,
-            isLoading: false
+            isLoading: false,
+            selected_file_name: null
 		}
 	}
 
@@ -31,11 +32,12 @@ class PrescriptionView extends React.PureComponent {
         }else {
             if(event && event.target && event.target.files && event.target.files.length && event.target.files[0].name) {
                 let file = event.target.files[0]
-                if(/(.png|.jpeg|.jpg|.pdf)/.test(file.name) ) {
+                let fileName = file.name
+                if(/(.png|.jpeg|.jpg|.pdf)/.test(fileName) ) {
 
-                    if(file.name.includes('.pdf')){
+                    if(fileName.includes('.pdf')){
                         let file_pdf = ASSETS_BASE_URL + "/img/pdf.jpg"
-                        this.setState({selected_file: file_pdf })
+                        this.setState({selected_file: file_pdf, selected_file_name: fileName })
                         this.finishCrop(null, file)
                     }else{
 
@@ -50,7 +52,7 @@ class PrescriptionView extends React.PureComponent {
                             const imgExt = img1.ext
                             const file = Compress.convertBase64ToFile(base64str, imgExt)
                             this.getBase64(file, (dataUrl) => {
-                                this.setState({selected_file: dataUrl})
+                                this.setState({selected_file: dataUrl, selected_file_name: fileName })
                                 this.finishCrop(dataUrl, null)
                             })
                         }).catch((e) => {
@@ -86,7 +88,7 @@ class PrescriptionView extends React.PureComponent {
         }
         let mem_data = {}
         let existingData
-        let img_tag = "prescription_file"
+        let img_tag = "file"
         this.setState({
             isLoading: true
         }, () => {
@@ -96,10 +98,16 @@ class PrescriptionView extends React.PureComponent {
             } else {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
-            this.props.uploadPrescription(form_data, (data, err) => {
+            this.props.uploadCommonPrescription(form_data, (data, err) => {
                 if (data) {
-                    this.setState({ isLoading: false })
+                    
+                }else{
+                    setTimeout(() => {
+                        SnackBar.show({ pos: 'bottom-center', text: "Prescription upload failure,please try after some time" })
+                    }, 500)
+                    this.setState({ selected_file: null , selected_file_name: null})
                 }
+                this.setState({ isLoading: false })
             })
         })
     }
@@ -114,15 +122,23 @@ class PrescriptionView extends React.PureComponent {
     }
 
     cancelOverlay = (val) => {
-        if(val==1) {
-            this.setState({open_popup_overlay: false, selected_file: null});
+        if(val) {
+            this.setState({open_popup_overlay: false, selected_file: null, selected_file_name: null});
         }
     }
 
     submit = ()=>{
-        setTimeout(() => {
+        if(this.state.selected_file){
+            setTimeout(() => {
+                this.setState({ selected_file: null, open_popup_overlay: false, selected_file_name: null })
                 SnackBar.show({ pos: 'bottom-center', text: "Prescription Uploaded Successfully" })
             }, 500)
+            
+        }else{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please upload valid file" })
+            }, 500)
+        }
     }
 
     afterUserLogin = ()=>{
@@ -130,7 +146,6 @@ class PrescriptionView extends React.PureComponent {
     }
 
 	render(){
-		console.log('Prescription VIEWWWWWWWWWWWWWWWWWW');
 		return(
 			<React.Fragment>
 				{
@@ -185,6 +200,11 @@ class PrescriptionView extends React.PureComponent {
                                 </div>
                                 <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column">
                                     <img className="prescription-placeholder" width="70" src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
+                                    {
+                                        this.state.selected_file_name?
+                                        <h3>{this.state.selected_file_name}</h3>
+                                        :''
+                                    }
                                     {
                                     	this.state.show_error?
                                     	<React.Fragment>

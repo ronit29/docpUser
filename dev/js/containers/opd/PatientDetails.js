@@ -46,6 +46,7 @@ class PatientDetails extends React.Component {
         }
 
         if (STORAGE.checkAuth()) {
+            //Check if user is login, if logged in then fetch user related data
             props.getUserProfile()
             props.fetchTransactions()
             props.getCartItems()
@@ -54,6 +55,7 @@ class PatientDetails extends React.Component {
         if (doctor_id) {
             if(callDoctorById){
                 let extraParams={}
+                //If appointment_id is availble in the url, then we get data corresponding to that appointment
                 if(parsed.appointment_id){
                     extraParams['appointment_id'] = parsed.appointment_id
                 }
@@ -98,6 +100,7 @@ class PatientDetails extends React.Component {
     }
 
     getFormattedDate(date){
+        //function which return date in yyyy-mm-dd format
         var dd = date.getDate();
 
         var mm = date.getMonth()+1; 
@@ -157,7 +160,7 @@ const mapDispatchToProps = (dispatch) => {
         getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp,extraParamsData,  cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),

@@ -104,8 +104,8 @@ class LoginPopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            let extraParams = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParams, (exists) => {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError: '' })
                 } else {
@@ -149,7 +149,7 @@ class LoginPopup extends React.Component {
     }
 
     render() {
-        console.log('Login Viewwwwwww');console.log(this.props);
+
             return (
                     <div className="ins-form-slider">
                         <div className="one">

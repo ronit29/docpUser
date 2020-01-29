@@ -21,7 +21,7 @@ class primeCare extends React.Component {
 
     
     componentDidMount() {
-        this.props.getCareDetails((resp)=>{
+        this.props.getCareDetails((resp)=>{ // get care plans
             if(resp){
                 let feature_data = {}
                 resp.plans.map(function (plans) {
@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         getCareDetails: (callback) => dispatch(getCareDetails(callback)),
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         getIsCareDetails: (cb) => dispatch(getIsCareDetails(cb)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),

@@ -100,7 +100,7 @@ class SearchTestView extends React.Component {
             test_id = ''
         }
 
-        this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs)
+        this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs) // get selected test/package details
     }
 
 
@@ -112,7 +112,8 @@ class SearchTestView extends React.Component {
         }
     }
 
-    frequentlyAddTest(field, name, show_details, event) {
+    frequentlyAddTest(field, name, show_details, event) { 
+        // adding more test 
         let self = this
         let url_string = window.location.href
         let url = new URL(url_string);
@@ -210,6 +211,7 @@ class SearchTestView extends React.Component {
     }
 
     proceedBookNow(lab_name = "") {
+        //book now 
         let test = {}
         let found = false
         let selectedCriteria = []
@@ -420,7 +422,7 @@ class SearchTestView extends React.Component {
                                                                                             {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
                                                                                                 return <li key={k} id={test_include.id} className="mb-rmv">
                                                                                                     <div>
-                                                                                                        <h2 className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-show' : 'acrd-arw-rotate'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</h2>
+                                                                                                        <h2 className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{`${test_include.name}  ${test_include.parameters && test_include.parameters.length > 0 ? `(${test_include.parameters.length})`:''}`} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-show' : 'acrd-arw-rotate'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</h2>
                                                                                                     </div>
                                                                                                     {
                                                                                                         test_include.parameters && test_include.parameters.length > 0 ?

@@ -20,12 +20,14 @@ const SOCKET = (() => {
             STORAGE.getAuthToken().then((token) => {
                 if (token) {
                     const socket = io(CONFIG.SOCKET_BASE_URL, {
-                        path: CONFIG.SOCKET_BASE_PATH,
-                        query: {
-                            token: token
-                        }
+                        path: CONFIG.SOCKET_BASE_PATH
+                        // query: {
+                        //     token: token
+                        // }
                     });
-
+                    socket.on('reqData', (socketData)=>{
+                        socket.emit('getData', {token: token})
+                    })
                     _initialized = true
                     _instance = socket
                     cb()
@@ -45,7 +47,15 @@ const SOCKET = (() => {
         return _instance
     }
 
-    return { init, getInstance: getInstance.bind(this) }
+    const refreshSocketConnection =()=>{
+        //Build new socket connection on token refresh
+        if(_instance) {
+            _instance.disconnect();
+             _instance = null;
+        }
+    }
+
+    return { init, getInstance: getInstance.bind(this), refreshSocketConnection: refreshSocketConnection.bind(this) }
 
 })()
 

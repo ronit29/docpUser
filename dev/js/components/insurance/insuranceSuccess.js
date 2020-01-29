@@ -23,7 +23,7 @@ class InsuranceFaq extends React.Component {
 		var url = new URL(url_string);
 		var member_list_id = url.searchParams.get("id");
 		if (member_list_id !== null) {
-			this.props.getInsuranceMemberList(member_list_id)
+			this.props.getInsuranceMemberList(member_list_id) // get insured member details and list of dieases(faq's)
 		}
 	}
 	handleChange(member_id, disease_id, event) {
@@ -89,11 +89,11 @@ class InsuranceFaq extends React.Component {
 						member_list_new.push(member_new)
 					}, this)
 				}
-				this.props.updateMemberList({ "members": member_list_new }, (resp) => {
+				this.props.updateMemberList({ "members": member_list_new }, (resp) => { // update members selected list
 					this.props.history.push('/insurance/certificate?show_congo=true')
 				})
 			} else if (this.state.no_disease) {
-				this.props.updateMemberList({ "members": member_list }, (resp) => {
+				this.props.updateMemberList({ "members": member_list }, (resp) => { // update members selected list
 					this.props.history.push('/insurance/certificate?show_congo=true')
 				})
 			}

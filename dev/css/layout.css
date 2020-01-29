@@ -1442,10 +1442,23 @@ Miscellaneous
 /*=======================
     form floating label
 ========================*/
-
+form label.is-inp-focused{
+    padding: 0 !important;
+  top: -4px !important;
+  left: 10px !important;
+  font-size: 12px !important;
+  height: 12px !important;
+  line-height: 12px !important;
+  background: white !important;
+  box-shadow: 0 0 5px 0 white !important;
+  width: auto !important;
+  padding: 0 5px !important;
+  color: var(--text--primary--color) !important;
+  font-weight: bold !important;
+}
 form .labelWrap {
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
 }
 
 form .labelWrap label {
@@ -1541,6 +1554,7 @@ form .labelWrap input:valid + label {
   color: var(--text--primary--color);
   font-weight: bold;
 }
+
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 

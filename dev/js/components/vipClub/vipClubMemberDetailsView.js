@@ -32,7 +32,7 @@ class VipClubMemberDetailsView extends React.Component {
     	if(window){
     		window.scrollTo(0,0)
     	}
-    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.vipCoupons.length >0) {
+    	if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.vipCoupons.length >0) { // get coupon discount
 	    		this.props.applyCouponDiscount({ productId : this.props.selected_vip_plan.is_gold?8:11,couponCode:this.props.vipCoupons[0].code,couponId:this.props.vipCoupons[0].coupon_id,plan_id:this.props.selected_vip_plan.id,deal_price:this.props.selected_vip_plan.deal_price,
 	    		cb: (resp) => {
 	    			if(resp){
@@ -44,7 +44,7 @@ class VipClubMemberDetailsView extends React.Component {
 	    }
     }
 
-    addMembers(isFromDefaultUser){
+    addMembers(isFromDefaultUser){ // add new members 
     	let member_dummy_data={
     		name: '',
 			last_name: '',
@@ -67,12 +67,12 @@ class VipClubMemberDetailsView extends React.Component {
     	let card
     	let membersId = []
     	if(isFromDefaultUser && !this.props.is_from_payment){
-    		this.props.clearVipMemeberData()
+    		this.props.clearVipMemeberData() // reset vip or gold store to initial state
 			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
 			member_dummy_data.id=0
 			member_dummy_data.is_tobe_dummy_user = true
-			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-    			this.props.userDetails('self_data', member_dummy_data)
+			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{ // save current visible form member or selected user profile id
+    			this.props.userDetails('self_data', member_dummy_data) // to save user form details in store
     		})
     	}else{
     		if(this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length &&  this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length >0){
@@ -86,8 +86,8 @@ class VipClubMemberDetailsView extends React.Component {
 							member_dummy_data.id=currentFormIdsCount
 							member_dummy_data.is_tobe_dummy_user = false
 			    		}
-			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-			    			this.props.userDetails('self_data', member_dummy_data)
+			    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{  // save current visible form member or selected user profile id
+			    			this.props.userDetails('self_data', member_dummy_data) // to save user form details in store
 			    		})
 			    	}
     		}
@@ -109,7 +109,7 @@ class VipClubMemberDetailsView extends React.Component {
     			Object.entries(props.savedMemberData).map(function([key, value]) {
     				membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true})
     			})
-    			props.saveCurrentSelectedVipMembers(membersId)
+    			props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true})
     		}else{
 	    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
@@ -121,7 +121,7 @@ class VipClubMemberDetailsView extends React.Component {
 				}else{
 					membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false})
 				}
-				props.saveCurrentSelectedVipMembers(membersId)
+				props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true })
 			}
 		} else if (!this.state.saveMembers && Object.keys(props.selected_vip_plan).length > 0 && props.is_from_payment && Object.keys(props.vip_club_db_data).length > 0) {
@@ -137,7 +137,7 @@ class VipClubMemberDetailsView extends React.Component {
 					})
 				}
 				
-				props.saveCurrentSelectedVipMembers(membersId)
+				props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true })
 			}
 		}
@@ -228,20 +228,25 @@ class VipClubMemberDetailsView extends React.Component {
 							fields.push('dob')
 						}
 
-						if (param.year == null || param.year == "") {
+						if(param.dob != null && !param.isDobValidated){
 							is_disable = true
 							fields.push('dob')
 						}
 
-						if (param.mnth == null || param.mnth == "") {
-							is_disable = true
-							fields.push('dob')
-						}
+						// if (param.year == null || param.year == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
 
-						if (param.day == null || param.day == "") {
-							is_disable = true
-							fields.push('dob')
-						}
+						// if (param.mnth == null || param.mnth == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
+
+						// if (param.day == null || param.day == "") {
+						// 	is_disable = true
+						// 	fields.push('dob')
+						// }
 						// if(param.is_tobe_dummy_user){
 						// 	if (param.title == "") {
 						// 		is_disable = true
@@ -369,7 +374,7 @@ class VipClubMemberDetailsView extends React.Component {
 						  		return
 						   }
 						   console.log(data)
-							this.props.addVipMembersData(data,(resp)=>{
+							this.props.addVipMembersData(data,(resp)=>{ // to add member details
 								if(resp.success){
 									this.props.history.push('vip-club-activated-details')
 								}
@@ -421,7 +426,7 @@ class VipClubMemberDetailsView extends React.Component {
 							if (isSms) {
 								this.sendSMS()
 							} else {
-								this.props.vipClubPay(data, (resp) => {
+								this.props.vipClubPay(data, (resp) => { // to request for payment
 
 									if (resp && resp.error) {
 										SnackBar.show({ pos: 'bottom-center', text: resp.error })
@@ -539,13 +544,13 @@ class VipClubMemberDetailsView extends React.Component {
 	}
 
 	pushUserData(data) {
-		this.props.pushMembersData(data)
+		this.props.pushMembersData(data) // to save proposer/self data to the dummy table in case of agent or proposer self
 	}
 
 	sendSMS() {
 		let parsed = queryString.parse(this.props.location.search)
 		let extraParams = {}
-		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, extraParams, (err, res) => {
+		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, extraParams, (err, res) => { //send payment link in sms to user by agaent
 			if (err) {
 				SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
 			} else {
@@ -566,7 +571,7 @@ class VipClubMemberDetailsView extends React.Component {
 		this.setState({ show_popup: false, proceed: false, popupMemData: {} })
 	}
 
-	applyCoupons(){
+	applyCoupons(){ // apply coupons 
 		let selected_plan_id = null
 		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment) {
             // this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
@@ -596,8 +601,8 @@ class VipClubMemberDetailsView extends React.Component {
         }else{
             gold_push_data.is_agent = false
         }
-        this.props.pushMembersData(gold_push_data)
-		this.props.removeVipCoupons()
+        this.props.pushMembersData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
+		this.props.removeVipCoupons() // to reset coupons to intial state
 	}
 	render() {
 		let child
@@ -665,14 +670,16 @@ class VipClubMemberDetailsView extends React.Component {
 												<div className="widget-content padiing-srch-el pb-0">
 													<p style={{ fontSize: '14px' }} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length} Members Added</p>
 													<div className="vip-pop-table">
+														<div className="vip-sn-tbl m-0">
 														{
 															this.state.popupMemData && Object.keys(this.state.popupMemData).length > 0 ?
 																Object.entries(this.state.popupMemData).map(function ([key, val]) {
 																	return val.relation == 'SELF' || val.is_already_user ?
 																		''
-																		: <div className="vip-sn-tbl m-0" key={key}>
-																			<p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p>
-																			<table className="vip-acrd-content text-left">
+																		: <table key={key} className="vip-acrd-content text-left">
+																				<thead>
+																					<th colspan='3'><p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p></th>
+																				</thead>
 																				<tbody>
 																					<tr>
 																						<th>Relationship</th>
@@ -691,10 +698,10 @@ class VipClubMemberDetailsView extends React.Component {
 																						<td>{val.dob}</td>
 																					</tr>
 																				</tbody>
-																			</table>
-																		</div>
+																		</table>
 																})
 																: ''}
+															</div>
 													</div>
 
 													<div className="search-el-btn-container">

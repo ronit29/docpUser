@@ -59,7 +59,7 @@ class ThyrocarePackageView extends React.Component {
         }
     }
 
-    bookNowClicked(url, trackingName) {
+    bookNowClicked(url, trackingName) { // book now
 
         let data = {
             'Category': 'ConsumerApp', 'Action': trackingName, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': trackingName
@@ -74,7 +74,7 @@ class ThyrocarePackageView extends React.Component {
         this.props.history.push('/tax-saver-health-packages?package_category_ids=59')
     }
 
-    goldClicked(pkg_id) {
+    goldClicked(pkg_id) { // gold click
         let data = {
             'Category': 'ConsumerApp', 'Action': 'VipGoldThyrocareClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-gold-thyrocare-clicked', 'pkgId': pkg_id
         }
@@ -82,7 +82,7 @@ class ThyrocarePackageView extends React.Component {
         this.props.history.push('/vip-gold-details?is_gold=true&source=thyrocarePkgListing&lead_source=Docprime')
     }
 
-    nonIpdLeads(phone_number){
+    nonIpdLeads(phone_number){ // leads for matrix for the packages searched by user
         const parsed = queryString.parse(this.props.location.search)
         let data =({phone_number:phone_number,lead_source:'Labads',source:parsed,lead_type:'LABADS',test_name:'thyrocare aarogyam packages',exitpoint_url : 'http://docprime.com' + this.props.location.pathname})
 

@@ -7294,6 +7294,7 @@ img.img-fluid.vp-cls-img {
     min-width: 80%;
     min-height: 100px;
     padding: 8px 10px;
+    border-right: 1px solid #e2e2e2;
 }
 
 .pkgcustCards.vip-cmmnt-card h4 {
@@ -7726,7 +7727,9 @@ p.gold-sub-acrd-content {
 }
 
 .gold-accordion-container {
-    margin-top: 25px;
+    margin-top: 36px;
+    padding-top: 11px;
+    border-top: 1px dashed #b0b0b0;
 }
 
 .gold-crd-lft p {
@@ -7840,7 +7843,7 @@ img.gld-cd-icon {
 
 .gold-benifi-cards p {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -8016,7 +8019,6 @@ p.dp-gld-txt-mem {
     font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 6px;
     font-size: 12px;
 }
@@ -8026,6 +8028,7 @@ p.dp-gld-txt-mem span {
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-left: 5px;
 }
 
 p.dp-gld-txt-mem span img {
@@ -8045,6 +8048,15 @@ p.dp-gld-mem-grn {
 
 .dp-gold-pay-rgt p {
     font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.dp-gold-pay-rgt p img{
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 10px;
+    margin-left: 3px;
+    cursor: pointer;
 }
 
 

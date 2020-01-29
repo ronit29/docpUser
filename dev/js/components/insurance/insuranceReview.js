@@ -151,7 +151,7 @@ class InsuranceReview extends React.Component{
 		},this)}
 		console.log(insurance_pay)
 		if(this.props.is_endorsement){
-			this.props.createEndorsementData(insurance_pay,(resp)=>{
+			this.props.createEndorsementData(insurance_pay,(resp)=>{ // submit endoresment data
 				if(resp && resp.success){
 					SnackBar.show({ pos: 'bottom-center', text: resp.success})
 					this.props.history.push('/insurance/certificate')
@@ -160,8 +160,8 @@ class InsuranceReview extends React.Component{
 				}
 			})
 		}else{
-			this.props.resetSelectedInsuranceMembers()
-			this.props.insurancePay(insurance_pay,(resp)=>{
+			this.props.resetSelectedInsuranceMembers() // filter only visible forms objexts in the store
+			this.props.insurancePay(insurance_pay,(resp)=>{ // // to request payment
 				if(resp.members && resp.members.length >0){
 					this.props.history.push('/insurance/insurance-user-details')
 				}else{
@@ -186,7 +186,7 @@ class InsuranceReview extends React.Component{
     		sms_type = 'endorsement'
 		}
 		let extraParams = {}
-        this.props.sendAgentBookingURL(null, 'sms', sms_type,null,extraParams, (err, res) => {
+        this.props.sendAgentBookingURL(null, 'sms', sms_type,null,extraParams, (err, res) => { //send payment link in sms to user by agaent
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {

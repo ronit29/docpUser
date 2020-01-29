@@ -43,7 +43,7 @@ class CartView extends React.Component {
         this.setState({ use_wallet: e.target.checked })
     }
 
-    getPriceBreakup(cart_items) {
+    getPriceBreakup(cart_items) { // calculate all final price(coupon,convience fee, vip or gold or insurance price) in case of multiple item or single item 
         if (!cart_items) {
             cart_items = []
         }
@@ -67,19 +67,6 @@ class CartView extends React.Component {
                 if(item.actual_data.is_appointment_insured){
 
                 }else{
-                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
-                        is_gold_member = item.actual_data.is_gold_member
-                        if(item.actual_data.vip_amount == 0){
-                            vip_amnt_price += item.mrp
-                        }else{
-                            if(item.actual_data.is_gold_member){
-                                vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
-                            }else{
-                                vip_amnt_price += item.mrp - item.actual_data.vip_amount
-                            }
-                            
-                        }
-                    }
                     total_mrp += item.mrp
 
                     if(!item.actual_data.cover_under_vip){
@@ -113,6 +100,29 @@ class CartView extends React.Component {
                             }
                         }
                     }
+
+                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){ // gold price calculation
+                        is_gold_member = item.actual_data.is_gold_member
+                        // if(item.actual_data.vip_amount == 0){
+                        //     vip_amnt_price += item.mrp
+                        // }else{
+                        //     if(item.actual_data.is_gold_member){
+                        //         vip_amnt_price += item.mrp - (item.actual_data.vip_amount + item.actual_data.vip_convenience_amount)
+                        //     }else{
+                        //         vip_amnt_price += item.mrp - item.actual_data.vip_amount
+                        //     }
+                            
+                        // }
+                        if(item.actual_data.amount_to_be_paid == 0){
+                            vip_amnt_price += item.mrp
+                        }else{
+                            if(item.actual_data.is_gold_member){
+                                vip_amnt_price += item.mrp - total_coupon_discount - item.actual_data.amount_to_be_paid
+                            }else{
+                                vip_amnt_price += item.mrp - item.actual_data.amount_to_be_paid
+                            }                            
+                        }   
+                    }
                 }
 
             }
@@ -133,7 +143,7 @@ class CartView extends React.Component {
         }
     }
 
-    processCart(total_price,is_selected_user_insurance_status, is_any_vip_appointment) {
+    processCart(total_price,is_selected_user_insurance_status, is_any_vip_appointment) { // to process for payment
 
         if(is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
@@ -191,7 +201,7 @@ class CartView extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay) {
+    getBookingButtonText(total_wallet_balance, price_to_pay) { //get booking button text depend on multiple cases
         let price_from_wallet = 0
         let price_from_pg = 0
 
@@ -208,7 +218,7 @@ class CartView extends React.Component {
         return `Confirm Booking`
     }
 
-    sendAgentBookingURL() {
+    sendAgentBookingURL() { // send payment link to user in case of agent booking 
         let extraParams = {}
         this.props.sendAgentBookingURL(null, 'sms', null,null, extraParams, (err, res) => {
             if (err) {
@@ -219,7 +229,7 @@ class CartView extends React.Component {
         })
     }
 
-    priceConfirmationPopup(choice){
+    priceConfirmationPopup(choice){ // ask to confirm the appointment in case of insurnance or user payable amount is 0.
         if(!choice){
             this.setState({showConfirmationPopup:choice})
         }else{
@@ -382,18 +392,6 @@ class CartView extends React.Component {
                                                                         }
                                                                                                                                           
                                                                         {
-                                                                            total_coupon_discount ? <div>
-                                                                                {
-                                                                                    Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                        return <div className="payment-detail d-flex" key={j}>
-                                                                                            <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
-                                                                                            <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
-                                                                                        </div>
-                                                                                    })
-                                                                                }
-                                                                            </div> : ''
-                                                                        }
-                                                                        {
                                                                             vip_amnt_price?
                                                                                 is_gold_member?
                                                                                 <div className="payment-detail d-flex align-item-center">
@@ -414,17 +412,19 @@ class CartView extends React.Component {
                                                                             :''
 
                                                                         }
-                                                                        {/*vip_amnt_price && is_gold_member ?
-                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime Gold Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
-                                                                            </div>
-                                                                            :''*/
-                                                                        }
-                                                                        {/*is_gold_member?'': vip_amnt_price ?
-                                                                            <div className="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
-                                                                            </div>
-                                                                            :''*/
-                                                                        }
 
+                                                                        {
+                                                                            total_coupon_discount ? <div>
+                                                                                {
+                                                                                    Object.keys(coupon_breakup).map((cp, j) => {
+                                                                                        return <div className="payment-detail d-flex" key={j}>
+                                                                                            <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
+                                                                                            <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
+                                                                                        </div>
+                                                                                    })
+                                                                                }
+                                                                            </div> : ''
+                                                                        }
                                                                     </div>
                                                                     :''
                                                                 }

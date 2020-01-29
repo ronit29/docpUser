@@ -44,6 +44,7 @@ class BookingView extends React.Component {
         let appointmentId = this.props.match.params.refId
 
         if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot && Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).length) {
+           //On reshedule this function calls , to update the appointment status
             /*let tests = []
             Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).map((twp)=>{
 
@@ -82,7 +83,7 @@ class BookingView extends React.Component {
                 this.props.getUpcomingAppointments()
             })
         } else {
-
+            //get appoinment data 
             this.props.getLabBookingSummary(this.props.match.params.refId, (err, data) => {
                 if (!err) {
                     this.setState({ data: data[0], loading: false })
@@ -410,8 +411,8 @@ class BookingView extends React.Component {
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
                                                             <div className="address-details clearfix">
-                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-lb" onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
-                                                                    <img style={{ maxWidth: 90, maxHeight: 60, float: 'right', cursor: 'pointer' }} src={lab_thumbnail} />
+                                                                <InitialsPicture name={lab.name} has_image={!!lab_thumbnail} className="initialsPicture-ls" style={{float:'right'}} onClick={this.navigateTo.bind(this, `/lab/${lab.id}`)}>
+                                                                    <img className="fltr-usr-image-lab" style={{ float:'right',cursor: 'pointer' }} src={lab_thumbnail} />
                                                                 </InitialsPicture>
 
                                                                 <p className="add-info fw-500">{lab.address}</p>
@@ -578,7 +579,7 @@ class BookingView extends React.Component {
                                                                         <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                                                         <div className="ofr-contnt">
                                                                             <p className="add-info fw-500 add-info-p">
-                                                                                Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
+                                                                                Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 200</b> on completion of their first order </p>
                                                                             <div>
                                                                                 <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                                                     <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)`, cursor: 'pointer' }}>Know more</p>

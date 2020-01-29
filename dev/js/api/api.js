@@ -29,7 +29,7 @@ function rejectHandler(response, callback) {
 }
 
 export const API_GET = (url) => {
-    return STORAGE.getAuthToken().then((token) => {
+    return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
             if (token) headers['Authorization'] = `Token ${token}`
@@ -48,7 +48,7 @@ export const API_GET = (url) => {
 
 }
 export const API_POST = (url, data) => {
-    return STORAGE.getAuthToken().then((token) => {
+    return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
             if (token) headers['Authorization'] = `Token ${token}`
@@ -69,7 +69,7 @@ export const API_POST = (url, data) => {
 }
 
 export const API_PUT = (url, data) => {
-    return STORAGE.getAuthToken().then((token) => {
+    return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
             if (token) headers['Authorization'] = `Token ${token}`
@@ -90,7 +90,7 @@ export const API_PUT = (url, data) => {
 }
 
 export const API_DELETE = (url) => {
-    return STORAGE.getAuthToken().then((token) => {
+    return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
             if (token) headers['Authorization'] = `Token ${token}`

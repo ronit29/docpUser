@@ -3,7 +3,7 @@ import React from 'react'
 
 class CommonPopup extends React.PureComponent {
 
-	render(){console.log('POPUPUUUUUUUUUUUUUUU');
+	render(){
 
 		return(
 			<React.Fragment>

@@ -215,7 +215,7 @@ export const filterSelectedCriteria = (type) => (dispatch) => {
     })
 }
 
-export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => {
+export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => { // to get near by hospitals covered under gold or vip or near by location
 
     let lat = 28.644800
     let long = 77.216721
@@ -250,7 +250,7 @@ export const getNearbyHospitals = (extraParams={}, cb) => (dispatch) => {
     })
 }
 
-export const getTopHospitals = (extraParams={}, cb) => (dispatch) => {
+export const getTopHospitals = (extraParams={}, cb) => (dispatch) => { // to get near by  top hospitals covered under gold or vip or near by location
 
     let lat = 28.644800
     let long = 77.216721
@@ -270,11 +270,7 @@ export const getTopHospitals = (extraParams={}, cb) => (dispatch) => {
     }else{
         locality = "Delhi"
     }
-    let url = `/api/v1/doctor/top/hospitals?lat=${lat}&long=${long}&locality=${locality}`
-    if(extraParams && extraParams.type){
-        url+= `&${extraParams.type}=true`    
-    }
-    return API_GET(url).then(function(response){
+    return API_GET(`/api/v1/doctor/top/hospitals?lat=${lat}&long=${long}&locality=${locality}`).then(function(response){
 
         dispatch({
             type: SAVE_TOP_HOSPITALS,

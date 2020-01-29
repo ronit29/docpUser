@@ -12,6 +12,7 @@ import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
 import CarouselView from './carouselView.js'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -38,7 +39,9 @@ class SearchResultsView extends React.Component {
             fromVip: parsed && (parsed.fromVip || parsed.fromGoldVip),
             search_string:'',
             showSearchBtn:false,
-            scrollEventAdded: false
+            scrollEventAdded: false,
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -110,6 +113,7 @@ class SearchResultsView extends React.Component {
 
         if (this.props.mergeUrlState) {
             let getSearchId = true
+            //if search id exist in url then we get data for that search id from store
             if (this.props.location.search.includes('search_id')) {
 
                 if (this.props.search_id_data && this.props.search_id_data[parsed.search_id] && this.props.search_id_data[parsed.search_id].data) {
@@ -139,6 +143,7 @@ class SearchResultsView extends React.Component {
             }
 
             if (getSearchId) {
+                //If no searchId in url then we create search id and store data corresponding to that search id
                 let filters = {}
                 filters.commonSelectedCriterias = this.props.nextSelectedCriterias
                 filters.filterCriteria = this.props.nextFilterCriteria
@@ -290,6 +295,7 @@ class SearchResultsView extends React.Component {
                 window.scrollTo(0, 0)
             }
         } else {
+            //Whenever location changes make api calls
             if (props.selectedLocation != this.props.selectedLocation && props.mergeUrlState) {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
@@ -308,6 +314,7 @@ class SearchResultsView extends React.Component {
     }
 
     generateSearchId(uid_string) {
+        //method to generate search id
         uid_string = 'xxyyxxxx-xxyx-4xxx-yxxx-xxxyyyxxxxxx'
         var dt = new Date().getTime();
         var uuid = uid_string.replace(/[xy]/g, function (c) {
@@ -327,6 +334,7 @@ class SearchResultsView extends React.Component {
 
     applyFilters(filterState) {
         // clear LANDING_PAGE to enable loader
+        //apply filters and get updated data
         if (typeof window == 'object') {
             window.ON_LANDING_PAGE = false
         }
@@ -346,7 +354,7 @@ class SearchResultsView extends React.Component {
     }
 
     buildURI(state) {
-
+        //keep on updating url with the updated filters 
         const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType, page } = state
@@ -505,10 +513,15 @@ class SearchResultsView extends React.Component {
             is_params_exist = true
         }
 
+        if(this.state.showNonIpdPopup){
+            url += `${'&show_popup='+ this.state.showNonIpdPopup}`
+        }
+
         return url
     }
 
     getDoctorList(state = null, page = null, cb = null) {
+        //get doctor list on filters applied
         let searchUrl = null
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -601,6 +614,7 @@ class SearchResultsView extends React.Component {
     }
 
     searchDoctorSpecialization(speciality, isViewAll) {
+        //filter to search doctor specialization
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -657,6 +671,7 @@ class SearchResultsView extends React.Component {
             count = dataLength;
             dataLength = 
         }*/
+        //funciton to return search specialization to render
         let dataModel = []
         for (let i = 0; i < this.props.similar_specializations.length; i++) {
             if (flag && i % 2 == 0) {
@@ -693,6 +708,7 @@ class SearchResultsView extends React.Component {
     }
 
     sortFilterClicked() {
+        //function which called when we click on screen-filters 
         if (this.child && this.child.sortFilterClicked) {
             this.child.sortFilterClicked()
         }
@@ -739,6 +755,44 @@ class SearchResultsView extends React.Component {
             nextSelectedCriterias: []
         })
         this.props.history.push(`/ipd/searchHospitals`)   
+    }
+
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',doctor_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:null,hospital_id:null,hospital_name:null})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-Submit-click'}
+        GTM.sendEvent({ data: gtm_data })
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-cross-click'
+                }
+            GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0})
+        }
+    }
+
+     getCriteriaString(selectedCriterias) {
+        if (selectedCriterias && selectedCriterias.length) {
+            let is_group_ids_exist = selectedCriterias.filter(x => x.type == 'group_ids')
+            let selectedDataView = is_group_ids_exist.length ? is_group_ids_exist : selectedCriterias
+
+            return selectedDataView.reduce((final, curr, i) => {
+                if (i != 0) {
+                    final += ', '
+                }
+                final += `${curr.name}`
+                return final
+            }, "")
+        }
     }
 
     render() {
@@ -788,6 +842,12 @@ class SearchResultsView extends React.Component {
                     ogTitle: this.getMetaTagsData(this.props.seoData).title,
                     ogDescription: this.getMetaTagsData(this.props.seoData).description
                 }} />
+
+                {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_opd={true}/>
+                    :''
+                }
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {

@@ -435,7 +435,7 @@ class BookingView extends React.Component {
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content bokng-card pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
-                                                        <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
+                                                        <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-ds" style={{float:'right'}} onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
                                                             <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
                                                         </InitialsPicture>
                                                         <div className="address-details">
@@ -584,7 +584,7 @@ class BookingView extends React.Component {
                                                                     <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                                                     <div className="ofr-contnt">
                                                                         <p className="add-info fw-500 add-info-p">
-                                                                            Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>
+                                                                            Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> {this.state.data.user_referral_amt}</b> on completion of their first order </p>
                                                                         <div>
                                                                             <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                                                 <p className="text-xs fw-500" style={{ color: `var(--text--dark--all)` , cursor: 'pointer' }}>Know more</p>

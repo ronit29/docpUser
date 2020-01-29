@@ -330,7 +330,7 @@ textarea.form-control.chat-text-area {
 
 /*side bar cards style sheet*/
 
-.right-card-container {}
+
 
 .card.cstm-card {
     background-color: #ffffff;
@@ -1314,7 +1314,14 @@ p.top-head-link.card-lab-link span {
     position: absolute;
     top: 0px;
 }
-
+.bkng-time-overlay div.loaderCircular{
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #0000002b;
+}
 
 /* onload chat design */
 
@@ -4581,7 +4588,7 @@ ul li.time-slot-li-listing {
     display: flex;
     margin-bottom: 15px;
     position: relative;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .slt-label {
@@ -6055,6 +6062,7 @@ margin: 10px 0px;
 @media screen and (min-width: 0px) and (max-width: 480px) {
     .btn-share {
         width: 80%;
+        margin:auto;
     }
     .social-icon-referral ul li {
         padding: 26px 14px;
@@ -6118,13 +6126,21 @@ margin: 10px 0px;
     text-align: center;
     font-weight: 500;
     color: #3a3939;
+    background: #efefef;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
 
 .inviteCodeShare span {
     display: block;
     font-weight: 600;
     font-size: 28px;
-    margin-top: 8px;
 }
 
 .rfrl-avl-balance {
@@ -7498,6 +7514,7 @@ h3.pkg-include {
     top: 18px;
     height: 60px;
     width: 60px;
+    background: white;
 }
 
 .slideDocContent {
@@ -13823,13 +13840,35 @@ p.pkgtstName.prcd-height {
     top: 0;
     height: 100%;
 }
-
+.home-banner-pos{
+position:absolute;
+}
+.inner-banner-pos{
+position: absolute;
+right: 0px;
+padding: 0px;
+}
+.banner-margin-tap{
+    margin: 0px -15px;
+}
+.banner-md-margn {
+    margin: 0px;
+}
+.banner-md-margn div.banner-margin-tap {
+    margin: 0px;
+}
 .banner-home-scrollable img {
     border-radius: 4px;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
 }
-
+.home-bnnr-mrgn{
+margin-bottom: 40px;
+}
+.home-banner-pos{
+    position: absolute;
+    top: 0px;
+}
 .hidderBanner {
     visibility: hidden;
 }
@@ -13843,6 +13882,7 @@ p.pkgtstName.prcd-height {
 .sngl-banner {
     width: 100%;
     margin-right: 0px;
+    height:100%;
 }
 
 .mltpl-banner {
@@ -14300,6 +14340,12 @@ div.doc-srch-fltr.vip-slct-pop {
         display: inline-flex;
         width: 85%;
     }
+    .banner-md-margn {
+        margin: 0px -15px; 
+    }
+    .banner-md-margn div.banner-margin-tap {
+        margin: 0px -15px;
+    }
 }
 
 .ipd-adrs-tb {
@@ -14308,7 +14354,10 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 .fot{
-    stroke:none;fill-rule:nonzero;fill:url(#linear0);
+    stroke:none;
+    fill-rule:nonzero;
+    /* fill:url(#linear0); */
+    fill: var(--text--primary--color);
 }
 .foot-strt{
     stop-color:var(--gradient--dull--color);stop-opacity:1;
@@ -14477,6 +14526,7 @@ div.doc-srch-fltr.vip-slct-pop {
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
 }
+
 /* ======================================= sbi banner ======================================= */
 .non-doc-vip-ico{
     width: 32px;
@@ -14516,10 +14566,11 @@ div.doc-srch-fltr.vip-slct-pop {
 .close-times-icon {
     font-size: 25px;
     position: absolute;
-    right: 18px;
-    top: -1px;
+    right: 3px;
+    top: -14px;
     margin: 0;
     padding: 0;
+    color: #333 !important;
 }
 
 .booking-help-modal>.cancel-appointment-div {
@@ -14540,10 +14591,12 @@ div.doc-srch-fltr.vip-slct-pop {
         margin: 0 auto;
         z-index: 1111;
         bottom: auto!important;
-        top: 50%;
+        top:50%;
+        transform: translateY(-50%);
+        /* top: 50%;
         left: 50%;
         right: unset;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); */
     }
     .booking-help-modal>.cancel-appointment-div>.col-sm-12>h4 {
         font-size: 15px;
@@ -14686,3 +14739,205 @@ div.doc-srch-fltr.vip-slct-pop {
     padding: 1px 10px;
     color: #fff;
 }
+
+/* ======================================= date month input ======================================= */
+.ddmminput{
+position: relative;
+}
+
+div.labelWrap.ddmminput input{
+    padding-right: 50px;
+    }
+
+.ddmminput .input-year{
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 18px;
+    background: #1b97fd;
+    font-weight: 500;
+    padding: 0 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+}
+.ddmminput .input-year.dob-error{
+    background: white;
+    color: red;
+}
+div.labelWrap.ddmminput label.date-lbl-auto {
+    padding: 0;
+    top: -4px;
+    left: 10px;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    background: white;
+    box-shadow: 0 0 5px 0 white;
+    width: auto;
+    padding: 0 5px;
+    color: var(--text--primary--color);
+    font-weight: bold;
+}
+div.slt-nw-input.summery-dob-cont .labelWrap.ddmminput{
+    width: 100%;
+}
+div.slt-nw-input.summery-dob-cont .labelWrap.ddmminput input{
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, .13);
+    outline: none;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    font-weight: 500;
+    padding: 4px;
+}
+div.slt-nw-input.summery-dob-cont .sumry-lbl{
+    display: none;
+}
+.dob-input-sub{
+    font-size: 9px;
+    font-weight: 600;
+    color: #b8b8b8;
+}
+/* ======================================= date month input ======================================= */
+
+
+/* ======================================= Gold page video  ======================================= */
+
+#goldVideo{
+    width: 100%;
+    border-radius:5px;
+}
+#goldVideo:focus{
+    outline: none;
+}
+.video-player{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#player-icon{
+    transition: .25s cubic-bezier(0.0,0.0,0.2,1);
+}
+#video-time{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 2px 7px;
+    display: none;
+    width: 32px;
+}
+/* ======================================= Gold page video ends ======================================= */
+/* ======================================= refer whatsapp ======================================= */
+span.refr-sub-cpy{
+    font-size: 10px;
+    border-left: 1px solid #b1aeae;
+    margin: 0;
+    padding: 5px 5px;
+    color: #757575;
+    cursor: pointer;
+}
+.refr-sub-cpy img{
+    margin-right: 3px;
+    width: 13px;
+}
+
+    .ref-whtsp:hover{
+color: white;
+    }
+.ref-whtsp{
+    background: #25d366;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    justify-content: center;
+}
+a.text-center.ref-whtsp img {
+    width: 22px;
+    margin-right: 8px;
+}
+/* ======================================= refer whatsapp ======================================= */
+/* ======================================= popup updated  ======================================= */
+.med-popUpInput-cont {
+    background-image: linear-gradient(to left, #edd083, #e9bf72);
+    padding: 17px 0;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.med-popUpInput-cont input {
+    width: 90%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #8b6d2a;
+    background: #f9efd5;
+    text-align: center;
+    margin-bottom: 15px;
+    outline: none;
+    font-weight: 500;
+}
+button.med-popBtn {
+    display: block;
+    margin: auto;
+    color: #171c42;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: -2px 5.7px 16px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: white;
+}
+span.circle-arrow {
+    border: 1px solid #9a7323;
+    border-radius: 50pc;
+    display: inline-flex;
+    margin-left: 6px;
+    padding: 4px;
+    height: 15px;
+    width: 15px;
+    align-items: center;
+}
+span.circle-arrow i {
+    border: solid #9a7323;
+    border-width: 0px 1px 1px 0;
+    display: inline-block;
+    padding: 2px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: relative;
+    left: -1px;
+}
+/* ======================================= popup updated  ======================================= */
+/* ======================================= popup DPP HPP  ======================================= */
+.docImg-Popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doc-img-popupSection {
+    margin-right: 12px;
+    width: 50px;
+}
+
+/* ======================================= popup DPP HPP  ======================================= */

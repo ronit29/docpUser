@@ -37,6 +37,8 @@ const mapStateToProps = (state) => {
         phoneNumber
     } = state.AUTH
 
+     let { refer_amount } = state.USER
+
     return {
         token,
         error_message,
@@ -47,14 +49,15 @@ const mapStateToProps = (state) => {
         submit_otp,
         submit_otp_success,
         submit_otp_fail,
-        phoneNumber
+        phoneNumber,
+        refer_amount
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp, extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         fetchReferralCode: (code) => dispatch(fetchReferralCode(code)),
         clearInsurance: () => dispatch(clearInsurance()),

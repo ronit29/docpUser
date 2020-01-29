@@ -26,7 +26,7 @@ class VipClubActivatedDetails extends React.Component{
     componentDidMount() {
         
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
+            this.props.getUserProfile() // to get loggedIn user profile
         }
         if (window) {
             window.scrollTo(0, 0)
@@ -36,11 +36,10 @@ class VipClubActivatedDetails extends React.Component{
         var url = new URL(url_string);
         let primary_member_id = null
         var member_list_id = url.searchParams.get("id");
-        if (member_list_id !== null) {
-            this.props.resetVipData()
-            this.props.getVipDashboardList(member_list_id,false,(resp)=>{
+        if (member_list_id !== null) { // in case after successfull payment.
+            this.props.resetVipData() // to set vip or gold sotre to initial state
+            this.props.getVipDashboardList(member_list_id,false,(resp)=>{ // to retrive vip or gold dashboard data
                 if(resp && Object.keys(resp.data).length >0){
-                    console.log(resp)
                     if(resp.data.user && Object.keys(resp.data.user).length > 0 ){
                         primary_member_id =   resp.data.user.user
                     }
@@ -52,8 +51,8 @@ class VipClubActivatedDetails extends React.Component{
                 }
             })
         }else{
-            this.props.resetVipData()
-            this.props.getVipDashboardList(member_list_id,true,(resp)=>{
+            this.props.resetVipData() // to set vip or gold sotre to initial state
+            this.props.getVipDashboardList(member_list_id,true,(resp)=>{ // to retrive vip or gold dashboard data
                 if(resp && Object.keys(resp.data).length >0){
                     this.setState({data:resp.data,is_gold:resp.data.plan[0].is_gold})
                 }
@@ -101,7 +100,7 @@ const mapDispatchToProps = (dispatch) => {
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp, extraParamsData,cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),

@@ -30,6 +30,7 @@ class BookingSummary extends React.Component {
         }
 
         if (STORAGE.checkAuth()) {
+            //Check if user is login, if logged in then fetch user related data
             props.getUserProfile()
             props.getUserAddress()
             props.fetchTransactions()
@@ -37,9 +38,11 @@ class BookingSummary extends React.Component {
         }
 
         if(parsed.dummy_id) {
+            //If dummy_id is availble in the url, then we logged in user & proceed with single flow journey
             this.singleFlowLogin(props,lab_id)
 
         }else if(lab_id){
+            //Select all the tests selected by the user in the previous page & hit api with the same
             let testIds = props.lab_test_data[lab_id] || []
             testIds = testIds.map(x => x.id)
             let forceAddTestids = false
@@ -60,7 +63,7 @@ class BookingSummary extends React.Component {
             let extraParams = {
                 dummy_id: parsed.dummy_id
             }
-            props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+            props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{ // to retrieve already pushed member data in case of agent or proposer it self
                 if(resp && resp.data){
                     this.setLabBooking(resp.data) 
                     this.setState({agent_selected_plan_id:resp.data.plus_plan})   
@@ -81,7 +84,7 @@ class BookingSummary extends React.Component {
     }
 
     setLabBooking(data) {
-
+        //On Agent/Direct Login, set data for the lab page,e.g select timeslot, profileid, pickup type, tests, coupons  
         let { coupon_data } = data
         // for (let curr_test of data.test_ids) {
         //     let curr = {}
@@ -132,7 +135,7 @@ class BookingSummary extends React.Component {
         let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} fetchData={this.fetchData.bind(this)}/>
         );
     }
 }
@@ -182,7 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp,extraParamsData,  cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         savePincode: (pincode) => dispatch(savePincode(pincode)),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),

@@ -338,7 +338,7 @@ export const resetLabCoupons = () => (dispatch) => {
 	})
 }
 
-export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false,extra_params, cb) => (dispatch) => {
+export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false,extra_params, cb) => (dispatch) => { //get searched packages result
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
 	if (page == 1) {
 		dispatch({
@@ -590,3 +590,13 @@ export const select_lab_payment_type = (type = 1) => (dispatch) => {
 		payload: type
 	})
 }
+
+export const uploadCommonPrescription = (profileData,callback) => (dispatch) => {
+    API_POST(`api/v1/diagnostic/lab_test_prescription/upload`,profileData).then(function (response) {
+        if (callback) callback(response,null)
+    }).catch(function (error) {
+        if (callback) callback(null, error)
+    })
+}
+
+

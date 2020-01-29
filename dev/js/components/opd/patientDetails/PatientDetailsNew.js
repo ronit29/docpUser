@@ -80,6 +80,7 @@ class PatientDetailsNew extends React.Component {
             banner_decline: false,
             showGoldPriceList: false,
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
+            paymentBtnClicked: false,
             enableDropOfflead:true
         }
     }
@@ -106,6 +107,7 @@ class PatientDetailsNew extends React.Component {
             window.scrollTo(0, 0)
         }
         const parsed = queryString.parse(this.props.location.search)
+        //If token and appointment id is in url then do agent login, and fetch user related data & set state of the page 
         if (parsed.token && parsed.appointment_id) {
             this.props.agentLogin(parsed.token, () => {
                 this.props.select_opd_payment_type(1)
@@ -126,7 +128,7 @@ class PatientDetailsNew extends React.Component {
             let extraParams = {
                 dummy_id: parsed.dummy_id
             }
-            this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{
+            this.props.retrieveMembersData('SINGLE_PURCHASE', extraParams, (resp)=>{ // to retrieve already pushed member data in case of agent or proposer it self
                 this.setOpdBooking(resp.data);
                 this.getVipGoldPriceList(resp.data.plus_plan)
             })
@@ -161,7 +163,7 @@ class PatientDetailsNew extends React.Component {
             this.setState({ couponApplied: false })
             return
         }
-
+        //If coupons data exist then apply for best coupons
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length) {
             let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor]
             if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.props.selectedDoctor) {
@@ -218,6 +220,7 @@ class PatientDetailsNew extends React.Component {
 
             }
         } else {
+            //auto apply coupons
             let deal_price = 0
             if (this.props.selectedSlot.time && this.props.selectedSlot.time.deal_price) {
                 deal_price = this.props.selectedSlot.time.deal_price
@@ -271,7 +274,7 @@ class PatientDetailsNew extends React.Component {
         if(parsed && parsed.dummy_id && agent_selected_plan_id) {
             extraParams['already_selected_plan'] = agent_selected_plan_id
         }
-        this.props.getOpdVipGoldPlans(extraParams)
+        this.props.getOpdVipGoldPlans(extraParams) // to get gold/vip plans specific to particular doctor/hospital
     }
 
     getValidCoupon(coupons) {
@@ -460,8 +463,9 @@ class PatientDetailsNew extends React.Component {
     }
 
     profileDataCompleted(data) {
+        //function to check if profile data is filled by user or not, in case of non-logged in user
         this.setState({ formData: { ...data } })
-        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess || data.dob == '') {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess || data.dob == '' || data.dob == null) {
             this.props.patientDetails(data)
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
@@ -505,12 +509,14 @@ class PatientDetailsNew extends React.Component {
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
         const parsed = queryString.parse(this.props.location.search)
+        
+        //To claim insurance status & claim
         if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
             window.scrollTo(0, 0)
             return
         }
-
+        //check if timeslot is selcted by user or not
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -518,6 +524,7 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
+        //Check if patient is selected or not
         if (!patient) {
             if (this.state.formData.name != '' && this.state.formData.gender != '' && this.state.formData.phoneNumber != '' && this.state.formData.email != '' && !this.state.formData.otpVerifySuccess) {
                 this.setState({ profileError: true });
@@ -531,12 +538,13 @@ class PatientDetailsNew extends React.Component {
                 return
             }
         }
-
+        //Check if patient emailid exist or not
         if (patient && !patient.email && this.props.is_integrated) {
             this.setState({ isEmailNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return
         }
+        //Check if patient dob exist or not
         if (patient && !patient.dob && this.props.is_integrated) {
             this.setState({ isDobNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
@@ -604,6 +612,7 @@ class PatientDetailsNew extends React.Component {
         //     return
         // }
 
+        //Confirmation popup for the tests, whose amount payable is 0
         if (this.state.showConfirmationPopup == 'close'  && !addToCart && (total_price == 0 || (is_insurance_applicable && (this.props.payment_type == 1 || this.props.payment_type == 6 ) ) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: 'open', show_banner: false })
             return
@@ -705,6 +714,10 @@ class PatientDetailsNew extends React.Component {
                 let message = "Error adding to cart!"
                 if (err.message) {
                     message = err.message
+                    if(message.includes('Item already exists in cart.')){
+                        this.props.history.push('/cart')
+                        return;
+                    }
                 }
                 this.setState({ loading: false, error: message })
                 SnackBar.show({ pos: 'bottom-center', text: message });
@@ -712,8 +725,10 @@ class PatientDetailsNew extends React.Component {
             return
         }
         if (parsed && parsed.appointment_id && parsed.cod_to_prepaid == 'true') {
+            //For Cod Appointments
             postData['appointment_id'] = parsed.appointment_id
             postData['cod_to_prepaid'] = true
+            this.setState({paymentBtnClicked: true});
             this.props.codToPrepaid(postData, (err, data) => {
                 if (!err) {
                     /*if (data.is_agent) {
@@ -736,6 +751,7 @@ class PatientDetailsNew extends React.Component {
                         this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                     }
                 } else {
+                    this.setState({paymentBtnClicked: false});
                     let message
                     if (err.error) {
                         message = err.error
@@ -760,7 +776,7 @@ class PatientDetailsNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-
+        this.setState({paymentBtnClicked: true});
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
                 /*if (data.is_agent) {
@@ -783,6 +799,7 @@ class PatientDetailsNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
+                this.setState({paymentBtnClicked: false});
                 let message
                 if (err.error) {
                     message = err.error
@@ -833,7 +850,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     sendSingleFlowAgentBookingURL(postData={}) {
-
+        //for agent login send single flow booking url
         let booking_data = this.getBookingData()
         booking_data = {...postData, ...booking_data, is_single_flow_opd: true, dummy_data_type:'SINGLE_PURCHASE'  }
         this.props.pushMembersData(booking_data, (resp)=>{
@@ -854,7 +871,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     buildOpdTimeSlot() {
-
+        //after agent login , build the state of the page e.g store
         let selectedDate = {...this.props.selectedSlot}
         if(selectedDate.time) {
             return {...selectedDate.time}
@@ -990,12 +1007,12 @@ class PatientDetailsNew extends React.Component {
         if (this.props.payment_type != 1 && this.props.payment_type != 6) {
             if (enabled_for_cod_payment) {
                 if (is_cod_deal_price) {
-                    return `Confirm Booking (₹ ${is_cod_deal_price})`
+                    return `Confirm Booking ${is_cod_deal_price>0?`(₹ ${is_cod_deal_price})`:''}`
                 } else {
-                    return `Confirm Booking (₹ ${mrp})`
+                    return `Confirm Booking ${mrp>0?`(₹ ${mrp})`:''}`
                 }
             } else {
-                return `Confirm Booking (₹ ${mrp})`
+                return `Confirm Booking ${mrp>0?`(₹ ${mrp})`:''}`
             }
 
         }
@@ -1273,7 +1290,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
-        this.props.selectVipClubPlan('plan', plan)
+        this.props.selectVipClubPlan('plan', plan) // toggle/select vip plan
         this.toggleGoldPricePopup();
     }
 
@@ -1296,6 +1313,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     getDataAfterLogin = ()=>{
+        this.props.fetchData(this.props, this.state.selectedClinic, true)
         if(this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length) {
             let selectedPackage = this.props.odpGoldPredictedPrice.filter(x=>x.id==this.state.selectedVipGoldPackageId)
             if(selectedPackage && selectedPackage.length==0) {
@@ -1555,7 +1573,7 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         //Flag to show gold Single Flow Plans
-        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable
+        let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.selected_vip_plan.opd && this.props.odpGoldPredictedPrice && this.props.odpGoldPredictedPrice.length && !is_insurance_applicable && (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)< display_radio_prepaid_price
         
         //If Only COD applicable then don't show single flow gold
         if(enabled_for_cod_payment && !enabled_for_prepaid_payment){
@@ -1579,13 +1597,12 @@ class PatientDetailsNew extends React.Component {
         }
 
         if(resetPaymentType) {
-
-            if(showCodPaymentMode) {
+            if(showGoldTogglePaymentMode) {
+                this.props.select_opd_payment_type(6)
+            }else if(showCodPaymentMode) {
                 this.props.select_opd_payment_type(2)
             }else if(enabled_for_prepaid_payment){
                 this.props.select_opd_payment_type(1)
-            }else if(showGoldTogglePaymentMode) {
-                this.props.select_opd_payment_type(6)
             }
         }
 
@@ -1691,6 +1708,9 @@ class PatientDetailsNew extends React.Component {
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
                 }
                 {
+                    this.state.paymentBtnClicked?<div className="bkng-time-overlay"><Loader/></div>:''   
+                }
+                {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :
                         <section className="container container-top-margin">
                             <div className="row main-row parent-section-row">
@@ -1788,7 +1808,7 @@ class PatientDetailsNew extends React.Component {
                                                                                                                 <span className="nw-pick-hdng">Time:</span>
                                                                                                                 <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
                                                                                                                     <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                                                    <input type="text" name="bday" onClick={() => this.navigateTo('time')} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                                                    <input type="text" name="bday" onClick={() => {}} placeholder="Select" value={time && time.text ? `${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
                                                                                                                     <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                                                                 </div>
                                                                                                             </div>
@@ -1944,11 +1964,12 @@ class PatientDetailsNew extends React.Component {
                                                                                                 <h4 className="title payment-amt-label" onClick={(e) => {
                                                                                                 e.preventDefault();
                                                                                                 this.props.select_opd_payment_type(6) } }>Doctor booking with <img className="sng-gld-img" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /> 
-                                                                                                <span className="gold-qus" onClick={(e)=>{
+                                                                                                {/* <span className="gold-qus" onClick={(e)=>{
                                                                                                     e.stopPropagation();
                                                                                                     e.preventDefault();
                                                                                                     this.goToGoldPage();
-                                                                                                }}>?</span></h4>
+                                                                                                }}>?</span> */}
+                                                                                                </h4>
                                                                                                 {
                                                                                                 //<span className="payment-mode-amt">{`₹${this.props.selected_vip_plan.opd.gold_price}`}</span>    
                                                                                                 }
@@ -1972,14 +1993,22 @@ class PatientDetailsNew extends React.Component {
                                                                                         </div>
                                                                                         <div className="dp-gold-pln-change-container">
                                                                                             <div className="dp-gold-pay-lft">
-                                                                                                <p onClick={(event)=>{
+                                                                                                {/* <p onClick={(event)=>{
                                                                                                     event.stopPropagation();
                                                                                                     this.toggleGoldPricePopup(true)
-                                                                                                }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>Change Plan<img src={ASSETS_BASE_URL + '/images/down-arrow-o.png'}/></span></p>
+                                                                                                }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>Change Plan<img src={ASSETS_BASE_URL + '/images/down-arrow-o.png'}/></span></p> */}
+                                                                                                <p className="dp-gld-txt-mem" onClick={(e)=>{
+                                                                                                    e.stopPropagation();
+                                                                                                    e.preventDefault();
+                                                                                                    this.goToGoldPage();
+                                                                                                }}>{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member `}<span>(Know more)</span></p>
                                                                                                 <p className="dp-gld-mem-grn">Extra savings on every appointment for 1 year</p>
                                                                                             </div>
                                                                                             <div className="dp-gold-pay-rgt">
-                                                                                                <p>{`₹${this.props.selected_vip_plan.deal_price}`}</p>
+                                                                                                <p>{`₹${this.props.selected_vip_plan.deal_price}`} <img src={ASSETS_BASE_URL + '/img/customer-icons/edit.svg'} onClick={(event)=>{
+                                                                                                    event.stopPropagation();
+                                                                                                    this.toggleGoldPricePopup(true)
+                                                                                                }} /> </p>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

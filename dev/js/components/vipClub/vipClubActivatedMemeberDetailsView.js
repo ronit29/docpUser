@@ -1,7 +1,7 @@
 import React from 'react';
 import InsuranceProofs from './insuranceProofs.js'
 
-class VipClubActivatedMemberDetails extends React.Component {
+class VipClubActivatedMemberDetails extends React.Component { // already activated members view
 
 	constructor(props) {
 		super(props)

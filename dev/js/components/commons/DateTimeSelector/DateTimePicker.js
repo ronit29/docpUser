@@ -24,7 +24,7 @@ class DateTimePicker extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
+        //If time is already selected by user , then on every page load we by default select that time 
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
             this.props.enableProceed(true)
             
@@ -53,6 +53,7 @@ class DateTimePicker extends React.Component {
     }
 
     generateDays(getNewDates = false, selectedDate = ''){
+        //This function will generate dummy dates ,starting from the getNewDates parameter
         let offset, currentDate
         
         let dateCount = 1
@@ -93,10 +94,12 @@ class DateTimePicker extends React.Component {
     }
 
 	openDateModal() {
+        //open calendar modal
         this.setState({ dateModal: !this.state.dateModal })
     }
 
     selectDate(dateFormat) {
+        //funciton calls when user select the date 
         let formattedDate = this.getFormattedDate(dateFormat)
     	if(new Date(this.state.selectedDateSpan).toDateString() != new Date(dateFormat).toDateString()){
             if(this.props.timeSlots && this.props.timeSlots[formattedDate]){
@@ -111,6 +114,7 @@ class DateTimePicker extends React.Component {
     }
 
     selectDateFromCalendar(date) {
+        //funciton calls when user select the date from the date calendar
         if (date) {
             date = date.toDate()
             this.setState({ dateModal: false }, () => {
@@ -131,7 +135,7 @@ class DateTimePicker extends React.Component {
     }
 
     selectTime(time, title) {
-       
+       //function calls when user select the time
         let self = this
         let timeSpan = Object.assign({}, time)
         timeSpan.title = title
@@ -147,6 +151,7 @@ class DateTimePicker extends React.Component {
     }
 
      getFormattedDate(date){
+        //generate date in yyyy-mm-dd format
         var dd = date.getDate();
 
         var mm = date.getMonth()+1; 

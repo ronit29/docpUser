@@ -53,7 +53,7 @@ class VipLoginPopup extends React.Component {
         }
     }
 
-    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup = null) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup = null) {  // to generate otp
         /*if (this.state.user_name == '') {
             SnackBar.show({ pos: 'bottom-center', text: 'Enter your name' })
             return
@@ -67,7 +67,7 @@ class VipLoginPopup extends React.Component {
                 this.setState({ validationError: "Please select the city", error_message: '' })
                 return;
             }*/
-            this.props.sendOTP(number, viaSms, viaWhatsapp, 'insurance-login', (error) => {
+            this.props.sendOTP(number, viaSms, viaWhatsapp, 'insurance-login', (error) => { // to generate otp
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
@@ -105,7 +105,7 @@ class VipLoginPopup extends React.Component {
         }
     }
 
-    verifyOTP() {
+    verifyOTP() {  // to verify entered otp
         let parsed = queryString.parse(this.props.location.search)
         let self = this
         if (!this.state.otp) {
@@ -120,8 +120,8 @@ class VipLoginPopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            let extraParamsData = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParamsData, (exists) => {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError: '' })
                 } else {
@@ -177,10 +177,11 @@ class VipLoginPopup extends React.Component {
                                         extraParams = self.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
                                     }
 
+                                    // to create vip or gold member lead for matrix
                                      self.props.generateVipClubLead({selectedPlan:self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', number:self.state.phoneNumber, lead_data:lead_data, selectedLocation:self.props.selectedLocation, user_name:self.state.user_name, extraParams:extraParams,
                                         cb: (resp) => {
                                             let LeadIdData = {
-                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                                'Category': 'ConsumerApp', 'Action': 'VipPopupLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-popup-lead-clicked', 'source': lead_data.source || ''
                                             }
                                             GTM.sendEvent({ data: LeadIdData })
                                         }
@@ -193,7 +194,7 @@ class VipLoginPopup extends React.Component {
                                     })*/
                                 }
                                 if (exists.user_exists) {
-                                    this.props.closeLeadPopup()
+                                    this.props.closeLeadPopup() // to close lead popup
                                     this.props.history.push(url)
                                 } else {
                                     this.props.closeLeadPopup()
@@ -204,64 +205,6 @@ class VipLoginPopup extends React.Component {
                                 this.props.history.push('vip-club-activated-details')
                                 // this.props.history.push('vip-club-activated-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)
                             }
-                            // if(!this.props.isSalesAgent && !this.props.isAgent){
-                            //     if (!resp.certificate) {
-                            //         if (Object.keys(self.props.selected_vip_plan).length > 0) {
-                            //             let extraParams = {}
-                            //             /*if(this.props.user_cities && this.props.user_cities.length){
-                            //                 extraParams.city_id = this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
-                            //             }*/
-
-                            //             self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name, extraParams, (resp)=>{
-                            //                 let LeadIdData = {
-                            //                         'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                            //                     }
-                            //                 GTM.sendEvent({ data: LeadIdData })
-                            //             })
-                            //         }
-                            //         if (exists.user_exists) {
-                            //             this.props.closeLeadPopup()
-                            //             this.props.history.push('/vip-club-member-details')
-                            //             // this.props.history.push('/vip-club-static-pages')
-                            //         } else {
-                            //             this.props.closeLeadPopup()
-                            //             this.props.history.push('/vip-club-member-details')
-                            //             // this.props.history.push('/vip-club-static-pages')
-                            //         }
-                            //     }else{
-                            //         this.props.closeLeadPopup()
-                            //         this.props.history.push('vip-club-activated-details')
-                            //     }
-                            // }else{
-                            //     if (!resp.certificate) {
-                            //         let url = '/vip-club-member-details?isDummy=true'
-                            //                     if(lead_data.utm_source){
-                            //                         url += '&utm_source='+lead_data.utm_source
-                            //                     }
-                            //                     if(lead_data.utm_term){
-                            //                         url += '&utm_term='+lead_data.utm_term
-                            //                     }
-                            //                     if(lead_data.utm_campaign){
-                            //                         url += '&utm_campaign='+lead_data.utm_campaign
-                            //                     }
-                            //                     if(lead_data.utm_medium){
-                            //                         url += '&utm_medium='+lead_data.utm_medium
-                            //                     }
-                            //                     if(lead_data.is_agent){
-                            //                         url += '&is_agent='+lead_data.is_agent
-                            //                     }
-                            //         if (exists.user_exists) {
-                            //             this.props.closeLeadPopup()
-                            //             this.props.history.push(url)
-                            //         } else {
-                            //             this.props.closeLeadPopup()
-                            //             this.props.history.push(url)
-                            //         }
-                            //     }else{
-                            //         this.props.closeLeadPopup()
-                            //         this.props.history.push('vip-club-activated-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)
-                            //     }
-                            // }
                         })
                     }
                 }
@@ -281,7 +224,7 @@ class VipLoginPopup extends React.Component {
     _handleContinuePress(e) {
         if (e.key === 'Enter') {
             if (!this.state.showOTP) {
-                this.submitOTPRequest(this.state.phoneNumber, '', true, false, 'one')
+                this.submitOTPRequest(this.state.phoneNumber, '', true, false, 'one') // to generate otp request
             }
         }
     }
@@ -437,7 +380,7 @@ class VipLoginPopup extends React.Component {
                                 <div className="avl-card-list">
                                     <div className="avl-left-cont">
                                         <p>Lab Tests</p>
-                                        <span>Average 50% OFF</span>
+                                        <span>Average 45% OFF</span>
                                     </div>
                                     <div className="avl-right-cont">
                                         <div className="duo-price-cont">
@@ -447,11 +390,11 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹500</span>
+                                                <span className="b-0">₹550</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹500</p>
+                                            <p>Savings ₹450</p>
                                         </div>
                                     </div>
                                 </div>
@@ -464,22 +407,22 @@ class VipLoginPopup extends React.Component {
                                         <div className="duo-price-cont">
                                             <div className="duo-price">
                                                 <p>MRP</p>
-                                                <span className="cut-price">₹1000</span>
+                                                <span className="cut-price">₹700</span>
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹770</span>
+                                                <span className="b-0">₹540</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹230</p>
+                                            <p>Savings ₹160</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="avl-foot-cont">
-                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family members</p>
-                                    <p className="avl-cont"> ₹4520/yr</p>
+                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1010 X 6</span> Family members</p>
+                                    <p className="avl-cont"> ₹6060/yr</p>
                                 </div>
                         </div>
                     </section>

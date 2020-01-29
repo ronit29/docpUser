@@ -16,7 +16,7 @@ class InsuranceProofs extends React.Component {
         }
     }
 
-    pickFile(member_id, e) {
+    pickFile(member_id, e) { // to select file
         if (e.target.files && e.target.files[0]) {
             let file = e.target.files[0]
             if (e.target.files[0] && e.target.files[0].name.includes('.pdf')) {
@@ -54,7 +54,7 @@ class InsuranceProofs extends React.Component {
         }
     }
 
-    finishCrop(dataUrl, member_id, file) {
+    finishCrop(dataUrl, member_id, file) { // cropping the image
         let file_blob_data
         if (dataUrl) {
             file_blob_data = this.dataURItoBlob(dataUrl)
@@ -71,7 +71,7 @@ class InsuranceProofs extends React.Component {
             } else {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
-            this.props.uploadVipProof(form_data, member_id, 'image', (data, err) => {
+            this.props.uploadVipProof(form_data, member_id, 'image', (data, err) => { // store selected proof to database
                 if (data) {
                     let dataId = data.id
                     mem_data.id = this.props.member_id;
@@ -92,7 +92,7 @@ class InsuranceProofs extends React.Component {
                         mem_data.img_path_ids.push({id: dataId, image:data.data.proof_file, val:dataId})
                     }
                     this.setState({isLoading:false})
-                    this.props.storeVipMemberProofs(mem_data)
+                    this.props.storeVipMemberProofs(mem_data) // to store member proof ids to the user store
                 }
             })
         })
@@ -113,7 +113,7 @@ class InsuranceProofs extends React.Component {
         Uploaded_image_data[0].img_path_ids.map((data,i)=>{
                 data.member_id=this.props.member_id
                 if(data.image == img){
-                    this.props.removeVipMemberProof(data)
+                    this.props.removeVipMemberProof(data) // to remove cancelled uploaded image
                 }
             })
     }

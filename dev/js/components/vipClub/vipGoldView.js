@@ -11,6 +11,7 @@ import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
+import VipReviewSection from './vipReviewSection.js'
 
 class VipGoldView extends React.Component {
     constructor(props) {
@@ -51,7 +52,7 @@ class VipGoldView extends React.Component {
             }
 
             if (plan && plan.length) {
-                this.props.selectVipClubPlan('', plan[0])
+                this.props.selectVipClubPlan('', plan[0]) // toggle/select gold plan
             }
 
         }
@@ -61,6 +62,42 @@ class VipGoldView extends React.Component {
     closeLeadPopup() {
         this.setState({ showPopup: false })
     }
+
+    //this function is linked video player iframe
+    playVideo = () => {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'goldVideoClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-video-clicked'
+        }
+        GTM.sendEvent({ data: data });
+        const frameVideo = document.getElementById("goldVideo");
+        const playIcon = document.getElementById('player-icon');
+        frameVideo.ontimeupdate = () => {
+            videoTimer()
+        }
+        function videoTimer() {
+            let t  = frameVideo.currentTime;
+            vidTimer.innerHTML = Math.round(t) + 's';
+        }
+        let vidTimer = document.getElementById('video-time');
+        vidTimer.style.display = "block";
+        document.addEventListener('scroll', () => {
+            frameVideo.pause();
+            playIcon.style.opacity = 1;
+            
+        })
+        frameVideo.addEventListener('ended', () => {
+            playIcon.style.opacity = 1;
+            
+        })
+        if(frameVideo.paused){
+            frameVideo.play();
+            playIcon.style.opacity = 0;
+        }else{
+            frameVideo.pause();
+            playIcon.style.opacity = 1;
+        }
+    }
+    
 
     render() {
         let self = this
@@ -118,15 +155,15 @@ class VipGoldView extends React.Component {
                                         <div className="gold-benifi-cards-cont">
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/gl1.png'} />
-                                                <p>Exclusive rates on<br /><strong>30,000</strong> Doctors</p>
+                                                <p>Exclusive prices on <br/><strong>30,000 </strong> Doctors</p>
                                             </div>
                                             <div className="gold-benifi-cards">
-                                                <img src={ASSETS_BASE_URL + '/img/gl2.png'} />
-                                                <p>Discounts on <br /><strong>5,000</strong> Labs</p>
+                                                <img src={ASSETS_BASE_URL + '/img/med-report.svg'} />
+                                                <p>Big Discounts on <br/><strong>5,000 </strong> Labs</p>
                                             </div>
                                             <div className="gold-benifi-cards">
                                                 <img src={ASSETS_BASE_URL + '/img/medlife-med.png'} />
-                                                <p> Save 23% <br /> on medicines</p>
+                                                <p>Save <strong>23% </strong> <br/> on Medicines </p>
                                             </div>
                                         </div>
 
@@ -181,8 +218,8 @@ class VipGoldView extends React.Component {
                                                     <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Risk-Free 100% Satisfaction Guarantee</h4>
-                                                    <p>Cancel and get full refund of your membership fee at any time if you are dissatisfied</p>
+                                                    <h4>100% Satisfaction Guarantee</h4>
+                                                    <p>Cancel anytime within a year and get full refund. No questions asked</p>
                                                 </div>
                                             </div>
                                             <div className="gold-grntee-card mb-3">
@@ -190,10 +227,26 @@ class VipGoldView extends React.Component {
                                                     <img style={{width: ''}}  alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Potential savings of ₹4500/year on OPD, Health check-ups and Medicines</h4>
-                                                    <p className="gld-see-more p-0" onClick={()=>{this.setState({showPopup:true})}}>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'}/></p>
+                                                    <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
+                                                    <p className="gld-see-more p-0" onClick={(e)=>{
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                                        }
+                                                        GTM.sendEvent({ data: data });
+                                                        this.setState({showPopup:true})}
+                                                    }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'}/></p>
                                                 </div>
                                             </div>
+                                            {/* consult doctor widget added */}
+                                            <div className="gold-grntee-card mb-3">
+                                                <div className="round-img-gld">
+                                                    <img  alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                                </div>
+                                                <div className="gold-grnte-content">
+                                                    <h4>Free Doctor Consultation after every Lab appointment</h4>
+                                                </div>
+                                            </div>
+                                            {/* consult doctor widget added end */}
                                         </div>
                                         <div className="gold-slider-container">
                                             {
@@ -331,21 +384,23 @@ class VipGoldView extends React.Component {
                                                 </div>
                                             </div>
                                             {/* ================== gold benifits  ================== */}
-                                            {/* ================== gold avail section  ================== */}
-                                            <div className="gold-avail-container">
-                                                <div className="pkgSliderHeading">
-                                                    <h5>How to avail Gold Benefits?</h5>
+
+                                            {/* ================== gold benefit video section  ================== */}
+                                            <div className="col-12 p-0">
+                                                <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
+                                                <div className="vip-offer-cards mb-24" style={{padding:5}}>
+                                                    <video  id="goldVideo" height="auto" src="https://chatfileupload.s3.ap-south-1.amazonaws.com//Gold+Promo+Video.mp4">
+                                                    </video>
+                                                    <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
+                                                        <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video"/>
+                                                    </a>
+                                                    <h5 id="video-time" className="fw-500 text-center"></h5>
                                                 </div>
-                                                <ol>
-                                                    <li><p>Look for Exclusive Gold member discount here</p>
-                                                    <img className="img-fluid" src={ASSETS_BASE_URL + '/img/avail.png'} />
-                                                    </li>
-                                                    <li>
-                                                        <p>Book an appointment and get exclusive discounts.</p>
-                                                    </li>
-                                                </ol>
                                             </div>
-                                            {/* ================== gold avail section  ================== */}
+                                            {/* ================== gold benefit Review starts ================== */}
+                                            <VipReviewSection />
+                                            {/* ================== gold benefit Review End ================== */}
+                                            {/* ================== gold benefit video section ends ================== */}
                                             <div className="gold-accordion-container">
                                                 <div className="gold-acrd-main">
                                                     <div className="acdn-title" onClick={this.ButtonHandler.bind(this, 0)}>

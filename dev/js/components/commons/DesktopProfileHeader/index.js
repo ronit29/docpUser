@@ -22,7 +22,7 @@ class DesktopProfileHeader extends React.Component {
             if (!this.props.profiles[this.props.selectedProfile]) {
                 this.props.getUserProfile()
             }
-            this.props.getIsCareDetails()
+            this.props.getIsCareDetails() // get user subscription plan details
         }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
     }
@@ -37,7 +37,7 @@ class DesktopProfileHeader extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat, iFrameUrls } = state.USER
+    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat, iFrameUrls, refer_amount } = state.USER
 
     let {
         selectedLocation,
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat,common_settings, iFrameUrls
+        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat,common_settings, iFrameUrls, refer_amount
     }
 }
 
