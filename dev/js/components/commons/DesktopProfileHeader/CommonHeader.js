@@ -476,7 +476,7 @@ class DesktopProfileHeader extends React.Component {
                     }
                     {/* on click left menu */}
 
-                    <div className="col-sm-3 col-lg-2 d-flex align-item-center p-0">
+                    <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center p-0">
                         {/* hamburger menu icon */}
                         <div className="menu-icon" onClick={(e) => {
                             e.stopPropagation()
@@ -503,9 +503,9 @@ class DesktopProfileHeader extends React.Component {
                                         <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
                                         :''
                                     }
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
                                 </React.Fragment>
-                                :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
                             }
                         </a>
                         {/* header logo click event */}
@@ -516,7 +516,7 @@ class DesktopProfileHeader extends React.Component {
                         </a> */}
                         {/* homeview icon */}
                     </div>
-                    <div className="col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
+                    <div className="col-8 col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
                         {/* desktop header search */}
                         <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
                             {
@@ -538,7 +538,7 @@ class DesktopProfileHeader extends React.Component {
 
                         {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
-                                <li className="ml-3">
+                                <li className="ml-3 d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center" onClick={(e) => {
                                     e.preventDefault();
                                     this.navigateTo('/contact') }}>
@@ -546,7 +546,7 @@ class DesktopProfileHeader extends React.Component {
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
-                                <li className="ml-3">
+                                <li className="ml-3 d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center head-dropdowns">
                                         <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
@@ -590,7 +590,7 @@ class DesktopProfileHeader extends React.Component {
                                         </a> : ""
                                     }
                                 </li>
-                                <li className="ml-3">
+                                <li className="ml-3 d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/notifications')
                                         }}>
@@ -609,7 +609,7 @@ class DesktopProfileHeader extends React.Component {
                                             }
                                         </div> */}
                                 </li>
-                                <li className="ml-3">
+                                <li className="ml-3 d-none d-sm-block d-lg-block">
                                     {/* <a className="d-flex align-item-center">
                                         <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
                                         <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
@@ -636,7 +636,7 @@ class DesktopProfileHeader extends React.Component {
 
                     <div className="col-12 d-lg-none p-0">
                         {
-                            this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">
+                            this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile">
                                 <div onClick={this.openSearch.bind(this)}>
                                     <div className="header-serach-input-div">
                                         <span>Search Doctors &amp; Tests</span>
