@@ -351,6 +351,11 @@ class DoctorProfileView extends React.Component {
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                data.visit_id = visitor_info.visit_id
+                data.visitor_id = visitor_info.visitor_id
+            }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click'}
         GTM.sendEvent({ data: gtm_data })
        this.props.NonIpdBookingLead(data) 

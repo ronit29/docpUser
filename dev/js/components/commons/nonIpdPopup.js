@@ -149,7 +149,7 @@ class NonIpdPopupView extends React.Component {
 								<React.Fragment>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
-										<span>Instant Appointment Confrimation</span>
+										<span>Instant Appointment Confirmation</span>
 									</p>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
