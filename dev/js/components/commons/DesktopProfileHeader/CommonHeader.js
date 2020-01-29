@@ -459,7 +459,7 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 {/* top header */}
                 {/* new main header */}
-                <div className="container-fluid main-header d-flex align-item-center flex-wrap">
+                <div className="container-fluid main-header d-flex">
                     {/* on click left menu */}
                     {
                         this.state.toggleHamburger ?
@@ -476,100 +476,103 @@ class DesktopProfileHeader extends React.Component {
                     }
                     {/* on click left menu */}
 
-                    {/* hamburger menu icon */}
-                    <div className="menu-icon" onClick={(e) => {
-                        e.stopPropagation()
-                        document.body.style.overflow = "hidden"
-                        this.toggleLeftMenu()}}>
+                    <div className="col-sm-3 col-lg-2 d-flex align-item-center p-0">
+                        {/* hamburger menu icon */}
+                        <div className="menu-icon" onClick={(e) => {
+                            e.stopPropagation()
+                            document.body.style.overflow = "hidden"
+                            this.toggleLeftMenu()}}>
                             <ul>
                                 <li>&nbsp;</li>
                                 <li>&nbsp;</li>
                                 <li>&nbsp;</li>
                             </ul>
-                    </div>
-                    {/* hamburger menu icon */}
-
-                    {/* header logo click event */}
-                    <a className="sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
-                        <div className="d-none d-lg-block">
-                            <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
                         </div>
-                        {
-                            this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                            <React.Fragment>
-                                {
-                                    this.props.homePage?
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
-                                    :''
-                                }
-                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
-                            </React.Fragment>
-                            :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
-                        }
-                    </a>
-                    {/* header logo click event */}
-                    
-                    {/* homeview icon */}
-                    <a className="ml-3 home-icon-view d-none d-lg-block">
-                        <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
-                    </a>
-                    {/* homeview icon */}
-                    
-                    {/* desktop header search */}
-                    <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
-                        {
-                            hideSearch ? "" : <div className="head-links hed-links-search-flex">
-                                <div className="serch-nw-inputs new-home-full-widht" >
-                                    <div onClick={this.openSearch.bind(this)}>
-                                        <div className="header-serach-input-div">
-                                            <span>Search Doctors &amp; Tests</span>
-                                        </div>
-                                        {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
-                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    </div>
-                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    {/* desktop header search */}
+                        {/* hamburger menu icon */}
 
-                    {/* header list items    */}
-                        <ul className="d-flex">
-                            <li className="ml-3">
-                                <a className="d-flex align-item-center">
-                                    <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
-                                    <span className="ml-2 d-none d-lg-block">contact us</span>
-                                </a>
-                            </li>
-                            <li className="ml-3">
-                                <a className="d-flex align-item-center">
-                                    <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
-                                    <span className="ml-2 d-none d-lg-block">resources</span>
-                                </a>
-                            </li>
-                            <li className="ml-3">
-                                <a className="d-flex align-item-center">
-                                    <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
-                                    <span className="ml-2 d-none d-lg-block">cart</span>
-                                </a>
-                            </li>
-                            <li className="ml-3">
-                                <a className="d-flex align-item-center">
-                                    <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
-                                    <span className="ml-2 d-none d-lg-block">notifications</span>
-                                </a>
-                            </li>
-                            <li className="ml-3">
-                                <a className="d-flex align-item-center">
-                                    <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
-                                    <span className="ml-2 d-none d-lg-block">login</span>
-                                </a>
-                            </li>
-                        </ul>
-                    {/* header list items    */}
-                    {/* mobile view search box */}
-                    
+                        {/* header logo click event */}
+                        <a className="sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
+                            <div className="d-none d-lg-block">
+                                <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
+                            </div>
+                            {
+                                this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                <React.Fragment>
+                                    {
+                                        this.props.homePage?
+                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                        :''
+                                    }
+                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                </React.Fragment>
+                                :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                            }
+                        </a>
+                        {/* header logo click event */}
+                        
+                        {/* homeview icon */}
+                        <a className="ml-3 home-icon-view d-none d-lg-block active">
+                            <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
+                        </a>
+                        {/* homeview icon */}
+                    </div>
+                    <div className="col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
+                        {/* desktop header search */}
+                        <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
+                            {
+                                hideSearch ? "" : <div className="head-links hed-links-search-flex">
+                                    <div className="serch-nw-inputs new-home-full-widht" >
+                                        <div onClick={this.openSearch.bind(this)}>
+                                            <div className="header-serach-input-div">
+                                                <span>Search Doctors &amp; Tests</span>
+                                            </div>
+                                            {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                        </div>
+                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        {/* desktop header search */}
+
+                        {/* header list items    */}
+                            <ul className="d-flex align-item-center header-list-items">
+                                <li className="ml-3">
+                                    <a className="d-flex align-item-center">
+                                        <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
+                                        <span className="d-none d-sm-block d-lg-block">contact us</span>
+                                    </a>
+                                </li>
+                                <li className="ml-3">
+                                    <a className="d-flex align-item-center">
+                                        <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
+                                        <span className="d-none d-sm-block d-lg-block">resources</span>
+                                    </a>
+                                </li>
+                                <li className="ml-3">
+                                    <a className="d-flex align-item-center">
+                                        <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
+                                        <span className="d-none d-sm-block d-lg-block">cart</span>
+                                    </a>
+                                </li>
+                                <li className="ml-3">
+                                    <a className="d-flex align-item-center">
+                                        <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
+                                        <span className="d-none d-sm-block d-lg-block">notifications</span>
+                                    </a>
+                                </li>
+                                <li className="ml-3">
+                                    <a className="d-flex align-item-center">
+                                        <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+                                        <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        {/* header list items    */}
+                        {/* mobile view search box */}
+                    </div>
+
                     <div className="col-12 d-lg-none p-0">
                         {
                             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile search-bt-mr">

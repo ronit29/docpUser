@@ -70,13 +70,36 @@
     height: 100%;
     display: inline-block;
     padding: 28px 14px;
+    border-bottom: 1px solid transparent;
+}
+
+.home-icon-view:hover, .home-icon-view.active {
     border-bottom: 1px solid #f1853b;
 }
 .header-search-full-width {
     box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
     border-radius: 50px;
-    width: 39%;
-    margin-left: 50px;
+    width: 46%;
+    margin-left: 40px;
+}
+
+.header-list-items > li > a{
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+.header-list-items > li > a:hover{
+    color: #f1853b;
+}   
+.header-list-items > li > a > span{
+    margin-left: 10px;
+}
+.user-name-span{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 /***** Main Header CSS Ends ****/
 
