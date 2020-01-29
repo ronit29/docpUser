@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -290,6 +290,13 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to 
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
         })
+
+        if(extraParams && extraParams.payment_type==6){
+           dispatch({
+                type: SELECT_OPD_PAYMENT_TYPE,
+                payload: extraParams.payment_type
+            }) 
+        }
     })
 }
 
@@ -313,10 +320,12 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to 
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
         })
-        dispatch({
-        type: SELECT_LAB_PAYMENT_TYPE,
-        payload: 6
-    })
+        if(extraParams && extraParams.payment_type==6){
+            dispatch({
+                type: SELECT_LAB_PAYMENT_TYPE,
+                payload: extraParams.payment_type
+             })
+        }
     })
 }
 

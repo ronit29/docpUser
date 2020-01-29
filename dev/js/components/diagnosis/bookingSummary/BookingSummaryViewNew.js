@@ -188,6 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 
@@ -1865,7 +1866,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && !is_insurance_applicable
 
-        if( !showGoldTogglePaymentMode && this.props.payment_type==6 ) {
+        if( !showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.show_lab_payment_mode ) {
             this.props.select_lab_payment_type(1)
         }
 
@@ -2137,7 +2138,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                         {/******Payment Mode **********/}
                                                         {
-                                                            showGoldTogglePaymentMode? 
+                                                            showGoldTogglePaymentMode && this.props.show_lab_payment_mode? 
                                                             <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
