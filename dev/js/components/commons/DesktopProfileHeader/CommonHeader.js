@@ -491,7 +491,7 @@ class DesktopProfileHeader extends React.Component {
                         {/* hamburger menu icon */}
 
                         {/* header logo click event */}
-                        <a className="sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
+                        <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
                             <div className="d-none d-lg-block">
                                 <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
                             </div>
@@ -511,7 +511,7 @@ class DesktopProfileHeader extends React.Component {
                         {/* header logo click event */}
                         
                         {/* homeview icon */}
-                        <a className="ml-3 home-icon-view d-none d-lg-block active">
+                        <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
                             <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
                         </a>
                         {/* homeview icon */}
@@ -539,15 +539,40 @@ class DesktopProfileHeader extends React.Component {
                         {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
                                 <li className="ml-3">
-                                    <a className="d-flex align-item-center">
+                                    <a className="d-flex align-item-center" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/contact') }}>
                                         <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
                                 <li className="ml-3">
-                                    <a className="d-flex align-item-center">
+                                    <a className="d-flex align-item-center head-dropdowns">
                                         <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
+                                        <ul className="list-sub-menu">
+                                            <li><a href="/all-medicines" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-medicines")
+                                            }}>Medicines</a></li>
+                                            {/* <li><a href="javascript:void(0);">Articles</a></li> */}
+                                            <li><a href="/all-diseases" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-diseases")
+                                            }}>Diseases</a></li>
+                                            <li><a href="/tests" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/tests")
+                                            }}>Tests</a></li>
+                                            <li><a href="/ipd-procedures" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/ipd-procedures")
+                                            }}>Procedures</a></li>
+                                            <li><a href="/hospitals" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/hospitals")
+                                            }}>Hospitals</a></li>
+                                        </ul>
                                     </a>
                                 </li>
                                 <li className="ml-3">
