@@ -188,6 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 

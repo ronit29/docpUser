@@ -274,6 +274,7 @@ class PatientDetailsNew extends React.Component {
         if(parsed && parsed.dummy_id && agent_selected_plan_id) {
             extraParams['already_selected_plan'] = agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getOpdVipGoldPlans(extraParams) // to get gold/vip plans specific to particular doctor/hospital
     }
 
