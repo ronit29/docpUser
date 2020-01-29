@@ -14,7 +14,9 @@ showVipDetailsView:false,
 savedMemberData:[],
 odpGoldPredictedPrice: [],
 labGoldPredictedPrice: [],
-vipCoupons:[]
+vipCoupons:[],
+show_doctor_payment_mode:false,
+show_lab_payment_mode:false
 }
 
 const DUMMY_PROFILE = {
@@ -132,6 +134,8 @@ export default function (state = defaultState, action) {
 
             }else{
                 newState.selected_vip_plan={}
+                newState.show_doctor_payment_mode = false
+                newState.show_lab_payment_mode = false
             }
             newState.vipClubMemberDetails={}
             newState.members_proofs = []
@@ -256,6 +260,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.odpGoldPredictedPrice = action.payload
+            newState.show_doctor_payment_mode = true
             return newState
         }
 
@@ -264,6 +269,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.labGoldPredictedPrice = action.payload
+            newState.show_lab_payment_mode = true
             return newState
         }
 
