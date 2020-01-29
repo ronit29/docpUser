@@ -588,10 +588,33 @@ class DesktopProfileHeader extends React.Component {
                                     </a>
                                 </li>
                                 <li className="ml-3">
-                                    <a className="d-flex align-item-center">
+                                    {/* <a className="d-flex align-item-center">
                                         <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
                                         <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
-                                    </a>
+                                    </a> */}
+                                    {
+                                        profileData ? <div>
+                                            <a onClick={() => {
+                                                this.props.history.push('/user')
+                                            }}>
+                                                <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
+                                                <span className="username-overflow">{profileData.name}</span>
+                                            </a>
+                                            <a onClick={() => {
+                                                this.props.history.push('/notifications')
+                                            }}>
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
+                                                {
+                                                    this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                                }
+                                            </a>
+                                        </div> : <a className="d-flex align-item-center" onClick={() => {
+                                            this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
+                                        }}>
+                                                <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+                                                <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
+                                            </a>
+                                    }
                                 </li>
                             </ul>
                         {/* header list items    */}
