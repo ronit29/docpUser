@@ -152,7 +152,7 @@ class UserSignupView extends React.Component {
             }
             this.props.createProfile(post_data, (err, res) => {
                 if (!err) {
-                    this.props.resetVipData()
+                    // this.props.resetVipData()
                     // this.setState({ showMedical: true })
                     const parsed = queryString.parse(this.props.location.search)
                     if (parsed.callback) {
