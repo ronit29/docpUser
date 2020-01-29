@@ -855,6 +855,11 @@ class BookingSummaryViewNew extends React.Component {
             from_web: true,
             utm_tags: utm_tags
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
                 postData['selected_timings_type'] = 'common'
@@ -1417,6 +1422,11 @@ class BookingSummaryViewNew extends React.Component {
                 data.phone_number = user_phone_number
                 data.customer_name = user_name
             }
+            let visitor_info = GTM.getVisitorInfo()
+                if(visitor_info && visitor_info.visit_id){
+                    data.visit_id = visitor_info.visit_id
+                    data.visitor_id = visitor_info.visitor_id
+                }
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
                 data.utm_tags = this.getUtmTags()
             }

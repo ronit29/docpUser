@@ -72,6 +72,12 @@
     padding: 28px 14px;
     border-bottom: 1px solid #f1853b;
 }
+.header-search-full-width {
+    box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
+    border-radius: 50px;
+    width: 39%;
+    margin-left: 50px;
+}
 /***** Main Header CSS Ends ****/
 
 /***** Responsive Media CSS starts ****/

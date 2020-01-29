@@ -460,6 +460,7 @@ class DesktopProfileHeader extends React.Component {
                 {/* top header */}
                 {/* new main header */}
                 <div className="container-fluid main-header d-flex align-item-center flex-wrap">
+                    {/* on click left menu */}
                     {
                         this.state.toggleHamburger ?
                             <div className="cancel-overlay cl-overlay" onClick={(e) => {
@@ -473,6 +474,9 @@ class DesktopProfileHeader extends React.Component {
                     {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
+                    {/* on click left menu */}
+
+                    {/* hamburger menu icon */}
                     <div className="menu-icon" onClick={(e) => {
                         e.stopPropagation()
                         document.body.style.overflow = "hidden"
@@ -483,6 +487,9 @@ class DesktopProfileHeader extends React.Component {
                                 <li>&nbsp;</li>
                             </ul>
                     </div>
+                    {/* hamburger menu icon */}
+
+                    {/* header logo click event */}
                     <a className="sbi-iconfx" href="/" onClick={(e) => e.preventDefault()}>
                         <div className="d-none d-lg-block">
                             <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
@@ -500,10 +507,16 @@ class DesktopProfileHeader extends React.Component {
                             :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '53px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
                         }
                     </a>
+                    {/* header logo click event */}
+                    
+                    {/* homeview icon */}
                     <a className="ml-3 home-icon-view d-none d-lg-block">
                         <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
                     </a>
-                    <div className="header-search-full-widht d-flex align-items-center justify-content-end">
+                    {/* homeview icon */}
+                    
+                    {/* desktop header search */}
+                    <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
                         {
                             hideSearch ? "" : <div className="head-links hed-links-search-flex">
                                 <div className="serch-nw-inputs new-home-full-widht" >
@@ -519,7 +532,42 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                         }
                     </div>
+                    {/* desktop header search */}
 
+                    {/* header list items    */}
+                        <ul className="d-flex">
+                            <li className="ml-3">
+                                <a className="d-flex align-item-center">
+                                    <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
+                                    <span className="ml-2 d-none d-lg-block">contact us</span>
+                                </a>
+                            </li>
+                            <li className="ml-3">
+                                <a className="d-flex align-item-center">
+                                    <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
+                                    <span className="ml-2 d-none d-lg-block">resources</span>
+                                </a>
+                            </li>
+                            <li className="ml-3">
+                                <a className="d-flex align-item-center">
+                                    <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
+                                    <span className="ml-2 d-none d-lg-block">cart</span>
+                                </a>
+                            </li>
+                            <li className="ml-3">
+                                <a className="d-flex align-item-center">
+                                    <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
+                                    <span className="ml-2 d-none d-lg-block">notifications</span>
+                                </a>
+                            </li>
+                            <li className="ml-3">
+                                <a className="d-flex align-item-center">
+                                    <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+                                    <span className="ml-2 d-none d-lg-block">login</span>
+                                </a>
+                            </li>
+                        </ul>
+                    {/* header list items    */}
                     {/* mobile view search box */}
                     
                     <div className="col-12 d-lg-none p-0">
@@ -537,7 +585,7 @@ class DesktopProfileHeader extends React.Component {
                         }
                     </div>
 
-                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                    {/* {this.props.new_fixed_header && this.props.new_fixed_header == 1?
                         <div className="row listing-view-header visible-col " id="listing-header">
                             <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
                                 e.stopPropagation()
@@ -552,7 +600,6 @@ class DesktopProfileHeader extends React.Component {
                                             <div className="header-serach-input-div">
                                                 <span>Search Doctors &amp; Tests</span>
                                             </div>
-                                            {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
                                             <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                         </div>
                                         <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
@@ -560,7 +607,7 @@ class DesktopProfileHeader extends React.Component {
                                 }
                             </div>
                         </div>
-                    :''}
+                    :''} */}
                     {/* mobile view search box ends */}
                 </div>
                 {/* new main header */}
