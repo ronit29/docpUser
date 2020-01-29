@@ -6126,13 +6126,21 @@ margin: 10px 0px;
     text-align: center;
     font-weight: 500;
     color: #3a3939;
+    background: #efefef;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
 
 .inviteCodeShare span {
     display: block;
     font-weight: 600;
     font-size: 28px;
-    margin-top: 8px;
 }
 
 .rfrl-avl-balance {
@@ -14346,7 +14354,10 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 .fot{
-    stroke:none;fill-rule:nonzero;fill:url(#linear0);
+    stroke:none;
+    fill-rule:nonzero;
+    /* fill:url(#linear0); */
+    fill: var(--text--primary--color);
 }
 .foot-strt{
     stop-color:var(--gradient--dull--color);stop-opacity:1;
@@ -14515,6 +14526,7 @@ div.doc-srch-fltr.vip-slct-pop {
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
 }
+
 /* ======================================= sbi banner ======================================= */
 .non-doc-vip-ico{
     width: 32px;
@@ -14554,10 +14566,11 @@ div.doc-srch-fltr.vip-slct-pop {
 .close-times-icon {
     font-size: 25px;
     position: absolute;
-    right: 18px;
-    top: -1px;
+    right: 3px;
+    top: -14px;
     margin: 0;
     padding: 0;
+    color: #333 !important;
 }
 
 .booking-help-modal>.cancel-appointment-div {
@@ -14708,6 +14721,41 @@ div.slt-nw-input.summery-dob-cont .sumry-lbl{
     width: 32px;
 }
 /* ======================================= Gold page video ends ======================================= */
+/* ======================================= refer whatsapp ======================================= */
+span.refr-sub-cpy{
+    font-size: 10px;
+    border-left: 1px solid #b1aeae;
+    margin: 0;
+    padding: 5px 5px;
+    color: #757575;
+    cursor: pointer;
+}
+.refr-sub-cpy img{
+    margin-right: 3px;
+    width: 13px;
+}
+
+    .ref-whtsp:hover{
+color: white;
+    }
+.ref-whtsp{
+    background: #25d366;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    justify-content: center;
+}
+a.text-center.ref-whtsp img {
+    width: 22px;
+    margin-right: 8px;
+}
+/* ======================================= refer whatsapp ======================================= */
 /* ======================================= popup updated  ======================================= */
 .med-popUpInput-cont {
     background-image: linear-gradient(to left, #edd083, #e9bf72);
@@ -14762,3 +14810,15 @@ span.circle-arrow i {
     left: -1px;
 }
 /* ======================================= popup updated  ======================================= */
+/* ======================================= popup DPP HPP  ======================================= */
+.docImg-Popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doc-img-popupSection {
+    margin-right: 12px;
+    width: 50px;
+}
+
+/* ======================================= popup DPP HPP  ======================================= */

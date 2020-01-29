@@ -12,6 +12,7 @@ import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
 import CarouselView from './carouselView.js'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -38,7 +39,9 @@ class SearchResultsView extends React.Component {
             fromVip: parsed && (parsed.fromVip || parsed.fromGoldVip),
             search_string:'',
             showSearchBtn:false,
-            scrollEventAdded: false
+            scrollEventAdded: false,
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:1
         }
     }
 
@@ -510,6 +513,10 @@ class SearchResultsView extends React.Component {
             is_params_exist = true
         }
 
+        if(this.state.showNonIpdPopup){
+            url += `${'&show_popup='+ this.state.showNonIpdPopup}`
+        }
+
         return url
     }
 
@@ -750,6 +757,44 @@ class SearchResultsView extends React.Component {
         this.props.history.push(`/ipd/searchHospitals`)   
     }
 
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',doctor_name:criteriaStr,exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:null,hospital_id:null,hospital_name:null})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-Submit-click'}
+        GTM.sendEvent({ data: gtm_data })
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0})
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-cross-click'
+                }
+            GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0})
+        }
+    }
+
+     getCriteriaString(selectedCriterias) {
+        if (selectedCriterias && selectedCriterias.length) {
+            let is_group_ids_exist = selectedCriterias.filter(x => x.type == 'group_ids')
+            let selectedDataView = is_group_ids_exist.length ? is_group_ids_exist : selectedCriterias
+
+            return selectedDataView.reduce((final, curr, i) => {
+                if (i != 0) {
+                    final += ', '
+                }
+                final += `${curr.name}`
+                return final
+            }, "")
+        }
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -797,6 +842,12 @@ class SearchResultsView extends React.Component {
                     ogTitle: this.getMetaTagsData(this.props.seoData).title,
                     ogDescription: this.getMetaTagsData(this.props.seoData).description
                 }} />
+
+                {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_opd={true}/>
+                    :''
+                }
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {

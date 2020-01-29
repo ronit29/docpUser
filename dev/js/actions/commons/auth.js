@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS , GET_REFER_AMOUNT } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -43,7 +43,7 @@ export const sendOTP = (number,viaSms,viaWhatsapp,message_type, cb) => (dispatch
 
 }
 
-export const submitOTP = (number, otp, cb) => (dispatch) => {
+export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
     dispatch({
         type: SUBMIT_OTP_REQUEST,
         payload: {}
@@ -79,7 +79,8 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         })
 
         dispatch({
-            type: RESET_VIP_CLUB
+            type: RESET_VIP_CLUB,
+            summaryPage: extraParams && extraParams.summaryPage?extraParams.summaryPage:null
         })
 
         if (cb) cb(response);
@@ -200,6 +201,9 @@ export const OTTLogin = (ott) => (dispatch) => {
                     dispatch({
                         type: APPEND_USER_PROFILES,
                         payload: response
+                    })
+                    dispatch({
+                        type: RESET_VIP_CLUB
                     })
                     resolve()
                 })

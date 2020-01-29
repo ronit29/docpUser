@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState,NonIpdBookingLead } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState,NonIpdBookingLead, buildArticleStoreFromRedis } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -29,6 +29,16 @@ class Article extends React.Component {
         } else {
             return Promise.resolve(null)
         }
+    }
+
+    static buildStateFromRedis(resp, store){
+        return new Promise((resolve, reject) => {
+            store.dispatch(buildArticleStoreFromRedis(resp, (resp)=>{
+                resolve();
+            }))
+        }).catch((e)=>{
+            reject(e);
+        })
     }
 
     componentDidMount() {

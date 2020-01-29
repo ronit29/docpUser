@@ -227,7 +227,7 @@ class VipGoldView extends React.Component {
                                                     <img style={{width: ''}}  alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
                                                 </div>
                                                 <div className="gold-grnte-content">
-                                                    <h4>Potential savings of ₹4500/year on OPD, Health check-ups and Medicines</h4>
+                                                    <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
                                                     <p className="gld-see-more p-0" onClick={(e)=>{
                                                         let data = {
                                                             'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
