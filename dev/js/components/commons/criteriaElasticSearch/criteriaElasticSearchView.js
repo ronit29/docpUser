@@ -351,6 +351,12 @@ class CriteriaElasticSearchView extends React.Component {
     }
 
     render() {
+        //Check user for insurance 
+        let user_insurance_status = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+
         return (
             <div className="profile-body-wrap">
                 {
@@ -426,7 +432,7 @@ class CriteriaElasticSearchView extends React.Component {
                                     </div>
                             }
                             {
-                                this.props.selected == 'lab'?
+                                this.props.selected == 'lab' && !( user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7 )?
                                 <PrescriptionUpload historyObj={this.props.history} search_lab={true} locationObj = {this.props.location} profiles={this.props.profiles}/>
                                 :''
                             }

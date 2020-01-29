@@ -4,6 +4,8 @@ import SnackBar from 'node-snackbar'
 import LoginPopup from '../../../containers/commons/loginPopup.js'
 import STORAGE from '../../../helpers/storage'
 const Compress = require('compress.js')
+const queryString = require('query-string');
+import GTM from '../../../helpers/gtm'
 
 
 /*To Reuse the component make sure to pass these methods from parent component
@@ -100,7 +102,15 @@ class PrescriptionView extends React.PureComponent {
             }
             this.props.uploadCommonPrescription(form_data, (data, err) => {
                 if (data) {
-                    
+
+                    const parsed = queryString.parse(this.props.locationObj.search)
+                    let data = {
+                        phone_number:this.props.primaryMobile,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
+                    }
+                    let gtm_data = {'Category': 'ConsumerApp', 'Action': 'PrescriptionSubmitted', 'CustomerID': GTM.getUserId() || '', 'event': 'prescription-submitted'}
+                    GTM.sendEvent({ data: gtm_data })
+                    this.props.NonIpdBookingLead(data)
+
                 }else{
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Prescription upload failure,please try after some time" })

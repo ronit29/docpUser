@@ -245,6 +245,7 @@ class HomeView extends React.Component {
 	render() {
 
 		let topSpecializations = []
+		let user_insurance_status = null
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.props.specializations;//.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
@@ -275,6 +276,11 @@ class HomeView extends React.Component {
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
+
+		//Check user for insurance 
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
 		//For desktop View, get home page views
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -508,9 +514,11 @@ class HomeView extends React.Component {
 							type="lab"
 							selectSearchType = {this.props.selectSearchType}
 						/>
+						{
+							( user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7 )?''
+							:<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles}/>	
+						}
 						
-						<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles}/>
-
 						{
 							this.props.package_categories && this.props.package_categories.length ?
 								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history}/>
