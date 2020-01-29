@@ -542,7 +542,7 @@ class HomeView extends React.Component {
 				}
 
 				{/* <div className="sub-header mrg-top"></div> */}
-				<div className="headerSubLinkContainer d-none">
+				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
 							{/* {this.props.common_settings && this.props.common_settings.insurance_availability?

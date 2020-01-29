@@ -493,7 +493,7 @@ class DesktopProfileHeader extends React.Component {
                         {/* header logo click event */}
                         <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
                             <div className="d-none d-lg-block">
-                                <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="76" />
+                                <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="60" />
                             </div>
                             {
                                 this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
@@ -511,9 +511,9 @@ class DesktopProfileHeader extends React.Component {
                         {/* header logo click event */}
                         
                         {/* homeview icon */}
-                        <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
+                        {/* <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
                             <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
-                        </a>
+                        </a> */}
                         {/* homeview icon */}
                     </div>
                     <div className="col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
@@ -576,16 +576,38 @@ class DesktopProfileHeader extends React.Component {
                                     </a>
                                 </li>
                                 <li className="ml-3">
-                                    <a className="d-flex align-item-center">
-                                        <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
-                                        <span className="d-none d-sm-block d-lg-block">cart</span>
-                                    </a>
+                                    {
+                                        profileData ? <a style={{position:'relative'}} className="d-flex align-item-center" onClick={() => {
+                                            this.props.history.push('/cart')
+                                        }}>
+                                            <span className="d-flex align-item-center">
+                                                 <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
+                                                {
+                                                    cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
+                                                }
+                                            </span>
+                                            <span className="d-none d-sm-block d-lg-block">cart</span>
+                                        </a> : ""
+                                    }
                                 </li>
                                 <li className="ml-3">
-                                    <a className="d-flex align-item-center">
+                                    <a className="d-flex align-item-center" onClick={() => {
+                                            this.props.history.push('/notifications')
+                                        }}>
                                         <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
                                         <span className="d-none d-sm-block d-lg-block">notifications</span>
+                                        {
+                                            this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                        }
                                     </a>
+                                    {/* <div className="head-links" onClick={() => {
+                                            this.props.history.push('/notifications')
+                                        }}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
+                                            {
+                                                this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                            }
+                                        </div> */}
                                 </li>
                                 <li className="ml-3">
                                     {/* <a className="d-flex align-item-center">
@@ -593,24 +615,15 @@ class DesktopProfileHeader extends React.Component {
                                         <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
                                     </a> */}
                                     {
-                                        profileData ? <div>
-                                            <a onClick={() => {
+                                        profileData ? <a className="d-flex align-item-center" onClick={() => {
                                                 this.props.history.push('/user')
                                             }}>
-                                                <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                                <span className="username-overflow">{profileData.name}</span>
+                                                <img height="24px" src={ASSETS_BASE_URL + "/img/logged-user.svg"} />
+                                                <span className="d-none d-sm-block d-lg-block user-name-span">{profileData.name}</span>
                                             </a>
-                                            <a onClick={() => {
-                                                this.props.history.push('/notifications')
-                                            }}>
-                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
-                                                {
-                                                    this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
-                                                }
-                                            </a>
-                                        </div> : <a className="d-flex align-item-center" onClick={() => {
+                                            : <a className="d-flex align-item-center" onClick={() => {
                                             this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
-                                        }}>
+                                            }}>
                                                 <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
                                                 <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
                                             </a>
