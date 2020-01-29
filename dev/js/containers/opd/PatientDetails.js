@@ -140,9 +140,9 @@ const mapStateToProps = (state) => {
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     const { common_settings, selectedLocation } = state.SEARCH_CRITERIA_OPD
     const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
-    const { odpGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
+    const { odpGoldPredictedPrice, selected_vip_plan,show_doctor_payment_mode } =  state.VIPCLUB
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation, odpGoldPredictedPrice, selected_vip_plan, is_any_user_buy_gold, common_utm_tags
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation, odpGoldPredictedPrice, selected_vip_plan, is_any_user_buy_gold, common_utm_tags,show_doctor_payment_mode
     }
 }
 

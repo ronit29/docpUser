@@ -248,6 +248,14 @@ export const fetchArticle = (id, preview = null, cb) => (dispatch) => {
 	})
 }
 
+export const buildArticleStoreFromRedis = (data, cb) => (dispatch) => {
+	dispatch({
+		type: APPEND_ARTICLE_DATA,
+		payload: data
+	})
+	if(cb) cb(true);
+}
+
 export const fetchPgData = (id, cb) => (dispatch) => {
 	API_GET(`/api/v1/user/pgdata/${id}`).then(function (response) {
 		if (cb) cb(null, response);

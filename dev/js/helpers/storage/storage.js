@@ -95,10 +95,9 @@ const STORAGE = {
         }catch(e){
 
         }
-        let login_user_id = getCookie('user_id')
-        if(login_user_id && STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){
-            let ciphertext =  STORAGE.encrypt(login_user_id)  
-            let token = STORAGE.refreshTokenCall({token:getCookie('tokenauth'),ciphertext:ciphertext,fromWhere:'FromSTORAGE'})
+        
+        if(STORAGE.checkAuth() && exp_time && Object.keys(exp_time).length && exp_time.payload && (exp_time.payload.exp*1000 < new Date().getTime() + 5700) && dataParams && !istokenRefreshCall){  
+            let token = STORAGE.refreshTokenCall({ token:getCookie('tokenauth'),fromWhere:'FromSTORAGE', isForceUpdate: false })
             return Promise.resolve(token);
         }else{
           return Promise.resolve(getCookie('tokenauth'))  
@@ -170,26 +169,34 @@ const STORAGE = {
         });
         return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
     },
-    refreshTokenCall(params,cb){
-        return API_POST('/api/v1/user/api-token-refresh', {
-            token: params.token,
-            reset : params.ciphertext,
-            enableCall: true,
-            fromWhere: params.fromWhere
-        }).then((data) => {
-            if(data && Object.keys(data).length){
-                STORAGE.setAuthToken(data.token).then((resp)=>{
-                    SOCKET.refreshSocketConnection();
-                })
-                STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
-                if(cb){
-                    cb(data)   
+    refreshTokenCall(params, cb){
+        let login_user_id = getCookie('user_id');
+        if(login_user_id){
+            let ciphertext =  STORAGE.encrypt(login_user_id);
+            return API_POST('/api/v1/user/api-token-refresh', {
+                token: params.token,
+                reset : ciphertext,
+                enableCall: true,
+                fromWhere:params.fromWhere,
+                force_update:params.isForceUpdate
+            }).then((data) => {
+                if(data && Object.keys(data).length){
+                    STORAGE.setAuthToken(data.token).then((resp)=>{
+                        SOCKET.refreshSocketConnection();
+                    })
+                    STORAGE.setAuthTokenRefreshTime(JSON.stringify(data))
+                    if(cb){
+                        cb(data)   
+                    }
+                    return data.token;
                 }
-                return data.token;
-            }
-        }).catch((e)=>{
-            return false
-        })
+            }).catch((e)=>{
+                return false
+            })
+
+        }else{
+            return Promise.resolve(getCookie('tokenauth')) 
+        }
     }
 
 
