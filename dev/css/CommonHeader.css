@@ -52,11 +52,28 @@
 .main-header{
     background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
     box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
-    padding: 10px 15px;
+    padding:0px;
+}
+.curved-bg{
+    position: absolute;
+    width: 34%;
+    height: 100%;
+    background: #f1853b;
+    transform: scale(2.5);
+    border-top-right-radius: 49px;
+    border-bottom-right-radius: 49px;
+}
+.main-header-left-col{
+    padding: 15px;
+    overflow: hidden;
+}
+.main-header-right-col{
+    padding: 15px;
 }
 .menu-icon{
     float: left;
-    margin: 5px 15px 0px 45px;
+    margin: 5px 15px 0px 25px;
+    position: relative;
 }
 .menu-icon > ul{
     cursor: pointer;
@@ -65,7 +82,7 @@
     width: 21px;
     height: 2px;
     margin-bottom: 4px;
-    background: var(--text--primary--color);
+    background: #fff;
 }
 
 .home-icon-view{

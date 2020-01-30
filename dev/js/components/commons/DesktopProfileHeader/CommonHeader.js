@@ -437,10 +437,13 @@ class DesktopProfileHeader extends React.Component {
             //         :''}
             //     </div>
             // </header>
-            <header id="is_header" className="new-common-header">
+            <header id="is_header"  className="new-common-header">
                 {/* top header */}
                 <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
-                    <h6>Group company of policyBajar</h6>
+                    <h6>
+                        <span>Group company of </span>
+                        <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="22px"/>
+                    </h6>
                     <a id="downIcon" className="down-list" onClick={this.d_list}>
                     </a>
                     <ul id="listView">
@@ -471,7 +474,7 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 {/* top header */}
                 {/* new main header */}
-                <div className="container-fluid main-header d-flex">
+                <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`}>
                     {/* on click left menu */}
                     {
                         this.state.toggleHamburger ?
@@ -487,8 +490,9 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
                     {/* on click left menu */}
-                    <div className= {` row align-items-center m-0 ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header" style={{width:'100%'}}>
-                        <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center p-0">
+                    <div className="row align-items-center m-0" id="lw-header" style={{width:'100%'}}>
+                        <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center main-header-left-col">
+                            <div className="curved-bg">&nbsp;</div>
                             {/* hamburger menu icon */}
                             <div className="menu-icon" onClick={(e) => {
                                 e.stopPropagation()
@@ -503,9 +507,10 @@ class DesktopProfileHeader extends React.Component {
                             {/* hamburger menu icon */}
 
                             {/* header logo click event */}
-                            <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
+                            <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")} style={{
+                                width: 56, overflow:'hidden', position:'relative' }}>
                                 <div className="d-none d-lg-block">
-                                    <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="60" />
+                                    <img  src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" height="38" />
                                 </div>
                                 {
                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
@@ -528,7 +533,7 @@ class DesktopProfileHeader extends React.Component {
                             </a> */}
                             {/* homeview icon */}
                         </div>
-                        <div className="col-8 col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
+                        <div className="col-8 col-sm-9 col-lg-10 d-flex align-item-center justify-content-between main-header-right-col">
                             {/* desktop header search */}
                             <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
                                 {

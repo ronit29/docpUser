@@ -4895,7 +4895,7 @@ ul.stc-data-ul-list li {
         padding: 0px;
     }
     .container-top-margin {
-        margin-top: 108px;
+        margin-top: 20px;
     }
     .searcLocationHeaderPadding {
         padding-top: 100px !important;
@@ -5686,7 +5686,7 @@ p.error-msg.subAlertins {
     background: white;
     position: fixed;
     bottom: 0;
-    z-index: 99;
+    z-index: 1;
     left: 0;
     width: 97%;
     border-radius: 7px;
@@ -6217,7 +6217,7 @@ margin: 10px 0px;
 
 @media screen and (max-width: 992px) {
     .book-appointment-section-login {
-        margin-top: 30px;
+        margin-top: 10x0px;
     }
     .chat-load-mobile.mt-21 {
         margin-top: 18px;
