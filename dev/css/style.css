@@ -14448,7 +14448,8 @@ div.doc-srch-fltr.vip-slct-pop {
         display: flex;
         margin-top: -10px;
         padding: 10px 10px 10px;
-        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
+        box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
         position: fixed;
         width: 100%;
         top: 0px;
@@ -14465,7 +14466,7 @@ div.doc-srch-fltr.vip-slct-pop {
     }
     #lw-header {
         /* background-image: linear-gradient(to left, #f78631, #ff6d00); */
-        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
         position: relative;
     }
     .doc-header {

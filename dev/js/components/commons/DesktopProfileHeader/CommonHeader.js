@@ -28,9 +28,6 @@ class DesktopProfileHeader extends React.Component {
                     const gHeader = document.getElementById('is_header');
                     if(gHeader){
                         const gHeaderHeight = gHeader.clientHeight;
-                        // if(gHeader){
-                        //     gHeader.style.backgroundImage = "none";
-                        // }
                         if(document.getElementById('listing-header')){
                             const lvHeader = document.getElementById('listing-header');             
                             if(scrollHeight >= gHeaderHeight/2){
@@ -440,7 +437,7 @@ class DesktopProfileHeader extends React.Component {
             //         :''}
             //     </div>
             // </header>
-            <header className="new-common-header">
+            <header id="is_header" className="new-common-header">
                 {/* top header */}
                 <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
                     <h6>Group company of policyBajar</h6>
@@ -475,68 +472,68 @@ class DesktopProfileHeader extends React.Component {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
                     {/* on click left menu */}
-
-                    <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center p-0">
-                        {/* hamburger menu icon */}
-                        <div className="menu-icon" onClick={(e) => {
-                            e.stopPropagation()
-                            document.body.style.overflow = "hidden"
-                            this.toggleLeftMenu()}}>
-                            <ul>
-                                <li>&nbsp;</li>
-                                <li>&nbsp;</li>
-                                <li>&nbsp;</li>
-                            </ul>
-                        </div>
-                        {/* hamburger menu icon */}
-
-                        {/* header logo click event */}
-                        <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
-                            <div className="d-none d-lg-block">
-                                <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="60" />
+                    <div className= {` row align-items-center m-0 ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`} id="lw-header" style={{width:'100%'}}>
+                        <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center p-0">
+                            {/* hamburger menu icon */}
+                            <div className="menu-icon" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()}}>
+                                <ul>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
+                                </ul>
                             </div>
-                            {
-                                this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                <React.Fragment>
-                                    {
-                                        this.props.homePage?
-                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
-                                        :''
-                                    }
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
-                                </React.Fragment>
-                                :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px'}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
-                            }
-                        </a>
-                        {/* header logo click event */}
-                        
-                        {/* homeview icon */}
-                        {/* <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
-                            <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
-                        </a> */}
-                        {/* homeview icon */}
-                    </div>
-                    <div className="col-8 col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
-                        {/* desktop header search */}
-                        <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
-                            {
-                                hideSearch ? "" : <div className="head-links hed-links-search-flex">
-                                    <div className="serch-nw-inputs new-home-full-widht" >
-                                        <div onClick={this.openSearch.bind(this)}>
-                                            <div className="header-serach-input-div">
-                                                <span>Search Doctors &amp; Tests</span>
-                                            </div>
-                                            {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
-                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                        </div>
-                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        {/* desktop header search */}
+                            {/* hamburger menu icon */}
 
-                        {/* header list items    */}
+                            {/* header logo click event */}
+                            <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")}>
+                                <div className="d-none d-lg-block">
+                                    <img  src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" height="60" />
+                                </div>
+                                {
+                                    this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                    <React.Fragment>
+                                        {
+                                            this.props.homePage?
+                                            <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                            :''
+                                        }
+                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px', marginLeft: 10}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                    </React.Fragment>
+                                    :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px', marginLeft: 10}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                }
+                            </a>
+                            {/* header logo click event */}
+                            
+                            {/* homeview icon */}
+                            {/* <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
+                                <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
+                            </a> */}
+                            {/* homeview icon */}
+                        </div>
+                        <div className="col-8 col-sm-9 col-lg-10 p-0 d-flex align-item-center justify-content-between">
+                            {/* desktop header search */}
+                            <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
+                                {
+                                    hideSearch ? "" : <div className="head-links hed-links-search-flex">
+                                        <div className="serch-nw-inputs new-home-full-widht" >
+                                            <div onClick={this.openSearch.bind(this)}>
+                                                <div className="header-serach-input-div">
+                                                    <span>Search Doctors &amp; Tests</span>
+                                                </div>
+                                                {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                                <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                            </div>
+                                            <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            {/* desktop header search */}
+
+                            {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
                                 <li className="ml-3 d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center" onClick={(e) => {
@@ -630,10 +627,10 @@ class DesktopProfileHeader extends React.Component {
                                     }
                                 </li>
                             </ul>
-                        {/* header list items    */}
-                        {/* mobile view search box */}
+                            {/* header list items    */}
+                        </div>
                     </div>
-
+                    {/* mobile view search box */}
                     <div className="col-12 d-lg-none p-0">
                         {
                             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile">
@@ -649,15 +646,19 @@ class DesktopProfileHeader extends React.Component {
                         }
                     </div>
 
-                    {/* {this.props.new_fixed_header && this.props.new_fixed_header == 1?
+                    {this.props.new_fixed_header && this.props.new_fixed_header == 1?
                         <div className="row listing-view-header visible-col " id="listing-header">
-                            <div className="col-1 ham-menu d-flex align-item-center justify-content-center" onClick={(e) => {
+                            <div className="col-1 pr-0 menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
-                                this.toggleLeftMenu()}}>
-                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" className="m-0" />
+                                this.toggleLeftMenu()}} style={{paddingLeft: 6, marginTop: 6}}>
+                                <ul>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
+                                    <li className="m-0">&nbsp;</li>
+                                </ul>
                             </div>
-                            <div className="col-11 d-lg-none pd-r-0" style={{maxWidth: "89%",paddingLeft:10}}>
+                            <div className="col-11 d-lg-none pr-0">
                                 {
                                     this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
                                         <div onClick={this.openSearch.bind(this)}>
@@ -671,7 +672,7 @@ class DesktopProfileHeader extends React.Component {
                                 }
                             </div>
                         </div>
-                    :''} */}
+                    :''}
                     {/* mobile view search box ends */}
                 </div>
                 {/* new main header */}

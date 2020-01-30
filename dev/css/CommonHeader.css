@@ -3,10 +3,11 @@
     top: 0;
     width: 100%;
     z-index: 11;
+    height: auto;
 }
 /***** Top Header CSS Start ****/
 .top-header{
-    background: var(--top--header--light--background);
+    background: #F5F8FF;
     font-size: 13px;
     color: #000000;
     padding: 10px 20px;
@@ -49,7 +50,7 @@
 
 /***** Main Header CSS Starts ****/
 .main-header{
-    background: var(--white-background);
+    background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
     box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
     padding: 10px 15px;
 }
@@ -124,6 +125,9 @@
 
 /***** Responsive Media CSS starts ****/
 @media screen and (max-width:767px){
+    .new-common-header{
+        position: relative;
+    }
     .top-header{
         padding: 10px;
     }
@@ -153,18 +157,23 @@
         align-items: baseline!important;
     }
     .menu-icon{
-        margin: 6px 8px 0px 6px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
     }
     .menu-icon > ul >li{
-        width: 26px;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
     .main-header{
         flex-wrap: wrap;
-        padding: 10px;
+        padding: 5px 10px 10px;
     }
     .main-header > .col-8{
         justify-content: flex-end!important;
+    }
+    .header-list-items{
+        width: 100%;
+        justify-content: flex-end;
     }
     .header-list-items > li{
         margin-left: 10px!important;

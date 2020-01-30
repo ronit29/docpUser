@@ -8414,9 +8414,9 @@ p.dp-gld-mem-grn {
 
 
 @media screen and (max-width:767px) {
-    /* .headerSubLinkContainer{
+    .headerSubLinkContainer{
         display: none;
-    } */
+    }
     .vip-net-block{
         top: 54px!important;
         /* margin-top: -92px; */
