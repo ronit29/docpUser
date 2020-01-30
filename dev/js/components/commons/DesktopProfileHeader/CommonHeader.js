@@ -567,8 +567,8 @@ class DesktopProfileHeader extends React.Component {
                                     this.navigateTo('/contact') }}>
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                            <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
-                                            :<img height="23px" src={ASSETS_BASE_URL + "/img/contact-us-sbi.svg"} />
+                                            <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us-sbi.svg"} />
+                                            :<img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
@@ -578,8 +578,8 @@ class DesktopProfileHeader extends React.Component {
                                     <a className="d-flex align-item-center head-dropdowns">
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                            <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
-                                            :<img height="21px" src={ASSETS_BASE_URL + "/img/resources-sbi.svg"} />
+                                            <img height="21px" src={ASSETS_BASE_URL + "/img/resources-sbi.svg"} />
+                                            :<img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
@@ -616,8 +616,8 @@ class DesktopProfileHeader extends React.Component {
                                             <span className="d-flex align-item-center">
                                                 {
                                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                                    <img height="19px" src={ASSETS_BASE_URL + "/img/cart1.svg"} />
-                                                    :<img height="19px" src={ASSETS_BASE_URL + "/img/cart_sbi.svg"} />
+                                                    <img height="19px" src={ASSETS_BASE_URL + "/img/cart_sbi.svg"} />
+                                                    :<img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
 
                                                 }
                                                  
@@ -635,8 +635,8 @@ class DesktopProfileHeader extends React.Component {
                                         }}>
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                            <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
-                                            :<img height="19px" src={ASSETS_BASE_URL + "/img/notification-sbi.svg"} />
+                                            <img height="19px" src={ASSETS_BASE_URL + "/img/notification-sbi.svg"} />
+                                            :<img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">notifications</span>
@@ -651,8 +651,8 @@ class DesktopProfileHeader extends React.Component {
                                         }}>
                                             {
                                                 this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                                <img height="24px" src={ASSETS_BASE_URL + "/img/logged-user.svg"} />
-                                                :<img height="19px" src={ASSETS_BASE_URL + "/img/logged-user-sbi.svg"} />
+                                                <img height="24px" src={ASSETS_BASE_URL + "/img/logged-user-sbi.svg"} />
+                                                :<img height="19px" src={ASSETS_BASE_URL + "/img/logged-user.svg"} />
 
                                             }
                                             
