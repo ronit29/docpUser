@@ -554,8 +554,14 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	pushUserData(data) {
-		this.props.pushMembersData(data) // to save proposer/self data to the dummy table in case of agent or proposer self
+	pushUserData(data) { // to save proposer/self data to the dummy table in case of agent or proposer self
+		if(data && Object.keys(data).length && data.members && data.members.length){
+			if(data.members.length ==1 && data.members[0] == null){
+				
+			}else{
+				this.props.pushMembersData(data)
+			}
+		}
 	}
 
 	sendSMS() {
