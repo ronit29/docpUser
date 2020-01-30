@@ -444,14 +444,29 @@ class DesktopProfileHeader extends React.Component {
                     <a id="downIcon" className="down-list" onClick={this.d_list}>
                     </a>
                     <ul id="listView">
-                        <li className="text-capitalize">
+                        <li className="text-capitalize"  onClick={(e) => {
+                            let data = {
+                                'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
+                            }
+                            GTM.sendEvent({ data: data })
+                            e.preventDefault();
+                            this.props.clearVipSelectedPlan()
+                            this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')}}>
                             <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                             <span className="ml-2">docprime gold</span>
                         </li>
-                        <li className="text-capitalize">find a doctor</li>
-                        <li className="text-capitalize">lab test</li>
-                        <li className="text-capitalize">Health packages</li>
-                        <li className="text-capitalize">Online consultation</li>
+                        <li className="text-capitalize" onClick={(e) => {
+                            e.preventDefault();
+                            this.navigateTo("/search", 'opd')}}>find a doctor</li>
+                        <li className="text-capitalize" onClick={(e) => {
+                            e.preventDefault();
+                            this.navigateTo("/search", 'lab')}}>lab test</li>
+                        <li className="text-capitalize" onClick={(e) => {
+                            e.preventDefault();
+                            this.navigateTo('/full-body-checkup-health-packages')}}>Health packages</li>
+                        <li className="text-capitalize" onClick={(e) => {
+                            e.preventDefault();
+                            this.navigateTo('/online-consultation')}}>Online consultation</li>
                     </ul>
                 </div>
                 {/* top header */}
