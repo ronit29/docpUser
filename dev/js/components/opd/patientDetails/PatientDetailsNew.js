@@ -510,20 +510,6 @@ class PatientDetailsNew extends React.Component {
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
         const parsed = queryString.parse(this.props.location.search)
-        
-        //To claim insurance status & claim
-        if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
-            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
-            window.scrollTo(0, 0)
-            return
-        }
-        //check if timeslot is selcted by user or not
-        if (!datePicked) {
-            this.setState({ showTimeError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
-            window.scrollTo(0, 0)
-            return
-        }
 
         //Check if patient is selected or not
         if (!patient) {
@@ -540,15 +526,29 @@ class PatientDetailsNew extends React.Component {
             }
         }
         //Check if patient emailid exist or not
-        if (patient && !patient.email && this.props.is_integrated) {
+        if (patient && !patient.email) {
             this.setState({ isEmailNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return
         }
         //Check if patient dob exist or not
-        if (patient && !patient.dob && this.props.is_integrated) {
+        if (patient && !patient.dob) {
             this.setState({ isDobNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
+            return
+        }
+        
+        //To claim insurance status & claim
+        if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
+        //check if timeslot is selcted by user or not
+        if (!datePicked) {
+            this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+            window.scrollTo(0, 0)
             return
         }
 
@@ -1755,6 +1755,7 @@ class PatientDetailsNew extends React.Component {
                                                                     selectClinic={this.selectClinic.bind(this)}
                                                                 />
                                                                 {/* new time slot */}
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -1848,7 +1849,6 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
                                                                     <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
