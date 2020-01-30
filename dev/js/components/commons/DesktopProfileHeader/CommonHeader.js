@@ -229,12 +229,12 @@ class DesktopProfileHeader extends React.Component {
             //                         <React.Fragment>
             //                             {
             //                                 this.props.homePage?
-            //                                 <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+            //                                 <div className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
             //                                 :''
             //                             }
-            //                             <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+            //                             <div className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
             //                         </React.Fragment>
-            //                         :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+            //                         :<div className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
             //                     }
                                 
                                 
@@ -517,12 +517,18 @@ class DesktopProfileHeader extends React.Component {
                                     <React.Fragment>
                                         {
                                             this.props.homePage?
-                                            <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" /></div>
+                                            <div className="d-lg-none" >
+                                                <img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" />
+                                            </div>
                                             :''
                                         }
-                                        <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px', marginLeft: 10}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                        <div className="d-lg-none" >
+                                            <img height="32" style={{marginLeft: 6}} src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                        </div>
                                     </React.Fragment>
-                                    :<div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '47px', marginLeft: 10}} src={ASSETS_BASE_URL + "/img/logo.svg"} alt="docprime" /></div>
+                                    :<div className="d-lg-none" >
+                                        <img height="32" style={{marginLeft: 6}} src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                    </div>
                                 }
                             </a>
                             {/* header logo click event */}
@@ -559,13 +565,23 @@ class DesktopProfileHeader extends React.Component {
                                     <a className="d-flex align-item-center" onClick={(e) => {
                                     e.preventDefault();
                                     this.navigateTo('/contact') }}>
-                                        <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
+                                        {
+                                            this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                            <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
+                                            :<img height="23px" src={ASSETS_BASE_URL + "/img/contact-us-sbi.svg"} />
+
+                                        }
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
                                 <li className="ml-3 d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center head-dropdowns">
-                                        <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
+                                        {
+                                            this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                            <img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
+                                            :<img height="21px" src={ASSETS_BASE_URL + "/img/resources-sbi.svg"} />
+
+                                        }
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
                                         <ul className="list-sub-menu">
                                             <li><a href="/all-medicines" onClick={(e) => {
@@ -598,7 +614,13 @@ class DesktopProfileHeader extends React.Component {
                                             this.props.history.push('/cart')
                                         }}>
                                             <span className="d-flex align-item-center">
-                                                 <img height="19px" src={ASSETS_BASE_URL + "/img/cart.svg"} />
+                                                {
+                                                    this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                                    <img height="19px" src={ASSETS_BASE_URL + "/img/cart1.svg"} />
+                                                    :<img height="19px" src={ASSETS_BASE_URL + "/img/cart_sbi.svg"} />
+
+                                                }
+                                                 
                                                 {
                                                     cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
                                                 }
@@ -611,39 +633,37 @@ class DesktopProfileHeader extends React.Component {
                                     <a className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/notifications')
                                         }}>
-                                        <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
+                                        {
+                                            this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                            <img height="19px" src={ASSETS_BASE_URL + "/img/notification.svg"} />
+                                            :<img height="19px" src={ASSETS_BASE_URL + "/img/notification-sbi.svg"} />
+
+                                        }
                                         <span className="d-none d-sm-block d-lg-block">notifications</span>
                                         {
                                             this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
                                         }
                                     </a>
-                                    {/* <div className="head-links" onClick={() => {
-                                            this.props.history.push('/notifications')
-                                        }}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
-                                            {
-                                                this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
-                                            }
-                                        </div> */}
                                 </li>
                                 <li className="ml-3 d-none d-sm-block d-lg-block">
-                                    {/* <a className="d-flex align-item-center">
-                                        <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
-                                        <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
-                                    </a> */}
-                                    {
-                                        profileData ? <a className="d-flex align-item-center" onClick={() => {
-                                                this.props.history.push('/user')
-                                            }}>
+                                    {profileData ? <a className="d-flex align-item-center" onClick={() => {
+                                            this.props.history.push('/user')
+                                        }}>
+                                            {
+                                                this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
                                                 <img height="24px" src={ASSETS_BASE_URL + "/img/logged-user.svg"} />
-                                                <span className="d-none d-sm-block d-lg-block user-name-span">{profileData.name}</span>
-                                            </a>
-                                            : <a className="d-flex align-item-center" onClick={() => {
-                                            this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
-                                            }}>
-                                                <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
-                                                <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
-                                            </a>
+                                                :<img height="19px" src={ASSETS_BASE_URL + "/img/logged-user-sbi.svg"} />
+
+                                            }
+                                            
+                                            <span className="d-none d-sm-block d-lg-block user-name-span">{profileData.name}</span>
+                                        </a>
+                                        : <a className="d-flex align-item-center" onClick={() => {
+                                        this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
+                                        }}>
+                                            <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+                                            <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
+                                        </a>
                                     }
                                 </li>
                             </ul>
@@ -651,11 +671,11 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                     {/* mobile view search box */}
-                    <div className="col-12 d-lg-none p-0">
+                    <div className="col-12 d-lg-none">
                         {
                             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile">
                                 <div onClick={this.openSearch.bind(this)}>
-                                    <div className="header-serach-input-div">
+                                    <div className="header-serach-input-div" style={{marginBottom: 10, marginTop: 10}}>
                                         <span>Search Doctors &amp; Tests</span>
                                     </div>
                                     {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}

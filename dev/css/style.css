@@ -833,7 +833,9 @@ p.top-head-link.card-lab-link span {
     cursor: pointer;
 }
 
-
+.hide-762{
+    margin-left: -15px;
+}
 /*header styling*/
 
 @media(max-width: 767px) {
@@ -14448,7 +14450,7 @@ div.doc-srch-fltr.vip-slct-pop {
         display: flex;
         margin-top: -10px;
         padding: 10px 10px 10px;
-        background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
+        background: #fff;
         box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
         position: fixed;
         width: 100%;
@@ -14466,7 +14468,8 @@ div.doc-srch-fltr.vip-slct-pop {
     }
     #lw-header {
         /* background-image: linear-gradient(to left, #f78631, #ff6d00); */
-        background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
+        /* background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color)); */
+        background: #fff;
         position: relative;
     }
     .doc-header {

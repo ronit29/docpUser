@@ -50,7 +50,7 @@
 
 /***** Main Header CSS Starts ****/
 .main-header{
-    background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color));
+    background: #fff;
     box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
     padding:0px;
 }
@@ -58,7 +58,7 @@
     position: absolute;
     width: 34%;
     height: 100%;
-    background: #f1853b;
+    background: var(--text--primary--color);
     transform: scale(2.5);
     border-top-right-radius: 49px;
     border-bottom-right-radius: 49px;
@@ -110,7 +110,7 @@
     white-space: nowrap;
 }
 .header-list-items > li > a:hover{
-    color: #f1853b;
+    color: var(--text--primary--color);
 }   
 .header-list-items > li > a > span{
     margin-left: 10px;
@@ -173,6 +173,9 @@
         height: 100vh;
         align-items: baseline!important;
     }
+    .listing-header > .menu-icon > ul >li{
+        background: var(--text--primary--color);
+    }
     .menu-icon{
         margin: 0px;
         display: flex;
@@ -183,10 +186,12 @@
     }
     .main-header{
         flex-wrap: wrap;
-        padding: 5px 10px 10px;
     }
     .main-header > .col-8{
         justify-content: flex-end!important;
+    }
+    .main-header-left-col,.main-header-right-col{
+        padding: 6px;
     }
     .header-list-items{
         width: 100%;
