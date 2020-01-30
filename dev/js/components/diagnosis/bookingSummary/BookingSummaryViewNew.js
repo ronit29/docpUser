@@ -188,6 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 
@@ -863,6 +864,11 @@ class BookingSummaryViewNew extends React.Component {
             from_web: true,
             utm_tags: utm_tags
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
                 postData['selected_timings_type'] = 'common'
@@ -1425,6 +1431,11 @@ class BookingSummaryViewNew extends React.Component {
                 data.phone_number = user_phone_number
                 data.customer_name = user_name
             }
+            let visitor_info = GTM.getVisitorInfo()
+                if(visitor_info && visitor_info.visit_id){
+                    data.visit_id = visitor_info.visit_id
+                    data.visitor_id = visitor_info.visitor_id
+                }
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
                 data.utm_tags = this.getUtmTags()
             }
@@ -1863,7 +1874,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && !is_insurance_applicable
 
-        if( !showGoldTogglePaymentMode && this.props.payment_type==6 ) {
+        if( !showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.show_lab_payment_mode ) {
             this.props.select_lab_payment_type(1)
         }
 
@@ -2138,7 +2149,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                         {/******Payment Mode **********/}
                                                         {
-                                                            showGoldTogglePaymentMode? 
+                                                            showGoldTogglePaymentMode && this.props.show_lab_payment_mode? 
                                                             <div className="widget mrb-15">
 
                                                                 <div className="widget-content">

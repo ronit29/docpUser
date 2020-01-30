@@ -106,9 +106,20 @@ class VipClubMemberDetailsView extends React.Component {
     			loginUser = props.USER.defaultProfile
     		}
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
-    			Object.entries(props.savedMemberData).map(function([key, value]) {
-    				membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true})
-    			})
+    			if(this.props.savedMemberData.length ==1 && this.props.savedMemberData[0] == null){
+    				if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
+	    				isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
+	    				if(props.USER.profiles[props.USER.defaultProfile] && Object.keys(props.USER.profiles[props.USER.defaultProfile]).length > 0){
+	    					membersId.push({[0]: props.USER.profiles[props.USER.defaultProfile].id, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
+	    				}
+	    			}else{
+	    				membersId.push({[0]: 0, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
+	    			}
+    			}else{
+    				Object.entries(props.savedMemberData).map(function([key, value]) {
+    					membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true})
+    				})
+    			}
     			props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true})
     		}else{
@@ -543,8 +554,14 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	pushUserData(data) {
-		this.props.pushMembersData(data) // to save proposer/self data to the dummy table in case of agent or proposer self
+	pushUserData(data) { // to save proposer/self data to the dummy table in case of agent or proposer self
+		if(data && Object.keys(data).length && data.members && data.members.length){
+			if(data.members.length ==1 && data.members[0] == null){
+				
+			}else{
+				this.props.pushMembersData(data)
+			}
+		}
 	}
 
 	sendSMS() {

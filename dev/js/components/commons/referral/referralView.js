@@ -105,7 +105,7 @@ class ReferralView extends React.Component {
                                                         </div>
 
                                                         <div className="text-step">
-                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on the completion <br/> of your friend first appointment or the <br/> Gold Membership purchase
+                                                            You get <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" /> {this.props.refer_amount} on completion of your friend’s first appointment or on Gold Membership purchase
                                                         </div>
                                                     </div>
                                                 </div>

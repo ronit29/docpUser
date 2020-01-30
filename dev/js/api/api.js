@@ -10,26 +10,43 @@ let axiosInstance = Axios.create({
     header: {}
 });
 
-function rejectHandler(response, callback) {
-    if (response && response.response && (response.response.status == 401)) {
+function rejectHandler(response, urlInfo, callback) {
+
+    if (urlInfo && urlInfo.url && urlInfo.url.includes('api-token-refresh') && response && response.response && (response.response.status <= 500) ) {
         STORAGE.deleteAuth().then(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
             // clear entire store (initially peristed)
         })
+    }else if(response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token && STORAGE.checkAuth()){
+        STORAGE.refreshTokenCall(urlInfo.token, 'API', true).then(()=>{
+
+            if(urlInfo.type=='API_GET'){
+                return API_GET(urlInfo.url);
+            }else if(urlInfo.type=='API_POST'){
+                return API_POST(urlInfo.url, urlInfo.data);
+            }else if(urlInfo.type=='API_PUT'){
+                return API_PUT(urlInfo.url, urlInfo.data);
+            }else if(urlInfo.type=='API_DELETE'){
+                return API_DELETE(urlInfo.url);
+            }
+            
+        })
+    }else{
+        if (response.response && response.response.data && response.response.data.request_errors) {
+            response = response.response.data.request_errors
+        } else if (response.response && response.response.data) {
+            response = response.response.data
+        }
+
+        callback(response)
     }
 
-    if (response.response && response.response.data && response.response.data.request_errors) {
-        response = response.response.data.request_errors
-    } else if (response.response && response.response.data) {
-        response = response.response.data
-    }
-
-    callback(response)
 }
 
-export const API_GET = (url) => {
+const API_GET = (url) => {
     return STORAGE.getAuthToken({url: url}).then((token) => {
+
         return new Promise((resolve, reject) => {
             let headers = {}
             if (token) headers['Authorization'] = `Token ${token}`
@@ -39,18 +56,25 @@ export const API_GET = (url) => {
                 headers
             }).then((res) => {
                 resolve(res.data)
+                
             }, (response) => {
-                rejectHandler(response, reject)
+                let urlInfo = {
+                    url: url,
+                    type: 'API_GET',
+                    token: token
+                }
+                rejectHandler(response, urlInfo, reject)
             })
         })
     })
 
 
 }
-export const API_POST = (url, data) => {
+const API_POST = (url, data) => {
     return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
+            
             if (token) headers['Authorization'] = `Token ${token}`
             axiosInstance({
                 method: 'post',
@@ -60,7 +84,13 @@ export const API_POST = (url, data) => {
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {
-                rejectHandler(response, reject)
+                let urlInfo = {
+                    url: url,
+                    type: 'API_POST',
+                    data: data,
+                    token: token
+                }
+                rejectHandler(response, urlInfo, reject)
             })
         })
     })
@@ -68,7 +98,7 @@ export const API_POST = (url, data) => {
 
 }
 
-export const API_PUT = (url, data) => {
+const API_PUT = (url, data) => {
     return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
@@ -81,7 +111,13 @@ export const API_PUT = (url, data) => {
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {
-                rejectHandler(response, reject)
+                let urlInfo = {
+                    url: url,
+                    type: 'API_PUT',
+                    data: data,
+                    token: token
+                }
+                rejectHandler(response, urlInfo, reject)
             })
         })
     })
@@ -89,7 +125,7 @@ export const API_PUT = (url, data) => {
 
 }
 
-export const API_DELETE = (url) => {
+const API_DELETE = (url) => {
     return STORAGE.getAuthToken({url: url}).then((token) => {
         return new Promise((resolve, reject) => {
             let headers = {}
@@ -101,9 +137,20 @@ export const API_DELETE = (url) => {
             }).then((res) => {
                 resolve(res.data)
             }, (response) => {
-                rejectHandler(response, reject)
+                let urlInfo = {
+                    url: url,
+                    type: 'API_DELETE',
+                    token: token
+                }
+                rejectHandler(response, urlInfo, reject)
             })
         })
     })
 
+}
+module.exports = {
+    API_GET,
+    API_POST,
+    API_PUT,
+    API_DELETE
 }

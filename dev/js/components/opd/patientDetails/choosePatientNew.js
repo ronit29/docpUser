@@ -295,14 +295,16 @@ class ChoosePatientNewView extends React.Component {
                     // } else {
                     //     this.setState({ enableOtpRequest: true })
                     // }
-                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false, showLogin:true,enableOtpRequest: true })
+                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false, showLogin:true,enableOtpRequest: true,enableOtpRequest: false,otpTimeout: false },() => {
+                        self.resendOtpCountDown()
+                    })
                     // setTimeout(() => {
                     //     this.setState({ otpTimeout: false })
                     // }, 20000)
-                    setTimeout(() => {
-                        this.setState({ enableOtpRequest: false,otpTimeout: false })
-                        this.resendOtpCountDown()
-                    }, 60000)
+                    // setTimeout(() => {
+                    //     this.setState({ enableOtpRequest: false,otpTimeout: false })
+                    //     this.resendOtpCountDown()
+                    // }, 60000)
                 }
             })
         } else {
@@ -400,12 +402,13 @@ class ChoosePatientNewView extends React.Component {
             self.setState({otpTimeout:true})
             clearTimeout(timerId);
           } else {
-            if(timeLeft < 10){
-                timeElm.innerHTML = '00:'+ '0'+timeLeft;
-            }else{
-                timeElm.innerHTML = '00:'+ timeLeft;
+            if(timeElm){
+                if(timeLeft < 10){
+                    timeElm.innerHTML = '00:'+ '0'+timeLeft;
+                }else{
+                    timeElm.innerHTML = '00:'+ timeLeft;
+                }
             }
-            
             timeLeft--;
           }
         }

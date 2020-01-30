@@ -274,6 +274,7 @@ class PatientDetailsNew extends React.Component {
         if(parsed && parsed.dummy_id && agent_selected_plan_id) {
             extraParams['already_selected_plan'] = agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getOpdVipGoldPlans(extraParams) // to get gold/vip plans specific to particular doctor/hospital
     }
 
@@ -642,6 +643,11 @@ class PatientDetailsNew extends React.Component {
             utm_tags: utm_tags,
             from_web: true
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
@@ -1442,6 +1448,12 @@ class PatientDetailsNew extends React.Component {
                 data.selected_date = null
             }
 
+            let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                data.visit_id = visitor_info.visit_id
+                data.visitor_id = visitor_info.visitor_id
+            }
+
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
                 data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
             }
@@ -1596,7 +1608,7 @@ class PatientDetailsNew extends React.Component {
             resetPaymentType = true
         }
 
-        if(resetPaymentType) {
+        if(resetPaymentType && this.props.show_doctor_payment_mode) {
             if(showGoldTogglePaymentMode) {
                 this.props.select_opd_payment_type(6)
             }else if(showCodPaymentMode) {
@@ -1946,7 +1958,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {/*Payment Mode*/}
                                                                 {
-                                                                    (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
+                                                                    this.props.show_doctor_payment_mode && (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
 
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>
