@@ -171,6 +171,9 @@ const STORAGE = {
     },
     refreshTokenCall(params, cb){
         let login_user_id = getCookie('user_id');
+        if(params.user_id){
+            login_user_id = params.user_id
+        }
         if(login_user_id){
             let ciphertext =  STORAGE.encrypt(login_user_id);
             return API_POST('/api/v1/user/api-token-refresh', {

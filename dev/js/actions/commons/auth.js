@@ -186,8 +186,7 @@ export const OTTLogin = (ott,user_id) => (dispatch) => {
             })
             try{
                 if(ott && user_id){
-                    let ciphertext =  STORAGE.encrypt(user_id)
-                    STORAGE.refreshTokenCall({token:ott,ciphertext:ciphertext,fromWhere:'FromDirectBooking',isForceUpdate: true },(resp)=>{
+                    STORAGE.refreshTokenCall({token:ott,user_id:user_id,fromWhere:'FromDirectBooking',isForceUpdate: true },(resp)=>{
                         console.log(resp)
                         // STORAGE.setAuthToken(ott)
                         API_GET('/api/v1/user/userprofile').then(function (response) {
