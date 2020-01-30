@@ -206,6 +206,8 @@ class ChoosePatientNewView extends React.Component {
                     this.setState({ isEmailNotValid: false, isDobNotValid: false })
                     data.dob = this.state.dob
                     data.email = this.state.email
+                    data.otpVerifySuccess = true
+                    this.props.profileDataCompleted(data)
                     this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
                         this.props.getUserProfile()
                         this.setState({ dob: null, email: null })
