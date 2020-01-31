@@ -44,7 +44,6 @@ class CriteriaSearchView extends React.Component {
         }
         if (document.getElementById('topCriteriaSearch')) {
             document.getElementById('topCriteriaSearch').addEventListener('focusin', () => { this.setState({ searchCities: '' }) })
-
         }
     }
 
@@ -157,7 +156,7 @@ class CriteriaSearchView extends React.Component {
             this.setState({ searchCities: [] })
         })
     }
-
+    
     render() {
         let location = "Delhi"
         if (this.props.selectedLocation) {
@@ -193,9 +192,9 @@ class CriteriaSearchView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1}/>
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isPackage={this.props.isPackage}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isPackage={this.props.isPackage}/>
                 }
-                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section hospital-view-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?" pkgComapre":""} `}>
+                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section hospital-view-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?"pkgComapre":""} `} id={`${this.props.isPackage ? "pkgComId":""}`}>
                     {
                         typeof navigator == 'object' && navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
                         :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    

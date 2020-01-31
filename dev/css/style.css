@@ -11674,7 +11674,7 @@ li {
     position: -webkit-sticky;
     left: 0;
     right: 0;
-    top: 94px;
+    top: 110px;
     z-index: 99;
 }
 .hide-all{
@@ -14424,7 +14424,7 @@ div.doc-srch-fltr.vip-slct-pop {
 @media (min-width:768px) {
     .fixed-chatbox {
         position: sticky;
-        top: 100px;
+        top: 125px;
         z-index: 1;
     }
 }

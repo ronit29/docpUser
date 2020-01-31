@@ -216,8 +216,8 @@
     .sticky-header {
         position: sticky!important;
         position: -webkit-sticky!important;
-        top: 94px!important;
-        margin-top: 20px;
+        top: 110px!important;
+        margin-top: 32px;
         z-index: 9;
     }
     .sticky-header-2 {

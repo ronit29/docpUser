@@ -44,6 +44,7 @@ class DesktopProfileHeader extends React.Component {
         setTimeout(()=>{
             this.setState({showSBI: true })
         }, 100)
+        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -122,7 +123,7 @@ class DesktopProfileHeader extends React.Component {
             this.props.history.push('/');
         }
     }
-
+    
     //--- New top header mobile view
     d_list() {
         let chevDown, topHead, listItemView;
@@ -136,6 +137,7 @@ class DesktopProfileHeader extends React.Component {
     }
     //--- New top header mobile view
     render() {
+        console.log(this.props.isPackage)
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
             profileData = this.props.profiles[this.props.defaultProfile]
@@ -474,7 +476,7 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 {/* top header */}
                 {/* new main header */}
-                <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'}`}>
+                <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'} ${this.props.isPackage?'pkgComp':''}`}>
                     {/* on click left menu */}
                     {
                         this.state.toggleHamburger ?
