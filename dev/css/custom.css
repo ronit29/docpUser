@@ -141,7 +141,7 @@
 }
 
 .book-appointment-section {
-    margin-top: 78px;
+    margin-top: 60px;
 }
 
 .time-picker-section {
@@ -2053,7 +2053,7 @@ body.lineLoader {
 
 @media(max-width: 992px) {
     .headerSubLinkContainer {
-        margin-top: 143px;
+        margin-top: 90px;
     }
     div.onln-cnslt-head {
         margin-top: 126px;

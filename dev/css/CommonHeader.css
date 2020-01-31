@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1111;
+    z-index: 99;
     height: auto;
 }
 /***** Top Header CSS Start ****/
@@ -55,7 +55,7 @@
     padding:0px;
 }
 .pkgComp{
-    box-shadow: none;
+    box-shadow: none!important;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 .curved-bg{
@@ -217,6 +217,18 @@
     }
     .top-header h6{
        margin-bottom: 10px;
+    }
+    .top-header > ul{
+        justify-content: space-between;
+    }
+    .curved-bg{
+        width: 39%;
+    }
+    .main-header-right-col{
+        justify-content: flex-end!important;
+    }
+    .book-appointment-section{
+        margin-top: 140px;
     }
 }
 /***** Responsive Media CSS Ends ****/

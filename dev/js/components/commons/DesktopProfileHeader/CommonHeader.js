@@ -585,7 +585,7 @@ class DesktopProfileHeader extends React.Component {
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
-                                        <ul className="list-sub-menu">
+                                        <ul className="list-sub-menu d-none d-sm-block d-lg-block">
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-medicines")
@@ -673,7 +673,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                     {/* mobile view search box */}
-                    <div className="col-12 d-lg-none">
+                    <div className="col-12 d-sm-none d-lg-none">
                         {
                             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile">
                                 <div onClick={this.openSearch.bind(this)}>
@@ -689,7 +689,7 @@ class DesktopProfileHeader extends React.Component {
                     </div>
 
                     {this.props.new_fixed_header && this.props.new_fixed_header == 1?
-                        <div className="row listing-view-header visible-col " id="listing-header">
+                        <div className={`row listing-view-header visible-col ${this.props.isPackage?'pkgComp':''}`} id="listing-header">
                             <div className="col-1 pr-0 menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"

@@ -6219,7 +6219,7 @@ margin: 10px 0px;
 
 @media screen and (max-width: 992px) {
     .book-appointment-section-login {
-        margin-top: 10x0px;
+        margin-top: 10px;
     }
     .chat-load-mobile.mt-21 {
         margin-top: 18px;
@@ -6795,7 +6795,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 .header-box{
     background: var(--text--primary--color) url(/assets/images/doc-logo.png) no-repeat top right;
-    padding: 15px 15px 30px;
+    padding: 15px;
     position: relative;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -11376,7 +11376,7 @@ li {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 11;
 }
 
 .cm-footer.compare-package-footer {
@@ -11385,7 +11385,7 @@ li {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 11;
 }
 
 .pkgComapre .compare-packages {
@@ -12011,7 +12011,7 @@ li {
     }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 992px) {
     .pkgMrgnAdjst {
         margin-top: 44px !important;
     }
@@ -12019,7 +12019,7 @@ li {
         margin-top: 0px;
     }
     .pkgComapre .filter-row {
-        top: 44px;
+        top: 102px;
     }
     .pkgComapre .chat-load-mobile.mt-21 {
         margin-top: 0;
