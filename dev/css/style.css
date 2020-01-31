@@ -14903,4 +14903,23 @@ p.num-verified img {
     width: 50px;
 }
 
+button.pop-subText{
+    background-image: linear-gradient(to left, #178ddd, #3593D2);
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #178ddd;
+    cursor: pointer;
+    width: 58%;
+    padding: 5px 0;
+}
+.fs-12{
+    font-size: 12px !important;
+}
+.pop-subText span{
+    font-size: 12px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
 /* ======================================= popup DPP HPP  ======================================= */
