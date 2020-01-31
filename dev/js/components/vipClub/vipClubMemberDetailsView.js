@@ -412,7 +412,10 @@ class VipClubMemberDetailsView extends React.Component {
 							pushData['coupon_type'] = this.props.selected_vip_plan.is_gold?'gold':'vip'
 							pushData.members.push(param)
 							console.log(data)
-							this.pushUserData(pushData)
+							
+							if(STORAGE.isAgent()){
+								this.pushUserData(pushData)
+							}
 
 							if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
 
@@ -618,7 +621,7 @@ class VipClubMemberDetailsView extends React.Component {
         }else{
             gold_push_data.is_agent = false
         }
-        this.props.pushMembersData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
+        this.pushUserData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
 		this.props.removeVipCoupons() // to reset coupons to intial state
 	}
 	render() {
