@@ -1476,6 +1476,7 @@ form .labelWrap label {
     color: #888;
     /*=========== */
     position: absolute;
+    transition: all .2s;
 }
 
 form .labelWrap label:hover {
@@ -1495,10 +1496,14 @@ form .labelWrap input {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    /*=========== */
     position: relative;
     border: 1px solid #d3d3d3;
     background: white;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 }
 
 form .labelWrap input:focus {
@@ -1519,6 +1524,7 @@ form .labelWrap input:focus + label {
   width: auto;
   padding: 0 5px;
   color: var(--text--primary--color);
+  transform: translate3d(0,2%,0);
 }
 form .labelWrap textarea + label {
   padding: 0;

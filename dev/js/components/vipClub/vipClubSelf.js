@@ -96,7 +96,18 @@ class VipProposer extends React.Component {
 					if(props.USER && Object.keys(props.USER).length && props.USER.profiles && Object.keys(props.USER.profiles).length){
 						exitsting_user_profile = Object.assign({}, props.USER.profiles[props.member_id])
 					}
-					profile = props.savedMemberData.filter((x=>x.id == props.member_id))
+					
+					if(props.savedMemberData.length == 1 && props.savedMemberData[0] == null){
+						profile = {...this.state}
+						profile.id = this.props.member_id
+						if(profile && Object.keys(profile).length > 0){
+							console.log(profile)
+							this.setState({profile_flag:false})
+			    			this.handleSubmit()
+						}
+					}else{
+						profile = props.savedMemberData.filter((x=>x.id == props.member_id))
+					}
 					if(profile && profile.length > 0){
 						profile = profile[0]
 						if(exitsting_user_profile && Object.keys(exitsting_user_profile).length){
@@ -463,6 +474,7 @@ class VipProposer extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.member_id)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
