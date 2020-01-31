@@ -125,19 +125,18 @@ class DesktopProfileHeader extends React.Component {
     }
     
     //--- New top header mobile view
-    d_list() {
-        let chevDown, topHead, listItemView;
-        chevDown = document.getElementById('downIcon');
-        topHead = document.getElementById('headerTop');
-        listItemView = document.getElementById('listView');
+    // d_list() {
+    //     let chevDown, topHead, listItemView;
+    //     chevDown = document.getElementById('downIcon');
+    //     topHead = document.getElementById('headerTop');
+    //     listItemView = document.getElementById('listView');
         
-        chevDown.classList.toggle("r-90");
-        topHead.classList.toggle("top-header-mobile");
-        listItemView.classList.toggle('d-block');
-    }
+    //     chevDown.classList.toggle("r-90");
+    //     topHead.classList.toggle("top-header-mobile");
+    //     listItemView.classList.toggle('d-block');
+    // }
     //--- New top header mobile view
     render() {
-        console.log(this.props.isPackage)
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
             profileData = this.props.profiles[this.props.defaultProfile]
@@ -476,7 +475,7 @@ class DesktopProfileHeader extends React.Component {
                 </div>
                 {/* top header */}
                 {/* new main header */}
-                <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'} ${this.props.isPackage?'pkgComp':''}`}>
+                <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'} ${this.props.isSearchList?'pkgComp':''}`}>
                     {/* on click left menu */}
                     {
                         this.state.toggleHamburger ?
@@ -689,7 +688,7 @@ class DesktopProfileHeader extends React.Component {
                     </div>
 
                     {this.props.new_fixed_header && this.props.new_fixed_header == 1?
-                        <div className={`row listing-view-header visible-col ${this.props.isPackage?'pkgComp':''}`} id="listing-header">
+                        <div className={`row listing-view-header visible-col ${this.props.isSearchList?'pkgComp':''}`} id="listing-header">
                             <div className="col-1 pr-0 menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"

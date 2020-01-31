@@ -192,9 +192,9 @@ class CriteriaSearchView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isPackage={this.props.isPackage}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isPackage={this.props.isPackage}/>
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isSearchList={true}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage} new_fixed_header={1} isSearchList={true}/>
                 }
-                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section hospital-view-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?"pkgComapre":""} `} id={`${this.props.isPackage ? "pkgComId":""}`}>
+                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section hospital-view-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?"pkgComapre":""} `}>
                     {
                         typeof navigator == 'object' && navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
                         :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    
