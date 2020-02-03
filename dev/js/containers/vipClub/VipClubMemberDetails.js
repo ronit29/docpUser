@@ -31,6 +31,7 @@ class VipClubMemberDetails extends React.Component{
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
+        data.fromWhere = 'user_form'
         this.props.getVipList(false,data,(resp)=>{
             console.log(resp)
             if(!resp.certificate){

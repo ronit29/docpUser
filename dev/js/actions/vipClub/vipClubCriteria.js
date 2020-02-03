@@ -36,18 +36,22 @@ export const getVipList = (is_endorsement,data,callback) => (dispatch) => { // t
         is_vip_gold = data.all
     }
     return API_GET(url).then(function (response) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: response,
-            is_vip_gold: is_vip_gold
-        })
+        if(!fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: response,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(response)
     }).catch(function (error) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: error,
-            is_vip_gold: is_vip_gold
-        })
+        if(!fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: error,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(error)
         throw error
     })
