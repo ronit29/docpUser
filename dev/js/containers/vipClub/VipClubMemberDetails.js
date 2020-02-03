@@ -5,6 +5,7 @@ import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserPr
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Loader from '../../components/commons/Loader'
+import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
 class VipClubMemberDetails extends React.Component{
@@ -54,8 +55,9 @@ class VipClubMemberDetails extends React.Component{
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView && this.state.is_navigate_to_form){
             return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold} />
-        }else if(!this.props.showVipDetailsView && !this.state.is_navigate_to_form && this.props.vipClubList.certificate && STORAGE.checkAuth()){// if already gold or vip user redirect to dashboard
+        }else if(STORAGE.checkAuth() && !this.props.showVipDetailsView && !this.state.is_navigate_to_form){// if already gold or vip user redirect to dashboard
                 this.props.history.replace('/vip-club-activated-details')
+                return <div></div>
         }else{
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
