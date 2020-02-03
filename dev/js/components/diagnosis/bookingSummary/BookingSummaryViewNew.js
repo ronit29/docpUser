@@ -204,7 +204,7 @@ class BookingSummaryViewNew extends React.Component {
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
-        if(this.state.enableDropOfflead){
+        if(this.state.enableDropOfflead && STORAGE.checkAuth()){
             this.nonIpdLeads()
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
