@@ -112,7 +112,7 @@ class CouponSelectionView extends React.Component {
         }else{
             gold_push_data.is_agent = false
         }
-        if(gold_push_data && Object.keys(gold_push_data).length && gold_push_data.members && gold_push_data.members.length){
+        if(STORAGE.isAgent() && gold_push_data && Object.keys(gold_push_data).length && gold_push_data.members && gold_push_data.members.length){
             if(gold_push_data.members.length ==1 && gold_push_data.members[0] == null){
                 
             }else{
