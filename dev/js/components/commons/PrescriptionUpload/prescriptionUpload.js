@@ -204,8 +204,8 @@ class PrescriptionView extends React.PureComponent {
         					:<div className="upload-prescription">
                                 <div className="widget-header text-center mv-header p-3">
                                     <h4 className="fw-700 text-md">Upload Prescription</h4>
-                                    <a style={{ cursor: 'pointer', right:15,top:26, position: 'absolute' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} onClick={()=>this.cancelOverlay(1)}/>
+                                    <a style={{ cursor: 'pointer', right:15,top:13, position: 'absolute', fontSize: 31, lineHeight: '14px' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
+                                        <span onClick={()=>this.cancelOverlay(1)}>&times;</span>
                                     </a>
                                 </div>
                                 <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column" style={{position:'relative'}}>
