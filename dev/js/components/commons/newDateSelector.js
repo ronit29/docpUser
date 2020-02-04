@@ -21,7 +21,7 @@ class NewDateSelector extends React.Component {
     componentWillReceiveProps(nextProps){
       var d = new Date();
       var currentYear = d.getFullYear();
-      var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth()):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
+      var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth() + 1):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
       let isValidDob
       let inValidText=''
       let FormattedYear
@@ -126,7 +126,7 @@ class NewDateSelector extends React.Component {
     handleChange(e) {
       var new_date = new Date();
       var currentYear = new_date.getFullYear();
-      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
+      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()+ 1):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
       let self = this
       let isValidDob = true
       let inValidText=''
@@ -228,7 +228,7 @@ class NewDateSelector extends React.Component {
       let inValidText = ''
       var dateOfBirth = this.state.newDob
       var currentYear = new_date.getFullYear();
-      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
+      var currentExactDay = currentYear+'-'+(new_date.getMonth().toString().length == 1?'0' + (new_date.getMonth() == 0?1:new_date.getMonth()+ 1):new_date.getMonth())+'-'+(new_date.getDate().toString().length == 1?'0'+new_date.getDate():new_date.getDate())
       if(dateOfBirth){
         dateOfBirth = dateOfBirth.split('/')
           if(dateOfBirth.length ==3){
