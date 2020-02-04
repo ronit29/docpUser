@@ -274,6 +274,7 @@ class PatientDetailsNew extends React.Component {
         if(parsed && parsed.dummy_id && agent_selected_plan_id) {
             extraParams['already_selected_plan'] = agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getOpdVipGoldPlans(extraParams) // to get gold/vip plans specific to particular doctor/hospital
     }
 
@@ -346,7 +347,7 @@ class PatientDetailsNew extends React.Component {
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
-        if(this.state.enableDropOfflead){
+        if(this.state.enableDropOfflead && STORAGE.checkAuth()){
             this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
@@ -509,20 +510,6 @@ class PatientDetailsNew extends React.Component {
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
         const parsed = queryString.parse(this.props.location.search)
-        
-        //To claim insurance status & claim
-        if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
-            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
-            window.scrollTo(0, 0)
-            return
-        }
-        //check if timeslot is selcted by user or not
-        if (!datePicked) {
-            this.setState({ showTimeError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
-            window.scrollTo(0, 0)
-            return
-        }
 
         //Check if patient is selected or not
         if (!patient) {
@@ -539,15 +526,29 @@ class PatientDetailsNew extends React.Component {
             }
         }
         //Check if patient emailid exist or not
-        if (patient && !patient.email && this.props.is_integrated) {
+        if (patient && !patient.email) {
             this.setState({ isEmailNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return
         }
         //Check if patient dob exist or not
-        if (patient && !patient.dob && this.props.is_integrated) {
+        if (patient && !patient.dob) {
             this.setState({ isDobNotValid: true })
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
+            return
+        }
+        
+        //To claim insurance status & claim
+        if (patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4) {
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
+        //check if timeslot is selcted by user or not
+        if (!datePicked) {
+            this.setState({ showTimeError: true });
+            SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
+            window.scrollTo(0, 0)
             return
         }
 
@@ -642,6 +643,11 @@ class PatientDetailsNew extends React.Component {
             utm_tags: utm_tags,
             from_web: true
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
         }
@@ -1420,7 +1426,7 @@ class PatientDetailsNew extends React.Component {
             data.hospital_name = selected_hospital.hospital_name
             data.specialty = specialization[0].name
             data.source = parsed
-            data.exitpoint_url = 'http://docprime.com' +this.props.location.pathname
+            data.exitpoint_url = `http://docprime.com${this.props.location.pathname}?doctor_id=${this.state.selectedDoctor}&hospital_id=${this.state.selectedClinic}`
             if(this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser){
                 patient = this.props.profiles[this.props.selectedProfile]
                 data.customer_name = patient.name
@@ -1440,6 +1446,12 @@ class PatientDetailsNew extends React.Component {
             }else{
                 data.selected_time = null
                 data.selected_date = null
+            }
+
+            let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                data.visit_id = visitor_info.visit_id
+                data.visitor_id = visitor_info.visitor_id
             }
 
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
@@ -1596,7 +1608,7 @@ class PatientDetailsNew extends React.Component {
             resetPaymentType = true
         }
 
-        if(resetPaymentType) {
+        if(resetPaymentType && this.props.show_doctor_payment_mode) {
             if(showGoldTogglePaymentMode) {
                 this.props.select_opd_payment_type(6)
             }else if(showCodPaymentMode) {
@@ -1743,6 +1755,7 @@ class PatientDetailsNew extends React.Component {
                                                                     selectClinic={this.selectClinic.bind(this)}
                                                                 />
                                                                 {/* new time slot */}
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -1836,7 +1849,6 @@ class PatientDetailsNew extends React.Component {
                                                                 doctor_leaves={this.props.doctor_leaves || []}
                                                                 upcoming_slots={this.props.upcoming_slots || null}
                                                             />*/}
-                                                            <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
                                                             {
                                                                 Object.values(selectedProcedures).length ?
                                                                     <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
@@ -1946,7 +1958,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                 {/*Payment Mode*/}
                                                                 {
-                                                                    (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
+                                                                    this.props.show_doctor_payment_mode && (payment_mode_count > 1 || showGoldTogglePaymentMode)? <div className="widget mrb-15">
 
                                                                         <div className="widget-content">
                                                                             <h4 className="title mb-20">Payment Mode</h4>

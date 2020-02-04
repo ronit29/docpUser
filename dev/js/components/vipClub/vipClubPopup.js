@@ -176,6 +176,11 @@ class VipLoginPopup extends React.Component {
                                     if(self.props.common_utm_tags && self.props.common_utm_tags.length){
                                         extraParams = self.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
                                     }
+                                    let visitor_info = GTM.getVisitorInfo()
+                                    if(visitor_info && visitor_info.visit_id){
+                                        lead_data.visit_id = visitor_info.visit_id
+                                        lead_data.visitor_id = visitor_info.visitor_id
+                                    }
 
                                     // to create vip or gold member lead for matrix
                                      self.props.generateVipClubLead({selectedPlan:self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', number:self.state.phoneNumber, lead_data:lead_data, selectedLocation:self.props.selectedLocation, user_name:self.state.user_name, extraParams:extraParams,

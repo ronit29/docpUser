@@ -188,6 +188,7 @@ class BookingSummaryViewNew extends React.Component {
         if(parsed && parsed.dummy_id && this.props.agent_selected_plan_id) {
             extraParams['already_selected_plan'] = this.props.agent_selected_plan_id
         }
+        extraParams['payment_type'] =  this.props.payment_type
         this.props.getLabVipGoldPlans(extraParams) // to get gold/vip plans specific to particular lab
     }
 
@@ -203,7 +204,7 @@ class BookingSummaryViewNew extends React.Component {
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
-        if(this.state.enableDropOfflead){
+        if(this.state.enableDropOfflead && STORAGE.checkAuth()){
             this.nonIpdLeads()
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
@@ -507,6 +508,15 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    getPatientDetails(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable) {
+        let patient = null
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+        }
+        return <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
+
+    }
+
     getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
@@ -514,15 +524,13 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         return <React.Fragment>
-            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
-            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
-            {
-                patient && is_home_charges_applicable?
-                    <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
-                    : ''
-            }
-
-        </React.Fragment>
+                <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
+                {
+                    patient && is_home_charges_applicable?
+                        <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
+                        : ''
+                }
+            </React.Fragment>
 /*
         switch (this.props.selectedAppointmentType) {
             case "lab": {
@@ -638,6 +646,25 @@ class BookingSummaryViewNew extends React.Component {
 
     proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, e) {
 
+        //Check if patient is selected or not
+        if (!patient) {
+            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+            window.scrollTo(0, 0)
+            return
+        }
+        //Check if patient emailid exist or not
+        if(patient && !patient.email){
+            this.setState({isEmailNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            return 
+        }
+        //Check if patient dob exist or not
+        if(patient && !patient.dob){
+            this.setState({isDobNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
+            return 
+        }
+        
         //To claim insurance status & claim
         if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
@@ -674,24 +701,6 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        //Check if patient is selected or not
-        if (!patient) {
-            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
-            window.scrollTo(0, 0)
-            return
-        }
-        //Check if patient emailid exist or not
-        if(patient && !patient.email){
-            this.setState({isEmailNotValid:true})
-            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-            return 
-        }
-        //Check if patient dob exist or not
-        if(patient && !patient.dob){
-            this.setState({isDobNotValid:true})
-            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
-            return 
-        }
         //Check if patient address is selected or not
         if (!addressPicked) {
             this.setState({ showAddressError: true });
@@ -855,6 +864,11 @@ class BookingSummaryViewNew extends React.Component {
             from_web: true,
             utm_tags: utm_tags
         }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                postData['visit_id'] = visitor_info.visit_id
+                postData['visitor_id'] = visitor_info.visitor_id
+            }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
                 postData['selected_timings_type'] = 'common'
@@ -1417,6 +1431,11 @@ class BookingSummaryViewNew extends React.Component {
                 data.phone_number = user_phone_number
                 data.customer_name = user_name
             }
+            let visitor_info = GTM.getVisitorInfo()
+                if(visitor_info && visitor_info.visit_id){
+                    data.visit_id = visitor_info.visit_id
+                    data.visitor_id = visitor_info.visitor_id
+                }
             if(this.props.common_utm_tags && this.props.common_utm_tags.length){
                 data.utm_tags = this.getUtmTags()
             }
@@ -1855,7 +1874,7 @@ class BookingSummaryViewNew extends React.Component {
 
         let showGoldTogglePaymentMode = !this.props.is_any_user_buy_gold && this.props.selected_vip_plan && this.props.labGoldPredictedPrice && this.props.labGoldPredictedPrice.length && !is_insurance_applicable
 
-        if( !showGoldTogglePaymentMode && this.props.payment_type==6 ) {
+        if( !showGoldTogglePaymentMode && this.props.payment_type==6 && this.props.show_lab_payment_mode ) {
             this.props.select_lab_payment_type(1)
         }
 
@@ -1945,7 +1964,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                        
+                                                        <div className="">
+                                                            {this.getPatientDetails(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
+                                                        </div>
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
@@ -2127,7 +2149,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                         {/******Payment Mode **********/}
                                                         {
-                                                            showGoldTogglePaymentMode? 
+                                                            showGoldTogglePaymentMode && this.props.show_lab_payment_mode? 
                                                             <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
