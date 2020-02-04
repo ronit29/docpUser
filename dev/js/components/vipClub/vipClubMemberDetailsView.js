@@ -25,7 +25,10 @@ class VipClubMemberDetailsView extends React.Component {
            	coupon_code:null,
            	coupon_id:null,
            	is_payment_coupon_applied:false,
-           	coupon_discount:null
+           	coupon_discount:null,
+           	user_email:null,
+           	user_phone_number:null,
+           	is_dob_error:false
         }
     }
     componentDidMount(){
@@ -42,6 +45,10 @@ class VipClubMemberDetailsView extends React.Component {
 	    	})
 	    	this.setState({is_payment_coupon_applied:true,coupon_code:this.props.vipCoupons[0].code, coupon_id:this.props.vipCoupons[0].coupon_id })
 	    }
+
+	    if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0){
+	    	this.setState({user_email:this.props.USER.profiles[this.props.USER.defaultProfile].email,user_phone_number:this.props.USER.profiles[this.props.USER.defaultProfile].phone_number})
+	    }
     }
 
     addMembers(isFromDefaultUser){ // add new members 
@@ -49,18 +56,18 @@ class VipClubMemberDetailsView extends React.Component {
     		name: '',
 			last_name: '',
 			dob: '',
-			// id: '',
-			relation: null,
-			relation_key: null,
-			title: '',
+			id: '',
+			// relation: null,
+			// relation_key: null,
+			// title: '',
 			profile:null,
 			profile_id:null,
 			phone_number:'',
 			isUserSelectedProfile:true,
-			day:null,
-			mnth:null,
-			year:null,
-			email:'',
+			// day:null,
+			// mnth:null,
+			// year:null,
+			// email:'',
 			first_name:'',
 			age:''
     	}
@@ -107,11 +114,8 @@ class VipClubMemberDetailsView extends React.Component {
     		}
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
     			if(this.props.savedMemberData.length ==1 && this.props.savedMemberData[0] == null){
-    				if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
-	    				isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
-	    				if(props.USER.profiles[props.USER.defaultProfile] && Object.keys(props.USER.profiles[props.USER.defaultProfile]).length > 0){
+    				if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile] && Object.keys(props.USER.profiles[props.USER.defaultProfile]).length > 0){
 	    					membersId.push({[0]: props.USER.profiles[props.USER.defaultProfile].id, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
-	    				}
 	    			}else{
 	    				membersId.push({[0]: 0, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
 	    			}
@@ -224,10 +228,10 @@ class VipClubMemberDetailsView extends React.Component {
 					param = this.props.vipClubMemberDetails[val[key]]
 					if (param && Object.keys(param).length > 0) {
 						//common validation starts
-						if (param.title == "") {
-							is_disable = true
-							fields.push('title')
-						}
+						// if (param.title == "") {
+						// 	is_disable = true
+						// 	fields.push('title')
+						// }
 
 						if (param.name == "") {
 							is_disable = true
@@ -237,64 +241,31 @@ class VipClubMemberDetailsView extends React.Component {
 						if (param.dob == null || param.dob == "") {
 							is_disable = true
 							fields.push('dob')
+							this.setState({is_dob_error:true})
 						}
 
 						if(param.dob != null && !param.isDobValidated){
 							is_disable = true
 							fields.push('dob')
+							this.setState({is_dob_error:true})
 						}
 
-						// if (param.year == null || param.year == "") {
-						// 	is_disable = true
-						// 	fields.push('dob')
-						// }
-
-						// if (param.mnth == null || param.mnth == "") {
-						// 	is_disable = true
-						// 	fields.push('dob')
-						// }
-
-						// if (param.day == null || param.day == "") {
-						// 	is_disable = true
-						// 	fields.push('dob')
-						// }
-						// if(param.is_tobe_dummy_user){
-						// 	if (param.title == "") {
-						// 		is_disable = true
-						// 		fields.push('title')
-						// 	}
-						// }
 						//common validation ends 
 
-						if(this.props.is_from_payment){
-							if(param.relation == "" || param.relation == null){
-								is_disable = true
-								fields.push('relation')
-							}
-						}
-
-						if (!this.props.is_from_payment) {
-							if(!param.phone_number && !param.isDummyUser){
-								is_disable = true
-								fields.push('phone_number')
-							}
-							if(!param.isDummyUser && param.phone_number && param.phone_number.length <10){
-								is_disable = true
-								fields.push('phone_number')
-							}
-							if(param.email == ""){  
-								is_disable = true
-								fields.push('email')
-							}
-							if (param.email != '' && param.relation == 'self') {
-								let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-								validEmail = validEmail.test(param.email)
-								if (!validEmail) {
-									is_disable = true
-									fields.push('email')
-								}
-							}
-						}
+						// if (!this.props.is_from_payment) {
+						// 	if(param.email == ""){  
+						// 		is_disable = true
+						// 		fields.push('email')
+						// 	}
+						// 	if (param.email != '' && param.relation == 'self') {
+						// 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+						// 		validEmail = validEmail.test(param.email)
+						// 		if (!validEmail) {
+						// 			is_disable = true
+						// 			fields.push('email')
+						// 		}
+						// 	}
+						// }
 					}
 					validatingErrors[param.id] = fields
 				}
@@ -328,9 +299,9 @@ class VipClubMemberDetailsView extends React.Component {
 						members.profile = param.profile
 						members.id = param.profile
 						members.is_primary_user = param.is_primary_user
-						members.title = primary_user.title
+						// members.title = primary_user.title
 						members.first_name = primary_user.first_name
-						members.last_name = primary_user.last_name
+						members.last_name = ''
 						members.email = primary_user.email
 						members.dob = primary_user.dob
 						is_member_updated = this.props.members_proofs.filter((x=>x.id == param.profile))
@@ -349,10 +320,10 @@ class VipClubMemberDetailsView extends React.Component {
 						if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
 							param = this.props.vipClubMemberDetails[val[key]]
 							members = {}
-							members.title = param.title
-							members.relation = param.relation_key
+							// members.title = param.title
+							// members.relation = param.relation_key
 							members.first_name = param.name
-							members.last_name = param.last_name
+							members.last_name = ''
 							members.email = null
 							members.dob = param.dob
 							members.gender = param.gender
@@ -395,10 +366,10 @@ class VipClubMemberDetailsView extends React.Component {
 						if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
 							param = this.props.vipClubMemberDetails[val[key]]
 							members = {}
-							members.title = param.title
-							members.relation = param.relation_key
+							// members.title = param.title
+							// members.relation = param.relation_key
 							members.first_name = param.name
-							members.last_name = param.last_name
+							members.last_name = ''
 							members.email = param.email
 							members.dob = param.dob
 							members.gender = param.gender
@@ -446,112 +417,19 @@ class VipClubMemberDetailsView extends React.Component {
 										SnackBar.show({ pos: 'bottom-center', text: resp.error })
 										return
 									}
-									if (resp && resp.payment_required) {
+									if (resp.payment_required) {
 										this.processPayment(resp)
 									} else {
-										success_id = '/vip-club-activated-details?payment_success=true&id=' + resp.data.id
-										this.props.history.push(success_id)
+										if(resp && resp.data){
+											success_id = '/vip-club-activated-details?payment_success=true&id=' + resp.data.id
+											this.props.history.push(success_id)
+										}
 									}
 								})
 							}
 						}
 					})
 				}
-
-				// old logic
-				// if(this.props.is_from_payment){
-				//   	let is_member_updated = []
-				// 			let image_ids = []
-				// 	{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
-				//   		let param =this.props.vipClubMemberDetails[value[key]]
-				//    		if(param.relation == 'SELF'){
-				//   				self_profile = this.props.vipClubMemberDetails[value[key]]
-				//   			}
-				// 		members={}
-				// 			members.relation=param.relation_key
-				// 			members.title=param.title							
-				// 	    	members.member = param.id
-				// 	    	members.first_name=param.name
-				// 	    	members.last_name=param.last_name
-				// 	    	members.dob=param.dob
-				// 	    	members.gender=param.gender
-				// 	    	members.profile=param.profile_id
-				// 	    	// members.city = self_profile.city
-				//     		// members.city_code = self_profile.city_code
-				//     		// members.address = self_profile.address
-				//     		// members.pincode = self_profile.pincode
-				//     		members.is_already_user = param.is_already_user
-				//     		if(param.is_already_user){
-				//     			members.id = param.id
-				//     		}
-				//     		members.email = self_profile.email
-				// 	    	if(this.props.members_proofs && this.props.members_proofs.length>0){
-				// 				is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
-				// 				if(is_member_updated && is_member_updated.length > 0){
-				// 					if(is_member_updated[0].img_path_ids.length > 0){
-				// 						image_ids = []
-				// 						is_member_updated[0].img_path_ids.map((imgId,i)=>{
-				// 							image_ids.push({'proof_file':imgId.id})
-				// 						})
-				// 					}
-				// 					members.document_ids = image_ids
-				// 				}
-				// 				// members.id=param.id
-				// 			}
-				// 			pushData.members.push(members)
-				//     		return data.members.push(members)
-				// 	},this)}
-				// 	let popupMemData
-				// 	popupMemData = data.members
-				// 	this.setState({popupMemData:popupMemData})
-				// 	if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
-				// 	  		this.setState({show_popup:true})
-				// 	  		return
-				// 	   }
-				// 	   console.log(data)
-				// 				this.props.addVipMembersData(data,(resp)=>{
-				// 					if(resp.success){
-				// 						this.props.history.push('vip-club-activated-details')
-				// 					}
-				// 				})
-				// }else{
-				// 	var members = {}
-				// 		members.title = self_profile.title
-				// 		members.first_name = self_profile.name 
-				// 		members.last_name = self_profile.last_name 
-				// 		members.email = self_profile.email 
-				// 		members.dob = self_profile.dob 
-				// 		// members.city = self_profile.state 
-				// 		// members.city_code = self_profile.state_code
-				// 		// members.address = self_profile.address
-				// 		// members.pincode = self_profile.pincode
-				// 		members.profile = self_profile.profile_id
-				// 		members.gender = self_profile.gender
-				// 		members.relation = self_profile.relation
-				// 		members.id = self_profile.id
-				// 		data.members.push(members)
-				// 		pushData.members.push(self_profile)
-				// 		console.log(data)
-				// 	this.pushUserData(pushData)
-				// 	if(isSms){
-				// 		this.sendSMS()
-				// 	}else{
-				// 	this.props.vipClubPay(data,(resp)=>{
-
-				// 		if(resp && resp.error){
-				// 			SnackBar.show({ pos: 'bottom-center', text: resp.error})
-				// 			return
-				// 		}
-				// 		if(resp && resp.payment_required){
-				// 	            this.processPayment(resp)
-				// 	}else{
-				// 		success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
-				// 		this.props.history.push(success_id)
-				// 	}
-				// 	})
-				// 	}
-				// }
-				// this.props.history.push('/vip-club-activated-details')
 			}
 
 		}
@@ -669,6 +547,9 @@ class VipClubMemberDetailsView extends React.Component {
 									member_form_id = {i}
 									isUserSelectedProfile = {false}
 									show_extra_fields = {show_extra_fields}
+									user_email = {this.state.user_email}
+									user_phone_number = {this.state.user_phone_number}
+									is_dob_error={false}
 								/>
 				})
 			}
@@ -694,11 +575,11 @@ class VipClubMemberDetailsView extends React.Component {
 														{
 															this.state.popupMemData && Object.keys(this.state.popupMemData).length > 0 ?
 																Object.entries(this.state.popupMemData).map(function ([key, val]) {
-																	return val.relation == 'SELF' || val.is_already_user ?
+																	return val.is_already_user ?
 																		''
 																		: <table key={key} className="vip-acrd-content text-left">
 																				<thead>
-																					<th colspan='3'><p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p></th>
+																					<th colspan='3'><p className="vip-pop-tbl-hd">{val.first_name} {/*val.last_name*/}</p></th>
 																				</thead>
 																				<tbody>
 																					<tr>
@@ -756,6 +637,9 @@ class VipClubMemberDetailsView extends React.Component {
 													isUserSelectedProfile={false}
 													addMembers={this.addMembers.bind(this)}
 													show_extra_fields = {show_extra_fields}
+													user_email = {this.state.user_email}
+													user_phone_number = {this.state.user_phone_number}
+													is_dob_error={this.state.is_dob_error}
 												/>
 													: <VipClubActivatedMemberDetails {...this.props} />
 												}

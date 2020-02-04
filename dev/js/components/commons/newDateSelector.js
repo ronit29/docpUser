@@ -29,12 +29,10 @@ class NewDateSelector extends React.Component {
       let FormattedMnth
         if(nextProps.old_dob && nextProps.old_dob != ''){
             let oldDob = nextProps.old_dob.split('-')
-            // if(this.state.toCalculateAge){
+             if(this.state.toCalculateAge){
               if(oldDob.length ==3){
                 if(oldDob[0].length ==4){
                   FormattedYear = oldDob[0]
-                  // FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
-                  // FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
                   FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
                   FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
                   if(FormattedYear <= (currentYear - 100)){
@@ -45,16 +43,18 @@ class NewDateSelector extends React.Component {
                     inValidText =''
                   }else{
                     inValidText =''
-                    isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear)
+                    isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear,this.props.is_gold?true:false)
                     this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
                   }
+                  if(FormattedDay && FormattedMnth && FormattedYear){
+                    this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
+                  }
                 }
-                this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
               }
-            // }
+            }
         }
         if(nextProps.old_dob == ''){
-            this.setState({newDob:null,isValidDob:true,toCalculateAge:false, inValidText:''})
+            this.setState({newDob:null,isValidDob:true, inValidText:'',calcualatedAge:null,months:null})
         }
     }
 
@@ -67,9 +67,13 @@ class NewDateSelector extends React.Component {
       return str;
     }
 
-    isValidDate (d, m, y) {
-       var m = parseInt(m, 10) - 1;
-        return m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y);
+    isValidDate (d, m, y,is_forced) {
+      var m = parseInt(m, 10) - 1;
+      let is_valid= m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y)
+      if(is_forced && is_valid){
+        this.props.getNewDate('dob',y+'-'+m+'-'+d,is_valid) 
+      }
+      return is_valid;
     }
 
     daysInMonth (m, y) {
@@ -209,7 +213,7 @@ class NewDateSelector extends React.Component {
                       inValidText =''
                   }else{
                       inValidText= ''
-                      isValidDob = this.isValidDate(FormattedDay,FormattedMonth,FormattedYear)
+                      isValidDob = this.isValidDate(FormattedDay,FormattedMonth,FormattedYear,false)
                       this.calculateAge(FormattedYear+'-'+FormattedMonth+'-'+FormattedDay)  
                   }
                   this.props.getNewDate('dob',FormattedYear+'-'+FormattedMonth+'-'+FormattedDay,isValidDob) 
@@ -243,7 +247,7 @@ class NewDateSelector extends React.Component {
                       inValidText =''
                   }else{
                       inValidText= ''
-                      isValidDob = this.isValidDate(dateOfBirth[0],dateOfBirth[1],dateOfBirth[2])
+                      isValidDob = this.isValidDate(dateOfBirth[0],dateOfBirth[1],dateOfBirth[2],false)
                       this.calculateAge(dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0])  
                   }
                   this.props.getNewDate('dob',dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0],isValidDob) 
