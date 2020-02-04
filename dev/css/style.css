@@ -14700,6 +14700,20 @@ div.doc-srch-fltr.vip-slct-pop {
     padding: 20px 0 25px!important;
     font-size: 16px;
 }
+@media (min-width: 992px){
+    .upload-prescription{
+        overflow: hidden;
+    }
+    .presc-submit-btn{
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        padding: 15px 0px!important; 
+    }
+    .guidelines-col{
+        margin-bottom: 45px;
+    }
+}
 /*health advisor col*/
 .health-advisor-col{
     border-radius: 5px;
