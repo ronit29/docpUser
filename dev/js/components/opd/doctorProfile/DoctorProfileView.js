@@ -61,7 +61,8 @@ class DoctorProfileView extends React.Component {
             closeNonBookable: false,
             showVipPopup: false,
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_organic_landing:false
         }
     }
 
@@ -100,6 +101,7 @@ class DoctorProfileView extends React.Component {
         // setTimeout(()=>{
         //     this.setState({showVipPopup: true})
         // }, time_to_show)
+        this.setState({is_organic_landing:true})
     }
 
     showDownloadAppWidget(dataList) {
@@ -491,6 +493,11 @@ class DoctorProfileView extends React.Component {
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    :''
+                }
+                {
+                    landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
+                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">

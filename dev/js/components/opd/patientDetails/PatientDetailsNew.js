@@ -28,6 +28,7 @@ import LensfitPopup from '../../diagnosis/bookingSummary/lensfitPopup.js'
 import CodErrorPopup from './CodErrorPopup.js'
 import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 import VipGoldPackage from './VipGoldPackage.js'
+import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
@@ -81,7 +82,9 @@ class PatientDetailsNew extends React.Component {
             showGoldPriceList: false,
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
             paymentBtnClicked: false,
-            enableDropOfflead:true
+            enableDropOfflead:true,
+            showNonIpdPopup: parsed.show_popup,
+            to_be_force:parsed.is_docAds_lead?parsed.is_docAds_lead:1
         }
     }
 
@@ -1461,6 +1464,55 @@ class PatientDetailsNew extends React.Component {
             this.props.NonIpdBookingLead(data)
         }
     }
+
+    nonIpdLeads(phone_number){
+        const parsed = queryString.parse(this.props.location.search)
+        let doctor_id = this.props.selectedDoctor
+        if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
+            doctor_id = this.props.initialServerData.doctor_id
+        }
+        let criteriaStr = this.props.DOCTORS[doctor_id].display_name
+        let hospital_id
+        let selected_hospital = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
+        if(selected_hospital.length){
+            hospital_id = selected_hospital[0].hospital_id
+        }
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}?doctor_id= ${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:criteriaStr,hospital_name:null})
+        if(this.props.common_utm_tags && this.props.common_utm_tags.length){
+            data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+        }
+        let visitor_info = GTM.getVisitorInfo()
+            if(visitor_info && visitor_info.visit_id){
+                data.visit_id = visitor_info.visit_id
+                data.visitor_id = visitor_info.visitor_id
+            }
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click'}
+        GTM.sendEvent({ data: gtm_data })
+       this.props.NonIpdBookingLead(data) 
+       this.setState({to_be_force:0},()=>{
+        this.appendParamToUrl()
+       })
+    }
+
+    closeIpdLeadPopup(from){
+        if(from){
+            let data = {
+                    'Category': 'ConsumerApp', 'Action': 'DocAdsBookingCrossClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-cross-click'
+                }
+            GTM.sendEvent({ data: data })
+            this.setState({to_be_force:0},()=>{
+                this.appendParamToUrl()
+            })
+        }
+    }
+
+    appendParamToUrl(){
+        if(window){
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.search+'&is_docAds_lead='+this.state.to_be_force;
+            window.history.pushState({path:newurl},'',newurl);
+        }
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1716,6 +1768,11 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 ?
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor}/>
+                    :''
+                }
+                {
                     //Show Vip Gold Single Flow Price List
                     this.state.showGoldPriceList && <VipGoldPackage historyObj={this.props.history} vipGoldPlans={this.props.odpGoldPredictedPrice} toggleGoldPricePopup={this.toggleGoldPricePopup} toggleGoldPlans={(val)=>this.toggleGoldPlans(val)} selected_vip_plan={this.props.selected_vip_plan} goToGoldPage={this.goToGoldPage}/>
                 }
@@ -1755,7 +1812,7 @@ class PatientDetailsNew extends React.Component {
                                                                     selectClinic={this.selectClinic.bind(this)}
                                                                 />
                                                                 {/* new time slot */}
-                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)}/>
+                                                                <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)} is_docAds_lead={this.state.to_be_force}/>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
