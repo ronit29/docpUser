@@ -347,7 +347,7 @@ class PatientDetailsNew extends React.Component {
         if(nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id!= this.state.selectedVipGoldPackageId) ) {
             this.setState({selectedVipGoldPackageId: nextProps.selected_vip_plan.id})
         }
-        if(this.state.enableDropOfflead){
+        if(this.state.enableDropOfflead && STORAGE.checkAuth()){
             this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile!= nextProps.selectedProfile)) {
@@ -1426,7 +1426,7 @@ class PatientDetailsNew extends React.Component {
             data.hospital_name = selected_hospital.hospital_name
             data.specialty = specialization[0].name
             data.source = parsed
-            data.exitpoint_url = 'http://docprime.com' +this.props.location.pathname
+            data.exitpoint_url = `http://docprime.com${this.props.location.pathname}?doctor_id=${this.state.selectedDoctor}&hospital_id=${this.state.selectedClinic}`
             if(this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser){
                 patient = this.props.profiles[this.props.selectedProfile]
                 data.customer_name = patient.name
