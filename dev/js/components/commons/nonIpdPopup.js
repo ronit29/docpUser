@@ -149,20 +149,20 @@ class NonIpdPopupView extends React.Component {
 								<React.Fragment>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
-										<span>Instant Appointment Confirmation</span>
+										<span>Save up to 50% on Fees</span>
 									</p>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
-										<span>Select Preferred Date & Time</span>
+										<span>Instant Confirmation for Free</span>
 									</p>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
-										<span>Lowest Price Guarntee</span>
+										<span>View Doctor Availability</span>
 									</p>
-									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
+									{/* <p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
 										<span>Free Cancellation</span>
-									</p>
+									</p> */}
 								</React.Fragment>
 								: <React.Fragment>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
@@ -184,13 +184,15 @@ class NonIpdPopupView extends React.Component {
 					<div className="col-sm-12 pd-10 d-flex justify-content-center align-item-center flex-column" style={{ margin: "0px 0px 6px" }}>
 						<form className="col-sm-12 pd-0">
 							<div className="labelWrap mb-0">
-								<input type="number" placeholder="Enter your mobile number" onChange={this.onChangeHandler.bind(this)} />
+								<input className="fs-12" type="number" placeholder="Please enter your mobile number to continue" onChange={this.onChangeHandler.bind(this)} />
 							</div>
 						</form>
 						<p className="fw-500 col-sm-12 p-0 mr-t-5" style={{ fontSize: 11, fontStyle: 'italic' }}>*Your booking details will be sent to this number</p>
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
-						<button className="fw-500 text-white" style={{ backgroundImage: "linear-gradient(to top, #f78631, #ff6d00)" }} onClick={this.submitLead.bind(this)}>Submit</button>
+						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">Book Appointment</p>
+						<span >No Service Fee</span>
+						</button>
 					</div>
 				</div>
 			</div>
