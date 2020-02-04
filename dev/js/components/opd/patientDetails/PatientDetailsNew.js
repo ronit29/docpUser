@@ -1477,7 +1477,7 @@ class PatientDetailsNew extends React.Component {
         if(selected_hospital.length){
             hospital_id = selected_hospital[0].hospital_id
         }
-        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}?doctor_id= ${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:criteriaStr,hospital_name:null})
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:criteriaStr,hospital_name:null})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
