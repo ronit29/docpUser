@@ -34,16 +34,22 @@ class VipClubMemberDetails extends React.Component{
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
         data.fromWhere = 'user_form'
-        this.props.getVipList(false,data,(resp)=>{
-            console.log(resp)
-            if(!resp.certificate){
-                extraParams['user_type']= 'gold'
-                this.setState({is_navigate_to_form:true})
-                this.props.retrieveMembersData('PLAN_PURCHASE',extraParams) // to retrieve already pushed member data in case of agent or proposer it self
-            }else{
-                this.setState({is_user_alrdy_gold:true})
-            }
-        }) // to get vip plan list
+        if(this.state.is_from_payment){
+            extraParams['user_type']= 'gold'
+            this.setState({is_navigate_to_form:true})
+            this.props.retrieveMembersData('PLAN_PURCHASE',extraParams)
+        }else{
+            this.props.getVipList(false,data,(resp)=>{ // to get vip plan list
+                console.log(resp)
+                if(!resp.certificate){
+                    extraParams['user_type']= 'gold'
+                    this.setState({is_navigate_to_form:true})
+                    this.props.retrieveMembersData('PLAN_PURCHASE',extraParams) // to retrieve already pushed member data in case of agent or proposer it self
+                }else{
+                    this.setState({is_user_alrdy_gold:true})
+                }
+            }) 
+        }
         // if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
         //     extraParams['user_type']= this.props.selected_vip_plan.is_gold?'gold':'vip'
         // }
@@ -56,7 +62,7 @@ class VipClubMemberDetails extends React.Component{
         let parsed = queryString.parse(this.props.location.search)
         if(this.props.showVipDetailsView && this.state.is_navigate_to_form){
             return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold} />
-        }else if(STORAGE.checkAuth() && this.state.is_user_alrdy_gold){// if already gold or vip user redirect to dashboard
+        }else if(STORAGE.checkAuth() && this.state.is_user_alrdy_gold && !this.state.is_from_payment){// if already gold or vip user redirect to dashboard
                 this.props.history.replace('/vip-club-activated-details')
                 return <div></div>
         }else{
