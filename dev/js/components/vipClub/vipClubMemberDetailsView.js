@@ -543,7 +543,6 @@ class VipClubMemberDetailsView extends React.Component {
 									member_view_id= {i} 
 									validateErrors={this.state.validateErrors[data[i]] || []} 
 									show_selected_profiles={this.state.show_selected_profiles} 
-									member_type = 'child'
 									member_form_id = {i}
 									isUserSelectedProfile = {false}
 									show_extra_fields = {show_extra_fields}
@@ -579,7 +578,7 @@ class VipClubMemberDetailsView extends React.Component {
 																		''
 																		: <table key={key} className="vip-acrd-content text-left">
 																				<thead>
-																					<th colspan='3'><p className="vip-pop-tbl-hd">{val.first_name} {/*val.last_name*/}</p></th>
+																					<th colSpan='3'><p className="vip-pop-tbl-hd">{val.first_name} {/*val.last_name*/}</p></th>
 																				</thead>
 																				<tbody>
 																					<tr>
@@ -588,7 +587,7 @@ class VipClubMemberDetailsView extends React.Component {
 																						<th>DOB</th>
 																					</tr>
 																					<tr>
-																						<td>{val.relation == "SPOUSE_FATHER" ? 'Father-in-law' : val.relation == 'SPOUSE_MOTHER' ? 'Mother-in-law' : val.relation}</td>
+																						<td></td>
 																						{
 																							val.title?
 																								<td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
@@ -678,8 +677,8 @@ class VipClubMemberDetailsView extends React.Component {
 										{child}
 									</div>
 								</div>
-								{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0 &&
-									this.props.currentSelectedVipMembersId.length < this.props.vip_club_db_data.data.plan[0].total_allowed_members ?
+								{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length && this.props.vip_club_db_data.data.user.plus_members && Object.keys(this.props.vip_club_db_data.data.user.plus_members).length && ((this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length) < this.props.vip_club_db_data.data.plan[0].total_allowed_members)?
+
 									<button className="add-mem-blk" onClick={this.addMembers.bind(this, false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 2 ? '3rd' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 3 ? '4th' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 4 ? 'Another' : ''} Member `}</button>
 									: ''
 								}
@@ -720,7 +719,7 @@ class VipClubMemberDetailsView extends React.Component {
 							}
 							{
 								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Submit
+									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Add Member
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: ''
