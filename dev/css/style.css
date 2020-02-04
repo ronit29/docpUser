@@ -14615,14 +14615,17 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 /*upload prescription css*/
+.upload-prescription{
+    margin: -10px;
+}
 .upload-prescription-widget{
     padding:12px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
 }
 
 .upload-prescription-widget > div > h6{
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 12px;
+    line-height: 13px;
 }
 
 .upload-prescription-widget > button{
@@ -14639,6 +14642,7 @@ div.doc-srch-fltr.vip-slct-pop {
     box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
     padding: 5px 20px;
     cursor: pointer;
+    font-size: 12px;
 }
 #presc-upload{
     opacity: 0;
@@ -14654,8 +14658,9 @@ div.doc-srch-fltr.vip-slct-pop {
     padding: 5px;
 }
 .upload-prescription > .upload-prescription-column > button{
-    width: 135px;
+    min-width: 120px;
     padding: 8px 20px;
+    max-width: 130px;
 }
 .upload-prescription > .upload-prescription-column > button >span{
     width: 100%;
@@ -14703,6 +14708,7 @@ div.doc-srch-fltr.vip-slct-pop {
 .health-advisor-col > p{
     font-weight: bold;
     white-space: pre-wrap;
+    font-size: 13px;
 }
 /*guidelines col*/
 .guidelines-col > ul{
@@ -14712,6 +14718,7 @@ div.doc-srch-fltr.vip-slct-pop {
     color: #757575;
     list-style: disc!important;
     line-height: 23px;
+    font-size: 12px;
 }
 
 /*received prescription css*/

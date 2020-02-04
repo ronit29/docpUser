@@ -237,18 +237,17 @@ class PrescriptionView extends React.PureComponent {
                                     		<img className="prescription-uploaded-img" src={this.state.selected_file} /> 
                                     		<h6 className="error-msg-text">Invalid Format</h6>
                                     		<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
-        		                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
+        		                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                                 <span>
-                                                    <label className="text-white" htmlFor="presc-upload">Re-Upload</label>
+                                                    <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Re-Upload</label>
                                                 </span>
                                                 <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
         		                            </button>
                                     	</React.Fragment>
                                     	:<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
-        	                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} />
-                                             {/*} <span className="ml-2">Upload</span>*/}
+        	                                <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                             <span>
-                                                <label className="text-white" htmlFor="presc-upload">Upload</label>
+                                                <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Upload</label>
                                             </span>
                                             <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
         	                            </button>
