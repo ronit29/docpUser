@@ -145,6 +145,7 @@ class VipLoginPopup extends React.Component {
                         api_params.isAgent = this.props.isAgent
                         api_params.is_gold = this.props.is_gold
                         api_params.all = this.props.is_vip_gold
+                        api_params.fromWhere = null
                         this.props.getVipList(false, api_params, (resp) => {
                             this.props.getUserProfile()
                             if (!resp.certificate) {

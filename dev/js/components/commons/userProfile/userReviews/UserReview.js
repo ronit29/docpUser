@@ -42,9 +42,10 @@ class UserReview extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let sms_token = parsed.token ? parsed.token : null;
         let sms_id = parsed.id ? parsed.id : null;
+        let user_id = parsed.user_id ? parsed.user_id : null;
 
         if (sms_token) {
-            this.props.OTTLogin(sms_token).then((order_id) => {
+            this.props.OTTLogin(sms_token,user_id).then((order_id) => {
                 this.setState({ sms_id })
                 this.performLoginOps()
             })

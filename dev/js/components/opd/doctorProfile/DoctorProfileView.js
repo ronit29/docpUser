@@ -336,6 +336,10 @@ class DoctorProfileView extends React.Component {
     }
 
     nonIpdLeads(phone_number){
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
         const parsed = queryString.parse(this.props.location.search)
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
@@ -347,7 +351,7 @@ class DoctorProfileView extends React.Component {
         if(selected_hospital.length){
             hospital_id = selected_hospital[0].hospital_id
         }
-        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null})
+        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:'http://docprime.com' + this.props.location.pathname,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page?true:false})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
@@ -356,7 +360,7 @@ class DoctorProfileView extends React.Component {
                 data.visit_id = visitor_info.visit_id
                 data.visitor_id = visitor_info.visitor_id
             }
-        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click'}
+        let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click',is_organic:landing_page?true:false}
         GTM.sendEvent({ data: gtm_data })
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})

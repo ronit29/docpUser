@@ -47,6 +47,7 @@ class VipClub extends React.Component{
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
+        data.fromWhere = null
         this.props.getVipList(false,data) // to get vip plan list
 
     }

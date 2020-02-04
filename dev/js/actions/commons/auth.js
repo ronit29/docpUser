@@ -184,7 +184,7 @@ export const agentLogin = (token, cb) => (dispatch) => {
     })
 }
 
-export const OTTLogin = (ott) => (dispatch) => {
+export const OTTLogin = (ott,user_id) => (dispatch) => {
     return new Promise((resolve, reject) => {
         // API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
         STORAGE.deleteAuth().then(() => {
@@ -192,22 +192,31 @@ export const OTTLogin = (ott) => (dispatch) => {
                 type: RESET_AUTH,
                 payload: {}
             })
-            STORAGE.setAuthToken(ott)
-            API_GET('/api/v1/user/userprofile').then(function (response) {
-                API_GET('/api/v1/user/userid').then((data) => {
-                    STORAGE.setUserId(data.user_id)
-                    dispatch({
-                        type: APPEND_USER_PROFILES,
-                        payload: response
+            try{
+                if(ott && user_id){
+                    STORAGE.refreshTokenCall({token:ott,user_id:user_id,fromWhere:'FromDirectBooking',isForceUpdate: true },(resp)=>{
+                        console.log(resp)
+                        // STORAGE.setAuthToken(ott)
+                        API_GET('/api/v1/user/userprofile').then(function (response) {
+                            API_GET('/api/v1/user/userid').then((data) => {
+                                STORAGE.setUserId(data.user_id)
+                                dispatch({
+                                    type: APPEND_USER_PROFILES,
+                                    payload: response
+                                })
+                                dispatch({
+                                    type: RESET_VIP_CLUB
+                                })
+                                resolve()
+                            })
+                        }).catch(function (error) {
+                            reject(err)
+                        })
                     })
-                    dispatch({
-                        type: RESET_VIP_CLUB
-                    })
-                    resolve()
-                })
-            }).catch(function (error) {
-                reject(err)
-            })
+                }
+            }catch(e){
+
+            } 
         })
     })
 }
