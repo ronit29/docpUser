@@ -23,6 +23,7 @@ const debouncer = (fn, delay) => {
 class CriteriaElasticSearchView extends React.Component {
     constructor(props) {
         super(props)
+        
         this.state = {
             searchValue: '',
             searchResults: [],
@@ -30,7 +31,9 @@ class CriteriaElasticSearchView extends React.Component {
             searchCities: [],
             currentTestType: {},
             type: '',
-            visibleType: ''
+            visibleType: '',
+            is_user_insurance_active: false,
+            showPrescriptionInsuranceError: false
         }
     }
 
@@ -40,6 +43,14 @@ class CriteriaElasticSearchView extends React.Component {
         if (window) {
             window.scroll(0, 0)
         }
+
+        let user_insurance_status = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        this.setState({is_user_insurance_active: user_insurance_status})
+
         // if coming back or refresh focus on search bar
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
             // input.focus()
@@ -350,6 +361,19 @@ class CriteriaElasticSearchView extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    afterUserLogin = ()=>{
+        let is_user_insurance_active = false;
+        let user_insurance_status = null;
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        //this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+        if(user_insurance_status){
+            this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+        }
+    }
+
     render() {
         //Check user for insurance 
         let user_insurance_status = null
@@ -376,6 +400,18 @@ class CriteriaElasticSearchView extends React.Component {
                                         <div className="search-top-container">
                                             {/* <p className="srch-heading">Search</p> */}
                                             <div className="serch-nw-inputs-container">
+
+                                                {
+                                                    this.props.selected == 'lab' && this.state.showPrescriptionInsuranceError?
+                                                    <div className="p-3">
+                                                        <div className="health-advisor-col d-flex p-2 align-items-start">
+                                                            <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                                            <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+                                                            <img classNAme="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+                                                        </div>
+                                                    </div>:''
+
+                                                }
 
                                                 <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                                 {
@@ -432,8 +468,8 @@ class CriteriaElasticSearchView extends React.Component {
                                     </div>
                             }
                             {
-                                this.props.selected == 'lab' && !( user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7 )?
-                                <PrescriptionUpload historyObj={this.props.history} search_lab={true} locationObj = {this.props.location} profiles={this.props.profiles}/>
+                                this.props.selected == 'lab' && !(this.state.is_user_insurance_active)?
+                                <PrescriptionUpload historyObj={this.props.history} search_lab={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin} />
                                 :''
                             }
                             {

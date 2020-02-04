@@ -38,11 +38,14 @@ class HomeView extends React.Component {
 		if (this.props.initialServerData) {
 			footerData = this.props.initialServerData.footerData
 		}
+		
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
 			clickedOn: '',
-			show_popup:false
+			show_popup:false,
+			is_user_insurance_active: false,
+			showPrescriptionInsuranceError: false
 		}
 	}
 
@@ -50,6 +53,13 @@ class HomeView extends React.Component {
 		if (window) {
 			window.scrollTo(0, 0)
 		}
+
+		let user_insurance_status = null
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		this.setState({is_user_insurance_active: user_insurance_status})
 
 		this.props.getSpecialityFooterData((cb) => {
 			this.setState({ specialityFooterData: cb });
@@ -242,10 +252,24 @@ class HomeView extends React.Component {
         this.props.history.push(`/ipd/searchHospitals`)   
 	}
 
+	afterUserLogin = ()=>{
+		let is_user_insurance_active = false;
+		let user_insurance_status = null;
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		//this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+		if(is_user_insurance_active){
+			this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+		}
+	}
+
 	render() {
 
 		let topSpecializations = []
 		let user_insurance_status = null
+		let is_user_insurance_active = null;
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.props.specializations;//.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
@@ -281,6 +305,7 @@ class HomeView extends React.Component {
 		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
 		}
+		is_user_insurance_active = user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7
 		//For desktop View, get home page views
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -515,8 +540,20 @@ class HomeView extends React.Component {
 							selectSearchType = {this.props.selectSearchType}
 						/>
 						{
-							( user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7 )?''
-							:<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles}/>	
+							this.state.is_user_insurance_active?''
+							:<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin}/>	
+						}
+
+						{
+							this.state.showPrescriptionInsuranceError?
+							<div className="p-3">
+                                <div className="health-advisor-col d-flex p-2 align-items-start">
+                                    <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                    <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+                                    <img classNAme="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+                                </div>
+                            </div>:''
+
 						}
 						
 						{

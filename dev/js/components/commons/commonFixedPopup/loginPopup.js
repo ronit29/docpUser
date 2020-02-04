@@ -110,10 +110,11 @@ class LoginPopup extends React.Component {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError: '' })
                 } else {
-                    this.props.getUserProfile();
+                    this.props.getUserProfile().then((resp)=>{
+                        this.props.afterUserLogin();
+                    });
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Login Successfully" })
-                        this.props.afterUserLogin();
                     }, 500)
                 }
             })

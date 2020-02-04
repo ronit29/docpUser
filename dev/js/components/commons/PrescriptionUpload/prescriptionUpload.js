@@ -152,7 +152,10 @@ class PrescriptionView extends React.PureComponent {
     }
 
     afterUserLogin = ()=>{
-        this.setState({showLoginView: false})
+        this.setState({showLoginView: false});
+        if(this.props.afterUserLogin){
+            this.props.afterUserLogin();
+        }
     }
 
 	render(){
