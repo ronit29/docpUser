@@ -27,7 +27,6 @@ class VipProposerFamily extends React.Component {
             is_dob_error:false,
             gender:''
 		}
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentWillReceiveProps(props) {
@@ -60,20 +59,15 @@ class VipProposerFamily extends React.Component {
 	handleRelation(id,event) {
 		var relation_id = document.getElementById(id);
 		this.setState({id:this.props.member_id,'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
-			this.handleSubmit(true,event)
+			this.handleSubmit()
 		})
 	}
 
-	handleSubmit(is_endoresment) {
+	handleSubmit() {
 		var self_data = this.state
 		if(self_data.name !== ''){
 	    	if(self_data.name.length > 50){
 				self_data.name = self_data.name.slice(0, 50)
-			}	
-	    }
-	    if(self_data.last_name !== ''){
-	    	if(self_data.last_name.length > 50){
-				self_data.last_name = self_data.last_name.slice(0, 50)
 			}	
 	    }
 		this.props.userDetails('self_data', self_data) // to save user form details in store
@@ -91,7 +85,7 @@ class VipProposerFamily extends React.Component {
 				profile_id: newProfileid,
 				id:newProfileid
 			},() =>{
-				this.handleSubmit(false);
+				this.handleSubmit()
 			})
 		}else{
 			this.setState({showPopup: !this.state.showPopup})
@@ -107,9 +101,7 @@ class VipProposerFamily extends React.Component {
 	}
 
 	hideSelectProfilePopup() {
-        this.setState({
-            showPopup: false
-        });
+        this.setState({showPopup: false})
     }
 
   	submitNewDob(type,newDate,isValidDob,user_form_id) {
@@ -197,7 +189,7 @@ class VipProposerFamily extends React.Component {
 									name="name" data-param='name' 
 									value={this.state.name} 
 									onChange={this.handleChange.bind(this, 'name')} 
-									onBlur={this.handleSubmit.bind(this,false)} 
+									onBlur={this.handleSubmit.bind(this)} 
 									onKeyPress={this.handleNameCharacters.bind(this,'name')}
 									disabled={this.state.is_disable ? 'disabled' : ''}
 								/>

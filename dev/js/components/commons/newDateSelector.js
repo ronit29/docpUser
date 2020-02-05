@@ -68,10 +68,11 @@ class NewDateSelector extends React.Component {
     }
 
     isValidDate (d, m, y,is_forced) {
+      let initial_month = m; // to store initial month value 
       var m = parseInt(m, 10) - 1;
       let is_valid= m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y)
       if(is_forced && is_valid){
-        this.props.getNewDate('dob',y+'-'+m+'-'+d,is_valid) 
+        this.props.getNewDate('dob',y+'-'+initial_month+'-'+d,is_valid) 
       }
       return is_valid;
     }
