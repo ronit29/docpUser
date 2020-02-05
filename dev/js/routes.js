@@ -569,6 +569,13 @@ const CommonTnC = Loadable({
     webpack: () => [require.resolveWeak('./components/commons/commonTnC.js')],
     loading,  
 })
+
+const ChatRatings = Loadable({
+    loader: () => import('./components/commons/chatRatings.js'),
+    modules: ['./components/commons/chatRatings.js'],
+    webpack: () => [require.resolveWeak('./components/commons/chatRatings.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -702,7 +709,8 @@ let routes = [
     { path: '/vip-gold-details',exact:true, component: VipClubView},
     { path: '/vip-club-gold-details',exact:true, component: VipClubView},
     { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp},
-    { path: '/terms-conditions/:id',exact:true, component: CommonTnC }
+    { path: '/terms-conditions/:id',exact:true, component: CommonTnC },
+    { path: '/chat-ratings',exact:true, component: ChatRatings },
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
