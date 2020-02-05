@@ -75,7 +75,7 @@ class VipClubMemberDetailsView extends React.Component {
     	let membersId = []
     	if(isFromDefaultUser && !this.props.is_from_payment){
     		this.props.clearVipMemeberData() // reset vip or gold store to initial state
-			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true})
+			membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:true,to_be_remove:false})
 			member_dummy_data.id=0
 			member_dummy_data.is_tobe_dummy_user = true
 			this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{ // save current visible form member or selected user profile id
@@ -89,7 +89,7 @@ class VipClubMemberDetailsView extends React.Component {
 			    		let currentFormIdsCount = this.props.currentSelectedVipMembersId.length
 			    		let total_allowed_members = this.props.vip_club_db_data.data.plan[0].total_allowed_members
 			    		if(currentFormIdsCount <= total_allowed_members){
-							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount,isUserSelectedProfile:true})
+							membersId.push({[currentFormIdsCount]: currentFormIdsCount, type:'adult',member_form_id:currentFormIdsCount,isUserSelectedProfile:true,to_be_remove:true})
 							member_dummy_data.id=currentFormIdsCount
 							member_dummy_data.is_tobe_dummy_user = false
 			    		}
@@ -117,11 +117,11 @@ class VipClubMemberDetailsView extends React.Component {
     				if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile] && Object.keys(props.USER.profiles[props.USER.defaultProfile]).length > 0){
 	    					membersId.push({[0]: props.USER.profiles[props.USER.defaultProfile].id, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
 	    			}else{
-	    				membersId.push({[0]: 0, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api'})
+	    				membersId.push({[0]: 0, type:'self', member_form_id:0,isUserSelectedProfile:true,fromWhere:'show_api',to_be_remove:false})
 	    			}
     			}else{
     				Object.entries(props.savedMemberData).map(function([key, value]) {
-    					membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true})
+    					membersId.push({[key]: value.id, type:'self', member_form_id:0,isUserSelectedProfile:true,to_be_remove:false})
     				})
     			}
     			props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
@@ -132,9 +132,9 @@ class VipClubMemberDetailsView extends React.Component {
 	    			isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		}
 	    		if(!isDummyUser){
-		    		membersId.push({'0':loginUser, type: 'self',member_form_id:0,isUserSelectedProfile:false})
+		    		membersId.push({'0':loginUser, type: 'self',member_form_id:0,isUserSelectedProfile:false,to_be_remove:false})
 				}else{
-					membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false})
+					membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false,to_be_remove:false})
 				}
 				props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true })
@@ -142,12 +142,12 @@ class VipClubMemberDetailsView extends React.Component {
 		} else if (!this.state.saveMembers && Object.keys(props.selected_vip_plan).length > 0 && props.is_from_payment && Object.keys(props.vip_club_db_data).length > 0) {
 			if (props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0) {
 				if (!Object.keys(props.vipClubMemberDetails).length) {
-					membersId.push({ [0]: 0, type: 'adult', member_form_id: 0, isUserSelectedProfile: false })
+					membersId.push({ [0]: 0, type: 'adult', member_form_id: 0, isUserSelectedProfile: false, to_be_remove:false })
 					this.setState({ saveMembers: true})
 				} else {
 					props.currentSelectedVipMembersId.map((val, key) => {
 					if (Object.keys(props.vipClubMemberDetails).length > 0) {
-							membersId.push({ [key]: props.vipClubMemberDetails[val[key]].id, type: 'adult', member_form_id: props.vipClubMemberDetails[val[key]].id, isUserSelectedProfile: false })
+							membersId.push({ [key]: props.vipClubMemberDetails[val[key]].id, type: 'adult', member_form_id: props.vipClubMemberDetails[val[key]].id, isUserSelectedProfile: false, to_be_remove:key ==0?false:true })
 						}
 					})
 				}
@@ -533,7 +533,6 @@ class VipClubMemberDetailsView extends React.Component {
 			var n = (this.props.selected_vip_plan.total_allowed_members - 1)
 			if (n !== 0) {
 				child = this.props.currentSelectedVipMembersId.filter(x => x.type === 'adult').map((data, i) => {
-					
 					// selectedMembersId++
 						return <VipProposerFamily {...this.props} 
 									key={i} 
@@ -549,6 +548,7 @@ class VipClubMemberDetailsView extends React.Component {
 									user_email = {this.state.user_email}
 									user_phone_number = {this.state.user_phone_number}
 									is_dob_error={false}
+									is_tobe_remove_option = {data.to_be_remove}
 								/>
 				})
 			}

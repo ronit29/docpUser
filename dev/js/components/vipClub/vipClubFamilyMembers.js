@@ -1,8 +1,5 @@
 import React from 'react'
 import VipLoginPopup from './vipClubPopup.js'
-import Calendar from 'rc-calendar'
-import InsuranceProofs from './insuranceProofs.js'
-const moment = require('moment')
 import NewDateSelector from '../commons/newDateSelector.js'
 
 class VipProposerFamily extends React.Component {
@@ -31,7 +28,6 @@ class VipProposerFamily extends React.Component {
 
 	componentWillReceiveProps(props) {
 		let self = this
-		let adult_gender
 		let profile ={}
 		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
@@ -113,17 +109,18 @@ class VipProposerFamily extends React.Component {
 		})
 	}
 
+	removeMemberForm(id){
+		let new_data = []
+		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length){
+			new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != id)
+			this.props.removeMembers(new_data)
+		}
+	}
+
 	render() {
 		console.log(this.props.validateErrors)
-		let show_createApi_keys_adult = []
-		let show_createApi_keys_child = []
-		let show_createApi_keys_child2 = []
-		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
 
-		if(this.props.members_proofs && this.props.members_proofs.length > 0){
-			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
-		}
 		return (
 			<div className="ins-sub-forms mrt-10" id={`member_${this.props.member_id}`}>
 				<div className="sub-form-input-data" style={{marginBottom:10}} >
@@ -141,40 +138,15 @@ class VipProposerFamily extends React.Component {
 						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''
 					}
+						{this.props.is_tobe_remove_option?
+							<div className="sub-form-hed-click" onClick={this.removeMemberForm.bind(this,this.props.member_id)}>Remove
+								<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+							</div>
+						:''}
 					</div> 
 				</div>
 
 				<div className='widget' style={{padding:'10px'}} >
-					{/*<div className="col-12" style={{padding:0}}>*/}
-						{/*this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && Object.keys(this.props.vip_club_db_data.data.relation_master).length > 0?
-							<div className="ins-form-group mt-1">
-								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
-								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
-								<div className="dob-select-div d-flex align-items-center">
-									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
-										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this,'relation_id_'+this.props.member_id )} id={`relation_id_${this.props.member_id}`} disabled={this.state.is_disable ? 'disabled' : ''}  >
-											<option hidden>Select Relation</option>
-											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
-												return <option data-param={key} key={key}>{value}</option>
-											})}
-										</select>
-										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
-									</div>
-								</div>
-								
-							</div>
-						:''*/}
-					{
-						/*this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''*/
-					}
-					{/*</div>*/}
-					{
-						/*this.props.validateErrors.indexOf('title') > -1 ?
-							<div style={{marginTop:10}}>
-								{commonMsgSpan}
-							</div>
-							: ''*/
-					}
 					<div className="d-flex">
                         <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Male</p>
                         <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Female</p>
@@ -202,29 +174,6 @@ class VipProposerFamily extends React.Component {
 								commonMsgSpan:''
 							}
 						</div>
-						{/*<div className="col-6">
-							<div className="ins-form-group ins-form-group inp-margin-right  ">
-								<input type="text" style={{'textTransform': 'capitalize'}} 
-								id={`last_name_${this.props.member_id}`} 
-								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required 
-								autoComplete="last_name" 
-								name="last_name" 
-								data-param='last_name' 
-								value={this.state.no_lname?'':this.state.last_name} 
-								onChange={this.handleChange.bind(this, 'last_name')} 
-								onBlur={this.handleSubmit.bind(this,false)} 
-								disabled={this.state.no_lname?'disabled':""} 
-								onKeyPress={this.handleNameCharacters.bind(this,'last_name')} 
-								disabled={this.state.is_disable ? 'disabled' : ''}
-								/>
-								<label className={this.state.is_disable ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
-								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-							</div>
-							{
-								this.props.validateErrors.indexOf('last_name')> -1?
-								commonMsgSpan:''
-							}
-						</div>*/}
 						<div className="col-12"> 
 							<form>
 								<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.state.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true}/>
@@ -235,10 +184,6 @@ class VipProposerFamily extends React.Component {
 							</form>
 						</div>
 					</div>
-					{/*this.props.is_from_payment && !this.state.is_disable?
-						<InsuranceProofs {...this.props} is_primary_user = {false}/>
-					:''*/
-					}
 				</div>
 				
 				{this.state.showPopup ?

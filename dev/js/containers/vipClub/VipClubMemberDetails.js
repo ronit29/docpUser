@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData, getCoupons, applyCouponDiscount, removeVipCoupons, sendAgentBookingURL, getVipList } from '../../actions/index.js'
+import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData, getCoupons, applyCouponDiscount, removeVipCoupons, sendAgentBookingURL, getVipList,removeMembers } from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Loader from '../../components/commons/Loader'
@@ -115,6 +115,7 @@ const mapDispatchToProps = (dispatch) => {
         applyCouponDiscount: (data) =>dispatch(applyCouponDiscount(data)),
         removeVipCoupons:() =>dispatch(removeVipCoupons()),
         getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
+        removeMembers:(data) => dispatch(removeMembers(data))
     }
 }
 

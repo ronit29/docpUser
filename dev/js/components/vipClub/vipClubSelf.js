@@ -1,11 +1,8 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
-import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
-import VerifyEmail from './verifyEmail.js'
 import VipLoginPopup from './vipClubPopup.js'
 import NewDateSelector from '../commons/newDateSelector.js'
-const moment = require('moment')
 
 class VipProposer extends React.Component {
 	constructor(props) {
