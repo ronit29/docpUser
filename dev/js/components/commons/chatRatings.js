@@ -43,14 +43,19 @@ class ChatRatingView extends React.Component {
         }
 
         this.props.submitReportReview(dataParams, (resp, error)=>{
-            if(this.state.resp){
+            if(resp){
+
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Feedback Submitted Successfully" });
+                    //this.props.history.push('/');
+                }, 500);
 
                 setTimeout(() => {
                     SnackBar.show({ pos: 'bottom-center', text: "Feedback Submitted Successfully" });
                     this.props.history.push('/');
                 }, 500);
 
-            }else if(this.state.error){
+            }else if(error){
 
                 setTimeout(() => {
                     SnackBar.show({ pos: 'bottom-center', text: "Please try after sometime" });
