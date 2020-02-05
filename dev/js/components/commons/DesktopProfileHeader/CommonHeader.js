@@ -440,39 +440,41 @@ class DesktopProfileHeader extends React.Component {
             // </header>
             <header id="is_header"  className="new-common-header">
                 {/* top header */}
-                <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
-                    <h6>
-                        <span>Group company of </span>
-                        <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="18px"/>
-                    </h6>
-                    <a id="downIcon" className="down-list" onClick={this.d_list}>
-                    </a>
-                    <ul id="listView">
-                        <li className="text-capitalize"  onClick={(e) => {
-                            let data = {
-                                'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
-                            }
-                            GTM.sendEvent({ data: data })
-                            e.preventDefault();
-                            this.props.clearVipSelectedPlan()
-                            this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')}}>
-                            <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
-                            <span className="ml-2">docprime gold</span>
-                        </li>
-                        <li className="text-capitalize" onClick={(e) => {
-                            e.preventDefault();
-                            this.navigateTo("/search", 'opd')}}>find a doctor</li>
-                        <li className="text-capitalize" onClick={(e) => {
-                            e.preventDefault();
-                            this.navigateTo("/search", 'lab')}}>lab test</li>
-                        <li className="text-capitalize" onClick={(e) => {
-                            e.preventDefault();
-                            this.navigateTo('/full-body-checkup-health-packages')}}>Health packages</li>
-                        <li className="text-capitalize" onClick={(e) => {
-                            e.preventDefault();
-                            this.navigateTo('/online-consultation')}}>Online consultation</li>
-                    </ul>
-                </div>
+                {this.props.homePage?   
+                    <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
+                        <h6>
+                            <span>Group company of </span>
+                            <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="18px"/>
+                        </h6>
+                        <a id="downIcon" className="down-list" onClick={this.d_list}>
+                        </a>
+                        <ul id="listView">
+                            <li className="text-capitalize"  onClick={(e) => {
+                                let data = {
+                                    'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
+                                }
+                                GTM.sendEvent({ data: data })
+                                e.preventDefault();
+                                this.props.clearVipSelectedPlan()
+                                this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')}}>
+                                <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
+                                <span className="ml-2">docprime gold</span>
+                            </li>
+                            <li className="text-capitalize" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo("/search", 'opd')}}>find a doctor</li>
+                            <li className="text-capitalize" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo("/search", 'lab')}}>lab test</li>
+                            <li className="text-capitalize" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo('/full-body-checkup-health-packages')}}>Health packages</li>
+                            <li className="text-capitalize" onClick={(e) => {
+                                e.preventDefault();
+                                this.navigateTo('/online-consultation')}}>Online consultation</li>
+                        </ul>
+                    </div> : ''
+                }     
                 {/* top header */}
                 {/* new main header */}
                 <div className= {` container-fluid main-header d-flex ${this.props.new_fixed_header && this.props.new_fixed_header == 1?'':'lw-fixed-header'} ${this.props.isSearchList?'pkgComp':''}`}>
@@ -533,12 +535,6 @@ class DesktopProfileHeader extends React.Component {
                                 }
                             </a>
                             {/* header logo click event */}
-                            
-                            {/* homeview icon */}
-                            {/* <a className="ml-3 home-icon-view d-none d-lg-block active" href="/" onClick={(e) => this.onHomeClick(e, "/")} >
-                                <img  src={ASSETS_BASE_URL + "/img/home.svg"} alt="HomePage" height="20" />
-                            </a> */}
-                            {/* homeview icon */}
                         </div>
                         <div className="col-8 col-sm-9 col-lg-10 d-flex align-item-center justify-content-between main-header-right-col">
                             {/* desktop header search */}
@@ -579,8 +575,8 @@ class DesktopProfileHeader extends React.Component {
                                     <a className="d-flex align-item-center head-dropdowns">
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                            <img height="21px" src={ASSETS_BASE_URL + "/img/resources-sbi.svg"} />
-                                            :<img height="21px" src={ASSETS_BASE_URL + "/img/resources.svg"} />
+                                            <img height="19px" src={ASSETS_BASE_URL + "/img/file-format-sbi.svg"} />
+                                            :<img height="19px" src={ASSETS_BASE_URL + "/img/file-format.svg"} />
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
