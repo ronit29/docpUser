@@ -4872,11 +4872,13 @@ ul.stc-data-ul-list li {
 }
 
 .search-input-for-mobile {
-    margin-bottom: 0px!important;
+    margin-bottom: 10px!important;
     box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
     border-radius: 50px;
 }
-
+.new-listing-search{
+    margin: 0px!important;
+}
 
 /* ================= Journey ui fix ====================== */
 

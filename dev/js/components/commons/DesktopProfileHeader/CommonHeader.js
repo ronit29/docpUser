@@ -443,7 +443,7 @@ class DesktopProfileHeader extends React.Component {
                 <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
                     <h6>
                         <span>Group company of </span>
-                        <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="22px"/>
+                        <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="18px"/>
                     </h6>
                     <a id="downIcon" className="down-list" onClick={this.d_list}>
                     </a>
@@ -509,9 +509,9 @@ class DesktopProfileHeader extends React.Component {
 
                             {/* header logo click event */}
                             <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")} style={{
-                                width: 56, overflow:'hidden', position:'relative' }}>
+                                width: 64, overflow:'hidden', position:'relative' }}>
                                 <div className="d-none d-lg-block">
-                                    <img  src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" height="38" />
+                                    <img  src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" height="38" />
                                 </div>
                                 {
                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
@@ -524,11 +524,11 @@ class DesktopProfileHeader extends React.Component {
                                             :''
                                         }
                                         <div className="d-lg-none" >
-                                            <img height="32" style={{marginLeft: 6}} src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                            <img height="31" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" />
                                         </div>
                                     </React.Fragment>
                                     :<div className="d-lg-none" >
-                                        <img height="32" style={{marginLeft: 6}} src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
+                                        <img height="31" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" />
                                     </div>
                                 }
                             </a>
@@ -562,7 +562,7 @@ class DesktopProfileHeader extends React.Component {
 
                             {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
-                                <li className="ml-3 d-none d-sm-block d-lg-block">
+                                <li className="ml-3">
                                     <a className="d-flex align-item-center" onClick={(e) => {
                                     e.preventDefault();
                                     this.navigateTo('/contact') }}>
@@ -646,7 +646,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </a>
                                 </li>
-                                <li className="ml-3 d-none d-sm-block d-lg-block">
+                                <li className="ml-3">
                                     {profileData ? <a className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/user')
                                         }}>
@@ -680,7 +680,7 @@ class DesktopProfileHeader extends React.Component {
                                         <span>Search Doctors &amp; Tests</span>
                                     </div>
                                     {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    <img style={{ width: '13px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                 </div>
                                 <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
                             </div> : ""
@@ -692,21 +692,21 @@ class DesktopProfileHeader extends React.Component {
                             <div className="col-1 pr-0 menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
-                                this.toggleLeftMenu()}} style={{paddingLeft: 6, marginTop: 6}}>
+                                this.toggleLeftMenu()}} style={{paddingLeft: 6}}>
                                 <ul>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li className="m-0">&nbsp;</li>
                                 </ul>
                             </div>
-                            <div className="col-11 d-lg-none pr-0">
+                            <div className="col-11 d-lg-none pr-0 pl-0">
                                 {
-                                    this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                    this.props.showSearch ? <div className="serch-nw-inputs new-listing-search search-input-for-mobile" >
                                         <div onClick={this.openSearch.bind(this)}>
                                             <div className="header-serach-input-div">
                                                 <span>Search Doctors &amp; Tests</span>
                                             </div>
-                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                            <img style={{ width: '13px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                         </div>
                                         <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
                                     </div> : ""
