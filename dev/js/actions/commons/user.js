@@ -821,3 +821,11 @@ export const getReferAmnt = () => (dispatch) =>{
     }).catch(function (error) {
     })
 }
+
+export const submitReportReview = (dataParams, cb) => (dispatch) => {
+	API_POST(`/api/v1/diagnostic/feedback_to_matrix?appointment_id=${dataParams.appointment_id}`, dataParams).then((data)=>{
+		if(cb)cb(true, null);
+	}).catch((e)=>{
+		if(cb)cb(null, true);
+	})
+}
