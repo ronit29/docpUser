@@ -511,7 +511,7 @@ class PatientDetailsNew extends React.Component {
 
         return utm_tags
     }
-    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, e) {
+    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, is_selected_user_insurance_status, extraParams, e) {
         const parsed = queryString.parse(this.props.location.search)
 
         //Check if patient is selected or not
@@ -704,6 +704,10 @@ class PatientDetailsNew extends React.Component {
             
             //Single Flow Agent Booking
             if(STORAGE.isAgent() && this.props.payment_type==6 ) {
+
+                if(extraParams && extraParams.sendWhatsup){
+                    postData['message_medium'] = 'WHATSAPP'
+                }
                 this.sendSingleFlowAgentBookingURL(postData)
                 return 
             }
@@ -2370,7 +2374,12 @@ class PatientDetailsNew extends React.Component {
                                     }
 
                                     {
-                                       (STORAGE.isAgent() && this.props.payment_type==6)? <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button>:''
+                                       (STORAGE.isAgent() && this.props.payment_type==6)? 
+                                       <React.Fragment>
+                                           <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, {sendWhatsup: true} ) } className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send on Whatsapp</button>
+                                           <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, {} ) } className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send SMS EMAIL</button>
+                                       </React.Fragment>
+                                       :''
                                      }
 
                                     <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
@@ -2379,7 +2388,7 @@ class PatientDetailsNew extends React.Component {
                                             this.props.payment_type!=6 && ( (STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') )?
                                                 <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
                                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>
+                                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, {} )}>
                                                     {
                                                         this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                                     }
@@ -2391,7 +2400,7 @@ class PatientDetailsNew extends React.Component {
                                         {
                                             ((STORAGE.isAgent() || this.state.isMatrix) && !(enabled_for_cod_payment && this.props.payment_type == 2) ) || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                                 !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, display_total_mrp, enabled_for_cod_payment, (priceData.is_cod_deal_price-( this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) ) ), is_vip_applicable, vip_data.vip_amount, /*vip_data.hosp_is_gold && */is_selected_user_gold, vip_data.vip_convenience_amount)}</button>
+                                            } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, {} ) }>{this.getBookingButtonText(total_wallet_balance, finalPrice, display_total_mrp, enabled_for_cod_payment, (priceData.is_cod_deal_price-( this.state.is_cashback?0:(this.props.disCountedOpdPrice||0) ) ), is_vip_applicable, vip_data.vip_amount, /*vip_data.hosp_is_gold && */is_selected_user_gold, vip_data.vip_convenience_amount)}</button>
                                         }
                                     </div>
                                 </div>
