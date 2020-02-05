@@ -11,6 +11,7 @@ import GTM from '../../../helpers/gtm'
 /*To Reuse the component make sure to pass these methods from parent component
 1) This is pure component so please dont't do this (...this.props) , only props you need in the component use only those.
 2) historyObj= {this.props.history}, locationObj = {this.props.location}
+3) method name ==> afterUserLogin()
 */
 
 class PrescriptionView extends React.PureComponent {
