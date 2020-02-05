@@ -19,7 +19,7 @@ function rejectHandler(response, urlInfo, callback) {
             // clear entire store (initially peristed)
         })
     }else if(response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token && STORAGE.checkAuth()){
-        STORAGE.refreshTokenCall(urlInfo.token, 'API', true).then(()=>{
+        STORAGE.refreshTokenCall({token:urlInfo.token, fromWhere:'API', isForceUpdate:true}).then(()=>{
 
             if(urlInfo.type=='API_GET'){
                 return API_GET(urlInfo.url);

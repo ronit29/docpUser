@@ -255,7 +255,7 @@ class App extends React.Component {
     refreshApi(){
         STORAGE.getAuthToken().then((token) => {
             if (token) {
-                STORAGE.refreshTokenCall(token,'FromAPP',true).then((newToken)=>{
+                STORAGE.refreshTokenCall({ token:token, fromWhere:'FromAPP', isForceUpdate: true }).then((newToken)=>{
                     this.props.saveNewRefreshedToken(newToken);
                 })
             }
