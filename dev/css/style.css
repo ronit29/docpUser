@@ -14665,13 +14665,14 @@ div.doc-srch-fltr.vip-slct-pop {
 .upload-prescription > .upload-prescription-column > button >span{
     width: 100%;
 }
-.prescription-placeholder{
-    margin: 30px 0;
+.prescription-uploaded{
+    margin: 15px 0;
 }
 .prescription-uploaded-img{
     max-width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;
+      
 }
 .upload-presc-loading-pdf{
     position: absolute;
@@ -14736,11 +14737,23 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 /*received prescription css*/
+.rcvd-section{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 99;
+    display: flex;
+    align-items: center;
+}
 .received-prescription-section{
     padding: 30px;
     width: 400px;
     margin: 0 auto;
     background: #ffffff;
+    border-radius: 5px;
 }
 
 .received-prescription-section > p{
@@ -14757,8 +14770,8 @@ div.doc-srch-fltr.vip-slct-pop {
     .info-detail-icon{
         margin-top: 2px;
     }
-    .received-prescription-section{
-        width: 100%;
+    .received-prescription-section{ 
+        width:90%;
     }
 }
 .refer-bonus{

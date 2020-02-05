@@ -133,15 +133,13 @@ class PrescriptionView extends React.PureComponent {
     }
 
     cancelOverlay = (val) => {
-        if(val) {
-            this.setState({open_popup_overlay: false, selected_file: null, selected_file_name: null});
-        }
+        this.setState({open_popup_overlay: false, selected_file: null, selected_file_name: null, showSuccess: false});
     }
 
     submit = ()=>{
         if(this.state.selected_file){
             setTimeout(() => {
-                this.setState({showSuccess: true})
+                this.setState({showSuccess: true,open_popup_overlay: false})
                 SnackBar.show({ pos: 'bottom-center', text: "Prescription Uploaded Successfully" })
             }, 500)
             
@@ -160,7 +158,7 @@ class PrescriptionView extends React.PureComponent {
     }
 
     doneClicked = ()=>{
-        this.setState({ selected_file: null, open_popup_overlay: false, selected_file_name: null })
+        this.setState({ selected_file: null, open_popup_overlay: false, selected_file_name: null, showSuccess: false })
     }
 
 	render(){
@@ -203,7 +201,17 @@ class PrescriptionView extends React.PureComponent {
                     </div>
                     :''
 				}
-
+                {
+                    this.state.showSuccess?
+                    <div className="rcvd-section">
+                        <div className="received-prescription-section p-5 d-flex justify-content-center align-items-center flex-column d-none">
+                            <img width="57" src={ASSETS_BASE_URL + "/img/success-checked.svg"} />
+                            <p>We have received your prescription. Our medical representative will call you for assistance</p>
+                            <button className="cstm-book-btn fw-700" style={{width:120}} onClick={this.doneClicked}>Done</button>
+                        </div>
+                    </div>
+                    :''
+                }    
 				{
 					this.state.open_popup_overlay?
                     <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
@@ -211,13 +219,7 @@ class PrescriptionView extends React.PureComponent {
                             this.state.showLoginView?<LoginPopup afterUserLogin={this.afterUserLogin} locationObj={this.props.locationObj} historyObj= {this.props.historyObj} closePopup={this.cancelOverlay}/>
         					:<div className="upload-prescription">
                                 {
-                                    this.state.showSuccess?
-                                    <div className="received-prescription-section p-5 d-flex justify-content-center align-items-center flex-column">
-                                        <img width="57" src={ASSETS_BASE_URL + "/img/success-checked.svg"} />
-                                        <p>We have received your prescription. Our medical representative will call you for assistance</p>
-                                        <button className="cstm-book-btn fw-700" style={{width:120}} onClick={this.doneClicked}>Done</button>
-                                    </div>
-                                    :<React.Fragment>
+                                    !this.state.showSuccess?<React.Fragment>
                                         <div className="widget-header text-center mv-header p-3">
                                             <h4 className="fw-700 text-md">Upload Prescription</h4>
                                             <a style={{ cursor: 'pointer', right:15,top:13, position: 'absolute', fontSize: 31, lineHeight: '14px' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
@@ -241,10 +243,10 @@ class PrescriptionView extends React.PureComponent {
                                                     </div>
                                                     : ''
                                             }
-                                            <img className="prescription-placeholder" width="70" src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
+                                            <img className={this.state.selected_file ? 'prescription-uploaded-img' : 'prescription-uploaded'} width={!this.state.selected_file ? '70px':''} src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
                                             {
                                                 this.state.selected_file_name?
-                                                <h3>{this.state.selected_file_name}</h3>
+                                                <h6>{this.state.selected_file_name}</h6>
                                                 :''
                                             }
                                             {
@@ -277,14 +279,6 @@ class PrescriptionView extends React.PureComponent {
                                             </div>
                                             <hr style={{marginTop: 11}}/>
                                         </div>
-                                        {/* for insured person  */}
-                                        {/* <div className="p-3">
-                                            <div className="health-advisor-col d-flex p-2 align-items-start">
-                                                <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
-                                                <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
-                                            </div>
-                                        </div> */}
-                                        
                                         <div className="guidelines-col p-3 pt-0">
                                             <h5 className="fw-500 text-black mb-3">Prescription Guidelines</h5>
                                             <ul>
@@ -295,16 +289,16 @@ class PrescriptionView extends React.PureComponent {
                                         </div>
                                         <button className="presc-submit-btn cstm-book-btn fw-700" style={{borderRadius:0}} onClick={this.submit}>Submit</button>
 
-                                    </React.Fragment>
+                                    </React.Fragment>: ''
                                 }
                             </div>
-                            }
+                        }
                     </CommonPopup>
                     :''
 				}
 
 			</React.Fragment>
-			)
+		)
 	}
 }
 
