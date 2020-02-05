@@ -219,6 +219,9 @@
     .main-header-left-col,.main-header-right-col{
         padding: 6px;
     }
+    .main-header-right-col{
+        padding-right: 15px!important;
+    }
     .header-list-items{
         width: 100%;
         justify-content: flex-end;
@@ -277,6 +280,11 @@
     }
     .book-appointment-section{
         margin-top: 140px;
+    }
+}
+@media (min-width: 767px) {
+    .mbl-search-box{
+        display:none;
     }
 }
 /***** Responsive Media CSS Ends ****/

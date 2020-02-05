@@ -558,14 +558,21 @@ class DesktopProfileHeader extends React.Component {
 
                             {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
+                                <li>
+                                    {
+                                        this.props.showSearch ? "" : <div className="mbl-head-search" onClick={this.openSearch.bind(this)}>
+                                            <img width={19} src={ASSETS_BASE_URL + "/images/search-dark.svg"} />
+                                        </div>
+                                    }
+                                </li>
                                 <li className="ml-3">
                                     <a className="d-flex align-item-center" onClick={(e) => {
                                     e.preventDefault();
                                     this.navigateTo('/contact') }}>
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
-                                            <img height="23px" src={ASSETS_BASE_URL + "/img/contact-us-sbi.svg"} />
-                                            :<img height="23px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
+                                            <img height="26px" src={ASSETS_BASE_URL + "/img/contact-us-sbi.svg"} />
+                                            :<img height="26px" src={ASSETS_BASE_URL + "/img/contact-us.svg"} />
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
@@ -664,7 +671,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
                     </div>
                     {/* mobile view search box */}
-                    <div className="col-12 d-sm-none d-lg-none">
+                    <div className="col-12 mbl-search-box d-lg-none">
                         {
                             this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile">
                                 <div onClick={this.openSearch.bind(this)}>
