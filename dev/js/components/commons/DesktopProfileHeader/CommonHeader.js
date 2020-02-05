@@ -558,7 +558,7 @@ class DesktopProfileHeader extends React.Component {
 
                             {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
-                                <li>
+                                <li className="mbl-search-box">
                                     {
                                         this.props.showSearch ? "" : <div className="mbl-head-search" onClick={this.openSearch.bind(this)}>
                                             <img width={19} src={ASSETS_BASE_URL + "/images/search-dark.svg"} />
