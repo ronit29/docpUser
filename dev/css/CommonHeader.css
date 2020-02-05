@@ -68,6 +68,15 @@
     border-top-right-radius: 49px;
     border-bottom-right-radius: 49px;
 }
+.user-name-initials{
+    background: var(--text--primary--color)!important;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 13px;
+    line-height: 17px;
+    color: #fff!important;
+}
 .main-header-left-col{
     padding: 15px;
     overflow: hidden;
