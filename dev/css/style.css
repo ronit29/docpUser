@@ -6233,7 +6233,7 @@ margin: 10px 0px;
 }
 
 .breadcrumb-mrgn {
-    margin-top: 130px;
+    margin-top: 90px;
 }
 
 @media screen and (max-width: 767px) {
@@ -7893,7 +7893,7 @@ ul.edit-compliment {
 }
 
 .scroll-shadow-bar {
-    box-shadow: 0px 1px 1px #dedede;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12);
 }
 .search-prnsl-rslts{
 	color: var(--text--primary--color);
@@ -8378,7 +8378,7 @@ button.padding-btn-adjust {
     padding: 10px 15px 0;
     margin-bottom: 15px;
     position: sticky;
-    top: 94px;
+    top: 68px;
     z-index: 9;
 }
 
@@ -11676,7 +11676,7 @@ li {
     position: -webkit-sticky;
     left: 0;
     right: 0;
-    top: 110px;
+    top: 68px;
     z-index: 99;
 }
 .hide-all{

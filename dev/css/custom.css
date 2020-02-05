@@ -2962,7 +2962,7 @@ button.sortBtns.srtBtnAct {
     align-items: center;
     justify-content: space-around;
     position: sticky;
-    top: 94px;
+    top: 68px;
     z-index: 9;
     box-shadow: 0 1px 1px #dedede;
 }
