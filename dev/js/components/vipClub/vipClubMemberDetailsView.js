@@ -605,7 +605,7 @@ class VipClubMemberDetailsView extends React.Component {
 													</div>
 
 													<div className="search-el-btn-container">
-														<button style={{ fontSize: '14px' }} onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
+														<button style={{ fontSize: '14px' }} onClick={this.proceedMembersNo.bind(this, 0)}>Cancel</button>
 														{/* <span className="src-el-btn-border"></span> */}
 														<button style={{ fontSize: '14px' }} onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
 													</div>
@@ -619,11 +619,9 @@ class VipClubMemberDetailsView extends React.Component {
 							<section className="profile-book-screen">
 								<div>
 									<div className="insurance-member-container" style={{ padding: 0 }}>
-										<h4 className="mb-0" style={{ padding: '2px 0px 6px' }}>Enter Primary Member Details</h4>
+										<h4 className="mb-0" style={{ padding: '2px 0px 6px' }}>Member Details</h4>
 										{this.props.is_from_payment ? <div className="vip-wrng-mssg">
-											<span>
-												You can fill the details of all members only once. Member details once
-												submitted cannot be added or edited.</span>
+											<span>Member details can’t be edited after submission</span>
 										</div> : ''}
 										<div className="widget" style={{ padding: '10px' }}>
 											<div className={` insurance-member-details ${this.props.is_from_payment ? '' : 'mrt-20'}`}>
@@ -679,10 +677,11 @@ class VipClubMemberDetailsView extends React.Component {
 								</div>
 								{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0 && this.props.vip_club_db_data && this.props.vip_club_db_data.data && Object.keys(this.props.vip_club_db_data.data).length && this.props.vip_club_db_data.data.plan && this.props.vip_club_db_data.data.plan.length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length && this.props.vip_club_db_data.data.user.plus_members && Object.keys(this.props.vip_club_db_data.data.user.plus_members).length && ((this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length) < this.props.vip_club_db_data.data.plan[0].total_allowed_members)?
 
-									<button className="add-mem-blk" onClick={this.addMembers.bind(this, false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 2 ? '3rd' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 3 ? '4th' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 4 ? 'Another' : ''} Member `}</button>
+									<button className="add-mem-blk" onClick={this.addMembers.bind(this, false)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member</button>
 									: ''
 								}
 							</section>
+							{/*${this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 2 ? '3rd' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 3 ? '4th' : this.props.vip_club_db_data.data.user.plus_members.length + this.props.currentSelectedVipMembersId.length == 4 ? 'Another' : ''}*/}
 							{
 								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isAgent ?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
