@@ -14704,15 +14704,13 @@ div.doc-srch-fltr.vip-slct-pop {
 @media (min-width: 992px){
     .upload-prescription{
         overflow: hidden;
+        height: 522px;
     }
     .presc-submit-btn{
         position: fixed;
         right: 0px;
         bottom: 0px;
         padding: 15px 0px!important; 
-    }
-    .guidelines-col{
-        margin-bottom: 45px;
     }
 }
 /*health advisor col*/
@@ -14736,6 +14734,18 @@ div.doc-srch-fltr.vip-slct-pop {
     font-size: 12px;
 }
 
+@media screen and (max-width:767px){
+    .guidelines-col{
+        padding: 0px!important;
+    }
+    .guidelines-col > h5{
+        padding-left: 10px!important;
+    }
+    .guidelines-col > ul{
+        padding-left: 30px!important;
+    }
+}
+
 /*received prescription css*/
 .rcvd-section{
     position: fixed;
@@ -14744,7 +14754,7 @@ div.doc-srch-fltr.vip-slct-pop {
     left: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.6);
-    z-index: 99;
+    z-index: 999;
     display: flex;
     align-items: center;
 }

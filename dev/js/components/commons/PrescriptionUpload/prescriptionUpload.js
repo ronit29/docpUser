@@ -280,15 +280,14 @@ class PrescriptionView extends React.PureComponent {
                                             <hr style={{marginTop: 11}}/>
                                         </div>
                                         <div className="guidelines-col p-3 pt-0">
-                                            <h5 className="fw-500 text-black mb-3">Prescription Guidelines</h5>
+                                            <h5 className="fw-500 text-black" style={{marginBottom: 5}}>Prescription Guidelines</h5>
                                             <ul>
                                                 <li className="fw-500">Avoid blurred image</li>
                                                 <li className="fw-500">Supported files type: jpeg , jpg , png , pdf</li>
                                                 <li className="fw-500">Maximum allowed file size: 5MB</li>
                                             </ul>
+                                            <button className="presc-submit-btn cstm-book-btn fw-700" style={{borderRadius:0}} onClick={this.submit}>Submit</button>
                                         </div>
-                                        <button className="presc-submit-btn cstm-book-btn fw-700" style={{borderRadius:0}} onClick={this.submit}>Submit</button>
-
                                     </React.Fragment>: ''
                                 }
                             </div>
