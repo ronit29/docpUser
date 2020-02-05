@@ -228,10 +228,6 @@ class VipClubMemberDetailsView extends React.Component {
 					param = this.props.vipClubMemberDetails[val[key]]
 					if (param && Object.keys(param).length > 0) {
 						//common validation starts
-						// if (param.title == "") {
-						// 	is_disable = true
-						// 	fields.push('title')
-						// }
 
 						if (param.name == "") {
 							is_disable = true
@@ -252,20 +248,20 @@ class VipClubMemberDetailsView extends React.Component {
 
 						//common validation ends 
 
-						// if (!this.props.is_from_payment) {
-						// 	if(param.email == ""){  
-						// 		is_disable = true
-						// 		fields.push('email')
-						// 	}
-						// 	if (param.email != '' && param.relation == 'self') {
-						// 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-						// 		validEmail = validEmail.test(param.email)
-						// 		if (!validEmail) {
-						// 			is_disable = true
-						// 			fields.push('email')
-						// 		}
-						// 	}
-						// }
+						if (!this.props.is_from_payment) {
+							if(param.email == ""){  
+								is_disable = true
+								fields.push('email')
+							}
+							if (param.email != '' && param.relation == 'self') {
+								let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+								validEmail = validEmail.test(param.email)
+								if (!validEmail) {
+									is_disable = true
+									fields.push('email')
+								}
+							}
+						}
 					}
 					validatingErrors[param.id] = fields
 				}
@@ -547,7 +543,7 @@ class VipClubMemberDetailsView extends React.Component {
 									show_extra_fields = {show_extra_fields}
 									user_email = {this.state.user_email}
 									user_phone_number = {this.state.user_phone_number}
-									is_dob_error={false}
+									is_dob_error={this.state.is_dob_error}
 									is_tobe_remove_option = {data.to_be_remove}
 								/>
 				})
