@@ -308,7 +308,7 @@ export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, e
 }
 
 export const sendAgentWhatsupPageURL = (extraParams={}, cb) => (dispatch) => { //send page links via whatsup to user by agaent
-	return API_POST(`/api/v1/notification/send/whatsapp`, { extraParams } ).then(function (response) {
+	return API_POST(`/api/v1/notification/send/whatsapp`, extraParams  ).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
