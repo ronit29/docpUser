@@ -37,6 +37,7 @@ class MainView extends React.Component{
 		}
 	}
 
+    
     render(){
         return(
             <div className="container-fluid p-0">
@@ -48,7 +49,7 @@ class MainView extends React.Component{
                 <div className="new-main-view">
                     {/* full width banner */}
                     <section className="full-banner-section">
-                        <img  class="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
+                        <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                             }
@@ -66,20 +67,55 @@ class MainView extends React.Component{
                         <h6>Top Hospitals</h6>
                         {/* card slider */}
                         <div className="card-slider-container">
-                           <div className="slider-card-column">
+                            <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
                                     <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
-                           </div>
-                           <div className="slider-card-column">
+                            </div>
+                            <div className="slider-card-column">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
                                     <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
-                           </div>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
                         </div>
                     </section>
 
