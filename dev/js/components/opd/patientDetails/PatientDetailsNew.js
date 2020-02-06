@@ -653,6 +653,7 @@ class PatientDetailsNew extends React.Component {
             }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
+            postData['plan'] = this.props.selected_vip_plan
         }
 
         // if(!hospital.enabled_for_prepaid && !hospital.enabled_for_cod) {
