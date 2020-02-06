@@ -197,26 +197,21 @@ class ChoosePatientNewView extends React.Component {
     profileDobValidation(e) {
         let data = { ...this.props.patient }
         if (data) {
-            this.setState({ email: data.email ? data.email : this.state.email, dob: data.dob ? data.dob : this.state.dob }, () => {
-                if (this.state.dob && this.state.email) {
+            this.setState({ dob: data.dob ? data.dob : this.state.dob }, () => {
+                if (this.state.dob) {
                     if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
                         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
                         return
                     }
-                    this.setState({ isEmailNotValid: false, isDobNotValid: false })
+                    this.setState({isDobNotValid: false })
                     data.dob = this.state.dob
-                    data.email = this.state.email
                     data.otpVerifySuccess = true
                     this.props.profileDataCompleted(data)
                     this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
                         this.props.getUserProfile()
-                        this.setState({ dob: null, email: null })
+                        this.setState({ dob: null })
                     })
                 } else {
-                    if (!this.state.email && !data.email) {
-                        this.setState({ isEmailNotValid: true })
-                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
-                    }
                     if (!this.state.dob && !data.dob) {
                         this.setState({ isDobNotValid: true })
                         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
@@ -224,6 +219,34 @@ class ChoosePatientNewView extends React.Component {
                 }
             })
         }
+        // if (data) {
+        //     this.setState({ email: data.email ? data.email : this.state.email, dob: data.dob ? data.dob : this.state.dob }, () => {
+        //         if (this.state.dob && this.state.email) {
+        //             if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+        //                 return
+        //             }
+        //             this.setState({ isEmailNotValid: false, isDobNotValid: false })
+        //             data.dob = this.state.dob
+        //             data.email = this.state.email
+        //             data.otpVerifySuccess = true
+        //             this.props.profileDataCompleted(data)
+        //             this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+        //                 this.props.getUserProfile()
+        //                 this.setState({ dob: null, email: null })
+        //             })
+        //         } else {
+        //             if (!this.state.email && !data.email) {
+        //                 this.setState({ isEmailNotValid: true })
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+        //             }
+        //             if (!this.state.dob && !data.dob) {
+        //                 this.setState({ isDobNotValid: true })
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+        //             }
+        //         }
+        //     })
+        // }
     }
 
     selectDateFromCalendar(date) {
@@ -539,14 +562,14 @@ class ChoosePatientNewView extends React.Component {
                     {(this.props.is_opd || this.props.is_lab) && (!this.props.patient.email || !this.props.patient.dob )?
                     <div className="otp-container">
                     <form>
-                    {!this.props.patient.email ?
+                    {/*!this.props.patient.email ?
                         <div className="labelWrap">
                                 <div className="p-relative">
                                     <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" autoComplete="off" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { border: '1px solid red' } : {}}/>
                                     <label for="ptntEmail">Email</label>
                                 </div>
                             </div>
-                        : ''
+                        : ''*/
                     }
                     {!this.props.patient.dob?
                         <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
