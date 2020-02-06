@@ -3966,7 +3966,7 @@ img.whtsp-ico{
 	justify-content: center;
 	padding: 10px 0;
 	width: 48%;
-	font-size: 12px;
+	font-size: 11px;
 	color: white;
 	background: var(--text--primary--color);
 	flex-grow: 0;
@@ -3983,9 +3983,9 @@ img.whtsp-ico{
 	padding: 8px 0;
 	width: 48%;
 	background: white;
-	color: #546871;
-	border: 1px solid #546871;
-	font-size: 12px;
+	color: #128c7e;
+	border: 1px solid #128c7e;
+	font-size: 11px;
 	flex-grow: 0;
 	flex-shrink: 0;
 	border-radius: 4px;
