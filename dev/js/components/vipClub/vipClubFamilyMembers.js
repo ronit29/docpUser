@@ -109,14 +109,6 @@ class VipProposerFamily extends React.Component {
 		})
 	}
 
-	removeMemberForm(id){
-		let new_data = []
-		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length){
-			new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != id)
-			this.props.removeMembers(new_data)
-		}
-	}
-
 	render() {
 		console.log(this.props.validateErrors)
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
@@ -139,7 +131,7 @@ class VipProposerFamily extends React.Component {
 					</div>:''
 					}
 						{this.props.is_tobe_remove_option?
-							<div className="sub-form-hed-click" onClick={this.removeMemberForm.bind(this,this.props.member_id)}>Remove
+							<div className="sub-form-hed-click" onClick={this.props.removeMemberForm.bind(this,this.props.member_id)}>Remove
 								<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 							</div>
 						:''}

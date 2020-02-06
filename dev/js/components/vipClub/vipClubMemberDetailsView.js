@@ -10,6 +10,7 @@ import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import VipClubActivatedMemberDetails from './vipClubActivatedMemeberDetailsView.js'
+import BookingConfirmationPopup from '../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 
 class VipClubMemberDetailsView extends React.Component {
 	constructor(props) {
@@ -28,7 +29,9 @@ class VipClubMemberDetailsView extends React.Component {
            	coupon_discount:null,
            	user_email:null,
            	user_phone_number:null,
-           	is_dob_error:false
+           	is_dob_error:false,
+           	showConfirmationPopup: 'close',
+           	to_be_remove_id:''
         }
     }
     componentDidMount(){
@@ -498,6 +501,23 @@ class VipClubMemberDetailsView extends React.Component {
         this.pushUserData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
 		this.props.removeVipCoupons() // to reset coupons to intial state
 	}
+
+	removeMemberForm(id){
+		this.setState({showConfirmationPopup: 'open',to_be_remove_id:id})
+	}
+
+	priceConfirmationPopup(choice) {
+		let new_data = []
+        if (!choice) {
+            this.setState({ showConfirmationPopup: 'close' })
+        } else {
+			if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length){
+				new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != this.state.to_be_remove_id)
+				this.props.removeMembers(new_data)
+				this.setState({ showConfirmationPopup: 'close',to_be_remove_id:'' })
+			}
+        }
+    }
 	render() {
 		let child
 		let adult
@@ -545,6 +565,7 @@ class VipClubMemberDetailsView extends React.Component {
 									user_phone_number = {this.state.user_phone_number}
 									is_dob_error={this.state.is_dob_error}
 									is_tobe_remove_option = {data.to_be_remove}
+									removeMemberForm = {this.removeMemberForm.bind(this)}
 								/>
 				})
 			}
@@ -554,6 +575,11 @@ class VipClubMemberDetailsView extends React.Component {
 				{
 					this.props.isSalesAgent && this.props.isAgent ? ''
 						: <ProfileHeader showPackageStrip={true} />
+				}
+				{
+					this.state.showConfirmationPopup == 'open'?
+					<BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_gold = {true} />
+					:''
 				}
 				<section className="container container-top-margin cardMainPaddingRmv">
 					<div className="row no-gutters dsktp-row-gutter">
