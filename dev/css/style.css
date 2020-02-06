@@ -14994,3 +14994,23 @@ button.fb-btn-sec {
     font-size: 15px;
 }
 /* ======================================= chat feedback section  ======================================= */
+/* ======================================= whtsapp buttons on pages ======================================= */
+.whtsappPages{
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    padding: 12px 0;
+    border-radius: 4px;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+.whtsappPages img{
+    width: 20px;
+    margin-right: 8px;
+}
+/* ======================================= whtsapp buttons on pages ======================================= */

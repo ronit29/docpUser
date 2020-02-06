@@ -1,6 +1,8 @@
 import React from 'react'
 import { chat_utm } from '../../../actions/index'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
+
 
 class ChatStatic extends React.Component {
 
@@ -225,7 +227,7 @@ class ChatStatic extends React.Component {
                         </div>
                     </div> : ""
                 }
-
+                
             </div>
 
         )
