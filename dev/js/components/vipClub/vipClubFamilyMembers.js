@@ -146,7 +146,7 @@ class VipProposerFamily extends React.Component {
 					</div> 
 				</div>
 
-				<div className='widget' style={{padding:'10px'}} >
+				<div className='widget goldUserAddon' style={{padding:'10px'}} >
 					<div className="d-flex">
                         <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Male</p>
                         <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Female</p>

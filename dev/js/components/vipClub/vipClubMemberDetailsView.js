@@ -616,10 +616,10 @@ class VipClubMemberDetailsView extends React.Component {
 								<div>
 									<div className="insurance-member-container" style={{ padding: 0 }}>
 										<h4 className="mb-0" style={{ padding: '2px 0px 6px' }}>Member Details</h4>
-										{this.props.is_from_payment ? <div className="vip-wrng-mssg">
-											<span>Member details can’t be edited after submission</span>
-										</div> : ''}
-										<div className="widget" style={{ padding: '10px' }}>
+										<div className="vip-wrng-mssg">
+										{this.props.is_from_payment ?<span>Member details can’t be edited after submission</span>: <span>Gold Membership plan will be activated on the below profile mobile number and can add more members later</span>}
+										</div> 
+										<div className="widget goldUserAddon" style={{ padding: '10px' }}>
 											<div className={` insurance-member-details ${this.props.is_from_payment ? '' : 'mrt-20'}`}>
 												{!this.props.is_from_payment ? <VipProposer {...this.props}
 													id={`member_${proposer_id}`}

@@ -386,10 +386,15 @@ class VipProposer extends React.Component {
 								commonMsgSpan : ''
 						}
 					</div>*/}
-					{!isDummyUser?<div className="sub-form-hed-click" onClick={() => this.setState({
+					{!isDummyUser?<div className="col-12">
+						<div className="orSeparator">
+							<span>or</span>
+						</div>
+						<div className="sub-form-hed-click" style={{justifyContent: 'space-between'}} onClick={() => this.setState({
 							showPopup: true, profile_flag:true})}>
-							Select from profile
+							Select Profile/Add New Profile
 							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+					</div>
 					</div>:''}
 				</div>
 				{
