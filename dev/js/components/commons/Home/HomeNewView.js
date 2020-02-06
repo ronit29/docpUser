@@ -39,22 +39,25 @@ class MainView extends React.Component{
 
     render(){
         return(
-            <div className="new-home-page">
+            <div className="container-fluid p-0">
                 {/* header */}
                 <ProfileHeader></ProfileHeader>
                 {/* header */}
                 
                 {/* homepage  view */}
+                <div className="new-main-view">
+                    {/* full width banner */}
+                    <section className="full-banner-section">
+                        <a href="">special plans available for Corporates</a>
+                    </section>
 
-                {/* full width banner */}
-                <section className="full-banner-section" style={{marginTop: 68}}>
-                    <a href="">special plans available for Corporates</a>
-                </section>
+                    {/* top hospitals */}
+                    <section className="top-hospitals-row">
+                        
+                    </section>
 
-                {/* top hospitals */}
-                <section className="top-hospitals-row">
-
-                </section>
+                    <Accordian></Accordian>
+                </div>
                 {/* homepage  view */}
 
                 {/* footer */}

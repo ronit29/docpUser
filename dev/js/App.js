@@ -36,6 +36,7 @@ require('react-image-lightbox/style.css')
 // require('./helpers/lightbox/style.css')
 require('../css/date.css')
 require('../css/CommonHeader.css');
+require('../css/home-new-view.css');
 require('../css/style.css')
 
 const logPageView = () => {

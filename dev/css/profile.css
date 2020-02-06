@@ -843,7 +843,6 @@
 .profile-footer{
 	width: 100%;
 	background-color: #ffffff;
-	margin-top: 40px;
 }
 
 .footer-1{
@@ -1004,9 +1003,6 @@
 	.center-column{
 		padding-left: 0;
 		padding-right: 0;
-	}
-	.profile-footer{
-		margin-top: 20px;
 	}
 	.footer-3-list{
 		padding: 0 10px;
