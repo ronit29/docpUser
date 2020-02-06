@@ -263,7 +263,7 @@ class AppointmentSlot extends React.Component {
                             }
                             <button disabled={!this.state.enableProceed} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn sticky-btn">Select</button>
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" />
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" msgTemplate="AppoitnmentSlotOpdPage"/>
                     </div>
                 </section>
                 <Disclaimer />

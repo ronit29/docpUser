@@ -1705,7 +1705,7 @@ class ThyrocarePackageView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" msgTemplate="ThyrocarePackagePage"/>
                     </div>
                     {
                             (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?

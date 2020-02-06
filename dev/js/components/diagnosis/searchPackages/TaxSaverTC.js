@@ -67,7 +67,7 @@ class TaxSaverTC extends React.Component {
                                 </div>
                             </section>
                         </div>
-                        <RightBar />
+                        <RightBar msgTemplate="TaxSaverPage"/>
                     </div>
                 </section>
             </div>

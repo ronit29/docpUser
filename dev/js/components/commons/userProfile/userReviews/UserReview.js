@@ -72,7 +72,7 @@ class UserReview extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar />
+                        <RightBar msgTemplate="UserPage"/>
                     </div>
                 </section>
                 <Disclaimer />

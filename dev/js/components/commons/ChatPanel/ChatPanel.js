@@ -528,6 +528,22 @@ class ChatPanel extends React.Component {
         this.toggleRefundPopup()
     }
 
+    sendPageUrl = ()=>{
+        let data = {
+            callback: window.location.pathname+window.location.search,
+            template: this.props.msgTemplate?this.props.msgTemplate:'common'
+        }
+        this.props.sendAgentWhatsupPageURL(data).then((resp)=>{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Sent Successfully" })
+            }, 500)
+        }).catch((e)=>{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Try again!" })
+            }, 500)
+        })
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -861,7 +877,12 @@ class ChatPanel extends React.Component {
                             //         }
                             //     </div> : ''
                         }
-
+                        {
+                            STORAGE.isAgent()?
+                            <button onClick={this.sendPageUrl} className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Send on Whatsapp</button>
+                            :''
+                        }
+                        
                     </div>
                 </React.Fragment>
             );

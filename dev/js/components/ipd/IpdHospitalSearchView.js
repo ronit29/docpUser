@@ -354,7 +354,7 @@ class IpdHospitalView extends React.Component{
                                         
                                     </div>
                                 </div>
-                                <RightBar extraClass=" chat-float-btn-2"/>
+                                <RightBar extraClass=" chat-float-btn-2" msgTemplate="IpdHospitalPage"/>
                             </div>
                         </section>
                         :<Loader />

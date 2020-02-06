@@ -254,8 +254,8 @@ class LocationSearch extends React.Component {
 
                         {
                             this.props.location.search && this.props.location.search.includes('?lab_card=true') ?
-                                <RightBar extraClass=" chat-float-btn-2" /> :
-                                <RightBar />
+                                <RightBar extraClass=" chat-float-btn-2" msgTemplate="LocationSearchPage"/> :
+                                <RightBar msgTemplate="LocationSearchPage"/>
                         }
                     </div>
                 </section>

@@ -621,7 +621,7 @@ class BookingView extends React.Component {
                             }
 
                         </div>
-                        <RightBar />
+                        <RightBar msgTemplate="LabBookingPage"/>
                     </div>
                 </section>
                 <Disclaimer />

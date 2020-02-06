@@ -160,7 +160,7 @@ class ReferralView extends React.Component {
                             </div>
 
                         </div>
-                        <RightBar noChatButton={true} />
+                        <RightBar noChatButton={true} msgTemplate="RefferalPage"/>
                     </div>
                 </section>
                 <Disclaimer />

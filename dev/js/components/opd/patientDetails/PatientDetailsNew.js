@@ -2410,7 +2410,7 @@ class PatientDetailsNew extends React.Component {
                                         <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                                 }
 
-                                <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showDesktopIpd={true} />
+                                <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showDesktopIpd={true} msgTemplate="doctorSummaryPage"/>
                             </div>
                         </section>
                 }

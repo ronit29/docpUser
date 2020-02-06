@@ -192,7 +192,7 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	proceedPlan(isSms) { //new
+	proceedPlan(isSms, extraDataParams={}) { //new
 		let success_id
 		let data = {}
 		let pushData = {}
@@ -438,7 +438,7 @@ class VipClubMemberDetailsView extends React.Component {
 
 
 							if (isSms) {
-								this.sendSMS()
+								this.sendSMS(extraDataParams)
 							} else {
 								this.props.vipClubPay(data, (resp) => { // to request for payment
 
@@ -567,9 +567,12 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	sendSMS() {
+	sendSMS(extraDataParams) {
 		let parsed = queryString.parse(this.props.location.search)
 		let extraParams = {}
+		if(extraDataParams && extraDataParams.sendOnWhatsup){
+			extraParams['message_medium'] = 'WHATSAPP';
+		}
 		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, extraParams, (err, res) => { //send payment link in sms to user by agaent
 			if (err) {
 				SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
@@ -848,9 +851,14 @@ class VipClubMemberDetailsView extends React.Component {
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true)}>Send SMS
-										<span className="foot-btn-sub-span"></span>
-										</button>
+										<React.Fragment>
+											<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true)}>Send SMS
+											<span className="foot-btn-sub-span"></span>
+											</button>
+											<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true, {sendOnWhatsup: true})}>Send on Whatsapp
+											<span className="foot-btn-sub-span"></span>
+											</button>
+										</React.Fragment>
 										: ''
 
 							}

@@ -218,8 +218,8 @@ class CartView extends React.Component {
         return `Confirm Booking`
     }
 
-    sendAgentBookingURL() { // send payment link to user in case of agent booking 
-        let extraParams = {}
+    sendAgentBookingURL(dataParams={}) { // send payment link to user in case of agent booking 
+        let extraParams = {...dataParams}
         this.props.sendAgentBookingURL(null, 'sms', null,null, extraParams, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
@@ -486,7 +486,8 @@ class CartView extends React.Component {
 
                                         {
                                             (STORAGE.isAgent() || this.state.isMatrix) && !is_cod_applicable ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                                <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS EMAIL</button>
+                                                <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this, {})}>Send SMS EMAIL</button>
+                                                <button className="add-shpng-cart-btn" onClick={ this.sendAgentBookingURL.bind(this, {message_medium: 'WHATSAPP'} ) }>Send on Whatsapp</button>
                                             </div> : ""
                                         }
 
@@ -509,7 +510,7 @@ class CartView extends React.Component {
                                 }
                             </div>
                         </div>
-                        <RightBar noChatButton={true} />
+                        <RightBar noChatButton={true} msgTemplate="CartPage"/>
                     </div>
                 </section>
                 <Disclaimer />

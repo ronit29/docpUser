@@ -85,7 +85,7 @@ class NotificationsView extends React.Component {
 
                         </div>
 
-                        <RightBar noChatButton={true} />
+                        <RightBar noChatButton={true} msgTemplate="NotificationPage"/>
                     </div>
                 </section>
                 <Disclaimer />
