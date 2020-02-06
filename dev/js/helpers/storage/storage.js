@@ -113,7 +113,7 @@ const STORAGE = {
         return Promise.resolve()
     },
     isAgent: () => {
-        return true;
+        //return true;
         let token = getCookie('tokenauth')
         if (token) {
             let jwtData = parseJwt(token)

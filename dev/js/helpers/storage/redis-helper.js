@@ -9,6 +9,12 @@ try{
 	    host      : CONFIG.REDIS_HOST,  // replace with your hostanme or IP address
 	    password  : undefined,    // replace with your password
 	  });
+
+	if(client) {
+		client.on("error", function (err) {
+		    console.log("Error " + err);
+		});
+	}
 }catch(e){
 
 }
