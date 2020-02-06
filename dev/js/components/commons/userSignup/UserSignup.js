@@ -45,7 +45,16 @@ class UserSignupView extends React.Component {
             dateModal: false,
             whatsapp_optin:true,
             isDobValidated:false,
-            is_dob_error:false
+            is_dob_error:false,
+            primary_profile:{}
+        }
+    }
+
+    componentDidMount(){
+        let default_profile
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.defaultProfile && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0){ 
+               default_profile = this.props.USER.profiles[this.props.USER.defaultProfile]   
+               this.setState({primary_profile:default_profile})
         }
     }
 
@@ -238,7 +247,7 @@ class UserSignupView extends React.Component {
                                                                         />
                                                                     </div></div> : ""
                                                                 }
-                                                                {!this.state.existingUser?<div className="labelWrap">
+                                                                {this.state.primary_profile && Object.keys(this.state.primary_profile).length > 0 && !this.state.primary_profile.email ?<div className="labelWrap">
                                                                     <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="email">Email</label>
                                                                 </div>:''}
