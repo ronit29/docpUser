@@ -470,7 +470,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(4) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(4) > -1 ? 'd-none' : ''}`}>
-                                                                After completion of a pathology lab appointment, you will have the option to consult with our panel of doctors for free & get your lab report reviewed.
+                                                                    After completion of a pathology lab appointment, you will have the option to consult with our panel of doctors for free & get your lab report reviewed.
                                                                 </p>
                                                             </div>
 
@@ -569,20 +569,22 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            {
+                                this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                        <p>Continue</p>
+                                    </button>
+                            }
+                            {
+                                STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                            }
+                        </div>
 
-                        {
-                            this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                <button className="vip-foot-btn p-3" onClick={this.goBack.bind(this)}>
-                                    <p>Continue Booking</p>
-                                </button>
-                                :
-                                <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
-                                    <p>Continue</p>
-                                </button>
-                        }
-                        {
-                            STORAGE.isAgent()?<button className="add-shpng-cart-btn" onClick={ this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp</button>:''
-                        }
                     </section>
                 </React.Fragment>
                 : <div></div>
