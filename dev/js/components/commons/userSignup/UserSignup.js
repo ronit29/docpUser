@@ -105,14 +105,14 @@ class UserSignupView extends React.Component {
                     }
                     break
                 }
-                case "phone_number": {
-                    if (!!this.refs[prp].value) {
-                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
-                    } else {
-                        validated = true
-                    }
-                    break
-                }
+                // case "phone_number": {
+                //     if (!!this.refs[prp].value) {
+                //         validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
+                //     } else {
+                //         validated = true
+                //     }
+                //     break
+                // }
                 case "email": {
                     if (!this.refs[prp].value) {
                         validated = false
@@ -197,56 +197,8 @@ class UserSignupView extends React.Component {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-12">
-                                        {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">{this.state.existingUser ? "Add Profile" : "Signup User"}</div>
-                                        </div>
-                                        <div className="col-2">
-                                            {
-                                                this.state.showMedical ? <div onClick={() => {
-                                                    const parsed = queryString.parse(this.props.location.search)
-                                                    if (parsed.callback) {
-                                                        this.props.history.replace(parsed.callback)
-                                                    } else {
-                                                        this.props.history.go(-1)
-                                                    }
-                                                }} className="header-title fw-700 capitalize text-center text-primary">Skip</div> : ""
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
 
                                         <section className="validation-book-screen">
-
-                                            {/* <div style={stepperStyle}>
-    <div className="col-12">
-        <div className="app-timeline book-confirmed-timeline">
-            <ul className="inline-list">
-                <li className={!this.state.showMedical ? "active" : ""}>
-                    <span className="dot">1</span>
-                    <p className="text-sm fw-700 text-light">Details</p>
-                </li>
-                <li>
-
-                </li>
-                <li className={this.state.showMedical ? "active" : ""}>
-                    <span className="dot">2</span>
-                    <p className="text-sm fw-700 text-light">Medical</p>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div> */}
 
                                             {
                                                 !this.state.showMedical ?
@@ -254,9 +206,13 @@ class UserSignupView extends React.Component {
                                                         <div className="widget-content">
                                                             <form className="go-bottom" >
 
-                                                                <div className="labelWrap">
+                                                                {/*<div className="labelWrap">
                                                                     <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="number">Mobile Number</label>
+                                                                </div>*/}
+                                                                <div className="d-flex">
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={this.inputHandler.bind(this)}>Male</p>
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={this.inputHandler.bind(this)}>Female</p>
                                                                 </div>
                                                                 <div className="labelWrap">
                                                                     <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
@@ -282,34 +238,20 @@ class UserSignupView extends React.Component {
                                                                         />
                                                                     </div></div> : ""
                                                                 }
-                                                                <div className="form-group input-group">
-                                                                    <label className="inline input-label">Gender</label>
-                                                                    <div className="choose-gender slt-label-radio">
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Male<input value={'m'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'm'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Female<input value={'f'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'f'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Other<input value={'o'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'o'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="labelWrap">
+                                                                {!this.state.existingUser?<div className="labelWrap">
                                                                     <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="email">Email</label>
-                                                                </div>
-                                                                <div className="referral-select">
+                                                                </div>:''}
+                                                                {/*<div className="referral-select">
                                                                     <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
-                                                                </div>
+                                                                </div>*/}
 
                                                                 {
-                                                                    this.state.have_referralCode ? <div className="referralContainer">
+                                                                    /*this.state.have_referralCode ? <div className="referralContainer">
                                                                         <div className="slt-nw-input">
                                                                             <input style={{ paddingRight: '80px' }} type="text" className="slt-text-input" onChange={this.inputHandler.bind(this)} placeholder="Enter here" name="referralCode" value={this.state.referralCode} />
                                                                         </div>
-                                                                    </div> : ""
+                                                                    </div> : ""*/
                                                                 }
                                                             </form>
                                                         </div>

@@ -31,14 +31,21 @@ class LeftMenu extends React.Component {
     let memStatus = 'New'
     let user_insurance_status = false
     let user_ins_status
+    let is_user_gold_member = false 
     if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 
       user = this.props.profiles[this.props.defaultProfile]
       thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
       user_insurance_status = this.props.profiles[this.props.defaultProfile].is_insured
       user_ins_status = this.props.profiles[this.props.defaultProfile].insurance_status
+      is_user_gold_member = this.props.profiles[this.props.defaultProfile].is_vip_gold_member
     }
     if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
+      memberClass = 'float-right memAct'
+      memStatus = 'Active'
+    }
+
+    if (is_user_gold_member) {
       memberClass = 'float-right memAct'
       memStatus = 'Active'
     }
@@ -90,7 +97,7 @@ class LeftMenu extends React.Component {
                             this.props.clearVipSelectedPlan()
                             this.props.toggleLeftMenu()
                             this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
-                          }} href="#"><img style={{ position: 'relative', top: '15px' }} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
+                          }} href="#"><img style={{ position: 'relative', top: '15px' }} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold {is_user_gold_member?<span className={memberClass}>{memStatus}</span>:''}<span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
                           : ''}
                       {
                         CONFIG.ENABLE_VIP_CLUB && user && user.is_vip_member && !user.is_vip_gold_member?

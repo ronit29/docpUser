@@ -120,7 +120,9 @@ class UserFamily extends React.Component {
                             <p className="fw-500 text-lg mrt-20">No Family Member Added !!</p>
                         </div> : ""
                 }
-                <button onClick={this.addProfile.bind(this)} className="v-btn v-btn-primary btn-lg add-more-members-btn">+</button>
+                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container mrng-top-20">
+                    <button onClick={this.addProfile.bind(this)} className="v-btn-primary book-btn-mrgn-adjust ">Add New Member</button>
+                </div>
             </div>
         );
     }
