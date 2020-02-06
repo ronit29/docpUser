@@ -879,7 +879,7 @@ class ChatPanel extends React.Component {
                             //     </div> : ''
                         }
                         {
-                            STORAGE.isAgent() && !this.props.homePage?
+                            STORAGE.isAgent() && !this.props.homePage && this.props.msgTemplate?
                             <button onClick={this.sendPageUrl} className="whtsappPages"><img src={ASSETS_BASE_URL + '/img/wa-logo.svg'} />Send on Whatsapp</button>
                             :''
                         }
