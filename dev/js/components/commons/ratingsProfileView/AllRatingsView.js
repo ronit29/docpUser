@@ -88,7 +88,7 @@ class AllRatingsView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar msgTemplate="AllRatingPage"/>
+                        <RightBar msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

@@ -869,7 +869,7 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true} msgTemplate="DoctorProfilePage"/>
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Footer footerData={this.state.footerData} />

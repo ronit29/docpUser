@@ -218,7 +218,7 @@ class LabView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" type="lab" msgTemplate="LabViewPage"/>
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" msgTemplate="gold_general_template"/>
                     </div>
                 </section>
 

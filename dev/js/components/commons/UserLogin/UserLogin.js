@@ -262,7 +262,7 @@ class UserLoginView extends React.Component {
 
                         </div>
 
-                        <RightBar noChatButton={true} msgTemplate="UserPage"/>
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
                 <Disclaimer />

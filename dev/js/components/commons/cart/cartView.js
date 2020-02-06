@@ -510,7 +510,7 @@ class CartView extends React.Component {
                                 }
                             </div>
                         </div>
-                        <RightBar noChatButton={true} msgTemplate="CartPage"/>
+                        <RightBar noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

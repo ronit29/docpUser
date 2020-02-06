@@ -124,7 +124,7 @@ class UserProfileView extends React.Component {
 
                         </div>
 
-                        <RightBar noChatButton={true} extraClass={(this.props.location.pathname.includes('/family') || this.props.location.pathname.includes('/address')) ? " chat-float-btn-3" : (this.props.location.pathname.includes('/edit') ? " chat-float-btn-2" : "")} msgTemplate="UserPage"/>
+                        <RightBar noChatButton={true} extraClass={(this.props.location.pathname.includes('/family') || this.props.location.pathname.includes('/address')) ? " chat-float-btn-3" : (this.props.location.pathname.includes('/edit') ? " chat-float-btn-2" : "")} />
                     </div>
                 </section>
                 <Disclaimer />

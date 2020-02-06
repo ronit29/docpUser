@@ -192,7 +192,7 @@ class OffersView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar noChatButton={true} msgTemplate="OffersPage"/>
+                        <RightBar noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Footer />

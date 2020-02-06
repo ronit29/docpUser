@@ -98,6 +98,22 @@ class VipGoldView extends React.Component {
         }
     }
 
+    sendPageUrl = () => {
+        let data = {
+            callback: window.location.pathname + window.location.search,
+            template: 'gold_payment_template'
+        }
+        this.props.sendAgentWhatsupPageURL(data).then((resp) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Sent Successfully" })
+            }, 500)
+        }).catch((e) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Try again!" })
+            }, 500)
+        })
+    }
+
 
     render() {
         let self = this
@@ -563,6 +579,9 @@ class VipGoldView extends React.Component {
                                 <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
                                     <p>Continue</p>
                                 </button>
+                        }
+                        {
+                            STORAGE.isAgent()?<button className="add-shpng-cart-btn" onClick={ this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp</button>:''
                         }
                     </section>
                 </React.Fragment>

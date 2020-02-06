@@ -334,7 +334,7 @@ class UserSignupView extends React.Component {
                             </div>
                         </div>
 
-                        <RightBar noChatButton={true} msgTemplate="UserPage"/>
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
                 <Disclaimer />

@@ -166,7 +166,7 @@ class WalletView extends React.Component {
                             }
 
                         </div>
-                        <RightBar noChatButton={true} msgTemplate="WalletPage"/>
+                        <RightBar noChatButton={true} />
                     </div>
                 </section>
                 <Disclaimer />

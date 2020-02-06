@@ -38,7 +38,7 @@ class IpdDetailView extends React.Component {
                     		}
 	                    	
 	                    </div>
-	                    <RightBar msgTemplate="IpdDetailPage"/>
+	                    <RightBar msgTemplate="gold_general_template"/>
 	                </div>
 
 	            </section>
