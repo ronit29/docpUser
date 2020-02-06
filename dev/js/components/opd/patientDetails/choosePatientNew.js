@@ -459,7 +459,7 @@ class ChoosePatientNewView extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <p className="get-otp" onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
+                                        <p className={`get-otp ${this.state.otpTimeout?'otp-rsnd-active':'otp-rsnd click-disable'}`} onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
                                     </div>
                                 :""}
                                 <div className= {`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin?'otpLogin':''}`} >
