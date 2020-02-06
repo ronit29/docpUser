@@ -487,7 +487,7 @@ class CartView extends React.Component {
                                         {
                                             (STORAGE.isAgent() || this.state.isMatrix) && !is_cod_applicable ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this, {})}>Send SMS EMAIL</button>
-                                                <button className="add-shpng-cart-btn" onClick={ this.sendAgentBookingURL.bind(this, {message_medium: 'WHATSAPP'} ) }>Send on Whatsapp</button>
+                                                <button className="add-shpng-cart-btn" onClick={ this.sendAgentBookingURL.bind(this, {message_medium: 'WHATSAPP'} ) }><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp</button>
                                             </div> : ""
                                         }
 
