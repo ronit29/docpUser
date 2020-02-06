@@ -220,8 +220,8 @@ class UserSignupView extends React.Component {
                                                                     <label htmlFor="number">Mobile Number</label>
                                                                 </div>*/}
                                                                 <div className="d-flex">
-                                                                    <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={this.inputHandler.bind(this)}>Male</p>
-                                                                    <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={this.inputHandler.bind(this)}>Female</p>
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })}>Male</p>
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })}>Female</p>
                                                                 </div>
                                                                 <div className="labelWrap">
                                                                     <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
