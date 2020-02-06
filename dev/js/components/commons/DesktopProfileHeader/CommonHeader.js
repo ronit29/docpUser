@@ -444,7 +444,7 @@ class DesktopProfileHeader extends React.Component {
                     <div className="container-fluid d-flex justify-content-between align-item-center top-header" id="headerTop">
                         <h6>
                             <span>Group company of </span>
-                            <img src={ASSETS_BASE_URL + "/img/pb-logo.png"}  height="18px"/>
+                            <img src={ASSETS_BASE_URL + "/img/logo-pg.png"}  height="18px"/>
                         </h6>
                         <a id="downIcon" className="down-list" onClick={this.d_list}>
                         </a>
