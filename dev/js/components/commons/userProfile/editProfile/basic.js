@@ -23,6 +23,10 @@ class BasicDetails extends React.Component {
         this.props.updateProfile(key, e.target.value)
     }
 
+    handleGender(val){
+        this.props.updateProfile('gender',val)
+    }
+
     pickFile(e) {
         if (e.target.files && e.target.files[0]) {
             const compress = new Compress()
@@ -157,17 +161,13 @@ class BasicDetails extends React.Component {
                     this.state.loading ? <Loader /> : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
                             <form className="go-bottom">
+                                <div className="d-flex mb-3">
+                                    <p className={`label-names-buttons ${gender == 'm'?'btn-active':''}`} name="gender" checked={gender == 'm'} onClick={this.handleGender.bind(this,"m")}>Male</p>
+                                    <p className={`label-names-buttons ${gender == 'f'?'btn-active':''}`} name="gender" checked={gender == 'f'} onClick={this.handleGender.bind(this,'f')}>Female</p>
+                                </div>
                                 <div className="labelWrap">
                                     <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="fname">Name</label>
-                                </div>
-                                <div className="form-group input-group">
-                                    <label className="inline input-label">Gender</label>
-                                    <div className="choose-gender">
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "m"} value={'m'} onChange={this.handleChange.bind(this, 'gender')} />Male</label>
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "f"} value={'f'} onChange={this.handleChange.bind(this, 'gender')} />Female</label>
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
-                                    </div>
                                 </div>
                                 {/*<div className="labelWrap">
                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate == ''?dob:this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
