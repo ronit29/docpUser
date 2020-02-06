@@ -529,11 +529,11 @@ class PatientDetailsNew extends React.Component {
             }
         }
         //Check if patient emailid exist or not
-        if (patient && !patient.email) {
-            this.setState({ isEmailNotValid: true })
-            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-            return
-        }
+        // if (patient && !patient.email) {
+        //     this.setState({ isEmailNotValid: true })
+        //     SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+        //     return
+        // }
         //Check if patient dob exist or not
         if (patient && !patient.dob) {
             this.setState({ isDobNotValid: true })
