@@ -634,7 +634,7 @@ class DesktopProfileHeader extends React.Component {
                                     }
                                 </li>
                                 <li className="ml-3 d-none d-sm-block d-lg-block">
-                                    <a className="d-flex align-item-center" onClick={() => {
+                                    <a className="d-flex align-item-center" style={{position: 'relative'}} onClick={() => {
                                             this.props.history.push('/notifications')
                                         }}>
                                         {
@@ -645,7 +645,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                         <span className="d-none d-sm-block d-lg-block">notifications</span>
                                         {
-                                            this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                            this.props.newNotification > 0 ? <span className="cart-count-notify" style={{left: -5, top: -6}}>{this.props.newNotification}</span> : ""
                                         }
                                     </a>
                                 </li>
