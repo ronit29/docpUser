@@ -29,10 +29,10 @@ class ChoosePatientNewView extends React.Component {
             isNewPatient: false,
             is_dob_error: null,
             isDobValidated: false,
-            otp:null,
-            showLogin:false,
-            askUserDetails:false,
-            otpTimeout:false
+            otp: null,
+            showLogin: false,
+            askUserDetails: false,
+            otpTimeout: false
         }
     }
 
@@ -41,7 +41,7 @@ class ChoosePatientNewView extends React.Component {
 
             if (this.props.saved_patient_details && Object.keys(this.props.saved_patient_details).length) {
 
-                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false,showLogin:false,otp:null }, () => {
+                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false, showLogin: false, otp: null }, () => {
                     this.profileValidation()
                 })
 
@@ -56,7 +56,7 @@ class ChoosePatientNewView extends React.Component {
                 let popup1 = nextProps.ipdPopupData['popup1']
 
                 if (popup1 && Object.keys(popup1).length && popup1.doctor == this.props.selectedDoctor) {
-                    this.setState({ name: popup1 && popup1.first_name ? popup1.first_name : '', phoneNumber: popup1 && popup1.phone_number ? popup1.phone_number : '', gender: popup1 && popup1.gender ? popup1.gender : '', showVerify: popup1 && popup1.phone_number.length == 10?true:false, isPopupDataFilled: true, showLogin:false,otp:null }, () => {
+                    this.setState({ name: popup1 && popup1.first_name ? popup1.first_name : '', phoneNumber: popup1 && popup1.phone_number ? popup1.phone_number : '', gender: popup1 && popup1.gender ? popup1.gender : '', showVerify: popup1 && popup1.phone_number.length == 10 ? true : false, isPopupDataFilled: true, showLogin: false, otp: null }, () => {
                         this.profileValidation()
                     })
                 }
@@ -144,7 +144,7 @@ class ChoosePatientNewView extends React.Component {
                         }
                         self.props.submitIPDForm(formData, this.props.selectedLocation)
                     }
-                    if(response.user_exists == 1){
+                    if (response.user_exists == 1) {
                         self.props.getUserProfile().then(() => {
                             if (self.props.is_lab) {
                                 self.props.checkPrescription()
@@ -297,7 +297,7 @@ class ChoosePatientNewView extends React.Component {
                     // } else {
                     //     this.setState({ enableOtpRequest: true })
                     // }
-                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false, showLogin:true,enableOtpRequest: true,enableOtpRequest: false,otpTimeout: false },() => {
+                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false, showLogin: true, enableOtpRequest: true, enableOtpRequest: false, otpTimeout: false }, () => {
                         self.resendOtpCountDown()
                     })
                     // setTimeout(() => {
@@ -322,13 +322,13 @@ class ChoosePatientNewView extends React.Component {
         })
     }
 
-    editPhoneNumber(){
-        this.setState({showOtp:false,showLogin:false,otp:null})
+    editPhoneNumber() {
+        this.setState({ showOtp: false, showLogin: false, otp: null })
         document.getElementById('otpMob').focus();
     }
 
-    addUserProfile(){ //new logic
-       if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
+    addUserProfile() { //new logic
+        if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
             setTimeout(() => {
                 if (!this.state.name) {
                     SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
@@ -372,7 +372,7 @@ class ChoosePatientNewView extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
             }, 500)
             return
-        } 
+        }
 
         this.props.profileDataCompleted(this.state)
         this.props.createProfile(this.state, (err, res) => {
@@ -391,28 +391,28 @@ class ChoosePatientNewView extends React.Component {
         })
     }
 
-    resendOtpCountDown(){
+    resendOtpCountDown() {
         let self = this
         var timeLeft = 59;
         var timerId = setInterval(countdown, 1000);
         let timeElm = document.getElementById('timeElm');
         function countdown() {
-          if (timeLeft == 0) {
-            if(timeElm){
-                timeElm.innerHTML = '';
-            }
-            self.setState({otpTimeout:true})
-            clearTimeout(timerId);
-          } else {
-            if(timeElm){
-                if(timeLeft < 10){
-                    timeElm.innerHTML = '00:'+ '0'+timeLeft;
-                }else{
-                    timeElm.innerHTML = '00:'+ timeLeft;
+            if (timeLeft == 0) {
+                if (timeElm) {
+                    timeElm.innerHTML = '';
                 }
+                self.setState({ otpTimeout: true })
+                clearTimeout(timerId);
+            } else {
+                if (timeElm) {
+                    if (timeLeft < 10) {
+                        timeElm.innerHTML = '00:' + '0' + timeLeft;
+                    } else {
+                        timeElm.innerHTML = '00:' + timeLeft;
+                    }
+                }
+                timeLeft--;
             }
-            timeLeft--;
-          }
         }
     }
 
@@ -421,163 +421,163 @@ class ChoosePatientNewView extends React.Component {
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {/* =================== New Login Flow Start =================== */}
-                {!this.props.patient?
-                <div className="widget-content">
-                    {!STORAGE.checkAuth() && !this.props.patient?
-                    <React.Fragment>
-                        <div className="otp-heading">
-                            <h4 className="title d-flex mb-0">
-                                Please enter your mobile number
+                {!this.props.patient ?
+                    <div className="widget-content">
+                        {!STORAGE.checkAuth() && !this.props.patient ?
+                            <React.Fragment>
+                                <div className="otp-heading">
+                                    <h4 className="title d-flex mb-0">
+                                        Please enter your mobile number
                             </h4>
-                            <p className="otp-sub-heading">Appointment details will be sent to this number</p>
-                        </div>
-                        <div className="otp-container">
-                            <form> {/* =================== otp section ===================*/}
-                                <div className="labelWrap">
-                                    <div className="p-relative">
-                                        <input type="number" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
-                                        <label for="otpMob">Mobile number</label>
-                                        {
-                                            this.state.showOtp?
-                                            <button className="otp-edit" onClick={(e) =>{e.preventDefault(); this.editPhoneNumber()}}>Edit</button>
-                                            :''
-                                        }
-                                    </div>
+                                    <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                                 </div>
-                                {
-                                    this.state.showOtp ?
-                                    <div className="labelWrap">
-                                        <div className="p-relative">
-                                            <input type="number" required id="otpNumber" autoComplete="off" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" value={this.state.otp}/>
-                                            <label for="otpNumber">Enter 6 digit OTP</label>
-                                            <div className="otp-edit">
-                                                {this.state.enableOtpRequest ? ''
-                                                :<React.Fragment>
-                                                <p className= {` ${this.state.otpTimeout?'otp-rsnd-active':'otp-rsnd click-disable'}`} onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}}>Resend</p>
-                                                <span className="otp-timer" id="timeElm"></span>
-                                                </React.Fragment>
+                                <div className="otp-container">
+                                    <form> {/* =================== otp section ===================*/}
+                                        <div className="labelWrap">
+                                            <div className="p-relative">
+                                                <input type="number" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp ? 'click-disable' : ''} />
+                                                <label for="otpMob">Mobile number</label>
+                                                {
+                                                    this.state.showOtp ?
+                                                        <button className="otp-edit" onClick={(e) => { e.preventDefault(); this.editPhoneNumber() }}>Edit</button>
+                                                        : ''
                                                 }
                                             </div>
                                         </div>
-                                        <p className="get-otp" onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
-                                    </div>
-                                :""}
-                                <div className= {`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin?'otpLogin':''}`} >
-                                    {
-                                        this.state.showLogin?
-                                        <button className="otp-login-btn" onClick={(e) =>{e.preventDefault(); this.submitOTPRequest()}}>
-                                        Login
+                                        {
+                                            this.state.showOtp ?
+                                                <div className="labelWrap">
+                                                    <div className="p-relative">
+                                                        <input type="number" required id="otpNumber" autoComplete="off" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" value={this.state.otp} />
+                                                        <label for="otpNumber">Enter 6 digit OTP</label>
+                                                        <div className="otp-edit">
+                                                            {this.state.enableOtpRequest ? ''
+                                                                : <React.Fragment>
+                                                                    <p className={` ${this.state.otpTimeout ? 'otp-rsnd-active' : 'otp-rsnd click-disable'}`} onClick={(e) => { e.preventDefault(); this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false) }}>Resend</p>
+                                                                    <span className="otp-timer" id="timeElm"></span>
+                                                                </React.Fragment>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <p className="get-otp" onClick={(e) => { e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true) }}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
+                                                </div>
+                                                : ""}
+                                        <div className={`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin ? 'otpLogin' : ''}`} >
+                                            {
+                                                this.state.showLogin ?
+                                                    <button className="otp-login-btn" onClick={(e) => { e.preventDefault(); this.submitOTPRequest() }}>
+                                                        Login
                                         </button>
-                                        :<React.Fragment>
-                                        <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
-                                            <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
-                                        <button className="input-sms-ver mr-0" onClick={(e) => {e.preventDefault(); this.verify(false, true, false)}}>
-                                            <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
-                                        </React.Fragment>
+                                                    : <React.Fragment>
+                                                        <button className="input-sms-whts" onClick={(e) => { e.preventDefault(); this.verify(false, false, true) }}>
+                                                            <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
+                                                        <button className="input-sms-ver mr-0" onClick={(e) => { e.preventDefault(); this.verify(false, true, false) }}>
+                                                            <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
+                                                    </React.Fragment>
+                                            }
+                                        </div>
+                                        <p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>
+                                    </form>
+                                </div>
+                            </React.Fragment>
+                            : STORAGE.checkAuth() && !this.props.patient ?
+                                <React.Fragment>
+                                    <div className="otp-heading">
+                                        <h4 className="title d-flex"><span>
+                                            <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                        </span>Patient Details</h4>
+                                    </div>
+                                    <div className="otp-container">
+                                        <form> {/* =================== patient details section ===================*/}
+                                            <div className="labelWrap">
+                                                <div className="p-relative">
+                                                    <input type="number" id="otpMobver" className="click-disable" value={this.props.user_loggedIn_number ? this.props.user_loggedIn_number : this.state.phoneNumber ? this.state.phoneNumber : ''} autoComplete="off" />
+                                                    <label for="otpMobver">Mobile number</label>
+                                                    <p className="num-verified"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/chk-green.svg'} /> Verified</p>
+                                                </div>
+                                            </div>
+                                            <div className="d-flex">
+                                                <p className={`label-names-buttons ${this.state.gender == 'm' ? 'btn-active' : ''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)}>Male</p>
+                                                <p className={`label-names-buttons ${this.state.gender == 'f' ? 'btn-active' : ''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)}>Female</p>
+                                            </div>
+                                            <div className="labelWrap">
+                                                <div className="p-relative">
+                                                    <input type="text" required id="ptntName" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off" />
+                                                    <label for="ptntName">Name</label>
+                                                </div>
+                                            </div>
+                                            {/* date section */}
+                                            <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
+
+                                            <div className="labelWrap">
+                                                <div className="p-relative">
+                                                    <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off" />
+                                                    <label for="ptntEmail">Email</label>
+                                                </div>
+                                            </div>
+                                            <div className="text-center">
+                                                <button type="button" className="ptnt-dtls-cnfrm" onClick={(e) => { e.preventDefault(); this.addUserProfile() }}>Confirm</button>
+
+                                            </div>
+                                        </form>
+                                        {/* =================== patient details section ===================*/}
+                                    </div>
+                                </React.Fragment>
+                                : ''}
+                    </div>
+                    : <div className="widget-content">
+                        <div className="lab-visit-time d-flex jc-spaceb">
+                            <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
+                                <h4 className="title d-flex"><span>
+                                    <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                </span>Patient</h4>
+                            </div>
+                            <div className="mbl-view-formatting text-right">
+                                <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
+                            </div>
+                        </div>
+                        {(this.props.is_opd || this.props.is_lab) && (!this.props.patient.email || !this.props.patient.dob) ?
+                            <div className="otp-container">
+                                <form>
+                                    {!this.props.patient.email ?
+                                        <div className="labelWrap">
+                                            <div className="p-relative">
+                                                <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" autoComplete="off" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { border: '1px solid red' } : {}} />
+                                                <label for="ptntEmail">Email</label>
+                                            </div>
+                                        </div>
+                                        : ''
                                     }
-
-                                </div>  
-                            </form>
-                        </div>
-                    </React.Fragment>
-                    :STORAGE.checkAuth() && !this.props.patient?
-                    <React.Fragment>
-                        <div className="otp-heading">
-                            <h4 className="title d-flex"><span>
-                                <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
-                            </span>Patient Details</h4>
-                        </div>
-                        <div className="otp-container">
-                            <form> {/* =================== patient details section ===================*/}
-                                <div className="labelWrap">
-                                    <div className="p-relative">
-                                        <input type="number" id="otpMobver" className="click-disable" value = {this.props.user_loggedIn_number?this.props.user_loggedIn_number:this.state.phoneNumber?this.state.phoneNumber:''} autoComplete="off"/>
-                                        <label for="otpMobver">Mobile number</label>
-                                        <p className="num-verified"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/chk-green.svg'} /> Verified</p>
-                                    </div>
-                                </div>
-                                <div className="d-flex">
-                                    <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)}>Male</p>
-                                    <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)}>Female</p>
-                                </div>
-                                <div className="labelWrap">
-                                    <div className="p-relative">
-                                        <input type="text" required id="ptntName" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
-                                        <label for="ptntName">Name</label>
-                                    </div>
-                                </div>
-                                {/* date section */}
-                                <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
-
-                                <div className="labelWrap">
-                                    <div className="p-relative">
-                                        <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
-                                        <label for="ptntEmail">Email</label>
-                                    </div>
-                                </div>
-                                <div className="text-center">
-                                    <button type="button" className="ptnt-dtls-cnfrm" onClick={(e) =>{e.preventDefault(); this.addUserProfile()}}>Confirm</button>
-
-                                </div>
-                            </form>
-                            {/* =================== patient details section ===================*/}
-                        </div>
-                    </React.Fragment>
-                    :''}
-                </div>
-                :<div className="widget-content">
-                    <div className="lab-visit-time d-flex jc-spaceb">
-                        <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
-                            <h4 className="title d-flex"><span>
-                                <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
-                            </span>Patient</h4>
-                        </div>
-                        <div className="mbl-view-formatting text-right">
-                            <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
-                        </div>
-                    </div>
-                    {(this.props.is_opd || this.props.is_lab) && (!this.props.patient.email || !this.props.patient.dob )?
-                    <div className="otp-container">
-                    <form>
-                    {!this.props.patient.email ?
-                        <div className="labelWrap">
-                                <div className="p-relative">
-                                    <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" autoComplete="off" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { border: '1px solid red' } : {}}/>
-                                    <label for="ptntEmail">Email</label>
-                                </div>
+                                    {!this.props.patient.dob ?
+                                        <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
+                                        : ""
+                                    }
+                                </form>
                             </div>
-                        : ''
-                    }
-                    {!this.props.patient.dob?
-                        <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />
-                        : ""
-                    }
-                    </form>
-                    </div>
-                    :''}
-                    <React.Fragment>
-                        {this.state.dob || this.state.email ?
-                            <div className="text-right">
-                                <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
-                            </div>
-                            : (parsed && parsed.cod_to_prepaid == 'true') ? '' :
+                            : ''}
+                        <React.Fragment>
+                            {this.state.dob || this.state.email ?
                                 <div className="text-right">
-                                    <a href="#" onClick={(e) => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        this.props.navigateTo('patient', this.props.is_insurance_applicable)
-                                    }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                    <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
                                 </div>
-                        }
-                        <div className="">
-                            {this.props.show_insurance_error && this.props.insurance_error_msg ?
-                                <p className="gyn-text">{this.props.insurance_error_msg}</p>
-                                : ''
+                                : (parsed && parsed.cod_to_prepaid == 'true') ? '' :
+                                    <div className="text-right">
+                                        <a href="#" onClick={(e) => {
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            this.props.navigateTo('patient', this.props.is_insurance_applicable)
+                                        }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                    </div>
                             }
-                        </div>
-                    </React.Fragment>
-                </div>
-                 }
+                            <div className="">
+                                {this.props.show_insurance_error && this.props.insurance_error_msg ?
+                                    <p className="gyn-text">{this.props.insurance_error_msg}</p>
+                                    : ''
+                                }
+                            </div>
+                        </React.Fragment>
+                    </div>
+                }
                 { // old logic
                     this.props.patient ?
                         <div className="d-none">
@@ -675,7 +675,7 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                             </React.Fragment>*/}
                         </div>
-                        : 
+                        :
                         <div className="d-none">
                             {/*<div className="lab-visit-time d-flex jc-spaceb">
                                 <h4 className="title d-flex"><span>

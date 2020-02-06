@@ -22,7 +22,7 @@ class UserLoginView extends React.Component {
             referralCode: parsed.referral || null,
             referralName: null,
             smsBtnType: null,
-            enableOtpRequest:false
+            enableOtpRequest: false
         }
     }
 
@@ -51,31 +51,32 @@ class UserLoginView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         if (resendFlag) {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '' , 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''}
+                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
+            }
             GTM.sendEvent({ data: analyticData })
         } else {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
             }
             GTM.sendEvent({ data: analyticData })
         }
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, viaSms, viaWhatsapp,'user-login', (error) => {
+            this.props.sendOTP(number, viaSms, viaWhatsapp, 'user-login', (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    if(viaWhatsapp){
-                        this.setState({enableOtpRequest:true})
-                    }else{
-                        this.setState({enableOtpRequest:false})
+                    if (viaWhatsapp) {
+                        this.setState({ enableOtpRequest: true })
+                    } else {
+                        this.setState({ enableOtpRequest: false })
                     }
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 20000)
                     setTimeout(() => {
-                        this.setState({ enableOtpRequest:false })
+                        this.setState({ enableOtpRequest: false })
                     }, 60000)
                 }
             })
@@ -202,14 +203,14 @@ class UserLoginView extends React.Component {
                                                     <br /><br />
                                                     <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
                                                     {
-                                                        this.state.otpTimeout ? "" : 
-                                                        <div className="d-flex align-items-start justify-content-between">
-                                                            <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}
-                                                            </a>
-                                                            {this.state.enableOtpRequest?''
-                                                            :<a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                        this.state.otpTimeout ? "" :
+                                                            <div className="d-flex align-items-start justify-content-between">
+                                                                <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Send via Whatsapp' : 'Send via SMS'}
+                                                                </a>
+                                                                {this.state.enableOtpRequest ? ''
+                                                                    : <a className="resendOtp" style={{ color: '#ec0d0d' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
                                                             </a>}
-                                                        </div>
+                                                            </div>
                                                     }
                                                 </div> : ""
                                             }
@@ -237,8 +238,10 @@ class UserLoginView extends React.Component {
                                                 </React.Fragment>
                                         }
                                     </div>
-
-                                    <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
+                                    <div className="whtsappEnable-container p-0">
+                                        <p className="wtsapp-chk-txt"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>
+                                        <p className="text-center fw-500 p-3 pt-0" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
+                                    </div>
                                 </div>
                                 {/* <div className="widget mt-21 sign-up-container mrng-btm-scrl">
                                     <div className="sgn-up-instructions">
