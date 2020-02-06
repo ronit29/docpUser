@@ -493,7 +493,7 @@ class ChoosePatientNewView extends React.Component {
                                         </button>
                                         :<React.Fragment>
                                         <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
-                                            <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
+                                            <img className="whtsp-ico" src="/assets/img/wa-logo-main.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
                                         <button className="input-sms-ver mr-0" onClick={(e) => {e.preventDefault(); this.verify(false, true, false)}}>
                                             <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
                                         </React.Fragment>
