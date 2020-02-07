@@ -263,6 +263,9 @@
     .new-main-view {
         padding: 10px;
     }
+    .demo-mbl-screen-col{
+        display: none;
+    }
 }
 
 /************** responsive media css **************/

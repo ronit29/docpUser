@@ -280,7 +280,7 @@ class MainView extends React.Component{
                     <section className="card-block-row detail-row">
                         <h6  style={{fontSize: 22}}>Download the App Now</h6>
                         <div className="row m-0">
-                            <div className="col-sm-5 other-details p-0">
+                            <div className="col-12 col-sm-5 other-details p-0">
                                 <ul>
                                     <li>Online Consultations</li>
                                     <li>Book Doctor Appointments the Prime Way</li>
@@ -297,7 +297,7 @@ class MainView extends React.Component{
                                     </a>   
                                 </div>
                             </div>
-                            <div className="col-sm-7 demo-mbl-screen-col">
+                            <div className="col-12 col-sm-7 demo-mbl-screen-col">
                                 <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
                             </div>
                         </div>
