@@ -584,7 +584,6 @@ class VipGoldView extends React.Component {
                                 STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
                             }
                         </div>
-
                     </section>
                 </React.Fragment>
                 : <div></div>
