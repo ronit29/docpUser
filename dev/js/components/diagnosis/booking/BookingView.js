@@ -553,12 +553,12 @@ class BookingView extends React.Component {
                                                                                     <p className="fw-500">&#8377; {parseInt(effective_price)}</p>
                                                                             }
                                                                         </div>
-                                                                        {/*
+                                                                        {
                                                                             paymentMode ?
                                                                                 <div className="d-flex justify-content-between align-items-center">
                                                                                     <p className="fw-500">Payment Mode</p>
                                                                                     <p className="fw-500">{paymentMode}</p>
-                                                                                </div> : ''*/
+                                                                                </div> : ''
                                                                         }
                                                                     </div>
                                                                 </div>
