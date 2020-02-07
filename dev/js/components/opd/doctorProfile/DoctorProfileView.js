@@ -380,6 +380,7 @@ class DoctorProfileView extends React.Component {
 
     render() {
         let doctor_id = this.props.selectedDoctor
+        let enabled_for_online_booking = false
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
         }
@@ -395,6 +396,7 @@ class DoctorProfileView extends React.Component {
             search_data = this.props.DOCTORS[doctor_id].search_data
         }
         if (this.props.DOCTORS[doctor_id]) {
+            enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
             seo_url = this.props.DOCTORS[doctor_id].url || ""
             if (seo_url) {
                 seo_url = "/" + seo_url
@@ -500,7 +502,7 @@ class DoctorProfileView extends React.Component {
                     :''
                 }
                 {
-                    landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
+                    this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
                      <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
                     :''
                 }
