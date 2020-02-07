@@ -188,12 +188,12 @@ class AppointmentList extends React.Component {
                             </div>
                         </div> : ''
                 }
-                {
+                {/*
                     payment_mode && 
                     <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                         <span>Payment mode</span>
                         <span>{payment_mode}</span>
-                    </div>
+                    </div>*/
                 }
             </li>
         );
