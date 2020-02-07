@@ -278,9 +278,9 @@ class MainView extends React.Component{
                     {/******  customer review *********/}
                     {/******  other details *********/}
                     <section className="card-block-row">
-                        <h6 className="text-center" style={{fontSize: 20}}>Download the App Now</h6>
+                        <h6  style={{fontSize: 22}}>Download the App Now</h6>
                         <div className="row m-0">
-                            <div className="col-sm-5">
+                            <div className="col-sm-5 other-details">
                                 <ul>
                                     <li>Online Consultations</li>
                                     <li>Book Doctor Appointments the Prime Way</li>

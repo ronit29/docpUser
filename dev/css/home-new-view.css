@@ -218,6 +218,20 @@
 
 /************** customer review **************/
 
+.other-details > ul >li {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 35px;
+}
+.other-details > ul >li::before{
+    content: '';
+   display: inline-block;
+   width: 12px;
+   height: 12px;
+   border-radius: 50%;
+   background-color: #f1853b;
+   margin-right: 20px;
+}
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {
