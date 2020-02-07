@@ -63,7 +63,7 @@ class MainView extends React.Component{
                     </section>
 
                     {/* top hospitals */}
-                    <section className="top-hospitals-row">
+                    <section className="card-block-row">
                         <h6>Top Hospitals</h6>
                         {/* card slider */}
                         <div className="card-slider-container">
@@ -81,28 +81,15 @@ class MainView extends React.Component{
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
+                        </div>
+                    </section>
+
+                    {/******  doctor apointment section *********/}
+                    <section className="card-block-row">
+                        <h6>Book Doctor Appointments</h6>
+                        {/* card slider */}
+                        <div className="card-slider-container">
+                            <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
                                     <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
                                 </div>
@@ -118,8 +105,99 @@ class MainView extends React.Component{
                             </div>
                         </div>
                     </section>
-
+                    {/******  doctor apointment section *********/}
+                    {/******  Popular health packages section *********/}      
+                    <section className="card-block-row">
+                        <h6>Popular health Packages</h6>
+                        {/* card slider */}
+                        <div className="card-slider-container">
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                        </div>
+                    </section>    
+                    {/******  Popular health packages section *********/} 
+                    {/******  Book lab test *********/}      
+                    <section className="card-block-row">
+                        <h6>Popular health Packages</h6>
+                        {/* card slider */}
+                        <div className="card-slider-container">
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                            </div>
+                        </div>
+                    </section>    
+                    {/******  Book lab test *********/}            
                     <Accordian></Accordian>
+                    {/******  Our Partners section *********/}
+                    <section className="card-block-row">
+                        <h6 className="text-center" style={{fontSize: 20}}>Our Partners</h6>
+                        <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/indraprastha-apollo-hospital_sbxKZBF.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/artemis-hospital_o9URBGQ.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/blk-super-speciality-hospital_yJRgqOP.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/608573a2d2a6c760ccccc70773ab3e56.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/metropolis.jpg" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife.png" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid transform-sc-1" src={ASSETS_BASE_URL + "/img/mahajan-imaging.png"}  alt="Partners"/>   
+                            </div>
+                        </div>
+                    </section>
+                    {/******  Our Partners section *********/}
+                    {/******  Where we are *********/}
+                    <section className="card-block-row milestone-section">
+                        <div className="col-sm-4 left-circle-col">
+                          <h3>where are here so far</h3>
+                        </div>
+                        <div className="col-sm-8"></div>
+                    </section>
+                    {/******  Where we are *********/}       
+
                 </div>
                 {/* homepage  view */}
 
