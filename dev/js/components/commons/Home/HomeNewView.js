@@ -191,10 +191,42 @@ class MainView extends React.Component{
                     {/******  Our Partners section *********/}
                     {/******  Where we are *********/}
                     <section className="card-block-row milestone-section">
-                        <div className="col-sm-4 left-circle-col">
-                          <h3>where are here so far</h3>
+                        <div className="card-slider-container d-flex" style={{padding: 25}}>
+                            <div className="round-col d-flex justify-content-center align-item-center flex-column">
+                                <ul className="d-flex">
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                </ul>
+                                <h3>we are here <br/>so far</h3>  
+                            </div>
+                            <div className="consultation-col">
+                                <h3 className="fw-500 text-right">
+                                    <span>1 Lakh +</span><br/>
+                                    <span>Doctor and Lab Appointments</span>
+                                </h3>
+                                <h3 className="fw-500 text-right">
+                                    <span>10 Lakh +</span><br/>
+                                    <span>Online Consultation</span>
+                                </h3>
+                            </div>
+                            <div className="consultation-col">
+                                <h4 className="fw-500 text-left">
+                                    <span>30,000 +</span><br/>
+                                    <span>Doctor Network</span>
+                                </h4>
+                                <h4 className="fw-500 text-left">
+                                    <span>2 Lakh +</span><br/>
+                                    <span>Prescription Generated</span>
+                                </h4>
+                                <h4 className="fw-500 text-left">
+                                    <span>5,000 +</span><br/>
+                                    <span>Lab Network</span>
+                                </h4>
+                            </div>
                         </div>
-                        <div className="col-sm-8"></div>
                     </section>
                     {/******  Where we are *********/}       
 
