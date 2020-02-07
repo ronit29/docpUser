@@ -2449,7 +2449,7 @@ class BookingSummaryViewNew extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />
