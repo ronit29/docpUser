@@ -288,11 +288,11 @@ class MainView extends React.Component{
                                     <li>Book Lab Tests and Free Health Check-Ups</li>
                                     <li>Store Medical Records</li>
                                 </ul>
-                                <div className="download-links d-flex align-item-center">
+                                <div className="download-links d-flex align-item-center" style={{marginLeft: -12}}>
                                     <a href="">
                                         <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
                                     </a>
-                                    <a href="">
+                                    <a href="" style={{marginLeft: 15}}>
                                         <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
                                     </a>   
                                 </div>
