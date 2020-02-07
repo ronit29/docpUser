@@ -277,10 +277,10 @@ class MainView extends React.Component{
                     </section>       
                     {/******  customer review *********/}
                     {/******  other details *********/}
-                    <section className="card-block-row">
+                    <section className="card-block-row detail-row">
                         <h6  style={{fontSize: 22}}>Download the App Now</h6>
                         <div className="row m-0">
-                            <div className="col-sm-5 other-details">
+                            <div className="col-sm-5 other-details p-0">
                                 <ul>
                                     <li>Online Consultations</li>
                                     <li>Book Doctor Appointments the Prime Way</li>
@@ -290,10 +290,10 @@ class MainView extends React.Component{
                                 </ul>
                                 <div className="download-links d-flex align-item-center">
                                     <a href="">
-                                        <img className="img-fluid" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
+                                        <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
                                     </a>
                                     <a href="">
-                                        <img className="img-fluid" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
+                                        <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
                                     </a>   
                                 </div>
                             </div>
