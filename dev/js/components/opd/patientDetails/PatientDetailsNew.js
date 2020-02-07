@@ -872,6 +872,9 @@ class PatientDetailsNew extends React.Component {
                 let extraParams = {
                     landing_url: `opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails?dummy_id=${resp.dummy_id}`
                 }
+                if(postData.message_medium){
+                    extraParams['message_medium'] = 'WHATSAPP';
+                }
                 this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
                     if (err) {
                         SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
