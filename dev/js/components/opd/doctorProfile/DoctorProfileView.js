@@ -500,7 +500,7 @@ class DoctorProfileView extends React.Component {
                     :''
                 }
                 {
-                    landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
+                    nearbyDoctors && !Object.keys(nearbyDoctors).length && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
                      <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
                     :''
                 }
