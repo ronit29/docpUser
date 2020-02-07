@@ -224,8 +224,11 @@
 }
 
 .detail-row>h6 {
-    margin-bottom: 25px;
     font-size: 22px;
+}
+
+.other-details>ul {
+    margin-top: 75px;
 }
 
 .other-details>ul>li {
@@ -246,6 +249,12 @@
 
 .download-links {
     margin-top: 30px;
+}
+
+.demo-mbl-screen-col>img {
+    transform: scale(1.2);
+    position: relative;
+    right: -20%;
 }
 
 /************** responsive media css **************/

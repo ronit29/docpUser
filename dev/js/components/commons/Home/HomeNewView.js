@@ -297,6 +297,9 @@ class MainView extends React.Component{
                                     </a>   
                                 </div>
                             </div>
+                            <div className="col-sm-7 demo-mbl-screen-col">
+                                <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
+                            </div>
                         </div>
                     </section>
                     {/******  other details *********/}
