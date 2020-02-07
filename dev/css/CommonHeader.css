@@ -86,7 +86,7 @@
 }
 .menu-icon{
     float: left;
-    margin: 5px 15px 0px 25px;
+    margin: 5px 15px 0px 15px;
     position: relative;
 }
 .menu-icon > ul{
@@ -112,7 +112,7 @@
 .header-search-full-width {
     box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
     border-radius: 50px;
-    width: 46%;
+    width: 51%;
     position: relative;
     left: -34px;
 }

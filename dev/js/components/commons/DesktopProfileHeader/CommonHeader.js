@@ -488,7 +488,6 @@ class DesktopProfileHeader extends React.Component {
                             </div>
                             : ''
                     }
-
                     {
                         this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
                     }
@@ -513,7 +512,7 @@ class DesktopProfileHeader extends React.Component {
                             <a className="sbi-iconfx" href="/" onClick={(e) => this.onHomeClick(e, "/")} style={{
                                 width: 64, overflow:'hidden', position:'relative' }}>
                                 <div className="d-none d-lg-block">
-                                    <img  src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" height="38" />
+                                    <img  src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" height="36" />
                                 </div>
                                 {
                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
