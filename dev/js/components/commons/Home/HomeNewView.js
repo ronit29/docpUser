@@ -63,7 +63,7 @@ class MainView extends React.Component{
                     </section>
                     {/******  top hospitals *********/}
                     <section className="card-block-row">
-                        <h6>Top Hospitals</h6>
+                        <h6 style={{marginTop: 25}}>Top Hospitals</h6>
                         {/* card slider */}
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
@@ -149,7 +149,7 @@ class MainView extends React.Component{
                     <Accordian></Accordian>
                     {/******  Our Partners section *********/}
                     <section className="card-block-row">
-                        <h6 className="text-center" style={{fontSize: 20}}>Our Partners</h6>
+                        <h6 className="text-center" style={{fontSize: 20, marginTop: 25}}>Our Partners</h6>
                         <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
                             <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>   

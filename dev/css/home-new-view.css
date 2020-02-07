@@ -25,9 +25,9 @@
 /************** full banner section **************/
 /************** top hospital css **************/
 
-.card-block-row {
+/* .card-block-row {
     margin-top: 15px;
-}
+} */
 
 .card-block-row>h6 {
     font-size: 14px;
@@ -43,8 +43,8 @@
     border-radius: 10px;
     width: 100%;
     padding: 10px;
-    margin-top: 21px;
-    margin-bottom: 21px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     white-space: nowrap;
     overflow: hidden;
 }
