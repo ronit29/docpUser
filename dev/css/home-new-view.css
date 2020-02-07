@@ -108,6 +108,11 @@
 
 /************** Partner section css **************/
 
+/************** we are here  css **************/
+.milestone-section {
+    white-space: normal !important;
+}
+
 .round-col {
     width: 300px;
     height: 300px;
@@ -139,6 +144,11 @@
 
 .consultation-col {
     padding: 0 30px;
+    width: 40%;
+}
+
+.left-border {
+    border-left: 1px solid rgba(112, 112, 112, 0.19);
 }
 
 .consultation-col>h3 {
@@ -159,10 +169,17 @@
 .consultation-col>h3>span:last-child {
     font-size: 17px;
 }
-.consultation-col>h4{
+
+.consultation-col>h4 {
     border-bottom: 1px solid rgba(112, 112, 112, 0.19);
     padding: 16px 50px;
 }
+
+.consultation-col>h4>span {
+    position: relative;
+    left: 20%;
+}
+
 .consultation-col>h4>span:first-child {
     color: rgba(65, 162, 249, 1);
     font-size: 32px;
@@ -171,6 +188,35 @@
 .consultation-col>h4>span:last-child {
     font-size: 16px;
 }
+
+/************** we are here  css **************/
+
+/************** customer review **************/
+.cust-review>.col-sm-4 {
+    padding: 25px;
+}
+
+.cust-review>.col-sm-4>h3 {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 0;
+}
+
+.cust-review>.col-sm-4>p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+}
+
+.cust-img-block>img,
+.cust-img-block>span {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(227, 135, 135, 1);
+}
+
+/************** customer review **************/
 
 /************** responsive media css **************/
 

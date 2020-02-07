@@ -41,13 +41,13 @@ class MainView extends React.Component{
     render(){
         return(
             <div className="container-fluid p-0">
-                {/* header */}
+                {/****** Header *********/}
                 <DesktopProfileHeader></DesktopProfileHeader>
                 {/* header */}
-                
-                {/* homepage  view */}
+                {/****** Header *********/}
+                {/****** homepage  view *********/}
                 <div className="new-main-view">
-                    {/* full width banner */}
+                    {/******  full width banner *********/}
                     <section className="full-banner-section">
                         <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
                             let data = {
@@ -61,8 +61,7 @@ class MainView extends React.Component{
                             <span>Special plans available for Corporates</span>
                         </a>
                     </section>
-
-                    {/* top hospitals */}
+                    {/******  top hospitals *********/}
                     <section className="card-block-row">
                         <h6>Top Hospitals</h6>
                         {/* card slider */}
@@ -83,7 +82,6 @@ class MainView extends React.Component{
                             </div>
                         </div>
                     </section>
-
                     {/******  doctor apointment section *********/}
                     <section className="card-block-row">
                         <h6>Book Doctor Appointments</h6>
@@ -190,8 +188,8 @@ class MainView extends React.Component{
                     </section>
                     {/******  Our Partners section *********/}
                     {/******  Where we are *********/}
-                    <section className="card-block-row milestone-section">
-                        <div className="card-slider-container d-flex" style={{padding: 25}}>
+                    <section className="card-block-row">
+                        <div className="card-slider-container d-flex justify-content-between milestone-section" style={{padding: 25}}>
                             <div className="round-col d-flex justify-content-center align-item-center flex-column">
                                 <ul className="d-flex">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
@@ -212,7 +210,7 @@ class MainView extends React.Component{
                                     <span>Online Consultation</span>
                                 </h3>
                             </div>
-                            <div className="consultation-col">
+                            <div className="consultation-col left-border">
                                 <h4 className="fw-500 text-left">
                                     <span>30,000 +</span><br/>
                                     <span>Doctor Network</span>
@@ -228,14 +226,85 @@ class MainView extends React.Component{
                             </div>
                         </div>
                     </section>
-                    {/******  Where we are *********/}       
-
+                    {/******  Where we are *********/} 
+                    {/******  customer review *********/}
+                    <section className="card-block-row ">
+                        <h6 className="text-center" style={{fontSize: 20}}>Our Customer Says</h6>
+                        <div className="card-slider-container cust-review d-flex justify-content-between milestone-section">
+                            <div className="col-sm-4 text-center">
+                                <div className="cust-img-block">
+                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                                </div>
+                                <h3>Customer Name Reviewed</h3>
+                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                </ul>
+                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                            </div>
+                            <div className="col-sm-4 text-center">
+                                <div className="cust-img-block">
+                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                                </div>
+                                <h3>Customer Name Reviewed</h3>
+                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                </ul>
+                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                            </div>
+                            <div className="col-sm-4 text-center">
+                                <div className="cust-img-block">
+                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                                </div>
+                                <h3>Customer Name Reviewed</h3>
+                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                </ul>
+                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                            </div>
+                        </div>
+                    </section>       
+                    {/******  customer review *********/}
+                    {/******  other details *********/}
+                    <section className="card-block-row">
+                        <h6 className="text-center" style={{fontSize: 20}}>Download the App Now</h6>
+                        <div className="row m-0">
+                            <div className="col-sm-5">
+                                <ul>
+                                    <li>Online Consultations</li>
+                                    <li>Book Doctor Appointments the Prime Way</li>
+                                    <li>Doctors: For you, Near you</li>
+                                    <li>Book Lab Tests and Free Health Check-Ups</li>
+                                    <li>Store Medical Records</li>
+                                </ul>
+                                <div className="download-links d-flex align-item-center">
+                                    <a href="">
+                                        <img className="img-fluid" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
+                                    </a>
+                                    <a href="">
+                                        <img className="img-fluid" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
+                                    </a>   
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {/******  other details *********/}
                 </div>
-                {/* homepage  view */}
-
-                {/* footer */}
+                {/****** homepage  view *********/}
+                {/****** footer *********/}
                 <Footer></Footer>
-                {/* footer */}
+                {/****** footer *********/}
             </div>
         )
     }
