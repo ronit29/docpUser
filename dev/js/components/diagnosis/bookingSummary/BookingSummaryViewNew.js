@@ -656,11 +656,11 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
         //Check if patient emailid exist or not
-        if(patient && !patient.email){
-            this.setState({isEmailNotValid:true})
-            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-            return 
-        }
+        // if(patient && !patient.email){
+        //     this.setState({isEmailNotValid:true})
+        //     SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+        //     return 
+        // }
         //Check if patient dob exist or not
         if(patient && !patient.dob){
             this.setState({isDobNotValid:true})
@@ -881,6 +881,7 @@ class BookingSummaryViewNew extends React.Component {
         }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
+            postData['plan'] = this.props.selected_vip_plan
         }
         //Check SPO UTM Tags
         if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {

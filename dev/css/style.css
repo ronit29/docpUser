@@ -14844,12 +14844,13 @@ font-size: 12px;
 color: #f78631;
 font-weight: 500;
 font-size: 12px;
+cursor: pointer;
 }
 .otp-timer{
 font-size: 12px;
 }
 .get-otp{
-    color: #f78631;
+    /*color: #f78631;*/
     font-size: 12px;
     margin-top: 5px;
     margin-left: 2px;

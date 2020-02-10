@@ -49,6 +49,11 @@ export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
         payload: {}
     })
 
+    dispatch({
+        type: SAVE_LOGIN_PHONE_NUMBER,
+        payload: number
+    })
+
     API_POST('/api/v1/user/login', {
         "phone_number": number,
         "otp": otp
@@ -61,11 +66,6 @@ export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
-        })
-
-        dispatch({
-            type: SAVE_LOGIN_PHONE_NUMBER,
-            payload: number
         })
 
         dispatch({

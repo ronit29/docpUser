@@ -559,10 +559,10 @@ class VipClubMemberDetailsView extends React.Component {
 	}
 
 	pushUserData(data) { // to save proposer/self data to the dummy table in case of agent or proposer self
-		if (data && Object.keys(data).length && data.members && data.members.length) {
-			if (data.members.length == 1 && data.members[0] == null) {
-
-			} else {
+		if(data && Object.keys(data).length && data.members && data.members.length && STORAGE.isAgent()){
+			if(data.members.length ==1 && data.members[0] == null){
+				
+			}else{
 				this.props.pushMembersData(data)
 			}
 		}
@@ -606,26 +606,25 @@ class VipClubMemberDetailsView extends React.Component {
 
 	removeCoupon() {
 		const parsed = queryString.parse(this.props.location.search)
-		let gold_push_data = {}
-		let param
-		gold_push_data.plan = this.props.selected_vip_plan
-		gold_push_data.dummy_data_type = 'PLAN_PURCHASE'
-		gold_push_data.members = []
-		gold_push_data.coupon_data = []
-		gold_push_data.utm_spo_tags = parsed
-		gold_push_data.coupon_type = this.props.selected_vip_plan.is_gold ? 'gold' : 'vip'
-		this.props.currentSelectedVipMembersId.map((val, key) => {
-			if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
-				param = this.props.vipClubMemberDetails[val[key]]
-				gold_push_data.members.push(param)
-			}
-		})
-		if (STORAGE.isAgent()) {
-			gold_push_data.is_agent = true
-		} else {
-			gold_push_data.is_agent = false
-		}
-		this.pushUserData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
+        let gold_push_data={}
+        let param
+        gold_push_data.plan = this.props.selected_vip_plan
+        gold_push_data.dummy_data_type = 'PLAN_PURCHASE'
+        gold_push_data.members = []
+        gold_push_data.coupon_data = []
+        gold_push_data.utm_spo_tags = parsed
+        gold_push_data.is_agent = false
+        gold_push_data.coupon_type = this.props.selected_vip_plan.is_gold?'gold':'vip'
+        this.props.currentSelectedVipMembersId.map((val, key) => {
+        if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
+            param = this.props.vipClubMemberDetails[val[key]]
+            gold_push_data.members.push(param)
+            }
+        })
+        if(STORAGE.isAgent()){
+            gold_push_data.is_agent = true
+            this.pushUserData(gold_push_data) // to save proposer/self data to the dummy table in case of agent or proposer self
+        }	 
 		this.props.removeVipCoupons() // to reset coupons to intial state
 	}
 	render() {

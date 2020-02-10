@@ -559,7 +559,7 @@ class BookingView extends React.Component {
                                                                         }
                                                                     </div>
                                                                     {
-                                                                        paymentMode ?
+                                                                       paymentMode ?
                                                                             <div className="d-flex justify-content-between align-items-center">
                                                                                 <p className="fw-500">Payment Mode</p>
                                                                                 <p className="fw-500">{paymentMode}</p>
