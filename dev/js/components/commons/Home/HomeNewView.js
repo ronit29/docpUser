@@ -481,7 +481,7 @@ class MainView extends React.Component{
                 <div className="new-chat-box">
                     <input type="checkbox"/>
                     <div className="chatbox-main mb-3">
-                          &nbsp;
+                        <ChatPanel  key="chat" />
                     </div>
                     <div className="chat-box-circle d-flex justify-content-center align-items-center text-center flex-column">
                         <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   

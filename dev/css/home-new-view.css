@@ -319,11 +319,27 @@
 }
 .chatbox-main{
     width: 386px;
-    height: 466px;
     background: #FFFFFF;
-    box-shadow: 0px 0px 20px #00000069;
     border-radius: 5px;
     display: none;
+}
+.chatbox-main > .col-md-5{
+    max-width: 100%;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 0px!important;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right{
+    margin-top: 0px!important;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head{
+    background: #fff;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head>.hd-chat>.header-text-chat{
+    color: #000!important;
+} 
+.chat-body{
+    padding-right: 10px;
 }
 .chat-box-circle{
     width: 90px;
