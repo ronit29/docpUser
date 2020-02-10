@@ -39,7 +39,7 @@
     color: var(--text--primary--color);
 }
 .card-block-row>.top-card-row >a:hover{
-    transform: scale(2);
+    transform: scale(1.2);
 }
 .card-block-row> .pkg-btnlft{
     transform: rotate(0deg);
@@ -416,6 +416,60 @@
     }
     .download-links{
         justify-content: center;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .new-main-view{
+        padding: 110px 25px 0px 25px;
+    }
+    .card-slider-container{
+        margin: 20px 0;
+    }
+    .partner-section>.partner-img-block{
+        width: 170px;
+        padding: 10px;
+    }
+    .discount-badge {
+        top: 31px;
+    }
+    .round-col{
+        float: left;
+    }
+    .milestone-section{
+        display: inline-block!important;
+    }
+    .consultation-col{
+        padding: 0px;
+        width: 50%;
+        float: right;
+    }
+    .consultation-col>h4{
+        border-bottom: none;
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
+        padding: 20px 35px;
+    }
+    .consultation-col>h4>span{
+        left: 0px;
+    }
+    .left-border{
+        border-left: none;
+        width: 100%;
+        display: flex;
+        padding: 0;
+        justify-content: center;
+        border-top: 1px solid rgba(112, 112, 112, 0.19);
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+    .detail-row{
+        padding: 25px;
+    }
+    .other-details>ul{
+        margin-top: 25px;
+    }
+    .other-details>ul>li{
+        font-size: 16px;
+        line-height: 36px;
     }
 }
 /************** responsive media css **************/
