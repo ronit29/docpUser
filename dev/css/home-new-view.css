@@ -159,7 +159,7 @@
 
 .consultation-col>h3:last-child,
 .consultation-col>h4:last-child {
-    border-bottom: none;
+    border: none;
 }
 
 .consultation-col>h3>span:first-child {
@@ -289,6 +289,7 @@
         width: 100%;
         display: flex;
         border-bottom: 1px solid rgba(112, 112, 112, 0.19);
+        padding: 0px;
     }
     .consultation-col>h3{
         border-bottom: 0px;
@@ -298,6 +299,7 @@
         display: inline-block;
         padding: 17px 0px;
         margin: 20px 0;
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
     }
     .consultation-col>h3>span:first-child{
         font-size: 32px;
@@ -306,6 +308,29 @@
         font-size: 15px;
         position: relative;
         top: 12px;
+    }
+    .left-border{
+        border: 0px;
+    }
+    .consultation-col>h4{
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
+        border-bottom: 0px;
+        width: 33%;
+        line-height: 16px;
+        padding: 10px 10px;
+        margin-top: 20px;
+        text-align: center!important;
+    }
+    .consultation-col>h4>span{
+        left: 5%;
+    }
+    .consultation-col>h4>span:first-child{
+        font-size: 24px;
+    }
+    .consultation-col>h4>span:last-child{
+        position: relative;
+        top: 10px;
+        font-size: 15px;
     }
     .detail-row{
         margin: 20px 0px 0px 0px;
