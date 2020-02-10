@@ -43,6 +43,7 @@ class MainView extends React.Component{
             <div className="container-fluid p-0">
                 {/****** Header *********/}
                 <DesktopProfileHeader></DesktopProfileHeader>
+
                 {/* header */}
                 {/****** Header *********/}
                 {/****** homepage  view *********/}
@@ -58,7 +59,9 @@ class MainView extends React.Component{
                             this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
                           }} />
                         <a href="">
-                            <span>Special plans available for Corporates</span>
+                            <span>Special plans available for Corporates 
+                                <span className="down-icon-yellow">&gt;</span>
+                            </span>
                         </a>
                     </section>
                     {/******  top hospitals *********/}
