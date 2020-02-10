@@ -1,5 +1,5 @@
 .new-main-view {
-    padding: 110px 37px 37px 37px;
+    padding: 110px 37px 0px 37px;
     background: url(/assets/img/main-bg.svg);
 }
 
@@ -25,15 +25,32 @@
 /************** full banner section **************/
 /************** top hospital css **************/
 
-/* .card-block-row {
-    margin-top: 15px;
-} */
+.card-block-row {
+    position: relative;
+}
 
-.card-block-row>h6 {
+.card-block-row>.top-card-row>h6,
+.card-block-row>.top-card-row >a {
     font-size: 14px;
     font-weight: 500;
 }
-
+.card-block-row>.top-card-row >a{
+    color: var(--text--primary--color);
+}
+.card-block-row> .pkg-btnlft{
+    transform: rotate(0deg);
+    left: -14px; 
+    top: 44px;
+    width: 25px;
+    height: 25px;
+}
+.card-block-row> .pkg-btnrgt{
+    transform: rotate(180deg);
+    right: -14px; 
+    top: 44px;
+    width: 25px;
+    height: 25px;
+}
 /************** top hospital css **************/
 /************** card slider css **************/
 
@@ -43,14 +60,14 @@
     border-radius: 10px;
     width: 100%;
     padding: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .slider-card-column {
-    width: 190px;
+    width: 195px;
     display: inline-block;
     text-align: center;
     padding: 10px;
@@ -207,6 +224,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 19px;
+    white-space: normal;
 }
 
 .cust-img-block>img,
@@ -221,11 +239,13 @@
 
 
 .detail-row {
-    margin: 50px 50px 0;
+    padding: 40px 50px 50px 80px;
+    overflow: hidden;
 }
 
 .detail-row>h6 {
     font-size: 22px;
+    font-weight: 500;
 }
 
 .other-details>ul {
@@ -270,6 +290,12 @@
     }
     .card-slider-container{
         margin: 15px 0px;
+    }
+    .card-block-row> .pkg-btnlft{
+        left: -7px;
+    }
+    .card-block-row> .pkg-btnrgt{
+        right: -7px;
     }
     .round-col{
         margin:  0 auto;

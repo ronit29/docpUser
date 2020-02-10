@@ -63,45 +63,168 @@ class MainView extends React.Component{
                     </section>
                     {/******  top hospitals *********/}
                     <section className="card-block-row">
-                        <h6 style={{marginTop: 25}}>Top Hospitals</h6>
+                        <div className="top-card-row">
+                            <h6 >Top Hospitals</h6>
+                        </div>
                         {/* card slider */}
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
                             <div className="slider-card-column">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column" id="cardBlock">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+                            <div className="slider-card-column">
+                                <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
+                                </div>
+                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
+                                <h5 className="off-txt">30% OFF</h5>
+                            </div>
+
                         </div>
+
+                        {/* slider buttons */}
+                        <a className="pkg-btnlft"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                        </a>
+                        <a className="pkg-btnrgt"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                        </a>
                     </section>
                     {/******  doctor apointment section *********/}
                     <section className="card-block-row">
-                        <h6>Book Doctor Appointments</h6>
+                        <div className="top-card-row d-flex align-item-center justify-content-between">
+                            <h6>Book Doctor Appointments</h6>
+                            <a className="d-flex align-item-center">
+                                <span>Search more specializations</span>
+                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
+                            </a>
+                        </div>
+                        
                         {/* card slider */}
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
                             <div className="slider-card-column">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
                         </div>
+                        {/* slider buttons */}
+                        <a className="pkg-btnlft"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
+                        <a className="pkg-btnrgt"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
                     </section>
                     {/******  doctor apointment section *********/}
                     {/******  Popular health packages section *********/}      
@@ -111,19 +234,26 @@ class MainView extends React.Component{
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
                             <div className="slider-card-column">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                                 <h5 className="off-txt">30% OFF</h5>
                             </div>
                         </div>
+                        {/* slider buttons */}
+                        <a className="pkg-btnlft"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
+                        <a className="pkg-btnrgt"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
                     </section>    
                     {/******  Popular health packages section *********/} 
                     {/******  Book lab test *********/}      
@@ -133,23 +263,30 @@ class MainView extends React.Component{
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                             </div>
                             <div className="slider-card-column">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src={ASSETS_BASE_URL + "/images/banner-forties.jpg"}/>
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
                                 </div>
                                 <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
                             </div>
                         </div>
+                        {/* slider buttons */}
+                        <a className="pkg-btnlft"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
+                        <a className="pkg-btnrgt"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
+                        </a>
                     </section>    
-                    {/******  Book lab test *********/}            
+                    {/******  Book lab test *********/}          
                     <Accordian></Accordian>
                     {/******  Our Partners section *********/}
                     <section className="card-block-row">
-                        <h6 className="text-center" style={{fontSize: 20, marginTop: 25}}>Our Partners</h6>
+                        <h6 className="text-center fw-500" style={{fontSize: 22, marginTop: 25}}>Our Partners</h6>
                         <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
                             <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>   
@@ -229,7 +366,7 @@ class MainView extends React.Component{
                     {/******  Where we are *********/} 
                     {/******  customer review *********/}
                     <section className="card-block-row ">
-                        <h6 className="text-center" style={{fontSize: 20}}>Our Customer Says</h6>
+                        <h6 className="text-center fw-500" style={{fontSize: 22}}>Our Customer Says</h6>
                         <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                             <div className="col-sm-4 text-center">
                                 <div className="cust-img-block">
@@ -274,36 +411,44 @@ class MainView extends React.Component{
                                 <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
                             </div>
                         </div>
+
+                        {/* slider buttons */}
+                        <a className="pkg-btnlft"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                        </a>
+                        <a className="pkg-btnrgt"> 
+                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                        </a>
                     </section>       
                     {/******  customer review *********/}
-                    {/******  other details *********/}
-                    <section className="card-block-row detail-row">
-                        <h6  style={{fontSize: 22}}>Download the App Now</h6>
-                        <div className="row m-0">
-                            <div className="col-12 col-sm-5 other-details p-0">
-                                <ul>
-                                    <li>Online Consultations</li>
-                                    <li>Book Doctor Appointments the Prime Way</li>
-                                    <li>Doctors: For you, Near you</li>
-                                    <li>Book Lab Tests and Free Health Check-Ups</li>
-                                    <li>Store Medical Records</li>
-                                </ul>
-                                <div className="download-links d-flex align-item-center" style={{marginLeft: -12}}>
-                                    <a href="">
-                                        <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
-                                    </a>
-                                    <a href="">
-                                        <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
-                                    </a>   
-                                </div>
-                            </div>
-                            <div className="col-12 col-sm-7 demo-mbl-screen-col">
-                                <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
+                </div>
+                {/******  other details *********/}
+                <section className="card-block-row detail-row">
+                    <h6>Download the App Now</h6>
+                    <div className="row m-0">
+                        <div className="col-12 col-sm-5 other-details p-0">
+                            <ul>
+                                <li>Online Consultations</li>
+                                <li>Book Doctor Appointments the Prime Way</li>
+                                <li>Doctors: For you, Near you</li>
+                                <li>Book Lab Tests and Free Health Check-Ups</li>
+                                <li>Store Medical Records</li>
+                            </ul>
+                            <div className="download-links d-flex align-item-center" style={{marginLeft: -12}}>
+                                <a href="">
+                                    <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
+                                </a>
+                                <a href="">
+                                    <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
+                                </a>   
                             </div>
                         </div>
-                    </section>
-                    {/******  other details *********/}
-                </div>
+                        <div className="col-12 col-sm-7 demo-mbl-screen-col">
+                            <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
+                        </div>
+                    </div>
+                </section>
+                {/******  other details *********/}
                 {/****** homepage  view *********/}
                 {/****** footer *********/}
                 <Footer></Footer>
