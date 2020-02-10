@@ -530,7 +530,7 @@ class ChatPanel extends React.Component {
 
     sendPageUrl = () => {
         let data = {
-            callback: window.location.pathname + window.location.search,
+            callback: window.location.pathname.split('/')[1] + window.location.search,
             template: this.props.msgTemplate ? this.props.msgTemplate : 'common'
         }
         this.props.sendAgentWhatsupPageURL(data).then((resp) => {

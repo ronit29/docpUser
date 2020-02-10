@@ -51,6 +51,8 @@ class DirectBooking extends React.Component {
                     }else{
                         if(parsed.test_ids){
                             callbackurl+='&test_ids='+parsed.test_ids
+                        }else if(parsed.queryParams){
+                            callbackurl+=`?${parsed.queryParams}`
                         }
                         this.props.history.push('/'+callbackurl)
                     }
