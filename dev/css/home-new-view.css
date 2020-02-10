@@ -308,6 +308,25 @@
     right: -20%;
 }
 
+/************** circle chat box css **************/
+.chat-box-circle{
+    width: 90px;
+    height: 90px;
+    background: #F78631 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #0000003E;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    color: #fff;
+}
+.chat-box-circle> h6{
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 50%;
+}
+/************** circle chat box css **************/
+
+
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {

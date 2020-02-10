@@ -393,42 +393,45 @@ class MainView extends React.Component{
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                <ul className="d-flex justify-content-center align-item-center mb-2">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
-                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
                             <div className="col-sm-4 text-center">
                                 <div className="cust-img-block">
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                <ul className="d-flex justify-content-center align-item-center mb-2">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
-                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
                             <div className="col-sm-4 text-center">
                                 <div className="cust-img-block">
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-3">
+                                <ul className="d-flex justify-content-center align-item-center mb-2">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
-                                <p className="text-center">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
                         </div>
 
@@ -473,6 +476,12 @@ class MainView extends React.Component{
                 {/****** footer *********/}
                 <Footer></Footer>
                 {/****** footer *********/}
+
+                {/****** chat view button  *********/}
+                <div className="chat-box-circle d-flex justify-content-center align-content-center">   
+                    <h6>Doctor <br/>Consultation</h6> 
+                </div>
+                {/****** chat view button  *********/}
             </div>
         )
     }
