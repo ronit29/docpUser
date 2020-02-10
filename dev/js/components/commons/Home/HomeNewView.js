@@ -451,9 +451,9 @@ class MainView extends React.Component{
                                 <li>Book Lab Tests and Free Health Check-Ups</li>
                                 <li>Store Medical Records</li>
                             </ul>
-                            <div className="download-links d-flex align-item-center" style={{marginLeft: -12}}>
+                            <div className="download-links d-flex align-item-center">
                                 <a href="">
-                                    <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
+                                    <img width="180" style={{ marginLeft: "-12px"}} src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
                                 </a>
                                 <a href="">
                                     <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     

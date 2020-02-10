@@ -286,6 +286,7 @@
 
 .download-links {
     margin-top: 30px;
+    width: 100%;
 }
 
 .download-links:nth-child(2){
@@ -305,10 +306,18 @@
         padding: 80px 10px 10px 10px;
     }
     .card-slider-container{
-        margin: 15px 0px;
+        margin: 20px 0px;
+    }
+    .card-block-row>.top-card-row>h6,
+    .card-block-row>.top-card-row >a{
+      font-size: 13px;   
     }
     .card-block-row> .pkg-btnlft{
         left: -7px;
+    }
+    .discount-badge{
+        left: 22px;
+        top: 28px;
     }
     .card-block-row> .pkg-btnrgt{
         right: -7px;
@@ -376,11 +385,14 @@
         font-size: 15px;
     }
     .detail-row{
-        margin: 20px 0px 0px 0px;
-        padding-left: 10px;
+        padding: 0px;
+    }
+    .detail-row>h6{
+        padding-left: 30px;
     }
     .other-details>ul{
         margin-top: 10px;
+        padding-left: 30px;;
     }
     .other-details>ul>li{
         font-size: 14px;
