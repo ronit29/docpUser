@@ -26,7 +26,8 @@ class EditProfile extends React.Component {
             isEmailUpdated:false,
             isEmailError:false,
             isDobValidated:false,
-            is_dob_error:false
+            is_dob_error:false,
+            add_to_gold:false
         }
     }
 
@@ -59,6 +60,7 @@ class EditProfile extends React.Component {
         let self = this
         let show_default_checkBox= true
         let is_profile_editable = true
+        let gold_user_profile = {}
         if(this.props.USER && this.props.USER.profiles){
             if(Object.keys(this.props.USER.profiles).length > 0){
                Object.entries(this.props.USER.profiles).map(function([key, value]) {
@@ -69,7 +71,10 @@ class EditProfile extends React.Component {
                         if(value.id == self.state.profileData.id && value.is_insured){
                             is_profile_editable = false
                         }
-                    }  
+                    } 
+                    if(value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
                 })
             }
         }
@@ -89,6 +94,9 @@ class EditProfile extends React.Component {
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
                                 is_profile_editable={is_profile_editable}
                                 is_dob_error = {this.state.is_dob_error}
+                                gold_user_profile = {gold_user_profile}
+                                add_to_gold = {this.state.add_to_gold}
+                                addToGold = {this.addToGold.bind(this)}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 
@@ -101,6 +109,10 @@ class EditProfile extends React.Component {
                 return <MedialDetails />
             }
         }
+    }
+
+    addToGold(value){
+        this.setState({add_to_gold:value})
     }
 
     updateProfile(key, value,isDobValidated) {
@@ -185,6 +197,7 @@ class EditProfile extends React.Component {
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
+                this.state.profileData.add_to_gold = this.state.add_to_gold
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => { // update profile
                     this.setState({ loading: false })
                     if(err){

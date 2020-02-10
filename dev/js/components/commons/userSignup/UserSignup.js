@@ -46,15 +46,23 @@ class UserSignupView extends React.Component {
             whatsapp_optin:true,
             isDobValidated:false,
             is_dob_error:false,
-            primary_profile:{}
+            primary_profile:{},
+            add_to_gold:false,
+            gold_user_profile:{}
         }
     }
 
     componentDidMount(){
         let default_profile
+        let gold_user_profile = {}
         if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.defaultProfile && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0){ 
                default_profile = this.props.USER.profiles[this.props.USER.defaultProfile]   
-               this.setState({primary_profile:default_profile})
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(!value.isDummyUser && value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
+                })
+               this.setState({primary_profile:default_profile,gold_user_profile:gold_user_profile})
         }
     }
 
@@ -194,6 +202,10 @@ class UserSignupView extends React.Component {
         this.setState({dob:newDate,isDobValidated:isValidDob})
     }
 
+    addToGold(value){
+        this.setState({add_to_gold:value})
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -261,6 +273,15 @@ class UserSignupView extends React.Component {
                                                                             <input style={{ paddingRight: '80px' }} type="text" className="slt-text-input" onChange={this.inputHandler.bind(this)} placeholder="Enter here" name="referralCode" value={this.state.referralCode} />
                                                                         </div>
                                                                     </div> : ""*/
+                                                                }
+                                                                {
+                                                                this.state.gold_user_profile && Object.keys(this.state.gold_user_profile).length && this.state.gold_user_profile.vip_data && Object.keys(this.state.gold_user_profile.vip_data).length && this.state.gold_user_profile.vip_data.total_members_allowed > 0 && !this.state.primary_profile.isDummyUser?
+                                                                <div className="defaultProfile">
+                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                                                                >Make gold<input type="checkbox" onClick={this.addToGold.bind(this, !this.state.add_to_gold)} checked={
+                                                                    this.state.add_to_gold}/><span className="checkmark"></span></label>
+                                                                </div>
+                                                                :''
                                                                 }
                                                             </form>
                                                         </div>

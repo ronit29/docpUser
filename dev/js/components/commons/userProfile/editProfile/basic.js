@@ -220,6 +220,15 @@ class BasicDetails extends React.Component {
                             :''
                             }
                             {
+                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member?
+                            <div className="defaultProfile">
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                            >Make gold<input type="checkbox" onClick={this.props.addToGold.bind(this, !this.props.add_to_gold)} checked={
+                                this.props.add_to_gold}/><span className="checkmark"></span></label>
+                            </div>
+                            :''
+                            }
+                            {
                                 this.props.is_profile_editable?''
                                 :<span>*Details of the profiles which are covered under insurance cannot be updated</span>
                             }

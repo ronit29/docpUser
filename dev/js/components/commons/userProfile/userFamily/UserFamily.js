@@ -63,55 +63,149 @@ class UserFamily extends React.Component {
 
         let { profiles, selectedProfile } = this.props.USER
 
+        let gold_profile = []
+        let normal_profile = []
+        let insurance_profile = []
+
+        {Object.keys(profiles).filter(x => !profiles[x].isDummyUser).map((id, key) => {
+            if(profiles[id].is_vip_gold_member){
+                gold_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                <a>
+                    <span className="icon icon-lg member-icon">
+                        <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
+                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                        </InitialsPicture>
+                    </span>
+                    <div className="member-details">
+                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
+                        <ul className="list">
+
+                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                                {
+                                    profiles[id].gender == 'o' ? "" :
+                                        <span className="ct-img ct-img-xs">
+                                            {
+                                                profiles[id].gender == 'm' ?
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
+                                            }
+                                        </span>
+                                }
+                                {GENDER[profiles[id].gender]}</li>
+
+                            {
+                                profiles[id].dob ?
+                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
+                                    : ''
+                            }
+
+                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
+
+                        </ul>
+                        {
+                            profiles[id].is_insured && 
+                            <div className="ins-covrd-txt">
+                                <p>Covered<br />Under Insurance</p>
+                            </div>
+                        }
+                    </div>
+                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                </a>
+            </li>)
+            }else if(profiles[id].is_insured){  
+                insurance_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                <a>
+                    <span className="icon icon-lg member-icon">
+                        <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
+                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                        </InitialsPicture>
+                    </span>
+                    <div className="member-details">
+                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
+                        <ul className="list">
+
+                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                                {
+                                    profiles[id].gender == 'o' ? "" :
+                                        <span className="ct-img ct-img-xs">
+                                            {
+                                                profiles[id].gender == 'm' ?
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
+                                            }
+                                        </span>
+                                }
+                                {GENDER[profiles[id].gender]}</li>
+
+                            {
+                                profiles[id].dob ?
+                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
+                                    : ''
+                            }
+
+                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
+
+                        </ul>
+                        {
+                            profiles[id].is_insured && 
+                            <div className="ins-covrd-txt">
+                                <p>Covered<br />Under Insurance</p>
+                            </div>
+                        }
+                    </div>
+                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                </a>
+            </li>)
+            }else{
+                normal_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                <a>
+                    <span className="icon icon-lg member-icon">
+                        <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
+                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                        </InitialsPicture>
+                    </span>
+                    <div className="member-details">
+                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
+                        <ul className="list">
+
+                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                                {
+                                    profiles[id].gender == 'o' ? "" :
+                                        <span className="ct-img ct-img-xs">
+                                            {
+                                                profiles[id].gender == 'm' ?
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
+                                            }
+                                        </span>
+                                }
+                                {GENDER[profiles[id].gender]}</li>
+
+                            {
+                                profiles[id].dob ?
+                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
+                                    : ''
+                            }
+
+                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
+
+                        </ul>
+                        {
+                            profiles[id].is_insured && 
+                            <div className="ins-covrd-txt">
+                                <p>Covered<br />Under Insurance</p>
+                            </div>
+                        }
+                    </div>
+                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                </a>
+            </li>)
+            }
+        })}
+
         return (
             <div className="widget-content pl-0 pr-0">
                 <ul className="list family-list dp-user-list">
-                    {
-                        Object.keys(profiles).filter(x => !profiles[x].isDummyUser).map((id, key) => {
-                            return <li key={key} onClick={this.editProfile.bind(this, id)}>
-                                <a>
-                                    <span className="icon icon-lg member-icon">
-                                        <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
-                                        </InitialsPicture>
-                                    </span>
-                                    <div className="member-details">
-                                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
-                                        <ul className="list">
-
-                                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
-                                                {
-                                                    profiles[id].gender == 'o' ? "" :
-                                                        <span className="ct-img ct-img-xs">
-                                                            {
-                                                                profiles[id].gender == 'm' ?
-                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
-                                                            }
-                                                        </span>
-                                                }
-                                                {GENDER[profiles[id].gender]}</li>
-
-                                            {
-                                                profiles[id].dob ?
-                                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
-                                                    : ''
-                                            }
-
-                                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
-
-                                        </ul>
-                                        {
-                                            profiles[id].is_insured && 
-                                            <div className="ins-covrd-txt">
-                                                <p>Covered<br />Under Insurance</p>
-                                            </div>
-                                        }
-                                    </div>
-                                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
-                                </a>
-                            </li>
-                        })
-                    }
+                    {gold_profile}
+                    {insurance_profile}
+                    {normal_profile}
                 </ul>
                 {
                     Object.keys(profiles).filter(x => !profiles[x].isDummyUser).length == 0 ?
