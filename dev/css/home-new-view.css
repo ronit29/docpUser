@@ -60,10 +60,11 @@
     border-radius: 10px;
     width: 100%;
     padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     white-space: nowrap;
     overflow: hidden;
+    position:relative;
 }
 
 .slider-card-column {
@@ -101,6 +102,20 @@
     color: #94B107;
 }
 
+.discount-badge{
+    background: #B8D42E;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 4px;
+    position: absolute;
+    left: 30px;
+    top: 39px;
+    z-index: 11;
+}
+.discount-badge > h6{
+    color: #fff;
+    font-size: 12px;
+}
 /************** card slider css **************/
 
 /************** Partner section css **************/
@@ -129,6 +144,7 @@
 .milestone-section {
     white-space: normal !important;
     padding: 25px;
+    margin-top: 30px;
 }
 
 .round-col {
@@ -310,6 +326,7 @@
     .milestone-section{
         padding: 25px 10px;
         display: block!important;
+        margin-top: 0px;
     }
     .consultation-col{
         width: 100%;

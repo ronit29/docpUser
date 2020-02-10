@@ -200,8 +200,10 @@ class MainView extends React.Component{
                                 <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
                             </a>
                         </div>
-                        
                         {/* card slider */}
+                        <div className="discount-badge">
+                            <h6>Upto 50% OFF</h6>
+                        </div>
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
@@ -229,7 +231,13 @@ class MainView extends React.Component{
                     {/******  doctor apointment section *********/}
                     {/******  Popular health packages section *********/}      
                     <section className="card-block-row">
-                        <h6>Popular health Packages</h6>
+                        <div className="top-card-row d-flex align-item-center justify-content-between">
+                            <h6>Popular Health Packages</h6>
+                            <a className="d-flex align-item-center">
+                                <span>View all</span>
+                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
+                            </a>
+                        </div>
                         {/* card slider */}
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
@@ -258,8 +266,17 @@ class MainView extends React.Component{
                     {/******  Popular health packages section *********/} 
                     {/******  Book lab test *********/}      
                     <section className="card-block-row">
-                        <h6>Popular health Packages</h6>
+                        <div className="top-card-row d-flex align-item-center justify-content-between">
+                             <h6>Book Lab Tests</h6>
+                            <a className="d-flex align-item-center">
+                                <span>Search more test</span>
+                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
+                            </a>
+                        </div>
                         {/* card slider */}
+                        <div className="discount-badge">
+                            <h6>Upto 50% OFF</h6>
+                        </div>
                         <div className="card-slider-container">
                             <div className="slider-card-column" id="cardBlock">
                                 <div className="slide-img-col d-flex justify-content-center align-item-center">
