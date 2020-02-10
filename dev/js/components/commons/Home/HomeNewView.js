@@ -64,7 +64,7 @@ class MainView extends React.Component{
                     {/******  top hospitals *********/}
                     <section className="card-block-row">
                         <div className="top-card-row">
-                            <h6 >Top Hospitals</h6>
+                            <h6 style={{marginTop: 15}}>Top Hospitals</h6>
                         </div>
                         {/* card slider */}
                         <div className="card-slider-container">
