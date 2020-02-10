@@ -309,20 +309,58 @@
 }
 
 /************** circle chat box css **************/
-.chat-box-circle{
-    width: 90px;
-    height: 90px;
-    background: #F78631 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #0000003E;
+.new-chat-box{
     position: fixed;
     right: 30px;
     bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.chatbox-main{
+    width: 386px;
+    height: 466px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px #00000069;
+    border-radius: 5px;
+    display: none;
+}
+.chat-box-circle{
+    width: 90px;
+    height: 90px;
+    background: var(--text--primary--color);
+    box-shadow: 0px 3px 6px #0000003E;
     color: #fff;
+    border-radius: 50%;
+    position: relative;
 }
 .chat-box-circle> h6{
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 500;
-    border-radius: 50%;
+}
+.chat-box-circle > h3{
+    font-size: 90px;
+    line-height: 10px;
+    position: relative;
+    top: -8px;
+    display: none;
+}
+.new-chat-box>input{
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    bottom: 0;
+    background: red;
+    z-index: 11;
+    opacity: 0;
+}
+.new-chat-box>input[type=checkbox]:checked ~ .chatbox-main,
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle>h3{
+    display: block;
+} 
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle> h6,
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle> img {
+    display: none;
 }
 /************** circle chat box css **************/
 

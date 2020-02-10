@@ -478,8 +478,16 @@ class MainView extends React.Component{
                 {/****** footer *********/}
 
                 {/****** chat view button  *********/}
-                <div className="chat-box-circle d-flex justify-content-center align-content-center">   
-                    <h6>Doctor <br/>Consultation</h6> 
+                <div className="new-chat-box">
+                    <input type="checkbox"/>
+                    <div className="chatbox-main mb-3">
+                          &nbsp;
+                    </div>
+                    <div className="chat-box-circle d-flex justify-content-center align-items-center text-center flex-column">
+                        <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   
+                        <h6>Doctor <br/>Consultation</h6> 
+                        <h3>&times;</h3>
+                    </div>
                 </div>
                 {/****** chat view button  *********/}
             </div>
