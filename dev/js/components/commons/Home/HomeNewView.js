@@ -189,7 +189,7 @@ class MainView extends React.Component{
                     {/******  Our Partners section *********/}
                     {/******  Where we are *********/}
                     <section className="card-block-row">
-                        <div className="card-slider-container d-flex justify-content-between milestone-section" style={{padding: 25}}>
+                        <div className="card-slider-container d-flex justify-content-between milestone-section">
                             <div className="round-col d-flex justify-content-center align-item-center flex-column">
                                 <ul className="d-flex">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
@@ -230,7 +230,7 @@ class MainView extends React.Component{
                     {/******  customer review *********/}
                     <section className="card-block-row ">
                         <h6 className="text-center" style={{fontSize: 20}}>Our Customer Says</h6>
-                        <div className="card-slider-container cust-review d-flex justify-content-between milestone-section">
+                        <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                             <div className="col-sm-4 text-center">
                                 <div className="cust-img-block">
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
@@ -292,7 +292,7 @@ class MainView extends React.Component{
                                     <a href="">
                                         <img width="180" src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
                                     </a>
-                                    <a href="" style={{marginLeft: 15}}>
+                                    <a href="">
                                         <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
                                     </a>   
                                 </div>

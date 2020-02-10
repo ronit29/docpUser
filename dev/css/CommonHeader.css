@@ -205,6 +205,9 @@
         height: 1px;
 
     }
+    .cart-count-notify{
+        left: -8px;
+    }
     .main-header{
         flex-wrap: wrap;
         overflow: hidden;

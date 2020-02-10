@@ -111,6 +111,7 @@
 /************** we are here  css **************/
 .milestone-section {
     white-space: normal !important;
+    padding: 25px;
 }
 
 .round-col {
@@ -251,6 +252,10 @@
     margin-top: 30px;
 }
 
+.download-links:nth-child(2){
+    margin-left: 15px;
+}
+
 .demo-mbl-screen-col>img {
     transform: scale(1.2);
     position: relative;
@@ -261,11 +266,72 @@
 
 @media screen and (max-width:767px) {
     .new-main-view {
+        padding: 80px 10px 10px 10px;
+    }
+    .card-slider-container{
+        margin: 15px 0px;
+    }
+    .round-col{
+        margin:  0 auto;
+    }
+    .partner-section{
         padding: 10px;
     }
+    .partner-section>.partner-img-block{
+        width: 122px;
+        padding: 12px;
+    }
+    .milestone-section{
+        padding: 25px 10px;
+        display: block!important;
+    }
+    .consultation-col{
+        width: 100%;
+        display: flex;
+        border-bottom: 1px solid rgba(112, 112, 112, 0.19);
+    }
+    .consultation-col>h3{
+        border-bottom: 0px;
+        text-align: center!important;
+        line-height: 18px;
+        width: 50%;
+        display: inline-block;
+        padding: 17px 0px;
+        margin: 20px 0;
+    }
+    .consultation-col>h3>span:first-child{
+        font-size: 32px;
+    }
+    .consultation-col>h3>span:last-child{
+        font-size: 15px;
+        position: relative;
+        top: 12px;
+    }
+    .detail-row{
+        margin: 20px 0px 0px 0px;
+        padding-left: 10px;
+    }
+    .other-details>ul{
+        margin-top: 10px;
+    }
+    .other-details>ul>li{
+        font-size: 14px;
+        line-height: 30px;
+        white-space: nowrap;
+    }
+    .download-links{
+        margin-top: 8px;
+    }
+    .download-links:nth-child(2){
+        margin-left: 0px;
+    }
+}   
+@media screen and (max-width: 600px){
     .demo-mbl-screen-col{
         display: none;
     }
+    .download-links{
+        justify-content: center;
+    }
 }
-
 /************** responsive media css **************/
