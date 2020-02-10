@@ -211,20 +211,29 @@ class BasicDetails extends React.Component {
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
                             {
-                            this.props.show_default_checkBox?
+                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member?
                             <div className="defaultProfile">
-                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
-                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
-                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                                <label className="ck-bx add-member-chkbx"> 
+                                    <span>
+                                        Add this member to Docprime
+                                        <img className="ml-2" width="35" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png"  alt="gold"/>
+                                    </span><br/>
+                                    <span className="profile-warning-text">Once added to gold, you cannont edit or remove the member</span>
+                                    <input type="checkbox" onClick={this.props.addToGold.bind(this, !this.props.add_to_gold)} checked={
+                                    this.props.add_to_gold}/>
+                                    <span className="checkmark"></span>
+                                </label>
                             </div>
                             :''
                             }
                             {
-                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member?
+                            this.props.show_default_checkBox?
                             <div className="defaultProfile">
-                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
-                            >Make gold<input type="checkbox" onClick={this.props.addToGold.bind(this, !this.props.add_to_gold)} checked={
-                                this.props.add_to_gold}/><span className="checkmark"></span></label>
+                                <label className="ck-bx add-member-chkbx">Make Primary Profile
+                                    <input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                    this.state.is_default_user}/>
+                                    <span className="checkmark"></span>
+                                </label>
                             </div>
                             :''
                             }

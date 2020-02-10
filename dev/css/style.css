@@ -15051,3 +15051,14 @@ div.widget.goldUserAddon form .labelWrap.ddmminput label{
     border-radius: 30px;
 }
 /* ======================================= gold user add on  ======================================= */
+
+.add-member-chkbx{
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.profile-warning-text{
+    color: #757575;
+    margin-top: 5px;
+}
