@@ -277,9 +277,16 @@ class UserSignupView extends React.Component {
                                                                 {
                                                                 this.state.gold_user_profile && Object.keys(this.state.gold_user_profile).length && this.state.gold_user_profile.vip_data && Object.keys(this.state.gold_user_profile.vip_data).length && this.state.gold_user_profile.vip_data.total_members_allowed > 0 && !this.state.primary_profile.isDummyUser?
                                                                 <div className="defaultProfile">
-                                                                    <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
-                                                                >Make gold<input type="checkbox" onClick={this.addToGold.bind(this, !this.state.add_to_gold)} checked={
-                                                                    this.state.add_to_gold}/><span className="checkmark"></span></label>
+                                                                    <label className="ck-bx add-member-chkbx"> 
+                                                                        <span>
+                                                                            Add this member to Docprime
+                                                                            <img className="ml-2" width="35" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png"  alt="gold"/>
+                                                                        </span><br/>
+                                                                        <span className="profile-warning-text">Once added to gold, you cannont edit or remove the member</span>
+                                                                        <input type="checkbox" onClick={this.addToGold.bind(this, !this.state.add_to_gold)} checked={
+                                                                        this.state.add_to_gold}/>
+                                                                        <span className="checkmark"></span>
+                                                                    </label>
                                                                 </div>
                                                                 :''
                                                                 }

@@ -15062,3 +15062,15 @@ div.widget.goldUserAddon form .labelWrap.ddmminput label{
     color: #757575;
     margin-top: 5px;
 }
+
+.gold-covrd-txt {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: var(--text--primary--color);
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}

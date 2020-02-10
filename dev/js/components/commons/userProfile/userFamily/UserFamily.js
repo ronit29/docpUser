@@ -102,13 +102,13 @@ class UserFamily extends React.Component {
 
                         </ul>
                         {
-                            profiles[id].is_insured && 
-                            <div className="ins-covrd-txt">
-                                <p>Covered<br />Under Insurance</p>
+                            profiles[id].is_vip_gold_member && 
+                            <div className="gold-covrd-txt">
+                                <p><img className="ml-2" width="35" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png"  alt="gold"/></p>
                             </div>
                         }
                     </div>
-                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                    {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
                 </a>
             </li>)
             }else if(profiles[id].is_insured){  
@@ -151,7 +151,7 @@ class UserFamily extends React.Component {
                             </div>
                         }
                     </div>
-                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                    {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
                 </a>
             </li>)
             }else{
@@ -187,14 +187,8 @@ class UserFamily extends React.Component {
                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
 
                         </ul>
-                        {
-                            profiles[id].is_insured && 
-                            <div className="ins-covrd-txt">
-                                <p>Covered<br />Under Insurance</p>
-                            </div>
-                        }
                     </div>
-                    <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
+                    {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
                 </a>
             </li>)
             }
