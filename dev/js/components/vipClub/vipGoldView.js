@@ -100,7 +100,7 @@ class VipGoldView extends React.Component {
 
     sendPageUrl = () => {
         let data = {
-            callback: window.location.pathname + window.location.search,
+            callback: window.location.pathname.split('/')[1] + window.location.search,
             template: 'gold_template_1'
         }
         this.props.sendAgentWhatsupPageURL(data).then((resp) => {
