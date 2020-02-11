@@ -65,7 +65,7 @@ class PrescriptionView extends React.PureComponent {
                     }
                     this.setState({show_error: false});
                 }else{
-                    this.setState({show_error: true});
+                    this.setState({show_error: true,selected_file_name: null,selected_file:null });
                 }
                 this.setState({ open_popup_overlay: true })
             }    
@@ -268,7 +268,7 @@ class PrescriptionView extends React.PureComponent {
                                                     :<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
                                                         <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                                         <span>
-                                                            <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Upload</label>
+                                                            <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>{this.state.selected_file?'Re-Upload':'Upload'}</label>
                                                         </span>
                                                         <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
                                                     </button>

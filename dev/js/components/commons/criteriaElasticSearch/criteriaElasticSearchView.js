@@ -369,7 +369,7 @@ class CriteriaElasticSearchView extends React.Component {
         }
         is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
         //this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
-        if(user_insurance_status){
+        if(is_user_insurance_active){
             this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
         }
     }
