@@ -546,13 +546,11 @@ class HomeView extends React.Component {
 
 						{
 							this.state.showPrescriptionInsuranceError?
-							<div className="p-3">
-                                <div className="health-advisor-col d-flex p-2 align-items-start">
-                                    <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
-                                    <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
-                                    <img classNAme="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
-                                </div>
-                            </div>:''
+							<div className="health-advisor-col d-flex p-2 align-items-start">
+								<img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+								<p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+								<img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+							</div>:''
 
 						}
 						

@@ -14687,6 +14687,7 @@ div.doc-srch-fltr.vip-slct-pop {
     max-width: 100%;
     border-radius: 5px;
     margin-bottom: 15px;
+    max-height: 130px;
       
 }
 .upload-presc-loading-pdf{
@@ -14734,12 +14735,19 @@ div.doc-srch-fltr.vip-slct-pop {
 /*health advisor col*/
 .health-advisor-col{
     border-radius: 5px;
-    background-color: rgba(66, 137, 254, 0.1)
+    background-color: rgba(66, 137, 254, 0.1);
+    position: relative;
+    padding: 10px;
 }
 .health-advisor-col > p{
     font-weight: bold;
     white-space: pre-wrap;
     font-size: 13px;
+}
+.health-advisor-col >.cursor-pntr{
+    position: absolute;
+    right: -5px;
+    top: -5px;
 }
 /*guidelines col*/
 .guidelines-col > ul{

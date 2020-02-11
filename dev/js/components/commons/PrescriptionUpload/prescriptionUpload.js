@@ -249,7 +249,7 @@ class PrescriptionView extends React.PureComponent {
                                                 <img className={this.state.selected_file ? 'prescription-uploaded-img' : 'prescription-uploaded'} width={!this.state.selected_file ? '70px':''} src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
                                                 {
                                                     this.state.selected_file_name?
-                                                    <h6>{this.state.selected_file_name}</h6>
+                                                    <h6 className="fw-500 text-center" style={{fontSize:11}}>{this.state.selected_file_name}</h6>
                                                     :''
                                                 }
                                                 {
