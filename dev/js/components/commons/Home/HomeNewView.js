@@ -306,7 +306,7 @@ class MainView extends React.Component{
                     <Accordian></Accordian>
                     {/******  Our Partners section *********/}
                     <section className="card-block-row">
-                        <h6 className="text-center fw-500" style={{fontSize: 22, marginTop: 25}}>Our Partners</h6>
+                        <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
                         <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
                             <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>   
@@ -386,7 +386,7 @@ class MainView extends React.Component{
                     {/******  Where we are *********/} 
                     {/******  customer review *********/}
                     <section className="card-block-row ">
-                        <h6 className="text-center fw-500" style={{fontSize: 22}}>Our Customer Says</h6>
+                        <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
                         <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                             <div className="col-sm-4 text-center">
                                 <div className="cust-img-block">

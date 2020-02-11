@@ -20,6 +20,7 @@
     bottom: 17px;
     color: #FED900;
     font-size: 13px;
+    cursor: pointer;
 }
 .down-icon-yellow{
     transform: rotate(90deg);
@@ -128,6 +129,10 @@
 /************** card slider css **************/
 
 /************** Partner section css **************/
+.our-partner-heading-text{
+    font-size: 22px;
+    margin-top: 25px;
+}
 .partner-section {
     white-space: normal;
     padding: 20px 10px;
@@ -235,6 +240,9 @@
 /************** we are here  css **************/
 
 /************** customer review **************/
+.customer-review-heading{
+    font-size: 22px;
+}
 .cust-review>.col-sm-4 {
     padding: 25px;
 }
@@ -318,7 +326,7 @@
     align-items: flex-end;
 }
 .chatbox-main{
-    width: 386px;
+    width: 430px;
     background: #FFFFFF;
     border-radius: 5px;
     display: none;
@@ -385,14 +393,28 @@
 
 @media screen and (max-width:767px) {
     .new-main-view {
-        padding: 80px 10px 10px 10px;
+        padding: 70px 10px 10px 10px;
     }
+    .full-banner-section>a{
+        position: unset;
+        float: right;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #f1853b;
+    }
+    
     .card-slider-container{
         margin: 20px 0px;
     }
+    .slider-card-column{
+        width: 175px;
+    }
+    .card-slider-container>.slider-card-column>h5{
+        font-size: 12px;
+    }
     .card-block-row>.top-card-row>h6,
     .card-block-row>.top-card-row >a{
-      font-size: 13px;   
+      font-size: 12px;   
     }
     .card-block-row> .pkg-btnlft{
         left: -7px;
@@ -406,13 +428,22 @@
     }
     .round-col{
         margin:  0 auto;
+        width: 250px;
+        height: 250px;
+    }
+    .round-col>h3{
+        font-size: 20px;
+        margin-top: 0px;
     }
     .partner-section{
         padding: 10px;
     }
     .partner-section>.partner-img-block{
-        width: 122px;
+        width: 110px;
         padding: 12px;
+    }
+    .our-partner-heading-text,.customer-review-heading{
+        font-size: 16px;
     }
     .milestone-section{
         padding: 25px 10px;
@@ -436,10 +467,10 @@
         border-right: 1px solid rgba(112, 112, 112, 0.19);
     }
     .consultation-col>h3>span:first-child{
-        font-size: 32px;
+        font-size: 26px;
     }
     .consultation-col>h3>span:last-child{
-        font-size: 15px;
+        font-size: 12px;
         position: relative;
         top: 12px;
     }
@@ -459,12 +490,12 @@
         left: 5%;
     }
     .consultation-col>h4>span:first-child{
-        font-size: 24px;
+        font-size: 17px;
     }
     .consultation-col>h4>span:last-child{
         position: relative;
         top: 10px;
-        font-size: 15px;
+        font-size: 11px;
     }
     .detail-row{
         padding: 0px;
