@@ -90,7 +90,8 @@ class UserFamily extends React.Component {
                                             }
                                         </span>
                                 }
-                                {GENDER[profiles[id].gender]}</li>
+                                {GENDER[profiles[id].gender]}
+                            </li>
 
                             {
                                 profiles[id].dob ?
@@ -197,6 +198,7 @@ class UserFamily extends React.Component {
         return (
             <div className="widget-content pl-0 pr-0">
                 <ul className="list family-list dp-user-list">
+                <li className="fw-500">Select Member</li>
                     {gold_profile}
                     {insurance_profile}
                     {normal_profile}
