@@ -217,80 +217,85 @@ class PrescriptionView extends React.PureComponent {
                     <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
                         {
                             this.state.showLoginView?<LoginPopup afterUserLogin={this.afterUserLogin} locationObj={this.props.locationObj} historyObj= {this.props.historyObj} closePopup={this.cancelOverlay}/>
-        					:<div className="upload-prescription">
-                                {
-                                    !this.state.showSuccess?<React.Fragment>
-                                        <div className="widget-header text-center mv-header p-3">
-                                            <h4 className="fw-700 text-md">Upload Prescription</h4>
-                                            <a style={{ cursor: 'pointer', right:15,top:13, position: 'absolute', fontSize: 31, lineHeight: '14px' }} onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
-                                                <span onClick={()=>this.cancelOverlay(1)}>&times;</span>
-                                            </a>
-                                        </div>
-                                        <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column" style={{position:'relative'}}>
-                                            {
-                                                this.state.isLoading?
-                                                    <div className="ins-prf-img-grd d-block upload-presc-loading-pdf d-flex align-item-center justify-content-center">
-                                                        <div className="loader-for-chat-div mt-0">
-                                                            <div className='loader-for-chat mb-0'>
-                                                                <span></span>
-                                                                <span></span>
-                                                                <span></span>
-                                                                <span></span>
-                                                                <span></span>
-                                                                <span></span>
+        					:
+                            <React.Fragment>
+                                <div className="upload-prescription">
+                                    {
+                                        !this.state.showSuccess?
+                                        <React.Fragment>
+                                            <div className="widget-header text-center mv-header p-3">
+                                                <h4 className="fw-700 text-md">Upload Prescription</h4>
+                                                <a className="cross-presc-modal"  onClick={()=>this.setState({abc: true}) /*this.props.hideLoginPopup.bind(this)*/}>
+                                                    <span onClick={()=>this.cancelOverlay(1)}>&times;</span>
+                                                </a>
+                                            </div>
+                                            <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column" style={{position:'relative'}}>
+                                                {
+                                                    this.state.isLoading?
+                                                        <div className="ins-prf-img-grd d-block upload-presc-loading-pdf d-flex align-item-center justify-content-center">
+                                                            <div className="loader-for-chat-div mt-0">
+                                                                <div className='loader-for-chat mb-0'>
+                                                                    <span></span>
+                                                                    <span></span>
+                                                                    <span></span>
+                                                                    <span></span>
+                                                                    <span></span>
+                                                                    <span></span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    : ''
-                                            }
-                                            <img className={this.state.selected_file ? 'prescription-uploaded-img' : 'prescription-uploaded'} width={!this.state.selected_file ? '70px':''} src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
-                                            {
-                                                this.state.selected_file_name?
-                                                <h6>{this.state.selected_file_name}</h6>
-                                                :''
-                                            }
-                                            {
-                                                this.state.show_error?
-                                                <React.Fragment>
-                                                    <img className="prescription-uploaded-img" src={this.state.selected_file} /> 
-                                                    <h6 className="error-msg-text">Invalid Format</h6>
-                                                    <button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
+                                                        : ''
+                                                }
+                                                <img className={this.state.selected_file ? 'prescription-uploaded-img' : 'prescription-uploaded'} width={!this.state.selected_file ? '70px':''} src={this.state.selected_file?this.state.selected_file:ASSETS_BASE_URL + "/img/presc-icon.png"} />
+                                                {
+                                                    this.state.selected_file_name?
+                                                    <h6>{this.state.selected_file_name}</h6>
+                                                    :''
+                                                }
+                                                {
+                                                    this.state.show_error?
+                                                    <React.Fragment>
+                                                        <img className="prescription-uploaded-img" src={this.state.selected_file} /> 
+                                                        <h6 className="error-msg-text">Invalid Format</h6>
+                                                        <button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
+                                                            <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
+                                                            <span>
+                                                                <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Re-Upload</label>
+                                                            </span>
+                                                            <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
+                                                        </button>
+                                                    </React.Fragment>
+                                                    :<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
                                                         <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                                         <span>
-                                                            <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Re-Upload</label>
+                                                            <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Upload</label>
                                                         </span>
                                                         <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
                                                     </button>
-                                                </React.Fragment>
-                                                :<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
-                                                    <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
-                                                    <span>
-                                                        <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>Upload</label>
-                                                    </span>
-                                                    <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
-                                                </button>
 
-                                            }
-                                        </div>
-                                        <div className="p-3 pb-0">
-                                            <div className="health-advisor-col d-flex p-2 align-items-start">
-                                                <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
-                                                <p className="ml-2">Our health advisor will assist you in booking your tests</p>
+                                                }
                                             </div>
-                                            <hr style={{marginTop: 11}}/>
-                                        </div>
-                                        <div className="guidelines-col p-3 pt-0">
-                                            <h5 className="fw-500 text-black" style={{marginBottom: 5}}>Prescription Guidelines</h5>
-                                            <ul>
-                                                <li className="fw-500">Avoid blurred image</li>
-                                                <li className="fw-500">Supported files type: jpeg , jpg , png , pdf</li>
-                                                <li className="fw-500">Maximum allowed file size: 5MB</li>
-                                            </ul>
+                                            <div className="p-3 pb-0">
+                                                <div className="health-advisor-col d-flex p-2 align-items-start">
+                                                    <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                                    <p className="ml-2">Our health advisor will assist you in booking your tests</p>
+                                                </div>
+                                                <hr style={{marginTop: 11}}/>
+                                            </div>
+                                            <div className="guidelines-col p-3 pt-0">
+                                                <h5 className="fw-500 text-black" style={{marginBottom: 5}}>Prescription Guidelines</h5>
+                                                <ul>
+                                                    <li className="fw-500">Avoid blurred image</li>
+                                                    <li className="fw-500">Supported files type: jpeg , jpg , png , pdf</li>
+                                                    <li className="fw-500">Maximum allowed file size: 5MB</li>
+                                                </ul>
+                                            </div>
                                             <button className="presc-submit-btn cstm-book-btn fw-700" style={{borderRadius:0}} onClick={this.submit}>Submit</button>
-                                        </div>
-                                    </React.Fragment>: ''
-                                }
-                            </div>
+                                        </React.Fragment>: ''
+                                    }
+                                </div>
+                                
+                            </React.Fragment>
                         }
                     </CommonPopup>
                     :''

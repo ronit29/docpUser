@@ -8,7 +8,7 @@ class CommonPopup extends React.PureComponent {
 		return(
 			<React.Fragment>
 				<div className="cancel-overlay cancel-overlay-zindex" onClick={()=>this.props.cancelOverlay(1)}></div>
-                <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
+                <div className="widget cancel-appointment-div cancel-popup">
                     {/* <div className="widget-header action-screen-header pop-padding">
                         <p className="fw-500 cancel-appointment-head"></p>
                     </div>

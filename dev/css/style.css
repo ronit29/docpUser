@@ -14615,12 +14615,27 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 
 /*upload prescription css*/
-.upload-prescription{
-    margin: -10px;
+
+@media screen and (max-width:767px){
+    .upload-prescription{
+        margin: -8px;
+        overflow: hidden;
+    }
+    .cross-presc-modal{
+        top:14px !important; 
+    }
 }
 .upload-prescription-widget{
     padding:12px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+}
+.cross-presc-modal{
+    cursor: pointer;
+    right:15px;
+    top:10px; 
+    position: absolute;
+    font-size: 31px; 
+    line-height: 14px;
 }
 
 .upload-prescription-widget > div > h6{
@@ -14703,14 +14718,17 @@ div.doc-srch-fltr.vip-slct-pop {
 }
 @media (min-width: 992px){
     .upload-prescription{
-        overflow: hidden;
-        height: 522px;
+        overflow-y: scroll;
+        height: 480px;
     }
     .presc-submit-btn{
         position: fixed;
         right: 0px;
         bottom: 0px;
         padding: 15px 0px!important; 
+    }
+    .guidelines-col{
+        margin-bottom: 50px;
     }
 }
 /*health advisor col*/
