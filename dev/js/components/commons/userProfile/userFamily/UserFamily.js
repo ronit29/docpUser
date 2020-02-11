@@ -112,6 +112,7 @@ class UserFamily extends React.Component {
                                 profiles[id].gender? ` ${GENDER[profiles[id].gender]}`:''
                               }
                             </li>
+                            {profiles[id].is_default_user?
                             <li className="fw-500 text-sm">
                                 {
                                     profiles[id].phone_number? `${profiles[id].phone_number}`:''
@@ -123,6 +124,7 @@ class UserFamily extends React.Component {
                                     profiles[id].email? `${profiles[id].email}`:''
                                 }
                              </li>
+                            :''}
 
                         </ul>
                         {
@@ -158,6 +160,7 @@ class UserFamily extends React.Component {
                                 profiles[id].gender? `${GENDER[profiles[id].gender]}`:''
                               }
                             </li>
+                            {profiles[id].is_default_user?
                             <li className="fw-500 text-sm">
                                 {
                                     profiles[id].phone_number? `${profiles[id].phone_number}`:''
@@ -169,6 +172,7 @@ class UserFamily extends React.Component {
                                     profiles[id].email? `${profiles[id].email}`:''
                                 }
                              </li>
+                             :''}
 
                         </ul>
                         {
@@ -203,6 +207,7 @@ class UserFamily extends React.Component {
                                 profiles[id].gender? `${GENDER[profiles[id].gender]}`:''
                               }
                             </li>
+                            {profiles[id].is_default_user?
                             <li className="fw-500 text-sm">
                                 {
                                     profiles[id].phone_number? `${profiles[id].phone_number}`:''
@@ -214,6 +219,7 @@ class UserFamily extends React.Component {
                                     profiles[id].email? `${profiles[id].email}`:''
                                 }
                              </li>
+                             :''}
                         </ul>
                     </div>
                     {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
