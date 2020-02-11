@@ -15,10 +15,11 @@ class PrescriptionUpload extends React.Component {
 
 const mapStateToProps = (state, passedProps) => {
 	
-	let { primaryMobile } = state.USER
+	let { primaryMobile, user_loggedIn_number } = state.USER
 	
 	return {
-		primaryMobile
+		primaryMobile,
+		user_loggedIn_number
 	}
 }
 

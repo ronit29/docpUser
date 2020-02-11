@@ -106,11 +106,11 @@ class PrescriptionView extends React.PureComponent {
 
                     const parsed = queryString.parse(this.props.locationObj.search)
                     let data = {
-                        phone_number:this.props.primaryMobile,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
+                        phone_number:this.props.primaryMobile?this.props.primaryMobile:this.props.user_loggedIn_number,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
                     }
                     let gtm_data = {'Category': 'ConsumerApp', 'Action': 'PrescriptionSubmitted', 'CustomerID': GTM.getUserId() || '', 'event': 'prescription-submitted'}
                     GTM.sendEvent({ data: gtm_data })
-                    this.props.NonIpdBookingLead(data)
+                    this.props.NonIpdBookingLead(data)  
 
                 }else{
                     setTimeout(() => {
