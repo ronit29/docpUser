@@ -388,9 +388,10 @@ class MainView extends React.Component{
                     <section className="card-block-row ">
                         <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
                         <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
-                            <div className="col-sm-4 text-center">
-                                <div className="cust-img-block">
+                            <div className="col-12 col-sm-4 text-center">
+                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                                    {/* <span>CNR</span> */}
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
                                 <ul className="d-flex justify-content-center align-item-center mb-2">
@@ -403,9 +404,10 @@ class MainView extends React.Component{
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
                                 <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
-                            <div className="col-sm-4 text-center">
-                                <div className="cust-img-block">
-                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                            <div className="col-12 col-sm-4 text-center">
+                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                                    {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                                    <span>CNR</span>
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
                                 <ul className="d-flex justify-content-center align-item-center mb-2">
@@ -418,9 +420,10 @@ class MainView extends React.Component{
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
                                 <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
-                            <div className="col-sm-4 text-center">
-                                <div className="cust-img-block">
-                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                            <div className="col-12 col-sm-4 text-center">
+                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                                    {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                                    <span>CNR</span>
                                 </div>
                                 <h3>Customer Name Reviewed</h3>
                                 <ul className="d-flex justify-content-center align-item-center mb-2">
@@ -486,7 +489,9 @@ class MainView extends React.Component{
                     <div className="chat-box-circle d-flex justify-content-center align-items-center text-center flex-column">
                         <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   
                         <h6>Doctor <br/>Consultation</h6> 
-                        <h3>&times;</h3>
+                        <h3 className="align-items-center justify-content-center">
+                          <img src={ASSETS_BASE_URL + "/img/cancel.svg"} alt="cancel"/>
+                        </h3>
                     </div>
                 </div>
                 {/****** chat view button  *********/}
