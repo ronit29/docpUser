@@ -73,14 +73,14 @@ class UserFamily extends React.Component {
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                            <img style={{ width: '45px', height: '45px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
                         </InitialsPicture>
                     </span>
                     <div className="member-details">
                         <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
                         <ul className="list">
 
-                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                            {/* <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
                                 {
                                     profiles[id].gender == 'o' ? "" :
                                         <span className="ct-img ct-img-xs">
@@ -99,7 +99,30 @@ class UserFamily extends React.Component {
                                     : ''
                             }
 
-                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
+                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li> */}
+                            
+                            <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                              {
+                                profiles[id].dob ?<span className="fw-500 text-sm">{profiles[id].dob}</span>: ''
+                              }
+                              {
+                                  profiles[id].dob && profiles[id].gender? <span className="pipe-sign"> | </span> :''
+                              }
+                              {
+                                profiles[id].gender? ` ${GENDER[profiles[id].gender]}`:''
+                              }
+                            </li>
+                            <li className="fw-500 text-sm">
+                                {
+                                    profiles[id].phone_number? `${profiles[id].phone_number}`:''
+                                }
+                                {
+                                  profiles[id].phone_number && profiles[id].email? <span className="pipe-sign"> | </span> :''
+                                }
+                                {
+                                    profiles[id].email? `${profiles[id].email}`:''
+                                }
+                             </li>
 
                         </ul>
                         {
@@ -117,7 +140,7 @@ class UserFamily extends React.Component {
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                            <img style={{ width: '45px', height: '45px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
                         </InitialsPicture>
                     </span>
                     <div className="member-details">
@@ -125,24 +148,27 @@ class UserFamily extends React.Component {
                         <ul className="list">
 
                             <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                              {
+                                profiles[id].dob ?<span className="fw-500 text-sm">{profiles[id].dob}</span>: ''
+                              }
+                              {
+                                  profiles[id].dob && profiles[id].gender? <span className="pipe-sign"> | </span> :''
+                              }
+                              {
+                                profiles[id].gender? `${GENDER[profiles[id].gender]}`:''
+                              }
+                            </li>
+                            <li className="fw-500 text-sm">
                                 {
-                                    profiles[id].gender == 'o' ? "" :
-                                        <span className="ct-img ct-img-xs">
-                                            {
-                                                profiles[id].gender == 'm' ?
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
-                                            }
-                                        </span>
+                                    profiles[id].phone_number? `${profiles[id].phone_number}`:''
                                 }
-                                {GENDER[profiles[id].gender]}</li>
-
-                            {
-                                profiles[id].dob ?
-                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
-                                    : ''
-                            }
-
-                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
+                                {
+                                  profiles[id].phone_number && profiles[id].email? <span className="pipe-sign"> | </span> :''
+                                }
+                                {
+                                    profiles[id].email? `${profiles[id].email}`:''
+                                }
+                             </li>
 
                         </ul>
                         {
@@ -160,33 +186,34 @@ class UserFamily extends React.Component {
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
+                            <img style={{ width: '45px', height: '45px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
                         </InitialsPicture>
                     </span>
                     <div className="member-details">
                         <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
                         <ul className="list">
-
                             <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
+                              {
+                                profiles[id].dob ?<span className="fw-500 text-sm">{profiles[id].dob}</span>: ''
+                              }
+                              {
+                                  profiles[id].dob && profiles[id].gender? <span className="pipe-sign"> | </span> :''
+                              }
+                              {
+                                profiles[id].gender? `${GENDER[profiles[id].gender]}`:''
+                              }
+                            </li>
+                            <li className="fw-500 text-sm">
                                 {
-                                    profiles[id].gender == 'o' ? "" :
-                                        <span className="ct-img ct-img-xs">
-                                            {
-                                                profiles[id].gender == 'm' ?
-                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/man.svg"} className="img-fluid" /> : <img src={ASSETS_BASE_URL + "/img/customer-icons/female.svg"} style={{ width: 14, height: 16 }} className="img-fluid" />
-                                            }
-                                        </span>
+                                    profiles[id].phone_number? `${profiles[id].phone_number}`:''
                                 }
-                                {GENDER[profiles[id].gender]}</li>
-
-                            {
-                                profiles[id].dob ?
-                                    <li className="fw-500 text-sm">{profiles[id].dob}</li>
-                                    : ''
-                            }
-
-                            <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
-
+                                {
+                                  profiles[id].phone_number && profiles[id].email? <span className="pipe-sign"> | </span> :''
+                                }
+                                {
+                                    profiles[id].email? `${profiles[id].email}`:''
+                                }
+                             </li>
                         </ul>
                     </div>
                     {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
@@ -196,9 +223,11 @@ class UserFamily extends React.Component {
         })}
 
         return (
-            <div className="widget-content pl-0 pr-0">
-                <ul className="list family-list dp-user-list">
-                <li className="fw-500">Select Member</li>
+            <div className="widget mt-20">
+               <h4 className="fw-500 user-heading">Select Member</h4>
+                <div className="widget-content pl-0 pr-0">
+                <ul className="list family-list dp-user-list box-shadow-none">
+                
                     {gold_profile}
                     {insurance_profile}
                     {normal_profile}
@@ -214,6 +243,7 @@ class UserFamily extends React.Component {
                     <button onClick={this.addProfile.bind(this)} className="v-btn-primary book-btn-mrgn-adjust ">Add New Member</button>
                 </div>
             </div>
+           </div>
         );
     }
 }
