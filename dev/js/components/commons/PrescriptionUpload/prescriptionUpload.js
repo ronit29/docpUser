@@ -229,7 +229,7 @@ class PrescriptionView extends React.PureComponent {
                                                     <span onClick={()=>this.cancelOverlay(1)}>&times;</span>
                                                 </a>
                                             </div>
-                                            <div className="upload-prescription-column d-flex align-item-center justify-content-center flex-column" style={{position:'relative'}}>
+                                            <div className={`upload-prescription-column d-flex align-item-center justify-content-center flex-column ${this.state.show_error?'error-border-color':''}`} style={{position:'relative'}}>
                                                 {
                                                     this.state.isLoading?
                                                         <div className="ins-prf-img-grd d-block upload-presc-loading-pdf d-flex align-item-center justify-content-center">

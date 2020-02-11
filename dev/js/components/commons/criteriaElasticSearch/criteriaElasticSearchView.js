@@ -403,7 +403,7 @@ class CriteriaElasticSearchView extends React.Component {
 
                                                 {
                                                     this.props.selected == 'lab' && this.state.showPrescriptionInsuranceError?
-                                                    <div className="health-advisor-col d-flex align-items-start">
+                                                    <div className="health-advisor-col d-flex align-items-start mb-2">
                                                         <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
                                                         <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
                                                         <img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
