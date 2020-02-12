@@ -55,8 +55,8 @@ class HomePageWidgets extends React.PureComponent {
 		return (
 			<React.Fragment>
 				<section className="card-block-row">
-                    <div className="top-card-row">
-                        <h6 style={{marginTop: 15}}>{heading}</h6>
+                    <div className={`top-card-row ${rightText?'d-flex align-item-center justify-content-between':''}`}>
+                        <h6>{heading}</h6>
                         {
                         	rightText?
                         	<a className="d-flex align-item-center" href="/" onClick={(e)=>{
