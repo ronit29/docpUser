@@ -15019,6 +15019,14 @@ button.fb-btn-sec {
     font-weight: 600;
     font-size: 15px;
 }
+.glod-save-perc{
+    text-align: right;
+    font-size: 9px;
+    color: #55a740;
+    font-weight: 600;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
 /* ======================================= chat feedback section  ======================================= */
 /* ======================================= whtsapp buttons on pages ======================================= */
 .whtsappPages{
