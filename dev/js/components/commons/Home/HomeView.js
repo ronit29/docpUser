@@ -22,6 +22,9 @@ import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import Loader from '../Loader';
+import VipLoginPopup from '../../vipClub/vipClubPopup.js'
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
+import SnackBar from 'node-snackbar'
 
 const GENDER = {
 	"m": "Male",
@@ -36,10 +39,13 @@ class HomeView extends React.Component {
 		if (this.props.initialServerData) {
 			footerData = this.props.initialServerData.footerData
 		}
+		
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
-			clickedOn: ''
+			clickedOn: '',
+			show_popup:false,
+			is_user_insurance_active: false
 		}
 	}
 
@@ -47,6 +53,13 @@ class HomeView extends React.Component {
 		if (window) {
 			window.scrollTo(0, 0)
 		}
+
+		let user_insurance_status = null
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		this.setState({is_user_insurance_active: user_insurance_status})
 
 		this.props.getSpecialityFooterData((cb) => {
 			this.setState({ specialityFooterData: cb });
@@ -223,6 +236,10 @@ class HomeView extends React.Component {
 		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
 	}
 
+	closeLeadPopup() {
+        this.setState({ show_popup: false })
+	}
+	
 	nearbyHospitalViewAllClicked = ()=>{
 		let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
@@ -235,9 +252,26 @@ class HomeView extends React.Component {
         this.props.history.push(`/ipd/searchHospitals`)   
 	}
 
+	afterUserLogin = ()=>{
+		let is_user_insurance_active = false;
+		let user_insurance_status = null;
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		if(is_user_insurance_active){
+			setTimeout(() => {
+	            SnackBar.show({ pos: 'bottom-center', text: "For insured customers, prescription upload is required at the time of booking" })
+	        }, 1000)
+			this.setState({is_user_insurance_active: true })
+		}
+	}
+
 	render() {
 
 		let topSpecializations = []
+		let user_insurance_status = null
+		let is_user_insurance_active = null;
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.props.specializations;//.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
@@ -268,6 +302,12 @@ class HomeView extends React.Component {
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
+
+		//Check user for insurance 
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		is_user_insurance_active = user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7
 		//For desktop View, get home page views
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -314,7 +354,7 @@ class HomeView extends React.Component {
 							type="lab"
 							selectSearchType = {this.props.selectSearchType}
 						/>
-
+						
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
@@ -501,7 +541,21 @@ class HomeView extends React.Component {
 							type="lab"
 							selectSearchType = {this.props.selectSearchType}
 						/>
+						{
+							this.state.is_user_insurance_active?''
+							:<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin}/>	
+						}
 
+						{
+							// this.state.showPrescriptionInsuranceError?
+							// <div className="health-advisor-col d-flex p-2 align-items-start">
+							// 	<img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+							// 	<p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+							// 	<img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+							// </div>:''
+
+						}
+						
 						{
 							this.props.package_categories && this.props.package_categories.length ?
 								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history}/>
@@ -605,6 +659,10 @@ class HomeView extends React.Component {
 				</div>
 				<div className="chat-main-container">
 					<div className="container">
+					{
+                        this.state.show_popup ?
+                            <VipLoginPopup {...this.props}  hideLoginPopup={this.closeLeadPopup.bind(this)}  closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                    }
 						<div className="row">
 							{slabOrder}
 						</div>
