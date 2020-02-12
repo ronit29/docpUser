@@ -14718,10 +14718,9 @@ div.doc-srch-fltr.vip-slct-pop {
     font-size: 16px;
 }
 @media (min-width: 992px){
-    .upload-prescription{
+    /* .upload-prescription{
         overflow-y: scroll;
-        height: 480px;
-    }
+    } */
     .presc-submit-btn{
         position: fixed;
         right: 0px;
