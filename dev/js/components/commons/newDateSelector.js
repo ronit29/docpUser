@@ -29,7 +29,7 @@ class NewDateSelector extends React.Component {
       let FormattedMnth
         if(nextProps.old_dob && nextProps.old_dob != ''){
             let oldDob = nextProps.old_dob.split('-')
-             if(this.state.toCalculateAge){
+             if(this.state.toCalculateAge ||  nextProps.isForceUpdateDob){
               if(oldDob.length ==3){
                 if(oldDob[0].length ==4){
                   FormattedYear = oldDob[0]
@@ -47,6 +47,9 @@ class NewDateSelector extends React.Component {
                     this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
                   }
                   if(FormattedDay && FormattedMnth && FormattedYear){
+                    if(this.props.is_gold){
+                      this.props.unSetForceUpdateDob()
+                    }
                     this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
                   }
                 }

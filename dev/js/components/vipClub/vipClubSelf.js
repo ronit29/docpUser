@@ -22,7 +22,8 @@ class VipProposer extends React.Component {
 			isUserSelectedProfile:this.props.isUserSelectedProfile,
 			phone_number:this.props.user_phone_number,
 			isDobValidated:false,
-            is_tobe_dummy_user:false
+            is_tobe_dummy_user:false,
+            isForceUpdateDob:false
 		}
 	}
 	componentDidMount() {
@@ -121,12 +122,13 @@ class VipProposer extends React.Component {
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,
-				id:newProfileid
+				id:newProfileid,
+				isForceUpdateDob:true
 			},() =>{
 				this.handleSubmit();
 			})
 		}else{
-			this.setState({showPopup: !this.state.showPopup})
+			this.setState({showPopup: !this.state.showPopup,isForceUpdateDob:false})
 		}
 	}
 
@@ -228,6 +230,10 @@ class VipProposer extends React.Component {
 		}, () => {
 			self.handleSubmit()
 		})
+	}
+
+	unSetForceUpdateDob(){
+		this.setState({isForceUpdateDob:false})
 	}
 
 	render() {
@@ -349,7 +355,7 @@ class VipProposer extends React.Component {
 					}
 					<div className="col-12">
 					<form>
-					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.props.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id}/>
+					<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.props.is_dob_error}  old_dob={this.state.dob} is_gold={true} user_form_id ={this.props.member_id} isForceUpdateDob ={this.state.isForceUpdateDob} unSetForceUpdateDob={this.unSetForceUpdateDob.bind(this)} />
 					{
 						this.props.validateErrors.indexOf('dob') > -1 ?
 							commonMsgSpan : ''
@@ -391,7 +397,7 @@ class VipProposer extends React.Component {
 							<span>or</span>
 						</div>
 						<div className="sub-form-hed-click" style={{justifyContent: 'space-between'}} onClick={() => this.setState({
-							showPopup: true, profile_flag:true})}>
+							showPopup: true, profile_flag:true,isForceUpdateDob:false})}>
 							Select Profile/Add New Profile
 							<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>

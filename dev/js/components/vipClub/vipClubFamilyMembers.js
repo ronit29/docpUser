@@ -22,7 +22,8 @@ class VipProposerFamily extends React.Component {
     	    isUserSelectedProfile:this.props.isUserSelectedProfile,
     	    isDobValidated:false,
             is_dob_error:false,
-            gender:''
+            gender:'',
+            isForceUpdateDob:false
 		}
 	}
 
@@ -79,12 +80,13 @@ class VipProposerFamily extends React.Component {
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,
-				id:newProfileid
+				id:newProfileid,
+				isForceUpdateDob:true
 			},() =>{
 				this.handleSubmit()
 			})
 		}else{
-			this.setState({showPopup: !this.state.showPopup})
+			this.setState({showPopup: !this.state.showPopup,isForceUpdateDob:false})
 		}
 	}
 
@@ -109,6 +111,10 @@ class VipProposerFamily extends React.Component {
 		})
 	}
 
+	unSetForceUpdateDob(){
+		this.setState({isForceUpdateDob:false})
+	}
+
 	render() {
 		console.log(this.props.validateErrors)
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
@@ -125,7 +131,7 @@ class VipProposerFamily extends React.Component {
 					{
 						this.props.show_selected_profiles.length>0 && !this.state.is_disable?
 						<div className="sub-form-hed-click" onClick={() => this.setState({
-						showPopup: true})}>
+						showPopup: true,isForceUpdateDob:false})}>
 						Select from profile
 						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''
@@ -168,7 +174,7 @@ class VipProposerFamily extends React.Component {
 						</div>
 						<div className="col-12"> 
 							<form>
-								<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.props.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true}/>
+								<NewDateSelector {...this.props} getNewDate={this.submitNewDob.bind(this)} is_dob_error={this.props.is_dob_error}  old_dob={this.state.dob} user_form_id ={this.props.member_id} is_gold={true} unSetForceUpdateDob={this.unSetForceUpdateDob.bind(this)} isForceUpdateDob={this.state.isForceUpdateDob}/>
 								{
 									this.props.validateErrors.indexOf('dob') > -1 ?
 										commonMsgSpan : ''

@@ -259,7 +259,7 @@ class UserSignupView extends React.Component {
                                                                         />
                                                                     </div></div> : ""
                                                                 }
-                                                                {this.state.primary_profile && Object.keys(this.state.primary_profile).length > 0 && !this.state.primary_profile.email ?<div className="labelWrap">
+                                                                {this.state.primary_profile && Object.keys(this.state.primary_profile).length > 0 && this.state.primary_profile.is_default_user && !this.state.primary_profile.email ?<div className="labelWrap">
                                                                     <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="email">Email</label>
                                                                 </div>:''}
