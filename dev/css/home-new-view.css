@@ -58,6 +58,12 @@
     width: 25px;
     height: 25px;
 }
+.test-price{
+    color: var(--text--primary--color);
+}
+.gold-test-price{
+
+}
 /************** top hospital css **************/
 /************** card slider css **************/
 
@@ -88,7 +94,7 @@
 }
 
 .card-slider-container>.slider-card-column>.slide-img-col {
-    height: 54px;
+    height: 45px;
 }
 
 .card-slider-container>.slider-card-column>.slide-img-col>img {

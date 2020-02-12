@@ -87,7 +87,15 @@ class HomePageWidgets extends React.PureComponent {
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
                                             <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
                                         </div>
-                                        <h5 className="card-name">{listItem.name}</h5>
+                                        <h5 className="card-name">
+                                            {listItem.name} 
+                                            <br/><span >(60 tests)</span>
+                                        </h5>
+                                        <h6 className="test-price fw-500 mt-3">&#8377; 700</h6>
+                                        <h6 className="gold-test-price fw-500 mt-3">
+                                            <img height="18" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png" alt="gold"/>
+                                            <span className="ml-2">Price &#8377; 499</span>
+                                        </h6>
                                         {/* <h5 className="off-txt">30% OFF</h5>*/}
                                     </div>
 
