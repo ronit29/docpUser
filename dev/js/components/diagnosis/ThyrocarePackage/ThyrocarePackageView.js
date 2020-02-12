@@ -139,19 +139,19 @@ class ThyrocarePackageView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B<br />(Includes 60 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam B<br />(Includes 56 tests)</p>
                                             <p className="stc-price-cut">₹ 700{/*634 <span>₹ 750</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 59 tests)</p>
                                             <p className="stc-price-cut">₹ 1000{/*950 <span>₹ 1100</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 94 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 90 tests)</p>
                                             <p className="stc-price-cut">₹ 2000{/*1440 <span>₹ 1600</span>*/}</p>
                                         </div>
                                     </div>
@@ -246,17 +246,17 @@ class ThyrocarePackageView extends React.Component {
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    60
+                                                    56
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    63
+                                                    59
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    94
+                                                    90
                                                                         </p>
                                             </div>
                                         </div>
@@ -271,17 +271,17 @@ class ThyrocarePackageView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                         </div>

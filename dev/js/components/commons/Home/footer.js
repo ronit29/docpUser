@@ -167,10 +167,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/about")
                                     }}>About Us</a></li>
-                                    <li><a href="/howitworks" onClick={(e) => {
+                                    {/*<li><a href="/howitworks" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/howitworks")
-                                    }}>How it Works</a></li>
+                                    }}>How it Works</a></li>*/}
                                     <li><a href="/careers" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/careers")
@@ -202,10 +202,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/about")
                                     }}>About Us</a></li>
-                                    <li><a href="/howitworks" onClick={(e) => {
+                                   {/* <li><a href="/howitworks" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/howitworks")
-                                    }}>How it Works</a></li>
+                                    }}>How it Works</a></li>*/}
                                     <li><a href="/careers" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/careers")

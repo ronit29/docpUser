@@ -498,8 +498,8 @@ class ChoosePatientNewView extends React.Component {
                                             <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
                                         </React.Fragment>
                                     }
-
-                                </div>  
+                                </div>
+                                <p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  
                             </form>
                         </div>
                     </React.Fragment>

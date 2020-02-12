@@ -381,6 +381,7 @@ class DoctorProfileView extends React.Component {
     render() {
         let doctor_id = this.props.selectedDoctor
         let enabled_for_online_booking = false
+        let show_dpp_organic_popup = false
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
         }
@@ -397,6 +398,13 @@ class DoctorProfileView extends React.Component {
         }
         if (this.props.DOCTORS[doctor_id]) {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
+            if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
+                this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 80)){
+                        show_dpp_organic_popup = true
+                    }
+                })
+            }
             seo_url = this.props.DOCTORS[doctor_id].url || ""
             if (seo_url) {
                 seo_url = "/" + seo_url
@@ -502,7 +510,7 @@ class DoctorProfileView extends React.Component {
                     :''
                 }
                 {
-                    this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
+                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
                      <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
                     :''
                 }
