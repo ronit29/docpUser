@@ -5,7 +5,6 @@ import ChatPanel from '../ChatPanel'
 import HelmetTags from '../HelmetTags'
 import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
-import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
@@ -21,9 +20,13 @@ import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import Loader from '../Loader';
-
+import VipLoginPopup from '../../vipClub/vipClubPopup.js'
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
+import SnackBar from 'node-snackbar'
+import HomePageWidget from '../HomeNewView/HomePageWidget.js'
 
 class MainView extends React.Component{
+    
     constructor(props) {
         super(props);
         let footerData = null
@@ -33,12 +36,260 @@ class MainView extends React.Component{
         this.state = {
             specialityFooterData: footerData,
             showPopup: false,
-            clickedOn: ''
+            clickedOn: '',
+            show_popup:false,
+            is_user_insurance_active: false
+        }
+    }
+
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+
+        let user_insurance_status = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        this.setState({is_user_insurance_active: user_insurance_status})
+
+        this.props.getSpecialityFooterData((cb) => {
+            this.setState({ specialityFooterData: cb });
+        });
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
+
+        let data = { 'event': "viewHome" }
+
+        CRITEO.sendData(data)
+    }
+
+
+    navigateTo(where, type, data, e) {
+        if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+        if (type) {
+            this.props.selectSearchType(type)
+        }
+        if (where == '/chat') {
+            this.props.history.push(where, data)
+        } else {
+            this.props.history.push(where)
+        }
+    }
+
+    getAge(birthday) {
+        birthday = new Date(birthday)
+        var ageDifMs = Date.now() - birthday.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
+    searchLab = (test, isPackage = false) =>{
+        let data
+        if (isPackage) {
+            test.type = 'package'
+            this.props.setPackageId(test.id, true)
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
+            }
+        } else {
+            test.type = 'test'
+            this.props.toggleDiagnosisCriteria('test', test, true)
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'SelectedBookTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-book-test', 'selected': test.name || '', 'selectedId': test.id || ''
+            }
+        }
+
+        GTM.sendEvent({ data: data })
+
+        if (isPackage) {
+            setTimeout(() => {
+                this.props.history.push('/searchpackages')
+            }, 100)
+        } else {
+            setTimeout(() => {
+                this.props.history.push('/lab/searchresults')
+            }, 100)
+        }
+    }
+
+    searchDoctor = (speciality) =>{
+        if (speciality.url) {
+            this.props.history.push(`/${speciality.url}`)
+        }
+        else {
+            speciality.type = 'speciality'
+            this.props.toggleOPDCriteria('speciality', speciality, true)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+        }
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
+        }
+        GTM.sendEvent({ data: data })
+    }
+
+    gotToSignup() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'HomepageBannerSignupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'homepage-banner-signup-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/user?ref=home')
+    }
+
+    gotToDoctorSignup(isLab) {
+        let data
+        if (isLab) {
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'RunLabBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-lab-banner-clicked'
+            }
+        } else {
+            data = {
+                'Category': 'ConsumerApp', 'Action': 'RunClinicBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'run-clinic-banner-clicked'
+            }
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/doctorsignup')
+    }
+
+    getTopList(list) {
+        let topList = []
+        if (list.length > 5) {
+            topList = list.slice(0, 5)
+        } else {
+            topList = list
+        }
+        return topList
+    }
+
+    orderMedClick(source) {
+        this.setState({ showPopup: true, clickedOn: source }, () => {
+            setTimeout(() => this.continueClick(), 1000);
+        })
+        if (source === 'newOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'DesktopNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-new-order-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
+        else if (source === 'prevOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'DesktopPreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-previous-order-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
+    }
+
+    continueClick() {
+        if (typeof navigator === 'object') {
+            if (/mobile/i.test(navigator.userAgent)) {
+
+            }
+            else {
+                if (this.state.clickedOn === 'newOrder') {
+                    window.open(CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL, '_blank')
+                }
+                else {
+                    window.open(CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL, '_blank')
+                }
+            }
+        }
+        setTimeout(() => {
+            this.setState({
+                showPopup: false
+            })
+        }, 1000)
+    }
+
+    hidePopup() {
+        this.setState({ showPopup: false })
+    }
+
+    sbiBannerClicked= ()=>{
+        let data = {
+                'Category': 'ConsumerApp', 'Action': 'SBIGOLDBANNER', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sbi-gold-banner'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
+    }
+
+    closeLeadPopup() {
+        this.setState({ show_popup: false })
+    }
+    
+    nearbyHospitalViewAllClicked = ()=>{
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.mergeIpdCriteria({
+            commonSelectedCriterias: [],
+            nextSelectedCriterias: []
+        })
+        this.props.history.push(`/ipd/searchHospitals`)   
+    }
+
+    afterUserLogin = ()=>{
+        let is_user_insurance_active = false;
+        let user_insurance_status = null;
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        if(is_user_insurance_active){
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "For insured customers, prescription upload is required at the time of booking" })
+            }, 1000)
+            this.setState({is_user_insurance_active: true })
         }
     }
 
     
     render(){
+
+        const parsed = queryString.parse(this.props.location.search)
+        let topSpecializations = []
+        if (this.props.specializations && this.props.specializations.length) {
+            topSpecializations = this.props.specializations;//.slice(0, 9)//this.getTopList(this.props.specializations)
+        }
+
+        let topTests = []
+        if (this.props.common_tests && this.props.common_tests.length) {
+            topTests = this.props.common_tests;//.slice(0, 9)//this.getTopList(this.props.common_tests)
+        }
+
+        let topPackages = []
+        if (this.props.common_package && this.props.common_package.length) {
+            topPackages = this.props.common_package//this.getTopList(this.props.common_package)
+        }
+
+        let articles = this.props.articles || []
+        
+        let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+
+        let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
+
+        let defaultUserProfile = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            defaultUserProfile = this.props.profiles[this.props.defaultProfile];
+        }
+
         return(
             <div className="container-fluid p-0">
                 {/****** Header *********/}
@@ -64,246 +315,55 @@ class MainView extends React.Component{
                             </span>
                         </a>
                     </section>
+                
                     {/******  top hospitals *********/}
-                    <section className="card-block-row">
-                        <div className="top-card-row">
-                            <h6 style={{marginTop: 15}}>Top Hospitals</h6>
-                        </div>
-                        {/* card slider */}
-                        <div className="card-slider-container">
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
+                    <HomePageWidget
+                        heading="Top Hospitals"
+                        list={this.props.top_hospitals}
+                        dataType='home_top_hsptl'
+                        historyObj ={this.props.history}
+                    />
 
-                        </div>
-
-                        {/* slider buttons */}
-                        <a className="pkg-btnlft"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
-                        </a>
-                        <a className="pkg-btnrgt"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
-                        </a>
-                    </section>
                     {/******  doctor apointment section *********/}
-                    <section className="card-block-row">
-                        <div className="top-card-row d-flex align-item-center justify-content-between">
-                            <h6>Book Doctor Appointments</h6>
-                            <a className="d-flex align-item-center">
-                                <span>Search more specializations</span>
-                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
-                            </a>
-                        </div>
-                        {/* card slider */}
-                        <div className="discount-badge">
-                            <h6>Upto 50% OFF</h6>
-                        </div>
-                        <div className="card-slider-container">
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                        </div>
-                        {/* slider buttons */}
-                        <a className="pkg-btnlft"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                        <a className="pkg-btnrgt"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                    </section>
-                    {/******  doctor apointment section *********/}
+                    <HomePageWidget
+                        heading="Book Doctor Appointments"
+                        rightText= "Search more specializations"
+                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        list={topSpecializations}
+                        dataType='home_top_specz'
+                        discount="50%"
+                        historyObj ={this.props.history}
+                    />
+                    
                     {/******  Popular health packages section *********/}      
-                    <section className="card-block-row">
-                        <div className="top-card-row d-flex align-item-center justify-content-between">
-                            <h6>Popular Health Packages</h6>
-                            <a className="d-flex align-item-center">
-                                <span>View all</span>
-                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
-                            </a>
-                        </div>
-                        {/* card slider */}
-                        <div className="card-slider-container">
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                                <h5 className="off-txt">30% OFF</h5>
-                            </div>
-                        </div>
-                        {/* slider buttons */}
-                        <a className="pkg-btnlft"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                        <a className="pkg-btnrgt"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                    </section>    
-                    {/******  Popular health packages section *********/} 
-                    {/******  Book lab test *********/}      
-                    <section className="card-block-row">
-                        <div className="top-card-row d-flex align-item-center justify-content-between">
-                             <h6>Book Lab Tests</h6>
-                            <a className="d-flex align-item-center">
-                                <span>Search more test</span>
-                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
-                            </a>
-                        </div>
-                        {/* card slider */}
-                        <div className="discount-badge">
-                            <h6>Upto 50% OFF</h6>
-                        </div>
-                        <div className="card-slider-container">
-                            <div className="slider-card-column" id="cardBlock">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                            </div>
-                            <div className="slider-card-column">
-                                <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                    <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>
-                                </div>
-                                <h5 className="card-name">Medanta - The Medicity, Gurgaon Sector 38</h5>
-                            </div>
-                        </div>
-                        {/* slider buttons */}
-                        <a className="pkg-btnlft"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                        <a className="pkg-btnrgt"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="arrow"/>
-                        </a>
-                    </section>    
-                    {/******  Book lab test *********/}          
-                    <Accordian></Accordian>
+                    <HomePageWidget
+                        heading="Popular Health Packages"
+                        rightText= "View all"
+                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        list={topPackages}
+                        dataType='home_top_pckg'
+                        historyObj ={this.props.history}
+                    />
+  
+                    {/******  Book lab test *********/}  
+                    {/*<HomePageWidget
+                        heading="Hospitals Near you"
+                        list={this.props.nearbyHospitals.hospitals}
+                        dataType='home_nearby-hsptl'
+                        historyObj ={this.props.history}
+                    />*/}
+
+                    <HomePageWidget
+                        heading="Book Lab Tests"
+                        rightText= "Search more test"
+                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        list={topTests}
+                        dataType='home_top_specz'
+                        discount="50%"
+                        historyObj ={this.props.history}
+                    />
+    
+                    <Accordian/>
                     {/******  Our Partners section *********/}
                     <section className="card-block-row">
                         <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
