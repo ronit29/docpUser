@@ -25,24 +25,24 @@ import Loader from '../Loader';
 
 class MainView extends React.Component{
     constructor(props) {
-        super(props);
-        let footerData = null
-        if (this.props.initialServerData) {
-            footerData = this.props.initialServerData.footerData
-        }
-        this.state = {
-            specialityFooterData: footerData,
-            showPopup: false,
-            clickedOn: ''
-        }
-    }
+		super(props);
+		let footerData = null
+		if (this.props.initialServerData) {
+			footerData = this.props.initialServerData.footerData
+		}
+		this.state = {
+			specialityFooterData: footerData,
+			showPopup: false,
+			clickedOn: ''
+		}
+	}
 
     
     render(){
         return(
             <div className="container-fluid p-0">
                 {/****** Header *********/}
-                <DesktopProfileHeader/>
+                <DesktopProfileHeader></DesktopProfileHeader>
 
                 {/* header */}
                 {/****** Header *********/}
