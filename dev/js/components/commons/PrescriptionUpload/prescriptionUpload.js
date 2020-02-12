@@ -37,35 +37,42 @@ class PrescriptionView extends React.PureComponent {
                 let file = event.target.files[0]
                 let fileName = file.name
                 if(/(.png|.jpeg|.jpg|.pdf)/.test(fileName) ) {
+                    let fileSize = (file.size)/(1024*1024);
 
-                    if(fileName.includes('.pdf')){
-                        let file_pdf = ASSETS_BASE_URL + "/img/pdf-loading.png"
-                        this.setState({selected_file: file_pdf, selected_file_name: fileName })
-                        this.finishCrop(null, file)
-                    }else{
+                    if(Math.round(fileSize)<=5){
 
-                        const compress = new Compress()
-                        compress.compress([file], {
-                            quality: 1,
-                            maxWidth: 1000,
-                            maxHeight: 1000,
-                        }).then((results) => {
-                            const img1 = results[0]
-                            const base64str = img1.data
-                            const imgExt = img1.ext
-                            const file = Compress.convertBase64ToFile(base64str, imgExt)
-                            this.getBase64(file, (dataUrl) => {
-                                this.setState({selected_file: dataUrl, selected_file_name: fileName })
-                                this.finishCrop(dataUrl, null)
+                        if(fileName.includes('.pdf')){
+                            let file_pdf = ASSETS_BASE_URL + "/img/pdf-loading.png"
+                            this.setState({selected_file: file_pdf, selected_file_name: fileName })
+                            this.finishCrop(null, file)
+                        }else{
+
+                            const compress = new Compress()
+                            compress.compress([file], {
+                                quality: 1,
+                                maxWidth: 1000,
+                                maxHeight: 1000,
+                            }).then((results) => {
+                                const img1 = results[0]
+                                const base64str = img1.data
+                                const imgExt = img1.ext
+                                const file = Compress.convertBase64ToFile(base64str, imgExt)
+                                this.getBase64(file, (dataUrl) => {
+                                    this.setState({selected_file: dataUrl, selected_file_name: fileName })
+                                    this.finishCrop(dataUrl, null)
+                                })
+                            }).catch((e) => {
+                                SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
                             })
-                        }).catch((e) => {
-                            SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
-                        })
 
+                        }
+                        this.setState({show_error: false});
+
+                    }else{
+                        this.setState({show_error: 'Please upload file less than 5MB'})
                     }
-                    this.setState({show_error: false});
                 }else{
-                    this.setState({show_error: true,selected_file_name: null,selected_file:null });
+                    this.setState({show_error: 'Invalid Format',selected_file_name: null,selected_file:null });
                 }
                 this.setState({ open_popup_overlay: true })
             }    
@@ -261,7 +268,7 @@ class PrescriptionView extends React.PureComponent {
                                                     this.state.show_error?
                                                     <React.Fragment>
                                                         <img className="prescription-uploaded-img" src={this.state.selected_file} /> 
-                                                        <h6 className="error-msg-text">Invalid Format</h6>
+                                                        <h6 className="error-msg-text text-center">{this.state.show_error}</h6>
                                                         <button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
                                                             <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                                             <span>
