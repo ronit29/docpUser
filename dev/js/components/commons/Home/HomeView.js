@@ -24,6 +24,7 @@ import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConf
 import Loader from '../Loader';
 import VipLoginPopup from '../../vipClub/vipClubPopup.js'
 import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
+import SnackBar from 'node-snackbar'
 
 const GENDER = {
 	"m": "Male",
@@ -44,8 +45,7 @@ class HomeView extends React.Component {
 			showPopup: false,
 			clickedOn: '',
 			show_popup:false,
-			is_user_insurance_active: false,
-			showPrescriptionInsuranceError: false
+			is_user_insurance_active: false
 		}
 	}
 
@@ -259,9 +259,11 @@ class HomeView extends React.Component {
 			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
 		}
 		is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
-		//this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
 		if(is_user_insurance_active){
-			this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+			setTimeout(() => {
+	            SnackBar.show({ pos: 'bottom-center', text: "For insured customers, prescription upload is required at the time of booking" })
+	        }, 1000)
+			this.setState({is_user_insurance_active: true })
 		}
 	}
 
@@ -545,12 +547,12 @@ class HomeView extends React.Component {
 						}
 
 						{
-							this.state.showPrescriptionInsuranceError?
-							<div className="health-advisor-col d-flex p-2 align-items-start">
-								<img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
-								<p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
-								<img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
-							</div>:''
+							// this.state.showPrescriptionInsuranceError?
+							// <div className="health-advisor-col d-flex p-2 align-items-start">
+							// 	<img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+							// 	<p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+							// 	<img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+							// </div>:''
 
 						}
 						

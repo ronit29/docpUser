@@ -112,10 +112,10 @@ class LoginPopup extends React.Component {
                 } else {
                     this.props.getUserProfile().then((resp)=>{
                         this.props.afterUserLogin();
+                        setTimeout(() => {
+                            SnackBar.show({ pos: 'bottom-center', text: "Login Successfully" })
+                        }, 500)
                     });
-                    setTimeout(() => {
-                        SnackBar.show({ pos: 'bottom-center', text: "Login Successfully" })
-                    }, 500)
                 }
             })
         } else {

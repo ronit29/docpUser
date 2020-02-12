@@ -31,7 +31,7 @@ class PrescriptionView extends React.PureComponent {
 	upload = (event, type=0)=>{
 
         if(type) {
-            this.setState({showLoginView: true, open_popup_overlay: true})
+            this.setState({showLoginView: STORAGE.checkAuth()?false:true, open_popup_overlay: true})
         }else {
             if(event && event.target && event.target.files && event.target.files.length && event.target.files[0].name) {
                 let file = event.target.files[0]
@@ -103,10 +103,13 @@ class PrescriptionView extends React.PureComponent {
             }
             this.props.uploadCommonPrescription(form_data, (data, err) => {
                 if (data) {
-
+                    let user_no = this.props.primaryMobile?this.props.primaryMobile:this.props.user_loggedIn_number
+                    if(user_no){
+                        user_no = Number(user_no)
+                    }
                     const parsed = queryString.parse(this.props.locationObj.search)
                     let data = {
-                        phone_number:this.props.primaryMobile?this.props.primaryMobile:this.props.user_loggedIn_number,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
+                        phone_number:user_no,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
                     }
                     let gtm_data = {'Category': 'ConsumerApp', 'Action': 'PrescriptionSubmitted', 'CustomerID': GTM.getUserId() || '', 'event': 'prescription-submitted'}
                     GTM.sendEvent({ data: gtm_data })
@@ -172,13 +175,14 @@ class PrescriptionView extends React.PureComponent {
 							<h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
 						</div>
 						{
-                            STORAGE.checkAuth()
-                            ?<React.Fragment>
-                                <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
-                                <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
-                            </React.Fragment>
-                            :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
+                            // STORAGE.checkAuth()
+                            // ?<React.Fragment>
+                            //     <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
+                            //     <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            // </React.Fragment>
+                            // :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
+                        <button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
 					</div>
 					:''
 				}
@@ -191,13 +195,14 @@ class PrescriptionView extends React.PureComponent {
                             <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
                         </div>
                         {
-                            STORAGE.checkAuth()
-                            ?<React.Fragment>
-                                <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
-                                <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
-                            </React.Fragment>
-                            :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
+                            // STORAGE.checkAuth()
+                            // ?<React.Fragment>
+                            //     <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
+                            //     <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
+                            // </React.Fragment>
+                            // :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                         }
+                        <button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                     </div>
                     :''
 				}
