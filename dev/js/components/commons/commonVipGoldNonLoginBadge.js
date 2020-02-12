@@ -26,7 +26,7 @@ export default (props) => {
 						<p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price + vip.vip_convenience_amount || 0}</span><img style={{ transform: 'rotate(-90deg)', width: '10px', margin: '0px 10px 0px 0px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
 
 					</div>
-					<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)} %</p>
+					<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)}%</p>
 				</div>
 			}
 
@@ -40,7 +40,7 @@ export default (props) => {
 						<p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_gold_price + vip.vip_convenience_amount || 0}</span><img style={{ transform: 'rotate(-90deg)', width: '10px', margin: '0px 10px 0px 0px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
 
 					</div>
-			<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)} %</p>
+			<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)}%</p>
 				</div>
 			}
 
@@ -55,7 +55,7 @@ export default (props) => {
 						<p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {parseInt(vip.vip_gold_price) + parseInt(vip.vip_convenience_amount) || 0}</span><img style={{ transform: 'rotate(-90deg)', width: '10px', margin: '0px 10px 0px 0px' }} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
 
 					</div>
-					<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)} %</p>
+					<p className="glod-save-perc">Save {parseInt(((mrp - vip.vip_gold_price - vip.vip_convenience_amount) / mrp) * 100)}%</p>
 				</div>
 			}
 
