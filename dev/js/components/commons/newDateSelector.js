@@ -18,7 +18,23 @@ class NewDateSelector extends React.Component {
         }
     }
 
+    componentDidMount(){
+        if(this.props.old_dob && this.props.old_dob != ''){
+            this.initialDobToState(this.props)
+        }
+
+    }
+
     componentWillReceiveProps(nextProps){
+        if(nextProps.old_dob && nextProps.old_dob != ''){
+            this.initialDobToState(nextProps)
+        }
+        if(nextProps.old_dob == ''){
+            this.setState({newDob:null,isValidDob:true, inValidText:'',calcualatedAge:null,months:null})
+        }
+    }
+
+    initialDobToState(nextProps){
       var d = new Date();
       var currentYear = d.getFullYear();
       var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth() + 1):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
@@ -27,38 +43,33 @@ class NewDateSelector extends React.Component {
       let FormattedYear
       let FormattedDay 
       let FormattedMnth
-        if(nextProps.old_dob && nextProps.old_dob != ''){
-            let oldDob = nextProps.old_dob.split('-')
-             if(this.state.toCalculateAge ||  nextProps.isForceUpdateDob){
-              if(oldDob.length ==3){
-                if(oldDob[0].length ==4){
-                  FormattedYear = oldDob[0]
-                  FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
-                  FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
-                  if(FormattedYear <= (currentYear - 100)){
-                    isValidDob = false
-                    inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
-                  }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
-                    isValidDob = false
-                    inValidText =''
-                  }else{
-                    inValidText =''
-                    isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear,this.props.is_gold?true:false)
-                    this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
-                  }
-                  if(FormattedDay && FormattedMnth && FormattedYear){
-                    if(this.props.is_gold){
-                      this.props.unSetForceUpdateDob()
-                    }
-                    this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
-                  }
-                }
-              }
+      let oldDob = nextProps.old_dob.split('-')
+       if(this.state.toCalculateAge ||  nextProps.isForceUpdateDob){
+        if(oldDob.length ==3){
+          if(oldDob[0].length ==4){
+            FormattedYear = oldDob[0]
+            FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
+            FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
+            if(FormattedYear <= (currentYear - 100)){
+              isValidDob = false
+              inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+            }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
+              isValidDob = false
+              inValidText =''
+            }else{
+              inValidText =''
+              isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear,this.props.is_gold?true:false)
+              this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
             }
+            if(FormattedDay && FormattedMnth && FormattedYear){
+              if(this.props.is_gold){
+                this.props.unSetForceUpdateDob()
+              }
+              this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
+            }
+          }
         }
-        if(nextProps.old_dob == ''){
-            this.setState({newDob:null,isValidDob:true, inValidText:'',calcualatedAge:null,months:null})
-        }
+      }
     }
 
     checkValue(str, max){
