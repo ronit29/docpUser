@@ -51,7 +51,7 @@ class HomePageWidgets extends React.PureComponent {
 
 	render(){
 
-		let { dataType, heading, rightText, discount } = this.props
+		let { dataType, heading, rightText, discount, topHospitals, topPackages, type, navTo } = this.props
 		return (
 			<React.Fragment>
 				<section className="card-block-row">
@@ -61,7 +61,7 @@ class HomePageWidgets extends React.PureComponent {
                         	rightText?
                         	<a className="d-flex align-item-center" href="/" onClick={(e)=>{
                         		e.preventDefault();
-                        		this.rightButtonClicked();
+                        		this.props.rightButtonClicked({type, where:navTo});
                         	}}>
 	                            <span>{rightText}</span>
 	                            <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
@@ -77,21 +77,26 @@ class HomePageWidgets extends React.PureComponent {
                         :''
                     }
                     {/* card slider */}
-                    <div className={`card-slider-container ${dataType}_list`} id={dataType}>
-                    	{
-                    		this.props.list.slice(0,9).map((listItem, i) => {
+                    {
+                        this.props.list && this.props.list.length?
+                        <div className={`card-slider-container ${dataType}_list`} id={dataType}>
+                        {
+                            this.props.list.slice(0,9).map((listItem, i) => {
 
-                			return <div className="slider-card-column" key={`${i}_dataType`}>
-			                            <div className="slide-img-col d-flex justify-content-center align-item-center">
-			                                <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
-			                            </div>
-			                            <h5 className="card-name">{listItem.name}</h5>
-			                            {/* <h5 className="off-txt">30% OFF</h5>*/}
-			                        </div>
+                            return <div className="slider-card-column" key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
+                                        </div>
+                                        <h5 className="card-name">{listItem.name}</h5>
+                                        {/* <h5 className="off-txt">30% OFF</h5>*/}
+                                    </div>
 
-                    		})
-                    	}
-                    </div>
+                            })
+                        }
+                        </div>
+                        :''    
+                    }
+                    
 
                     {/* slider buttons */}
                     <a className="pkg-btnlft" id={`${dataType}_RightArrow_hsptl`} onClick={this.scroll.bind(this, 'left')}> 

@@ -99,9 +99,9 @@ class MainView extends React.Component{
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-    searchLab = (test, isPackage = false) =>{
+    searchLab = (test ) =>{
         let data
-        if (isPackage) {
+        if (test.topPackages) {
             test.type = 'package'
             this.props.setPackageId(test.id, true)
             data = {
@@ -117,7 +117,7 @@ class MainView extends React.Component{
 
         GTM.sendEvent({ data: data })
 
-        if (isPackage) {
+        if (test.topPackages) {
             setTimeout(() => {
                 this.props.history.push('/searchpackages')
             }, 100)
@@ -143,6 +143,42 @@ class MainView extends React.Component{
             'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
         }
         GTM.sendEvent({ data: data })
+    }
+
+    goToSearch = (data)=>{
+        if (data.type) {
+            this.props.selectSearchType(data.type)
+        }
+        this.props.history.push(data.where)
+    }
+
+    searchHospitals = (data) => {
+        
+        let gtmData = {}
+        if(data.topHospitals) {
+            gtmData = {
+               'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+            }
+        }else{
+            gtmData = {
+               'Category': 'ConsumerApp', 'Action': 'HomeWidgetNearbyHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-nearby-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+            }
+        }
+        
+        GTM.sendEvent({ data: gtmData })
+
+        let redirectUrl = ''
+
+        if(data.url) {
+            redirectUrl = `/${data.url}`
+        }else {
+            redirectUrl = `/ipd/hospital/${data.id}`
+        }
+
+        if(data.is_ipd_hospital) {
+            redirectUrl+= `?showPopup=true`
+        }
+        this.props.history.push(redirectUrl)
     }
 
     gotToSignup() {
@@ -320,47 +356,66 @@ class MainView extends React.Component{
                     <HomePageWidget
                         heading="Top Hospitals"
                         list={this.props.top_hospitals}
+                        topHospitals={true}
                         dataType='home_top_hsptl'
                         historyObj ={this.props.history}
+                        searchFunc={this.searchHospitals}
                     />
+
+                    {
+                        this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length?
+                        <HomePageWidget
+                            heading="Hospitals Near you"
+                            list={this.props.nearbyHospitals.hospitals}
+                            dataType='home_nearby-hsptl'
+                            historyObj ={this.props.history}
+                            searchFunc={this.searchHospitals}
+                        />
+                        :''
+                    }
+                    
 
                     {/******  doctor apointment section *********/}
                     <HomePageWidget
                         heading="Book Doctor Appointments"
                         rightText= "Search more specializations"
-                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        rightButtonClicked = {this.goToSearch}
+                        searchFunc={this.searchDoctor}
                         list={topSpecializations}
                         dataType='home_top_specz'
                         discount="50%"
                         historyObj ={this.props.history}
+                        type="opd"
+                        navTo="/search?from=home"
                     />
                     
                     {/******  Popular health packages section *********/}      
                     <HomePageWidget
                         heading="Popular Health Packages"
                         rightText= "View all"
-                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        rightButtonClicked = {this.goToSearch}
+                        topPackages= {true}
                         list={topPackages}
+                        searchFunc={this.searchLab}
                         dataType='home_top_pckg'
                         historyObj ={this.props.history}
+                        type="package"
+                        navTo="/searchpackages"
                     />
   
                     {/******  Book lab test *********/}  
-                    {/*<HomePageWidget
-                        heading="Hospitals Near you"
-                        list={this.props.nearbyHospitals.hospitals}
-                        dataType='home_nearby-hsptl'
-                        historyObj ={this.props.history}
-                    />*/}
 
                     <HomePageWidget
                         heading="Book Lab Tests"
                         rightText= "Search more test"
-                        rightButtonClicked = {()=>this.props.history.push('/')}
+                        rightButtonClicked = {this.goToSearch}
                         list={topTests}
+                        searchFunc={this.searchLab}
                         dataType='home_top_specz'
                         discount="50%"
                         historyObj ={this.props.history}
+                        type="lab"
+                        navTo="/search?from=home"
                     />
     
                     <Accordian/>
