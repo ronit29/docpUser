@@ -411,7 +411,7 @@ class MainView extends React.Component{
                         rightButtonClicked = {this.goToSearch}
                         list={topTests}
                         searchFunc={this.searchLab}
-                        dataType='home_top_specz'
+                        dataType='home_top_tests'
                         discount="50%"
                         historyObj ={this.props.history}
                         type="lab"

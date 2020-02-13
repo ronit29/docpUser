@@ -9,18 +9,6 @@ class HomePageWidgets extends React.PureComponent {
         }
     }
 
-    navigateTo = (where, e) =>{
-        if (e) {
-            e.preventDefault()
-            e.stopPropagation()
-        }
-
-        if (this.props.type) {
-            this.props.selectSearchType(this.props.type)
-        }
-        this.props.historyObj.push(where)
-    }
-
     scroll(type) {
         let dataType = this.props.dataType
         let dataList = `${this.props.dataType}_list`
@@ -47,6 +35,14 @@ class HomePageWidgets extends React.PureComponent {
             }
             document.getElementById(`${dataType}_leftArrow_hsptl`).classList.remove("d-none")
         }
+    }
+
+    goldClicked(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.props.historyObj.push('/vip-gold-details?is_gold=true&source=homepagepackagegoldlisting&lead_source=Docprime')
     }
 
 	render(){
@@ -87,15 +83,64 @@ class HomePageWidgets extends React.PureComponent {
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
                                             <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
                                         </div>
+
                                         <h5 className="card-name">
-                                            {listItem.name} 
-                                            <br/><span >(60 tests)</span>
+                                            {listItem.name}
+                                            <br/> 
+                                            {
+                                                listItem.no_of_tests > 0?<span >{`(${listItem.no_of_tests} tests)`}</span>:''
+                                            }
+                                            
                                         </h5>
-                                        <h6 className="test-price fw-500 mt-3">&#8377; 700</h6>
-                                        <h6 className="gold-test-price fw-500 mt-3">
-                                            <img height="18" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png" alt="gold"/>
-                                            <span className="ml-2">Price &#8377; 499</span>
-                                        </h6>
+                                        {
+                                            type == "package"?
+                                            <React.Fragment>
+                                            {
+                                            //for login, gold enabled member or vip enabled member
+                                                listItem.vip && ( listItem.vip.is_gold_member || listItem.vip.is_vip_member ) && listItem.vip.covered_under_vip?
+                                                <React.Fragment>
+                                                    {
+                                                        (listItem.vip.vip_amount + listItem.vip.vip_convenience_amount)!= listItem.mrp?
+                                                        <h6 className="test-price fw-500 mt-3">&#8377; {listItem.mrp}</h6>:''
+                                                    }
+                                                    
+                                                    <h6 className="gold-test-price fw-500 mt-3">
+                                                        <img height="18" src={`${listItem.vip.is_gold_member?"https://cdn.docprime.com/cp/assets/img/gold-lg.png":"https://cdn.docprime.com/cp/assets/img/vip-lg.png"}` } alt="gold"/>
+                                                        <span className="ml-2">Price &#8377; {listItem.vip.vip_amount + listItem.vip.vip_convenience_amount}</span>
+                                                    </h6>
+                                                </React.Fragment>
+                                                :<React.Fragment>
+                                                    {
+                                                        listItem.discounted_price == listItem.mrp
+                                                        ?<h6 className="test-price fw-500 mt-3">&#8377; {listItem.mrp}</h6>
+                                                        :<div className="pkg-prc-ct">
+                                                            <p>₹ {listItem.discounted_price} 
+                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                            </p>
+                                                        </div>
+                                                    }
+                                                    
+                                                    {
+                                                        parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)!=0 && (listItem.discounted_price != listItem.mrp)?
+                                                        <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
+                                                    }
+
+                                                    {
+                                                            listItem.vip && !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount + listItem.vip.vip_gold_price) && listItem.vip.is_gold && listItem.vip.is_enable_for_vip?
+                                                            <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked}>
+                                                                <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
+                                                                <span>Price</span>
+                                                                <p style={{color:'black'}}>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
+                                                                <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+                                                            </div>
+                                                            :''
+                                                    }
+                                                </React.Fragment>
+                                            }
+                                            </React.Fragment>
+                                            :''
+                                        }
+                                        
                                         {/* <h5 className="off-txt">30% OFF</h5>*/}
                                     </div>
 
