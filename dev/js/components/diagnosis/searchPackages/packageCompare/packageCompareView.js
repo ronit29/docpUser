@@ -255,7 +255,7 @@ const queryString = require('query-string');
 
     sendPageUrl = () => {
         let data = {
-            callback: window.location.pathname.substring(1) + window.location.search,
+            callback: window.location.pathname.substring(1) + window.location.search.replace(/&/g,'*'),
             template: 'gold_general_template'
         }
         this.props.sendAgentWhatsupPageURL(data).then((resp) => {
