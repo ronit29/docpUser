@@ -195,11 +195,11 @@ class BasicDetails extends React.Component {
                                     <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="email">Email</label>
                                 </div>*/}
-                                {this.state.is_default_user ?
+                                {this.props.default_profile && Object.keys(this.props.default_profile).length && this.props.default_profile.is_default_user && this.props.default_profile.id == this.props.profileData.id?
                                     <VerifyEmail {...this.props} member_id={this.props.profileData} email={email} validateErrors = {[]}/>
                                 :''}
 
-                                {this.state.is_default_user ?<div className="labelWrap">
+                                {this.props.default_profile && Object.keys(this.props.default_profile).length && this.props.default_profile.is_default_user && this.props.default_profile.id == this.props.profileData.id ?<div className="labelWrap">
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
                                 </div>:''}

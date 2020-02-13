@@ -61,11 +61,15 @@ class EditProfile extends React.Component {
         let show_default_checkBox= true
         let is_profile_editable = true
         let gold_user_profile = {}
+        let default_profile = {}
         if(this.props.USER && this.props.USER.profiles){
             if(Object.keys(this.props.USER.profiles).length > 0){
                Object.entries(this.props.USER.profiles).map(function([key, value]) {
                     if(show_default_checkBox && value.is_insured){
                         show_default_checkBox = false
+                    }
+                    if(value.is_default_user){
+                        default_profile = value
                     }
                     if(self.state.profileData){
                         if(value.id == self.state.profileData.id && value.is_insured){
@@ -97,6 +101,7 @@ class EditProfile extends React.Component {
                                 gold_user_profile = {gold_user_profile}
                                 add_to_gold = {this.state.add_to_gold}
                                 addToGold = {this.addToGold.bind(this)}
+                                default_profile = {default_profile}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 
