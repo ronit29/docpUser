@@ -404,6 +404,12 @@
     background-size: 30% 65%;
     float: left;
 }
+.corporate-detail-section > .modal-close-img {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    height: 14px;
+}
 .corporate-detail-section > h3{
     font-size: 23px;
     font-weight: 500;
@@ -435,7 +441,7 @@
         display: none;
     }
     .new-main-view {
-        padding: 70px 15px 15px 15px;
+        padding: 15px;
     }
 
     .full-banner-section{
@@ -454,7 +460,7 @@
         margin: 20px 0px;
     }
     .slider-card-column{
-        width: 175px;
+        width: 168px;
     }
     .card-slider-container>.slider-card-column>h5{
         font-size: 12px;
@@ -581,7 +587,7 @@
         border: none;
     }
     .card-slider-container>.slider-card-column>.slide-img-col>img{
-        height: 42px;
+        height: 40px;
     }
 }   
 @media screen and (max-width: 600px){

@@ -346,6 +346,7 @@ class MainView extends React.Component{
                     this.state.openCorporateBlock?
                     <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)} className="test-clas">
                         <div className="col-sm-12 corporate-detail-section">
+                            <img className="modal-close-img" src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} alt="close"/>
                             <h3>Drop your details</h3>
                             <h6>We will reach yo for further assistance</h6>
                             <form action="">
