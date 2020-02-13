@@ -75,11 +75,11 @@ class HomePageWidgets extends React.PureComponent {
                     {/* card slider */}
                     {
                         this.props.list && this.props.list.length?
-                        <div className={`card-slider-container ${dataType}_list`} id={dataType}>
+                        <div className={`card-slider-container ${(type=='opd' || type=='lab')?'mbl-wdgt':''} ${dataType}_list`} id={dataType}>
                         {
                             this.props.list.slice(0,9).map((listItem, i) => {
 
-                            return <div className={`slider-card-column ${type?'mbl-wdgt':''}`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
+                            return <div className={`slider-card-column`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
                                             <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
                                         </div>

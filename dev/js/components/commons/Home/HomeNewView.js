@@ -340,7 +340,7 @@ class MainView extends React.Component{
         return(
             <div className="container-fluid p-0">
                 {/****** Header *********/}
-                <DesktopProfileHeader/>
+                <DesktopProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
 
                 {
                     this.state.openCorporateBlock?

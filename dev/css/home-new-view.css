@@ -120,7 +120,7 @@
     padding: 4px;
     position: absolute;
     left: 30px;
-    top: 39px;
+    margin-top: 20px;
     z-index: 11;
 }
 .discount-badge > h6{
@@ -462,16 +462,15 @@
     .card-block-row>.top-card-row>h6,
     .card-block-row>.top-card-row >a{
       font-size: 12px;   
-    }
-    .card-block-row> .pkg-btnlft{
-        left: -7px;
+      line-height: 20px;
     }
     .discount-badge{
         left: 22px;
-        top: 23px;
+        margin-top: 10px;
     }
-    .card-block-row> .pkg-btnrgt{
-        right: -7px;
+    .card-block-row> .pkg-btnrgt,
+    .card-block-row> .pkg-btnlft{
+        display: none;
     }
     .round-col{
         margin:  0 auto;
@@ -574,6 +573,16 @@
     .download-links:nth-child(2){
         margin-left: 0px;
     }
+    .mbl-wdgt{
+        white-space: normal!important;
+    }
+    .mbl-wdgt> .slider-card-column{
+        width: 105px;
+        border: none;
+    }
+    .card-slider-container>.slider-card-column>.slide-img-col>img{
+        height: 42px;
+    }
 }   
 @media screen and (max-width: 600px){
     .demo-mbl-screen-col{
@@ -600,7 +609,7 @@
         padding: 10px;
     }
     .discount-badge {
-        top: 31px;
+        margin-top: 10px;
     }
     .round-col{
         float: left;
