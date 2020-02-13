@@ -312,10 +312,10 @@ class VipProposer extends React.Component {
 									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required 
 									autoComplete="email" 
 									name="email" 
-									value={this.props.user_email} 
+									value={this.props.user_email?this.props.user_email:this.state.email} 
 									data-param='email' 
-									onChange={this.handleChange.bind(this, 'email')} 
-									onBlur={this.handleEmail} 
+									onChange={this.handleChange.bind(this,'email')} 
+									onBlur={this.handleEmail.bind(this)} 
 									// disabled={this.props.is_from_payment || this.state.disableEmail ? 'disabled' : ''}  
 								/>
 								<label className={this.props.is_from_payment /*|| this.state.disableEmail*/ ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>

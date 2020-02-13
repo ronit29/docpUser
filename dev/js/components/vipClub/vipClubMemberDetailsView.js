@@ -66,6 +66,7 @@ class VipClubMemberDetailsView extends React.Component {
 			profile:null,
 			profile_id:null,
 			phone_number:'',
+			email:null,
 			isUserSelectedProfile:true,
 			// day:null,
 			// mnth:null,
