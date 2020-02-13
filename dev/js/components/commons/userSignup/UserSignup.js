@@ -275,7 +275,7 @@ class UserSignupView extends React.Component {
                                                                     </div> : ""*/
                                                                 }
                                                                 {
-                                                                this.state.gold_user_profile && Object.keys(this.state.gold_user_profile).length && this.state.gold_user_profile.vip_data && Object.keys(this.state.gold_user_profile.vip_data).length && this.state.gold_user_profile.vip_data.total_members_allowed > 0 && !this.state.primary_profile.isDummyUser?
+                                                                this.state.gold_user_profile && Object.keys(this.state.gold_user_profile).length && this.state.gold_user_profile.vip_data && Object.keys(this.state.gold_user_profile.vip_data).length && this.state.gold_user_profile.vip_data.total_members_allowed > 0 && !this.state.primary_profile.isDummyUser && this.state.gold_user_profile.vip_data.is_member_allowed?
                                                                 <div className="defaultProfile">
                                                                     <label className="ck-bx add-member-chkbx"> 
                                                                         <span>

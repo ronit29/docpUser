@@ -211,7 +211,7 @@ class BasicDetails extends React.Component {
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
                             {
-                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member?
+                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member && this.props.gold_user_profile.vip_data.is_member_allowed?
                             <div className="defaultProfile">
                                 <label className="ck-bx add-member-chkbx"> 
                                     <span>
