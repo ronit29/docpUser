@@ -109,6 +109,7 @@
     font-weight: 500;
     color: #000000;
     margin-top: 10px;
+    min-height: 34px;
 }
 
 .card-slider-container>.slider-card-column>.off-txt {

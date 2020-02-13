@@ -85,10 +85,9 @@ class HomePageWidgets extends React.PureComponent {
                                         </div>
 
                                         <h5 className="card-name">
-                                            {listItem.name}
-                                            <br/> 
+                                            {listItem.name} 
                                             {
-                                                listItem.no_of_tests > 0?<span >{`(${listItem.no_of_tests} tests)`}</span>:''
+                                                listItem.no_of_tests > 0?<span className="ml-2" >{`(${listItem.no_of_tests} tests)`}</span>:''
                                             }
                                             
                                         </h5>
@@ -112,26 +111,25 @@ class HomePageWidgets extends React.PureComponent {
                                                 :<React.Fragment>
                                                     {
                                                         listItem.discounted_price == listItem.mrp
-                                                        ?<h6 className="test-price fw-500 mt-3">&#8377; {listItem.mrp}</h6>
-                                                        :<div className="pkg-prc-ct">
-                                                            <p>₹ {listItem.discounted_price} 
-                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                        ?<h6 className="test-price fw-500 mt-3" style={{marginTop: 10, marginBottom: 10}}>&#8377; {listItem.mrp}</h6>
+                                                        :<div className="pkg-prc-ct" style={{marginTop: 10, marginBottom: 10}}>
+                                                            <p className="justify-content-around" style={{fontSize: 12}}>
+                                                                <span>₹ {listItem.discounted_price}
+                                                                    <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                                </span> 
+                                                                {
+                                                                    parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)!=0 && (listItem.discounted_price != listItem.mrp)?
+                                                                    <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
+                                                                }
                                                             </p>
                                                         </div>
                                                     }
-                                                    
-                                                    {
-                                                        parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)!=0 && (listItem.discounted_price != listItem.mrp)?
-                                                        <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
-                                                    }
-
                                                     {
                                                             listItem.vip && !listItem.vip.is_gold_member && !listItem.vip.is_vip_member && listItem.discounted_price>(listItem.vip.vip_convenience_amount + listItem.vip.vip_gold_price) && listItem.vip.is_gold && listItem.vip.is_enable_for_vip?
-                                                            <div className="pkg-prc-ct home-screengoldprice" onClick={this.goldClicked}>
+                                                            <div className="pkg-prc-ct home-screengoldprice" style={{ fontSize: 13}} onClick={this.goldClicked}>
                                                                 <img style={{width: '32px','marginRight': '5px'}} src={ASSETS_BASE_URL + '/img/gold-sm.png'}/>
                                                                 <span>Price</span>
                                                                 <p style={{color:'black'}}>₹ {listItem.vip.vip_gold_price+ listItem.vip.vip_convenience_amount}</p>
-                                                                <img style={{transform: 'rotate(-90deg)', width: '10px', margin:'0px 10px 0px 0px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                                             </div>
                                                             :''
                                                     }
