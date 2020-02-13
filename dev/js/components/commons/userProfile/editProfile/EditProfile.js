@@ -27,7 +27,8 @@ class EditProfile extends React.Component {
             isEmailError:false,
             isDobValidated:false,
             is_dob_error:false,
-            add_to_gold:false
+            add_to_gold:this.props.location.search.includes('add_to_gold=true')?true:false,
+            from_booking:this.props.location.search.includes('from_booking=true')?true:false
         }
     }
 
@@ -214,7 +215,11 @@ class EditProfile extends React.Component {
                         }
                     }
                     this.props.resetVipData()
-                    this.props.history.go(-1)    
+                    if(this.state.from_booking){
+                        this.props.history.go(-2)    
+                    }else{
+                        this.props.history.go(-1)    
+                    }
                     
                     
                 })
@@ -260,8 +265,9 @@ class EditProfile extends React.Component {
                 </section> */}
 
                 {this.getComp()}
+
                 {
-                    this.state.openCrop ? "" : <button onClick={this.proceedUpdate.bind(this)} className="fixed p-3 horizontal bottom v-btn v-btn-primary no-round btn-lg text-center static-btn">Update Profile</button>
+                    this.state.openCrop ? "" : <button onClick={this.proceedUpdate.bind(this)} className="fixed p-3 horizontal bottom v-btn v-btn-primary no-round btn-lg text-center static-btn">{`${this.state.from_booking?'Continue Booking':'Update Profile'}`}</button>
                 }
 
             </div>

@@ -27,7 +27,7 @@ class UserFamily extends React.Component {
         this.props.history.push('/addprofile?existing=true')
     }
 
-    editProfile(id) { // to edit existing profile
+    editProfile(id,fromWhere) { // to edit existing profile
         const parsed = queryString.parse(this.props.location.search)
         if (this.props.location.search.includes('pick=true')) {
             // pick paitent and go back, else go on to edit.
@@ -52,12 +52,19 @@ class UserFamily extends React.Component {
             // if(selectedProfile && (selectedProfile.is_vip_member || selectedProfile.is_vip_gold_member) && this.props.clearExtraTests){
             //     this.props.clearExtraTests();
             // }
-            this.props.history.go(-1)
+            if(fromWhere){
+                this.props.history.push(`/user/edit/${id}?add_to_gold=${fromWhere}&from_booking=true`)
+            }else{
+                this.props.history.go(-1)
+            }
         } else {
-            this.props.history.push(`/user/edit/${id}`)
+            this.props.history.push(`/user/edit/${id}?add_to_gold=${fromWhere}`)
         }
     }
 
+    addtoGold(id){
+        this.editProfile(id,true)
+    }
 
     render() {
 
@@ -66,10 +73,20 @@ class UserFamily extends React.Component {
         let gold_profile = []
         let normal_profile = []
         let insurance_profile = []
+        let gold_user_profile = {}
+        if(this.props.USER && this.props.USER.profiles){
+            if(Object.keys(this.props.USER.profiles).length > 0){
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(value.is_vip_gold_member){
+                        gold_user_profile = value
+                    }
+                })
+            }
+        }
 
         {Object.keys(profiles).filter(x => !profiles[x].isDummyUser).map((id, key) => {
             if(profiles[id].is_vip_gold_member){
-                gold_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                gold_profile.push(<li key={key} onClick={this.editProfile.bind(this,id,false)}>
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
@@ -138,7 +155,7 @@ class UserFamily extends React.Component {
                 </a>
             </li>)
             }else if(profiles[id].is_insured){  
-                insurance_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                insurance_profile.push(<li key={key} onClick={this.editProfile.bind(this, id,false)}>
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
@@ -186,7 +203,7 @@ class UserFamily extends React.Component {
                 </a>
             </li>)
             }else{
-                normal_profile.push(<li key={key} onClick={this.editProfile.bind(this, id)}>
+                normal_profile.push(<li key={key} onClick={this.editProfile.bind(this, id,false)}>
                 <a>
                     <span className="icon icon-lg member-icon">
                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
@@ -221,6 +238,16 @@ class UserFamily extends React.Component {
                              </li>
                              :''}
                         </ul>
+                        {
+                            gold_user_profile && Object.keys(gold_user_profile).length && gold_user_profile.vip_data && Object.keys(gold_user_profile.vip_data).length && gold_user_profile.vip_data.total_members_allowed > 0 &&  gold_user_profile.vip_data.is_member_allowed? 
+                            <button onClick={(e)=>{
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.addtoGold(id)}} className="gold-covrd-btn">
+                                + Add to Gold 
+                            </button>
+                            :''
+                        }
                     </div>
                     {/*<span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>*/}
                 </a>
