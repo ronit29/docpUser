@@ -46,9 +46,11 @@ class NewDateSelector extends React.Component {
               if(FormattedYear <= (currentYear - 100)){
                 isValidDob = false
                 inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+                this.props.getNewDate('dob',FormattedYear+'-'+FormattedMnth+'-'+FormattedDay,isValidDob) 
               }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
                 isValidDob = false
                 inValidText =''
+                this.props.getNewDate('dob',FormattedYear+'-'+FormattedMnth+'-'+FormattedDay,isValidDob) 
               }else{
                 inValidText =''
                 isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear,this.props.is_gold?true:false)
