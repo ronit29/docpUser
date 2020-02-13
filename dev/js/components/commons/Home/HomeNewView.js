@@ -350,17 +350,17 @@ class MainView extends React.Component{
                             <h6>We will reach yo for further assistance</h6>
                             <form action="">
                                 <div className="input-field-row">
-                                    <input type="text" placeholder="Company Name *" style={{marginRight: 12}}/>
+                                    <input type="text" placeholder="* Company Name" style={{marginRight: 12}}/>
                                     <input type="text" placeholder="No of employees"/>
                                 </div>
                                 <div className="input-field-row">
-                                    <input type="text" placeholder="Email Address *"/>
+                                    <input type="text" placeholder="* Email Address"/>
                                 </div>
                                 <div className="input-field-row">
-                                    <input type="text" placeholder="Contact Person Name *"/>
+                                    <input type="text" placeholder="* Contact Person Name"/>
                                 </div>
                                 <div className="input-field-row">
-                                    <input type="text" placeholder="Contact Number *"/>
+                                    <input type="text" placeholder="* Contact Number"/>
                                 </div>
                             </form>
                             <button className="ipd-inp-sbmt float-right">Submit</button>

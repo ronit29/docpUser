@@ -400,9 +400,19 @@
 /************** circle chat box css **************/
 /************** Corporate details modal css **************/
 .corporate-detail-section{
-    padding-left: 30%;
+    padding: 15px 15px 15px 30%;
     background: url(/assets/img/corporate-contact.svg) no-repeat left center;
-    background-size: 30% 75%;
+    background-size: 30% 65%;
+    float: left;
+}
+.corporate-detail-section > h3{
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.corporate-detail-section > h6{
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 .corporate-detail-section>form>.input-field-row>input{
     width: 100%;
@@ -411,7 +421,8 @@
     background: #FFFFFF;
     border: 1px solid rgba(112, 112, 112, 0.22);
     border-radius: 5px;
-    height: 45px;
+    height: 35px;
+    outline: none;
 }
 .corporate-detail-section>form>.input-field-row:first-child >input{
     width: 48%;
