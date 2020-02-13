@@ -37,7 +37,7 @@ class HomePageWidgets extends React.PureComponent {
         }
     }
 
-    goldClicked(){
+    goldClicked =()=>{
         let data = {
             'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
         }
@@ -79,7 +79,7 @@ class HomePageWidgets extends React.PureComponent {
                         {
                             this.props.list.slice(0,9).map((listItem, i) => {
 
-                            return <div className="slider-card-column" key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
+                            return <div className={`slider-card-column ${type?'mbl-wdgt':''}`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
                                             <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
                                         </div>

@@ -24,6 +24,8 @@ import VipLoginPopup from '../../vipClub/vipClubPopup.js'
 import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
 import SnackBar from 'node-snackbar'
 import HomePageWidget from '../HomeNewView/HomePageWidget.js'
+import CommonPopup from '../commonFixedPopup/commonFixedPopup.js'
+
 
 class MainView extends React.Component{
     
@@ -38,7 +40,8 @@ class MainView extends React.Component{
             showPopup: false,
             clickedOn: '',
             show_popup:false,
-            is_user_insurance_active: false
+            is_user_insurance_active: false,
+            openCorporateBlock: false
         }
     }
 
@@ -296,6 +299,14 @@ class MainView extends React.Component{
         }
     }
 
+    getCorporateLead = ()=>{
+        this.setState({openCorporateBlock: true})
+    }
+
+    cancelOverlay = ()=>{
+        this.setState({openCorporateBlock: false})   
+    }
+
     
     render(){
 
@@ -331,8 +342,13 @@ class MainView extends React.Component{
                 {/****** Header *********/}
                 <DesktopProfileHeader/>
 
-                {/* header */}
-                {/****** Header *********/}
+                {
+                    this.state.openCorporateBlock?
+                    <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
+                        <p>Hello</p>
+                    </CommonPopup>
+                    :''
+                }
                 {/****** homepage  view *********/}
                 <div className="new-main-view">
                     {/******  full width banner *********/}
@@ -341,12 +357,11 @@ class MainView extends React.Component{
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                             }
-                            GTM.sendEvent({ data: data })
-                            e.preventDefault()
+                            GTM.sendEvent({ data: data });
                             this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
                           }} />
-                        <a href="">
-                            <span>Special plans available for Corporates 
+                        <a href="" onClick={(e)=>e.preventDefault()}>
+                            <span onClick={this.getCorporateLead} >Special plans available for Corporatess 
                                 <span className="down-icon-yellow">&gt;</span>
                             </span>
                         </a>
