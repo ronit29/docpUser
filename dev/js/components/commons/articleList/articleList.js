@@ -255,7 +255,7 @@ class ArticleList extends React.Component {
 							</div>
 
 						</div>
-						<RightBar noChatButton={true} />
+						<RightBar noChatButton={true} msgTemplate="gold_template_1"/>
 					</div>
 				</section>
 				<Footer />

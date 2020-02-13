@@ -688,7 +688,7 @@ class Article extends React.Component {
                                                 </div> : ''
                                         } */}
                                     </div>
-                                    <RightBar colClass="col-12 col-lg-5" articleData={this.state.articleData} />
+                                    <RightBar colClass="col-12 col-lg-5" articleData={this.state.articleData} msgTemplate="gold_template_1"/>
                                 </div>
 
                                 <div className="row">

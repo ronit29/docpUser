@@ -191,8 +191,14 @@ class NonIpdPopupView extends React.Component {
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
 						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">Book Appointment</p>
-						<span >No Service Fee</span>
+							<span >No Service Fee</span>
 						</button>
+					</div>
+					<div className="popUp-whtsappEnable">
+						<div className="whtsappEnable-container">
+							<p className="wtsapp-chk-txt"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'}/> Enable Whatsapp for seamless communication</p>
+							<p className="text-center fw-500" style={{ fontSize: 9, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
+						</div>
 					</div>
 				</div>
 			</div>

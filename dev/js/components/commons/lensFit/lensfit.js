@@ -77,7 +77,7 @@ class Lensfit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar colClass="col-lg-4" />
+                        <RightBar colClass="col-lg-4" msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

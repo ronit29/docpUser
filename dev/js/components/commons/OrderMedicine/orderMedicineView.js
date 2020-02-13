@@ -131,7 +131,7 @@ class OrderMedicineView extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <RightBar />
+                                    <RightBar msgTemplate="gold_general_template"/>
                                 </div>
                             </section>
                             {

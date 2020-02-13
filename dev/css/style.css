@@ -14922,7 +14922,32 @@ button.pop-subText{
     margin-top: 4px;
     display: inline-block;
 }
-
+.popUp-whtsappEnable {
+    margin: -8px !important;
+    background: #f5f5f5;
+    margin-top: 10px !important;
+}
+.whtsappEnable-container {
+    padding: 10px;
+    text-align: center;
+}
+.wtsapp-chk-txt {
+    font-size: 9px;
+    color: #8a8a8a;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+p.wtsapp-chk-txt img {
+    width: 14px;
+    margin-right: 3px;
+}
+.popUp-whtsappEnable-ipd {
+    margin: -12px !important;
+    background: #f5f5f5;
+    margin-top: 10px !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
 /* ======================================= popup DPP HPP  ======================================= */
 
 
@@ -15089,3 +15114,23 @@ box-shadow: none !important;
 }
 /* ======================================= new user addon  ======================================= */
 
+/* ======================================= whtsapp buttons on pages ======================================= */
+.whtsappPages{
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    padding: 12px 0;
+    border-radius: 4px;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+.whtsappPages img{
+    width: 20px;
+    margin-right: 8px;
+}
+/* ======================================= whtsapp buttons on pages ======================================= */

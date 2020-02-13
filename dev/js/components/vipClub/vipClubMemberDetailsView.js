@@ -154,7 +154,7 @@ class VipClubMemberDetailsView extends React.Component {
 						}
 					})
 				}
-				
+
 				props.saveCurrentSelectedVipMembers(membersId) // save current visible form member or selected user profile id
 				this.setState({ saveMembers: true })
 			}
@@ -166,11 +166,11 @@ class VipClubMemberDetailsView extends React.Component {
 			currentSelectedProfiles.push(val[key])
 		})
 		let already_users_ids = []
-        if(this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
-                this.props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-                    already_users_ids.push(val.profile)
-                })
-        }
+		if (this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data).length > 0 && this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data).length > 0 && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0) {
+			this.props.vip_club_db_data.data.user.plus_members.map((val, key) => {
+				already_users_ids.push(val.profile)
+			})
+		}
 		if (profileLength > 0) {
 			if (!props.USER.profiles[props.USER.defaultProfile].isDummyUser) {
 				{
@@ -199,7 +199,7 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	proceedPlan(isSms) { //new
+	proceedPlan(isSms, extraDataParams = {}) { //new
 		let success_id
 		let data = {}
 		let pushData = {}
@@ -243,7 +243,7 @@ class VipClubMemberDetailsView extends React.Component {
 							this.setState({is_dob_error:true})
 						}
 
-						if(param.dob != null && !param.isDobValidated){
+						if (param.dob != null && !param.isDobValidated) {
 							is_disable = true
 							fields.push('dob')
 							this.setState({is_dob_error:true})
@@ -289,10 +289,10 @@ class VipClubMemberDetailsView extends React.Component {
 				if (this.props.is_from_payment) {
 					let is_member_updated = []
 					let image_ids = []
-					if(this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0){
-			            primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x=>x.is_primary_user))[0]
-			        }
-					if(this.props.members_proofs && this.props.members_proofs.length>0 && Object.keys(primary_user).length >0){ //for self member_proofs
+					if (this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0) {
+						primary_user = this.props.vip_club_db_data.data.user.plus_members.filter((x => x.is_primary_user))[0]
+					}
+					if (this.props.members_proofs && this.props.members_proofs.length > 0 && Object.keys(primary_user).length > 0) { //for self member_proofs
 						param = primary_user
 						members = {}
 						members.profile = param.profile
@@ -303,12 +303,12 @@ class VipClubMemberDetailsView extends React.Component {
 						members.last_name = ''
 						members.email = primary_user.email
 						members.dob = primary_user.dob
-						is_member_updated = this.props.members_proofs.filter((x=>x.id == param.profile))
-						if(is_member_updated && is_member_updated.length > 0){
-							if(is_member_updated[0].img_path_ids.length > 0){
+						is_member_updated = this.props.members_proofs.filter((x => x.id == param.profile))
+						if (is_member_updated && is_member_updated.length > 0) {
+							if (is_member_updated[0].img_path_ids.length > 0) {
 								image_ids = []
-								is_member_updated[0].img_path_ids.map((imgId,i)=>{
-									image_ids.push({'proof_file':imgId.id})
+								is_member_updated[0].img_path_ids.map((imgId, i) => {
+									image_ids.push({ 'proof_file': imgId.id })
 								})
 							}
 							members.document_ids = image_ids
@@ -329,13 +329,13 @@ class VipClubMemberDetailsView extends React.Component {
 							members.profile = param.profile_id
 							members.is_primary_user = false
 							// data.members.push(members)
-							if(this.props.members_proofs && this.props.members_proofs.length>0){
-								is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
-								if(is_member_updated && is_member_updated.length > 0){
-									if(is_member_updated[0].img_path_ids.length > 0){
+							if (this.props.members_proofs && this.props.members_proofs.length > 0) {
+								is_member_updated = this.props.members_proofs.filter((x => x.id == param.id))
+								if (is_member_updated && is_member_updated.length > 0) {
+									if (is_member_updated[0].img_path_ids.length > 0) {
 										image_ids = []
-										is_member_updated[0].img_path_ids.map((imgId,i)=>{
-											image_ids.push({'proof_file':imgId.id})
+										is_member_updated[0].img_path_ids.map((imgId, i) => {
+											image_ids.push({ 'proof_file': imgId.id })
 										})
 									}
 									members.document_ids = image_ids
@@ -343,23 +343,23 @@ class VipClubMemberDetailsView extends React.Component {
 								// members.id=param.id
 							}
 							// pushData.members.push(members)
-				    		return data.members.push(members)
+							return data.members.push(members)
 						}
 					})
 					console.log(data)
 					let popupMemData
-						popupMemData = data.members
-						this.setState({popupMemData:popupMemData})
-						if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <this.props.selected_vip_plan.total_allowed_members){
-						  		this.setState({show_popup:true})
-						  		return
-						   }
-						   console.log(data)
-							this.props.addVipMembersData(data,(resp)=>{ // to add member details
-								if(resp.success){
-									this.props.history.push('vip-club-activated-details')
-								}
-							})
+					popupMemData = data.members
+					this.setState({ popupMemData: popupMemData })
+					if (!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length < this.props.selected_vip_plan.total_allowed_members) {
+						this.setState({ show_popup: true })
+						return
+					}
+					console.log(data)
+					this.props.addVipMembersData(data, (resp) => { // to add member details
+						if (resp.success) {
+							this.props.history.push('vip-club-activated-details')
+						}
+					})
 				} else {
 					this.props.currentSelectedVipMembersId.map((val, key) => {
 						if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
@@ -377,24 +377,24 @@ class VipClubMemberDetailsView extends React.Component {
 							members.is_primary_user = true
 							data.members.push(members)
 							data['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
-							data['coupon_type'] = this.props.selected_vip_plan.is_gold?'gold':'vip'
+							data['coupon_type'] = this.props.selected_vip_plan.is_gold ? 'gold' : 'vip'
 							pushData['coupon_code'] = this.state.coupon_code && this.state.is_payment_coupon_applied ? [this.state.coupon_code] : []
-							pushData['coupon_type'] = this.props.selected_vip_plan.is_gold?'gold':'vip'
+							pushData['coupon_type'] = this.props.selected_vip_plan.is_gold ? 'gold' : 'vip'
 							pushData.members.push(param)
 							console.log(data)
-							
-							if(STORAGE.isAgent()){
+
+							if (STORAGE.isAgent()) {
 								this.pushUserData(pushData)
 							}
 
-							if(STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='sbi_utm').length) {
+							if (STORAGE && STORAGE.getAnyCookie('sbi_utm') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x => x.type == 'sbi_utm').length) {
 
-								let tags = this.props.common_utm_tags.filter(x=>x.type=='sbi_utm')[0]
-								if(tags.utm_tags){
-									
+								let tags = this.props.common_utm_tags.filter(x => x.type == 'sbi_utm')[0]
+								if (tags.utm_tags) {
+
 									data['utm_sbi_tags'] = tags.utm_tags
 								}
-							}else if(document && document.location && document.location.host &&  document.location.host.includes('sbi')){
+							} else if (document && document.location && document.location.host && document.location.host.includes('sbi')) {
 								data['utm_sbi_tags'] = {
 									utm_tags: {
 										utm_source: 'sbi_utm',
@@ -408,7 +408,7 @@ class VipClubMemberDetailsView extends React.Component {
 
 
 							if (isSms) {
-								this.sendSMS()
+								this.sendSMS(extraDataParams)
 							} else {
 								this.props.vipClubPay(data, (resp) => { // to request for payment
 
@@ -444,9 +444,12 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 	}
 
-	sendSMS() {
+	sendSMS(extraDataParams) {
 		let parsed = queryString.parse(this.props.location.search)
 		let extraParams = {}
+		if (extraDataParams && extraDataParams.sendOnWhatsup) {
+			extraParams['message_medium'] = 'WHATSAPP';
+		}
 		this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase', parsed, extraParams, (err, res) => { //send payment link in sms to user by agaent
 			if (err) {
 				SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
@@ -468,16 +471,16 @@ class VipClubMemberDetailsView extends React.Component {
 		this.setState({ show_popup: false, proceed: false, popupMemData: {} })
 	}
 
-	applyCoupons(){ // apply coupons 
+	applyCoupons() { // apply coupons 
 		let selected_plan_id = null
 		if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment) {
-            // this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
-            selected_plan_id = this.props.selected_vip_plan.id
-		this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.selected_vip_plan.is_gold?8:11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
+			// this.props.getCoupons({productId:this.state.is_gold?8:11,gold_plan_id:this.props.selected_vip_plan.id})
+			selected_plan_id = this.props.selected_vip_plan.id
+			this.props.history.push(`/coupon/vip/${selected_plan_id}/${this.props.selected_vip_plan.is_gold ? 8 : 11}?deal_price=${this.props.selected_vip_plan.deal_price}&cart_item=`)
 		}
 	}
 
-	removeCoupon(){
+	removeCoupon() {
 		const parsed = queryString.parse(this.props.location.search)
         let gold_push_data={}
         let param
@@ -531,7 +534,7 @@ class VipClubMemberDetailsView extends React.Component {
 			}
 		}
 		let show_extra_fields = false
-		
+
 		if (this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0) {
 			this.props.currentSelectedVipMembersId.filter(x => x.isUserSelectedProfile).map((data, i) => {
 				proposer_id = data[i]
@@ -540,7 +543,7 @@ class VipClubMemberDetailsView extends React.Component {
 		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId = 0
-		
+
 		if (this.props.is_from_payment && Object.keys(this.props.selected_vip_plan).length > 0) {
 
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
@@ -610,19 +613,19 @@ class VipClubMemberDetailsView extends React.Component {
 																					<tr>
 																						<td></td>
 																						{
-																							val.title?
+																							val.title ?
 																								<td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>
-																							:val.gender?
-																								<td style={{ 'textTransform': 'capitalize' }} >{val.gender}</td>
-																							:''
+																								: val.gender ?
+																									<td style={{ 'textTransform': 'capitalize' }} >{val.gender}</td>
+																									: ''
 																						}
 																						<td>{val.dob}</td>
 																					</tr>
 																				</tbody>
-																		</table>
-																})
-																: ''}
-															</div>
+																			</table>
+																	})
+																	: ''}
+														</div>
 													</div>
 
 													<div className="search-el-btn-container">
@@ -664,35 +667,35 @@ class VipClubMemberDetailsView extends React.Component {
 											</div>
 										</div>
 										{!this.props.is_from_payment ?
-											this.props.vipCoupons && this.props.vipCoupons.length > 0?
-											<div className="widget cpn-blur mrb-15 cursor-pointer">
-												<div className="widget-content d-flex jc-spaceb mt-10" >
-                                                    <h4 className="title coupon-text d-flex align-item-center m-0" style={{ color: 'green' }}>
-                                                    	<img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon mr-10" />
-                                                        <span>Coupon Applied</span>
-                                                    </h4>
-                                                    <h4 className="title m-0 d-flex align-item-center" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
-                                                        <span className="mr-10">{this.props.vipCoupons[0].code}</span>
-                                                        <img style={{width:17}} onClick={(e) => {
-                                                            this.removeCoupon()
-                                                            this.setState({  is_payment_coupon_applied: false, coupon_discount:null })
-                                                        }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
-                                                    </h4>
-	                                            </div>
-	                                        </div>
-                                            :
-											<div className="widget cpn-blur mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
-												<div className="widget-content d-flex jc-spaceb mt-10">
-													<h4 className="title coupon-text d-flex align-item-center m-0">
-														<img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon mr-10" />
-														<span>HAVE A COUPON?</span>   
-													</h4>
-			                                        <div className="visit-time-icon coupon-icon-arrow">
-			                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
-			                                        </div>
-			                                    </div>
-	                                        </div>
-                                    	:''}
+											this.props.vipCoupons && this.props.vipCoupons.length > 0 ?
+												<div className="widget cpn-blur mrb-15 cursor-pointer">
+													<div className="widget-content d-flex jc-spaceb mt-10" >
+														<h4 className="title coupon-text d-flex align-item-center m-0" style={{ color: 'green' }}>
+															<img src={ASSETS_BASE_URL + "/img/customer-icons/coupon-applied.svg"} className="visit-time-icon mr-10" />
+															<span>Coupon Applied</span>
+														</h4>
+														<h4 className="title m-0 d-flex align-item-center" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
+															<span className="mr-10">{this.props.vipCoupons[0].code}</span>
+															<img style={{ width: 17 }} onClick={(e) => {
+																this.removeCoupon()
+																this.setState({ is_payment_coupon_applied: false, coupon_discount: null })
+															}} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
+														</h4>
+													</div>
+												</div>
+												:
+												<div className="widget cpn-blur mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+													<div className="widget-content d-flex jc-spaceb mt-10">
+														<h4 className="title coupon-text d-flex align-item-center m-0">
+															<img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon mr-10" />
+															<span>HAVE A COUPON?</span>
+														</h4>
+														<div className="visit-time-icon coupon-icon-arrow">
+															<img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+														</div>
+													</div>
+												</div>
+											: ''}
 										{child}
 									</div>
 								</div>
@@ -709,7 +712,7 @@ class VipClubMemberDetailsView extends React.Component {
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: !STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && this.props.isAgent === 'false' ?
-										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
+										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
 											<span className="foot-btn-sub-span"></span>
 										</button>
 										: ''
@@ -724,13 +727,13 @@ class VipClubMemberDetailsView extends React.Component {
 													<button className="add-shpng-cart-btn" data-disabled="true" onClick={this.proceedPlan.bind(this, true)}>Send SMS
 												<span className="foot-btn-sub-span"></span>
 													</button>
-													<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
+													<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
 														<span className="foot-btn-sub-span"></span>
 													</button>
 												</div>
 											</React.Fragment>
 											: !this.props.isAgent && this.props.isAgent === 'false' ?
-												<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price- this.state.coupon_discount}
+												<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this, false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price - this.state.coupon_discount}
 													<span className="foot-btn-sub-span"></span>
 												</button>
 												: ''
@@ -751,9 +754,16 @@ class VipClubMemberDetailsView extends React.Component {
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && !this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, true)}>Send SMS
-										<span className="foot-btn-sub-span"></span>
-										</button>
+										<React.Fragment>
+											<div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+												<button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.proceedPlan.bind(this, true)}>Send SMS
+											<span className="foot-btn-sub-span"></span>
+												</button>
+												<button className="add-shpng-cart-btn" onClick={this.proceedPlan.bind(this, true, { sendOnWhatsup: true })}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp
+											<span className="foot-btn-sub-span"></span>
+												</button>
+											</div>¸
+										</React.Fragment>
 										: ''
 
 							}
