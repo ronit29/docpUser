@@ -61,9 +61,6 @@
 .test-price{
     color: var(--text--primary--color);
 }
-.gold-test-price{
-
-}
 /************** top hospital css **************/
 /************** card slider css **************/
 
@@ -84,7 +81,7 @@
     width: 195px;
     display: inline-block;
     text-align: center;
-    padding: 10px;
+    padding: 5px 10px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     white-space: normal;
 }
@@ -386,6 +383,7 @@
     bottom: 0;
     z-index: 11;
     opacity: 0;
+    cursor: pointer;
 }
 .new-chat-box>input[type=checkbox]:checked ~ .chatbox-main{
     display: block;
@@ -398,6 +396,7 @@
     display: none;
 }
 /************** circle chat box css **************/
+
 /************** Corporate details modal css **************/
 .corporate-detail-section{
     padding: 15px 15px 15px 30%;
@@ -438,6 +437,11 @@
     .new-main-view {
         padding: 70px 15px 15px 15px;
     }
+
+    .full-banner-section{
+        display: none;
+    }
+
     .full-banner-section>a{
         position: unset;
         float: right;
@@ -464,6 +468,7 @@
     }
     .discount-badge{
         left: 22px;
+        top: 23px;
     }
     .card-block-row> .pkg-btnrgt{
         right: -7px;
