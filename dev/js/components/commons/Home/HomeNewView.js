@@ -344,8 +344,27 @@ class MainView extends React.Component{
 
                 {
                     this.state.openCorporateBlock?
-                    <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)}>
-                        <p>Hello</p>
+                    <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)} className="test-clas">
+                        <div className="col-sm-12 corporate-detail-section">
+                            <h3>Drop your details</h3>
+                            <h6>We will reach yo for further assistance</h6>
+                            <form action="">
+                                <div className="input-field-row">
+                                    <input type="text" placeholder="Company Name *" style={{marginRight: 12}}/>
+                                    <input type="text" placeholder="No of employees"/>
+                                </div>
+                                <div className="input-field-row">
+                                    <input type="text" placeholder="Email Address *"/>
+                                </div>
+                                <div className="input-field-row">
+                                    <input type="text" placeholder="Contact Person Name *"/>
+                                </div>
+                                <div className="input-field-row">
+                                    <input type="text" placeholder="Contact Number *"/>
+                                </div>
+                            </form>
+                            <button className="ipd-inp-sbmt float-right">Submit</button>
+                        </div>
                     </CommonPopup>
                     :''
                 }
