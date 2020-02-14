@@ -98,6 +98,22 @@ class VipGoldView extends React.Component {
         }
     }
 
+    sendPageUrl = () => {
+        let data = {
+            callback: window.location.pathname.split('/')[1] + window.location.search.replace(/&/g,'*'),
+            template: 'gold_template_1'
+        }
+        this.props.sendAgentWhatsupPageURL(data).then((resp) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Sent Successfully" })
+            }, 500)
+        }).catch((e) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Try again!" })
+            }, 500)
+        })
+    }
+
 
     render() {
         let self = this
@@ -390,7 +406,7 @@ class VipGoldView extends React.Component {
                                                 <div className="col-12 p-0">
                                                     <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                     <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
-                                                        <video id="goldVideo" height="auto" src="https://chatfileupload.s3.ap-south-1.amazonaws.com//Gold+Promo+Video.mp4">
+                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad_AME_3.mp4">
                                                         </video>
                                                         <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
                                                             <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
@@ -454,7 +470,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(4) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(4) > -1 ? 'd-none' : ''}`}>
-                                                                After completion of a pathology lab appointment, you will have the option to consult with our panel of doctors for free & get your lab report reviewed.
+                                                                    After completion of a pathology lab appointment, you will have the option to consult with our panel of doctors for free & get your lab report reviewed.
                                                                 </p>
                                                             </div>
 
@@ -553,17 +569,21 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-                        {
-                            this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                <button className="vip-foot-btn p-3" onClick={this.goBack.bind(this)}>
-                                    <p>Continue Booking</p>
-                                </button>
-                                :
-                                <button className="vip-foot-btn p-3" onClick={this.props.proceed.bind(this)}>
-                                    <p>Continue</p>
-                                </button>
-                        }
+                        <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            {
+                                this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                        <p>Continue</p>
+                                    </button>
+                            }
+                            {
+                                STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                            }
+                        </div>
                     </section>
                 </React.Fragment>
                 : <div></div>

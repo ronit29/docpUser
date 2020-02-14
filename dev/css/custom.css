@@ -7861,6 +7861,7 @@ img.gld-cd-icon {
     margin: 0px -10px;
     background-image: linear-gradient(to left, #fff7d9, #fffefc);
     padding: 0px 0px;
+    margin-top: 2px;
 }
 
 .gold-price-card-addon-clinicSelector {

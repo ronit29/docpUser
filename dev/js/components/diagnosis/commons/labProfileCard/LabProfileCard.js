@@ -153,7 +153,7 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    goldClicked(){
+    goldClicked() {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'VipGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-gold-clicked', 'selectedId': this.props.details.id
         }
@@ -213,25 +213,25 @@ class LabProfileCard extends React.Component {
         }
 
         if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
-            is_insurance_buy_able =  true
+            is_insurance_buy_able = true
         }
         let is_labopd_enable_for_vip = is_vip_enabled
         let is_labopd_enable_for_gold = is_gold
         let is_vip_member = false
         let is_gold_member = false
         let covered_under_vip = false
-        if(vip && Object.keys(vip).length > 0){
+        if (vip && Object.keys(vip).length > 0) {
             is_vip_member = vip.is_vip_member
             is_gold_member = vip.is_gold_member
             covered_under_vip = vip.covered_under_vip
         }
 
-        let show_common_prices = !is_labopd_enable_for_vip || ( (is_gold_member || is_vip_member ) && !covered_under_vip )
+        let show_common_prices = !is_labopd_enable_for_vip || ((is_gold_member || is_vip_member) && !covered_under_vip)
         return (
 
             <div className="cstm-docCard mb-3">
                 <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} >
-                    <div className="row no-gutters" style={{paddingBottom:10}}>
+                    <div className="row no-gutters" style={{ paddingBottom: 10 }}>
                         <div className="col-8">
                             <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
@@ -265,11 +265,11 @@ class LabProfileCard extends React.Component {
                                             this.props.details.tests.map((test, index) => {
                                                 return show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ?
                                                     <p key={index} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}>{test.name}
-                                                        <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
-                                                            <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
+                                                        <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}>
+                                                            <img src={ASSETS_BASE_URL + '/img/icons/Info.svg'} style={{ width: '15px' }} />
                                                         </span>
                                                     </p>
-                                                    :<p key={index}>{test.name}</p>    
+                                                    : <p key={index}>{test.name}</p>
                                             }) : ''
                                     }
                                     <div className="cstm-lab-time-container">
@@ -280,19 +280,19 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                         <div className="col-4 booking-column">
-                            
+
                             {
-                                false && !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip)?
+                                false && !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price && !((is_vip_member || is_gold_member) && covered_under_vip) ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                (!is_insurance_applicable  && !show_common_prices) && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
+                                (!is_insurance_applicable && !show_common_prices) && <CommonVipGoldBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={() => this.goldClicked()} />
                             }
                             {
                                 !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price && show_common_prices
-                                    ?discounted_price!=mrp
-                                        ?<p className="cst-doc-price">₹ {discounted_price}<span className="cstm-doc-cut-price">₹ {mrp} </span> </p>
-                                        :<p className="cst-doc-price">₹ {discounted_price}</p>
+                                    ? discounted_price != mrp
+                                        ? <p className="cst-doc-price">₹ {discounted_price}<span className="cstm-doc-cut-price">₹ {mrp} </span> </p>
+                                        : <p className="cst-doc-price">₹ {discounted_price}</p>
                                     : ''
                             }
                             {
@@ -307,14 +307,14 @@ class LabProfileCard extends React.Component {
                                 // : ''
                             }
                             {
-                            //     vip.is_gold_member?
-                            //         <div className="text-right mb-2">
-                            //             <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                            //         </div>
-                            //         : ''
+                                //     vip.is_gold_member?
+                                //         <div className="text-right mb-2">
+                                //             <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
+                                //         </div>
+                                //         : ''
                             }
                             {
-                                is_insurance_applicable?
+                                is_insurance_applicable ?
                                     <div>
                                         <p className="cst-doc-price">₹ {0}</p>
                                         <div className="ins-val-bx">Covered Under Insurance</div>
@@ -322,40 +322,41 @@ class LabProfileCard extends React.Component {
                                     : ''
                             }
                             {
-                            //        !is_insurance_applicable && is_vip_applicable ?
-                            //             <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                            //             : ''
+                                //        !is_insurance_applicable && is_vip_applicable ?
+                                //             <p className="cst-doc-price">₹ {vip.is_gold_member?vip.vip_gold_price+vip.vip_convenience_amount:vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                //             : ''
                             }
                             {
-/*                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
-                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
-                                            this.props.clearVipSelectedPlan()
-                                            this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
-                                            let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'LabCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-card-vip-clicked'
-                                            }
-                                            GTM.sendEvent({ data: data })
-                                        }}>
-                                            <p className="fw-500 grn-txt-vip">Save 25% with</p>
-                                            <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
-                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
-                                        </div>
-                                        : ''*/
-                                }
-                                {
-                                    // !is_insurance_applicable && is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
-                                       
-                                    //     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
-                                    //     <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
-                                        
-                                    // </div>
-                                }
+                                /*                                    !is_insurance_applicable && is_enable_for_vip && !is_vip_applicable?
+                                                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={(e) => {
+                                                                            this.props.clearVipSelectedPlan()
+                                                                            this.props.history.push('/vip-club-details?source=lablisting&lead_source=Docprime')
+                                                                            let data = {
+                                                                                'Category': 'ConsumerApp', 'Action': 'LabCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-card-vip-clicked'
+                                                                            }
+                                                                            GTM.sendEvent({ data: data })
+                                                                        }}>
+                                                                            <p className="fw-500 grn-txt-vip">Save 25% with</p>
+                                                                            <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                                                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
+                                                                        </div>
+                                                                        : ''*/
+                            }
+                            {
+                                // !is_insurance_applicable && is_vip_gold && !is_vip_applicable && discounted_price>(vip.vip_convenience_amount||0 + vip.vip_gold_price||0) && !vip.is_gold_member && <div className="d-flex align-items-center justify-content-end goldCard" onClick={() => this.goldClicked()}>
+
+                                //     <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'}/> 
+                                //     <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ {vip.vip_convenience_amount||0 + vip.vip_gold_price||0}</span><img style={{transform: 'rotate(-90deg)', width: '10px'}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
+
+                                // </div>
+                            }
+                            {
+                                (!is_insurance_applicable && !show_common_prices) && <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={() => this.goldClicked()} />
+                            }
                             <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url)}>Book Now</button>
                         </div>
                     </div>
-                    {
-                        (!is_insurance_applicable && !show_common_prices) && <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} goldClicked={()=>this.goldClicked()}/>
-                    }
+
                     {/*
                         is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                         <div className="ins-buyable">

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags, ipdChatView, setPaymentStatus } from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags, ipdChatView, setPaymentStatus, sendAgentWhatsupPageURL } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
 import RelatedArticles from '../article/RelatedArticles'
@@ -101,7 +101,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters)),
         unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags)),
         ipdChatView: (data) => dispatch(ipdChatView(data)),
-        setPaymentStatus: (status) => dispatch(setPaymentStatus(status))
+        setPaymentStatus: (status) => dispatch(setPaymentStatus(status)),
+        sendAgentWhatsupPageURL: (extraParams, cb) => dispatch(sendAgentWhatsupPageURL(extraParams, cb))
     }
 }
 
