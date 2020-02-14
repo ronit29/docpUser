@@ -554,8 +554,8 @@ class SearchTestView extends React.Component {
                                         }
                                         {
                                             showInfo && this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0 ? 
-                                            <ChatPanel noChatButton={true} searchTestInfoData={this.props.searchTestInfoData[0]} updateTabsValues={this.updateTabsValues.bind(this)} resp_test_id={resp_test_id} />
-                                            : <ChatPanel noChatButton={true} />
+                                            <ChatPanel noChatButton={true} searchTestInfoData={this.props.searchTestInfoData[0]} updateTabsValues={this.updateTabsValues.bind(this)} resp_test_id={resp_test_id} msgTemplate="gold_general_template"/>
+                                            : <ChatPanel noChatButton={true} msgTemplate="gold_general_template"/>
                                         }
                                     </div>
                                 </section>
