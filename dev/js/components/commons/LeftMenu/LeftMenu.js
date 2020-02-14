@@ -32,22 +32,30 @@ class LeftMenu extends React.Component {
     let user_insurance_status = false
     let user_ins_status
     let is_user_gold_member = false 
+    let gold_user_profile = {}
     if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 
       user = this.props.profiles[this.props.defaultProfile]
       thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
       user_insurance_status = this.props.profiles[this.props.defaultProfile].is_insured
       user_ins_status = this.props.profiles[this.props.defaultProfile].insurance_status
-      is_user_gold_member = this.props.profiles[this.props.defaultProfile].is_vip_gold_member
     }
     if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
       memberClass = 'float-right memAct'
       memStatus = 'Active'
     }
 
-    if (is_user_gold_member) {
-      memberClass = 'float-right memAct'
-      memStatus = 'Active'
+    if(this.props.profiles && Object.keys(this.props.profiles).length){
+         Object.entries(this.props.profiles).map(function([key, value]) { 
+              if(value.is_vip_gold_member){
+                  gold_user_profile = value
+              } 
+          })
+         if(gold_user_profile && Object.keys(gold_user_profile).length){
+            is_user_gold_member = true
+            memberClass = 'float-right memAct'
+            memStatus = 'Active'
+         }
     }
 
     return (
