@@ -253,7 +253,7 @@ class VipClubMemberDetailsView extends React.Component {
 						//common validation ends 
 
 						if (!this.props.is_from_payment) {
-							if(param.email == ""){  
+							if(param.email == "" || !param.email){  
 								is_disable = true
 								fields.push('email')
 							}

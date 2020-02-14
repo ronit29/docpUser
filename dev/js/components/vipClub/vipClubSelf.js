@@ -171,11 +171,12 @@ class VipProposer extends React.Component {
 			if(profile.is_tobe_dummy_user){
 				this.setState({is_tobe_dummy_user:profile.is_tobe_dummy_user})
 			}
-
 			if(this.props.user_email){
 				this.setState({email:this.props.user_email})
 			}
-
+			if(profile.email){
+				this.setState({email:profile.email})
+			}
 			this.setState({
 				dob: profile.dob ? profile.dob :''
 			},()=>{
