@@ -506,7 +506,13 @@ class VipClubMemberDetailsView extends React.Component {
 	}
 
 	removeMemberForm(id){
-		this.setState({showConfirmationPopup: 'open',to_be_remove_id:id})
+		let new_data = []
+		// this.setState({showConfirmationPopup: 'open',to_be_remove_id:id})
+		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length){
+			new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != this.state.to_be_remove_id)
+			this.props.removeMembers(new_data)
+			this.setState({ showConfirmationPopup: 'close',to_be_remove_id:'' })
+		}
 	}
 
 	priceConfirmationPopup(choice) {

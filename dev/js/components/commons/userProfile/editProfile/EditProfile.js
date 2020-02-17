@@ -200,6 +200,11 @@ class EditProfile extends React.Component {
                 validated = false
                 return
             }
+            if(!this.state.profileData.gender){
+                SnackBar.show({ pos: 'bottom-center', text: 'Please select gender' })
+                validated = false
+                return
+            }
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin

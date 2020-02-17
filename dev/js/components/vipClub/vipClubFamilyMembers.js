@@ -121,30 +121,22 @@ class VipProposerFamily extends React.Component {
 
 		return (
 			<div className="ins-sub-forms mrt-10" id={`member_${this.props.member_id}`}>
-				<div className="sub-form-input-data" style={{marginBottom:10}} >
-					<div>
-						{
-							this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0?<p className="sub-form-hed">{`Member ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.member_view_id+1}`}</p>:''
-						}
-					</div>
-					<div>
-					{
-						this.props.show_selected_profiles.length>0 && !this.state.is_disable?
-						<div className="sub-form-hed-click" onClick={() => this.setState({
-						showPopup: true,isForceUpdateDob:false})}>
-						Select from profile
-						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
-					</div>:''
-					}
-						{this.props.is_tobe_remove_option?
-							<div className="sub-form-hed-click" onClick={this.props.removeMemberForm.bind(this,this.props.member_id)}>Remove
-								<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
-							</div>
-						:''}
-					</div> 
-				</div>
 
 				<div className='widget goldUserAddon' style={{padding:'10px'}} >
+					<div className="sub-form-input-data" style={{marginBottom:10}} >
+						<div>
+							{
+								this.props.vip_club_db_data.data.user && Object.keys(this.props.vip_club_db_data.data.user).length > 0 && this.props.vip_club_db_data.data.user.plus_members && this.props.vip_club_db_data.data.user.plus_members.length > 0?<p className="sub-form-hed">{`Member ${this.props.vip_club_db_data.data.user.plus_members.length + this.props.member_view_id+1}`}</p>:''
+							}
+						</div>
+						<div>
+							{this.props.is_tobe_remove_option?
+								<div className="sub-form-hed-click" onClick={this.props.removeMemberForm.bind(this,this.props.member_id)}>Remove
+									<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+								</div>
+							:''}
+						</div> 
+					</div>
 					<div className="d-flex">
                         <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Male</p>
                         <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' },()=>{this.handleSubmit() })} onBlur={this.handleChange.bind(this)}>Female</p>
@@ -182,6 +174,14 @@ class VipProposerFamily extends React.Component {
 							</form>
 						</div>
 					</div>
+					{
+						this.props.show_selected_profiles.length>0 && !this.state.is_disable?
+						<div className="sub-form-hed-click" onClick={() => this.setState({
+						showPopup: true,isForceUpdateDob:false})}>
+						Select from profile
+						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+					</div>:''
+					}
 				</div>
 				
 				{this.state.showPopup ?
