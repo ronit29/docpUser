@@ -132,7 +132,6 @@ class VipProposerFamily extends React.Component {
 						<div>
 							{this.props.is_tobe_remove_option?
 								<div className="sub-form-hed-click" onClick={this.props.removeMemberForm.bind(this,this.props.member_id)}>Remove
-									<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 								</div>
 							:''}
 						</div> 

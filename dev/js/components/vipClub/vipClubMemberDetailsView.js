@@ -509,7 +509,7 @@ class VipClubMemberDetailsView extends React.Component {
 		let new_data = []
 		// this.setState({showConfirmationPopup: 'open',to_be_remove_id:id})
 		if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length){
-			new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != this.state.to_be_remove_id)
+			new_data =  this.props.currentSelectedVipMembersId.filter(x => x.member_form_id != id)
 			this.props.removeMembers(new_data)
 			this.setState({ showConfirmationPopup: 'close',to_be_remove_id:'' })
 		}
@@ -749,7 +749,7 @@ class VipClubMemberDetailsView extends React.Component {
 							}
 							{
 								!STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Add Member
+									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this, false)}>Done
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									: ''
