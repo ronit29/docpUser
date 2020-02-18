@@ -83,6 +83,17 @@ class MainView extends React.Component{
                 var positionY = window.pageYOffset/2;
                 mView.style.backgroundPosition = `0 -${positionY}px`;
             });
+            // $('.consultation-col>h4>span').each(function () {
+            //     $(this).prop('Counter',0).animate({
+            //         Counter: $(this).text()
+            //     }, {
+            //         duration: 5000,
+            //         easing: 'swing',
+            //         step: function (now) {
+            //             $(this).text(Math.ceil(now));
+            //         }
+            //     });
+            // });
         }
         //background circle animation
         
@@ -317,7 +328,6 @@ class MainView extends React.Component{
     cancelOverlay = ()=>{
         this.setState({openCorporateBlock: false})   
     }
-
     
     render(){
 
