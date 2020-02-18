@@ -593,6 +593,9 @@
     }
     .mbl-wdgt{
         white-space: normal!important;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
     .mbl-wdgt> .slider-card-column{
         width: 105px;
