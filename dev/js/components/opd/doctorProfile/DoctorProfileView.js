@@ -362,7 +362,7 @@ class DoctorProfileView extends React.Component {
         }
         /*docorganic
         DOCORGANIC*/
-        let data =({phone_number:phone_number,lead_source:`${landing_page?'docads':'docads'}`,source:parsed,lead_type:`${landing_page?'DOCADS':'DOCADS'}`,exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page,discount: display_docprime_discount})
+        let data =({phone_number:phone_number,lead_source:`${landing_page?'docads':'docads'}`,source:parsed,lead_type:`${landing_page?'DOCADS':'DOCADS'}`,exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page,amount_discount: display_docprime_discount})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }

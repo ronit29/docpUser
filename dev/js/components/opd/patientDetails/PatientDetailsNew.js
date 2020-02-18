@@ -1500,7 +1500,7 @@ class PatientDetailsNew extends React.Component {
                 display_docprime_discount = display_total_mrp - (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
             }
         }
-        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null,discount: display_docprime_discount })
+        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null,amount_discount: display_docprime_discount })
         if (this.props.common_utm_tags && this.props.common_utm_tags.length) {
             data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
         }
