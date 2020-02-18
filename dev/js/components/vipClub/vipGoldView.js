@@ -406,7 +406,7 @@ class VipGoldView extends React.Component {
                                                 <div className="col-12 p-0">
                                                     <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                     <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
-                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad_AME_3.mp4">
+                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
                                                         </video>
                                                         <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
                                                             <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
