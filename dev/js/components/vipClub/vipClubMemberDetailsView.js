@@ -607,18 +607,18 @@ class VipClubMemberDetailsView extends React.Component {
 																Object.entries(this.state.popupMemData).map(function ([key, val]) {
 																	return val.is_already_user ?
 																		''
-																		: <table key={key} className="vip-acrd-content text-left">
-																				<thead>
-																					<th colSpan='3'><p className="vip-pop-tbl-hd">{val.first_name} {/*val.last_name*/}</p></th>
-																				</thead>
+																		: <table key={key} className="vip-acrd-content text-center">
+																				{/*<thead>
+																					<th colSpan='3'><p className="vip-pop-tbl-hd">{val.first_name} val.last_name</p></th>
+																				</thead>*/}
 																				<tbody>
 																					<tr>
-																						<th>Relationship</th>
+																						<th>Name</th>
 																						<th>Gender</th>
 																						<th>DOB</th>
 																					</tr>
 																					<tr>
-																						<td></td>
+																						<td style={{textTransform: 'capitalize'}}>{val.first_name}</td>
 																						{
 																							val.title ?
 																								<td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.' ? 'm' : 'f'}</td>

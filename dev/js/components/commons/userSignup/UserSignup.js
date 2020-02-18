@@ -48,7 +48,8 @@ class UserSignupView extends React.Component {
             is_dob_error:false,
             primary_profile:{},
             add_to_gold:false,
-            gold_user_profile:{}
+            gold_user_profile:{},
+            toUpdateState:true
         }
     }
 
@@ -63,6 +64,20 @@ class UserSignupView extends React.Component {
                     } 
                 })
                this.setState({primary_profile:default_profile,gold_user_profile:gold_user_profile})
+        }
+    }
+
+    componentWillReceiveProps(props){
+        let default_profile
+        let gold_user_profile = {}
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.defaultProfile && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0 && this.state.toUpdateState){ 
+               default_profile = this.props.USER.profiles[this.props.USER.defaultProfile]   
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(!value.isDummyUser && value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
+                })
+               this.setState({primary_profile:default_profile,gold_user_profile:gold_user_profile,toUpdateState:false})
         }
     }
 

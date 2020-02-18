@@ -22,7 +22,7 @@ class VipProposerFamily extends React.Component {
     	    isUserSelectedProfile:this.props.isUserSelectedProfile,
     	    isDobValidated:false,
             is_dob_error:false,
-            gender:'',
+            gender:'m',
             isForceUpdateDob:false
 		}
 	}
