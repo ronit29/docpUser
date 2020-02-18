@@ -101,7 +101,7 @@ class DoctorProfileView extends React.Component {
         // setTimeout(()=>{
         //     this.setState({showVipPopup: true})
         // }, time_to_show)
-        this.setState({is_organic_landing:true,showNonIpdPopup:1})
+        this.setState({is_organic_landing:true})
     }
 
     showDownloadAppWidget(dataList) {
@@ -353,7 +353,7 @@ class DoctorProfileView extends React.Component {
         if(selected_hospital.length){
             hospital_id = selected_hospital[0].hospital_id
         }
-        let data =({phone_number:phone_number,lead_source:`${landing_page?'docadsOrganic':'docads'}`,source:parsed,lead_type:`${landing_page?'DOCADSORGANIC':'DOCADS'}`,exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page})
+        let data =({phone_number:phone_number,lead_source:`${landing_page?'docorganic':'docads'}`,source:parsed,lead_type:`${landing_page?'DOCORGANIC':'DOCADS'}`,exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
@@ -400,7 +400,7 @@ class DoctorProfileView extends React.Component {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
             if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
                 this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
-                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 80)){
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 200)){
                         show_dpp_organic_popup = true
                     }
                 })
