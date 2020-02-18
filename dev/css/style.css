@@ -990,7 +990,7 @@ p.top-head-link.card-lab-link span {
         margin-left: 0;
     }
     .text-sm {
-        font-size: 14px;
+        font-size: 12px;
     }
     p.fltr-prices {
         font-size: 16px;
@@ -13659,8 +13659,8 @@ p.pkgtstName.prcd-height {
     position: absolute;
     top: 4px;
     right: 8px;
-    color: var(--text--primary--color);
-    border: 1px dashed var(--text--primary--color);
+    color: #1b97fd;
+    border: 1px dashed #1b97fd;
     border-radius: 5px;
     text-align: center;
     font-size: 10px;
@@ -15028,6 +15028,116 @@ button.fb-btn-sec {
     padding-bottom: 5px;
 }
 /* ======================================= chat feedback section  ======================================= */
+/* ======================================= gold user add on  ======================================= */
+div.widget.goldUserAddon .ins-form-group input {
+    padding-left: 12px;
+}
+div.widget.goldUserAddon .ins-form-group img{
+    display: none;
+}
+div.widget.goldUserAddon .ins-form-group .form-control-placeholder{
+    left: 8px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput input{
+    padding: 8px 15px;
+    line-height: 17px;
+    font-size: 13px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput label{
+    padding: 8px 15px;
+    line-height: 18px;
+    font-size: 13px;
+}
+.orSeparator {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.orSeparator:before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background: rgba(0, 0, 0, .2);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.orSeparator span {
+    background: white;
+    color: #1b97fd;
+    font-weight: 500;
+    height: 30px;
+    width: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.orSeparator span:after {
+    content: '';
+    background: rgba(27, 151, 253, .3);
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 30px;
+}
+/* ======================================= gold user add on  ======================================= */
+/* ======================================= new user addon  ======================================= */
+
+.add-member-chkbx{
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.profile-warning-text{
+    color: #757575;
+    margin-top: 5px;
+}
+
+.gold-covrd-txt {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: var(--text--primary--color);
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}
+.gold-covrd-btn{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--text--primary--color);
+    border: 1px dashed var(--text--primary--color);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+    z-index: 2;
+    background: white;
+    outline: none;
+}
+.user-heading{
+font-size: 14px;
+padding: 15px 0px 10px 20px;
+}
+.box-shadow-none{
+box-shadow: none !important;
+}
+.pipe-sign{
+    padding: 0px 5px;
+    color: #646464;
+    font-weight: 900;
+}
+/* ======================================= new user addon  ======================================= */
+
 /* ======================================= whtsapp buttons on pages ======================================= */
 .whtsappPages{
     background-color: #25D366;

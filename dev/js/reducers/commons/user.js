@@ -6,7 +6,8 @@ const DUMMY_PROFILE = {
     is_default_user: true,
     name: "User",
     dob: null,
-    isDummyUser: true
+    isDummyUser: true,
+    email:null
 }
 
 const defaultState = {

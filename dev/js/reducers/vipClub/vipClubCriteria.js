@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, ADD_VIP_COUPONS, REMOVE_VIP_COUPONS
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, ADD_VIP_COUPONS, REMOVE_VIP_COUPONS, REMOVE_ADD_MEMBER_FORM
 } from '../../constants/types';
 
 const defaultState = {
@@ -25,7 +25,8 @@ const DUMMY_PROFILE = {
     is_default_user: true,
     name: "User",
     dob: null,
-    isDummyUser: true
+    isDummyUser: true,
+    email:null
 }
 
 export default function (state = defaultState, action) {
@@ -109,8 +110,7 @@ export default function (state = defaultState, action) {
                 if(parseInt(key) == parseInt(action.payload.param_id)){
                     newState.currentSelectedVipMembersId[key][action.payload.param_id] = action.payload.newProfileid
                     newState.currentSelectedVipMembersId[key].isUserSelectedProfile = true
-                    
-                }    
+                }
             })
             return newState 
         }
@@ -288,6 +288,15 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.vipCoupons = []
+            return newState
+        }
+
+        case REMOVE_ADD_MEMBER_FORM: {
+            let newState = {
+                ...state
+            }
+            newState.currentSelectedVipMembersId = []
+            newState.currentSelectedVipMembersId = action.payload
             return newState
         }
     }
