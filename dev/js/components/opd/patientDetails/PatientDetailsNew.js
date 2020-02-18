@@ -1417,6 +1417,8 @@ class PatientDetailsNew extends React.Component {
         let selected_hospital = {}
         let patient
         let specialization
+        let display_total_mrp = 0
+        let display_docprime_discount = 0
         if (doctorDetails) {
             let { hospitals, general_specialization } = doctorDetails
             specialization = general_specialization
@@ -1458,6 +1460,12 @@ class PatientDetailsNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+            display_total_mrp = parseInt(selected_hospital.mrp)
+            display_docprime_discount = display_total_mrp - (parseInt(selected_hospital.deal_price))
+            if (!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                display_docprime_discount = display_total_mrp - (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
+            }
+            data.discount = display_docprime_discount
 
             let visitor_info = GTM.getVisitorInfo()
             if (visitor_info && visitor_info.visit_id) {
@@ -1482,10 +1490,17 @@ class PatientDetailsNew extends React.Component {
         let criteriaStr = this.props.DOCTORS[doctor_id].display_name
         let hospital_id
         let selected_hospital = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
+        let display_total_mrp = 0
+        let display_docprime_discount = 0
         if (selected_hospital.length) {
             hospital_id = selected_hospital[0].hospital_id
+            display_total_mrp = parseInt(selected_hospital[0].mrp)
+            display_docprime_discount = display_total_mrp - (parseInt(selected_hospital[0].deal_price))
+            if (!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                display_docprime_discount = display_total_mrp - (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
+            }
         }
-        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null })
+        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null,discount: display_docprime_discount })
         if (this.props.common_utm_tags && this.props.common_utm_tags.length) {
             data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
         }
