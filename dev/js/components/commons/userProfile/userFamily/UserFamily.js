@@ -257,7 +257,7 @@ class UserFamily extends React.Component {
 
         return (
             <div className="widget mt-20">
-               <h4 className="fw-500 user-heading">Select Member</h4>
+               {profiles && Object.keys(profiles).length?<h4 className="fw-500 user-heading">Select Member</h4>:''}
                 <div className="widget-content pl-0 pr-0">
                 <ul className="list family-list dp-user-list box-shadow-none">
                 
