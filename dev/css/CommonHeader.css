@@ -191,6 +191,9 @@
     .listing-header > .menu-icon > ul >li{
         background: var(--text--primary--color);
     }
+    .header-list-items > li > a{
+        margin-left: 15px;
+    }
     .menu-icon{
         margin: 0px;
         display: flex;

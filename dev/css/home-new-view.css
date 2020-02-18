@@ -7,6 +7,7 @@
 
 .full-banner-section {
     position: relative;
+    margin-bottom: 10px;
 }
 
 .full-banner-section>img {
@@ -60,6 +61,8 @@
 }
 .test-price{
     color: var(--text--primary--color);
+    margin: 10px auto;
+    font-size: 15px;
 }
 /************** top hospital css **************/
 /************** card slider css **************/
@@ -70,8 +73,8 @@
     border-radius: 10px;
     width: 100%;
     padding: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     white-space: nowrap;
     overflow: hidden;
     position:relative;
@@ -114,7 +117,7 @@
 }
 
 .discount-badge{
-    background: #B8D42E;
+    background: #8ea51d;
     border-radius: 5px;
     display: inline-block;
     padding: 4px;
@@ -469,22 +472,29 @@
     }
     
     .card-slider-container{
-        margin: 20px 0px;
+        margin: 8px 0px 16px;
+        padding: 10px 0px;
     }
     .slider-card-column{
-        width: 168px;
+        width: 150px;
+        padding: 5px;
     }
     .card-slider-container>.slider-card-column>h5{
         font-size: 12px;
+        margin-top: 5px;
     }
     .card-block-row>.top-card-row>h6,
     .card-block-row>.top-card-row >a{
-      font-size: 12px;   
+      font-size: 14px;   
       line-height: 20px;
     }
+    .card-block-row > .top-card-row > a{
+        display: none!important;
+    }
     .discount-badge{
-        left: 22px;
-        margin-top: 10px;
+        left: auto;
+        margin-top: -3px;
+        right: 8px;
     }
     .card-block-row> .pkg-btnrgt,
     .card-block-row> .pkg-btnlft{
