@@ -75,6 +75,15 @@ class MainView extends React.Component{
         this.props.getOfferList(lat, long);
 
         let data = { 'event': "viewHome" }
+        
+        if(window){
+            const mView = document.getElementById('mainView');
+            window.addEventListener('scroll',  () => {
+                var positionY = window.pageYOffset/2;
+                mView.style.backgroundPosition = "0 -" + positionY + "px";
+            });
+        }
+        
 
         CRITEO.sendData(data)
     }
@@ -370,7 +379,7 @@ class MainView extends React.Component{
                     :''
                 }
                 {/****** homepage  view *********/}
-                <div className="new-main-view">
+                <div className="new-main-view" id="mainView">
                     {/******  full width banner *********/}
                     <section className="full-banner-section">
                         <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
@@ -476,23 +485,24 @@ class MainView extends React.Component{
                             <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_182x.png"  alt="Partners"/>   
                             </div>
-                            <div className="partner-img-block">
+                            {/* <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_192x.png"  alt="Partners"/>   
-                            </div>
+                            </div> */}
                             <div className="partner-img-block">
                                 <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/web/custom_images/Image_6-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_4-12x.png" alt="Partners"/>   
+                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_4-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_3-12x.png" alt="Partners"/>   
+                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_3-12x.png" alt="Partners"/>   
+                            </div>
+                            
+                            <div className="partner-img-block">
+                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_52x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
                                 <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_112x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_52x.png" alt="Partners"/>   
                             </div>
                         </div>
                     </section>

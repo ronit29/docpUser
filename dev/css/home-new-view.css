@@ -1,6 +1,8 @@
 .new-main-view {
     padding: 110px 37px 0px 37px;
-    background: url(/assets/img/main-bg.svg);
+    background: url(/assets/img/main-bg.svg) repeat;
+    background-size: 100%;
+    background-position: 0% 0%;
 }
 
 /************** full banner section **************/
@@ -38,7 +40,7 @@
 
 .card-block-row>.top-card-row>h6,
 .card-block-row>.top-card-row >a {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -144,10 +146,11 @@
 
 .partner-section>.partner-img-block {
     width: 200px;
+    height: 100px;
     padding: 15px;
     display: flex;
-    height: 100px;
     align-items: center;
+    justify-content: center;
 }
 
 .partner-section>.partner-img-block>img {
@@ -171,7 +174,7 @@
 .round-col {
     width: 300px;
     height: 300px;
-    background: rgba(65, 162, 249, 0.06);
+    background: #41A2F91F;
     border-radius: 50%;
 
 }
