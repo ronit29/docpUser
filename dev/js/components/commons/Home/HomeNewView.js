@@ -459,37 +459,40 @@ class MainView extends React.Component{
                         <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
                         <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_1-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/indraprastha-apollo-hospital_sbxKZBF.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_2-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/artemis-hospital_o9URBGQ.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_72x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/blk-super-speciality-hospital_yJRgqOP.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_92x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_102x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/608573a2d2a6c760ccccc70773ab3e56.jpg" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_182x.png"  alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_192x.png"  alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/metropolis.jpg" alt="Partners"/>   
+                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/web/custom_images/Image_6-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife.png" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_4-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_3-12x.png" alt="Partners"/>   
                             </div>
                             <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src={ASSETS_BASE_URL + "/img/mahajan-imaging.png"}  alt="Partners"/>   
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_112x.png" alt="Partners"/>   
+                            </div>
+                            <div className="partner-img-block">
+                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_52x.png" alt="Partners"/>   
                             </div>
                         </div>
                     </section>

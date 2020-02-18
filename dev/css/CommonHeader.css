@@ -112,11 +112,14 @@
 .header-search-full-width {
     box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
     border-radius: 50px;
-    width: 51%;
+    width: 100%;
     position: relative;
     left: -34px;
 }
 
+.header-list-items{
+    padding-right: 15px!important;
+}
 .header-list-items > li > a{
     font-size: 14px;
     font-weight: 500;
@@ -190,6 +193,9 @@
     }
     .listing-header > .menu-icon > ul >li{
         background: var(--text--primary--color);
+    }
+    .header-list-items{
+        padding-right: 0px!important;
     }
     .header-list-items > li > a{
         margin-left: 15px;
