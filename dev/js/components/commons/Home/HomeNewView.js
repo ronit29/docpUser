@@ -76,13 +76,15 @@ class MainView extends React.Component{
 
         let data = { 'event': "viewHome" }
         
+        //background circle animation
         if(window){
             const mView = document.getElementById('mainView');
             window.addEventListener('scroll',  () => {
                 var positionY = window.pageYOffset/2;
-                mView.style.backgroundPosition = "0 -" + positionY + "px";
+                mView.style.backgroundPosition = `0 -${positionY}px`;
             });
         }
+        //background circle animation
         
 
         CRITEO.sendData(data)
