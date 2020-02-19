@@ -23,6 +23,10 @@ class BasicDetails extends React.Component {
         this.props.updateProfile(key, e.target.value)
     }
 
+    handleGender(val){
+        this.props.updateProfile('gender',val)
+    }
+
     pickFile(e) {
         if (e.target.files && e.target.files[0]) {
             const compress = new Compress()
@@ -157,17 +161,13 @@ class BasicDetails extends React.Component {
                     this.state.loading ? <Loader /> : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
                             <form className="go-bottom">
+                                <div className="d-flex mb-3">
+                                    <p className={`label-names-buttons ${gender == 'm'?'btn-active':''}`} name="gender" checked={gender == 'm'} onClick={this.handleGender.bind(this,"m")}>Male</p>
+                                    <p className={`label-names-buttons ${gender == 'f'?'btn-active':''}`} name="gender" checked={gender == 'f'} onClick={this.handleGender.bind(this,'f')}>Female</p>
+                                </div>
                                 <div className="labelWrap">
                                     <input value={name} onChange={this.handleChange.bind(this, 'name')} id="fname" className="fc-input" name="fname" type="text" required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="fname">Name</label>
-                                </div>
-                                <div className="form-group input-group">
-                                    <label className="inline input-label">Gender</label>
-                                    <div className="choose-gender">
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "m"} value={'m'} onChange={this.handleChange.bind(this, 'gender')} />Male</label>
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "f"} value={'f'} onChange={this.handleChange.bind(this, 'gender')} />Female</label>
-                                        <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
-                                    </div>
                                 </div>
                                 {/*<div className="labelWrap">
                                     <input id="dob" name="dob" type="text" value={this.state.formattedDate == ''?dob:this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
@@ -195,12 +195,14 @@ class BasicDetails extends React.Component {
                                     <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="email">Email</label>
                                 </div>*/}
-                                <VerifyEmail {...this.props} member_id={this.props.profileData} email={email} validateErrors = {[]}/>
+                                {this.props.default_profile && Object.keys(this.props.default_profile).length && this.props.default_profile.is_default_user && this.props.default_profile.id == this.props.profileData.id?
+                                    <VerifyEmail {...this.props} member_id={this.props.profileData} email={email} validateErrors = {[]}/>
+                                :''}
 
-                                <div className="labelWrap">
+                                {this.props.default_profile && Object.keys(this.props.default_profile).length && this.props.default_profile.is_default_user && this.props.default_profile.id == this.props.profileData.id ?<div className="labelWrap">
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
-                                </div>    
+                                </div>:''}
 
                                 {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()
@@ -209,11 +211,29 @@ class BasicDetails extends React.Component {
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
                             {
+                            this.props.gold_user_profile && Object.keys(this.props.gold_user_profile).length && this.props.gold_user_profile.vip_data && Object.keys(this.props.gold_user_profile.vip_data).length && this.props.gold_user_profile.vip_data.total_members_allowed > 0 && !this.props.profileData.is_vip_gold_member && this.props.gold_user_profile.vip_data.is_member_allowed?
+                            <div className="defaultProfile">
+                                <label className="ck-bx add-member-chkbx"> 
+                                    <span>
+                                        Add this member to Docprime
+                                        <img className="ml-2" width="35" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png"  alt="gold"/>
+                                    </span><br/>
+                                    <span className="profile-warning-text">Once added to gold, you cannont edit or remove the member</span>
+                                    <input type="checkbox" onClick={this.props.addToGold.bind(this, !this.props.add_to_gold)} checked={
+                                    this.props.add_to_gold}/>
+                                    <span className="checkmark"></span>
+                                </label>
+                            </div>
+                            :''
+                            }
+                            {
                             this.props.show_default_checkBox?
                             <div className="defaultProfile">
-                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
-                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
-                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                                <label className="ck-bx add-member-chkbx">Make Primary Profile
+                                    <input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                    this.state.is_default_user}/>
+                                    <span className="checkmark"></span>
+                                </label>
                             </div>
                             :''
                             }
