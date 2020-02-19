@@ -90,6 +90,10 @@ class MainView extends React.Component{
         //background circle animation
 
         //count animation
+        
+            
+            
+        
         const animateValue = (obj, start = 20000, end = null, duration = 5000) => {
             if (obj) {
         
@@ -98,11 +102,11 @@ class MainView extends React.Component{
         
                 // remove non-numeric from starting text if not specified
                 end = end || parseInt(textStarting.replace(/\D/g, ""));
-        
+
                 let range = end - start;
         
                 // no timer shorter than 50ms (not really visible any way)
-                let minTimer = 50;
+                let minTimer = 100;
         
                 // calc step time to show all interediate values
                 let stepTime = Math.abs(Math.floor(duration / range));
@@ -558,7 +562,7 @@ class MainView extends React.Component{
                     {/******  Our Partners section *********/}
                     {/******  Where we are *********/}
                     <section className="card-block-row">
-                        <div className="card-slider-container d-flex justify-content-between milestone-section">
+                        <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
                             <div className="round-col d-flex justify-content-center align-item-center flex-column">
                                 <ul className="d-flex">
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
