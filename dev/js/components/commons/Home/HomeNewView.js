@@ -80,59 +80,61 @@ class MainView extends React.Component{
         if(window){
             const mView = document.getElementById('mainView');
             window.addEventListener('scroll',  () => {
+                
+                //background circle animatiom
                 var positionY = window.pageYOffset/2;
                 mView.style.backgroundPosition = `0 -${positionY}px`;
             });
             
-            //num count animation
-            const animateValue = (obj, start = 0, end = null, duration = 3000) => {
-                if (obj) {
-            
-                    // save starting text for later (and as a fallback text if JS not running and/or google)
-                    let textStarting = obj.innerHTML;
-            
-                    // remove non-numeric from starting text if not specified
-                    end = end || parseInt(textStarting.replace(/\D/g, ""));
-            
-                    let range = end - start;
-            
-                    // no timer shorter than 50ms (not really visible any way)
-                    let minTimer = 50;
-            
-                    // calc step time to show all interediate values
-                    let stepTime = Math.abs(Math.floor(duration / range));
-            
-                    // never go below minTimer
-                    stepTime = Math.max(stepTime, minTimer);
-            
-                    // get current time and calculate desired end time
-                    let startTime = new Date().getTime();
-                    let endTime = startTime + duration;
-                    let timer;
-            
-                    const run = () => {
-                        let now = new Date().getTime();
-                        let remaining = Math.max((endTime - now) / duration, 0);
-                        let value = Math.round(end - (remaining * range));
-                        // replace numeric digits only in the original string
-                        obj.innerHTML = textStarting.replace(/([0-9]+)/g, value);
-                        if (value == end) {
-                            clearInterval(timer);
-                        }
-                    }
-            
-                    timer = setInterval(run, stepTime);
-                    run();
-                }
-            }
-            let cVal1 = document.getElementById('countNum');
-            let cVal2 = document.getElementById('countNum2');
-            animateValue(cVal1);
-            animateValue(cVal2);
         }
         //background circle animation
-        
 
+        //count animation
+        const animateValue = (obj, start = 20000, end = null, duration = 5000) => {
+            if (obj) {
+        
+                // save starting text for later (and as a fallback text if JS not running and/or google)
+                let textStarting = obj.innerHTML;
+        
+                // remove non-numeric from starting text if not specified
+                end = end || parseInt(textStarting.replace(/\D/g, ""));
+        
+                let range = end - start;
+        
+                // no timer shorter than 50ms (not really visible any way)
+                let minTimer = 50;
+        
+                // calc step time to show all interediate values
+                let stepTime = Math.abs(Math.floor(duration / range));
+        
+                // never go below minTimer
+                stepTime = Math.max(stepTime, minTimer);
+        
+                // get current time and calculate desired end time
+                let startTime = new Date().getTime();
+                let endTime = startTime + duration;
+                let timer;
+        
+                const run = () => {
+                    let now = new Date().getTime();
+                    let remaining = Math.max((endTime - now) / duration, 0);
+                    let value = Math.round(end - (remaining * range));
+                    // replace numeric digits only in the original string
+                    obj.innerHTML = textStarting.replace(/([0-9]+)/g, value);
+                    if (value == end) {
+                        clearInterval(timer);
+                    }
+                }
+        
+                timer = setInterval(run, stepTime);
+                run();
+            }
+        }
+        const cVal1 = document.getElementById('countNum');
+        const cVal2 = document.getElementById('countNum2');
+        animateValue(cVal1);
+        animateValue(cVal2); 
+        //count animation
         CRITEO.sendData(data)
     }
 
