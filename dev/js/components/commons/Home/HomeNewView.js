@@ -83,17 +83,52 @@ class MainView extends React.Component{
                 var positionY = window.pageYOffset/2;
                 mView.style.backgroundPosition = `0 -${positionY}px`;
             });
-            // $('.consultation-col>h4>span').each(function () {
-            //     $(this).prop('Counter',0).animate({
-            //         Counter: $(this).text()
-            //     }, {
-            //         duration: 5000,
-            //         easing: 'swing',
-            //         step: function (now) {
-            //             $(this).text(Math.ceil(now));
-            //         }
-            //     });
-            // });
+            
+            //num count animation
+            const animateValue = (obj, start = 0, end = null, duration = 3000) => {
+                if (obj) {
+            
+                    // save starting text for later (and as a fallback text if JS not running and/or google)
+                    let textStarting = obj.innerHTML;
+            
+                    // remove non-numeric from starting text if not specified
+                    end = end || parseInt(textStarting.replace(/\D/g, ""));
+            
+                    let range = end - start;
+            
+                    // no timer shorter than 50ms (not really visible any way)
+                    let minTimer = 50;
+            
+                    // calc step time to show all interediate values
+                    let stepTime = Math.abs(Math.floor(duration / range));
+            
+                    // never go below minTimer
+                    stepTime = Math.max(stepTime, minTimer);
+            
+                    // get current time and calculate desired end time
+                    let startTime = new Date().getTime();
+                    let endTime = startTime + duration;
+                    let timer;
+            
+                    const run = () => {
+                        let now = new Date().getTime();
+                        let remaining = Math.max((endTime - now) / duration, 0);
+                        let value = Math.round(end - (remaining * range));
+                        // replace numeric digits only in the original string
+                        obj.innerHTML = textStarting.replace(/([0-9]+)/g, value);
+                        if (value == end) {
+                            clearInterval(timer);
+                        }
+                    }
+            
+                    timer = setInterval(run, stepTime);
+                    run();
+                }
+            }
+            let cVal1 = document.getElementById('countNum');
+            let cVal2 = document.getElementById('countNum2');
+            animateValue(cVal1);
+            animateValue(cVal2);
         }
         //background circle animation
         
@@ -544,7 +579,7 @@ class MainView extends React.Component{
                             </div>
                             <div className="consultation-col left-border">
                                 <h4 className="fw-500 text-left">
-                                    <span>30,000 +</span><br/>
+                                    <span id="countNum">30000 +</span><br/>
                                     <span>Doctor Network</span>
                                 </h4>
                                 <h4 className="fw-500 text-left">
@@ -552,7 +587,7 @@ class MainView extends React.Component{
                                     <span>Prescription Generated</span>
                                 </h4>
                                 <h4 className="fw-500 text-left">
-                                    <span>5,000 +</span><br/>
+                                    <span id="countNum2">5000 +</span><br/>
                                     <span>Lab Network</span>
                                 </h4>
                             </div>
