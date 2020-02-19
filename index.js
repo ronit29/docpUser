@@ -92,6 +92,8 @@ app.get('/disbaled-apple-app-site-association', function (req, res) {
 });
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
+app.use('/sw.js', Express.static('sw.js'));
+app.use('/offline.html', Express.static('offline.html'));
 
 function getUtmParams(req, res){
     try{

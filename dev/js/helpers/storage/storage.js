@@ -201,6 +201,18 @@ const STORAGE = {
         }else{
             return Promise.resolve(getCookie('tokenauth')) 
         }
+    },
+    registerServiceWorker(){
+        if('serviceWorker' in navigator) {
+            window.addEventListener('load', ()=>{
+                navigator.serviceWorker.register('/sw.js').then(function (registration){
+                    console.log('Service Worker registration Success', registration.scope)
+                }, function(err){
+                    //registration Failed
+                    console.log('Service Worker registration Failed', err)
+                })
+            })
+        }
     }
 
 
