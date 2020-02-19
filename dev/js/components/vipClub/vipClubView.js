@@ -25,7 +25,8 @@ class VipClubView extends React.Component {
             selected_plan_id: this.props.selected_plan && Object.keys(this.props.selected_plan).length ? this.props.selected_plan.id:'',
             toggleTabType: false,
             is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false,
-            openMedlifeTnC:false
+            openMedlifeTnC:false,
+            is_lead_enabled:true
         }
     }
 
@@ -137,20 +138,25 @@ class VipClubView extends React.Component {
                 if (Object.keys(loginUser).length > 0) {
                                         
                     // to create vip or gold member lead for matrix
-
                     let visitor_info = GTM.getVisitorInfo()
                         if(visitor_info && visitor_info.visit_id){
                             lead_data.visit_id = visitor_info.visit_id
                             lead_data.visitor_id = visitor_info.visitor_id
                         }
-                    this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
-                        cb: (resp) => {
-                            let LeadIdData = {
-                            'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                    if(this.state.is_lead_enabled){
+                        this.setState({is_lead_enabled:false})
+                        this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
+                            cb: (resp) => {
+                                let LeadIdData = {
+                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                }
+                                GTM.sendEvent({ data: LeadIdData })
                             }
-                            GTM.sendEvent({ data: LeadIdData })
-                        }
-                    })
+                        })
+                        setTimeout(() => {
+                            this.setState({is_lead_enabled:true})
+                        }, 5000)
+                    }
                 }
                 let url = '/vip-club-member-details?isDummy=true'
                 if (lead_data.utm_source) {
