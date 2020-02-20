@@ -47,6 +47,9 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+        if(document.getElementById('otpMob')){
+            document.getElementById('otpMob').focus()
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,6 +68,7 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+
     }
 
     inputHandler(e) {
@@ -450,7 +454,7 @@ class ChoosePatientNewView extends React.Component {
                     <React.Fragment>
                         <div className="otp-heading">
                             <h4 className="title d-flex mb-0">
-                                Please enter your mobile number
+                                Please enter your mobile number to proceed
                             </h4>
                             <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                         </div>
