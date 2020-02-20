@@ -7,7 +7,7 @@ function trimCache(cacheName, maxSize){
 
 		cache.keys(cacheName).then((keys)=>{
 			if(keys.length>maxSize){
-
+				cache.delete(keys[0]).then(trimCache(cacheName, maxSize))
 			}
 		})
 

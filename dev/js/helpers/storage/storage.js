@@ -213,6 +213,21 @@ const STORAGE = {
                 })
             })
         }
+    },
+    unregisterServiceWorker(){
+        if('serviceWorker' in navigator) {
+            try{
+                navigator.serviceWorker.getRegistrations().
+                then((registers)=>{
+                    for( let i = 0; i < registers.length; i++ ) {
+                        registers[i].unregister();
+                    }
+                })
+            
+            }catch(e){
+
+            }
+        }
     }
 
 
