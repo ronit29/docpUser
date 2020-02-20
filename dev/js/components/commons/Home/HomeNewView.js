@@ -94,7 +94,7 @@ class MainView extends React.Component{
             
             
         
-        const animateValue = (obj, start = 20000, end = null, duration = 5000) => {
+        const animateValue = (obj, start = 26000, end = null, duration = 2000) => {
             if (obj) {
         
                 // save starting text for later (and as a fallback text if JS not running and/or google)
@@ -425,7 +425,15 @@ class MainView extends React.Component{
                             </span>
                         </a>
                     </section>
-                
+                    {/******  mbl banner *********/}
+                    <section className="card-block-row mbl-banner-slider-row">
+                        {
+                            !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                        }
+                    </section>      
+                    {/******  mbl banner *********/}
+
                     {/******  top hospitals *********/}
                     <HomePageWidget
                         heading="Top Hospitals"
@@ -476,12 +484,14 @@ class MainView extends React.Component{
                         type="package"
                         navTo="/searchpackages"
                     />
-
-                    {
-                        !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                            <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                    }
-  
+                    {/******  desktop banner *********/}
+                    <section className="card-block-row desktop-banner-slider-row">
+                        {
+                            !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                        }
+                    </section>
+                    {/******  desktop banner *********/}    
                     {/******  Book lab test *********/}  
 
                     <HomePageWidget

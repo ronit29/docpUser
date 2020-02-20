@@ -455,6 +455,27 @@
 }
 /************** Corporate details modal css **************/
 
+/************** banner slider  css **************/
+.mbl-banner-slider-row{
+    display: none;
+}
+.desktop-banner-slider-row{
+    display: block;
+}
+.card-block-row >div>div>.new-home-banner{
+    margin: 40px 0;
+    width: 40%;
+    border-radius: 10px;
+}
+.card-block-row >div>div>.new-home-banner>img{
+    border-radius: 10px!important;
+}
+.card-block-row >div>div>.new-home-banner>.carousel-indicators{
+    display: none;
+}
+
+/************** banner slider  css **************/
+
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {
@@ -691,6 +712,12 @@
     .other-details>ul>li{
         font-size: 16px;
         line-height: 36px;
+    }
+    .mbl-banner-slider-row{
+        display: block;
+    }
+    .desktop-banner-slider-row{
+        display: none;
     }
 }
 /************** responsive media css **************/
