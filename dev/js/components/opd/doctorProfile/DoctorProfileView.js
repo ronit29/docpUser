@@ -360,9 +360,12 @@ class DoctorProfileView extends React.Component {
                 display_docprime_discount = display_total_mrp - (selected_hospital[0].vip.vip_convenience_amount + selected_hospital[0].vip.vip_gold_price)
             }
         }
-        /*docorganic
-        DOCORGANIC*/
-        let data =({phone_number:phone_number,lead_source:`${landing_page?'docorganic':'docads'}`,source:parsed,lead_type:`${landing_page?'DOCADS':'DOCADS'}`,exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page,amount_discount: display_docprime_discount})
+        //check if any utm tag exist in url
+        let isUtmTagsExist = false
+        if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
+            isUtmTagsExist = true
+        }
+        let data =({phone_number:phone_number,lead_source:`${!isUtmTagsExist && landing_page?'docorganic':'docads'}`,source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page,amount_discount: display_docprime_discount})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }

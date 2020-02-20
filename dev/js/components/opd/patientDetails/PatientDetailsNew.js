@@ -84,7 +84,8 @@ class PatientDetailsNew extends React.Component {
             paymentBtnClicked: false,
             enableDropOfflead: true,
             showNonIpdPopup: parsed.show_popup,
-            to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1
+            to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1,
+            disable_page:true
         }
     }
 
@@ -101,10 +102,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentDidMount() {
-
-        /*if (!STORAGE.checkAuth()) {
-            return
-        }*/
 
         if (window) {
             window.scrollTo(0, 0)
@@ -342,6 +339,9 @@ class PatientDetailsNew extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         //Ref to update date every time on route
+        if (STORAGE.checkAuth()) {
+            this.setState({disable_page:false})
+        }
         if (nextProps.selectedDateFormat && nextProps.selectedDateFormat != this.state.dateTimeSelectedValue) {
             this.setState({ dateTimeSelectedValue: nextProps.selectedDateFormat })
         }
@@ -1537,6 +1537,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
+        console.log(this.state.disable_page)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
@@ -1836,6 +1837,7 @@ class PatientDetailsNew extends React.Component {
                                                                 />
                                                                 {/* new time slot */}
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)} is_docAds_lead={this.state.to_be_force} />
+                                                                <div className={`${this.state.disable_page && !STORAGE.isAgent()?'disable-opacity':''}`}>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -2379,6 +2381,7 @@ class PatientDetailsNew extends React.Component {
                                                                         {/* <span className="errorMessage">{this.state.error}</span> */}
                                                                     </div>
                                                                 </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2409,7 +2412,7 @@ class PatientDetailsNew extends React.Component {
                                             : ''
                                     }
 
-                                    <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
+                                    <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page?'disable-all':''}`}>
 
                                         {
                                             this.props.payment_type != 6 && ((STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true')) ?

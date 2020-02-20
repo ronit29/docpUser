@@ -499,7 +499,7 @@ class ChoosePatientNewView extends React.Component {
                                         </React.Fragment>
                                     }
                                 </div>
-                                <p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  
+                                {/*<p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  */}
                             </form>
                         </div>
                     </React.Fragment>
