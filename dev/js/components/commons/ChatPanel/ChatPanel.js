@@ -704,7 +704,7 @@ class ChatPanel extends React.Component {
                     }
                     <div className="fixed-chatbox">
                         {
-                            this.props.homePage ?
+                            this.props.homePage && false?
                                 <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
                                     <div className="hidderBanner banner-carousel-div">
                                         <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>

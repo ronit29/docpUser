@@ -24,7 +24,7 @@ import VipLoginPopup from '../../vipClub/vipClubPopup.js'
 import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
 import SnackBar from 'node-snackbar'
 import HomePageWidget from '../HomeNewView/HomePageWidget.js'
-import CommonPopup from '../commonFixedPopup/commonFixedPopup.js'
+import CorporateLeadPopup from './CorporateLeadPopup.js'
 
 
 class MainView extends React.Component{
@@ -391,7 +391,6 @@ class MainView extends React.Component{
         let articles = this.props.articles || []
         
         let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
-
         let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
         let defaultUserProfile = null
@@ -406,29 +405,7 @@ class MainView extends React.Component{
 
                 {
                     this.state.openCorporateBlock?
-                    <CommonPopup cancelOverlay={(a)=>this.cancelOverlay(a)} className="test-clas">
-                        <div className="col-sm-12 corporate-detail-section">
-                            <img className="modal-close-img" src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} alt="close"/>
-                            <h3>Drop your details</h3>
-                            <h6>We will reach yo for further assistance</h6>
-                            <form action="">
-                                <div className="input-field-row">
-                                    <input type="text" placeholder="* Company Name" style={{marginRight: 12}}/>
-                                    <input type="text" placeholder="No of employees"/>
-                                </div>
-                                <div className="input-field-row">
-                                    <input type="text" placeholder="* Email Address"/>
-                                </div>
-                                <div className="input-field-row">
-                                    <input type="text" placeholder="* Contact Person Name"/>
-                                </div>
-                                <div className="input-field-row">
-                                    <input type="text" placeholder="* Contact Number"/>
-                                </div>
-                            </form>
-                            <button className="ipd-inp-sbmt float-right">Submit</button>
-                        </div>
-                    </CommonPopup>
+                    <CorporateLeadPopup cancelOverlay={this.cancelOverlay} />
                     :''
                 }
                 {/****** homepage  view *********/}
@@ -499,6 +476,11 @@ class MainView extends React.Component{
                         type="package"
                         navTo="/searchpackages"
                     />
+
+                    {
+                        !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                            <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                    }
   
                     {/******  Book lab test *********/}  
 
@@ -700,7 +682,7 @@ class MainView extends React.Component{
                 <div className="new-chat-box">
                     <input type="checkbox"/>
                     <div className="chatbox-main mb-3">
-                        <ChatPanel  key="chat" />
+                        <ChatPanel  key="chat" homePage={true} offerList={this.props.offerList}/>
                     </div>
                     <div className="chat-box-circle d-flex justify-content-center align-items-center text-center flex-column">
                         <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   
