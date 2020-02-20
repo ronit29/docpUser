@@ -101,7 +101,7 @@ self.addEventListener('activate', function(event){
 self.addEventListener('fetch', function(event){
 	console.log('Service Worker url.....', event.request);
 
-	if ( event.request.url.includes('api') || event.request.url.includes('/default') ){
+	if ( event.request.url.includes('api') || event.request.url.includes('/default') ||  event.request.url.includes('/io') ){
 		//For API request
 		if( ( (event.request.url).indexOf('api/v1/diagnostic/labsearch')>-1 ) || ( (event.request.url).indexOf('api/v1/location/static-speciality-footer')>-1 ) || ( (event.request.url).indexOf('api/v1/doctor/commonconditions?city=Delhi')>-1 ) ) {
 			event.respondWith(
