@@ -2,10 +2,11 @@ let static_cache = 'static-3'
 let cache_dynamic_name = 'dynamic_caching_7'	
 let API_TO_CACHED = ['api/v1/diagnostic/labsearch', 'api/v1/location/static-speciality-footer', 'api/v1/doctor/commonconditions?city=Delhi']
 
+
 function trimCache(cacheName, maxSize){
 	caches.open(cacheName).then((cache)=>{
 
-		cache.keys(cacheName).then((keys)=>{
+		return cache.keys().then((keys)=>{
 			if(keys.length>maxSize){
 				cache.delete(keys[0]).then(trimCache(cacheName, maxSize))
 			}
@@ -13,6 +14,7 @@ function trimCache(cacheName, maxSize){
 
 	})
 }
+
 
 self.addEventListener('install', function(event){
 	console.log('Service Worker Installed.....');
@@ -132,7 +134,8 @@ self.addEventListener('fetch', function(event){
 				}else{
 					return caches.open(cache_dynamic_name).then((cache)=>{
 						return fetch(event.request).then((resp)=>{
-							cache.put(event.request, resp.clone());
+							//trimCache(cache_dynamic_name, 50);
+							cache.put(event.request, resp.clone());	
 							return resp;
 						}).catch((e)=>{
 							if(event.request.headers.get('accept').includes('text/html')){
