@@ -485,11 +485,22 @@ class MainView extends React.Component{
                         navTo="/searchpackages"
                     />
                     {/******  desktop banner *********/}
-                    <section className="card-block-row desktop-banner-slider-row">
-                        {
+                    <section className="card-block-row banner-slider-row d-banner">
+                        {/* {
                             !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                                 <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                        }
+                        } */}
+                        <div className="card-slider-container">
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
+                            </a>
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_2.png" alt="docprime"/>
+                            </a>
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_3.png" alt="docprime"/>
+                            </a>
+                        </div>
                     </section>
                     {/******  desktop banner *********/}    
                     {/******  Book lab test *********/}  

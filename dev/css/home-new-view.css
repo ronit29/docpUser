@@ -78,8 +78,12 @@
     margin-top: 10px;
     margin-bottom: 20px;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: auto;
     position:relative;
+    -ms-overflow-style: none;
+}
+.card-slider-container::-webkit-scrollbar{
+    display: none;
 }
 
 .slider-card-column {
@@ -462,16 +466,15 @@
 .desktop-banner-slider-row{
     display: block;
 }
-.card-block-row >div>div>.new-home-banner{
-    margin: 40px 0;
-    width: 40%;
+.banner-slider-row >.card-slider-container{
+    background: none;
+    box-shadow: none;
+}
+.banner-slider-row >.card-slider-container>a{
+    padding: 20px;
+}
+.banner-slider-row >.card-slider-container>a>img{
     border-radius: 10px;
-}
-.card-block-row >div>div>.new-home-banner>img{
-    border-radius: 10px!important;
-}
-.card-block-row >div>div>.new-home-banner>.carousel-indicators{
-    display: none;
 }
 
 /************** banner slider  css **************/
