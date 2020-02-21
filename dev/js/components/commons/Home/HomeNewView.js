@@ -369,6 +369,24 @@ class MainView extends React.Component{
     cancelOverlay = ()=>{
         this.setState({openCorporateBlock: false})   
     }
+
+    pushLeads = (data)=>{
+        const parsed = queryString.parse(window.location.search)
+        let params = {...data};
+        if(parsed){
+            params['source'] = {
+                utm_source: parsed.utm_source||'',
+                utm_term: parsed.utm_term||'',
+                utm_medium: parsed.utm_medium||'',
+                utm_campaign: parsed.utm_campaign||''
+            }
+        }
+        this.props.NonIpdBookingLead(params).then(()=>{
+            SnackBar.show({ pos: 'bottom-center', text: "Response Submitted Successfully" });
+            this.cancelOverlay();
+        })
+        
+    }
     
     render(){
 
@@ -405,7 +423,7 @@ class MainView extends React.Component{
 
                 {
                     this.state.openCorporateBlock?
-                    <CorporateLeadPopup cancelOverlay={this.cancelOverlay} />
+                    <CorporateLeadPopup cancelOverlay={this.cancelOverlay} pushLeads={this.pushLeads}/>
                     :''
                 }
                 {/****** homepage  view *********/}
@@ -687,6 +705,7 @@ class MainView extends React.Component{
                 {/******  other details *********/}
                 {/****** homepage  view *********/}
                 {/****** footer *********/}
+                <FixedMobileFooter {...this.props} />
                 <Footer specialityFooterData={this.state.specialityFooterData}/>
                 {/****** footer *********/}
 

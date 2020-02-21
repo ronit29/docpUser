@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance, mergeIpdCriteria, getNearbyHospitals, clearVipSelectedPlan } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance, mergeIpdCriteria, getNearbyHospitals, clearVipSelectedPlan, NonIpdBookingLead } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -127,7 +127,9 @@ const mapDispatchToProps = (dispatch) => {
         loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
         mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
         getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb)),
-        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan())
+        clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan()),
+        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
+
     }
 }
 
