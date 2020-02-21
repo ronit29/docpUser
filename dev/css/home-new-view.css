@@ -335,6 +335,9 @@
     position: relative;
     right: -20%;
 }
+.link-arrow-clr{
+    fill: var(--text--primary--color);
+}
 
 /************** circle chat box css **************/
 .new-chat-box{

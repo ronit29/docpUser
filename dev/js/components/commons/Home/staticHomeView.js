@@ -200,7 +200,16 @@ class MainView extends React.Component{
                             <h6>Book Doctor Appointments</h6>
                             <a className="d-flex align-item-center">
                                 <span>Search more specializations</span>
-                                <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/>
+                                {/* <img className="ml-2" height="12" src={ASSETS_BASE_URL + "/img/right-arrow.svg"} alt="arrow"/> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19.411" height="12.941" viewBox="0 0 19.411 12.941">
+                                    <g transform="translate(-0.282 -87.521)">
+                                        <g transform="translate(0.282 87.521)">
+                                            <path class="a-fill" fill="#000"
+                                                d="M19.293,91.517l-6.066-6.066a.4.4,0,0,0-.572.572L18.03,91.4H.4a.4.4,0,0,0,0,.809H18.03l-5.376,5.376a.4.4,0,1,0,.572.572l6.066-6.066A.4.4,0,0,0,19.293,91.517Z"
+                                                transform="translate(0 -85.333)" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </a>
                         </div>
                         {/* card slider */}
