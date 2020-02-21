@@ -427,21 +427,11 @@ class MainView extends React.Component{
                     </section>
                     {/******  mbl banner *********/}
                     <section className="card-block-row banner-slider-row mbl-banner">
-                        {/* {
+                        {
                             !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                                 <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                        } */}
-                        <div className="card-slider-container">
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
-                            </a>
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_2.png" alt="docprime"/>
-                            </a>
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_3.png" alt="docprime"/>
-                            </a>
-                        </div>
+                        }
+                        
                     </section>      
                     {/******  mbl banner *********/}
 
@@ -496,26 +486,16 @@ class MainView extends React.Component{
                         navTo="/searchpackages"
                     />
                     {/******  desktop banner *********/}
-                    <section className="card-block-row banner-slider-row d-banner">
-                        {/* {
-                            !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                        } */}
-                        <div className="card-slider-container">
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
-                            </a>
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_2.png" alt="docprime"/>
-                            </a>
-                            <a href="#">
-                                <img src="https://cdn.docprime.com/media/banner/images/Layer_3.png" alt="docprime"/>
-                            </a>
-                        </div>
-                    </section>
+                        <section className="card-block-row banner-slider-row d-banner">
+                            {
+                                !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                    <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                            }
+                        </section>
                     {/******  desktop banner *********/}    
                     {/******  Book lab test *********/}  
 
+                    
                     <HomePageWidget
                         heading="Book Lab Tests"
                         rightText= "Search more test"
@@ -707,7 +687,7 @@ class MainView extends React.Component{
                 {/******  other details *********/}
                 {/****** homepage  view *********/}
                 {/****** footer *********/}
-                <Footer></Footer>
+                <Footer specialityFooterData={this.state.specialityFooterData}/>
                 {/****** footer *********/}
 
                 {/****** chat view button  *********/}

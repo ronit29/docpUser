@@ -150,7 +150,7 @@ class HomePageWidgets extends React.PureComponent {
                     
 
                     {/* slider buttons */}
-                    <a className="pkg-btnlft" id={`${dataType}_RightArrow_hsptl`} onClick={this.scroll.bind(this, 'left')}> 
+                    <a className="pkg-btnlft d-none" id={`${dataType}_RightArrow_hsptl`} onClick={this.scroll.bind(this, 'left')}> 
                         <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
                     </a>
                     <a className="pkg-btnrgt" id={`${dataType}_leftArrow_hsptl`} onClick={this.scroll.bind(this, 'right')}> 

@@ -412,8 +412,8 @@ class BannerCarousel extends React.Component {
         return (
             <div className={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? '' : 'banner-margin-tap'}>
                 {
-                    this.props.sliderLocation === "medicine_detail_page" ?
-                        <div className="medic-img-slider">
+                    this.props.sliderLocation === "medicine_detail_page"
+                        ?<div className="medic-img-slider">
                             {
                                 filteredBanners && filteredBanners.length ?
                                     filteredBanners.map((offer, i) => {
@@ -421,8 +421,22 @@ class BannerCarousel extends React.Component {
                                     }) : ''
                             }
                         </div>
-                        :
-                        <div>
+                        :this.props.sliderLocation=='home_page'?
+                            <div className="card-slider-container">
+                                <a href="#">
+                                    <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
+                                </a>
+                                {
+                                    filteredBanners && filteredBanners.length ?
+                                        filteredBanners.map((offer, i) => {
+                                            return <a href="#">
+                                                        <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={{ cursor: 'pointer'}} alt="bannerLogoDocprime"/>
+                                                    </a>
+                                        }) : ''
+                                }
+
+                            </div>
+                        :<div>
                             {/* code for banner carousel (visible only on desktop) */}
                             <div className={this.props.hideClass ? `banner-carousel-div  mrb-10 d-none ${this.props.hideClass}` : `banner-carousel-div mrb-10 d-none d-md-block new-home-banner`}>
                                 {
