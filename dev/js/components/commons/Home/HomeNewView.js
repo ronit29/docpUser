@@ -399,297 +399,298 @@ class MainView extends React.Component{
         }
 
         return(
-            <div className="container-fluid p-0">
-                {/****** Header *********/}
-                <DesktopProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
-
-                {
-                    this.state.openCorporateBlock?
-                    <CorporateLeadPopup cancelOverlay={this.cancelOverlay} />
-                    :''
-                }
-                {/****** homepage  view *********/}
-                <div className="new-main-view" id="mainView">
-                    {/******  full width banner *********/}
-                    <section className="full-banner-section">
-                        <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
-                            let data = {
-                              'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
-                            }
-                            GTM.sendEvent({ data: data });
-                            this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
-                          }} />
-                        <a href="" onClick={(e)=>e.preventDefault()}>
-                            <span onClick={this.getCorporateLead} >Special plans available for Corporatess 
-                                <span className="down-icon-yellow">&gt;</span>
-                            </span>
-                        </a>
-                    </section>
-                    {/******  mbl banner *********/}
-                    <section className="card-block-row banner-slider-row mbl-banner">
-                        {
-                            !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                        }
-                        
-                    </section>      
-                    {/******  mbl banner *********/}
-
-                    {/******  top hospitals *********/}
-                    <HomePageWidget
-                        heading="Top Hospitals"
-                        list={this.props.top_hospitals}
-                        topHospitals={true}
-                        dataType='home_top_hsptl'
-                        historyObj ={this.props.history}
-                        searchFunc={this.searchHospitals}
-                    />
+            <React.Fragment>
+                <div className="container-fluid p-0">
+                    {/****** Header *********/}
+                    <DesktopProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
 
                     {
-                        this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length?
-                        <HomePageWidget
-                            heading="Hospitals Near you"
-                            list={this.props.nearbyHospitals.hospitals}
-                            dataType='home_nearby-hsptl'
-                            historyObj ={this.props.history}
-                            searchFunc={this.searchHospitals}
-                        />
+                        this.state.openCorporateBlock?
+                        <CorporateLeadPopup cancelOverlay={this.cancelOverlay} />
                         :''
                     }
-                    
-
-                    {/******  doctor apointment section *********/}
-                    <HomePageWidget
-                        heading="Book Doctor Appointments"
-                        rightText= "Search more specializations"
-                        rightButtonClicked = {this.goToSearch}
-                        searchFunc={this.searchDoctor}
-                        list={topSpecializations}
-                        dataType='home_top_specz'
-                        discount="50%"
-                        historyObj ={this.props.history}
-                        type="opd"
-                        navTo="/search?from=home"
-                    />
-                    
-                    {/******  Popular health packages section *********/}      
-                    <HomePageWidget
-                        heading="Popular Health Packages"
-                        rightText= "View all"
-                        rightButtonClicked = {this.goToSearch}
-                        topPackages= {true}
-                        list={topPackages}
-                        searchFunc={this.searchLab}
-                        dataType='home_top_pckg'
-                        historyObj ={this.props.history}
-                        type="package"
-                        navTo="/searchpackages"
-                    />
-                    {/******  desktop banner *********/}
-                        <section className="card-block-row banner-slider-row d-banner">
+                    {/****** homepage  view *********/}
+                    <div className="new-main-view" id="mainView">
+                        {/******  full width banner *********/}
+                        <section className="full-banner-section">
+                            <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
+                                let data = {
+                                'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
+                                }
+                                GTM.sendEvent({ data: data });
+                                this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
+                            }} />
+                            <a href="" onClick={(e)=>e.preventDefault()}>
+                                <span onClick={this.getCorporateLead} >Special plans available for Corporatess 
+                                    <span className="down-icon-yellow">&gt;</span>
+                                </span>
+                            </a>
+                        </section>
+                        {/******  mbl banner *********/}
+                        <section className="card-block-row banner-slider-row mbl-banner">
                             {
                                 !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                                     <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
                             }
-                        </section>
-                    {/******  desktop banner *********/}    
-                    {/******  Book lab test *********/}  
-
-                    
-                    <HomePageWidget
-                        heading="Book Lab Tests"
-                        rightText= "Search more test"
-                        rightButtonClicked = {this.goToSearch}
-                        list={topTests}
-                        searchFunc={this.searchLab}
-                        dataType='home_top_tests'
-                        discount="50%"
-                        historyObj ={this.props.history}
-                        type="lab"
-                        navTo="/search?from=home"
-                    />
-    
-                    <Accordian/>
-                    {/******  Our Partners section *********/}
-                    <section className="card-block-row">
-                        <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
-                        <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_1-12x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_2-12x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_72x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_92x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_102x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_182x.png"  alt="Partners"/>   
-                            </div>
-                            {/* <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_192x.png"  alt="Partners"/>   
-                            </div> */}
-                            <div className="partner-img-block">
-                                <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/web/custom_images/Image_6-12x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_4-12x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_3-12x.png" alt="Partners"/>   
-                            </div>
                             
-                            <div className="partner-img-block">
-                                <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_52x.png" alt="Partners"/>   
-                            </div>
-                            <div className="partner-img-block">
-                                <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_112x.png" alt="Partners"/>   
-                            </div>
-                        </div>
-                    </section>
-                    {/******  Our Partners section *********/}
-                    {/******  Where we are *********/}
-                    <section className="card-block-row">
-                        <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
-                            <div className="round-col d-flex justify-content-center align-item-center flex-column">
-                                <ul className="d-flex">
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                </ul>
-                                <h3>we are here <br/>so far</h3>  
-                            </div>
-                            <div className="consultation-col">
-                                <h3 className="fw-500 text-right">
-                                    <span>1 Lakh +</span><br/>
-                                    <span>Doctor and Lab Appointments</span>
-                                </h3>
-                                <h3 className="fw-500 text-right">
-                                    <span>10 Lakh +</span><br/>
-                                    <span>Online Consultation</span>
-                                </h3>
-                            </div>
-                            <div className="consultation-col left-border">
-                                <h4 className="fw-500 text-left">
-                                    <span id="countNum">30000 +</span><br/>
-                                    <span>Doctor Network</span>
-                                </h4>
-                                <h4 className="fw-500 text-left">
-                                    <span>2 Lakh +</span><br/>
-                                    <span>Prescription Generated</span>
-                                </h4>
-                                <h4 className="fw-500 text-left">
-                                    <span id="countNum2">5000 +</span><br/>
-                                    <span>Lab Network</span>
-                                </h4>
-                            </div>
-                        </div>
-                    </section>
-                    {/******  Where we are *********/} 
-                    {/******  customer review *********/}
-                    <section className="card-block-row ">
-                        <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
-                        <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
-                            <div className="col-10 col-sm-4 text-center">
-                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                                    <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
-                                    {/* <span>CNR</span> */}
-                                </div>
-                                <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-2">
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                </ul>
-                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
-                            </div>
-                            <div className="col-10 col-sm-4 text-center">
-                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                                    {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                                    <span>CNR</span>
-                                </div>
-                                <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-2">
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                </ul>
-                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
-                            </div>
-                            <div className="col-10 col-sm-4 text-center">
-                                <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                                    {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                                    <span>CNR</span>
-                                </div>
-                                <h3>Customer Name Reviewed</h3>
-                                <ul className="d-flex justify-content-center align-item-center mb-2">
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                    <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                                </ul>
-                                <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
-                            </div>
-                        </div>
+                        </section>      
+                        {/******  mbl banner *********/}
 
-                        {/* slider buttons */}
-                        <a className="pkg-btnlft"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
-                        </a>
-                        <a className="pkg-btnrgt"> 
-                            <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
-                        </a>
-                    </section>       
-                    {/******  customer review *********/}
-                </div>
-                {/******  other details *********/}
-                <section className="card-block-row detail-row">
-                    <h6>Download the App Now</h6>
-                    <div className="row m-0">
-                        <div className="col-12 col-sm-6 col-lg-5 other-details p-0">
-                            <ul>
-                                <li>Online Consultations</li>
-                                <li>Book Doctor Appointments the Prime Way</li>
-                                <li>Doctors: For you, Near you</li>
-                                <li>Book Lab Tests and Free Health Check-Ups</li>
-                                <li>Store Medical Records</li>
-                            </ul>
-                            <div className="download-links d-flex align-item-center">
-                                <a href="">
-                                    <img width="180" style={{ marginLeft: "-12px"}} src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
-                                </a>
-                                <a href="">
-                                    <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
-                                </a>   
+                        {/******  top hospitals *********/}
+                        <HomePageWidget
+                            heading="Top Hospitals"
+                            list={this.props.top_hospitals}
+                            topHospitals={true}
+                            dataType='home_top_hsptl'
+                            historyObj ={this.props.history}
+                            searchFunc={this.searchHospitals}
+                        />
+
+                        {
+                            this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length?
+                            <HomePageWidget
+                                heading="Hospitals Near you"
+                                list={this.props.nearbyHospitals.hospitals}
+                                dataType='home_nearby-hsptl'
+                                historyObj ={this.props.history}
+                                searchFunc={this.searchHospitals}
+                            />
+                            :''
+                        }
+                        
+
+                        {/******  doctor apointment section *********/}
+                        <HomePageWidget
+                            heading="Book Doctor Appointments"
+                            rightText= "Search more specializations"
+                            rightButtonClicked = {this.goToSearch}
+                            searchFunc={this.searchDoctor}
+                            list={topSpecializations}
+                            dataType='home_top_specz'
+                            discount="50%"
+                            historyObj ={this.props.history}
+                            type="opd"
+                            navTo="/search?from=home"
+                        />
+                        
+                        {/******  Popular health packages section *********/}      
+                        <HomePageWidget
+                            heading="Popular Health Packages"
+                            rightText= "View all"
+                            rightButtonClicked = {this.goToSearch}
+                            topPackages= {true}
+                            list={topPackages}
+                            searchFunc={this.searchLab}
+                            dataType='home_top_pckg'
+                            historyObj ={this.props.history}
+                            type="package"
+                            navTo="/searchpackages"
+                        />
+                        {/******  desktop banner *********/}
+                            <section className="card-block-row banner-slider-row d-banner">
+                                {
+                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                                }
+                            </section>
+                        {/******  desktop banner *********/}    
+                        {/******  Book lab test *********/}  
+
+                        
+                        <HomePageWidget
+                            heading="Book Lab Tests"
+                            rightText= "Search more test"
+                            rightButtonClicked = {this.goToSearch}
+                            list={topTests}
+                            searchFunc={this.searchLab}
+                            dataType='home_top_tests'
+                            discount="50%"
+                            historyObj ={this.props.history}
+                            type="lab"
+                            navTo="/search?from=home"
+                        />
+        
+                        <Accordian/>
+                        {/******  Our Partners section *********/}
+                        <section className="card-block-row">
+                            <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
+                            <div className="card-slider-container partner-section d-flex justify-content-center align-item-center flex-wrap">
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_1-12x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_2-12x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_72x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_92x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_102x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_182x.png"  alt="Partners"/>   
+                                </div>
+                                {/* <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_192x.png"  alt="Partners"/>   
+                                </div> */}
+                                <div className="partner-img-block">
+                                    <img className="img-fluid transform-sc-1" src="https://cdn.docprime.com/media/web/custom_images/Image_6-12x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_4-12x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_3-12x.png" alt="Partners"/>   
+                                </div>
+                                
+                                <div className="partner-img-block">
+                                    <img style={{transform:"scale(0.5)"}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_52x.png" alt="Partners"/>   
+                                </div>
+                                <div className="partner-img-block">
+                                    <img className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Image_112x.png" alt="Partners"/>   
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-7 demo-mbl-screen-col">
-                            <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
-                        </div>
+                        </section>
+                        {/******  Our Partners section *********/}
+                        {/******  Where we are *********/}
+                        <section className="card-block-row">
+                            <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
+                                <div className="round-col d-flex justify-content-center align-item-center flex-column">
+                                    <ul className="d-flex">
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    </ul>
+                                    <h3>we are here <br/>so far</h3>  
+                                </div>
+                                <div className="consultation-col">
+                                    <h3 className="fw-500 text-right">
+                                        <span>1 Lakh +</span><br/>
+                                        <span>Doctor and Lab Appointments</span>
+                                    </h3>
+                                    <h3 className="fw-500 text-right">
+                                        <span>10 Lakh +</span><br/>
+                                        <span>Online Consultation</span>
+                                    </h3>
+                                </div>
+                                <div className="consultation-col left-border">
+                                    <h4 className="fw-500 text-left">
+                                        <span id="countNum">30000 +</span><br/>
+                                        <span>Doctor Network</span>
+                                    </h4>
+                                    <h4 className="fw-500 text-left">
+                                        <span>2 Lakh +</span><br/>
+                                        <span>Prescription Generated</span>
+                                    </h4>
+                                    <h4 className="fw-500 text-left">
+                                        <span id="countNum2">5000 +</span><br/>
+                                        <span>Lab Network</span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </section>
+                        {/******  Where we are *********/} 
+                        {/******  customer review *********/}
+                        <section className="card-block-row ">
+                            <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
+                            <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
+                                <div className="col-10 col-sm-4 text-center">
+                                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                                        <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
+                                        {/* <span>CNR</span> */}
+                                    </div>
+                                    <h3>Customer Name Reviewed</h3>
+                                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    </ul>
+                                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                    <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                </div>
+                                <div className="col-10 col-sm-4 text-center">
+                                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                                        <span>CNR</span>
+                                    </div>
+                                    <h3>Customer Name Reviewed</h3>
+                                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    </ul>
+                                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                    <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                </div>
+                                <div className="col-10 col-sm-4 text-center">
+                                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                                        <span>CNR</span>
+                                    </div>
+                                    <h3>Customer Name Reviewed</h3>
+                                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                                    </ul>
+                                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                                    <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                </div>
+                            </div>
+
+                            {/* slider buttons */}
+                            <a className="pkg-btnlft"> 
+                                <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                            </a>
+                            <a className="pkg-btnrgt"> 
+                                <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                            </a>
+                        </section>       
+                        {/******  customer review *********/}
                     </div>
-                </section>
-                {/******  other details *********/}
-                {/****** homepage  view *********/}
-                {/****** footer *********/}
-                <Footer specialityFooterData={this.state.specialityFooterData}/>
-                {/****** footer *********/}
-
+                    {/******  other details *********/}
+                    <section className="card-block-row detail-row">
+                        <h6>Download the App Now</h6>
+                        <div className="row m-0">
+                            <div className="col-12 col-sm-6 col-lg-5 other-details p-0">
+                                <ul>
+                                    <li>Online Consultations</li>
+                                    <li>Book Doctor Appointments the Prime Way</li>
+                                    <li>Doctors: For you, Near you</li>
+                                    <li>Book Lab Tests and Free Health Check-Ups</li>
+                                    <li>Store Medical Records</li>
+                                </ul>
+                                <div className="download-links d-flex align-item-center">
+                                    <a href="">
+                                        <img width="180" style={{ marginLeft: "-12px"}} src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
+                                    </a>
+                                    <a href="">
+                                        <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
+                                    </a>   
+                                </div>
+                            </div>
+                            <div className="col-12 col-sm-6 col-lg-7 demo-mbl-screen-col">
+                                <img className="img-fluid" src={ASSETS_BASE_URL + "/img/demo-mbl.png"} alt="ios"/> 
+                            </div>
+                        </div>
+                    </section>
+                    {/******  other details *********/}
+                    {/****** homepage  view *********/}
+                    {/****** footer *********/}
+                    <Footer specialityFooterData={this.state.specialityFooterData}/>
+                    {/****** footer *********/}
+                </div>
                 {/****** chat view button  *********/}
                 <div className="new-chat-box">
                     <input type="checkbox"/>
@@ -700,12 +701,13 @@ class MainView extends React.Component{
                         <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   
                         <h6>Doctor <br/>Consultation</h6> 
                         <h3 className="align-items-center justify-content-center">
-                          <img src={ASSETS_BASE_URL + "/img/cancel.svg"} alt="cancel"/>
+                        <img src={ASSETS_BASE_URL + "/img/cancel.svg"} alt="cancel"/>
                         </h3>
                     </div>
                 </div>
                 {/****** chat view button  *********/}
-            </div>
+            </React.Fragment>
+
         )
     }
 }

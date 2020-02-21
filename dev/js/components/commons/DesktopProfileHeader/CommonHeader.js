@@ -284,14 +284,14 @@ class DesktopProfileHeader extends React.Component {
 
                             {/* header list items    */}
                             <ul className="d-flex align-item-center header-list-items">
-                                <li className="mbl-search-box">
+                                <li className="mbl-search-box no-border">
                                     {
                                         this.props.showSearch ? "" : <div className="mbl-head-search" onClick={this.openSearch.bind(this)}>
                                             <img width={19} src={ASSETS_BASE_URL + "/images/search-dark.svg"} />
                                         </div>
                                     }
                                 </li>
-                                <li className="ml-3">
+                                <li>
                                     <a className="d-flex align-item-center" onClick={(e) => {
                                     e.preventDefault();
                                     this.navigateTo('/contact') }}>
@@ -304,7 +304,7 @@ class DesktopProfileHeader extends React.Component {
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
-                                <li className="ml-3 d-none d-sm-block d-lg-block">
+                                <li className="d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center head-dropdowns">
                                         {
                                             this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
@@ -313,6 +313,7 @@ class DesktopProfileHeader extends React.Component {
 
                                         }
                                         <span className="d-none d-sm-block d-lg-block">resources</span>
+                                        <img height="10" className="down-caret-img" src={ASSETS_BASE_URL + "/img/caret-down.svg"} alt="caret-down" />
                                         <ul className="list-sub-menu d-none d-sm-block d-lg-block">
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
@@ -338,7 +339,7 @@ class DesktopProfileHeader extends React.Component {
                                         </ul>
                                     </a>
                                 </li>
-                                <li className="ml-3">
+                                <li>
                                     {
                                         profileData ? <a style={{position:'relative'}} className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/cart')
@@ -359,7 +360,7 @@ class DesktopProfileHeader extends React.Component {
                                         </a> : ""
                                     }
                                 </li>
-                                <li className="ml-3 d-none d-sm-block d-lg-block">
+                                <li className="no-border d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center" style={{position: 'relative'}} onClick={() => {
                                             this.props.history.push('/notifications')
                                         }}>
@@ -375,7 +376,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </a>
                                 </li>
-                                <li className="ml-3 d-none d-sm-block d-lg-block">
+                                <li className="no-border d-none d-sm-block d-lg-block">
                                     {profileData ? <a className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/user')
                                         }}>
