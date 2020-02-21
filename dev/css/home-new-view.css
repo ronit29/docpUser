@@ -1,8 +1,9 @@
 .new-main-view {
-    padding: 110px 37px 0px 37px;
+    padding: 110px 37px 37px 37px;
     background: url(/assets/img/main-bg.svg) repeat;
     background-size: 90%;
     background-position: 0% 0%;
+    overflow-x: hidden;
 }
 
 /************** full banner section **************/
@@ -338,7 +339,9 @@
 .link-arrow-clr{
     fill: var(--text--primary--color);
 }
-
+.onln-doc-cnslt{
+    margin-top: 120px;
+}
 /************** circle chat box css **************/
 .new-chat-box{
     position: fixed;
@@ -473,6 +476,9 @@
     background: none;
     box-shadow: none;
     margin:0px;
+    position: relative;
+    transform: scale(1.08);
+    left: 33px;
 }
 .d-banner>div>.card-slider-container>a{
     padding: 10px;
@@ -497,6 +503,10 @@
 @media screen and (max-width:767px) {
     .new-chat-box{
         display: none;
+    }
+    .banner-slider-row>div>.card-slider-container{
+        transform: scale(1.1);
+        left: 17px;
     }
     .new-main-view {
         padding: 15px;

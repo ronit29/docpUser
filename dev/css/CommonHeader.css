@@ -123,14 +123,14 @@
     padding-right: 15px!important;
 }
 .header-list-items > li{
-    border-right: 1px solid rgba(112, 112, 112, 0.2);
-    padding: 5px 1rem 5px 0px;
-    min-height: 30px;
+    padding-left: 1rem;
 }
 .header-list-items > li > a{
     font-size: 14px;
     font-weight: 500;
-    margin-left: 10px;
+    border-right: 1px solid rgba(112, 112, 112, 0.2);
+    padding: 5px 1rem 5px 0px;
+    min-height: 30px;
     text-transform: capitalize;
     white-space: nowrap;
 }

@@ -391,7 +391,7 @@ class CriteriaElasticSearchView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
+                        <div className="vip-new-container center-column pt-0">
                             <img className="search-back-main-ico" src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} onClick={()=> this.props.history.goBack()}/>
                             {
                                 // goback decides if search bar will be shown

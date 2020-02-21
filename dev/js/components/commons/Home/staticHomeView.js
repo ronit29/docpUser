@@ -312,7 +312,7 @@ class MainView extends React.Component{
                         </a>
                     </section>    
                     {/******  Book lab test *********/}          
-                    <Accordian></Accordian>
+                    
                     {/******  Our Partners section *********/}
                     <section className="card-block-row">
                         <h6 className="text-center fw-500 our-partner-heading-text">Our Partners</h6>
@@ -456,6 +456,7 @@ class MainView extends React.Component{
                         </a>
                     </section>       
                     {/******  customer review *********/}
+                    <Accordian></Accordian>
                 </div>
                 {/******  other details *********/}
                 <section className="card-block-row detail-row">

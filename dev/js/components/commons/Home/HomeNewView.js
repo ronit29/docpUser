@@ -529,10 +529,11 @@ class MainView extends React.Component{
                             navTo="/search?from=home"
                         />
         
-                        <Accordian/>
                         <StaticContent />
+                        <Accordian/>
                     </div>
                     {/******  other details *********/}
+
                     <section className="card-block-row detail-row">
                         <h6>Download the App Now</h6>
                         <div className="row m-0">

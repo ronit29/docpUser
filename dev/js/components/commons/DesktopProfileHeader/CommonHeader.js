@@ -344,7 +344,7 @@ class DesktopProfileHeader extends React.Component {
                                         profileData ? <a style={{position:'relative'}} className="d-flex align-item-center" onClick={() => {
                                             this.props.history.push('/cart')
                                         }}>
-                                            <span className="d-flex align-item-center">
+                                            <span className="d-flex align-item-center m-0">
                                                 {
                                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
                                                     <img height="19px" src={ASSETS_BASE_URL + "/img/cart_sbi.svg"} />
@@ -360,8 +360,8 @@ class DesktopProfileHeader extends React.Component {
                                         </a> : ""
                                     }
                                 </li>
-                                <li className="no-border d-none d-sm-block d-lg-block">
-                                    <a className="d-flex align-item-center" style={{position: 'relative'}} onClick={() => {
+                                <li className="d-none d-sm-block d-lg-block">
+                                    <a className="d-flex align-item-center no-border" style={{position: 'relative'}} onClick={() => {
                                             this.props.history.push('/notifications')
                                         }}>
                                         {
@@ -376,8 +376,8 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </a>
                                 </li>
-                                <li className="no-border d-none d-sm-block d-lg-block">
-                                    {profileData ? <a className="d-flex align-item-center" onClick={() => {
+                                <li className="d-none d-sm-block d-lg-block">
+                                    {profileData ? <a className="d-flex align-item-center no-border" onClick={() => {
                                             this.props.history.push('/user')
                                         }}>
                                             {/* <span className="user-name-initials d-flex justify-content-center align-item-center">{profileData.name[0]}</span> */}
@@ -385,7 +385,7 @@ class DesktopProfileHeader extends React.Component {
                                             </InitialsPicture> 
                                             <span className="d-none d-sm-block d-lg-block user-name-span">{profileData.name}</span>
                                         </a>
-                                        : <a className="d-flex align-item-center" onClick={() => {
+                                        : <a className="d-flex align-item-center no-border" onClick={() => {
                                         this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                         }}>
                                             <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
