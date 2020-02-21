@@ -462,7 +462,7 @@ class ChoosePatientNewView extends React.Component {
                             <form> {/* =================== otp section ===================*/}
                                 <div className="labelWrap">
                                     <div className="p-relative">
-                                        <input type="number" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
+                                        <input type="number" required id="otpMob" value={this.props.user_loggedIn_number?this.props.user_loggedIn_number:this.state.phoneNumber?this.state.phoneNumber:''} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
                                         <label for="otpMob">Mobile number</label>
                                         {
                                             this.state.showOtp?

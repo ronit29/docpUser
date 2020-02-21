@@ -376,6 +376,7 @@ class DoctorProfileView extends React.Component {
             }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click',is_organic:landing_page}
         GTM.sendEvent({ data: gtm_data })
+        this.props.saveLeadPhnNumber(phone_number)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }

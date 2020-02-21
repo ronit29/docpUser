@@ -1511,6 +1511,7 @@ class PatientDetailsNew extends React.Component {
         }
         let gtm_data = { 'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click' }
         GTM.sendEvent({ data: gtm_data })
+        this.props.saveLeadPhnNumber(phone_number)
         this.props.NonIpdBookingLead(data)
         this.setState({ to_be_force: 0 }, () => {
             this.appendParamToUrl()
@@ -1537,7 +1538,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
-        console.log(this.state.disable_page)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
