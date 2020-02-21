@@ -160,10 +160,27 @@ class HomePageWidgets extends React.PureComponent {
 
                     {/* slider buttons */}
                     <a className="pkg-btnlft d-none" id={`${dataType}_RightArrow_hsptl`} onClick={this.scroll.bind(this, 'left')}> 
-                        <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                        {/* <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/> */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5.004" height="8.472" viewBox="0 0 5.004 8.472">
+                            <g transform="translate(105.702) rotate(90)">
+                                <g transform="translate(0 100.698)">
+                                    <path class="link-arrow-clr"
+                                        d="M8.336,101.116l-.278-.279a.465.465,0,0,0-.656,0L4.238,104l-3.169-3.169a.465.465,0,0,0-.655,0l-.278.278a.464.464,0,0,0,0,.655l3.773,3.787a.474.474,0,0,0,.329.149h0a.474.474,0,0,0,.328-.149l3.77-3.777a.47.47,0,0,0,0-.66Z"
+                                        transform="translate(0 -100.698)" />
+                                </g>
+                            </g>
+                        </svg>
                     </a>
                     <a className="pkg-btnrgt" id={`${dataType}_leftArrow_hsptl`} onClick={this.scroll.bind(this, 'right')}> 
-                        <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5.004" height="8.472" viewBox="0 0 5.004 8.472">
+                            <g transform="translate(105.702) rotate(90)">
+                                <g transform="translate(0 100.698)">
+                                    <path class="link-arrow-clr"
+                                        d="M8.336,101.116l-.278-.279a.465.465,0,0,0-.656,0L4.238,104l-3.169-3.169a.465.465,0,0,0-.655,0l-.278.278a.464.464,0,0,0,0,.655l3.773,3.787a.474.474,0,0,0,.329.149h0a.474.474,0,0,0,.328-.149l3.77-3.777a.47.47,0,0,0,0-.66Z"
+                                        transform="translate(0 -100.698)" />
+                                </g>
+                            </g>
+                        </svg>
                     </a>
                 </section>
 			</React.Fragment>
