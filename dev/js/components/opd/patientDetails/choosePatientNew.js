@@ -14,7 +14,7 @@ class ChoosePatientNewView extends React.Component {
             showOtp: false,
             otpVerifySuccess: false,
             name: '',
-            phoneNumber: '',
+            phoneNumber: this.props.user_loggedIn_number?this.props.user_loggedIn_number:'',
             gender: 'm',
             data: false,
             email: '',
@@ -49,6 +49,9 @@ class ChoosePatientNewView extends React.Component {
         }
         if(document.getElementById('otpMob')){
             document.getElementById('otpMob').focus()
+        }
+        if(this.props.user_loggedIn_number){
+            this.setState({phoneNumber:this.props.user_loggedIn_number?this.props.user_loggedIn_number:''})
         }
     }
 
@@ -462,7 +465,7 @@ class ChoosePatientNewView extends React.Component {
                             <form> {/* =================== otp section ===================*/}
                                 <div className="labelWrap">
                                     <div className="p-relative">
-                                        <input type="number" required id="otpMob" value={this.props.user_loggedIn_number?this.props.user_loggedIn_number:this.state.phoneNumber?this.state.phoneNumber:''} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
+                                        <input type="number" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
                                         <label for="otpMob">Mobile number</label>
                                         {
                                             this.state.showOtp?
