@@ -91,13 +91,8 @@ class MainView extends React.Component{
         //background circle animation
 
         //count animation
-        
-            
-            
-        
-        const animateValue = (obj, start = 26000, end = null, duration = 2000) => {
+        const animateValue = (obj, start = 22000, end = null, duration = 4000) => {
             if (obj) {
-        
                 // save starting text for later (and as a fallback text if JS not running and/or google)
                 let textStarting = obj.innerHTML;
         
@@ -119,7 +114,7 @@ class MainView extends React.Component{
                 let startTime = new Date().getTime();
                 let endTime = startTime + duration;
                 let timer;
-        
+                //const posY = window.pageYOffset;
                 const run = () => {
                     let now = new Date().getTime();
                     let remaining = Math.max((endTime - now) / duration, 0);
@@ -130,9 +125,14 @@ class MainView extends React.Component{
                         clearInterval(timer);
                     }
                 }
-        
-                timer = setInterval(run, stepTime);
-                run();
+                if(true){
+                    window.addEventListener('scroll', ()=>{
+                        if ( window.pageYOffset >= 1000){
+                            timer = setInterval(run, stepTime);
+                            run();
+                        }
+                    })
+                }
             }
         }
         const cVal1 = document.getElementById('countNum');
