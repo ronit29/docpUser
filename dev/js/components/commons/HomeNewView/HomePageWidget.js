@@ -11,29 +11,29 @@ class HomePageWidgets extends React.PureComponent {
 
     scroll(type) {
         let dataType = this.props.dataType
-        let dataList = `${this.props.dataType}_list`
         var elmnt = document.getElementById(dataType)
-        let outerDivWidth = elmnt.offsetWidth
-        let childDivWidth = document.getElementsByClassName(dataList)[0].offsetWidth
-        let cardCount = document.getElementsByClassName(dataList)[0].childElementCount
-        let cardWidth = Math.ceil(childDivWidth / cardCount)
 
-        let leftScroll = document.getElementById(dataType).scrollLeft
-        let scrollVal = Math.floor(outerDivWidth / cardWidth) * cardWidth
-        let cardEnd = cardCount * cardWidth
+        if(elmnt) {
+            let outerDivWidth = elmnt.offsetWidth
+            let cardCount = elmnt.children && elmnt.children.length?elmnt.children.length:9;
+            let childDivWidth = elmnt.scrollWidth?elmnt.scrollWidth:3000;
+            let cardWidth = Math.ceil(childDivWidth / cardCount)
 
-        if (type == 'right') {
-            elmnt.scroll({ left: leftScroll + scrollVal, behavior: 'smooth' })
-            if (cardEnd <= leftScroll + scrollVal + outerDivWidth) {
-                document.getElementById(`${dataType}_leftArrow_hsptl`).classList.add("d-none")
+            let leftScroll = elmnt.scrollLeft
+
+            if (type == 'right') {
+                elmnt.scroll({ left: leftScroll + outerDivWidth, behavior: 'smooth' })
+                if (childDivWidth <= (leftScroll +  2*outerDivWidth ) )  {
+                    document.getElementById(`${dataType}_leftArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_RightArrow_hsptl`).classList.remove("d-none")
+            } else {
+                elmnt.scroll({ left: leftScroll - outerDivWidth, behavior: 'smooth' })
+                if (leftScroll - outerDivWidth <= 0) {
+                    document.getElementById(`${dataType}_RightArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_leftArrow_hsptl`).classList.remove("d-none")
             }
-            document.getElementById(`${dataType}_RightArrow_hsptl`).classList.remove("d-none")
-        } else {
-            elmnt.scroll({ left: leftScroll - scrollVal, behavior: 'smooth' })
-            if (leftScroll - scrollVal <= 0) {
-                document.getElementById(`${dataType}_RightArrow_hsptl`).classList.add("d-none")
-            }
-            document.getElementById(`${dataType}_leftArrow_hsptl`).classList.remove("d-none")
         }
     }
 
@@ -75,9 +75,9 @@ class HomePageWidgets extends React.PureComponent {
                     {/* card slider */}
                     {
                         this.props.list && this.props.list.length?
-                        <div className={`card-slider-container ${(type=='opd' || type=='lab')?'mbl-wdgt':''} ${dataType}_list`} id={dataType}>
+                        <div className={`card-slider-container ${(type=='opd' || type=='lab')?'mbl-wdgt':''} `} id={dataType}>
                         {
-                            this.props.list.slice(0,9).map((listItem, i) => {
+                            this.props.list.slice(0,20).map((listItem, i) => {
 
                             return <div className={`slider-card-column`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
