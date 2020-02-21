@@ -426,11 +426,22 @@ class MainView extends React.Component{
                         </a>
                     </section>
                     {/******  mbl banner *********/}
-                    <section className="card-block-row mbl-banner-slider-row">
-                        {
+                    <section className="card-block-row banner-slider-row mbl-banner">
+                        {/* {
                             !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                                 <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                        }
+                        } */}
+                        <div className="card-slider-container">
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
+                            </a>
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_2.png" alt="docprime"/>
+                            </a>
+                            <a href="#">
+                                <img src="https://cdn.docprime.com/media/banner/images/Layer_3.png" alt="docprime"/>
+                            </a>
+                        </div>
                     </section>      
                     {/******  mbl banner *********/}
 
@@ -607,7 +618,7 @@ class MainView extends React.Component{
                     <section className="card-block-row ">
                         <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
                         <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
-                            <div className="col-12 col-sm-4 text-center">
+                            <div className="col-10 col-sm-4 text-center">
                                 <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                     <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
                                     {/* <span>CNR</span> */}
@@ -623,7 +634,7 @@ class MainView extends React.Component{
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
                                 <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
-                            <div className="col-12 col-sm-4 text-center">
+                            <div className="col-10 col-sm-4 text-center">
                                 <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                     {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
                                     <span>CNR</span>
@@ -639,7 +650,7 @@ class MainView extends React.Component{
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
                                 <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                             </div>
-                            <div className="col-12 col-sm-4 text-center">
+                            <div className="col-10 col-sm-4 text-center">
                                 <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                     {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
                                     <span>CNR</span>
