@@ -210,7 +210,9 @@
     }
     .header-list-items > li{
         border-right: none!important;
-        
+        padding-top: 0px;
+        padding-bottom: 0px;
+        min-height: auto;
     }
     .header-list-items > li > a{
         margin-left: 0px;
@@ -307,6 +309,12 @@
     }
     .book-appointment-section{
         margin-top: 140px;
+    }
+    .header-list-items > li{
+        border-right: none!important;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        min-height: auto;
     }
 }
 @media (min-width: 767px) {
