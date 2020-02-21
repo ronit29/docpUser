@@ -124,11 +124,8 @@
 }
 .header-list-items > li{
     border-right: 1px solid rgba(112, 112, 112, 0.2);
-    padding-right: 1rem;
+    padding: 5px 1rem 5px 0px;
     min-height: 30px;
-    display: flex !important;
-    align-content: center;
-    justify-content: center;
 }
 .header-list-items > li > a{
     font-size: 14px;
@@ -211,8 +208,12 @@
     .header-list-items{
         padding-right: 0px!important;
     }
+    .header-list-items > li{
+        border-right: none!important;
+        
+    }
     .header-list-items > li > a{
-        margin-left: 15px;
+        margin-left: 0px;
     }
     .menu-icon{
         margin: 0px;
