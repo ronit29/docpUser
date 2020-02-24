@@ -771,6 +771,7 @@ class SearchResultsView extends React.Component {
             }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-Submit-click'}
         GTM.sendEvent({ data: gtm_data })
+        this.props.saveLeadPhnNumber(phone_number)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }

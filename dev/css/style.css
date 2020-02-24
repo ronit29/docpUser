@@ -15324,4 +15324,10 @@ box-shadow: none !important;
     width: 20px;
     margin-right: 8px;
 }
+.disable-opacity{
+    pointer-events: none;
+    filter: grayscale(1);
+    cursor: -webkit-zoom-in;
+    opacity: .5;
+}
 /* ======================================= whtsapp buttons on pages ======================================= */

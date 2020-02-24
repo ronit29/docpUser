@@ -71,7 +71,8 @@ class BookingSummaryViewNew extends React.Component {
             selectedTestIds: [],
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
             paymentBtnClicked: false,
-            enableDropOfflead:true
+            enableDropOfflead:true,
+            disable_page:true
         }
     }
 
@@ -193,9 +194,9 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        /*if (!STORAGE.checkAuth()) {
-            return
-        }*/
+        if (STORAGE.checkAuth()) {
+            this.setState({disable_page:false})
+        }
         let isPickupStatusSame = false
         if(nextProps.selectedAppointmentType.r_pickup == this.props.selectedAppointmentType.r_pickup && nextProps.selectedAppointmentType.p_pickup == this.props.selectedAppointmentType.p_pickup){
             isPickupStatusSame = true    
@@ -1972,9 +1973,10 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
                                                         
-                                                        <div className="">
+                                                        <div className="login">
                                                             {this.getPatientDetails(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
+                                                        <div className={`${this.state.disable_page && !STORAGE.isAgent()?'disable-opacity':''}`}> 
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
@@ -2389,6 +2391,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
                                                         </div>
                                                     </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -2412,7 +2415,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
 
-                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page && !STORAGE.isAgent()?'disable-all':''}`}>
                                 {
                                      ( STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured && this.props.payment_type!=6) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
