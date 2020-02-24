@@ -1,5 +1,5 @@
 let static_cache = 'static-3'
-let cache_dynamic_name = 'dynamic_caching_9'	
+let cache_dynamic_name = 'dynamic_caching_01'	
 let API_TO_CACHED = ['api/v1/diagnostic/labsearch', 'api/v1/location/static-speciality-footer', 'api/v1/doctor/commonconditions?city=Delhi']
 
 
@@ -8,7 +8,7 @@ function trimCache(cacheName, maxSize){
 
 		return cache.keys().then((keys)=>{
 			if(keys.length>maxSize){
-				cache.delete(keys[0]).then(trimCache(cacheName, maxSize))
+				cache.delete(keys[keys.length-10]).then(trimCache(cacheName, maxSize))
 			}
 		})
 
@@ -147,6 +147,7 @@ self.addEventListener('fetch', function(event){
 				caches.open(cache_dynamic_name).then((cache)=>{
 					return fetch(event.request).then((resp)=>{
 						cache.put(event.request, resp.clone());
+						trimCache(cache_dynamic_name, 150);
 						return resp;
 					}).catch((e)=>{
 						return caches.match(event.request).then((cacheResp)=>{
@@ -172,7 +173,9 @@ self.addEventListener('fetch', function(event){
 				caches.open(cache_dynamic_name).then((cache)=>{
 
 					return fetch(event.request).then((resp)=>{
+						
 						cache.put(event.request, resp.clone());
+						trimCache(cache_dynamic_name, 150);
 						return resp;
 					}).catch((e)=>{
 						return caches.match(event.request).then((cacheResp)=>{
