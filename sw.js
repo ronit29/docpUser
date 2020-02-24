@@ -1,5 +1,5 @@
 let static_cache = 'static-3'
-let cache_dynamic_name = 'dynamic_caching_7'	
+let cache_dynamic_name = 'dynamic_caching_9'	
 let API_TO_CACHED = ['api/v1/diagnostic/labsearch', 'api/v1/location/static-speciality-footer', 'api/v1/doctor/commonconditions?city=Delhi']
 
 
@@ -100,6 +100,43 @@ self.addEventListener('activate', function(event){
 	// 	})
 	// )
 
+//Cache then network
+
+	// event.respondWith(
+	// 	caches.match(event.request).then((cacheResp)=>{
+	// 		if(cacheResp){
+	// 			return cacheResp;
+	// 		}else{
+	// 			return caches.open(cache_dynamic_name).then((cache)=>{
+	// 				return fetch(event.request).then((resp)=>{
+	// 					//trimCache(cache_dynamic_name, 50);
+	// 					cache.put(event.request, resp.clone());	
+	// 					return resp;
+	// 				}).catch((e)=>{
+	// 					if(event.request.headers.get('accept').includes('text/html')){
+	// 						return caches.open(static_cache).then((cache)=>{
+	// 							return cache.match('/offline.html');
+	// 						})
+	// 					}
+	// 				})
+	// 			}).catch((e)=>{
+	// 				if(event.request.headers.get('accept').includes('text/html')){
+	// 					return caches.open(static_cache).then((cache)=>{
+	// 						return cache.match('/offline.html');
+	// 					})
+	// 				}
+	// 			})
+	// 		}
+	// 	}).catch((e)=>{
+
+	// 		if(event.request.headers.get('accept').includes('text/html')){
+	// 			return caches.open(static_cache).then((cache)=>{
+	// 				return cache.match('/offline.html');
+	// 			})
+	// 		}
+	// 	})
+	// )
+
 self.addEventListener('fetch', function(event){
 	console.log('Service Worker url.....', event.request);
 
@@ -120,6 +157,9 @@ self.addEventListener('fetch', function(event){
 							}
 						})
 					})
+				}).catch((e)=>{
+					//error in caches connection open
+					return fetch(event.request)
 				})
 			)
 		}else {
@@ -127,39 +167,34 @@ self.addEventListener('fetch', function(event){
 		}
 	} else {
 
+
 		event.respondWith(
-			caches.match(event.request).then((cacheResp)=>{
-				if(cacheResp){
-					return cacheResp;
-				}else{
-					return caches.open(cache_dynamic_name).then((cache)=>{
-						return fetch(event.request).then((resp)=>{
-							//trimCache(cache_dynamic_name, 50);
-							cache.put(event.request, resp.clone());	
-							return resp;
-						}).catch((e)=>{
-							if(event.request.headers.get('accept').includes('text/html')){
-								return caches.open(static_cache).then((cache)=>{
-									return cache.match('/offline.html');
-								})
+				caches.open(cache_dynamic_name).then((cache)=>{
+
+					return fetch(event.request).then((resp)=>{
+						cache.put(event.request, resp.clone());
+						return resp;
+					}).catch((e)=>{
+						return caches.match(event.request).then((cacheResp)=>{
+							if(cacheResp){
+								return cacheResp;
+							}else{
+
+								if(event.request.headers.get('accept').includes('text/html')){
+									return caches.open(static_cache).then((cache)=>{
+										return cache.match('/offline.html');
+									})
+								}else {
+									return {}
+								}
+
 							}
 						})
-					}).catch((e)=>{
-						if(event.request.headers.get('accept').includes('text/html')){
-							return caches.open(static_cache).then((cache)=>{
-								return cache.match('/offline.html');
-							})
-						}
 					})
-				}
-			}).catch((e)=>{
-
-				if(event.request.headers.get('accept').includes('text/html')){
-					return caches.open(static_cache).then((cache)=>{
-						return cache.match('/offline.html');
-					})
-				}
-			})
-		)
+				}).catch((e)=>{
+					//error in caches connection open
+					return fetch(event.request)
+				})
+			)
 	}
 })
