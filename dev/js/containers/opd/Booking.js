@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-         OTTLogin: (ott) => dispatch(OTTLogin(ott)),
+         OTTLogin: (ott,user_id) => dispatch(OTTLogin(ott,user_id)),
         getOPDBookingSummary: (appointmentID, callback) => dispatch(getOPDBookingSummary(appointmentID, callback)),
         updateOPDAppointment: (appointmentData, callback) => dispatch(updateOPDAppointment(appointmentData, callback)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
-        generateVipClubLead:(data, cb) =>dispatch(generateVipClubLead(data, cb)),
+        generateVipClubLead:(data) =>dispatch(generateVipClubLead(data)),
     }
 }
 

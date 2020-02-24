@@ -162,13 +162,13 @@ class OrderSummaryView extends React.Component {
                                                                             :<img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                                                         }
                                                                     </div>
-                                                                    <p>₹ {item.is_gold_member?item.effective_price:item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
+                                                                    <p>₹ {item.effective_price} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
                                                                 </div>
                                                             }
                                                             <div className="widget-header dr-qucik-info">
                                                                 <div>
                                                                     <div>
-                                                                        <InitialsPicture name={item.data.doctor ? item.data.doctor.name : item.data.lab.name} has_image={!!item.data.thumbnail} className={item.data.doctor.name ? 'img-round mt-0' : 'initialsPicture-ls mt-0'}>
+                                                                        <InitialsPicture name={item.data.doctor ? item.data.doctor.name : item.data.lab.name} has_image={!!item.data.thumbnail} className={item.data.doctor && item.data.doctor.name ? 'img-round mt-0' : 'initialsPicture-ls mt-0'}>
                                                                             <img src={item.data.thumbnail} 
                                                                             className={item.data.doctor ? 'img-round' : 'fltr-usr-image-lab' } />
                                                                         </InitialsPicture>
@@ -196,11 +196,11 @@ class OrderSummaryView extends React.Component {
                                                                 </ul>
                                                             </div>
                                                             {
-                                                                item.payment_mode &&
+                                                                item.payment_mode?
                                                                 <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                                                                     <span>Payment mode</span>
                                                                     <span>{item.payment_mode}</span>
-                                                                </div>
+                                                                </div>:''
                                                             }
                                                         </div>
                                                     </div>
@@ -225,7 +225,7 @@ class OrderSummaryView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
+                        <RightBar extraClass=" chat-float-btn-2" noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

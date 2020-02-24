@@ -42,9 +42,9 @@ class VipClubActivatedMemberDetails extends React.Component { // already activat
 									</li>
 								:''}
 							</ul>
-							{val.is_primary_user && val.document_ids == null?
+							{/*val.is_primary_user && val.document_ids == null?
 								<InsuranceProofs {...this.props} member_id = {val.profile} is_primary_user = {true}/>
-								: ''
+								: ''*/
 							}
 						</div>
 						})

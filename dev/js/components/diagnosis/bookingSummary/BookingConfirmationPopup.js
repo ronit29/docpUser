@@ -16,7 +16,7 @@ class BookingConfirmationPopup extends React.Component {
 					<div className="widget">
 						<div className="widget-content padiing-srch-el">
 							<React.Fragment>
-								<p className="srch-el-conent">Do you wish to continue?</p>
+								<p className="srch-el-conent">{this.props.is_gold?'Confirm delete member?':'Do you wish to continue?'}</p>
 								<div className="search-el-btn-container">
 									<button onClick={this.props.priceConfirmationPopup.bind(this, true)}>Yes</button>
 									<button onClick={this.props.priceConfirmationPopup.bind(this, false)}>No</button>

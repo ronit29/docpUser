@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags, clearVipSelectedPlan, NonIpdBookingLead } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags, unSetCommonUtmTags, clearVipSelectedPlan, NonIpdBookingLead, saveLeadPhnNumber } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -166,6 +166,7 @@ const mapDispatchToProps = (dispatch) => {
         unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
         clearVipSelectedPlan:() =>dispatch(clearVipSelectedPlan()),
         NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
+        saveLeadPhnNumber:(number) =>dispatch(saveLeadPhnNumber(number))
     }
 }
 

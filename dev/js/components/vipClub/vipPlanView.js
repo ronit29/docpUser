@@ -11,6 +11,7 @@ import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
+import VipReviewSection from './vipReviewSection.js'
 
 class VipPlanView extends React.Component {
     constructor(props) {
@@ -234,44 +235,7 @@ class VipPlanView extends React.Component {
                                                 </div>
                                                 : ''
                                         }
-                                        <div className="pakg-slider-container mb-24">
-                                            <div className="pkgSliderHeading">
-                                                <h5>Our Happy VIP Customers</h5>
-                                            </div>
-                                            <div className="pkgSliderContainer">
-                                                <div className="pkgCardsList d-flex sub-wd-cards top_pkgCat">
-                                                    <div className="pkgcustCards vip-cmmnt-card">
-                                                       <div className="vip-sld-content">
-                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
-                                                           <h4>Mehak Verma</h4>
-                                                           <p>VIP made consulting with top doctors so simple, don’t have to worry about high consultation charges anymore. Brownie points for the online and teleconsultation which saves me the trouble of in-clinic visits for smaller issues.</p>
-                                                       </div>
-                                                    </div>
-                                                    <div className="pkgcustCards vip-cmmnt-card">
-                                                       <div className="vip-sld-content">
-                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
-                                                           <h4>Nidhi Singla</h4>
-                                                           <p>Amazing experience with Docprime VIP so far. It is very useful for my diabetic parents who have to visit their doctors on a regular basis.</p>
-                                                       </div>
-                                                    </div>
-                                                    <div className="pkgcustCards vip-cmmnt-card">
-                                                       <div className="vip-sld-content">
-                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
-                                                           <h4>Rohan Girotra</h4>
-                                                           <p>Huge savings on doctors is great but what I loved about VIP the most is the extra 25% discount on lab tests. It has helped me save a lot of money after the doctor recommended a few lab tests during my last visit.</p>
-                                                       </div>
-                                                    </div>
-                                                    <div className="pkgcustCards vip-cmmnt-card">
-                                                       <div className="vip-sld-content">
-                                                           <img src={ASSETS_BASE_URL +'/img/nwdpsmile.png'}/>
-                                                           <h4>Akshat Sinha</h4>
-                                                           <p>VIP is an amazing plan that covers doctor consultation charges for the whole family. What makes it even more awesome is free health checkups and additional tax savings on my income.</p>
-                                                       </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <VipReviewSection />
                                         {
                                             this.props.selected_plan_data && this.props.selected_plan_data.content && Object.keys(this.props.selected_plan_data.content).length > 0 && this.props.selected_plan_data.content.salient_features && this.props.selected_plan_data.content.salient_features.length > 0 ?
                                                 <div className="vip-note-lst">

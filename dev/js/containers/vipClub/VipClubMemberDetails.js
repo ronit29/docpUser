@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData, getCoupons, applyCouponDiscount, removeVipCoupons, sendAgentBookingURL } from '../../actions/index.js'
+import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingUR, clearVipMemeberData, getCoupons, applyCouponDiscount, removeVipCoupons, sendAgentBookingURL, getVipList,removeMembers } from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Loader from '../../components/commons/Loader'
+import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
 class VipClubMemberDetails extends React.Component{
@@ -14,27 +15,56 @@ class VipClubMemberDetails extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent,
-            is_gold:parsed.is_gold || false,
-            is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false
+            isAgent:parsed.is_agent || false,
+            // is_gold:parsed.is_gold || false,
+            is_gold:this.props.match.url.includes('vip-gold-details'),
+            is_from_payment:parsed.is_from_payment?parsed.is_from_payment:false,
+            is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
+            is_navigate_to_form:false,
+            is_user_alrdy_gold:false
         }
     }
 
     componentDidMount() {
         let extraParams = {}
+        let data={}
+        data.selectedLocation = this.props.selectedLocation
+        data.isSalesAgent = this.state.isSalesAgent
+        data.isAgent = this.state.isAgent
+        data.is_gold = this.state.is_gold
+        data.all = this.state.is_vip_gold
+        data.fromWhere = 'user_form'
+        if(this.state.is_from_payment){
+            extraParams['user_type']= 'gold'
+            this.setState({is_navigate_to_form:true})
+            this.props.retrieveMembersData('PLAN_PURCHASE',extraParams)
+        }else{
+            this.props.getVipList(false,data,(resp)=>{ // to get vip plan list
+                console.log(resp)
+                if(!resp.certificate){
+                    extraParams['user_type']= 'gold'
+                    this.setState({is_navigate_to_form:true})
+                    this.props.retrieveMembersData('PLAN_PURCHASE',extraParams) // to retrieve already pushed member data in case of agent or proposer it self
+                }else{
+                    this.setState({is_user_alrdy_gold:true})
+                }
+            }) 
+        }
         // if (this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
         //     extraParams['user_type']= this.props.selected_vip_plan.is_gold?'gold':'vip'
         // }
         // extraParams['user_type']= this.props.selected_vip_plan.is_gold?'gold':'vip'
-        extraParams['user_type']= 'gold'
-        this.props.retrieveMembersData('PLAN_PURCHASE',extraParams) // to retrieve already pushed member data in case of agent or proposer it self
         // this.props.citiesData()
+
     }
 
 	render(){
         let parsed = queryString.parse(this.props.location.search)
-        if(this.props.showVipDetailsView){
+        if(this.props.showVipDetailsView && this.state.is_navigate_to_form){
             return <VipClubMemberDetailsView {...this.props} is_from_payment={this.state.is_from_payment} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} is_gold={this.state.is_gold} />
+        }else if(STORAGE.checkAuth() && this.state.is_user_alrdy_gold && !this.state.is_from_payment){// if already gold or vip user redirect to dashboard
+                this.props.history.replace('/vip-club-activated-details')
+                return <div></div>
         }else{
             if(this.state.isSalesAgent && this.state.isAgent){
                 return <div className="profile-body-wrap">
@@ -54,11 +84,12 @@ class VipClubMemberDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
+    const { selectedLocation } = state.SEARCH_CRITERIA_OPD
     let { user_cities, common_utm_tags } = state.USER
 
     let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data, members_proofs, showVipDetailsView,savedMemberData, vipCoupons } = state.VIPCLUB
     return {
-        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData, vipCoupons, common_utm_tags
+        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData, vipCoupons, common_utm_tags, selectedLocation
     }
 }
 
@@ -82,7 +113,9 @@ const mapDispatchToProps = (dispatch) => {
         clearVipMemeberData:() =>dispatch(clearVipMemeberData()),
         getCoupons: (data) => dispatch(getCoupons(data)),
         applyCouponDiscount: (data) =>dispatch(applyCouponDiscount(data)),
-        removeVipCoupons:() =>dispatch(removeVipCoupons())
+        removeVipCoupons:() =>dispatch(removeVipCoupons()),
+        getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
+        removeMembers:(data) => dispatch(removeMembers(data))
     }
 }
 

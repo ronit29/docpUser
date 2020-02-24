@@ -422,7 +422,7 @@ class SearchTestView extends React.Component {
                                                                                             {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
                                                                                                 return <li key={k} id={test_include.id} className="mb-rmv">
                                                                                                     <div>
-                                                                                                        <h2 className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-show' : 'acrd-arw-rotate'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</h2>
+                                                                                                        <h2 className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{`${test_include.name}  ${test_include.parameters && test_include.parameters.length > 0 ? `(${test_include.parameters.length})`:''}`} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-show' : 'acrd-arw-rotate'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</h2>
                                                                                                     </div>
                                                                                                     {
                                                                                                         test_include.parameters && test_include.parameters.length > 0 ?
@@ -554,8 +554,8 @@ class SearchTestView extends React.Component {
                                         }
                                         {
                                             showInfo && this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0 ? 
-                                            <ChatPanel noChatButton={true} searchTestInfoData={this.props.searchTestInfoData[0]} updateTabsValues={this.updateTabsValues.bind(this)} resp_test_id={resp_test_id} />
-                                            : <ChatPanel noChatButton={true} />
+                                            <ChatPanel noChatButton={true} searchTestInfoData={this.props.searchTestInfoData[0]} updateTabsValues={this.updateTabsValues.bind(this)} resp_test_id={resp_test_id} msgTemplate="gold_general_template"/>
+                                            : <ChatPanel noChatButton={true} msgTemplate="gold_general_template"/>
                                         }
                                     </div>
                                 </section>

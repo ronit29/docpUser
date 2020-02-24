@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan, getOpdVipGoldPlans, selectVipClubPlan, pushMembersData, retrieveMembersData, selectProfile, SendIpdBookingEmail, NonIpdBookingLead } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid, clearVipSelectedPlan, getOpdVipGoldPlans, selectVipClubPlan, pushMembersData, retrieveMembersData, selectProfile, SendIpdBookingEmail, NonIpdBookingLead, saveLeadPhnNumber } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -135,14 +135,14 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted, is_any_user_buy_gold, common_utm_tags } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted, is_any_user_buy_gold, common_utm_tags,user_loggedIn_number } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     const { common_settings, selectedLocation } = state.SEARCH_CRITERIA_OPD
     const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
-    const { odpGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
+    const { odpGoldPredictedPrice, selected_vip_plan,show_doctor_payment_mode } =  state.VIPCLUB
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation, odpGoldPredictedPrice, selected_vip_plan, is_any_user_buy_gold, common_utm_tags
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation, odpGoldPredictedPrice, selected_vip_plan, is_any_user_buy_gold, common_utm_tags, show_doctor_payment_mode, user_loggedIn_number
     }
 }
 
@@ -160,7 +160,7 @@ const mapDispatchToProps = (dispatch) => {
         getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp,extraParamsData,  cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),
@@ -182,6 +182,7 @@ const mapDispatchToProps = (dispatch) => {
         selectProfile: (id) => dispatch(selectProfile(id)),
         SendIpdBookingEmail:(data,cb) =>dispatch(SendIpdBookingEmail(data, cb)),
         NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
+        saveLeadPhnNumber:(number) => dispatch(saveLeadPhnNumber(number))
     }
 }
 

@@ -89,11 +89,18 @@ class ThyrocarePackageView extends React.Component {
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
+
+        let visitor_info = GTM.getVisitorInfo()
+        if(visitor_info && visitor_info.visit_id){
+            data.visit_id = visitor_info.visit_id
+            data.visitor_id = visitor_info.visitor_id
+        }
         
         let gtm_data = {
             'Category': 'ConsumerApp', 'Action': 'NonIpdThyrocareSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-thyrocare-submit-click'
         }
         GTM.sendEvent({ data: gtm_data })
+        this.props.saveLeadPhnNumber(phone_number)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }
@@ -133,19 +140,19 @@ class ThyrocarePackageView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B<br />(Includes 60 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam B<br />(Includes 56 tests)</p>
                                             <p className="stc-price-cut">₹ 700{/*634 <span>₹ 750</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 59 tests)</p>
                                             <p className="stc-price-cut">₹ 1000{/*950 <span>₹ 1100</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 94 tests)</p>
+                                            <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 90 tests)</p>
                                             <p className="stc-price-cut">₹ 2000{/*1440 <span>₹ 1600</span>*/}</p>
                                         </div>
                                     </div>
@@ -240,17 +247,17 @@ class ThyrocarePackageView extends React.Component {
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    60
+                                                    56
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    63
+                                                    59
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    94
+                                                    90
                                                                         </p>
                                             </div>
                                         </div>
@@ -265,17 +272,17 @@ class ThyrocarePackageView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    28
+                                                    24
                                                                         </p>
                                             </div>
                                         </div>
@@ -1699,7 +1706,7 @@ class ThyrocarePackageView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" msgTemplate="gold_general_template"/>
                     </div>
                     {
                             (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?

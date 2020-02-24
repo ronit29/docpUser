@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS , GET_REFER_AMOUNT, CLEAR_SAVED_PATIENT_DETAILS, SAVE_LOGIN_PHONE_NUMBER } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -43,10 +43,15 @@ export const sendOTP = (number,viaSms,viaWhatsapp,message_type, cb) => (dispatch
 
 }
 
-export const submitOTP = (number, otp, cb) => (dispatch) => {
+export const submitOTP = (number, otp, extraParams, cb) => (dispatch) => {
     dispatch({
         type: SUBMIT_OTP_REQUEST,
         payload: {}
+    })
+
+    dispatch({
+        type: SAVE_LOGIN_PHONE_NUMBER,
+        payload: number
     })
 
     API_POST('/api/v1/user/login', {
@@ -69,7 +74,8 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         })
 
         dispatch({
-            type: RESET_VIP_CLUB
+            type: RESET_VIP_CLUB,
+            summaryPage: extraParams && extraParams.summaryPage?extraParams.summaryPage:null
         })
 
         if (cb) cb(response);
@@ -130,6 +136,9 @@ export const logout = (roomId) => (dispatch) => {
             type: RESET_AUTH,
             payload: {}
         })
+        dispatch({
+            type:CLEAR_SAVED_PATIENT_DETAILS
+        })
         setTimeout(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
@@ -175,7 +184,7 @@ export const agentLogin = (token, cb) => (dispatch) => {
     })
 }
 
-export const OTTLogin = (ott) => (dispatch) => {
+export const OTTLogin = (ott,user_id) => (dispatch) => {
     return new Promise((resolve, reject) => {
         // API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
         STORAGE.deleteAuth().then(() => {
@@ -183,19 +192,31 @@ export const OTTLogin = (ott) => (dispatch) => {
                 type: RESET_AUTH,
                 payload: {}
             })
-            STORAGE.setAuthToken(ott)
-            API_GET('/api/v1/user/userprofile').then(function (response) {
-                API_GET('/api/v1/user/userid').then((data) => {
-                    STORAGE.setUserId(data.user_id)
-                    dispatch({
-                        type: APPEND_USER_PROFILES,
-                        payload: response
+            try{
+                if(ott && user_id){
+                    STORAGE.refreshTokenCall({token:ott,user_id:user_id,fromWhere:'FromDirectBooking',isForceUpdate: true },(resp)=>{
+                        console.log(resp)
+                        // STORAGE.setAuthToken(ott)
+                        API_GET('/api/v1/user/userprofile').then(function (response) {
+                            API_GET('/api/v1/user/userid').then((data) => {
+                                STORAGE.setUserId(data.user_id)
+                                dispatch({
+                                    type: APPEND_USER_PROFILES,
+                                    payload: response
+                                })
+                                dispatch({
+                                    type: RESET_VIP_CLUB
+                                })
+                                resolve()
+                            })
+                        }).catch(function (error) {
+                            reject(err)
+                        })
                     })
-                    resolve()
-                })
-            }).catch(function (error) {
-                reject(err)
-            })
+                }
+            }catch(e){
+
+            } 
         })
     })
 }
@@ -358,5 +379,12 @@ export const clearStoreOnLogin = () => (dispatch) =>{
 
     dispatch({
         type: CLEAR_OPD_COUPONS
+    })
+}
+
+export const saveLeadPhnNumber = (number) => (dispatch) =>{
+    dispatch({
+        type: SAVE_LOGIN_PHONE_NUMBER,
+        payload: number
     })
 }

@@ -112,7 +112,13 @@ class CouponSelectionView extends React.Component {
         }else{
             gold_push_data.is_agent = false
         }
-        this.props.pushMembersData(gold_push_data)
+        if(STORAGE.isAgent() && gold_push_data && Object.keys(gold_push_data).length && gold_push_data.members && gold_push_data.members.length){
+            if(gold_push_data.members.length ==1 && gold_push_data.members[0] == null){
+                
+            }else{
+                this.props.pushMembersData(gold_push_data)
+            }
+        }
     }
 
     componentDidMount() {
@@ -268,7 +274,7 @@ class CouponSelectionView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" msgTemplate="gold_general_template"/>
                     </div>
                 </section>
             </div>

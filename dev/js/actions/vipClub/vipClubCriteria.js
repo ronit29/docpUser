@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -36,18 +36,22 @@ export const getVipList = (is_endorsement,data,callback) => (dispatch) => { // t
         is_vip_gold = data.all
     }
     return API_GET(url).then(function (response) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: response,
-            is_vip_gold: is_vip_gold
-        })
+        if(!data.fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: response,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(response)
     }).catch(function (error) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: error,
-            is_vip_gold: is_vip_gold
-        })
+        if(!data.fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: error,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(error)
         throw error
     })
@@ -113,7 +117,7 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => { // to ad
 
 }
 
-export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ callback) => (dispatch) => { // to create vip or gold member lead for matrix
+export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}*/ cb) => (dispatch) => { // to create vip or gold member lead for matrix
     let lat
     let long
     let latitude = 28.644800
@@ -152,9 +156,9 @@ export const generateVipClubLead = (data,/*selectedPlan, number,lead_data,select
         plan.lead_data = {...data.lead_data, ...data.extraParams}
     }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
-        if(callback) callback(response)
+        if(data.cb) data.cb(response)
     }).catch(function (error) {
-       if(callback) callback(error)
+       if(data.cb) cb(error)
     })
 }
 
@@ -178,7 +182,7 @@ export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch)
     }).catch(function (error) {
             dispatch({
                 type: VIP_CLUB_DASHBOARD_DATA,
-                payload: error
+                payload: null
             })
         if(callback) callback(error)
         throw error
@@ -290,6 +294,13 @@ export const getOpdVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to 
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
         })
+
+        if(extraParams && extraParams.payment_type==6){
+           dispatch({
+                type: SELECT_OPD_PAYMENT_TYPE,
+                payload: extraParams.payment_type
+            }) 
+        }
     })
 }
 
@@ -313,10 +324,12 @@ export const getLabVipGoldPlans = (extraParams ={}, cb) =>(dispatch) => { // to 
                 selected_vip_plan: defaultSelectedPlan && defaultSelectedPlan.length?defaultSelectedPlan[0]:[],
             }
         })
-        dispatch({
-        type: SELECT_LAB_PAYMENT_TYPE,
-        payload: 6
-    })
+        if(extraParams && extraParams.payment_type==6){
+            dispatch({
+                type: SELECT_LAB_PAYMENT_TYPE,
+                payload: extraParams.payment_type
+             })
+        }
     })
 }
 
@@ -336,6 +349,13 @@ export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_
 export const removeVipCoupons =() =>(dispatch)=>{ // to reset coupons to intial state
     dispatch({
         type:REMOVE_VIP_COUPONS
+    })
+}
+
+export const removeMembers =(data) =>(dispatch)=>{
+    dispatch({
+        type: REMOVE_ADD_MEMBER_FORM,
+        payload:data
     })
 }
 

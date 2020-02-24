@@ -60,7 +60,8 @@ class CareLoginPopup extends React.Component{
         }
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            let extraParams = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParams, (exists) => {
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{

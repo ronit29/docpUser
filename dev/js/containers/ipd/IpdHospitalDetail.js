@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments, mergeIpdCriteria, clearVipSelectedPlan } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments, mergeIpdCriteria, clearVipSelectedPlan, NonIpdBookingLead } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -217,7 +217,7 @@ class HospitalDetail extends React.Component {
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false} msgTemplate="gold_general_template"/>
 						</div>
 					</section>
 					<Disclaimer />
@@ -282,7 +282,8 @@ const mapDisptachToProps = (dispatch) => {
 		getHospitalComments: (hospitalId) => dispatch(getHospitalComments(hospitalId)),
 		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb)),
 		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
-		clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan())
+		clearVipSelectedPlan:() => dispatch(clearVipSelectedPlan()),
+		NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)

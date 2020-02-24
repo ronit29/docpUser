@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS, GET_REFRESH_NEW_TOKEN } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS, GET_REFRESH_NEW_TOKEN, GET_REFER_AMOUNT,SAVE_LOGIN_PHONE_NUMBER } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -6,7 +6,8 @@ const DUMMY_PROFILE = {
     is_default_user: true,
     name: "User",
     dob: null,
-    isDummyUser: true
+    isDummyUser: true,
+    email:null
 }
 
 const defaultState = {
@@ -67,7 +68,9 @@ const defaultState = {
     chatPaymentStatus: null,
     mobileVerificationDone: false,
     is_any_user_buy_gold: null,
-    refreshedToken: null
+    refreshedToken: null,
+    refer_amount : null,
+    user_loggedIn_number:null
 }
 
 export default function (state = defaultState, action) {
@@ -81,6 +84,11 @@ export default function (state = defaultState, action) {
 
             // add a dummy profile to keep system in working state
             // TODO: do this better way
+            if(action.allUsers){
+                newState.profiles = {}
+                newState.selectedProfile = null
+
+            }
             if (action.payload && action.payload.length == 0) {
                 action.payload.push(DUMMY_PROFILE)
             } else {
@@ -576,6 +584,22 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.refreshedToken = action.payload
+            return newState
+        }
+        case GET_REFER_AMOUNT:{
+            let newState = {
+                ...state
+            }
+            if(action.payload && Object.keys(action.payload).length){
+                newState.refer_amount  = action.payload.referral_amt    
+            }else{
+                newState.refer_amount  = defaultState.refer_amount
+            }
+            return newState   
+        }
+        case SAVE_LOGIN_PHONE_NUMBER:{
+            let newState = { ...state}
+            newState.user_loggedIn_number = action.payload
             return newState
         }
 

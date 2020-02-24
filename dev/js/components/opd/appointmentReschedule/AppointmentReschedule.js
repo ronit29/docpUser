@@ -242,7 +242,7 @@ class AppointmentReschedule extends React.Component {
 
                         </div>
 
-                        <RightBar />
+                        <RightBar msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 {

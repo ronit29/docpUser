@@ -135,7 +135,7 @@ class BookingSummary extends React.Component {
         let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} agent_selected_plan_id={this.state.agent_selected_plan_id} fetchData={this.fetchData.bind(this)}/>
         );
     }
 }
@@ -150,10 +150,10 @@ const mapStateToProps = (state) => {
         saved_patient_details,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags, is_any_user_buy_gold, user_loggedIn_number } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat, show_vip_non_login_card , payment_type} = state.LAB_SEARCH
-    const { labGoldPredictedPrice, selected_vip_plan } =  state.VIPCLUB
+    const { labGoldPredictedPrice, selected_vip_plan,show_lab_payment_mode } =  state.VIPCLUB
 
 
     return {
@@ -163,7 +163,7 @@ const mapStateToProps = (state) => {
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
         couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags, show_vip_non_login_card,
-        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type
+        is_any_user_buy_gold, labGoldPredictedPrice, selected_vip_plan, payment_type, show_lab_payment_mode, user_loggedIn_number
     }
 }
 
@@ -185,7 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData, cb) => dispatch(submitOTP(number, otp,extraParamsData,  cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         savePincode: (pincode) => dispatch(savePincode(pincode)),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),

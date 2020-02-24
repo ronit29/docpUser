@@ -26,7 +26,9 @@ class EditProfile extends React.Component {
             isEmailUpdated:false,
             isEmailError:false,
             isDobValidated:false,
-            is_dob_error:false
+            is_dob_error:false,
+            add_to_gold:this.props.location.search.includes('add_to_gold=true')?true:false,
+            from_booking:this.props.location.search.includes('from_booking=true')?true:false
         }
     }
 
@@ -59,17 +61,25 @@ class EditProfile extends React.Component {
         let self = this
         let show_default_checkBox= true
         let is_profile_editable = true
+        let gold_user_profile = {}
+        let default_profile = {}
         if(this.props.USER && this.props.USER.profiles){
             if(Object.keys(this.props.USER.profiles).length > 0){
                Object.entries(this.props.USER.profiles).map(function([key, value]) {
                     if(show_default_checkBox && value.is_insured){
                         show_default_checkBox = false
                     }
+                    if(value.is_default_user){
+                        default_profile = value
+                    }
                     if(self.state.profileData){
                         if(value.id == self.state.profileData.id && value.is_insured){
                             is_profile_editable = false
                         }
-                    }  
+                    } 
+                    if(value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
                 })
             }
         }
@@ -89,6 +99,10 @@ class EditProfile extends React.Component {
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
                                 is_profile_editable={is_profile_editable}
                                 is_dob_error = {this.state.is_dob_error}
+                                gold_user_profile = {gold_user_profile}
+                                add_to_gold = {this.state.add_to_gold}
+                                addToGold = {this.addToGold.bind(this)}
+                                default_profile = {default_profile}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 
@@ -101,6 +115,10 @@ class EditProfile extends React.Component {
                 return <MedialDetails />
             }
         }
+    }
+
+    addToGold(value){
+        this.setState({add_to_gold:value})
     }
 
     updateProfile(key, value,isDobValidated) {
@@ -182,9 +200,15 @@ class EditProfile extends React.Component {
                 validated = false
                 return
             }
+            if(!this.state.profileData.gender){
+                SnackBar.show({ pos: 'bottom-center', text: 'Please select gender' })
+                validated = false
+                return
+            }
             if (validated) {
                 this.setState({ loading: true })
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
+                this.state.profileData.add_to_gold = this.state.add_to_gold
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => { // update profile
                     this.setState({ loading: false })
                     if(err){
@@ -196,7 +220,11 @@ class EditProfile extends React.Component {
                         }
                     }
                     this.props.resetVipData()
-                    this.props.history.go(-1)    
+                    if(this.state.from_booking){
+                        this.props.history.go(-2)    
+                    }else{
+                        this.props.history.go(-1)    
+                    }
                     
                     
                 })
@@ -242,8 +270,9 @@ class EditProfile extends React.Component {
                 </section> */}
 
                 {this.getComp()}
+
                 {
-                    this.state.openCrop ? "" : <button onClick={this.proceedUpdate.bind(this)} className="fixed p-3 horizontal bottom v-btn v-btn-primary no-round btn-lg text-center static-btn">Update Profile</button>
+                    this.state.openCrop ? "" : <button onClick={this.proceedUpdate.bind(this)} className="fixed p-3 horizontal bottom v-btn v-btn-primary no-round btn-lg text-center static-btn">{`${this.state.from_booking?'Continue Booking':'Update Profile'}`}</button>
                 }
 
             </div>

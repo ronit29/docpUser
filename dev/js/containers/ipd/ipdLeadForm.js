@@ -11,14 +11,14 @@ class IpdLeadForm extends React.Component {
 		super(props)
 		this.state = {
 			first_name: '',
-			last_name:'',
+			last_name: '',
 			phone_number: '',
 			showForm: true,
-			comments:'',
-			gender:''
-/*			gender: '',
 			comments: '',
-			whatsapp_optin: true*/
+			gender: ''
+			/*			gender: '',
+						comments: '',
+						whatsapp_optin: true*/
 		}
 	}
 
@@ -75,57 +75,57 @@ class IpdLeadForm extends React.Component {
 			...this.state
 		}
 
-		if(this.props.hospital_id) {
+		if (this.props.hospital_id) {
 			formData.hospital = this.props.hospital_id
 		}
 
-		if(this.props.procedure_id) {
+		if (this.props.procedure_id) {
 			formData.ipd_procedure = this.props.procedure_id
 		}
 
-		if(this.props.doctor_id) {
+		if (this.props.doctor_id) {
 			formData.doctor = parseInt(this.props.doctor_id)
 		}
-		
-		let utm_tags = {
-            utm_source: parsed.utm_source || '',
-            utm_medium: parsed.utm_medium || '',
-            utm_term: parsed.utm_term || '',
-            utm_campaign: parsed.utm_campaign || '',
-            referrer: document.referrer || '',
-            gclid: parsed.gclid || ''
-        }
 
-        formData.data = {}
-        formData.data.utm_tags = utm_tags
-        formData.data.url = window.location.href
-        formData.data.formSource = this.props.formSource || 'PopupLeadForm'
-        if(this.props.sourceTag) {
-        	formData.source = this.props.sourceTag
-        }
+		let utm_tags = {
+			utm_source: parsed.utm_source || '',
+			utm_medium: parsed.utm_medium || '',
+			utm_term: parsed.utm_term || '',
+			utm_campaign: parsed.utm_campaign || '',
+			referrer: document.referrer || '',
+			gclid: parsed.gclid || ''
+		}
+
+		formData.data = {}
+		formData.data.utm_tags = utm_tags
+		formData.data.url = window.location.href
+		formData.data.formSource = this.props.formSource || 'PopupLeadForm'
+		if (this.props.sourceTag) {
+			formData.source = this.props.sourceTag
+		}
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
 				//Save popup data for doctor profile data auto filled
-				if(this.props.is_booking_page){
-					this.props.saveIpdPopupData('popup1', formData)	
+				if (this.props.is_booking_page) {
+					this.props.saveIpdPopupData('popup1', formData)
 				}
 				this.props.ipdPopupFired()
-				if(this.props.saveLeadIdForUpdation && typeof(this.props.saveLeadIdForUpdation)=='function'){
+				if (this.props.saveLeadIdForUpdation && typeof (this.props.saveLeadIdForUpdation) == 'function') {
 					this.props.saveLeadIdForUpdation(response)
 				}
-				if(this.state.first_name && this.state.first_name.includes('test')) {
+				if (this.state.first_name && this.state.first_name.includes('test')) {
 
-				}else {
+				} else {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number
+						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo': this.state.phone_number
 					}
 					GTM.sendEvent({ data: gtmData })
 				}
-				
-				if(this.props.noToastMessage) {
-					
-				}else {
+
+				if (this.props.noToastMessage) {
+
+				} else {
 					setTimeout(() => {
 						SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
 					}, 500)
@@ -142,9 +142,9 @@ class IpdLeadForm extends React.Component {
 	}
 
 	closePopUpClicked(skip = false) {
-		if(skip) {
+		if (skip) {
 			let gtmData = {
-				'Category': 'ConsumerApp', 'Action': 'IPD-1popup-skip-clicked', 'CustomerID': GTM.getUserId() || '', 'event': 'IPD-1popup-skip-clicked', 'formNo':'1'
+				'Category': 'ConsumerApp', 'Action': 'IPD-1popup-skip-clicked', 'CustomerID': GTM.getUserId() || '', 'event': 'IPD-1popup-skip-clicked', 'formNo': '1'
 			}
 			GTM.sendEvent({ data: gtmData })
 		}
@@ -163,30 +163,30 @@ class IpdLeadForm extends React.Component {
 	}
 
 	toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
-    }
+		this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+	}
 
-    getSpecializationNames(specializationData){
-    	try{
-    		return specializationData.map(x=>x.name).join(',')
-    	}catch(e) {
-    		
-    	}
-    }	
+	getSpecializationNames(specializationData) {
+		try {
+			return specializationData.map(x => x.name).join(',')
+		} catch (e) {
+
+		}
+	}
 
 	render() {
 		const parsed = queryString.parse(this.props.location.search)
 		let specialization_name = null
 		let vowels = 'aeiou'
 		let is_vowel = false
-		if(this.props.specialization_data && this.props.specialization_data.length) {
-			specialization_name = this.getSpecializationNames(this.props.specialization_data)||''
+		if (this.props.specialization_data && this.props.specialization_data.length) {
+			specialization_name = this.getSpecializationNames(this.props.specialization_data) || ''
 
-			if(specialization_name && specialization_name.length && vowels.includes(specialization_name[0].toLowerCase())){
+			if (specialization_name && specialization_name.length && vowels.includes(specialization_name[0].toLowerCase())) {
 				is_vowel = true
-			}	
+			}
 		}
-		
+
 
 		return (
 			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
@@ -197,8 +197,8 @@ class IpdLeadForm extends React.Component {
 				<div className="search-el-popup ipd-pop-width booking-popup" onClick={(e) => {
 					e.preventDefault()
 					e.stopPropagation()
-				
-					}}>
+
+				}}>
 					<div className="widget p-12">
 						{
 							this.state.showForm ?
@@ -213,19 +213,19 @@ class IpdLeadForm extends React.Component {
 											</span>*/
 									}
 									{
-										specialization_name?
-										<p className="ipd-needHelp">{`Need an appointment with ${is_vowel?'an':'a'} ${specialization_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
-										:this.props.doctor_name?
-										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
-										:this.props.hospital_name?
-										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
-										:''
+										specialization_name ?
+											<p className="ipd-needHelp">{`Need an appointment with ${is_vowel ? 'an' : 'a'} ${specialization_name} ${this.props.hospital_name ? `at ${this.props.hospital_name}?` : ''}`}</p>
+											: this.props.doctor_name ?
+												<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name ? `at ${this.props.hospital_name}?` : ''}`}</p>
+												: this.props.hospital_name ?
+													<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name ? `at ${this.props.hospital_name}?` : ''}`}</p>
+													: ''
 									}
 
 									{
-										this.props.procedure_name?<section>
-										<p className="ipd-needHelp">{`Need help with ${this.props.procedure_name}?`}</p></section>
-										:''
+										this.props.procedure_name ? <section>
+											<p className="ipd-needHelp">{`Need help with ${this.props.procedure_name}?`}</p></section>
+											: ''
 									}
 
 									{/*
@@ -237,23 +237,23 @@ class IpdLeadForm extends React.Component {
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Dedicated Doctor for Medical Advice</span></p>
 										</React.Fragment>:''
 									*/}
-									
+
 									{
-										!parsed.type || true?
-										<React.Fragment>
-											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
-											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
-											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">{this.props.procedure_name?'Special Prices for Docprime Customers':'Dedicated Doctor for Advice'}</span></p>
-										</React.Fragment>
-										:''
+										!parsed.type || true ?
+											<React.Fragment>
+												<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>{this.props.procedure_name ? 'Book the right Doctor/Hospital' : 'Get upto 30% Off on Appointments'}</span></p>
+												<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>{this.props.procedure_name ? 'Compare Surgery Cost across Hospitals' : 'Instant Booking Confirmation'}</span></p>
+												<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span className="d-block">{this.props.procedure_name ? 'Special Prices for Docprime Customers' : 'Dedicated Doctor for Advice'}</span></p>
+											</React.Fragment>
+											: ''
 									}
-									
+
 									{
-										!parsed.type && this.props.procedure_name?
-										<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
-										:''
+										!parsed.type && this.props.procedure_name ?
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
+											: ''
 									}
-									
+
 									{/*<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
@@ -280,34 +280,34 @@ class IpdLeadForm extends React.Component {
 											
 										</div>
 									</div>*/}
-											<div className="ipd-pop-scrl" onClick={(e) => {
-												e.stopPropagation()
-												e.preventDefault()
-											}}>
-												<div className="ipd-inp-section">
-													<div className="nm-lst-inputcnt">
-														<input style={{ marginRight: '8px' }} type="text" value={this.state.first_name} name='first_name' placeholder="*First Name" onChange={this.inputHandler.bind(this)}/>
-														<input type="text" value={this.state.last_name} name='last_name' placeholder="Last Name" onChange={this.inputHandler.bind(this)}/>
+									<div className="ipd-pop-scrl" onClick={(e) => {
+										e.stopPropagation()
+										e.preventDefault()
+									}}>
+										<div className="ipd-inp-section">
+											<div className="nm-lst-inputcnt">
+												<input style={{ marginRight: '8px' }} type="text" value={this.state.first_name} name='first_name' placeholder="*First Name" onChange={this.inputHandler.bind(this)} />
+												<input type="text" value={this.state.last_name} name='last_name' placeholder="Last Name" onChange={this.inputHandler.bind(this)} />
+											</div>
+											<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)} />
+											<div className="slt-nw-input radio-mbl mb-10">
+												<label className="slt-label text-left" htmlFor="male" >*Gender:</label>
+												<div className="slt-label-radio ml-2">
+													<div className="dtl-radio">
+														<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male
+				                                                        <input type="radio" name="gender" name="gender" checked={this.state.gender === 'm'} />
+															<span className="doc-checkmark"></span>
+														</label>
 													</div>
-													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
-													<div className="slt-nw-input radio-mbl mb-10">
-														<label className="slt-label text-left" htmlFor="male" >*Gender:</label>
-														<div className="slt-label-radio ml-2">
-															<div className="dtl-radio">
-																<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male
-				                                                        <input type="radio" name="gender" name="gender" checked={this.state.gender==='m'}/>
-																	<span className="doc-checkmark"></span>
-																</label>
-															</div>
-															<div className="dtl-radio">
-																<label className="container-radio" onClick={() => this.setState({ gender: 'f' })}>Female
-				                                                        <input type="radio" name="gender" value="m" name="gender" checked={this.state.gender==='f'}/>
-																	<span className="doc-checkmark"></span>
-																</label>
-															</div>
-														</div>
+													<div className="dtl-radio">
+														<label className="container-radio" onClick={() => this.setState({ gender: 'f' })}>Female
+				                                                        <input type="radio" name="gender" value="m" name="gender" checked={this.state.gender === 'f'} />
+															<span className="doc-checkmark"></span>
+														</label>
 													</div>
-													{/*<div className="select-date-container">
+												</div>
+											</div>
+											{/*<div className="select-date-container">
 														<h5>*Preferred Date:</h5>
 														<div className="vertical-date-select-container" style={{marginBottom:0}}>
 															<div className="slect-date-heading">
@@ -340,26 +340,32 @@ class IpdLeadForm extends React.Component {
 															<option>option 3</option>
 														</select>
 													</div>*/}
-													<div className="ipd-lead-textarea">
-														<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments' value={this.state.comments} onChange={this.inputHandler.bind(this)}></textarea>
-													</div>
-													<div className="skip-btn-sgn">
-														<button className="ipd-inp-sbmt" onClick={(e) => {
-																e.stopPropagation()
-																e.preventDefault()
-																this.submitLeadForm()
-															}}>Click to Proceed</button>
-														{
-															(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ?''
-															:<p onClick={(e) => {
-																e.stopPropagation()
-																e.preventDefault()
-																this.closePopUpClicked(true)
-															}}>Skip</p>
-														}
-													</div>
+											<div className="ipd-lead-textarea">
+												<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments' value={this.state.comments} onChange={this.inputHandler.bind(this)}></textarea>
+											</div>
+											<div className="skip-btn-sgn">
+												<button className="ipd-inp-sbmt" onClick={(e) => {
+													e.stopPropagation()
+													e.preventDefault()
+													this.submitLeadForm()
+												}}>Click to Proceed</button>
+												{
+													(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ? ''
+														: <p onClick={(e) => {
+															e.stopPropagation()
+															e.preventDefault()
+															this.closePopUpClicked(true)
+														}}>Skip</p>
+												}
+											</div>
+											<div className="popUp-whtsappEnable-ipd">
+												<div className="whtsappEnable-container">
+													<p className="wtsapp-chk-txt"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>
+													<p className="text-center fw-500" style={{ fontSize: 9, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
 												</div>
 											</div>
+										</div>
+									</div>
 								</div>
 								: ''
 						}

@@ -31,6 +31,8 @@ class LeftMenu extends React.Component {
     let memStatus = 'New'
     let user_insurance_status = false
     let user_ins_status
+    let is_user_gold_member = false 
+    let gold_user_profile = {}
     if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 
       user = this.props.profiles[this.props.defaultProfile]
@@ -41,6 +43,19 @@ class LeftMenu extends React.Component {
     if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
       memberClass = 'float-right memAct'
       memStatus = 'Active'
+    }
+
+    if(this.props.profiles && Object.keys(this.props.profiles).length){
+         Object.entries(this.props.profiles).map(function([key, value]) { 
+              if(value.is_vip_gold_member){
+                  gold_user_profile = value
+              } 
+          })
+         if(gold_user_profile && Object.keys(gold_user_profile).length){
+            is_user_gold_member = true
+            memberClass = 'float-right memAct'
+            memStatus = 'Active'
+         }
     }
 
     return (
@@ -90,7 +105,7 @@ class LeftMenu extends React.Component {
                             this.props.clearVipSelectedPlan()
                             this.props.toggleLeftMenu()
                             this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
-                          }} href="#"><img style={{ position: 'relative', top: '15px' }} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold <span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
+                          }} href="#"><img style={{ position: 'relative', top: '15px' }} src={ASSETS_BASE_URL + '/img/gold-sm.png'} alt="" className="vip-lg-sng" />Docprime Gold {is_user_gold_member?<span className={memberClass}>{memStatus}</span>:''}<span className="vip-new-lft-tag">Membership for exclusive discounts</span></a></li>
                           : ''}
                       {
                         CONFIG.ENABLE_VIP_CLUB && user && user.is_vip_member && !user.is_vip_gold_member?
@@ -161,7 +176,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/referral')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer <span className="refer-bonus float-right">Earn ₹ 200</span></a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer <span className="refer-bonus float-right">Earn ₹ {this.props.refer_amount}</span></a></li>
 
                       <li className="pos-rel"><a onClick={(e) => {
                         e.preventDefault()

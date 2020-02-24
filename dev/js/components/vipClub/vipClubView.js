@@ -38,19 +38,30 @@ class VipClubView extends React.Component {
 
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
-        // if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
-        //     if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-        //         loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-        //         if (Object.keys(loginUser).length > 0) {
-        //             this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, {}, (resp)=>{
-        //                 let LeadIdData = {
-        //                     'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-        //                 }
-        //                 GTM.sendEvent({ data: LeadIdData })
-        //             })
-        //         }
-        //     }
-        // }
+        let extraParams = {}
+        if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
+            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if (Object.keys(loginUser).length > 0) {
+                    if(this.props.common_utm_tags && this.props.common_utm_tags.length >0){
+                        extraParams = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
+                    }
+                    let visitor_info = GTM.getVisitorInfo()
+                        if(visitor_info && visitor_info.visit_id){
+                            lead_data.visit_id = visitor_info.visit_id
+                            lead_data.visitor_id = visitor_info.visitor_id
+                        }
+                    this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
+                        cb: (resp) => {
+                            let LeadIdData = {
+                            'Category': 'ConsumerApp', 'Action': 'VipAutoLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-auto-lead-clicked', 'source': lead_data.source || ''
+                            }
+                            GTM.sendEvent({ data: LeadIdData })
+                        }
+                    })
+                }
+            }
+        }
 
         let self = this
         if (window && document) {
@@ -124,15 +135,14 @@ class VipClubView extends React.Component {
                     extraParams = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
                 }
                 if (Object.keys(loginUser).length > 0) {
-                    // this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name, extraParams, (resp)=>{
-                    //     let LeadIdData = {
-                    //         'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                    //     }
-                    //     GTM.sendEvent({ data: LeadIdData })
-                    // })
-
-                    
+                                        
                     // to create vip or gold member lead for matrix
+
+                    let visitor_info = GTM.getVisitorInfo()
+                        if(visitor_info && visitor_info.visit_id){
+                            lead_data.visit_id = visitor_info.visit_id
+                            lead_data.visitor_id = visitor_info.visitor_id
+                        }
                     this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
                         cb: (resp) => {
                             let LeadIdData = {

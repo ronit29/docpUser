@@ -34,6 +34,8 @@ const mapStateToProps = (state) => {
         submit_otp_fail
     } = state.AUTH
 
+    let USER = state.USER
+
     return {
         token,
         error_message,
@@ -41,7 +43,8 @@ const mapStateToProps = (state) => {
         phoneNumber,
         submit_otp,
         submit_otp_success,
-        submit_otp_fail
+        submit_otp_fail,
+        USER
     }
 }
 

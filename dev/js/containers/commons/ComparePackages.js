@@ -167,7 +167,7 @@ class Compare extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar className="col-md-5 mb-3" />
+                        <RightBar className="col-md-5 mb-3" msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Footer />

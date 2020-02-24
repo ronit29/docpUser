@@ -28,22 +28,22 @@ class VipLoginPopup extends React.Component {
         }
     }
     handleChange(profileid, newProfile, selectedProfileAge, event) {
-        let newProfileNames = {}
-        let newName = newProfile.name.split(" ")
-        let tempArray
-        if (newName.length == 2) {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = newName[1]
-        } else if (newName.length > 2) {
-            tempArray = newName.slice(1, newName.length)
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = tempArray.join(' ')
-        } else {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = ''
-        }
-        let exactProfile = { ...newProfile, ...newProfileNames }
-        this.setState({ profile_id: profileid, newprofile: exactProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
+        // let newProfileNames = {}
+        // let newName = newProfile.name.split(" ")
+        // let tempArray
+        // if (newName.length == 2) {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = newName[1]
+        // } else if (newName.length > 2) {
+        //     tempArray = newName.slice(1, newName.length)
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = tempArray.join(' ')
+        // } else {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = ''
+        // }
+        // let exactProfile = { ...newProfile, ...newProfileNames }
+        this.setState({ profile_id: profileid, newprofile: newProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -120,8 +120,8 @@ class VipLoginPopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-
-            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+            let extraParamsData = {}
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, extraParamsData, (exists) => {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError: '' })
                 } else {
@@ -145,6 +145,7 @@ class VipLoginPopup extends React.Component {
                         api_params.isAgent = this.props.isAgent
                         api_params.is_gold = this.props.is_gold
                         api_params.all = this.props.is_vip_gold
+                        api_params.fromWhere = null
                         this.props.getVipList(false, api_params, (resp) => {
                             this.props.getUserProfile()
                             if (!resp.certificate) {
@@ -176,12 +177,17 @@ class VipLoginPopup extends React.Component {
                                     if(self.props.common_utm_tags && self.props.common_utm_tags.length){
                                         extraParams = self.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
                                     }
+                                    let visitor_info = GTM.getVisitorInfo()
+                                    if(visitor_info && visitor_info.visit_id){
+                                        lead_data.visit_id = visitor_info.visit_id
+                                        lead_data.visitor_id = visitor_info.visitor_id
+                                    }
 
                                     // to create vip or gold member lead for matrix
                                      self.props.generateVipClubLead({selectedPlan:self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', number:self.state.phoneNumber, lead_data:lead_data, selectedLocation:self.props.selectedLocation, user_name:self.state.user_name, extraParams:extraParams,
                                         cb: (resp) => {
                                             let LeadIdData = {
-                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                                'Category': 'ConsumerApp', 'Action': 'VipPopupLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-popup-lead-clicked', 'source': lead_data.source || ''
                                             }
                                             GTM.sendEvent({ data: LeadIdData })
                                         }
@@ -380,7 +386,7 @@ class VipLoginPopup extends React.Component {
                                 <div className="avl-card-list">
                                     <div className="avl-left-cont">
                                         <p>Lab Tests</p>
-                                        <span>Average 50% OFF</span>
+                                        <span>Average 45% OFF</span>
                                     </div>
                                     <div className="avl-right-cont">
                                         <div className="duo-price-cont">
@@ -390,11 +396,11 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹500</span>
+                                                <span className="b-0">₹550</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹500</p>
+                                            <p>Savings ₹450</p>
                                         </div>
                                     </div>
                                 </div>
@@ -407,22 +413,22 @@ class VipLoginPopup extends React.Component {
                                         <div className="duo-price-cont">
                                             <div className="duo-price">
                                                 <p>MRP</p>
-                                                <span className="cut-price">₹1000</span>
+                                                <span className="cut-price">₹700</span>
                                             </div>
                                             <div className="duo-price">
                                                 <p>You Pay</p>
-                                                <span className="b-0">₹770</span>
+                                                <span className="b-0">₹540</span>
                                             </div>
                                         </div>
                                         <div className="text-center avl-svng">
-                                            <p>Savings ₹230</p>
+                                            <p>Savings ₹160</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="avl-foot-cont">
-                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1130 X 4</span> Family members</p>
-                                    <p className="avl-cont"> ₹4520/yr</p>
+                                    <p className="avl-foot-text">Potential Savings <span className="avl-cont">₹1010 X 6</span> Family members</p>
+                                    <p className="avl-cont"> ₹6060/yr</p>
                                 </div>
                         </div>
                     </section>

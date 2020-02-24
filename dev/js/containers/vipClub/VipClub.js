@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals, sendAgentWhatsupPageURL
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 // import VipGoldView from '../../components/vipClub/vipGoldView.js'
@@ -19,7 +19,8 @@ class VipClub extends React.Component{
             isSalesAgent:parsed.utm_source,
             isAgent:parsed.is_agent ?parsed.is_agent:false,
             source:parsed.source,
-            is_gold:parsed.is_gold?parsed.is_gold:false,
+            // is_gold:parsed.is_gold?parsed.is_gold:false,
+            is_gold:this.props.match.url.includes('vip-gold-details'),
             is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
             is_booking_page:parsed.booking_page?parsed.booking_page:null
         }
@@ -46,6 +47,7 @@ class VipClub extends React.Component{
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
+        data.fromWhere = null
         this.props.getVipList(false,data) // to get vip plan list
 
     }
@@ -95,15 +97,16 @@ const mapDispatchToProps = (dispatch) => {
         getVipList: (is_endorsement,data,callback) => dispatch(getVipList(is_endorsement,data,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        generateVipClubLead:(data,cb) =>dispatch(generateVipClubLead(data,cb)),
+        generateVipClubLead:(data) =>dispatch(generateVipClubLead(data)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
-        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+        submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         citiesData: () => dispatch(citiesData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
         getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb)),
         toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb))
+        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb)),
+        sendAgentWhatsupPageURL: (dataParams, cb) => dispatch(sendAgentWhatsupPageURL(dataParams, cb))
     }
 }
 
