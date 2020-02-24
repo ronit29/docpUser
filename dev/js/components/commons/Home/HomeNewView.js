@@ -91,56 +91,59 @@ class MainView extends React.Component{
         //background circle animation
 
         //count animation
-        const animateValue = (obj, start = 22000, end = null, duration = 4000) => {
-            if (obj) {
-                // save starting text for later (and as a fallback text if JS not running and/or google)
-                let textStarting = obj.innerHTML;
         
-                // remove non-numeric from starting text if not specified
-                end = end || parseInt(textStarting.replace(/\D/g, ""));
-
-                let range = end - start;
-        
-                // no timer shorter than 50ms (not really visible any way)
-                let minTimer = 100;
-        
-                // calc step time to show all interediate values
-                let stepTime = Math.abs(Math.floor(duration / range));
-        
-                // never go below minTimer
-                stepTime = Math.max(stepTime, minTimer);
-        
-                // get current time and calculate desired end time
-                let startTime = new Date().getTime();
-                let endTime = startTime + duration;
-                let timer;
-                //const posY = window.pageYOffset;
-                const run = () => {
-                    let now = new Date().getTime();
-                    let remaining = Math.max((endTime - now) / duration, 0);
-                    let value = Math.round(end - (remaining * range));
-                    // replace numeric digits only in the original string
-                    obj.innerHTML = textStarting.replace(/([0-9]+)/g, value);
-                    if (value == end) {
-                        clearInterval(timer);
-                    }
-                }
-                if(true){
-                    window.addEventListener('scroll', ()=>{
-                        if ( window.pageYOffset >= 1000){
-                            timer = setInterval(run, stepTime);
-                            run();
-                        }
-                    })
-                }
-            }
-        }
         const cVal1 = document.getElementById('countNum');
         const cVal2 = document.getElementById('countNum2');
-        animateValue(cVal1);
-        animateValue(cVal2); 
+        this.animateValue(cVal1);
+        this.animateValue(cVal2); 
         //count animation
         CRITEO.sendData(data)
+    }
+
+    animateValue = (obj) => {
+        let start = 22000;
+        let end = null;
+        let duration = 4000;
+        if (obj) {
+            // save starting text for later (and as a fallback text if JS not running and/or google)
+            let textStarting = obj.innerHTML;
+    
+            // remove non-numeric from starting text if not specified
+            end = end || parseInt(textStarting.replace(/\D/g, ""));
+
+            let range = end - start;
+    
+            // no timer shorter than 50ms (not really visible any way)
+            let minTimer = 100;
+    
+            // calc step time to show all interediate values
+            let stepTime = Math.abs(Math.floor(duration / range));
+    
+            // never go below minTimer
+            stepTime = Math.max(stepTime, minTimer);
+    
+            // get current time and calculate desired end time
+            let startTime = new Date().getTime();
+            let endTime = startTime + duration;
+            let timer;
+            //const posY = window.pageYOffset;
+            const run = () => {
+                let now = new Date().getTime();
+                let remaining = Math.max((endTime - now) / duration, 0);
+                let value = Math.round(end - (remaining * range));
+                // replace numeric digits only in the original string
+                obj.innerHTML = textStarting.replace(/([0-9]+)/g, value);
+                if (value == end) {
+                    clearInterval(timer);
+                }
+            }
+            window.addEventListener('scroll', ()=>{
+                if ( window.pageYOffset >= 1000){
+                    timer = setInterval(run, stepTime);
+                    run();
+                }
+            })
+        }
     }
 
 
