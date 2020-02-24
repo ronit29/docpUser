@@ -550,10 +550,10 @@ class MainView extends React.Component{
                                     <li>Store Medical Records</li>
                                 </ul>
                                 <div className="download-links d-flex align-item-center">
-                                    <a href="">
+                                    <a href="https://docprimeapp.page.link/HomepageAppInstallAndroid" target="_blank">
                                         <img width="180" style={{ marginLeft: "-12px"}} src={ASSETS_BASE_URL + "/img/google-play.png"} alt="Android"/>
                                     </a>
-                                    <a href="">
+                                    <a href="https://docprimeapp.page.link/HomepageAppInstalliOS" target="_blank">
                                         <img width="160" src={ASSETS_BASE_URL + "/img/ios.png"} alt="ios"/>     
                                     </a>   
                                 </div>
