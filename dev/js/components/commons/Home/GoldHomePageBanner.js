@@ -13,18 +13,18 @@ class GoldHomePageView extends React.PureComponent  {
                     </div>
                     <div className="gld-home-content">
                         <h3>The Healthcare Membership <br />You Can’t Do Without</h3>
-                        <p>Save more than ₹6,000/yr with special prices on OPD Consultations, Lab Tests and Medicines</p>
+                        <p>Save More Than ₹6,000/yr With Special Prices on OPD Consultations, Lab Tests and Medicines</p>
                     </div>
                     <div className="gld-home-ico">
                         <div className="gld-ico-card">
                             <img className="img-fluid" src={ASSETS_BASE_URL + '/img/gold-1.svg'} />
-                            <p>Discounts on<br />
+                            <p>Special Price for<br />
                                 <strong>30,000</strong> Doctors
                             </p>
                         </div>
                         <div className="gld-ico-card">
                             <img className="img-fluid" src={ASSETS_BASE_URL + '/img/gold-2.svg'} />
-                            <p>Discounts on<br />
+                            <p>Special Price for<br />
                                 <strong>5,000</strong> Labs
                             </p>
                         </div>
