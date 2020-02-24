@@ -101,15 +101,16 @@ class MainView extends React.Component{
     }
 
     animateValue = (obj) => {
-        let start = 22000;
+        let start = 25000;
         let end = null;
-        let duration = 4000;
+        let duration = 3000;
         if (obj) {
             // save starting text for later (and as a fallback text if JS not running and/or google)
             let textStarting = obj.innerHTML;
     
             // remove non-numeric from starting text if not specified
-            end = end || parseInt(textStarting.replace(/\D/g, ""));
+            //end = end || parseInt(textStarting.replace(/\D/g, ""));
+            end = end || parseFloat(textStarting);
 
             let range = end - start;
     

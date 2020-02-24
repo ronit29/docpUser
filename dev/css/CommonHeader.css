@@ -216,6 +216,11 @@
     }
     .header-list-items > li > a{
         margin-left: 0px;
+        padding-right: 0px!important;
+        border-right: none;
+    }
+    .user-name-col{
+        display: none!important;
     }
     .menu-icon{
         margin: 0px;

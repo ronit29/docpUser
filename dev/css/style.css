@@ -3895,7 +3895,10 @@ label.procedure-check.ck-bx .checkmark {
     margin-bottom: 5px;
 }
 
-@media(max-width: 767px) {
+@media screen and (max-width: 767px) {
+    .sign-up-container{
+        margin-top: 40px;
+    }
     .speciality-footer-list li {
         display: inline-block;
         padding-right: 4px;

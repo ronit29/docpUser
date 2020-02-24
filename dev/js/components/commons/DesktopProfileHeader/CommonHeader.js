@@ -376,8 +376,8 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                     </a>
                                 </li>
-                                <li className="d-none d-sm-block d-lg-block">
-                                    {profileData ? <a className="d-flex align-item-center no-border" onClick={() => {
+                                <li className="p-0">
+                                    {profileData ? <a className="d-flex align-item-center no-border user-name-col" onClick={() => {
                                             this.props.history.push('/user')
                                         }}>
                                             {/* <span className="user-name-initials d-flex justify-content-center align-item-center">{profileData.name[0]}</span> */}
