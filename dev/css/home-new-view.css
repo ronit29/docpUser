@@ -83,6 +83,7 @@
     position:relative;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    display: flex;
 }
 
 .slider-card-column {
@@ -114,7 +115,8 @@
     font-weight: 500;
     color: #000000;
     margin-top: 10px;
-    min-height: 34px;
+    width: 150px;
+    white-space: initial;
 }
 
 .card-slider-container>.slider-card-column>.off-txt {
