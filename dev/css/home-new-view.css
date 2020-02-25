@@ -478,7 +478,7 @@
     display: none;
 }
 
-.banner-slider-row>div>.card-slider-container{
+.banner-slider-row>div>.slider-container{
     background: none;
     box-shadow: none;
     margin:0px 0px 5px 0px;
@@ -487,21 +487,23 @@
     left: 33px;
     padding-left: 0px!important;
     padding-top: 0px!important;
+    white-space: nowrap;
+    overflow-x: auto;
 }
-.d-banner>div>.card-slider-container>a{
+.d-banner>div>.slider-container>a{
     padding: 10px 10px 10px 0;
     display: inline-block;
     width: 35%;
 }
-.d-banner>div>.card-slider-container>a>img{
+.d-banner>div>.slider-container>a>img{
     height: 100px;
 }
-.mbl-banner>div >.card-slider-container>a{
+.mbl-banner>div >.slider-container>a{
     width: 90%;
     padding-right: 10px;
     display: inline-block;
 }
-.banner-slider-row>div >.card-slider-container>a>img{
+.banner-slider-row>div>.slider-container>a>img{
     border-radius: 10px;
     box-shadow: 0px 3px 6px #00000029;
     max-width: 100%;
@@ -519,6 +521,7 @@
     font-size: 12px;
     padding: 5px 0;
     margin-left: 0px!important;
+    width: 190px;
 }
 .upload-lab-widget>div>img{
     margin-top: 8px;
@@ -540,14 +543,14 @@
         display: flex;
     }
     .home-card-col.search-icon-col{
-        display: inline-block;
+        display: inline-block!important;
     }
 
     .upload-lab-widget{
         display:none;
     }
 
-    .banner-slider-row>div>.card-slider-container{
+    .banner-slider-row>divslider-container{
         transform: scale(1.1);
         left: 17px;
     }
