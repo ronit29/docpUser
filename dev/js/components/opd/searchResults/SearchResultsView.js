@@ -773,7 +773,9 @@ class SearchResultsView extends React.Component {
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-Submit-click'}
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-       this.props.NonIpdBookingLead(data) 
+        if(!STORAGE.isAgent()){
+            this.props.NonIpdBookingLead(data) 
+        }
        this.setState({to_be_force:0})
     }
 
@@ -851,7 +853,7 @@ class SearchResultsView extends React.Component {
                 }} />
 
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 && !STORAGE.isAgent()?
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_opd={true}/>
                     :''
                 }

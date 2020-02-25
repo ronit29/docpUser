@@ -350,7 +350,7 @@ class PatientDetailsNew extends React.Component {
         if (nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id != this.state.selectedVipGoldPackageId)) {
             this.setState({ selectedVipGoldPackageId: nextProps.selected_vip_plan.id })
         }
-        if (this.state.enableDropOfflead && STORAGE.checkAuth()) {
+        if (this.state.enableDropOfflead && STORAGE.checkAuth() && !STORAGE.isAgent()) {
             this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile != nextProps.selectedProfile)) {
@@ -1512,7 +1512,9 @@ class PatientDetailsNew extends React.Component {
         let gtm_data = { 'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click' }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-        this.props.NonIpdBookingLead(data)
+        if(!STORAGE.isAgent()){
+            this.props.NonIpdBookingLead(data)
+        }
         this.setState({ to_be_force: 0 }, () => {
             this.appendParamToUrl()
         })
@@ -1792,7 +1794,7 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 && !STORAGE.isAgent()?
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
                         <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} />
                         : ''
                 }
