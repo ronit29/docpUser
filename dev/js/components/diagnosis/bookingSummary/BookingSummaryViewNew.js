@@ -71,7 +71,8 @@ class BookingSummaryViewNew extends React.Component {
             selectedTestIds: [],
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
             paymentBtnClicked: false,
-            enableDropOfflead:true
+            enableDropOfflead:true,
+            disable_page:true
         }
     }
 
@@ -193,9 +194,9 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        /*if (!STORAGE.checkAuth()) {
-            return
-        }*/
+        if (STORAGE.checkAuth()) {
+            this.setState({disable_page:false})
+        }
         let isPickupStatusSame = false
         if(nextProps.selectedAppointmentType.r_pickup == this.props.selectedAppointmentType.r_pickup && nextProps.selectedAppointmentType.p_pickup == this.props.selectedAppointmentType.p_pickup){
             isPickupStatusSame = true    
@@ -631,7 +632,10 @@ class BookingSummaryViewNew extends React.Component {
             if(resp.dummy_id){
 
                 let extraParams = {
-                    landing_url: `lab/${this.props.selectedLab}/book?dummy_id=${resp.dummy_id}&test_ids=${booking_data.test_ids}`
+                    landing_url: `lab/${this.props.selectedLab}/book?dummy_id=${resp.dummy_id}&test_ids=${booking_data.test_ids}`,
+                }
+                if(postData['message_medium']){
+                    extraParams['message_medium']= postData['message_medium']
                 }
                 this.props.sendAgentBookingURL(this.state.order_id, 'sms', 'SINGLE_PURCHASE', null, extraParams, (err, res) => {
                     if (err) {
@@ -644,7 +648,7 @@ class BookingSummaryViewNew extends React.Component {
         })
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, extraParams, e) {
 
         //Check if patient is selected or not
         if (!patient) {
@@ -653,11 +657,11 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
         //Check if patient emailid exist or not
-        if(patient && !patient.email){
-            this.setState({isEmailNotValid:true})
-            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-            return 
-        }
+        // if(patient && !patient.email){
+        //     this.setState({isEmailNotValid:true})
+        //     SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+        //     return 
+        // }
         //Check if patient dob exist or not
         if(patient && !patient.dob){
             this.setState({isDobNotValid:true})
@@ -878,6 +882,7 @@ class BookingSummaryViewNew extends React.Component {
         }
         if(this.props.payment_type==6 && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length && is_selected_user_vip) {
             postData['plus_plan'] = this.props.selected_vip_plan.id
+            postData['plan'] = this.props.selected_vip_plan
         }
         //Check SPO UTM Tags
         if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
@@ -957,6 +962,9 @@ class BookingSummaryViewNew extends React.Component {
 
             //Single Flow Agent Booking
             if(STORAGE.isAgent() && this.props.payment_type==6 ) {
+                if(extraParams && extraParams.sendWhatsup){
+                    postData['message_medium'] = 'WHATSAPP'
+                }
                 this.sendSingleFlowAgentBookingURL(postData)
                 return 
             }
@@ -1965,9 +1973,10 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
                                                         
-                                                        <div className="">
+                                                        <div className="login">
                                                             {this.getPatientDetails(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
+                                                        <div className={`${this.state.disable_page && !STORAGE.isAgent()?'disable-opacity':''}`}> 
                                                         <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
@@ -2107,7 +2116,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         }
                                                         {/* ============================= gold card details ============================= */}     
                                                         {
-                                                            !showGoldTogglePaymentMode && !is_vip_applicable && !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold && this.props.show_vip_non_login_card?
+                                                            /*!showGoldTogglePaymentMode && !is_vip_applicable && !is_selected_user_gold && !is_insurance_applicable && vip_discount_price > 0 && vip_data.is_gold && this.props.show_vip_non_login_card?
                                                             <div className="widget cpn-blur mrb-15 cursor-pointer gold-green-cont" onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 let analyticData = {
@@ -2126,7 +2135,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            :''}
+                                                            :''*/}
                                                         {/* ============================= gold card details ============================= */}
 
                                                         {/*is_insurance_buy_able ?
@@ -2382,6 +2391,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
                                                         </div>
                                                     </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -2405,12 +2415,12 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
 
-                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page && !STORAGE.isAgent()?'disable-all':''}`}>
                                 {
                                      ( STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured && this.props.payment_type!=6) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
+                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {} )}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -2420,9 +2430,19 @@ class BookingSummaryViewNew extends React.Component {
                                 }
 
                                 {
+                                    STORAGE.isAgent() && this.props.payment_type==6?
+                                    <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {sendWhatsup: true} )}>
+                                        <img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp
+                                    </button>
+                                    :''
+                                }
+
+                                {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_amount_payable, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_amount_payable, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status, {} )}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
                                 }
                             </div>
 
@@ -2433,7 +2453,7 @@ class BookingSummaryViewNew extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
+                        <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

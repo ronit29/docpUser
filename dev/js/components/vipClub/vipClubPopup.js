@@ -28,22 +28,22 @@ class VipLoginPopup extends React.Component {
         }
     }
     handleChange(profileid, newProfile, selectedProfileAge, event) {
-        let newProfileNames = {}
-        let newName = newProfile.name.split(" ")
-        let tempArray
-        if (newName.length == 2) {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = newName[1]
-        } else if (newName.length > 2) {
-            tempArray = newName.slice(1, newName.length)
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = tempArray.join(' ')
-        } else {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = ''
-        }
-        let exactProfile = { ...newProfile, ...newProfileNames }
-        this.setState({ profile_id: profileid, newprofile: exactProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
+        // let newProfileNames = {}
+        // let newName = newProfile.name.split(" ")
+        // let tempArray
+        // if (newName.length == 2) {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = newName[1]
+        // } else if (newName.length > 2) {
+        //     tempArray = newName.slice(1, newName.length)
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = tempArray.join(' ')
+        // } else {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = ''
+        // }
+        // let exactProfile = { ...newProfile, ...newProfileNames }
+        this.setState({ profile_id: profileid, newprofile: newProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -145,6 +145,7 @@ class VipLoginPopup extends React.Component {
                         api_params.isAgent = this.props.isAgent
                         api_params.is_gold = this.props.is_gold
                         api_params.all = this.props.is_vip_gold
+                        api_params.fromWhere = null
                         this.props.getVipList(false, api_params, (resp) => {
                             this.props.getUserProfile()
                             if (!resp.certificate) {

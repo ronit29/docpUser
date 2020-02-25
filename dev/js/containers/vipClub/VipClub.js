@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, citiesData, vipPlusLead, getNearbyHospitals, toggleIPDCriteria, getTopHospitals, sendAgentWhatsupPageURL
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 // import VipGoldView from '../../components/vipClub/vipGoldView.js'
@@ -47,6 +47,7 @@ class VipClub extends React.Component{
         data.isAgent = this.state.isAgent
         data.is_gold = this.state.is_gold
         data.all = this.state.is_vip_gold
+        data.fromWhere = null
         this.props.getVipList(false,data) // to get vip plan list
 
     }
@@ -104,7 +105,8 @@ const mapDispatchToProps = (dispatch) => {
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
         getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb)),
         toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb))
+        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb)),
+        sendAgentWhatsupPageURL: (dataParams, cb) => dispatch(sendAgentWhatsupPageURL(dataParams, cb))
     }
 }
 

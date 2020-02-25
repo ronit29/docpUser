@@ -196,11 +196,11 @@ class OrderSummaryView extends React.Component {
                                                                 </ul>
                                                             </div>
                                                             {
-                                                                item.payment_mode &&
+                                                                item.payment_mode?
                                                                 <div className="d-flex align-item-center jc-spaceb shopping-card-details-list fw-500">
                                                                     <span>Payment mode</span>
                                                                     <span>{item.payment_mode}</span>
-                                                                </div>
+                                                                </div>:''
                                                             }
                                                         </div>
                                                     </div>
@@ -225,7 +225,7 @@ class OrderSummaryView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
+                        <RightBar extraClass=" chat-float-btn-2" noChatButton={true} msgTemplate="gold_general_template"/>
                     </div>
                 </section>
                 <Disclaimer />

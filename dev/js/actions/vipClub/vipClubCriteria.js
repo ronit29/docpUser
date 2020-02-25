@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -36,18 +36,22 @@ export const getVipList = (is_endorsement,data,callback) => (dispatch) => { // t
         is_vip_gold = data.all
     }
     return API_GET(url).then(function (response) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: response,
-            is_vip_gold: is_vip_gold
-        })
+        if(!data.fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: response,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(response)
     }).catch(function (error) {
-        dispatch({
-            type: GET_VIP_LIST,
-            payload: error,
-            is_vip_gold: is_vip_gold
-        })
+        if(!data.fromWhere){
+            dispatch({
+                type: GET_VIP_LIST,
+                payload: error,
+                is_vip_gold: is_vip_gold
+            })
+        }
         if(callback) callback(error)
         throw error
     })
@@ -345,6 +349,13 @@ export const applyCouponDiscount = ({productId,couponCode,couponId,plan_id,deal_
 export const removeVipCoupons =() =>(dispatch)=>{ // to reset coupons to intial state
     dispatch({
         type:REMOVE_VIP_COUPONS
+    })
+}
+
+export const removeMembers =(data) =>(dispatch)=>{
+    dispatch({
+        type: REMOVE_ADD_MEMBER_FORM,
+        payload:data
     })
 }
 

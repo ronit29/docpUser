@@ -7,6 +7,9 @@ import GTM from '../../../../helpers/gtm.js'
 import HelmetTags from '../../../commons/HelmetTags'
 import CONFIG from '../../../../config'
 import Disclaimer from '../../../commons/Home/staticDisclaimer.js'
+import SnackBar from 'node-snackbar'
+import STORAGE from '../../../../helpers/storage'
+
 
 const queryString = require('query-string');
 
@@ -252,6 +255,22 @@ const queryString = require('query-string');
       }
     }
 
+    sendPageUrl = () => {
+        let data = {
+            callback: window.location.pathname.substring(1) + window.location.search.replace(/&/g,'*'),
+            template: 'gold_general_template'
+        }
+        this.props.sendAgentWhatsupPageURL(data).then((resp) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Sent Successfully" })
+            }, 500)
+        }).catch((e) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Try again!" })
+            }, 500)
+        })
+    }
+
     render() {
       let self=this
       let availableTest= []
@@ -270,6 +289,13 @@ const queryString = require('query-string');
                   <div className="row main-row parent-section-row">
                     <LeftBar />
                     {/*compare screen*/}
+                    {
+                      STORAGE.isAgent()?
+                      <button onClick={this.sendPageUrl} className="whtsappPages"><img src={ASSETS_BASE_URL + '/img/wa-logo.svg'} />Send on Whatsapp</button>
+                      :''
+                    }
+                    
+
                     <div className="container-fluid pad-all-0">
                       {this.props.data.title?
                         <div className="pkgSliderHeading mrt-20"><h5 style={{fontSize:'16px', paddingLeft:'10px'}} >{this.props.data.title}</h5></div>

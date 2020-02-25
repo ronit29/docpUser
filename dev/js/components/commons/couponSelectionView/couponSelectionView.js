@@ -274,7 +274,7 @@ class CouponSelectionView extends React.Component {
 
                         </div>
 
-                        <RightBar extraClass=" chat-float-btn-2" />
+                        <RightBar extraClass=" chat-float-btn-2" msgTemplate="gold_general_template"/>
                     </div>
                 </section>
             </div>

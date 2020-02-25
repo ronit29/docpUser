@@ -528,6 +528,22 @@ class ChatPanel extends React.Component {
         this.toggleRefundPopup()
     }
 
+    sendPageUrl = () => {
+        let data = {
+            callback: window.location.pathname.substring(1) + window.location.search.replace(/&/g,'*'),
+            template: this.props.msgTemplate ? this.props.msgTemplate : 'common'
+        }
+        this.props.sendAgentWhatsupPageURL(data).then((resp) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Sent Successfully" })
+            }, 500)
+        }).catch((e) => {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Try again!" })
+            }, 500)
+        })
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -688,20 +704,20 @@ class ChatPanel extends React.Component {
                     }
                     <div className="fixed-chatbox">
                         {
-                            this.props.homePage?
-                            <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
-                                <div className="hidderBanner banner-carousel-div">
-                                    <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
-                                </div>
-                                {
-                                    !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length?
-                                    <div className="home-banner-pos">
-                                        <BannerCarousel {...this.props} sliderLocation="home_page" />
+                            this.props.homePage ?
+                                <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
+                                    <div className="hidderBanner banner-carousel-div">
+                                        <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
                                     </div>
-                                    :''
-                                }
-                            </div>
-                            :''
+                                    {
+                                        !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                            <div className="home-banner-pos">
+                                                <BannerCarousel {...this.props} sliderLocation="home_page" />
+                                            </div>
+                                            : ''
+                                    }
+                                </div>
+                                : ''
                         }
                         {
                             false && this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
@@ -734,7 +750,7 @@ class ChatPanel extends React.Component {
                         <div className={`${this.state.showChatBlock ? "floating-chat " : ""} ${is_religare ? ' chat-rlgr-view' : ''}`}>
                             {
                                 this.state.showStaticView ?
-                                    <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} />
+                                    <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} sendPageUrl={this.sendPageUrl}/>
                                     :
                                     <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
@@ -830,6 +846,7 @@ class ChatPanel extends React.Component {
                                             }
                                         </div>
                                         {/* chat Body */}
+                                        
                                     </div>
                             }
                         </div>
@@ -861,7 +878,11 @@ class ChatPanel extends React.Component {
                             //         }
                             //     </div> : ''
                         }
-
+                        {
+                            STORAGE.isAgent() && !this.props.homePage && this.props.msgTemplate?
+                            <button onClick={this.sendPageUrl} className="whtsappPages"><img src={ASSETS_BASE_URL + '/img/wa-logo.svg'} />Send on Whatsapp</button>
+                            :''
+                        }
                     </div>
                 </React.Fragment>
             );

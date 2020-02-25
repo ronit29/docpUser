@@ -307,6 +307,14 @@ export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, e
 	})
 }
 
+export const sendAgentWhatsupPageURL = (extraParams={}, cb) => (dispatch) => { //send page links via whatsup to user by agaent
+	return API_POST(`/api/v1/notification/send/whatsapp`, extraParams  ).then(function (response) {
+		if (cb) cb(null, response);
+	}).catch(function (error) {
+		if (cb) cb(error, null);
+	})
+}
+
 export const setChatRoomId = (roomId, extraParams = {}) => (dispatch) => {
 	dispatch({
 		type: SET_CHATROOM_ID,
@@ -820,4 +828,12 @@ export const getReferAmnt = () => (dispatch) =>{
         })  
     }).catch(function (error) {
     })
+}
+
+export const submitReportReview = (dataParams, cb) => (dispatch) => {
+	API_POST(`/api/v1/diagnostic/feedback_to_matrix?appointment_id=${dataParams.appointment_id}`, dataParams).then((data)=>{
+		if(cb)cb(true, null);
+	}).catch((e)=>{
+		if(cb)cb(null, true);
+	})
 }

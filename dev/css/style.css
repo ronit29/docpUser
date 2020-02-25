@@ -990,7 +990,7 @@ p.top-head-link.card-lab-link span {
         margin-left: 0;
     }
     .text-sm {
-        font-size: 14px;
+        font-size: 12px;
     }
     p.fltr-prices {
         font-size: 16px;
@@ -13660,8 +13660,8 @@ p.pkgtstName.prcd-height {
     position: absolute;
     top: 4px;
     right: 8px;
-    color: var(--text--primary--color);
-    border: 1px dashed var(--text--primary--color);
+    color: #1b97fd;
+    border: 1px dashed #1b97fd;
     border-radius: 5px;
     text-align: center;
     font-size: 10px;
@@ -15039,12 +15039,13 @@ font-size: 12px;
 color: #f78631;
 font-weight: 500;
 font-size: 12px;
+cursor: pointer;
 }
 .otp-timer{
 font-size: 12px;
 }
 .get-otp{
-    color: #f78631;
+    /*color: #f78631;*/
     font-size: 12px;
     margin-top: 5px;
     margin-left: 2px;
@@ -15116,5 +15117,245 @@ button.pop-subText{
     margin-top: 4px;
     display: inline-block;
 }
-
+.popUp-whtsappEnable {
+    margin: -8px !important;
+    background: #f5f5f5;
+    margin-top: 10px !important;
+}
+.whtsappEnable-container {
+    padding: 10px;
+    text-align: center;
+}
+.wtsapp-chk-txt {
+    font-size: 9px;
+    color: #8a8a8a;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+p.wtsapp-chk-txt img {
+    width: 14px;
+    margin-right: 3px;
+}
+.popUp-whtsappEnable-ipd {
+    margin: -12px !important;
+    background: #f5f5f5;
+    margin-top: 10px !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
 /* ======================================= popup DPP HPP  ======================================= */
+
+
+/* ======================================= chat feedback section  ======================================= */
+h1.fb-main-hdng {
+    color: #f78631;
+    font-size: 22px;
+    font-weight: 500;
+}
+p.fb-main-txt {
+    text-align: center;
+    margin: 30px 0;
+    font-weight: 500;
+}
+h5.fb-sub-hdng {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.star-rating-cont {
+    position: relative;
+}
+.cht-fb-star {
+    position: relative;
+}
+.cht-fb-star {
+    position: relative;
+}
+.cht-fb-star img {
+    margin: 0 10px 20px;
+}
+p.star-txt-lft {
+    position: absolute;
+    left: 10%;
+    font-weight: 500;
+}
+p.star-txt-rht {
+    position: absolute;
+    right: 10%;
+    font-weight: 500;
+}
+.chat-fb-comment {
+    margin-top: 45px;
+}
+.chat-fb-comment h3 {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 11px;
+}
+textarea.fb-textAra {
+    width: 100%;
+    border-radius: 5px;
+    min-height: 130px;
+}
+.chat-fb-comment p {
+    text-align: right;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+}
+button.fb-btn-sec {
+    color: white;
+    background: #ffcf70;
+    width: 100%;
+    border: 1px solid #ffcf70;
+    padding: 15px 0;
+    font-weight: 600;
+    font-size: 15px;
+}
+.glod-save-perc{
+    text-align: right;
+    font-size: 9px;
+    color: #55a740;
+    font-weight: 600;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
+/* ======================================= chat feedback section  ======================================= */
+/* ======================================= gold user add on  ======================================= */
+div.widget.goldUserAddon .ins-form-group input {
+    padding-left: 12px;
+}
+div.widget.goldUserAddon .ins-form-group img{
+    display: none;
+}
+div.widget.goldUserAddon .ins-form-group .form-control-placeholder{
+    left: 8px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput input{
+    padding: 8px 15px;
+    line-height: 17px;
+    font-size: 13px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput label{
+    padding: 8px 15px;
+    line-height: 18px;
+    font-size: 13px;
+}
+.orSeparator {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.orSeparator:before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background: rgba(0, 0, 0, .2);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.orSeparator span {
+    background: white;
+    color: #1b97fd;
+    font-weight: 500;
+    height: 30px;
+    width: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.orSeparator span:after {
+    content: '';
+    background: rgba(27, 151, 253, .3);
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 30px;
+}
+/* ======================================= gold user add on  ======================================= */
+/* ======================================= new user addon  ======================================= */
+
+.add-member-chkbx{
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.profile-warning-text{
+    color: #757575;
+    margin-top: 5px;
+}
+
+.gold-covrd-txt {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: var(--text--primary--color);
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}
+.gold-covrd-btn{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--text--primary--color);
+    border: 1px dashed var(--text--primary--color);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+    z-index: 2;
+    background: white;
+    outline: none;
+}
+.user-heading{
+font-size: 14px;
+padding: 15px 0px 10px 20px;
+}
+.box-shadow-none{
+box-shadow: none !important;
+}
+.pipe-sign{
+    padding: 0px 5px;
+    color: #646464;
+    font-weight: 900;
+}
+/* ======================================= new user addon  ======================================= */
+
+/* ======================================= whtsapp buttons on pages ======================================= */
+.whtsappPages{
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    padding: 12px 0;
+    border-radius: 4px;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+.whtsappPages img{
+    width: 20px;
+    margin-right: 8px;
+}
+.disable-opacity{
+    pointer-events: none;
+    filter: grayscale(1);
+    cursor: -webkit-zoom-in;
+    opacity: .5;
+}
+/* ======================================= whtsapp buttons on pages ======================================= */

@@ -167,10 +167,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/about")
                                     }}>About Us</a></li>
-                                    <li><a href="/howitworks" onClick={(e) => {
+                                    {/*<li><a href="/howitworks" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/howitworks")
-                                    }}>How it Works</a></li>
+                                    }}>How it Works</a></li>*/}
                                     <li><a href="/careers" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/careers")
@@ -202,10 +202,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/about")
                                     }}>About Us</a></li>
-                                    <li><a href="/howitworks" onClick={(e) => {
+                                   {/* <li><a href="/howitworks" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/howitworks")
-                                    }}>How it Works</a></li>
+                                    }}>How it Works</a></li>*/}
                                     <li><a href="/careers" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/careers")
@@ -231,7 +231,7 @@ class Footer extends React.Component {
                                         this.navigateTo("/contact")
                                     }}>Contact Us</a></li>
                                 </ul>
-                                <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('docprime') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('docprime') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} onClick={() => this.toggleFooterData('docprime')}/>
                             </div>
                         </div>
                         <div className="col-md-2 col-12" key="ftr-dsktp-div-3">

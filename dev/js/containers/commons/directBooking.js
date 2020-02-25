@@ -18,6 +18,7 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
+        let user_id = parsed.user_id
         let callbackurl = parsed.callbackurl 
         //Add UTM tags for building url
         try{
@@ -43,15 +44,19 @@ class DirectBooking extends React.Component {
         }
 
         if (OTT) {
-            this.props.OTTLogin(OTT).then(() => {
+            this.props.OTTLogin(OTT,user_id).then((resp) => {
                 if(callbackurl){
                     if(callbackurl == 'lab' || callbackurl == 'opd'){
                         window.location.href = '/#' + callbackurl
                     }else{
                         if(parsed.test_ids){
                             callbackurl+='&test_ids='+parsed.test_ids
+                            this.props.history.push('/'+callbackurl)
+                        }else{
+                            callbackurl = callbackurl.replace(/\*/g,'&');
+                            window.location.href = window.location.origin+'/'+callbackurl+`?${parsed.queryParams}`
                         }
-                        this.props.history.push('/'+callbackurl)
+                        
                     }
                 }else{
                     this.props.history.push('/cart?is_agent_booking=true')
@@ -129,7 +134,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        OTTLogin: (ott) => dispatch(OTTLogin(ott)),
+        OTTLogin: (ott,user_id) => dispatch(OTTLogin(ott,user_id)),
         fetchOrderById: (order_id) => dispatch(fetchOrderById(order_id)),
         clearAllTests: () => dispatch(clearAllTests()),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),

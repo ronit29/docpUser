@@ -1198,15 +1198,16 @@
 
 .family-list>li .member-icon {
     float: left;
-    width: 73px;
+    width: auto;
 }
 
 .family-list>li>a {
     display: block;
+    min-height: 47px;
 }
 
 .family-list>li .member-details {
-    padding-left: 90px;
+    padding-left: 55px;
 }
 
 .arrow-forward-right {

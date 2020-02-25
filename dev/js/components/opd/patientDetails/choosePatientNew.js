@@ -14,7 +14,7 @@ class ChoosePatientNewView extends React.Component {
             showOtp: false,
             otpVerifySuccess: false,
             name: '',
-            phoneNumber: '',
+            phoneNumber: this.props.user_loggedIn_number?this.props.user_loggedIn_number:'',
             gender: 'm',
             data: false,
             email: '',
@@ -47,6 +47,12 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+        if(document.getElementById('otpMob')){
+            document.getElementById('otpMob').focus()
+        }
+        if(this.props.user_loggedIn_number){
+            this.setState({phoneNumber:this.props.user_loggedIn_number?this.props.user_loggedIn_number:''})
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,6 +71,7 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+
     }
 
     inputHandler(e) {
@@ -197,26 +204,21 @@ class ChoosePatientNewView extends React.Component {
     profileDobValidation(e) {
         let data = { ...this.props.patient }
         if (data) {
-            this.setState({ email: data.email ? data.email : this.state.email, dob: data.dob ? data.dob : this.state.dob }, () => {
-                if (this.state.dob && this.state.email) {
+            this.setState({ dob: data.dob ? data.dob : this.state.dob }, () => {
+                if (this.state.dob) {
                     if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
                         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
                         return
                     }
-                    this.setState({ isEmailNotValid: false, isDobNotValid: false })
+                    this.setState({isDobNotValid: false })
                     data.dob = this.state.dob
-                    data.email = this.state.email
                     data.otpVerifySuccess = true
                     this.props.profileDataCompleted(data)
                     this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
                         this.props.getUserProfile()
-                        this.setState({ dob: null, email: null })
+                        this.setState({ dob: null })
                     })
                 } else {
-                    if (!this.state.email && !data.email) {
-                        this.setState({ isEmailNotValid: true })
-                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
-                    }
                     if (!this.state.dob && !data.dob) {
                         this.setState({ isDobNotValid: true })
                         SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
@@ -224,6 +226,34 @@ class ChoosePatientNewView extends React.Component {
                 }
             })
         }
+        // if (data) {
+        //     this.setState({ email: data.email ? data.email : this.state.email, dob: data.dob ? data.dob : this.state.dob }, () => {
+        //         if (this.state.dob && this.state.email) {
+        //             if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+        //                 return
+        //             }
+        //             this.setState({ isEmailNotValid: false, isDobNotValid: false })
+        //             data.dob = this.state.dob
+        //             data.email = this.state.email
+        //             data.otpVerifySuccess = true
+        //             this.props.profileDataCompleted(data)
+        //             this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+        //                 this.props.getUserProfile()
+        //                 this.setState({ dob: null, email: null })
+        //             })
+        //         } else {
+        //             if (!this.state.email && !data.email) {
+        //                 this.setState({ isEmailNotValid: true })
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+        //             }
+        //             if (!this.state.dob && !data.dob) {
+        //                 this.setState({ isDobNotValid: true })
+        //                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+        //             }
+        //         }
+        //     })
+        // }
     }
 
     selectDateFromCalendar(date) {
@@ -393,7 +423,7 @@ class ChoosePatientNewView extends React.Component {
 
     resendOtpCountDown(){
         let self = this
-        var timeLeft = 59;
+        var timeLeft = 30;
         var timerId = setInterval(countdown, 1000);
         let timeElm = document.getElementById('timeElm');
         function countdown() {
@@ -427,7 +457,7 @@ class ChoosePatientNewView extends React.Component {
                     <React.Fragment>
                         <div className="otp-heading">
                             <h4 className="title d-flex mb-0">
-                                Please enter your mobile number
+                                Please enter your mobile number to proceed
                             </h4>
                             <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                         </div>
@@ -459,7 +489,7 @@ class ChoosePatientNewView extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <p className="get-otp" onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
+                                        <p className={`get-otp ${this.state.otpTimeout?'otp-rsnd-active':'otp-rsnd click-disable'}`} onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
                                     </div>
                                 :""}
                                 <div className= {`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin?'otpLogin':''}`} >
@@ -470,13 +500,13 @@ class ChoosePatientNewView extends React.Component {
                                         </button>
                                         :<React.Fragment>
                                         <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
-                                            <img className="whtsp-ico" src="/assets/img/wa-logo-gr.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
+                                            <img className="whtsp-ico" src="/assets/img/wa-logo-main.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
                                         <button className="input-sms-ver mr-0" onClick={(e) => {e.preventDefault(); this.verify(false, true, false)}}>
                                             <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
                                         </React.Fragment>
                                     }
-
-                                </div>  
+                                </div>
+                                {/*<p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  */}
                             </form>
                         </div>
                     </React.Fragment>
@@ -539,14 +569,14 @@ class ChoosePatientNewView extends React.Component {
                     {(this.props.is_opd || this.props.is_lab) && (!this.props.patient.email || !this.props.patient.dob )?
                     <div className="otp-container">
                     <form>
-                    {!this.props.patient.email ?
+                    {/*!this.props.patient.email ?
                         <div className="labelWrap">
                                 <div className="p-relative">
                                     <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" autoComplete="off" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { border: '1px solid red' } : {}}/>
                                     <label for="ptntEmail">Email</label>
                                 </div>
                             </div>
-                        : ''
+                        : ''*/
                     }
                     {!this.props.patient.dob?
                         <NewDateSelector {...this.props} getNewDate={this.getNewDate.bind(this)} is_dob_error={this.state.is_dob_error} old_dob={this.state.dob} is_summary={false} />

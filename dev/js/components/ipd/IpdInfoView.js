@@ -25,7 +25,7 @@ class InfoView extends React.Component {
 	                    		:<Loader/>
 	                    	}
 			            </div>
-			            <RightBar extraClass=" chat-float-btn-2" showDesktopIpd={true}/>
+			            <RightBar extraClass=" chat-float-btn-2" showDesktopIpd={true} msgTemplate="gold_general_template"/>
 			        </div>
 			    </section>
 			    <Footer />

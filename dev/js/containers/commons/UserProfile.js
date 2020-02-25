@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserReviews: (cb) => dispatch(getUserReviews(cb)),
         getRatingCompliments: (callback) => dispatch(getRatingCompliments(callback)),
         updateAppointmentRating: (ratingData, callback) => dispatch(updateAppointmentRating(ratingData, callback)),
-        OTTLogin: (ott) => dispatch(OTTLogin(ott)),
+        OTTLogin: (ott,user_id) => dispatch(OTTLogin(ott,user_id)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         getCartItems: () => dispatch(getCartItems()),

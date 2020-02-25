@@ -9,7 +9,7 @@ import Loader from '../../components/commons/Loader'
 
 const queryString = require('query-string');
 
-import { getCompareList, togglecompareCriteria, setPackageId, selectSearchType, toggleDiagnosisCriteria, clearExtraTests } from '../../actions/index.js'
+import { getCompareList, togglecompareCriteria, setPackageId, selectSearchType, toggleDiagnosisCriteria, clearExtraTests, sendAgentWhatsupPageURL } from '../../actions/index.js'
 import { } from '../../helpers/urltoState'
 import PackageCompareView from '../../components/diagnosis/searchPackages/packageCompare/packageCompareView.js'
 
@@ -109,6 +109,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             selectSearchType: (type) => dispatch(selectSearchType(type)),
             toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
             clearExtraTests: () => dispatch(clearExtraTests()),
+            sendAgentWhatsupPageURL: (extraParams, cb) => dispatch(sendAgentWhatsupPageURL(extraParams, cb))
+
         }
     }
 export default connect(mapStateToProps, mapDispatchToProps)(packageCompare);

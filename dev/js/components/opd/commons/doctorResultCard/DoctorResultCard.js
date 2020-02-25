@@ -369,6 +369,10 @@ class DoctorProfileCard extends React.Component {
                                             </p> : ''
                                     }
                                 </section>
+                                {  (!is_insurance_applicable && !show_common_prices)?
+                                    <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
+                                    :''
+                                }
                                 {
                                     /*is_insurance_applicable ?
                                         <div>
@@ -409,10 +413,7 @@ class DoctorProfileCard extends React.Component {
 
                             </div>
                         </div>
-                        {  (!is_insurance_applicable && !show_common_prices)?
-                                    <CommonVipGoldNonLoginBadge is_labopd_enable_for_vip={is_labopd_enable_for_vip} is_labopd_enable_for_gold={is_labopd_enable_for_gold} is_vip_member={is_vip_member} is_gold_member={is_gold_member} covered_under_vip={covered_under_vip} is_doc={true} vip_data={vip} {...this.props} mrp={mrp} discounted_price={discounted_price} enabled_for_hospital_booking={enabled_for_hospital_booking} goldClicked={this.goldClicked.bind(this)} deal_price={deal_price} /> 
-                                    :''
-                                }
+                        
                         {/*
                             is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?
                                 <div className="ins-buyable">

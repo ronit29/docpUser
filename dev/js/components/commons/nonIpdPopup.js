@@ -92,7 +92,7 @@ class NonIpdPopupView extends React.Component {
 			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
-		} else if (this.props.is_dpp) {
+		} else if (this.props.is_dpp || this.props.is_booking) {
 			if (this.props && this.props.DOCTORS && Object.keys(this.props.DOCTORS).length && this.props.doctor_id) {
 				criteriaStr = this.props.DOCTORS[this.props.doctor_id].display_name
 				thumbnail = this.props.DOCTORS[this.props.doctor_id].thumbnail
@@ -145,7 +145,7 @@ class NonIpdPopupView extends React.Component {
 					</div>
 					<div className="col-sm-12 pd-10">
 						{
-							this.props.is_opd || this.props.is_dpp || this.props.is_hpp ?
+							this.props.is_opd || this.props.is_dpp || this.props.is_hpp || this.props.is_booking?
 								<React.Fragment>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
@@ -191,8 +191,14 @@ class NonIpdPopupView extends React.Component {
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
 						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">Book Appointment</p>
-						<span >No Service Fee</span>
+							<span >No Service Fee</span>
 						</button>
+					</div>
+					<div className="popUp-whtsappEnable">
+						<div className="whtsappEnable-container">
+							<p className="wtsapp-chk-txt"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'}/> Enable Whatsapp for seamless communication</p>
+							<p className="text-center fw-500" style={{ fontSize: 9, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: `var(--text--primary--color)` }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: `var(--text--primary--color)` }} >Privacy Policy.</a></p>
+						</div>
 					</div>
 				</div>
 			</div>
