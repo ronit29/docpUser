@@ -47,7 +47,7 @@ class VipClubView extends React.Component {
                 lead_data.visit_id = visitor_info.visit_id
                 lead_data.visitor_id = visitor_info.visitor_id
             }
-        if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
+        if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent && !STORAGE.isAgent()) {
             if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                 loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
                 if (Object.keys(loginUser).length > 0) {
@@ -145,7 +145,7 @@ class VipClubView extends React.Component {
                 if(this.props.common_utm_tags && this.props.common_utm_tags.length >0){
                     extraParams = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
                 }
-                if (Object.keys(loginUser).length > 0) {
+                if (Object.keys(loginUser).length > 0 && !STORAGE.isAgent()) {
                                         
                     // to create vip or gold member lead for matrix
 
