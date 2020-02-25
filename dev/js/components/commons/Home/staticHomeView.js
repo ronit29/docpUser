@@ -50,7 +50,7 @@ class MainView extends React.Component{
                 <div className="new-main-view">
                     {/******  full width banner *********/}
                     <section className="full-banner-section">
-                        <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
+                        <img  className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/banner2x-min.png" onClick={(e) => {
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                             }

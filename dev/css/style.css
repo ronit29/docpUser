@@ -10191,6 +10191,11 @@ a.btn-search.btn-cnte {
     margin-top: 5px;
 }
 
+@media (min-width: 768px){
+    .aptmnt-card{
+        display: none;
+    }
+}
 @media screen and (max-width: 320px) {
     .leftBlock div {
         font-size: 11px;

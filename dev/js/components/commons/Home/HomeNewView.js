@@ -460,7 +460,7 @@ class MainView extends React.Component{
                     <div className="new-main-view" id="mainView">
                         {/******  full width banner *********/}
                         <section className="full-banner-section">
-                            <img  className="img-fluid" src={ASSETS_BASE_URL + "/img/banners/banner-home.png"} onClick={(e) => {
+                            <img  className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/banner2x-min.png" onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                                 }
@@ -492,14 +492,21 @@ class MainView extends React.Component{
                         {
                             showGoldBanner?<GoldHomePageBanner clickedGoldBanner={this.clickedGoldBanner}/>:''
                         }
-                        <HomePageWidget
-                            heading="Top Hospitals"
-                            list={this.props.top_hospitals}
-                            topHospitals={true}
-                            dataType='home_top_hsptl'
-                            historyObj ={this.props.history}
-                            searchFunc={this.searchHospitals}
-                        />
+
+                        <UpComingAppointmentView {...this.props} />
+                        {
+                            this.props.top_hospitals && this.props.top_hospitals.length?
+                            <HomePageWidget
+                                heading="Top Hospitals"
+                                list={this.props.top_hospitals}
+                                topHospitals={true}
+                                dataType='home_top_hsptl'
+                                historyObj ={this.props.history}
+                                searchFunc={this.searchHospitals}
+                            />
+                            :''
+                        }
+                        
 
                         {
                             this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length?
@@ -515,23 +522,28 @@ class MainView extends React.Component{
                         
 
                         {/******  doctor apointment section *********/}
-                        <HomePageWidget
-                            heading="Book Doctor Appointments"
-                            rightText= "Search more specializations"
-                            rightButtonClicked = {this.goToSearch}
-                            searchFunc={this.searchDoctor}
-                            list={topSpecializations}
-                            dataType='home_top_specz'
-                            discount="50%"
-                            historyObj ={this.props.history}
-                            type="opd"
-                            navTo="/search?from=home"
-                            count={8}
-                            searchType="specializations"
-                            historyObj={this.props.history}
-                            locationObj={this.props.location}
-                            selectSearchType={this.props.selectSearchType}
-                        />
+                        {
+                            topSpecializations && topSpecializations.length?
+                            <HomePageWidget
+                                heading="Book Doctor Appointments"
+                                rightText= "Search more specializations"
+                                rightButtonClicked = {this.goToSearch}
+                                searchFunc={this.searchDoctor}
+                                list={topSpecializations}
+                                dataType='home_top_specz'
+                                discount="50%"
+                                historyObj ={this.props.history}
+                                type="opd"
+                                navTo="/search?from=home"
+                                count={8}
+                                searchType="specializations"
+                                historyObj={this.props.history}
+                                locationObj={this.props.location}
+                                selectSearchType={this.props.selectSearchType}
+                            />
+                            :''
+                        }
+                        
 
                         {
                             showGoldBanner?
@@ -545,24 +557,29 @@ class MainView extends React.Component{
                             :''
                         }
                         
-                        {/******  Popular health packages section *********/}      
-                        <HomePageWidget
-                            heading="Popular Health Packages"
-                            rightText= "View all"
-                            rightButtonClicked = {this.goToSearch}
-                            topPackages= {true}
-                            list={topPackages}
-                            searchFunc={this.searchLab}
-                            dataType='home_top_pckg'
-                            historyObj ={this.props.history}
-                            type="package"
-                            navTo="/searchpackages"
-                            //count={8} 
-                            // searchType="packages"
-                            // historyObj={this.props.history}
-                            // locationObj={this.props.location}
-                            // selectSearchType={this.props.selectSearchType}
-                        />
+                        {/******  Popular health packages section *********/}    
+                        {
+                            topPackages && topPackages.length?
+                            <HomePageWidget
+                                heading="Popular Health Packages"
+                                rightText= "View all"
+                                rightButtonClicked = {this.goToSearch}
+                                topPackages= {true}
+                                list={topPackages}
+                                searchFunc={this.searchLab}
+                                dataType='home_top_pckg'
+                                historyObj ={this.props.history}
+                                type="package"
+                                navTo="/searchpackages"
+                                //count={8} 
+                                // searchType="packages"
+                                // historyObj={this.props.history}
+                                // locationObj={this.props.location}
+                                // selectSearchType={this.props.selectSearchType}
+                            />
+                            :''
+                        }  
+                        
                         {/******  desktop banner *********/}
                             <section className="card-block-row banner-slider-row d-banner">
                                 {
@@ -572,28 +589,33 @@ class MainView extends React.Component{
                             </section>
                         {/******  desktop banner *********/}    
                         {/******  Book lab test *********/}  
-
                         
-                        <HomePageWidget
-                            heading="Book Lab Tests"
-                            rightText= "Search more test"
-                            rightButtonClicked = {this.goToSearch}
-                            list={topTests}
-                            searchFunc={this.searchLab}
-                            dataType='home_top_tests'
-                            discount="50%"
-                            historyObj ={this.props.history}
-                            type="lab"
-                            navTo="/search?from=home"
-                            count={8}
-                            is_user_insurance_active={this.state.is_user_insurance_active}
-                            historyObj={this.props.history}
-                            locationObj={this.props.location}
-                            afterUserLogin={this.afterUserLogin}
-                            profiles={this.props.profiles}
-                            searchType="tests"
-                            selectSearchType={this.props.selectSearchType}
-                        />
+                        {
+                            topTests && topTests.length?
+                            <HomePageWidget
+                                heading="Book Lab Tests"
+                                rightText= "Search more test"
+                                rightButtonClicked = {this.goToSearch}
+                                list={topTests}
+                                searchFunc={this.searchLab}
+                                dataType='home_top_tests'
+                                discount="50%"
+                                historyObj ={this.props.history}
+                                type="lab"
+                                navTo="/search?from=home"
+                                count={8}
+                                is_user_insurance_active={this.state.is_user_insurance_active}
+                                historyObj={this.props.history}
+                                locationObj={this.props.location}
+                                afterUserLogin={this.afterUserLogin}
+                                profiles={this.props.profiles}
+                                searchType="tests"
+                                selectSearchType={this.props.selectSearchType}
+                            />
+                            :''
+                        }
+                        
+                        
 
                         {
                             this.state.is_user_insurance_active?''

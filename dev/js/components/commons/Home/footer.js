@@ -187,10 +187,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/disclaimer")
                                     }}>Disclaimer</a></li>
-                                    <li><a href="/media" onClick={(e) => {
+                                    {/* <li><a href="/media" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/media")
-                                    }}>Media</a></li>
+                                    }}>Media</a></li> */}
                                     <li><a href="/contact" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/contact")
@@ -222,10 +222,10 @@ class Footer extends React.Component {
                                         e.preventDefault();
                                         this.navigateTo("/disclaimer")
                                     }}>Disclaimer</a></li>
-                                    <li><a href="/media" onClick={(e) => {
+                                    {/* <li><a href="/media" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/media")
-                                    }}>Media</a></li>
+                                    }}>Media</a></li> */}
                                     <li><a href="/contact" onClick={(e) => {
                                         e.preventDefault();
                                         this.navigateTo("/contact")

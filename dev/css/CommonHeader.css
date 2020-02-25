@@ -158,8 +158,8 @@
     justify-content: center;
     position: absolute;
     background: var(--text--primary--color);
-    left: 0px;
-    top: -8px;
+    left: -7px;
+    top: -5px;
     color: #fff;
     border: 2px solid var(--text--primary--color);
     border-radius: 10px;
