@@ -184,7 +184,7 @@ class HomePageWidgets extends React.PureComponent {
                         }
                         {
                             this.props.searchType ?
-                                <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
+                                <div className="col-4 home-card-col search-icon-col" key={`search${this.props.searchType}`}>
                                     <div className="grid-img-cnt search-icon-col">
                                         <a href="#" onClick={(e)=>{
                                             e.preventDefault();

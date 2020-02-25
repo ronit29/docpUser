@@ -137,11 +137,11 @@
     color: #fff;
     font-size: 12px;
 }
-.home-card-col > .search-icon-col{
-    display: none;
+.home-card-col.search-icon-col{
+    display: none!important;
 }
 
-.home-card-col > .search-icon-col > a > span{
+.home-card-col.search-icon-col >.grid-img-cnt> a > span{
     white-space: normal;
 }
 /************** card slider css **************/
@@ -539,7 +539,7 @@
     .mbl-view-presc-section{
         display: flex;
     }
-    .home-card-col > .search-icon-col{
+    .home-card-col.search-icon-col{
         display: inline-block;
     }
 
@@ -579,6 +579,7 @@
     .card-slider-container>.slider-card-column>h5{
         font-size: 12px;
         margin-top: 5px;
+        width: inherit;
     }
     .card-block-row>.top-card-row>h6,
     .card-block-row>.top-card-row >a{
@@ -710,8 +711,11 @@
         flex-wrap: wrap;
     }
     .mbl-wdgt> .slider-card-column{
-        width: 105px;
+        width: 110px;
         border: none;
+    }
+    .mbl-wdgt > .slider-card-column > h5{
+        width: 100px!important;
     }
     .card-slider-container>.slider-card-column>.slide-img-col>img{
         height: 40px;
@@ -737,6 +741,9 @@
 @media (min-width:768px) and (max-width:992px){
     .new-main-view{
         padding: 130px 25px 0px 25px;
+    }
+    .header-list-items > li > a{
+        border-right: none;
     }
     .full-banner-section>a{
         right: 10px;

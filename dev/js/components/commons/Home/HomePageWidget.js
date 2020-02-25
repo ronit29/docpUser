@@ -47,8 +47,8 @@ class HomePageWidget extends React.PureComponent {
                         <div className="row mb-2 d-flex">
                             {
                                 this.props.list.slice(0,9).map((listItem, i) => {
-                                    return <div className="col-4 home-card-col md-list-hide" key={i} onClick={()=>this.props.searchFunc(listItem)}>
-                                        <div className="grid-img-cnt search-icon-col">
+                                    return <div className="col-4 home-card-col search-icon-col md-list-hide" key={i} onClick={()=>this.props.searchFunc(listItem)}>
+                                        <div className="grid-img-cnt">
                                             {
                                                 listItem.url ?
                                                     <a href={`/${listItem.url}`} onClick={(e) => e.preventDefault()}>
@@ -67,11 +67,11 @@ class HomePageWidget extends React.PureComponent {
                             }
                             {
                                 this.props.searchType ?
-                                    <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
-                                        <div className="grid-img-cnt search-icon-col">
+                                    <div className="col-4 home-card-col search-icon-col" key={`search${this.props.searchType}`}>
+                                        <div className="grid-img-cnt">
                                             <a href="javascript:void(0);" onClick={()=>this.navigateTo(this.props.navTo)}>
                                                 <img className="img-fluid" src={ASSETS_BASE_URL + "/images/vall.png"} />
-                                                <span>Search more {this.props.searchType}</span>
+                                                <span>Search more <br/> {this.props.searchType}</span>
                                             </a>
                                         </div>
                                     </div> : ''

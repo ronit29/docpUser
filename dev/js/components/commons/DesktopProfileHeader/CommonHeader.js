@@ -372,7 +372,7 @@ class DesktopProfileHeader extends React.Component {
                                         }
                                         <span className="d-none d-sm-block d-lg-block">notifications</span>
                                         {
-                                            this.props.newNotification > 0 ? <span className="cart-count-notify" style={{left: -5, top: -4}}>{this.props.newNotification}</span> : ""
+                                            this.props.newNotification > 0 ? <span className="cart-count-notify m-0" style={{left: -8, top: -4}}>{this.props.newNotification}</span> : ""
                                         }
                                     </a>
                                 </li>
