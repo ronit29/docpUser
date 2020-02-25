@@ -24,7 +24,8 @@ class PrescriptionView extends React.PureComponent {
 			selected_file: '',
             showLoginView: false,
             isLoading: false,
-            selected_file_name: null
+            selected_file_name: null,
+            uploadFileData:{}
 		}
 	}
 
@@ -43,8 +44,8 @@ class PrescriptionView extends React.PureComponent {
 
                         if(fileName.includes('.pdf')){
                             let file_pdf = ASSETS_BASE_URL + "/img/pdf-loading.png"
-                            this.setState({selected_file: file_pdf, selected_file_name: fileName })
-                            this.finishCrop(null, file)
+                            this.setState({selected_file: file_pdf, selected_file_name: fileName, uploadFileData: {dataUrl: null, file: file} })
+                            //this.finishCrop(null, file)
                         }else{
 
                             const compress = new Compress()
@@ -58,8 +59,8 @@ class PrescriptionView extends React.PureComponent {
                                 const imgExt = img1.ext
                                 const file = Compress.convertBase64ToFile(base64str, imgExt)
                                 this.getBase64(file, (dataUrl) => {
-                                    this.setState({selected_file: dataUrl, selected_file_name: fileName })
-                                    this.finishCrop(dataUrl, null)
+                                    this.setState({selected_file: dataUrl, selected_file_name: fileName, uploadFileData: {dataUrl: dataUrl, file: null} })
+                                    //this.finishCrop(dataUrl, null)
                                 })
                             }).catch((e) => {
                                 SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
@@ -91,7 +92,9 @@ class PrescriptionView extends React.PureComponent {
         }
     }
 
-    finishCrop(dataUrl, file) {
+    finishCrop() {
+        let dataUrl = this.state.uploadFileData.dataUrl;
+        let file = this.state.uploadFileData.file;
         let file_blob_data
         if (dataUrl) {
             file_blob_data = this.dataURItoBlob(dataUrl)
@@ -122,6 +125,11 @@ class PrescriptionView extends React.PureComponent {
                     GTM.sendEvent({ data: gtm_data })
                     this.props.NonIpdBookingLead(data)  
 
+                    setTimeout(() => {
+                        this.setState({showSuccess: true,open_popup_overlay: false, uploadFileData: {} })
+                        SnackBar.show({ pos: 'bottom-center', text: "Prescription Uploaded Successfully" })
+                    }, 500)
+
                 }else{
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Prescription upload failure,please try after some time" })
@@ -148,12 +156,9 @@ class PrescriptionView extends React.PureComponent {
 
     submit = ()=>{
         if(this.state.selected_file){
-            setTimeout(() => {
-                this.setState({showSuccess: true,open_popup_overlay: false})
-                SnackBar.show({ pos: 'bottom-center', text: "Prescription Uploaded Successfully" })
-            }, 500)
-            
+            this.finishCrop()
         }else{
+            this.setState({ uploadFileData: {} })
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please upload valid file" })
             }, 500)
