@@ -61,8 +61,11 @@ class VipGoldView extends React.Component {
             let url 
             if(parsed.callBackUrl){
                 url = parsed.callBackUrl
+                if(parsed.hospital_id && !url.includes('hospital_id')){
+                    url += `?hospital_id=${parsed.hospital_id}`
+                }
                 if(parsed.doctor_id){
-                    url += `&doctor_id=${parsed.doctor_id}&hospital_id=${parsed.hospital_id}`
+                    url += `&doctor_id=${parsed.doctor_id}`
                 }
                 this.props.history.push(url)
             }
