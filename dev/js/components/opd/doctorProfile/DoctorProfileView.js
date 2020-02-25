@@ -101,7 +101,7 @@ class DoctorProfileView extends React.Component {
         // setTimeout(()=>{
         //     this.setState({showVipPopup: true})
         // }, time_to_show)
-        this.setState({is_organic_landing:true})
+        this.setState({is_organic_landing:true,showNonIpdPopup:1})
     }
 
     showDownloadAppWidget(dataList) {
@@ -413,7 +413,7 @@ class DoctorProfileView extends React.Component {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
             if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
                 this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
-                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 200)){
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 80)){
                         show_dpp_organic_popup = true
                     }
                 })
@@ -524,7 +524,7 @@ class DoctorProfileView extends React.Component {
                 }
                 {
                     show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
-                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={false} doctor_id={doctor_id} is_organic={true}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">

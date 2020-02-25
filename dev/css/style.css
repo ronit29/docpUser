@@ -14911,8 +14911,8 @@ button.pop-subText{
     background-color: #ffffff;
     border: solid 1px #178ddd;
     cursor: pointer;
-    width: 58%;
-    padding: 5px 0;
+    width: 80%;
+    padding: 5px 15px;
 }
 .fs-12{
     font-size: 12px !important;
@@ -14947,6 +14947,15 @@ p.wtsapp-chk-txt img {
     margin-top: 10px !important;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+.gold-wdgt-text-strip {
+    background: rgba(254, 112, 4, .1);
+    padding: 5px 12px;
+    margin: 0 -8px;
+}
+.gold-wdgt-text-strip p {
+    text-align: center;
+    font-weight: 600;
 }
 /* ======================================= popup DPP HPP  ======================================= */
 

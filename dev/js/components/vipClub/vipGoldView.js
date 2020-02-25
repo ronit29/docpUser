@@ -40,6 +40,7 @@ class VipGoldView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     goBack() {
+        const parsed = queryString.parse(this.props.location.search)
         let selectPlan = this.props.selected_plan_data && this.props.selected_plan_data.id
         if (selectPlan) {
 
@@ -56,7 +57,18 @@ class VipGoldView extends React.Component {
             }
 
         }
-        this.props.history.go(-1)
+        if(this.props.is_from_organic){
+            let url 
+            if(parsed.callBackUrl){
+                url = parsed.callBackUrl
+                if(parsed.doctor_id){
+                    url += `&doctor_id=${parsed.doctor_id}`
+                }
+                this.props.history.push(url)
+            }
+        }else{
+            this.props.history.go(-1)
+        }
     }
 
     closeLeadPopup() {
@@ -575,8 +587,11 @@ class VipGoldView extends React.Component {
                                     <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
                                         <p>Continue Booking</p>
                                     </button>
-                                    :
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                    :this.props.is_from_organic?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
                                         <p>Continue</p>
                                     </button>
                             }

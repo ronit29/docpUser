@@ -63,7 +63,7 @@ class VipClubView extends React.Component {
                 }
             }
         }
-        if(!STORAGE.checkAuth() && this.props.user_loggedIn_number){
+        if(!STORAGE.checkAuth() && this.props.user_loggedIn_number && !this.props.is_from_organic){
             this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:this.props.user_loggedIn_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:'', extraParams:extraParams,
                 cb: (resp) => {
                     let LeadIdData = {
