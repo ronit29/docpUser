@@ -39,6 +39,18 @@ class HomePageWidgets extends React.PureComponent {
         }
     }
 
+    navigateTo = (where, e) =>{
+        if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+
+        if (this.props.type) {
+            this.props.selectSearchType(this.props.type)
+        }
+        this.props.historyObj.push(where)
+    }
+
     goldClicked =()=>{
         let data = {
             'Category': 'ConsumerApp', 'Action': 'HomePackageGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-homepage-package-gold-clicked'
@@ -161,10 +173,25 @@ class HomePageWidgets extends React.PureComponent {
                                             :''
                                         }
                                         
-                                        {/* <h5 className="off-txt">30% OFF</h5>*/}
                                     </div>
 
                             })
+                            
+                        }
+                        {
+                            this.props.searchType ?
+                                <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
+                                    <div className="grid-img-cnt brdr-btm doc-icon-col">
+                                        <a href="#" onClick={(e)=>{
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            this.navigateTo(navTo)}
+                                        }>
+                                            <img className="img-fluid" src={ASSETS_BASE_URL + "/images/vall.png"} />
+                                            <span>Search more {this.props.searchType}</span>
+                                        </a>
+                                    </div>
+                                </div> : ''
                         }
                         </div>
                         :''    

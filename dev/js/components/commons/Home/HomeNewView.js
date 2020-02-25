@@ -474,13 +474,17 @@ class MainView extends React.Component{
                             </a>
                         </section>
                         {/******  mbl banner *********/}
-                        <section className="card-block-row banner-slider-row mbl-banner">
-                            {
-                                !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                    <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                            }
+                        {
+                            showGoldBanner?'':
+                            <section className="card-block-row banner-slider-row mbl-banner">
+                                {
+                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                                }
+                                
+                            </section>  
+                        }
                             
-                        </section>      
                         {/******  mbl banner *********/}
 
                         {/******  top hospitals *********/}
@@ -522,8 +526,24 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="opd"
                             navTo="/search?from=home"
-                            count={9}
+                            count={8}
+                            searchType="specializations"
+                            historyObj={this.props.history}
+                            locationObj={this.props.location}
+                            selectSearchType={this.props.selectSearchType}
                         />
+
+                        {
+                            showGoldBanner?
+                            <section className="card-block-row banner-slider-row mbl-banner">
+                                {
+                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                                }
+                                
+                            </section>
+                            :''
+                        }
                         
                         {/******  Popular health packages section *********/}      
                         <HomePageWidget
@@ -537,7 +557,11 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="package"
                             navTo="/searchpackages"
-                            count={9}
+                            //count={8} 
+                            // searchType="packages"
+                            // historyObj={this.props.history}
+                            // locationObj={this.props.location}
+                            // selectSearchType={this.props.selectSearchType}
                         />
                         {/******  desktop banner *********/}
                             <section className="card-block-row banner-slider-row d-banner">
@@ -561,13 +585,20 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="lab"
                             navTo="/search?from=home"
-                            count={9}
+                            count={7}
                             is_user_insurance_active={this.state.is_user_insurance_active}
                             historyObj={this.props.history}
                             locationObj={this.props.location}
                             afterUserLogin={this.afterUserLogin}
                             profiles={this.props.profiles}
+                            searchType="tests"
+                            selectSearchType={this.props.selectSearchType}
                         />
+
+                        {
+                            this.state.is_user_insurance_active?''
+                            :<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin}/>  
+                        }
 
 
         
