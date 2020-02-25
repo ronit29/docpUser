@@ -17,9 +17,10 @@ class Article extends React.Component {
                 articleId = articleId.toLowerCase().substring(1, articleId.length)
                 store.dispatch(fetchArticle(articleId, false, (err, data) => {
                     if (!err) {
-                        getSpecialityFooterData((footerData) => {
-                            resolve({ footerData: (footerData || null), articleData: data })
-                        })()
+                        // getSpecialityFooterData((footerData) => {
+                        //     resolve({ footerData: (footerData || null),  })
+                        // })()
+                        resolve({ articleData: data })
                     } else {
                         resolve({ status: 404})
                     }
@@ -105,9 +106,14 @@ const mapStateToProps = (state, passedProps) => {
         }
 
     })()
+
+    let {
+        static_footer_data
+    } = state.DOCTOR_SEARCH
+
     return {
         initialServerData,
-        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls,common_utm_tags
+        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls,common_utm_tags, static_footer_data
     }
 }
 

@@ -1,5 +1,5 @@
-let static_cache = 'static-3'
-let cache_dynamic_name = 'dynamic_caching_01'	
+let static_cache = 'static-7'
+let cache_dynamic_name = 'dynamic_caching_14'	
 let API_TO_CACHED = ['api/v1/diagnostic/labsearch', 'api/v1/location/static-speciality-footer', 'api/v1/doctor/commonconditions?city=Delhi']
 
 
@@ -8,7 +8,7 @@ function trimCache(cacheName, maxSize){
 
 		return cache.keys().then((keys)=>{
 			if(keys.length>maxSize){
-				cache.delete(keys[keys.length-10]).then(trimCache(cacheName, maxSize))
+				cache.delete(keys[keys.length-1]).then(trimCache(cacheName, maxSize))
 			}
 		})
 
@@ -21,7 +21,11 @@ self.addEventListener('install', function(event){
 	event.waitUntil(
 		caches.open(static_cache).then((cache)=>{
 			console.log('Precache APplication assets.....')
-			cache.addAll(['/offline.html'])
+			cache.add('/offline.html');
+			cache.add('api/v1/diagnostic/labsearch');
+			cache.add('api/v1/location/static-speciality-footer');
+			cache.add('api/v1/doctor/commonconditions?city=Delhi');
+			//cache.addAll(['/offline.html', 'api/v1/diagnostic/labsearch', 'api/v1/location/static-speciality-footer', 'api/v1/doctor/commonconditions?city=Delhi'])
 			//cache.addAll(['/','/dist/0.bundle.js', '/dist/1.bundle.js', '/dist/2.bundle.js', '/dist/3.bundle.js', '/dist/4.bundle.js', '/dist/5.bundle.js', '/dist/6.bundle.js', '/dist/7.bundle.js', '/dist/8.bundle.js', '/dist/main.bundle.js', '/dist/vendor~main.bundle.js', '/dist/style.bundle.css'])
 		})
 		)
@@ -144,10 +148,10 @@ self.addEventListener('fetch', function(event){
 		//For API request
 		if( ( (event.request.url).indexOf('api/v1/diagnostic/labsearch')>-1 ) || ( (event.request.url).indexOf('api/v1/location/static-speciality-footer')>-1 ) || ( (event.request.url).indexOf('api/v1/doctor/commonconditions?city=Delhi')>-1 ) ) {
 			event.respondWith(
-				caches.open(cache_dynamic_name).then((cache)=>{
+				caches.open(static_cache).then((cache)=>{
 					return fetch(event.request).then((resp)=>{
 						cache.put(event.request, resp.clone());
-						trimCache(cache_dynamic_name, 150);
+						//trimCache(cache_dynamic_name, 150);
 						return resp;
 					}).catch((e)=>{
 						return caches.match(event.request).then((cacheResp)=>{
@@ -164,7 +168,10 @@ self.addEventListener('fetch', function(event){
 				})
 			)
 		}else {
-			event.respondWith(fetch(event.request))
+			event.respondWith(fetch(event.request).catch((e)=>{
+				console.log('Error in Fetch ',event.request);
+				console.log('Error is ', e);
+			}))
 		}
 	} else {
 

@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH, TOGGLE_404, SELECT_OPD_PAYMENT_TYPE, START_FETCHING_OPD_TIME, END_FETCHING_OPD_TIME, CLEAR_OPD_COUPONS } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH, TOGGLE_404, SELECT_OPD_PAYMENT_TYPE, START_FETCHING_OPD_TIME, END_FETCHING_OPD_TIME, CLEAR_OPD_COUPONS, SET_FOOTER_DATA } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -29,7 +29,8 @@ const defaultState = {
     hospitalData: null,
     selectedDateFormat: null,
     TIMESLOT_DATA_LOADING: false,
-    similar_specializations:null
+    similar_specializations:null,
+    static_footer_data: null
 }
 
 export default function (state = defaultState, action) {
@@ -395,6 +396,14 @@ export default function (state = defaultState, action) {
             }
             newState.doctorCoupons = {}
             return newState
+        }
+
+        case SET_FOOTER_DATA: {
+            let newState = {
+                ...state
+            }
+            newState.static_footer_data = action.payload;
+            return newState;
         }
 
     }

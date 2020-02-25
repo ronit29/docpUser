@@ -44,6 +44,8 @@ const helmet = require('helmet')
 import CookieHelper from './dev/js/helpers/storage/cookie.js'
 import RedisCacheHelper from './dev/js/helpers/storage/redis-helper.js'
 
+import { getSpecialityFooterData } from './dev/js/actions/index.js'
+
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
 
@@ -205,6 +207,9 @@ app.all('*', function (req, res) {
             }
 
             if (match && route.RENDER_ON_SERVER) {
+                
+                promises.push(store.dispatch(getSpecialityFooterData()));
+
                 /**
                  * If a component needs preloading, chain preload followed by loadData if required
                  */

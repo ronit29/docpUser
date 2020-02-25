@@ -38,7 +38,7 @@ class UserProfile extends React.Component {
             this.props.getUserAddress() // get user address
             this.props.getCoupons({}) // get user specific coupons
             this.props.getCartItems() // get user cart items
-            this.props.getIsCareDetails() // get user subscription plan details
+            //this.props.getIsCareDetails() // get user subscription plan details
         }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
 

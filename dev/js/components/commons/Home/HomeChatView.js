@@ -26,12 +26,12 @@ const GENDER = {
 class HomeChatView extends React.Component {
 	constructor(props) {
 		super(props);
-		let footerData = null
-		if (this.props.initialServerData) {
-			footerData = this.props.initialServerData.footerData
-		}
+		// let footerData = null
+		// if (this.props.initialServerData) {
+		// 	footerData = this.props.initialServerData.footerData
+		// }
 		this.state = {
-			specialityFooterData: footerData
+			specialityFooterData: this.props.static_footer_data
 		}
 	}
 
@@ -40,9 +40,9 @@ class HomeChatView extends React.Component {
 			window.scrollTo(0, 0)
 		}
 
-		this.props.getSpecialityFooterData((cb) => {
-			this.setState({ specialityFooterData: cb });
-		});
+		// this.props.getSpecialityFooterData((cb) => {
+		// 	this.setState({ specialityFooterData: cb });
+		// });
 
 		let selectedLocation = ''
 		let lat = 28.644800

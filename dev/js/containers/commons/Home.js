@@ -16,13 +16,11 @@ class Home extends React.Component {
 
     static loadData(store, match) {
         return new Promise((resolve, reject) => {
-            getSpecialityFooterData((footerData) => {
-                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias()), store.dispatch(getNearbyHospitals()) ]).then(() => {
-                    resolve({ footerData: (footerData || null) })
-                }).catch((e) => {
-                    reject()
-                })
-            })()
+            Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias()), store.dispatch(getNearbyHospitals()) ]).then(() => {
+                resolve({ })
+            }).catch((e) => {
+                reject()
+            })
         })
     }
 
@@ -47,7 +45,9 @@ class Home extends React.Component {
             selectedLocation: this.props.selectedLocation
         }
         this.props.getNearbyHospitals(extraData);
-        this.props.loadLabCommonCriterias()
+        if(! (this.props.common_tests && this.props.common_tests.length) ){
+            this.props.loadLabCommonCriterias()
+        }
         // this.props.loadOPDInsurance(this.props.selectedLocation)
         this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 
@@ -100,8 +100,12 @@ const mapStateToProps = (state, passedProps) => {
     
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
+    let {
+        static_footer_data
+    } = state.DOCTOR_SEARCH
+
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories, nearbyHospitals
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories, nearbyHospitals, static_footer_data
     }
 }
 
