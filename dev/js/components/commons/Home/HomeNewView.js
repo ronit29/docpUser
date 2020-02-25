@@ -459,6 +459,7 @@ class MainView extends React.Component{
                     {/****** homepage  view *********/}
                     <div className="new-main-view" id="mainView">
                         {/******  full width banner *********/}
+                        <UpComingAppointmentView {...this.props} />
                         <section className="full-banner-section">
                             <img  className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/banner2x-min.png" onClick={(e) => {
                                 let data = {
@@ -493,7 +494,6 @@ class MainView extends React.Component{
                             showGoldBanner?<GoldHomePageBanner clickedGoldBanner={this.clickedGoldBanner}/>:''
                         }
 
-                        <UpComingAppointmentView {...this.props} />
                         {
                             this.props.top_hospitals && this.props.top_hospitals.length?
                             <HomePageWidget
