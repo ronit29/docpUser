@@ -1,4 +1,6 @@
 import React from 'react'
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
+
 
 class HomePageWidgets extends React.PureComponent {
 
@@ -47,7 +49,13 @@ class HomePageWidgets extends React.PureComponent {
 
 	render(){
 
-		let { dataType, heading, rightText, discount, topHospitals, topPackages, type, navTo } = this.props
+		let { dataType, heading, rightText, discount, topHospitals, topPackages, type, navTo, count } = this.props
+        let dataList = this.props.list;
+
+        if(dataList && dataList.length && count) {
+            dataList = dataList.slice(0, count);
+        }
+
 		return (
 			<React.Fragment>
 				<section className="card-block-row">
@@ -83,10 +91,15 @@ class HomePageWidgets extends React.PureComponent {
                     }
                     {/* card slider */}
                     {
-                        this.props.list && this.props.list.length?
+                        dataList && dataList.length?
                         <div className={`card-slider-container ${(type=='opd' || type=='lab')?'mbl-wdgt':''} `} id={dataType}>
                         {
-                            this.props.list.slice(0,20).map((listItem, i) => {
+                            type=='lab' && !this.props.is_user_insurance_active?
+                            <PrescriptionUpload historyObj={this.props.historyObj} is_home_page={true} locationObj = {this.props.locationObj} profiles={this.props.profiles} afterUserLogin={this.props.afterUserLogin}/>  
+                            :''
+                        }
+                        {
+                            dataList.map((listItem, i) => {
 
                             return <div className={`slider-card-column`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">

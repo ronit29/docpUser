@@ -27,6 +27,10 @@ import HomePageWidget from '../HomeNewView/HomePageWidget.js'
 import CorporateLeadPopup from './CorporateLeadPopup.js'
 import StaticContent from '../HomeNewView/StaticHomePageContent.js'
 
+import GoldHomePageBanner from './GoldHomePageBanner.js'
+import STORAGE from '../../../helpers/storage'
+
+
 
 class MainView extends React.Component{
     
@@ -392,6 +396,10 @@ class MainView extends React.Component{
         })
         
     }
+
+    clickedGoldBanner = ()=>{
+        this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-home-page-gold-banner&lead_source=Docprime')
+    }
     
     render(){
 
@@ -419,6 +427,22 @@ class MainView extends React.Component{
         let defaultUserProfile = null
         if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
             defaultUserProfile = this.props.profiles[this.props.defaultProfile];
+        }
+
+        let showGoldBanner = false;
+
+        if(this.props.user_detail_fetched) {
+
+            if(defaultUserProfile && Object.keys(defaultUserProfile).length) {
+
+                showGoldBanner = !(this.props.is_any_user_buy_gold || defaultUserProfile.insurance_status == 1 || defaultUserProfile.insurance_status == 5 || defaultUserProfile.insurance_status == 4|| defaultUserProfile.insurance_status == 7)
+            }else {
+                showGoldBanner = true;
+            }
+        }
+
+        if(!STORAGE.checkAuth()){
+            showGoldBanner = true;
         }
 
         return(
@@ -460,6 +484,10 @@ class MainView extends React.Component{
                         {/******  mbl banner *********/}
 
                         {/******  top hospitals *********/}
+
+                        {
+                            showGoldBanner?<GoldHomePageBanner clickedGoldBanner={this.clickedGoldBanner}/>:''
+                        }
                         <HomePageWidget
                             heading="Top Hospitals"
                             list={this.props.top_hospitals}
@@ -494,6 +522,7 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="opd"
                             navTo="/search?from=home"
+                            count={9}
                         />
                         
                         {/******  Popular health packages section *********/}      
@@ -508,6 +537,7 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="package"
                             navTo="/searchpackages"
+                            count={9}
                         />
                         {/******  desktop banner *********/}
                             <section className="card-block-row banner-slider-row d-banner">
@@ -531,7 +561,15 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="lab"
                             navTo="/search?from=home"
+                            count={9}
+                            is_user_insurance_active={this.state.is_user_insurance_active}
+                            historyObj={this.props.history}
+                            locationObj={this.props.location}
+                            afterUserLogin={this.afterUserLogin}
+                            profiles={this.props.profiles}
                         />
+
+
         
                         <StaticContent />
                         <Accordian/>
