@@ -13,6 +13,7 @@ const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
 import CarouselView from './carouselView.js'
 import NonIpdPopupView from '../../commons/nonIpdPopup.js'
+import STORAGE from '../../../helpers/storage'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -850,7 +851,7 @@ class SearchResultsView extends React.Component {
                 }} />
 
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 && !STORAGE.isAgent()?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_opd={true}/>
                     :''
                 }

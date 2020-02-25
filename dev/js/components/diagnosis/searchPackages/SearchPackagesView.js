@@ -11,6 +11,7 @@ import ResultCount from './topBar/result_count.js'
 import GTM from '../../../helpers/gtm.js'
 import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -408,7 +409,7 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1 && !STORAGE.isAgent()?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false} />
                     :''
                 }
