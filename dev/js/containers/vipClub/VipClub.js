@@ -80,7 +80,7 @@ class VipClub extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { user_cities, common_utm_tags } = state.USER
+    let { user_cities, common_utm_tags, user_loggedIn_number } = state.USER
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan, odpGoldPredictedPrice, labGoldPredictedPrice } = state.VIPCLUB
     const {
         selectedLocation,
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => {
         nearbyHospitals
     } = state.SEARCH_CRITERIA_OPD
     return {
-        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice, common_utm_tags
+        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice, common_utm_tags, user_loggedIn_number
     }
 }
 
