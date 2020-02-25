@@ -634,13 +634,13 @@ ul.inline-list li {
 }
 
 .initialsPicture-family {
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1em;
+    font-size: 16px;
     color: #fff;
     border: 1px solid #ddd;
 }

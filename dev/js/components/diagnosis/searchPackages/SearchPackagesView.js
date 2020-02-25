@@ -366,6 +366,7 @@ class SearchPackagesView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'NonIpdPackageListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-package-listing-submit-click'
         }
         GTM.sendEvent({ data: gtm_data })
+        this.props.saveLeadPhnNumber(phone_number)
        this.props.NonIpdBookingLead(data) 
        this.setState({to_be_force:0})
     }

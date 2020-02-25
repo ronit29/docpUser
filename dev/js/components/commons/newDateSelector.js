@@ -18,7 +18,15 @@ class NewDateSelector extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.initialDobToState(this.props)
+    }
+
     componentWillReceiveProps(nextProps){
+        this.initialDobToState(nextProps)        
+    }
+
+    initialDobToState(nextProps){
       var d = new Date();
       var currentYear = d.getFullYear();
       var currentExactDay = currentYear+'-'+(d.getMonth().toString().length == 1?'0' + (d.getMonth() == 0?1:d.getMonth() + 1):d.getMonth())+'-'+(d.getDate().toString().length == 1?'0'+d.getDate():d.getDate())
@@ -27,35 +35,41 @@ class NewDateSelector extends React.Component {
       let FormattedYear
       let FormattedDay 
       let FormattedMnth
-        if(nextProps.old_dob && nextProps.old_dob != ''){
-            let oldDob = nextProps.old_dob.split('-')
-            // if(this.state.toCalculateAge){
-              if(oldDob.length ==3){
-                if(oldDob[0].length ==4){
-                  FormattedYear = oldDob[0]
-                  // FormattedDay = oldDob[2].length == 1 ? ('0'+oldDob[2]):  oldDob[2]
-                  // FormattedMnth =  oldDob[1].length == 1 ? ('0'+oldDob[1]):  oldDob[1]
-                  FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
-                  FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
-                  if(FormattedYear <= (currentYear - 100)){
-                    isValidDob = false
-                    inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
-                  }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
-                    isValidDob = false
-                    inValidText =''
-                  }else{
-                    inValidText =''
-                    isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear)
-                    this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
-                  }
+      if(nextProps.old_dob && nextProps.old_dob != ''){
+        let oldDob = nextProps.old_dob.split('-')
+         if(this.state.toCalculateAge ||  nextProps.isForceUpdateDob){
+          if(oldDob.length ==3){
+            if(oldDob[0].length ==4){
+              FormattedYear = oldDob[0]
+              FormattedDay = oldDob[2].length == 2 && oldDob[2] >31?'0'+oldDob[2].charAt(0):oldDob[2]
+              FormattedMnth = oldDob[1].length == 2 && oldDob[1] >12?'0'+oldDob[1].charAt(0):oldDob[1]
+              if(FormattedYear <= (currentYear - 100)){
+                isValidDob = false
+                inValidText = "*Patient's age is not applicable. We serve patients less than 100 years old."
+                this.props.getNewDate('dob',FormattedYear+'-'+FormattedMnth+'-'+FormattedDay,isValidDob) 
+              }else if(FormattedYear > currentYear || FormattedYear+'-'+FormattedMnth+'-'+FormattedDay > currentExactDay){
+                isValidDob = false
+                inValidText =''
+                this.props.getNewDate('dob',FormattedYear+'-'+FormattedMnth+'-'+FormattedDay,isValidDob) 
+              }else{
+                inValidText =''
+                isValidDob = this.isValidDate(FormattedDay,FormattedMnth,FormattedYear,this.props.is_gold?true:false)
+                this.calculateAge(FormattedYear+'-'+FormattedMnth+'-'+FormattedDay)
+              }
+              if(FormattedDay && FormattedMnth && FormattedYear){
+                if(this.props.is_gold){
+                  this.props.unSetForceUpdateDob()
                 }
                 this.setState({newDob:FormattedDay+ '/' + FormattedMnth+ '/' + FormattedYear,isValidDob:isValidDob,toCalculateAge:false, inValidText:inValidText})
               }
-            // }
+            }
+          }
         }
-        if(nextProps.old_dob == ''){
-            this.setState({newDob:null,isValidDob:true,toCalculateAge:false, inValidText:''})
-        }
+      }
+
+      if(nextProps.old_dob == ''){
+          this.setState({newDob:null,isValidDob:true, inValidText:'',calcualatedAge:null,months:null})
+      }
     }
 
     checkValue(str, max){
@@ -67,9 +81,14 @@ class NewDateSelector extends React.Component {
       return str;
     }
 
-    isValidDate (d, m, y) {
-       var m = parseInt(m, 10) - 1;
-        return m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y);
+    isValidDate (d, m, y,is_forced) {
+      let initial_month = m; // to store initial month value 
+      var m = parseInt(m, 10) - 1;
+      let is_valid= m >= 0 && m < 12 && d > 0 && d <= this.daysInMonth(m, y)
+      if(is_forced && is_valid){
+        this.props.getNewDate('dob',y+'-'+initial_month+'-'+d,is_valid) 
+      }
+      return is_valid;
     }
 
     daysInMonth (m, y) {
@@ -134,7 +153,9 @@ class NewDateSelector extends React.Component {
       var val = e.target.value;
       let staticDay = ['1','2','3','0']
       let staticMnth = ['11','12','0','1']
-      let checkValidMonth = ['00','2','02','4','04','6','06','9','09']
+      let checkValidMonthThirtyOne = ['00','2','02','4','04','6','06','9','09']
+      let checkValidMonthThirty = ['00','2','02']
+
         if(val.length == 1){
           if(isNaN(val)){
             val = null
@@ -158,7 +179,7 @@ class NewDateSelector extends React.Component {
             if(val[1] ==""){
               val = val[0] + '/'
             }else{
-              if(val[0] == '31' && checkValidMonth.indexOf(val[1]) != -1){
+              if(val[0] == '31' && checkValidMonthThirtyOne.indexOf(val[1]) != -1){
                 val = val[0]+'/'
               }else if(val[0] == '30' && val[1] == '2'){
                 val = val[0]+'/'
@@ -180,12 +201,12 @@ class NewDateSelector extends React.Component {
               val = val[0]+'/'+ val[1].charAt(0)
             }else{
               if(val[0] == '31'){
-                  if(checkValidMonth.indexOf(val[1]) != -1 || val[1] ==11){
+                  if(checkValidMonthThirtyOne.indexOf(val[1]) != -1 || val[1] ==11){
                     val = val[0]+'/'+ val[1].charAt(0)
                   }else{
                     val = val[0]+'/'+ val[1] +'/'  
                   }
-              }else if(val[0] == '30' && checkValidMonth.indexOf(val[1]) != -1){
+              }else if(val[0] == '30' && checkValidMonthThirty.indexOf(val[1]) != -1){
                 val = val[0]+'/'+ val[1].charAt(0)
               }
               else{
@@ -209,7 +230,7 @@ class NewDateSelector extends React.Component {
                       inValidText =''
                   }else{
                       inValidText= ''
-                      isValidDob = this.isValidDate(FormattedDay,FormattedMonth,FormattedYear)
+                      isValidDob = this.isValidDate(FormattedDay,FormattedMonth,FormattedYear,false)
                       this.calculateAge(FormattedYear+'-'+FormattedMonth+'-'+FormattedDay)  
                   }
                   this.props.getNewDate('dob',FormattedYear+'-'+FormattedMonth+'-'+FormattedDay,isValidDob) 
@@ -243,7 +264,7 @@ class NewDateSelector extends React.Component {
                       inValidText =''
                   }else{
                       inValidText= ''
-                      isValidDob = this.isValidDate(dateOfBirth[0],dateOfBirth[1],dateOfBirth[2])
+                      isValidDob = this.isValidDate(dateOfBirth[0],dateOfBirth[1],dateOfBirth[2],false)
                       this.calculateAge(dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0])  
                   }
                   this.props.getNewDate('dob',dateOfBirth[2]+'-'+dateOfBirth[1]+'-'+dateOfBirth[0],isValidDob) 
