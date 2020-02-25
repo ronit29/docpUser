@@ -50,8 +50,10 @@ class BookingSummary extends React.Component {
                 testIds = parsed.test_ids.split(',')
                 forceAddTestids = true
             }
-
-            props.getLabById(lab_id, testIds, forceAddTestids)
+            let dataParams = {
+                booking_page: true
+            }
+            props.getLabById(lab_id, testIds, forceAddTestids, dataParams)
         }
     }
 
@@ -76,8 +78,10 @@ class BookingSummary extends React.Component {
                         testIds = parsed.test_ids.split(',')
                         forceAddTestids = true
                     }
-
-                    props.getLabById(lab_id, testIds, forceAddTestids)
+                    let dataParams = {
+                        booking_page: true
+                    }
+                    props.getLabById(lab_id, testIds, forceAddTestids, dataParams)
                 },100)
             })
         }
@@ -171,7 +175,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getLabById: (labId, testIds, forceAddTestids) => dispatch(getLabById(labId, testIds, forceAddTestids)),
+        getLabById: (labId, testIds, forceAddTestids, dataParams) => dispatch(getLabById(labId, testIds, forceAddTestids, dataParams)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
