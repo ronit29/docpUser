@@ -33,7 +33,7 @@ class NonIpdPopupView extends React.Component {
 				this.props.nonIpdLeads(this.state.phone_number)
 				SnackBar.show({ pos: 'bottom-center', text: "Your request has been submited" })
 				if(this.props.is_organic){
-					let callBackUrl = this.props.history.location.pathname + '/booking'+this.props.history.location.search +'&doctor_id='+this.props.doctor_id
+					let callBackUrl = this.props.history.location.pathname + '/booking'+this.props.history.location.search +'&doctor_id='+this.props.doctor_id+'&hospital_id='+this.props.hospital_id
 					this.props.history.push('/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime&fromOrganic=true&callBackUrl='+callBackUrl)
 				}
 			}

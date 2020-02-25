@@ -1795,7 +1795,7 @@ class PatientDetailsNew extends React.Component {
                 }
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
-                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} />
+                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} hospital_id={this.state.selectedClinic} />
                         : ''
                 }
                 {
