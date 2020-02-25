@@ -15179,14 +15179,13 @@ box-shadow: none !important;
 .gold-banner-card:before {
     content: '';
     position: absolute;
-    width: 0px;
-    height: 0px;
-    border-style: solid;
-    border-width: 110px 190px 0px 0px;
-    border-color: #f78631 #48a66500 transparent transparent;
+    width: 120px;
+    height: 120px;
+    background: #f78631;
+    border-radius: 100px;
     z-index: -1;
-    top: 0px;
-    left: 0;
+    top: -50px;
+    left: -20px;
 }
 .gold-banner-card:after {
     content: '';
@@ -15203,7 +15202,7 @@ box-shadow: none !important;
     width: 100px;
 }
 .gld-home-content {
-margin: 20px 0px 20px 15px;
+margin: 10px 0px 20px 15px;
 }
 .gld-home-content h3 {
     font-size: 20px;
@@ -15259,5 +15258,8 @@ margin: 20px 0px 20px 15px;
 }
 .gld-home-icon {
     min-height: 56px;
+    position: relative;
+    left: -5px;
+    top: -8px;
 }
 /* ======================================= home gold banner design ======================================= */
