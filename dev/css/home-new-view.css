@@ -84,9 +84,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-/* .card-slider-container::-webkit-scrollbar{
-    display: none;
-} */
 
 .slider-card-column {
     width: 195px;
@@ -137,6 +134,13 @@
 .discount-badge > h6{
     color: #fff;
     font-size: 12px;
+}
+.home-card-col > .search-icon-col{
+    display: none;
+}
+
+.home-card-col > .search-icon-col > a > span{
+    white-space: normal;
 }
 /************** card slider css **************/
 
@@ -498,12 +502,44 @@
 
 /************** banner slider  css **************/
 
+.upload-lab-widget{
+    padding:0px;
+}
+.upload-lab-widget>div{
+    flex-direction: column;
+}
+.upload-lab-widget>div>h6{
+    font-size: 12px;
+    padding: 5px 0;
+    margin-left: 0px!important;
+}
+.upload-lab-widget>div>img{
+    margin-top: 8px;
+    width: 32px
+}
+.upload-lab-widget>button.cstm-book-btn{
+    width: 80%;
+}
+.mbl-view-presc-section{
+    display: none;
+}
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {
     .new-chat-box{
         display: none;
     }
+    .mbl-view-presc-section{
+        display: flex;
+    }
+    .home-card-col > .search-icon-col{
+        display: inline-block;
+    }
+
+    .upload-lab-widget{
+        display:none;
+    }
+
     .banner-slider-row>div>.card-slider-container{
         transform: scale(1.1);
         left: 17px;

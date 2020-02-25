@@ -181,10 +181,10 @@ class PrescriptionView extends React.PureComponent {
 			<React.Fragment>
 				{
 					this.props.is_home_page && !this.state.open_popup_overlay?
-                    <div className={`slider-card-column`}>
-                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                    <div className={` ${this.props.labWidget?'slider-card-column upload-lab-widget':'widget mb-3 align-item-center justify-content-between upload-prescription-widget mbl-view-presc-section'}`}>
+                        <div className="d-flex align-item-center">
                             <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
-                            <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
+                            <h6 className="fw-500 ml-2">Book Test from Prescription!</h6>
                         </div>
 
                         <button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
@@ -194,19 +194,11 @@ class PrescriptionView extends React.PureComponent {
 
 				{
 					this.props.search_lab && !this.state.open_popup_overlay?
-					<div className="widget mb-3 d-flex align-item-center justify-content-between upload-prescription-widget" >
+					<div className="widget mb-3 d-flex align-item-center justify-content-between upload-prescription-widget">
                         <div className="d-flex align-item-center">
                             <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
-                            <h6 className="fw-700 ml-2">Book Test <br/> from Prescription!</h6>
+                            <h6 className="fw-500 ml-2">Book Test <br/> from Prescription!</h6>
                         </div>
-                        {
-                            // STORAGE.checkAuth()
-                            // ?<React.Fragment>
-                            //     <label htmlFor="presc-upload" className="m-0 cstm-upload-btn fw-500">Upload</label>
-                            //     <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e, 0)}/>
-                            // </React.Fragment>
-                            // :<button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
-                        }
                         <button className="m-0 cstm-book-btn fw-500" onClick = {(e)=>this.upload(e, 1)}>Upload</button>
                     </div>
                     :''

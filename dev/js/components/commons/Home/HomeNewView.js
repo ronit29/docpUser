@@ -585,7 +585,7 @@ class MainView extends React.Component{
                             historyObj ={this.props.history}
                             type="lab"
                             navTo="/search?from=home"
-                            count={7}
+                            count={8}
                             is_user_insurance_active={this.state.is_user_insurance_active}
                             historyObj={this.props.history}
                             locationObj={this.props.location}

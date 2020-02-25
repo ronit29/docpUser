@@ -107,7 +107,7 @@ class HomePageWidgets extends React.PureComponent {
                         <div className={`card-slider-container ${(type=='opd' || type=='lab')?'mbl-wdgt':''} `} id={dataType}>
                         {
                             type=='lab' && !this.props.is_user_insurance_active?
-                            <PrescriptionUpload historyObj={this.props.historyObj} is_home_page={true} locationObj = {this.props.locationObj} profiles={this.props.profiles} afterUserLogin={this.props.afterUserLogin}/>  
+                            <PrescriptionUpload historyObj={this.props.historyObj} is_home_page={true} locationObj = {this.props.locationObj} profiles={this.props.profiles} afterUserLogin={this.props.afterUserLogin} labWidget={true}/>  
                             :''
                         }
                         {
@@ -181,7 +181,7 @@ class HomePageWidgets extends React.PureComponent {
                         {
                             this.props.searchType ?
                                 <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
-                                    <div className="grid-img-cnt brdr-btm doc-icon-col">
+                                    <div className="grid-img-cnt search-icon-col">
                                         <a href="#" onClick={(e)=>{
                                             e.preventDefault();
                                             e.stopPropagation();
