@@ -6596,6 +6596,9 @@ p.vipbtn-sub-txt {
     align-items: center;
     border-radius: 5px;
 }
+.vip-dsh-main-cont{
+    margin-top: 30px;
+}
 
 .vip-acnt-heading {
     display: flex;
@@ -6962,6 +6965,9 @@ section.container.container-top-margin.sub-pdng-add {
 @media (max-width: 767px) {
     section.container.container-top-margin.sub-pdng-add {
         padding-top: 110px;
+    }
+    .vip-dsh-main-cont{
+        margin-top: 0px;
     }
 }
 
