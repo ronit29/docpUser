@@ -525,6 +525,10 @@
 
 .upload-lab-widget{
     padding:0px;
+    position: sticky;
+    left: 0px;
+    margin-left: -3px;
+    background: #fff;
 }
 .upload-lab-widget>div{
     flex-direction: column;
