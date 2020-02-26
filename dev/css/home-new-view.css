@@ -489,11 +489,15 @@
     padding-top: 0px!important;
     white-space: nowrap;
     overflow-x: auto;
+    scrollbar-width:none;
 }
 .d-banner>div>.slider-container>a{
     padding: 10px 10px 10px 0;
     display: inline-block;
     width: 35%;
+}
+.d-banner>div>.slider-container>a:last-child{
+    margin-right: 30px;
 }
 .d-banner>div>.slider-container>a>img{
     height: 100px;
@@ -550,9 +554,9 @@
         display:none;
     }
 
-    .banner-slider-row>divslider-container{
-        transform: scale(1.1);
-        left: 17px;
+    .banner-slider-row>div>.slider-container{
+        left: 0px;
+        padding: 10px!important;
     }
     .new-main-view {
         padding: 15px;
