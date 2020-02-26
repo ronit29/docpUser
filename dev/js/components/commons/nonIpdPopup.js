@@ -117,10 +117,13 @@ class NonIpdPopupView extends React.Component {
 							</InitialsPicture>
 							{is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
 						</div>
-						: ''}
+						: ''}						
 				{
-					this.props.is_organic?<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">{criteriaStr} is part of Docprime Gold <br />
-						<span className="fw-500 text-capitalize"> India’s Best Healthcare Membership</span>
+					this.props.is_organic?<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">
+						Book Appointment with
+						<br />
+						{criteriaStr}
+						{/* <span className="fw-500 text-capitalize"> India’s Best Healthcare Membership</span> */}
 					</p>
 					:<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span>
@@ -155,7 +158,7 @@ class NonIpdPopupView extends React.Component {
 					{
 						this.props.is_organic?
 						<div className="gold-wdgt-text-strip">
-							<p>Save 6000+/yr by availing exclusive benefits </p>
+							<p>Save 6000+/yr by availing exclusive benefits with Docprime Gold </p>
 						</div>
 						:''
 					}
@@ -221,7 +224,7 @@ class NonIpdPopupView extends React.Component {
 						<p className="fw-500 col-sm-12 p-0 mr-t-5" style={{ fontSize: 11, fontStyle: 'italic' }}>*Your booking details will be sent to this number</p>
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
-						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">{`${this.props.is_organic?'View Membership @199':'Book Appointment'}`}</p>
+						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">{`${this.props.is_organic?'Book Appointment at Discounted Price':'Book Appointment'}`}</p>
 							{this.props.is_organic?'':<span >No Service Fee</span>}
 						</button>
 					</div>

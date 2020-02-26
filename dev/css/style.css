@@ -14897,7 +14897,6 @@ p.num-verified img {
 .docImg-Popup {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .doc-img-popupSection {
     margin-right: 12px;
