@@ -53,11 +53,11 @@ export default (props)=> {
             <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
                 <div className="round-col d-flex justify-content-center align-item-center flex-column">
                     <ul className="d-flex">
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                     </ul>
                     <h3>we are here <br/>so far</h3>  
                 </div>
@@ -94,50 +94,82 @@ export default (props)=> {
             <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                        <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/>
-                        {/* <span>CNR</span> */}
+                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                        <span>PS</span>
                     </div>
-                    <h3>Customer Name Reviewed</h3>
+                    <h3>Purnima Singla</h3>
                     <ul className="d-flex justify-content-center align-item-center mb-2">
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/grey-star.svg"} alt="star"/></li>
                     </ul>
-                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                    <p className="text-center mb-2">I have booked 3 full body health packages for my family. After receiving the report, I got a call from a doctor who explained each and every element of the report to me and my family. He even prescribed some medicines to my mother and directed us to take some multivitamins. I truly loved the service.</p>
                     <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                 </div>
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                         {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                        <span>CNR</span>
+                        <span>PS</span>
                     </div>
-                    <h3>Customer Name Reviewed</h3>
+                    <h3>Preet Sohal</h3>
                     <ul className="d-flex justify-content-center align-item-center mb-2">
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                     </ul>
-                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                    <p className="text-center mb-2">I don't generally write reviews but Docprime really deserves 5 stars. I had been struggling to find a dermatologist in my area, did Google search, asked around from friends but didn't find one as per my expectations. This app showed me the one clinic which is not on Google search. I booked the appointment immediately. It's just a great experience.</p>
                     <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                 </div>
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                         {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                        <span>CNR</span>
+                        <span>AG</span>
                     </div>
-                    <h3>Customer Name Reviewed</h3>
+                    <h3>Ananda Ghoshal </h3>
                     <ul className="d-flex justify-content-center align-item-center mb-2">
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                     </ul>
-                    <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
+                    <p className="text-center mb-2">Docprime has provided me the chance to consult the Doctor at the earliest. Their customer care is prompt and cooperative to sort out my problem as soon as possible. It is the easiest way to book Doctor apponintments</p>
+                    <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                </div>
+                <div className="col-10 col-sm-4 text-center">
+                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                        <span>SS</span>
+                    </div>
+                    <h3>Sonam Sinha </h3>
+                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/grey-star.svg"} alt="star"/></li>
+                    </ul>
+                    <p className="text-center mb-2">I booked preventive health packages for my parents living in Delhi. I am so glad that I can take care of their health by sitting in Bangalore. They collected the blood sample from my parent's home and sent the report on email which was reviewed by their Doctor. He prescribed some medicines to my parents and I got 23% off on medicine online delivery. Had an overall amazing experience!</p>
+                    <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                </div>
+                <div className="col-10 col-sm-4 text-center">
+                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                        <span>S</span>
+                    </div>
+                    <h3>Sanat</h3>
+                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                    </ul>
+                    <p className="text-center mb-2">Docprime has helped me choose a doctor (dentist) without any hassle, considering the fact that I am completely new to the city & has absolutely no knowledge about which doctor to consult. Thank you very much Docprime.</p>
                     <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
                 </div>
             </div>
