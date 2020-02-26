@@ -102,7 +102,7 @@ class DoctorProfileView extends React.Component {
         // setTimeout(()=>{
         //     this.setState({showVipPopup: true})
         // }, time_to_show)
-        this.setState({is_organic_landing:true,showNonIpdPopup:1})
+        this.setState({is_organic_landing:true})
     }
 
     showDownloadAppWidget(dataList) {

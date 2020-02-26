@@ -147,7 +147,7 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget-header text-center action-screen-header">
 						{common_msg}
 						{
-							this.props.is_force == 1 ?
+							this.props.is_force == 1  || this.props.is_organic?
 								<a href="#" onClick={this.props.closeIpdLeadPopup.bind(this, true)} className="close-times-icon">&times;</a>
 								: ''
 						}
