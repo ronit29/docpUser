@@ -18,7 +18,8 @@ class ThyrocarePackageView extends React.Component {
             expandClick: true,
             expandText: 'Expand All',
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_lead_enabled:true
         }
     }
 
@@ -101,7 +102,13 @@ class ThyrocarePackageView extends React.Component {
         }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-       this.props.NonIpdBookingLead(data) 
+       if(this.state.is_lead_enabled){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        } 
        this.setState({to_be_force:0})
     }
 

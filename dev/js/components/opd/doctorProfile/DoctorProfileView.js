@@ -62,7 +62,8 @@ class DoctorProfileView extends React.Component {
             showVipPopup: false,
             showNonIpdPopup: parsed.show_popup,
             to_be_force:1,
-            is_organic_landing:false
+            is_organic_landing:false,
+            is_lead_enabled:true
         }
     }
 
@@ -377,8 +378,12 @@ class DoctorProfileView extends React.Component {
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click',is_organic:landing_page}
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-        if(!STORAGE.isAgent()){
-            this.props.NonIpdBookingLead(data) 
+        if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
         }
        this.setState({to_be_force:0})
     }

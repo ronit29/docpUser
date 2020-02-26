@@ -31,7 +31,8 @@ class SearchPackagesView extends React.Component {
             isCompare: false,
             quickFilter: {},
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_lead_enabled:true
         }
     }
 
@@ -368,8 +369,12 @@ class SearchPackagesView extends React.Component {
         }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-        if(!STORAGE.isAgent()){
-            this.props.NonIpdBookingLead(data) 
+       if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
         }
        this.setState({to_be_force:0})
     }

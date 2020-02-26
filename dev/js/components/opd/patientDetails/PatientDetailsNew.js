@@ -85,7 +85,8 @@ class PatientDetailsNew extends React.Component {
             enableDropOfflead: true,
             showNonIpdPopup: parsed.show_popup,
             to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1,
-            disable_page:true
+            disable_page:true,
+            is_lead_enabled:true
         }
     }
 
@@ -1477,7 +1478,13 @@ class PatientDetailsNew extends React.Component {
                 data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
             }
             this.setState({ enableDropOfflead: false })
-            this.props.NonIpdBookingLead(data)
+            if(this.state.is_lead_enabled){
+                this.setState({is_lead_enabled:false})
+                this.props.NonIpdBookingLead(data)
+                setTimeout(() => {
+                    this.setState({is_lead_enabled:true})
+                }, 5000)
+            }
         }
     }
 
@@ -1512,8 +1519,12 @@ class PatientDetailsNew extends React.Component {
         let gtm_data = { 'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click' }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-        if(!STORAGE.isAgent()){
+        if(this.state.is_lead_enabled && !STORAGE.isAgent){
+            this.setState({is_lead_enabled:false})
             this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
         }
         this.setState({ to_be_force: 0 }, () => {
             this.appendParamToUrl()
