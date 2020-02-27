@@ -143,8 +143,11 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	})
 }
 
-export const getLabById = (labId, testIds = [], forceAddTestids=false) => (dispatch) => {
+export const getLabById = (labId, testIds = [], forceAddTestids=false, dataParams={}) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
+		if(dataParams && dataParams.booking_page) {
+			url+=`&booking_page=true`
+		}
 		dispatch({
 			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
 			payload: false
