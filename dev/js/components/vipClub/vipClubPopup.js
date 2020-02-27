@@ -9,7 +9,7 @@ class VipLoginPopup extends React.Component {
         this.state = {
             profile_id: '',
             newprofile: {},
-            phoneNumber: '',
+            phoneNumber: this.props.user_loggedIn_number?this.props.user_loggedIn_number:'',
             validationError: '',
             showOTP: false,
             otp: "",

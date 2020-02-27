@@ -32,6 +32,10 @@ class NonIpdPopupView extends React.Component {
 			} else {
 				this.props.nonIpdLeads(this.state.phone_number)
 				SnackBar.show({ pos: 'bottom-center', text: "Your request has been submited" })
+				if(this.props.is_organic){
+					let callBackUrl = this.props.history.location.pathname + '/booking'+this.props.history.location.search +'&doctor_id='+this.props.doctor_id+'&hospital_id='+this.props.hospital_id
+					this.props.history.push('/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime&fromOrganic=true&callBackUrl='+callBackUrl)
+				}
 			}
 		} else {
 			SnackBar.show({ pos: 'bottom-center', text: "Please Enter phone number" })
@@ -92,7 +96,7 @@ class NonIpdPopupView extends React.Component {
 			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
-		} else if (this.props.is_dpp || this.props.is_booking) {
+		} else if (this.props.is_dpp || this.props.is_booking || this.props.is_organic) {
 			if (this.props && this.props.DOCTORS && Object.keys(this.props.DOCTORS).length && this.props.doctor_id) {
 				criteriaStr = this.props.DOCTORS[this.props.doctor_id].display_name
 				thumbnail = this.props.DOCTORS[this.props.doctor_id].thumbnail
@@ -113,11 +117,19 @@ class NonIpdPopupView extends React.Component {
 							</InitialsPicture>
 							{is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
 						</div>
-						: ''}
+						: ''}						
+				{
+					this.props.is_organic?<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">
+						Book Appointment with
+						<br />
+						{criteriaStr}
+						{/* <span className="fw-500 text-capitalize"> India’s Best Healthcare Membership</span> */}
+					</p>
+					:<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
+						<span className="fw-500 text-capitalize"> {criteriaStr}</span>
+					</p>
 
-				<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
-					<span className="fw-500 text-capitalize"> {criteriaStr}</span>
-				</p>
+				}
 			</div>
 		} else if (this.props.is_hpp) {
 			let { hospital_data } = this.props
@@ -138,11 +150,18 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget-header text-center action-screen-header">
 						{common_msg}
 						{
-							this.props.is_force == 1 ?
+							this.props.is_force == 1  || this.props.is_organic?
 								<a href="#" onClick={this.props.closeIpdLeadPopup.bind(this, true)} className="close-times-icon">&times;</a>
 								: ''
 						}
 					</div>
+					{
+						this.props.is_organic?
+						<div className="gold-wdgt-text-strip">
+							<p>Save 6000+/yr by availing exclusive benefits with Docprime Gold </p>
+						</div>
+						:''
+					}
 					<div className="col-sm-12 pd-10">
 						{
 							this.props.is_opd || this.props.is_dpp || this.props.is_hpp || this.props.is_booking?
@@ -163,6 +182,21 @@ class NonIpdPopupView extends React.Component {
 										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
 										<span>Free Cancellation</span>
 									</p> */}
+								</React.Fragment>
+								:this.props.is_organic?
+								<React.Fragment>
+									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
+										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
+										<span>Special Prices on Doctor and Lab Tests</span>
+									</p>
+									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
+										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
+										<span>23% OFF on Medicines</span>
+									</p>
+									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
+										<img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} />
+										<span>Covers Full Family of 6 Members</span>
+									</p>
 								</React.Fragment>
 								: <React.Fragment>
 									<p className="fw-500 d-flex align-item-center mb-2" style={{ fontSize: 14 }}>
@@ -190,8 +224,8 @@ class NonIpdPopupView extends React.Component {
 						<p className="fw-500 col-sm-12 p-0 mr-t-5" style={{ fontSize: 11, fontStyle: 'italic' }}>*Your booking details will be sent to this number</p>
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
-						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">Book Appointment</p>
-							<span >No Service Fee</span>
+						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">{`${this.props.is_organic?'Book Appointment at Discounted Price':'Book Appointment'}`}</p>
+							{this.props.is_organic?'':<span >No Service Fee</span>}
 						</button>
 					</div>
 					<div className="popUp-whtsappEnable">

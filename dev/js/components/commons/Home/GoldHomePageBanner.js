@@ -9,7 +9,7 @@ class GoldHomePageView extends React.PureComponent  {
                 <div className="gold-banner-container d-lg-none mb-10">
                 <div className="gold-banner-card">
                     <div className="gld-home-icon">
-                        <img className="img-fluid" src={ASSETS_BASE_URL + '/img/new_goldico.svg'} />
+                        <p>Docprime <img className="img-fluid" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /></p>
                     </div>
                     <div className="gld-home-content">
                         <h3>The Healthcare Membership <br />You Can’t Do Without</h3>

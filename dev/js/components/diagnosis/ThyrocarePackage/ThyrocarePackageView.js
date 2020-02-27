@@ -18,7 +18,8 @@ class ThyrocarePackageView extends React.Component {
             expandClick: true,
             expandText: 'Expand All',
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_lead_enabled:true
         }
     }
 
@@ -101,7 +102,13 @@ class ThyrocarePackageView extends React.Component {
         }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-       this.props.NonIpdBookingLead(data) 
+       if(this.state.is_lead_enabled){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        } 
        this.setState({to_be_force:0})
     }
 
@@ -183,7 +190,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>*/}
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,12213)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 780</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 790</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
@@ -205,7 +212,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>*/}
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,14947)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1380</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 1437</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=14947"
