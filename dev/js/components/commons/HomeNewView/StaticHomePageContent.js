@@ -2,6 +2,34 @@ import React from 'react';
 
 export default (props)=> {
 
+    function scroll(type) {
+        let dataType = 'static_review_blck'
+        var elmnt = document.getElementById(dataType)
+
+        if(elmnt) {
+            let outerDivWidth = elmnt.offsetWidth
+            let cardCount = elmnt.children && elmnt.children.length?elmnt.children.length:6;
+            let childDivWidth = elmnt.scrollWidth?elmnt.scrollWidth:3000;
+            let cardWidth = Math.ceil(childDivWidth / cardCount)
+
+            let leftScroll = elmnt.scrollLeft
+
+            if (type == 'right') {
+                elmnt.scroll({ left: leftScroll + outerDivWidth, behavior: 'smooth' })
+                if (childDivWidth <= (leftScroll +  2*outerDivWidth ) )  {
+                    document.getElementById(`${dataType}_leftArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_RightArrow_hsptl`).classList.remove("d-none")
+            } else {
+                elmnt.scroll({ left: leftScroll - outerDivWidth, behavior: 'smooth' })
+                if (leftScroll - outerDivWidth <= 0) {
+                    document.getElementById(`${dataType}_RightArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_leftArrow_hsptl`).classList.remove("d-none")
+            }
+        }
+    }
+
 	return(
 		<React.Fragment>
 		 {/******  Our Partners section *********/}
@@ -91,7 +119,7 @@ export default (props)=> {
         {/******  customer review *********/}
         <section className="card-block-row ">
             <h6 className="text-center fw-500 customer-review-heading">Our Happy Customer </h6>
-            <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
+            <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col" id="static_review_blck">
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                         {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
@@ -174,14 +202,13 @@ export default (props)=> {
                 </div>
             </div>
 
-            {/* slider buttons 
-            <a className="pkg-btnlft"> 
+            {/* slider buttons */}
+            <a className="pkg-btnlft d-none"  id={`static_review_blck_RightArrow_hsptl`} onClick={()=>scroll('left')}> 
                 <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
             </a>
-            <a className="pkg-btnrgt"> 
+            <a className="pkg-btnrgt" id={`static_review_blck_leftArrow_hsptl`} onClick={()=>scroll('right')}> 
                 <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
             </a>
-        	*/ 	}
         </section>
         </React.Fragment>
 		)
