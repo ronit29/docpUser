@@ -79,7 +79,7 @@ export default (props)=> {
         {/******  Where we are *********/}
         <section className="card-block-row">
             <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
-                <div className="round-col d-flex justify-content-center align-item-center flex-column">
+                {/* <div className="round-col ">
                     <ul className="d-flex">
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
@@ -88,27 +88,28 @@ export default (props)=> {
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                     </ul>
                     <h3>we are here <br/>so far</h3>  
-                </div>
+                    <img className="img-fluid" src={ASSETS_BASE_URL + "/img/profit.svg"} alt="profit"/>
+                </div> */}
                 <div className="consultation-col">
-                    <h3 className="fw-500 text-right">
+                    <h3 className="fw-500 text-center">
                         <span>1 Lakh +</span><br/>
                         <span>Doctor and Lab Appointments</span>
                     </h3>
-                    <h3 className="fw-500 text-right">
+                    <h3 className="fw-500 text-center">
                         <span>10 Lakh +</span><br/>
                         <span>Online Consultation</span>
                     </h3>
                 </div>
                 <div className="consultation-col left-border">
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span id="countNum">30000 +</span><br/>
                         <span>Doctor Network</span>
                     </h4>
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span id="countNum2">5000 +</span><br/>
                         <span>Lab Network</span>
                     </h4>
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span>2 Lakh +</span><br/>
                         <span>Prescription Delivered</span>
                     </h4>
@@ -118,8 +119,40 @@ export default (props)=> {
         {/******  Where we are *********/} 
         {/******  customer review *********/}
         <section className="card-block-row ">
-            <h6 className="text-center fw-500 customer-review-heading">Our Happy Customer </h6>
+            <h6 className="text-center fw-500 customer-review-heading">Our Happy Customers </h6>
             <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col" id="static_review_blck">
+                <div className="col-10 col-sm-4 text-center">
+                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                        <span>AG</span>
+                    </div>
+                    <h3>Ananda Ghoshal </h3>
+                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                    </ul>
+                    <p className="text-center mb-2">Docprime has provided me the chance to consult the Doctor at the earliest. Their customer care is prompt and cooperative to sort out my problem as soon as possible. It is the easiest way to book Doctor apponintments</p>
+                    {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
+                </div>
+                <div className="col-10 col-sm-4 text-center">
+                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
+                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
+                        <span>S</span>
+                    </div>
+                    <h3>Sanat</h3>
+                    <ul className="d-flex justify-content-center align-item-center mb-2">
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
+                    </ul>
+                    <p className="text-center mb-2">Docprime has helped me choose a doctor (dentist) without any hassle, considering the fact that I am completely new to the city & has absolutely no knowledge about which doctor to consult. Thank you very much Docprime.</p>
+                    {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
+                </div>
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                         {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
@@ -155,22 +188,6 @@ export default (props)=> {
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                         {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                        <span>AG</span>
-                    </div>
-                    <h3>Ananda Ghoshal </h3>
-                    <ul className="d-flex justify-content-center align-item-center mb-2">
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                    </ul>
-                    <p className="text-center mb-2">Docprime has provided me the chance to consult the Doctor at the earliest. Their customer care is prompt and cooperative to sort out my problem as soon as possible. It is the easiest way to book Doctor apponintments</p>
-                    {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
-                </div>
-                <div className="col-10 col-sm-4 text-center">
-                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
                         <span>SS</span>
                     </div>
                     <h3>Sonam Sinha </h3>
@@ -182,22 +199,6 @@ export default (props)=> {
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/grey-star.svg"} alt="star"/></li>
                     </ul>
                     <p className="text-center mb-2">I booked preventive health packages for my parents living in Delhi. I am so glad that I can take care of their health by sitting in Bangalore. They collected the blood sample from my parent's home and sent the report on email which was reviewed by their Doctor. He prescribed some medicines to my parents and I got 23% off on medicine online delivery. Had an overall amazing experience!</p>
-                    {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
-                </div>
-                <div className="col-10 col-sm-4 text-center">
-                    <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
-                        {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
-                        <span>S</span>
-                    </div>
-                    <h3>Sanat</h3>
-                    <ul className="d-flex justify-content-center align-item-center mb-2">
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                        <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
-                    </ul>
-                    <p className="text-center mb-2">Docprime has helped me choose a doctor (dentist) without any hassle, considering the fact that I am completely new to the city & has absolutely no knowledge about which doctor to consult. Thank you very much Docprime.</p>
                     {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                 </div>
             </div>

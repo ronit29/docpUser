@@ -93,6 +93,7 @@
     padding: 5px 10px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     white-space: normal;
+    cursor: pointer;
 }
 
 .slider-card-column:last-child {
@@ -184,8 +185,8 @@
 }
 
 .round-col {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     background: #41A2F91F;
     border-radius: 50%;
 
@@ -214,7 +215,7 @@
 
 .consultation-col {
     padding: 0 30px;
-    width: 40%;
+    width: 50%;
 }
 
 .left-border {
@@ -247,7 +248,7 @@
 
 .consultation-col>h4>span {
     position: relative;
-    left: 20%;
+    /* left: 20%; */
 }
 
 .consultation-col>h4>span:first-child {
@@ -368,6 +369,7 @@
 }
 .chatbox-main{
     width: 430px;
+    height: 100%;
     background: #FFFFFF;
     border-radius: 5px;
     display: none;
@@ -387,6 +389,23 @@
 .chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head>.hd-chat>.header-text-chat{
     color: #000!important;
 } 
+.chatbox-main>div>div>.cancl-homepg-popup{
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    height: 100%;
+    width: 100%;
+}
+.chatbox-main>div>div>.cancel-appointment-div{
+    position: absolute;
+    width: 90%;
+}
+.chatbox-main>div>div>.cancel-appointment-div>.widget-header, 
+.chatbox-main>div>div>.cancel-appointment-div>a>.widget-content{
+    padding: 5px!important;
+}
 .chat-body{
     padding-right: 10px;
 }
@@ -430,7 +449,7 @@
 }
 .new-chat-box>input[type=checkbox]:checked,
 .new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle{
-    transform: rotate(90deg) scale(.5);
+    transform: rotate(90deg) scale(.6);
 } 
 .new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle>h3{
     display: flex;
@@ -549,7 +568,6 @@
 .mbl-view-presc-section{
     display: none;
 }
-
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {
@@ -659,7 +677,7 @@
         width: 50%;
         display: inline-block;
         padding: 17px 0px;
-        margin: 20px 0;
+        margin: 0px 0px 20px 0px;
         border-right: 1px solid rgba(112, 112, 112, 0.19);
     }
     .consultation-col>h3>span:first-child{
@@ -695,6 +713,18 @@
     }
     .cust-review>.col-sm-4{
         padding: 15px;
+    }
+    .cust-review>.col-sm-4:nth-child(1){
+        order: 4;
+    }
+    .cust-review>.col-sm-4:nth-child(2){
+        order: 5;
+    }
+    .cust-review>.col-sm-4:nth-child(3){
+        order: 2;
+    }
+    .cust-review>.col-sm-4:nth-child(4){
+        order: 1;
     }
     .cust-review>.col-sm-4>h3{
         font-size: 14px;
@@ -733,6 +763,13 @@
     .mbl-wdgt> .slider-card-column{
         width: 110px;
         border: none;
+    }
+    .mbl-wdgt> .slider-card-column:nth-child(9),
+    .mbl-wdgt> .slider-card-column:nth-child(10){
+        display: none!important;
+    }
+    #home_top_tests>.slider-card-column:nth-child(9){
+        display: inline-block!important;
     }
     .mbl-wdgt > .slider-card-column > h5{
         width: 100px!important;

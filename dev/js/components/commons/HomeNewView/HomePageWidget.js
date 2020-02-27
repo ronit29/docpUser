@@ -100,7 +100,7 @@ class HomePageWidgets extends React.PureComponent {
                     </div>
                     {
                     	discount?
-                    	<div className="discount-badge">
+                    	<div className="discount-badge d-none">
                             <h6>{`Upto ${discount} OFF`}</h6>
                         </div>
                         :''

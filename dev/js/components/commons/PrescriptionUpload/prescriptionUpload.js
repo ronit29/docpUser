@@ -180,7 +180,7 @@ class PrescriptionView extends React.PureComponent {
 		return(
 			<React.Fragment>
 				{
-					this.props.is_home_page && !this.state.open_popup_overlay?
+					this.props.is_home_page ?
                     <div className={` ${this.props.labWidget?'slider-card-column upload-lab-widget':'widget mb-3 align-item-center justify-content-between upload-prescription-widget mbl-view-presc-section'}`}>
                         <div className="d-flex align-item-center">
                             <img width="47" src={ASSETS_BASE_URL + "/img/lab-test-pres.png"} />
