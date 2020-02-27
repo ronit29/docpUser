@@ -449,7 +449,7 @@
 }
 .new-chat-box>input[type=checkbox]:checked,
 .new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle{
-    transform: rotate(90deg) scale(.5);
+    transform: rotate(90deg) scale(.6);
 } 
 .new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle>h3{
     display: flex;

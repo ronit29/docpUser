@@ -500,7 +500,7 @@ class MainView extends React.Component{
                         <img height="17" className="img-fluid" src={ASSETS_BASE_URL + "/img/chat.svg"} alt="chat"/>   
                         <h6>Doctor <br/>Consultation</h6> 
                         <h3 className="align-items-center justify-content-center">
-                          <img src={ASSETS_BASE_URL + "/img/cancel.svg"} alt="cancel"/>
+                          <img src={ASSETS_BASE_URL + "/img/minimize.svg"} alt="cancel"/>
                         </h3>
                     </div>
                 </div>
