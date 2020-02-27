@@ -185,8 +185,8 @@
 }
 
 .round-col {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     background: #41A2F91F;
     border-radius: 50%;
 
@@ -369,6 +369,7 @@
 }
 .chatbox-main{
     width: 430px;
+    height: 100%;
     background: #FFFFFF;
     border-radius: 5px;
     display: none;
@@ -388,6 +389,23 @@
 .chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head>.hd-chat>.header-text-chat{
     color: #000!important;
 } 
+.chatbox-main>div>div>.cancl-homepg-popup{
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    height: 100%;
+    width: 100%;
+}
+.chatbox-main>div>div>.cancel-appointment-div{
+    position: absolute;
+    width: 90%;
+}
+.chatbox-main>div>div>.cancel-appointment-div>.widget-header, 
+.chatbox-main>div>div>.cancel-appointment-div>a>.widget-content{
+    padding: 5px!important;
+}
 .chat-body{
     padding-right: 10px;
 }
@@ -550,7 +568,6 @@
 .mbl-view-presc-section{
     display: none;
 }
-
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {

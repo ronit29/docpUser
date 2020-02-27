@@ -700,7 +700,7 @@ class ChatPanel extends React.Component {
             return (
                 <React.Fragment>
                     {
-                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                        this.state.showCancel ? <CancelPopup homePage={this.props.homePage} toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                     }
                     <div className="fixed-chatbox">
                         {

@@ -669,6 +669,7 @@ class MainView extends React.Component{
                 <div className="new-chat-box">
                     <input type="checkbox"/>
                     <div className="chatbox-main mb-3">
+                        
                         <ChatPanel  key="chat" homePage={true} offerList={this.props.offerList}/>
                     </div>
                     <div className="chat-box-circle d-flex justify-content-center align-items-center text-center flex-column">
