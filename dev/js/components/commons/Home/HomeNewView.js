@@ -539,7 +539,7 @@ class MainView extends React.Component{
                                 historyObj ={this.props.history}
                                 type="opd"
                                 navTo="/search?from=home"
-                                count={8}
+                                count={10}
                                 searchType="specializations"
                                 historyObj={this.props.history}
                                 locationObj={this.props.location}
@@ -607,7 +607,7 @@ class MainView extends React.Component{
                                 historyObj ={this.props.history}
                                 type="lab"
                                 navTo="/search?from=home"
-                                count={8}
+                                count={10}
                                 is_user_insurance_active={this.state.is_user_insurance_active}
                                 historyObj={this.props.history}
                                 locationObj={this.props.location}

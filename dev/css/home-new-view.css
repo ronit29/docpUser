@@ -93,6 +93,7 @@
     padding: 5px 10px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     white-space: normal;
+    cursor: pointer;
 }
 
 .slider-card-column:last-child {
@@ -733,6 +734,10 @@
     .mbl-wdgt> .slider-card-column{
         width: 110px;
         border: none;
+    }
+    .mbl-wdgt> .slider-card-column:nth-child(9),
+    .mbl-wdgt> .slider-card-column:nth-child(10){
+        display: none!important;
     }
     .mbl-wdgt > .slider-card-column > h5{
         width: 100px!important;
