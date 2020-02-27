@@ -14897,7 +14897,6 @@ p.num-verified img {
 .docImg-Popup {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .doc-img-popupSection {
     margin-right: 12px;
@@ -14911,8 +14910,8 @@ button.pop-subText{
     background-color: #ffffff;
     border: solid 1px #178ddd;
     cursor: pointer;
-    width: 58%;
-    padding: 5px 0;
+    width: 80%;
+    padding: 5px 15px;
 }
 .fs-12{
     font-size: 12px !important;
@@ -14947,6 +14946,15 @@ p.wtsapp-chk-txt img {
     margin-top: 10px !important;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+.gold-wdgt-text-strip {
+    background: rgba(254, 112, 4, .1);
+    padding: 5px 12px;
+    margin: 0 -8px;
+}
+.gold-wdgt-text-strip p {
+    text-align: center;
+    font-weight: 600;
 }
 /* ======================================= popup DPP HPP  ======================================= */
 
@@ -15164,3 +15172,116 @@ box-shadow: none !important;
     opacity: .5;
 }
 /* ======================================= whtsapp buttons on pages ======================================= */
+/* ======================================= home gold banner design ======================================= */
+.gold-banner-card {
+    background: #fde3ca;
+    padding: 12px;
+    position: relative;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+    border: 0px;
+    border-radius: 5px;
+    border-bottom-right-radius: 80px;
+    z-index: 1;
+    overflow: hidden;
+}
+/* .gold-banner-card:before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: #f78631;
+    border-radius: 100px;
+    z-index: -1;`
+    top: -50px;
+    left: -20px;
+} */
+.gold-banner-card:after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, .21);
+    z-index: -1;
+    border-radius: 100px;
+    top: -100px;
+    right: -60px;
+}
+.gld-home-icon img {
+    width: 100px;
+}
+.gld-home-content {
+margin: 10px 0px 20px 15px;
+}
+.gld-home-content h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.gld-home-content p {
+    font-size: 14px;
+    font-weight: 500;
+}
+.gld-home-ico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.gld-ico-card {
+    text-align: center;
+    width: 33.33%;
+}
+.gld-ico-card img {
+    width: 50px;
+}
+.gld-ico-card p {
+    font-weight: 500;
+    margin-top: 12px;
+    font-size: 12px;
+}
+.gld-ico-card p strong {
+    font-weight: 600;
+}
+.gold-home-price {
+    text-align: center;
+    margin-top: 30px;
+}
+.gold-home-price p {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.gold-home-price strong {
+    font-weight: 600;
+    font-size: 21px;
+    margin: -5px 2px 0;
+    display: inline-flex;
+}
+.gold-home-price button {
+    color: #f78631;
+    border: 1px solid #f78631;
+    border-radius: 4px;
+    padding: 10px 70px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.04), 1px 1px 4px rgba(0, 0, 0, 0.12);
+    font-weight: 500;
+}
+.gld-home-icon {
+    position: relative;
+    left: -12px;
+    top: 0px;
+    background: rgba(255, 255, 255, .6);
+    display: inline-flex;
+    padding: 5px 15px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    align-items: center;
+}
+.gld-home-icon p {
+    font-weight: 600;
+    font-size: 16px;
+}
+.gld-home-icon img {
+    width: 42px;
+    margin-left: 0px;
+}
+/* ======================================= home gold banner design ======================================= */

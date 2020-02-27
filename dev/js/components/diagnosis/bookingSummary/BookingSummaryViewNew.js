@@ -72,7 +72,8 @@ class BookingSummaryViewNew extends React.Component {
             selectedVipGoldPackageId: this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length?this.props.selected_vip_plan.id:'',
             paymentBtnClicked: false,
             enableDropOfflead:true,
-            disable_page:true
+            disable_page:true,
+            is_lead_enabled:true
         }
     }
 
@@ -1456,7 +1457,13 @@ class BookingSummaryViewNew extends React.Component {
                 data.selected_date = null
             }
             this.setState({enableDropOfflead:false})
-            this.props.NonIpdBookingLead(data)
+            if(this.state.is_lead_enabled){
+                this.setState({is_lead_enabled:false})
+                this.props.NonIpdBookingLead(data)
+                setTimeout(() => {
+                    this.setState({is_lead_enabled:true})
+                }, 5000)
+            }
 
         }
     }

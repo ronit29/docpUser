@@ -153,7 +153,9 @@ class NewDateSelector extends React.Component {
       var val = e.target.value;
       let staticDay = ['1','2','3','0']
       let staticMnth = ['11','12','0','1']
-      let checkValidMonth = ['00','2','02','4','04','6','06','9','09']
+      let checkValidMonthThirtyOne = ['00','2','02','4','04','6','06','9','09']
+      let checkValidMonthThirty = ['00','2','02']
+
         if(val.length == 1){
           if(isNaN(val)){
             val = null
@@ -177,7 +179,7 @@ class NewDateSelector extends React.Component {
             if(val[1] ==""){
               val = val[0] + '/'
             }else{
-              if(val[0] == '31' && checkValidMonth.indexOf(val[1]) != -1){
+              if(val[0] == '31' && checkValidMonthThirtyOne.indexOf(val[1]) != -1){
                 val = val[0]+'/'
               }else if(val[0] == '30' && val[1] == '2'){
                 val = val[0]+'/'
@@ -199,12 +201,12 @@ class NewDateSelector extends React.Component {
               val = val[0]+'/'+ val[1].charAt(0)
             }else{
               if(val[0] == '31'){
-                  if(checkValidMonth.indexOf(val[1]) != -1 || val[1] ==11){
+                  if(checkValidMonthThirtyOne.indexOf(val[1]) != -1 || val[1] ==11){
                     val = val[0]+'/'+ val[1].charAt(0)
                   }else{
                     val = val[0]+'/'+ val[1] +'/'  
                   }
-              }else if(val[0] == '30' && checkValidMonth.indexOf(val[1]) != -1){
+              }else if(val[0] == '30' && checkValidMonthThirty.indexOf(val[1]) != -1){
                 val = val[0]+'/'+ val[1].charAt(0)
               }
               else{
