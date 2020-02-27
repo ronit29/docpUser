@@ -77,7 +77,7 @@ class CorporateLeadPopup extends React.Component {
                 <div className="col-sm-12 corporate-detail-section">
                     <img className="modal-close-img" src={ASSETS_BASE_URL + "/img/customer-icons/close-black.svg"} alt="close" onClick={this.props.cancelOverlay}/>
                     <h3>Drop your details</h3>
-                    <h6>We will reach yo for further assistance</h6>
+                    <h6>We will reach you for further assistance</h6>
                     <form action="">
                         <div className="input-field-row">
                             <input type="text" placeholder="* Company Name" style={{marginRight: 12}} name="companyName" value={this.state.companyName} onChange={this.inputHandler}/>

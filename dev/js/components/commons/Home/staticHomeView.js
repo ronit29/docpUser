@@ -411,7 +411,7 @@ class MainView extends React.Component{
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
                                 <p className="text-center mb-2">I have booked 3 full body health packages for my family. After receiving the report, I got a call from a doctor who explained each and every element of the report to me and my family. He even prescribed some medicines to my mother and directed us to take some multivitamins. I truly loved the service.</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                             </div>
                             <div className="col-12 col-sm-4 text-center">
                                 <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
@@ -427,7 +427,7 @@ class MainView extends React.Component{
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                             </div>
                             <div className="col-12 col-sm-4 text-center">
                                 <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
@@ -443,7 +443,7 @@ class MainView extends React.Component{
                                     <li><img src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                                 </ul>
                                 <p className="text-center mb-2">Discounts are high which is nice but appointment timings shown in the app to be booked are useless , I desired to book metropolis lab for some tests as per my convenience but it shows in the app only 1000 am and 1100 am available any day so I booked for 100</p>
-                                <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/>
+                                {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                             </div>
                         </div>
 
