@@ -398,6 +398,10 @@ class MainView extends React.Component{
     }
 
     clickedGoldBanner = ()=>{
+        let data = {
+        'Category': 'ConsumerApp', 'Action': 'MobileHomePageGoldBannerClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-homepage-gold-banner-clicked'
+        }
+        GTM.sendEvent({ data: data });
         this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-home-page-gold-banner&lead_source=Docprime')
     }
     
