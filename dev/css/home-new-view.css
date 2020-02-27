@@ -1,6 +1,6 @@
 .new-main-view {
     padding: 110px 37px 37px 37px;
-    background: url(/assets/img/main-bg.svg) repeat;
+    background: url(/assets/img/main-bg.svg) no-repeat;
     background-size: 90%;
     background-position: 0% 0%;
     overflow-x: hidden;
@@ -524,10 +524,10 @@
 /************** banner slider  css **************/
 
 .upload-lab-widget{
-    padding:0px;
     position: sticky;
-    left: 0px;
-    margin-left: -3px;
+    left: -10px;
+    margin-left: -10px;
+    padding-left: 10px;
     background: #fff;
 }
 .upload-lab-widget>div{
@@ -549,6 +549,7 @@
 .mbl-view-presc-section{
     display: none;
 }
+
 /************** responsive media css **************/
 
 @media screen and (max-width:767px) {
