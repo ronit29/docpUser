@@ -364,7 +364,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    z-index: 99;
+    z-index: 9;
 }
 .chatbox-main{
     width: 430px;
