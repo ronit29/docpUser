@@ -382,12 +382,12 @@ class MainView extends React.Component{
                                     <span>Doctor Network</span>
                                 </h4>
                                 <h4 className="fw-500 text-left">
-                                    <span>2 Lakh +</span><br/>
-                                    <span>Prescription Generated</span>
-                                </h4>
-                                <h4 className="fw-500 text-left">
                                     <span>5,000 +</span><br/>
                                     <span>Lab Network</span>
+                                </h4>
+                                <h4 className="fw-500 text-left">
+                                    <span>2 Lakh +</span><br/>
+                                    <span>Prescription Delivered</span>
                                 </h4>
                             </div>
                         </div>

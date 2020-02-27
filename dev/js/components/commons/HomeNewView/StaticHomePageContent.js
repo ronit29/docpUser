@@ -77,12 +77,12 @@ export default (props)=> {
                         <span>Doctor Network</span>
                     </h4>
                     <h4 className="fw-500 text-left">
-                        <span>2 Lakh +</span><br/>
-                        <span>Prescription Generated</span>
-                    </h4>
-                    <h4 className="fw-500 text-left">
                         <span id="countNum2">5000 +</span><br/>
                         <span>Lab Network</span>
+                    </h4>
+                    <h4 className="fw-500 text-left">
+                        <span>2 Lakh +</span><br/>
+                        <span>Prescription Delivered</span>
                     </h4>
                 </div>
             </div>
@@ -90,7 +90,7 @@ export default (props)=> {
         {/******  Where we are *********/} 
         {/******  customer review *********/}
         <section className="card-block-row ">
-            <h6 className="text-center fw-500 customer-review-heading">Our Customer Says</h6>
+            <h6 className="text-center fw-500 customer-review-heading">Our Happy Customer </h6>
             <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                 <div className="col-10 col-sm-4 text-center">
                     <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
