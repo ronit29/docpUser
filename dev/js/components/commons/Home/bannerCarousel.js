@@ -423,9 +423,6 @@ class BannerCarousel extends React.Component {
                         </div>
                         :this.props.sliderLocation=='home_page'?
                             <div className="slider-container">
-                                <a href="#">
-                                    <img src="https://cdn.docprime.com/media/banner/images/Layer_1.png" alt="docprime"/>
-                                </a>
                                 {
                                     filteredBanners && filteredBanners.length ?
                                         filteredBanners.map((offer, i) => {
