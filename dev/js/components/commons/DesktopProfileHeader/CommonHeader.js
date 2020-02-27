@@ -418,7 +418,7 @@ class DesktopProfileHeader extends React.Component {
                             <div className="col-1 pr-0 menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
-                                this.toggleLeftMenu()}} style={{paddingLeft: 6}}>
+                                this.toggleLeftMenu()}} style={{paddingLeft: 0}}>
                                 <ul>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
