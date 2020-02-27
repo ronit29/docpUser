@@ -714,6 +714,18 @@
     .cust-review>.col-sm-4{
         padding: 15px;
     }
+    .cust-review>.col-sm-4:nth-child(1){
+        order: 4;
+    }
+    .cust-review>.col-sm-4:nth-child(2){
+        order: 5;
+    }
+    .cust-review>.col-sm-4:nth-child(3){
+        order: 2;
+    }
+    .cust-review>.col-sm-4:nth-child(4){
+        order: 1;
+    }
     .cust-review>.col-sm-4>h3{
         font-size: 14px;
     }
