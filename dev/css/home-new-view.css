@@ -215,7 +215,7 @@
 
 .consultation-col {
     padding: 0 30px;
-    width: 40%;
+    width: 50%;
 }
 
 .left-border {
@@ -248,7 +248,7 @@
 
 .consultation-col>h4>span {
     position: relative;
-    left: 20%;
+    /* left: 20%; */
 }
 
 .consultation-col>h4>span:first-child {
@@ -677,7 +677,7 @@
         width: 50%;
         display: inline-block;
         padding: 17px 0px;
-        margin: 20px 0;
+        margin: 0px 0px 20px 0px;
         border-right: 1px solid rgba(112, 112, 112, 0.19);
     }
     .consultation-col>h3>span:first-child{
@@ -755,6 +755,9 @@
     .mbl-wdgt> .slider-card-column:nth-child(9),
     .mbl-wdgt> .slider-card-column:nth-child(10){
         display: none!important;
+    }
+    #home_top_tests>.slider-card-column:nth-child(9){
+        display: inline-block!important;
     }
     .mbl-wdgt > .slider-card-column > h5{
         width: 100px!important;

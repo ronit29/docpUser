@@ -79,37 +79,37 @@ export default (props)=> {
         {/******  Where we are *********/}
         <section className="card-block-row">
             <div className="card-slider-container d-flex justify-content-between milestone-section" id="counter-section">
-                <div className="round-col d-flex justify-content-center align-item-center flex-column">
-                    {/* <ul className="d-flex">
+                {/* <div className="round-col ">
+                    <ul className="d-flex">
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                         <li><img height="15" src={ASSETS_BASE_URL + "/img/star.svg"} alt="star"/></li>
                     </ul>
-                    <h3>we are here <br/>so far</h3>   */}
+                    <h3>we are here <br/>so far</h3>  
                     <img className="img-fluid" src={ASSETS_BASE_URL + "/img/profit.svg"} alt="profit"/>
-                </div>
+                </div> */}
                 <div className="consultation-col">
-                    <h3 className="fw-500 text-right">
+                    <h3 className="fw-500 text-center">
                         <span>1 Lakh +</span><br/>
                         <span>Doctor and Lab Appointments</span>
                     </h3>
-                    <h3 className="fw-500 text-right">
+                    <h3 className="fw-500 text-center">
                         <span>10 Lakh +</span><br/>
                         <span>Online Consultation</span>
                     </h3>
                 </div>
                 <div className="consultation-col left-border">
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span id="countNum">30000 +</span><br/>
                         <span>Doctor Network</span>
                     </h4>
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span id="countNum2">5000 +</span><br/>
                         <span>Lab Network</span>
                     </h4>
-                    <h4 className="fw-500 text-left">
+                    <h4 className="fw-500 text-center">
                         <span>2 Lakh +</span><br/>
                         <span>Prescription Delivered</span>
                     </h4>
