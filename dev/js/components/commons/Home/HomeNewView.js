@@ -372,6 +372,10 @@ class MainView extends React.Component{
     }
 
     getCorporateLead = ()=>{
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'CorporateHomePageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'corporate-home-page-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
         this.setState({openCorporateBlock: true})
     }
 
