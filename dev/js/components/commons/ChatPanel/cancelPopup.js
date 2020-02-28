@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default ({ toggle, closeChat }) => {
+export default ({ toggle, closeChat, homePage }) => {
     return <div>
-        <div className="cancel-overlay" onClick={toggle}></div>
+        <div className={`cancel-overlay ${homePage?'cancl-homepg-popup':''}`} onClick={toggle}></div>
         <div className="widget cancel-appointment-div payment-popup">
             <div className="widget-header text-center">
                 <p className="fw-500 cancel-appointment-head">Are you sure you want to close this chat?</p>

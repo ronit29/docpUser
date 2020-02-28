@@ -22,6 +22,12 @@ import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import Loader from '../Loader';
+import VipLoginPopup from '../../vipClub/vipClubPopup.js'
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
+import SnackBar from 'node-snackbar'
+import GoldHomePageBanner from './GoldHomePageBanner.js'
+import STORAGE from '../../../helpers/storage'
+
 
 const GENDER = {
 	"m": "Male",
@@ -36,10 +42,13 @@ class HomeView extends React.Component {
 		if (this.props.initialServerData) {
 			footerData = this.props.initialServerData.footerData
 		}
+		
 		this.state = {
 			specialityFooterData: footerData,
 			showPopup: false,
-			clickedOn: ''
+			clickedOn: '',
+			show_popup:false,
+			is_user_insurance_active: false
 		}
 	}
 
@@ -47,6 +56,13 @@ class HomeView extends React.Component {
 		if (window) {
 			window.scrollTo(0, 0)
 		}
+
+		let user_insurance_status = null
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		this.setState({is_user_insurance_active: user_insurance_status})
 
 		this.props.getSpecialityFooterData((cb) => {
 			this.setState({ specialityFooterData: cb });
@@ -93,7 +109,7 @@ class HomeView extends React.Component {
 		return Math.abs(ageDate.getUTCFullYear() - 1970);
 	}
 
-	searchLab = (test, isPackage = false) =>{
+	searchLab = (test, isPackage = false) => {
 		let data
 		if (isPackage) {
 			test.type = 'package'
@@ -122,7 +138,7 @@ class HomeView extends React.Component {
 		}
 	}
 
-	searchDoctor = (speciality) =>{
+	searchDoctor = (speciality) => {
 		if (speciality.url) {
 			this.props.history.push(`/${speciality.url}`)
 		}
@@ -215,29 +231,54 @@ class HomeView extends React.Component {
 		this.setState({ showPopup: false })
 	}
 
-	sbiBannerClicked= ()=>{
+	sbiBannerClicked = () => {
 		let data = {
-				'Category': 'ConsumerApp', 'Action': 'SBIGOLDBANNER', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sbi-gold-banner'
+			'Category': 'ConsumerApp', 'Action': 'SBIGOLDBANNER', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sbi-gold-banner'
 		}
 		GTM.sendEvent({ data: data })
 		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-sbi-gold-clicked&lead_source=Docprime')
 	}
 
+	closeLeadPopup() {
+        this.setState({ show_popup: false })
+	}
+	
 	nearbyHospitalViewAllClicked = ()=>{
 		let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
-        }
-        GTM.sendEvent({ data: gtmData })
-        this.props.mergeIpdCriteria({
-            commonSelectedCriterias: [],
-            nextSelectedCriterias: []
-        })
-        this.props.history.push(`/ipd/searchHospitals`)   
+			'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
+		}
+		GTM.sendEvent({ data: gtmData })
+		this.props.mergeIpdCriteria({
+			commonSelectedCriterias: [],
+			nextSelectedCriterias: []
+		})
+		this.props.history.push(`/ipd/searchHospitals`)
+	}
+
+	clickedGoldBanner = ()=>{
+		this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-home-page-gold-banner&lead_source=Docprime')
+	}
+
+	afterUserLogin = ()=>{
+		let is_user_insurance_active = false;
+		let user_insurance_status = null;
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+		if(is_user_insurance_active){
+			setTimeout(() => {
+	            SnackBar.show({ pos: 'bottom-center', text: "For insured customers, prescription upload is required at the time of booking" })
+	        }, 1000)
+			this.setState({is_user_insurance_active: true })
+		}
 	}
 
 	render() {
 
 		let topSpecializations = []
+		let user_insurance_status = null
+		let is_user_insurance_active = null;
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.props.specializations;//.slice(0, 9)//this.getTopList(this.props.specializations)
 		}
@@ -253,6 +294,24 @@ class HomeView extends React.Component {
 		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
+		let defaultUser = this.props.profiles && this.props.defaultProfile && this.props.profiles[this.props.defaultProfile];
+		
+		let showGoldBanner = false;
+
+		if(this.props.user_detail_fetched) {
+
+			if(defaultUser && Object.keys(defaultUser).length) {
+
+				showGoldBanner = !(this.props.is_any_user_buy_gold || defaultUser.insurance_status == 1 || defaultUser.insurance_status == 5 || defaultUser.insurance_status == 4|| defaultUser.insurance_status == 7)
+			}else {
+				showGoldBanner = true;
+			}
+		}
+
+		if(!STORAGE.checkAuth()){
+			showGoldBanner = true;
+		}
+
 		let articles = this.props.articles || []
 		const parsed = queryString.parse(this.props.location.search)
 		let SlabSequence = 0
@@ -263,11 +322,17 @@ class HomeView extends React.Component {
 				SlabSequence = 2
 			}
 		}
-		let isSBI = this.props.mergeState && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')
+		let isSBI = this.props.mergeState && document && typeof document == 'object' && document.location && document.location.host && document.location.host.includes('sbi')
 
 		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
 
 		let slabOrder = []
+
+		//Check user for insurance 
+		if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+			user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+		}
+		is_user_insurance_active = user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7
 		//For desktop View, get home page views
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -282,10 +347,10 @@ class HomeView extends React.Component {
 							list={topSpecializations}
 							searchFunc={this.searchDoctor}
 							searchType="specializations"
-							historyObj ={this.props.history}
+							historyObj={this.props.history}
 							navTo="/search?from=home"
 							type="opd"
-							selectSearchType = {this.props.selectSearchType}
+							selectSearchType={this.props.selectSearchType}
 						/>
 
 						{
@@ -309,12 +374,12 @@ class HomeView extends React.Component {
 							list={topTests}
 							searchFunc={this.searchLab}
 							searchType="tests"
-							historyObj ={this.props.history}
+							historyObj={this.props.history}
 							navTo="/search?from=home"
 							type="lab"
-							selectSearchType = {this.props.selectSearchType}
+							selectSearchType={this.props.selectSearchType}
 						/>
-
+						
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
@@ -327,31 +392,31 @@ class HomeView extends React.Component {
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
-									historyObj ={this.props.history}
-									selectSearchType = {this.props.selectSearchType}
+									historyObj={this.props.history}
+									selectSearchType={this.props.selectSearchType}
 								/> : ""
 						}
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria}/>
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria} />
 								: ''
 						}
 						{
 							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory top_data={this.props.package_categories} historyObj ={this.props.history} />
+								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history} />
 								: ''
 						}
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj ={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked}/>
+								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked} />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj ={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked}/>
+								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked} />
 								: ''
 						}
 
@@ -371,6 +436,10 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-7" key="upcom">
 					<div className="right-card-container">
+						{
+							showGoldBanner?<GoldHomePageBanner clickedGoldBanner={this.clickedGoldBanner}/>:''
+						}
+						
 						<UpComingAppointmentView {...this.props} />
 						{/* {
                             !!!profileData ?
@@ -399,35 +468,36 @@ class HomeView extends React.Component {
 								<TopChatWidget {...this.props} history={this.props.history} /> : ''*/
 						}
 						{
-							!isSBI?
-							<div className="banner-cont-height home-page-banner-div">
-								<div className="hidderBanner banner-carousel-div d-md-none">
-									<div className="divHeight m-0" style={{marginBottom:"5px!important"}}></div>
+							showGoldBanner?''
+							:!isSBI ?
+								<div className="banner-cont-height home-page-banner-div">
+									<div className="hidderBanner banner-carousel-div d-md-none">
+										<div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+									</div>
+									{
+										this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+											<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+									}
 								</div>
-								{
-									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-								}
-							</div>
-							:<div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
-								<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight-sbi mt-0" style={{marginBottom:"8px!important"}}></div>
+								: <div className="banner-cont-height home-page-banner-div d-md-block sbi-ban-top" onClick={this.sbiBannerClicked}>
+									<div className="hidderBanner banner-carousel-div d-md-none">
+										<div className="divHeight-sbi mt-0" style={{ marginBottom: "8px!important" }}></div>
+									</div>
+									<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
+										<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
+									</div>
 								</div>
-								<div className=" banner-home-scrollable mrt-20 mrb-20" style={{ position: 'absolute' }}>
-									<img className="img-fluid m-0" src="https://cdn.docprime.com/media/web/custom_images/SBIG_banner-min.png" />
-								</div>
-							</div>
 						}
-						
+
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
-								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj ={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked}/>
+								<HomePageTopHospitals top_data={this.props.top_hospitals} topHeading='Top hospitals' topHospital={true} dataType='home_top_hsptl' historyObj={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked} />
 								: ''
 						}
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj ={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked}/>
+								<HomePageTopHospitals top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true} historyObj={this.props.history} nearbyHospitalViewAllClicked={this.nearbyHospitalViewAllClicked} />
 								: ''
 						}
 
@@ -437,11 +507,25 @@ class HomeView extends React.Component {
 							list={topSpecializations}
 							searchFunc={this.searchDoctor}
 							searchType="specializations"
-							historyObj ={this.props.history}
+							historyObj={this.props.history}
 							navTo="/search?from=home"
 							type="opd"
-							selectSearchType = {this.props.selectSearchType}
+							selectSearchType={this.props.selectSearchType}
 						/>
+
+						{
+							showGoldBanner && !isSBI?
+							<div className="banner-cont-height home-page-banner-div">
+								<div className="hidderBanner banner-carousel-div d-md-none">
+									<div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>
+								</div>
+								{
+									this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+										<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+								}
+							</div>
+							:''
+						}
 
 						{
 							this.props.common_package && this.props.common_package.length ?
@@ -455,8 +539,8 @@ class HomeView extends React.Component {
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
-									historyObj ={this.props.history}
-									selectSearchType = {this.props.selectSearchType}
+									historyObj={this.props.history}
+									selectSearchType={this.props.selectSearchType}
 								/> : ""
 						}
 
@@ -496,21 +580,35 @@ class HomeView extends React.Component {
 							list={topTests}
 							searchFunc={this.searchLab}
 							searchType="tests"
-							historyObj ={this.props.history}
+							historyObj={this.props.history}
 							navTo="/search?from=home"
 							type="lab"
-							selectSearchType = {this.props.selectSearchType}
+							selectSearchType={this.props.selectSearchType}
 						/>
+						{
+							this.state.is_user_insurance_active?''
+							:<PrescriptionUpload historyObj={this.props.history} is_home_page={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin}/>	
+						}
 
 						{
+							// this.state.showPrescriptionInsuranceError?
+							// <div className="health-advisor-col d-flex p-2 align-items-start">
+							// 	<img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+							// 	<p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+							// 	<img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+							// </div>:''
+
+						}
+						
+						{
 							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history}/>
+								<HomePagePackageCategory top_data={this.props.package_categories} historyObj={this.props.history} />
 								: ''
 						}
 
 						{
 							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj ={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria}/>
+								<HomePageTopProcedures top_data={this.props.ipd_procedures} historyObj={this.props.history} mergeState={this.props.mergeState} toggleIPDCriteria={this.props.toggleIPDCriteria} />
 								: ''
 						}
 
@@ -529,7 +627,7 @@ class HomeView extends React.Component {
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1}/>
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} new_fixed_header={1} />
 
 				{/* {
 					this.state.showPopup ?
@@ -605,6 +703,10 @@ class HomeView extends React.Component {
 				</div>
 				<div className="chat-main-container">
 					<div className="container">
+					{
+                        this.state.show_popup ?
+                            <VipLoginPopup {...this.props}  hideLoginPopup={this.closeLeadPopup.bind(this)}  closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
+                    }
 						<div className="row">
 							{slabOrder}
 						</div>

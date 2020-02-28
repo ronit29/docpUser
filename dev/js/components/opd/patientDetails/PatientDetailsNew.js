@@ -85,7 +85,8 @@ class PatientDetailsNew extends React.Component {
             enableDropOfflead: true,
             showNonIpdPopup: parsed.show_popup,
             to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1,
-            disable_page:true
+            disable_page:true,
+            is_lead_enabled:true
         }
     }
 
@@ -350,7 +351,7 @@ class PatientDetailsNew extends React.Component {
         if (nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id != this.state.selectedVipGoldPackageId)) {
             this.setState({ selectedVipGoldPackageId: nextProps.selected_vip_plan.id })
         }
-        if (this.state.enableDropOfflead && STORAGE.checkAuth()) {
+        if (this.state.enableDropOfflead && STORAGE.checkAuth() && !STORAGE.isAgent()) {
             this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile != nextProps.selectedProfile)) {
@@ -1477,7 +1478,13 @@ class PatientDetailsNew extends React.Component {
                 data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
             }
             this.setState({ enableDropOfflead: false })
-            this.props.NonIpdBookingLead(data)
+            if(this.state.is_lead_enabled){
+                this.setState({is_lead_enabled:false})
+                this.props.NonIpdBookingLead(data)
+                setTimeout(() => {
+                    this.setState({is_lead_enabled:true})
+                }, 5000)
+            }
         }
     }
 
@@ -1512,7 +1519,13 @@ class PatientDetailsNew extends React.Component {
         let gtm_data = { 'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click' }
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-        this.props.NonIpdBookingLead(data)
+        if(this.state.is_lead_enabled && !STORAGE.isAgent){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
         this.setState({ to_be_force: 0 }, () => {
             this.appendParamToUrl()
         })
@@ -1792,8 +1805,8 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 ?
-                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} />
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} hospital_id={this.state.selectedClinic} />
                         : ''
                 }
                 {

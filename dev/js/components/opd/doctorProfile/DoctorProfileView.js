@@ -62,7 +62,8 @@ class DoctorProfileView extends React.Component {
             showVipPopup: false,
             showNonIpdPopup: parsed.show_popup,
             to_be_force:1,
-            is_organic_landing:false
+            is_organic_landing:false,
+            is_lead_enabled:true
         }
     }
 
@@ -377,7 +378,13 @@ class DoctorProfileView extends React.Component {
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click',is_organic:landing_page}
         GTM.sendEvent({ data: gtm_data })
         this.props.saveLeadPhnNumber(phone_number)
-       this.props.NonIpdBookingLead(data) 
+        if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
        this.setState({to_be_force:0})
     }
 
@@ -519,12 +526,12 @@ class DoctorProfileView extends React.Component {
                 }
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
-                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id} hospital_id={this.state.selectedClinic}/>
                     :''
                 }
                 {
-                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
-                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1 && !isUtmTagsExist?
+                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={false} doctor_id={doctor_id} is_organic={true} hospital_id={this.state.selectedClinic}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
