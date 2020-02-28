@@ -71,7 +71,7 @@ class Disclaimer extends React.Component {
                             please contact an ambulance service or hospital directly.
             </p>
                         <p className="privacy-desc mrt-20">
-                            <strong>Copyright 2018. docprime.com. All rights reserved.</strong>
+                            <strong>Copyright 2020. docprime.com. All rights reserved.</strong>
                         </p>
                     </div>
                 </div>
