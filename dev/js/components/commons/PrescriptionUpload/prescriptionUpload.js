@@ -111,15 +111,15 @@ class PrescriptionView extends React.PureComponent {
             } else {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
-            this.props.uploadCommonPrescription(form_data, (data, err) => {
-                if (data) {
+            this.props.uploadCommonPrescription(form_data, (dataResp, err) => {
+                if (dataResp) {
                     let user_no = this.props.primaryMobile?this.props.primaryMobile:this.props.user_loggedIn_number
                     if(user_no){
                         user_no = Number(user_no)
                     }
                     const parsed = queryString.parse(this.props.locationObj.search)
                     let data = {
-                        phone_number:user_no,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
+                        phone_number:user_no,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null, file_url: dataResp.file_url
                     }
                     let gtm_data = {'Category': 'ConsumerApp', 'Action': 'PrescriptionSubmitted', 'CustomerID': GTM.getUserId() || '', 'event': 'prescription-submitted'}
                     GTM.sendEvent({ data: gtm_data })
