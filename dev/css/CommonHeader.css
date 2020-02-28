@@ -71,9 +71,11 @@
 .main-header-left-col{
     padding: 15px;
     overflow: hidden;
+    width: 135px;
 }
 .main-header-right-col{
-    padding: 15px;
+    padding: 15px 15px 15px 0;
+    width: calc(100% - 135px);
 }
 .menu-icon{
     float: left;
@@ -108,9 +110,6 @@
 }
 .no-border{
     border: none!important;
-}
-.header-list-items{
-    padding-right: 15px!important;
 }
 .header-list-items > li{
     padding-left: 1rem;
@@ -314,9 +313,3 @@
     }
 }
 /***** Responsive Media CSS Ends ****/
-#home_top_pckg>.slider-card-column{
-    width: 250px;
-}
-#home_top_pckg>.slider-card-column>h5{
-    width: 200px;
-}

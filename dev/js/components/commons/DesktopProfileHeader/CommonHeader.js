@@ -217,7 +217,7 @@ class DesktopProfileHeader extends React.Component {
                     }
                     {/* on click left menu */}
                     <div className="row align-items-center m-0" id="lw-header" style={{width:'100%'}}>
-                        <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center main-header-left-col">
+                        <div className="d-flex align-item-center main-header-left-col">
                             {/* hamburger menu icon */}
                             
                             <div className="menu-icon" onClick={(e) => {
@@ -236,7 +236,7 @@ class DesktopProfileHeader extends React.Component {
                             <a className="sbi-iconfx" href="/" onClick={(e) =>{
                                 e.preventDefault();
                                 e.stopPropagation();
-                                this.logoClick() }} style={{marginLeft: 10}}>
+                                this.logoClick() }}>
                                 <div className="d-none d-lg-block">
                                     <img  style={{transform:'scale(1.5)'}} src="https://cdn.docprime.com/media/web/custom_images/LOGO-01.svg" alt="docprime" height="36" />
                                 </div>
@@ -261,7 +261,7 @@ class DesktopProfileHeader extends React.Component {
                             </a>
                             {/* header logo click event */}
                         </div>
-                        <div className="col-8 col-sm-9 col-lg-10 d-flex align-item-center justify-content-between main-header-right-col">
+                        <div className="d-flex align-item-center justify-content-between main-header-right-col">
                             {/* desktop header search */}
                             <div className="header-search-full-width d-none d-lg-flex align-items-center justify-content-end">
                                 {
