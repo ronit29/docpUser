@@ -218,8 +218,8 @@ class DesktopProfileHeader extends React.Component {
                     {/* on click left menu */}
                     <div className="row align-items-center m-0" id="lw-header" style={{width:'100%'}}>
                         <div className="col-4 col-sm-3 col-lg-2 d-flex align-item-center main-header-left-col">
-                            <div className="curved-bg">&nbsp;</div>
                             {/* hamburger menu icon */}
+                            
                             <div className="menu-icon" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
@@ -236,10 +236,9 @@ class DesktopProfileHeader extends React.Component {
                             <a className="sbi-iconfx" href="/" onClick={(e) =>{
                                 e.preventDefault();
                                 e.stopPropagation();
-                                this.logoClick() }} style={{
-                                width: 64, overflow:'hidden', position:'relative' }}>
+                                this.logoClick() }} style={{marginLeft: 10}}>
                                 <div className="d-none d-lg-block">
-                                    <img  src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" height="36" />
+                                    <img  style={{transform:'scale(1.5)'}} src="https://cdn.docprime.com/media/web/custom_images/LOGO-01.svg" alt="docprime" height="36" />
                                 </div>
                                 {
                                     this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
@@ -252,11 +251,11 @@ class DesktopProfileHeader extends React.Component {
                                             :''
                                         }
                                         <div className="d-lg-none" >
-                                            <img height="31" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" />
+                                            <img height="50" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/LOGO-01.svg" alt="docprime" />
                                         </div>
                                     </React.Fragment>
                                     :<div className="d-lg-none" >
-                                        <img height="31" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/dplogo.svg" alt="docprime" />
+                                        <img height="50" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/LOGO-01.svg" alt="docprime" />
                                     </div>
                                 }
                             </a>
