@@ -1089,9 +1089,10 @@ class Terms extends React.Component {
                                 under, if you have any grievance with respect to the Website or the service, including
                                 any discrepancies and grievances with respect to processing of information, you can
                                 contact our Grievance Officer at:
-               <p>Name: Rajendra Prasad</p>
-                                <p>Designation: Senior Manager</p>
-                                <p>Email: rajendra@docprime.com</p>
+                                <p>&nbsp;</p>
+                                <p className="fw-500">Name: Ashish Ajmani</p>
+                                <p className="fw-500">Designation: Manager Operations</p>
+                                <p className="fw-500">Email: ashishajmani@docprime.com</p>
                             </li>
                         </ol>
                     </div>

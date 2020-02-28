@@ -1,0 +1,860 @@
+.new-main-view {
+    padding: 110px 37px 37px 37px;
+    background: url(/assets/img/main-bg.svg) no-repeat;
+    background-size: 90%;
+    background-position: 0% 0%;
+    overflow-x: hidden;
+}
+
+/************** full banner section **************/
+
+.full-banner-section {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.full-banner-section>img {
+    cursor: pointer;
+    transform: scale(1.015);
+}
+
+.full-banner-section>a {
+    position: absolute;
+    right: 32px;
+    bottom: 17px;
+    color: #FED900;
+    font-size: 13px;
+    cursor: pointer;
+}
+.down-icon-yellow{
+    transform: rotate(90deg);
+    display: inline-block;
+    margin-left: 7px;
+    font-size: 14px;
+}
+/************** full banner section **************/
+/************** top hospital css **************/
+
+.card-block-row {
+    position: relative;
+}
+
+.card-block-row>.top-card-row>h6,
+.card-block-row>.top-card-row >a {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.card-block-row>.top-card-row >a{
+    color: var(--text--primary--color);
+}
+.card-block-row> .pkg-btnlft{
+    transform: rotate(0deg);
+    left: -14px; 
+    top: 30px;
+    width: 25px;
+    height: 25px;
+}
+.card-block-row> .pkg-btnrgt{
+    transform: rotate(180deg);
+    right: -14px; 
+    top: 30px;
+    width: 25px;
+    height: 25px;
+}
+.test-price{
+    color: var(--text--primary--color);
+    margin: 10px auto;
+    font-size: 15px;
+}
+/************** top hospital css **************/
+/************** card slider css **************/
+
+.card-slider-container {
+    background: #fff;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: auto;
+    position:relative;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    display: flex;
+}
+
+.slider-card-column {
+    width: 195px;
+    display: inline-block;
+    text-align: center;
+    padding: 5px 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    white-space: normal;
+    cursor: pointer;
+}
+
+.slider-card-column:last-child {
+    border: none;
+}
+
+.card-slider-container>.slider-card-column>.slide-img-col {
+    height: 45px;
+}
+
+.card-slider-container>.slider-card-column>.slide-img-col>img {
+    width: 100%;
+    height: inherit;
+    object-fit: contain;
+    padding: 5px;
+}
+
+.card-slider-container>.slider-card-column>h5 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000000;
+    margin-top: 10px;
+    width: 150px;
+    white-space: initial;
+}
+
+.card-slider-container>.slider-card-column>.off-txt {
+    color: #94B107;
+}
+
+.discount-badge{
+    background: #8ea51d;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 4px;
+    position: absolute;
+    left: 15px;
+    margin-top: 2px;
+    z-index: 1;
+}
+.discount-badge > h6{
+    color: #fff;
+    font-size: 12px;
+}
+.home-card-col.search-icon-col{
+    display: none!important;
+}
+
+.home-card-col.search-icon-col >.grid-img-cnt> a > span{
+    white-space: normal;
+}
+/************** card slider css **************/
+
+/************** Partner section css **************/
+.our-partner-heading-text{
+    font-size: 22px;
+    margin-top: 25px;
+}
+.partner-section {
+    white-space: normal;
+    padding: 20px 10px;
+}
+
+.partner-section>.partner-img-block {
+    width: 200px;
+    height: 100px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-section>.partner-img-block>img {
+    object-fit: contain;
+    transform: scale(0.7);
+}
+
+.transform-sc-1 {
+    transform: scale(1.1) !important;
+}
+
+/************** Partner section css **************/
+
+/************** we are here  css **************/
+.milestone-section {
+    white-space: normal !important;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.round-col {
+    width: 280px;
+    height: 280px;
+    background: #41A2F91F;
+    border-radius: 50%;
+
+}
+
+.round-col>h3 {
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.round-col>ul>li {
+    padding: 2px;
+}
+
+.round-col>ul>li:nth-child(2),
+.round-col>ul>li:nth-child(4) {
+    margin-top: -10px;
+}
+
+.round-col>ul>li:nth-child(3) {
+    margin-top: -19px;
+}
+
+.consultation-col {
+    padding: 0 30px;
+    width: 50%;
+}
+
+.left-border {
+    border-left: 1px solid rgba(112, 112, 112, 0.19);
+}
+
+.consultation-col>h3 {
+    border-bottom: 1px solid rgba(112, 112, 112, 0.19);
+    padding: 30px
+}
+
+.consultation-col>h3:last-child,
+.consultation-col>h4:last-child {
+    border: none;
+}
+
+.consultation-col>h3>span:first-child {
+    color: rgba(65, 162, 249, 1);
+    font-size: 42px;
+}
+
+.consultation-col>h3>span:last-child {
+    font-size: 17px;
+}
+
+.consultation-col>h4 {
+    border-bottom: 1px solid rgba(112, 112, 112, 0.19);
+    padding: 16px 50px;
+}
+
+.consultation-col>h4>span {
+    position: relative;
+    /* left: 20%; */
+}
+
+.consultation-col>h4>span:first-child {
+    color: rgba(65, 162, 249, 1);
+    font-size: 32px;
+}
+
+.consultation-col>h4>span:last-child {
+    font-size: 16px;
+}
+
+/************** we are here  css **************/
+
+/************** customer review **************/
+.customer-review-heading{
+    font-size: 22px;
+}
+.cust-review>.col-sm-4 {
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cust-review>.col-sm-4>h3 {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 0;
+}
+.cust-review>.col-sm-4>ul>li{
+    padding: 2px;
+}
+
+.cust-review>.col-sm-4>p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    white-space: normal;
+    flex: 1;
+}
+
+.cust-img-block{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(227, 135, 135, 1);
+    margin: 0 auto;
+    color: #fff;
+    font-size: 14px;
+}
+.cust-img-block > img{
+    width: 100%;
+    height: 100%;
+}
+/************** customer review **************/
+
+
+.detail-row {
+    padding: 40px 50px 70px 80px;
+    overflow: hidden;
+}
+
+.detail-row>h6 {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.other-details>ul {
+    margin-top: 75px;
+}
+
+.other-details>ul>li {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 40px;
+}
+
+.other-details>ul>li::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #f1853b;
+    margin-right: 20px;
+}
+
+.download-links {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.download-links:nth-child(2){
+    margin-left: 15px;
+}
+
+.demo-mbl-screen-col>img {
+    transform: scale(1.2);
+    position: relative;
+    right: -20%;
+}
+.link-arrow-clr{
+    fill: var(--text--primary--color);
+}
+.onln-doc-cnslt{
+    margin-top: 120px;
+}
+/************** circle chat box css **************/
+.new-chat-box{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 99;
+}
+.chatbox-main{
+    width: 430px;
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 5px;
+    display: none;
+}
+.chatbox-main > .col-md-5{
+    max-width: 100%;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 0px!important;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right{
+    margin-top: 0px!important;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head{
+    background: #fff;
+}
+.chatbox-main > .col-md-5 >.fixed-chatbox>div>.chatbox-right>.chat-head>.hd-chat>.header-text-chat{
+    color: #000!important;
+} 
+.chatbox-main>div>div>.cancl-homepg-popup{
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    height: 100%;
+    width: 100%;
+}
+.chatbox-main>div>div>.cancel-appointment-div{
+    position: absolute;
+    width: 90%;
+}
+.chatbox-main>div>div>.cancel-appointment-div>.widget-header, 
+.chatbox-main>div>div>.cancel-appointment-div>a>.widget-content{
+    padding: 5px!important;
+}
+.chat-body{
+    padding-right: 10px;
+}
+.chat-box-circle{
+    width: 90px;
+    height: 90px;
+    background: var(--text--primary--color);
+    box-shadow: 0px 3px 6px #0000003E;
+    color: #fff;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transform: scale(1);
+    transition:  0.20s ease-in-out;
+}
+.chat-box-circle> h6{
+    font-size: 11px;
+    font-weight: 500;
+}
+.chat-box-circle > h3{
+    display: none;
+    background: #F45C5C;
+    width: 100%;
+    height: 100%;
+    transition:  0.20s ease-in-out;
+}
+.new-chat-box>input{
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    z-index: 11;
+    opacity: 0;
+    cursor: pointer;
+}
+.new-chat-box>input[type=checkbox]:checked ~ .chatbox-main{
+    display: block;
+
+}
+.new-chat-box>input[type=checkbox]:checked,
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle{
+    transform: rotate(90deg) scale(.6);
+} 
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle>h3{
+    display: flex;
+}
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle>h3> img{
+    transform: rotate(90deg) scale(1.5);
+}
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle> h6,
+.new-chat-box>input[type=checkbox]:checked ~ .chat-box-circle> img {
+    display: none;
+}
+/************** circle chat box css **************/
+
+/************** Corporate details modal css **************/
+.corporate-detail-section{
+    padding: 15px 15px 15px 30%;
+    background: url(/assets/img/corporate-contact.svg) no-repeat left center;
+    background-size: 30% 65%;
+    float: left;
+}
+.corporate-detail-section > .modal-close-img {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    height: 14px;
+}
+.corporate-detail-section > h3{
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.corporate-detail-section > h6{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.corporate-detail-section>form>.input-field-row>input{
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background: #FFFFFF;
+    border: 1px solid rgba(112, 112, 112, 0.22);
+    border-radius: 5px;
+    height: 35px;
+    outline: none;
+}
+.corporate-detail-section>form>.input-field-row:first-child >input{
+    width: 48%;
+}
+/************** Corporate details modal css **************/
+
+/************** banner slider  css **************/
+.mbl-banner{
+    display: none;
+}
+
+.banner-slider-row>div>.slider-container{
+    background: none;
+    box-shadow: none;
+    margin:0px 0px 5px 0px;
+    position: relative;
+    transform: scale(1.05);
+    left: 33px;
+    padding-left: 0px!important;
+    padding-top: 0px!important;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width:none;
+}
+.d-banner>div>.slider-container>a{
+    padding: 10px 10px 10px 0;
+    display: inline-block;
+    width: 35%;
+}
+.d-banner>div>.slider-container>a:last-child{
+    margin-right: 30px;
+}
+.d-banner>div>.slider-container>a>img{
+    height: 100px;
+}
+.mbl-banner>div >.slider-container>a{
+    width: 90%;
+    padding-right: 10px;
+    display: inline-block;
+}
+.banner-slider-row>div>.slider-container>a>img{
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #00000029;
+    max-width: 100%;
+}
+
+/************** banner slider  css **************/
+
+.upload-lab-widget{
+    position: sticky;
+    left: -10px;
+    margin-left: -10px;
+    padding-left: 10px;
+    background: #fff;
+}
+.upload-lab-widget>div{
+    flex-direction: column;
+}
+.upload-lab-widget>div>h6{
+    font-size: 12px;
+    padding: 5px 0;
+    margin-left: 0px!important;
+    width: 190px;
+}
+.upload-lab-widget>div>img{
+    margin-top: 8px;
+    width: 32px
+}
+.upload-lab-widget>button.cstm-book-btn{
+    width: 80%;
+}
+.mbl-view-presc-section{
+    display: none;
+}
+/************** responsive media css **************/
+
+@media screen and (max-width:767px) {
+    .new-chat-box{
+        display: none;
+    }
+    .mbl-view-presc-section{
+        display: flex;
+    }
+    .home-card-col.search-icon-col{
+        display: inline-block!important;
+    }
+
+    .upload-lab-widget{
+        display:none;
+    }
+
+    .banner-slider-row>div>.slider-container{
+        left: 0px;
+        padding: 10px!important;
+    }
+    .new-main-view {
+        padding: 15px;
+        background-size: inherit;
+    }
+
+    .full-banner-section{
+        display: none;
+    }
+
+    .full-banner-section>a{
+        position: unset;
+        float: right;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #f1853b;
+    }
+    
+    .card-slider-container{
+        margin: 8px 0px 16px;
+        padding: 10px 0px;
+    }
+    .slider-card-column{
+        width: 150px;
+        padding: 5px;
+    }
+    .card-slider-container>.slider-card-column>h5{
+        font-size: 12px;
+        margin-top: 5px;
+        width: inherit;
+    }
+    .card-block-row>.top-card-row>h6,
+    .card-block-row>.top-card-row >a{
+      font-size: 14px;   
+      line-height: 20px;
+    }
+    /* .card-block-row > .top-card-row > a{
+        display: none!important;
+    } */
+    .discount-badge{
+        left: auto;
+        margin-top: -3px;
+        right: 8px;
+    }
+    .card-block-row> .pkg-btnrgt,
+    .card-block-row> .pkg-btnlft{
+        display: none;
+    }
+    .round-col{
+        margin:  0 auto;
+        width: 250px;
+        height: 250px;
+    }
+    .round-col>h3{
+        font-size: 20px;
+        margin-top: 0px;
+    }
+    .partner-section{
+        padding: 0px 0px 20px 0px;
+    }
+    .partner-section>.partner-img-block{
+        width: 113px;
+        padding: 10px;
+        height: 66px;
+    }
+    .partner-section>.partner-img-block > img{
+        transform: scale(0.8);
+    }
+    .our-partner-heading-text,.customer-review-heading{
+        font-size: 16px;
+    }
+    .milestone-section{
+        padding: 25px 10px;
+        display: block!important;
+        margin-top: 0px;
+    }
+    .consultation-col{
+        width: 100%;
+        display: flex;
+        border-bottom: 1px solid rgba(112, 112, 112, 0.19);
+        padding: 0px;
+    }
+    .consultation-col>h3{
+        border-bottom: 0px;
+        text-align: center!important;
+        line-height: 18px;
+        width: 50%;
+        display: inline-block;
+        padding: 17px 0px;
+        margin: 0px 0px 20px 0px;
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
+    }
+    .consultation-col>h3>span:first-child{
+        font-size: 26px;
+    }
+    .consultation-col>h3>span:last-child{
+        font-size: 12px;
+        position: relative;
+        top: 12px;
+    }
+    .left-border{
+        border: 0px;
+    }
+    .consultation-col>h4{
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
+        border-bottom: 0px;
+        width: 33%;
+        line-height: 16px;
+        padding: 10px 10px;
+        margin-top: 20px;
+        text-align: center!important;
+    }
+    .consultation-col>h4>span{
+        left: 5%;
+    }
+    .consultation-col>h4>span:first-child{
+        font-size: 17px;
+    }
+    .consultation-col>h4>span:last-child{
+        position: relative;
+        top: 10px;
+        font-size: 11px;
+    }
+    .cust-review>.col-sm-4{
+        padding: 15px;
+    }
+    .cust-review>.col-sm-4:nth-child(1){
+        order: 4;
+    }
+    .cust-review>.col-sm-4:nth-child(2){
+        order: 5;
+    }
+    .cust-review>.col-sm-4:nth-child(3){
+        order: 2;
+    }
+    .cust-review>.col-sm-4:nth-child(4){
+        order: 1;
+    }
+    .cust-review>.col-sm-4>h3{
+        font-size: 14px;
+    }
+    .cust-review>.col-sm-4>p{
+        font-size: 11px;
+    }
+    .detail-row{
+        padding: 0px;
+    }
+    .detail-row>h6{
+        padding-left: 30px;
+        padding-top: 10px;
+    }
+    .other-details>ul{
+        margin-top: 10px;
+        padding-left: 30px;;
+    }
+    .other-details>ul>li{
+        font-size: 14px;
+        line-height: 30px;
+        white-space: nowrap;
+    }
+    .download-links{
+        margin-top: 8px;
+    }
+    .download-links:nth-child(2){
+        margin-left: 0px;
+    }
+    .mbl-wdgt{
+        white-space: normal!important;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .mbl-wdgt> .slider-card-column{
+        width: 110px;
+        border: none;
+    }
+    .mbl-wdgt> .slider-card-column:nth-child(9),
+    .mbl-wdgt> .slider-card-column:nth-child(10){
+        display: none!important;
+    }
+    #home_top_tests>.slider-card-column:nth-child(9){
+        display: inline-block!important;
+    }
+    .mbl-wdgt > .slider-card-column > h5{
+        width: 100px!important;
+    }
+    .card-slider-container>.slider-card-column>.slide-img-col>img{
+        height: 40px;
+    }
+    .mbl-banner{
+        display: block;
+    }
+    .d-banner{
+        display: none;
+    }
+    .right-text-col{
+        display: none;
+    }
+}   
+@media screen and (max-width: 600px){
+    .demo-mbl-screen-col{
+        display: none;
+    }
+    .download-links{
+        justify-content: center;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .new-main-view{
+        padding: 130px 25px 0px 25px;
+    }
+    .header-list-items > li > a{
+        border-right: none;
+    }
+    .full-banner-section>a{
+        right: 10px;
+        bottom: 10px;
+        font-size: 12px;
+    }
+    .card-slider-container{
+        margin: 20px 0;
+    }
+    .partner-section>.partner-img-block{
+        width: 170px;
+        padding: 10px;
+    }
+    .discount-badge {
+        margin-top: 10px;
+    }
+    .round-col{
+        float: left;
+    }
+    .milestone-section{
+        display: inline-block!important;
+    }
+    .consultation-col{
+        padding: 0px;
+        width: 50%;
+        float: right;
+    }
+    .consultation-col>h4{
+        border-bottom: none;
+        border-right: 1px solid rgba(112, 112, 112, 0.19);
+        padding: 20px 35px;
+    }
+    .consultation-col>h4>span{
+        left: 0px;
+    }
+    .left-border{
+        border-left: none;
+        width: 100%;
+        display: flex;
+        padding: 0;
+        justify-content: center;
+        border-top: 1px solid rgba(112, 112, 112, 0.19);
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+    .detail-row{
+        padding: 25px;
+    }
+    .other-details>ul{
+        margin-top: 25px;
+    }
+    .other-details>ul>li{
+        font-size: 16px;
+        line-height: 36px;
+    }
+}
+/************** responsive media css **************/

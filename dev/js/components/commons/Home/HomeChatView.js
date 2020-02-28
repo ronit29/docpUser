@@ -413,10 +413,10 @@ class HomeChatView extends React.Component {
 				<ProfileHeader homePage={true} chatPage={true} showSearch={true} showPackageStrip={showPackageStrip} />
 
 				{/* <div className="sub-header mrg-top"></div> */}
-				<div className="headerSubLinkContainer">
+				{/* <div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-														<a href="/vip-club-details" onClick={(e) => {
+							<a href="/vip-club-details" onClick={(e) => {
 								let data = {
 									'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
 								}
@@ -426,19 +426,6 @@ class HomeChatView extends React.Component {
 								this.navigateTo("/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime", 'opd')
 							}}>Docprime <img src={ASSETS_BASE_URL + '/img/gold-lg.png'} style={{ width: 35, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 
-							{//this.props.common_settings && this.props.common_settings.insurance_availability ?
-							// 	<a href="/insurance/insurance-plans" onClick={(e) => {
-							// 		let data = {
-							// 			'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
-							// 		}
-							// 		GTM.sendEvent({ data: data })
-							// 		e.preventDefault();
-							// 		this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
-							// 	}}>OPD Insurance
-							// 	<span className="opdNewHeaderOfr">New</span>
-							// 	</a>
-							// 	: ''
-							}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -455,13 +442,9 @@ class HomeChatView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/online-consultation')
 							}}>Online Doctor Consultation</a>
-							{/* <p onClick={(e) => {
-								e.preventDefault();
-								this.navigateTo('/contact')
-							}}>Contact us</p> */}
 						</div>
 					</div>
-				</div>
+				</div> */}
 				<div className="chat-main-container">
 					<div className="container">
 						<div className="row justify-content-center">

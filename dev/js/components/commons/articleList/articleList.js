@@ -165,8 +165,8 @@ class ArticleList extends React.Component {
 								}} /> : null
 							}
 							<div className="container-fluid main-container">
-								<div className="row art-search-row">
-									<div className="col-12 mrng-top-12">
+								<div className="row">
+									<div className="col-12">
 										<ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
 											<li className="breadcrumb-list-item">
 												<a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
