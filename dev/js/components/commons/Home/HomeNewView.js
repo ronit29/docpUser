@@ -477,7 +477,7 @@ class MainView extends React.Component{
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
                             }} />
                             <a href="" onClick={(e)=>e.preventDefault()}>
-                                <span onClick={this.getCorporateLead} >Special plans available for Corporatess 
+                                <span onClick={this.getCorporateLead} >Special plans available for Corporates 
                                     <span className="down-icon-yellow">&gt;</span>
                                 </span>
                             </a>
