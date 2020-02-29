@@ -420,7 +420,7 @@ class DoctorProfileView extends React.Component {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
             if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
                 this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
-                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 10)){
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 150)){
                         show_dpp_organic_popup = true
                     }
                 })
