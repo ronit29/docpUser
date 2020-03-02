@@ -649,7 +649,7 @@ class BookingSummaryViewNew extends React.Component {
         })
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, extraParams, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, extraParams,vip_is_prescription_required, e) {
 
         //Check if patient is selected or not
         if (!patient) {
@@ -828,7 +828,7 @@ class BookingSummaryViewNew extends React.Component {
         is_vip_applicable = /*is_tests_covered_under_vip &&*/ is_selected_user_under_vip
         let prescriptionIds = []
         //Check if prior to test, prescription exist for the insured customer or not
-        if (prescriptionPicked && is_insurance_applicable) {
+        if ((prescriptionPicked && is_insurance_applicable) || vip_is_prescription_required) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
                 SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
                 return
@@ -1528,6 +1528,7 @@ class BookingSummaryViewNew extends React.Component {
         let vip_data  = {}
         let is_all_enable_for_vip = true
         let is_all_enable_for_gold = true
+        let vip_is_prescription_required  = false
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -1611,6 +1612,9 @@ class BookingSummaryViewNew extends React.Component {
                 vip_total_amount +=parseInt(twp.vip.vip_amount)
                 vip_total_convenience_amount += parseInt(twp.vip.vip_convenience_amount) 
                 vip_total_gold_price += parseInt(twp.vip.vip_gold_price)
+                if(twp.vip.is_prescription_required ){
+                    vip_is_prescription_required = true
+                }
                 if(!(twp.vip.is_enable_for_vip) ){
                     is_all_enable_for_vip = false
                 }
@@ -2057,7 +2061,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </div>
                                                         {
-                                                            is_insurance_applicable && prescriptionPicked ?
+                                                            (is_insurance_applicable && prescriptionPicked) || vip_is_prescription_required?
                                                                 <UploadPrescription {...this.props} />
                                                                 : ''
                                                         }
@@ -2427,7 +2431,7 @@ class BookingSummaryViewNew extends React.Component {
                                      ( STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured && this.props.payment_type!=6) )?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {} )}>
+                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {},vip_is_prescription_required )}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -2440,7 +2444,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() && this.props.payment_type==6?
                                     <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {sendWhatsup: true} )}>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_amount_payable, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, {sendWhatsup: true},vip_is_prescription_required )}>
                                         <img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp
                                     </button>
                                     :''
@@ -2449,7 +2453,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
-                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_amount_payable, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status, {} )}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_amount_payable, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status, {},vip_is_prescription_required )}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_data && vip_data.vip_amount?vip_data.vip_amount:0, extraParams)}</button>
                                 }
                             </div>
 
