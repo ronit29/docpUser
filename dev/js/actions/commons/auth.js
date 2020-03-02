@@ -381,3 +381,10 @@ export const clearStoreOnLogin = () => (dispatch) =>{
         type: CLEAR_OPD_COUPONS
     })
 }
+
+export const saveLeadPhnNumber = (number) => (dispatch) =>{
+    dispatch({
+        type: SAVE_LOGIN_PHONE_NUMBER,
+        payload: number
+    })
+}

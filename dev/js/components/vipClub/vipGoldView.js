@@ -40,6 +40,7 @@ class VipGoldView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     goBack() {
+        const parsed = queryString.parse(this.props.location.search)
         let selectPlan = this.props.selected_plan_data && this.props.selected_plan_data.id
         if (selectPlan) {
 
@@ -56,7 +57,21 @@ class VipGoldView extends React.Component {
             }
 
         }
-        this.props.history.go(-1)
+        if(this.props.is_from_organic){
+            let url 
+            if(parsed.callBackUrl){
+                url = parsed.callBackUrl
+                if(parsed.hospital_id && !url.includes('hospital_id')){
+                    url += `?hospital_id=${parsed.hospital_id}`
+                }
+                if(parsed.doctor_id){
+                    url += `&doctor_id=${parsed.doctor_id}`
+                }
+                this.props.history.push(url)
+            }
+        }else{
+            this.props.history.go(-1)
+        }
     }
 
     closeLeadPopup() {
@@ -406,7 +421,7 @@ class VipGoldView extends React.Component {
                                                 <div className="col-12 p-0">
                                                     <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                     <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
-                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad_AME_3.mp4">
+                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
                                                         </video>
                                                         <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
                                                             <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
@@ -575,8 +590,11 @@ class VipGoldView extends React.Component {
                                     <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
                                         <p>Continue Booking</p>
                                     </button>
-                                    :
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                    :this.props.is_from_organic?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
                                         <p>Continue</p>
                                     </button>
                             }

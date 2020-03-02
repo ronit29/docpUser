@@ -700,11 +700,11 @@ class ChatPanel extends React.Component {
             return (
                 <React.Fragment>
                     {
-                        this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
+                        this.state.showCancel ? <CancelPopup homePage={this.props.homePage} toggle={this.toggleCancel.bind(this)} closeChat={this.closeChat.bind(this)} /> : ""
                     }
                     <div className="fixed-chatbox">
                         {
-                            this.props.homePage ?
+                            this.props.homePage && false?
                                 <div className="banner-cont-height home-page-banner-div mr-0 banner-md-margn home-bnnr-mrgn">
                                     <div className="hidderBanner banner-carousel-div">
                                         <div className="divHeight m-0" style={{ marginBottom: "5px!important" }}></div>

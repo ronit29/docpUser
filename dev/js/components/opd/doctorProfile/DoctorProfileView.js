@@ -62,7 +62,8 @@ class DoctorProfileView extends React.Component {
             showVipPopup: false,
             showNonIpdPopup: parsed.show_popup,
             to_be_force:1,
-            is_organic_landing:false
+            is_organic_landing:false,
+            is_lead_enabled:true
         }
     }
 
@@ -349,11 +350,23 @@ class DoctorProfileView extends React.Component {
         }
         let criteriaStr = this.props.DOCTORS[doctor_id].display_name
         let hospital_id
+        let display_total_mrp = 0
+        let display_docprime_discount = 0
         let selected_hospital = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
         if(selected_hospital.length){
             hospital_id = selected_hospital[0].hospital_id
+            display_total_mrp = parseInt(selected_hospital[0].mrp)
+            display_docprime_discount = display_total_mrp - (parseInt(selected_hospital[0].deal_price))
+            if(!selected_hospital[0].insurance.is_user_insured && !selected_hospital[0].vip.is_vip_member && !selected_hospital[0].vip.is_gold_member && selected_hospital[0].vip.is_enable_for_vip){
+                display_docprime_discount = display_total_mrp - (selected_hospital[0].vip.vip_convenience_amount + selected_hospital[0].vip.vip_gold_price)
+            }
         }
-        let data =({phone_number:phone_number,lead_source:'docads',source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page})
+        //check if any utm tag exist in url
+        let isUtmTagsExist = false
+        if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
+            isUtmTagsExist = true
+        }
+        let data =({phone_number:phone_number,lead_source:`${!isUtmTagsExist && landing_page?'docorganic':'docads'}`,source:parsed,lead_type:'DOCADS',exitpoint_url:`http://docprime.com${this.props.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${hospital_id}`,doctor_id:doctor_id,hospital_id:hospital_id,doctor_name:null,hospital_name:null,is_organic:landing_page,amount_discount: display_docprime_discount})
         if(this.props.common_utm_tags && this.props.common_utm_tags.length){
             data.utm_tags = this.props.common_utm_tags.filter(x=>x.type == "common_xtra_tags")[0].utm_tags
         }
@@ -364,7 +377,14 @@ class DoctorProfileView extends React.Component {
             }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsDppSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-hpp-Submit-click',is_organic:landing_page}
         GTM.sendEvent({ data: gtm_data })
-       this.props.NonIpdBookingLead(data) 
+        this.props.saveLeadPhnNumber(phone_number)
+        if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
        this.setState({to_be_force:0})
     }
 
@@ -400,7 +420,7 @@ class DoctorProfileView extends React.Component {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
             if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
                 this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
-                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 80)){
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 150)){
                         show_dpp_organic_popup = true
                     }
                 })
@@ -506,12 +526,12 @@ class DoctorProfileView extends React.Component {
                 }
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
-                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id} hospital_id={this.state.selectedClinic}/>
                     :''
                 }
                 {
-                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1?
-                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id}/>
+                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1 && !isUtmTagsExist?
+                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id} is_organic={false} hospital_id={this.state.selectedClinic}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">

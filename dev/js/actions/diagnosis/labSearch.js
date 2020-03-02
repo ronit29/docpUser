@@ -145,9 +145,9 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 export const getLabById = (labId, testIds = [], forceAddTestids=false, dataParams={}) => (dispatch) => {
 	let url = `/api/v1/diagnostic/lablist/${labId}?test_ids=${testIds.join(',')}`
-	if(dataParams && dataParams.booking_page) {
-		url+=`&booking_page=true`
-	}
+		if(dataParams && dataParams.booking_page) {
+			url+=`&booking_page=true`
+		}
 		dispatch({
 			type: SHOW_RETAIL_VIP_CARD_LAB_SUMMARY,
 			payload: false
@@ -593,3 +593,13 @@ export const select_lab_payment_type = (type = 1) => (dispatch) => {
 		payload: type
 	})
 }
+
+export const uploadCommonPrescription = (profileData,callback) => (dispatch) => {
+    API_POST(`api/v1/diagnostic/lab_test_prescription/upload`,profileData).then(function (response) {
+        if (callback) callback(response,null)
+    }).catch(function (error) {
+        if (callback) callback(null, error)
+    })
+}
+
+

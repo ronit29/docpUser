@@ -4,7 +4,7 @@ import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCar
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
-import DesktopProfileHeaderView from './DesktopProfileHeader'
+import DesktopProfileHeaderView from './CommonHeader.js'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {

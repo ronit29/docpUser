@@ -8,6 +8,8 @@ import HelmetTags from '../../../commons/HelmetTags'
 import CONFIG from '../../../../config'
 import Disclaimer from '../../../commons/Home/staticDisclaimer.js'
 import SnackBar from 'node-snackbar'
+import STORAGE from '../../../../helpers/storage'
+
 
 const queryString = require('query-string');
 
@@ -287,8 +289,12 @@ const queryString = require('query-string');
                   <div className="row main-row parent-section-row">
                     <LeftBar />
                     {/*compare screen*/}
-
-                    <button onClick={this.sendPageUrl} className="whtsappPages"><img src={ASSETS_BASE_URL + '/img/wa-logo.svg'} />Send on Whatsapp</button>
+                    {
+                      STORAGE.isAgent()?
+                      <button onClick={this.sendPageUrl} className="whtsappPages"><img src={ASSETS_BASE_URL + '/img/wa-logo.svg'} />Send on Whatsapp</button>
+                      :''
+                    }
+                    
 
                     <div className="container-fluid pad-all-0">
                       {this.props.data.title?

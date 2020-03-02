@@ -72,7 +72,7 @@ class Lensfit extends React.Component {
                                 <div className="lns-offr-apl-cont">
                                     <p>*Offer only applicable on completed OPD and lab bookings</p>
                                     <p>*Coupon is not transferable or redeemable for cash</p>
-                                    <p>*Coupon code is valid till 31st December 2019 and can be used only once</p>
+                                    {/* <p>*Coupon code is valid till 31st December 2019 and can be used only once</p> */}
                                     {/*<p>*Delivery charge of ₹299 + GST</p>*/}
                                 </div>
                             </div>

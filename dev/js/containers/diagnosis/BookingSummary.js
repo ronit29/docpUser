@@ -53,7 +53,8 @@ class BookingSummary extends React.Component {
             let dataParams = {
                 booking_page: true
             }
-            props.getLabById(lab_id, testIds, forceAddTestids, dataParams)
+
+            props.getLabById(lab_id, testIds, forceAddTestids,dataParams)
         }
     }
 

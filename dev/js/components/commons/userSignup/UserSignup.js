@@ -45,7 +45,39 @@ class UserSignupView extends React.Component {
             dateModal: false,
             whatsapp_optin:true,
             isDobValidated:false,
-            is_dob_error:false
+            is_dob_error:false,
+            primary_profile:{},
+            add_to_gold:false,
+            gold_user_profile:{},
+            toUpdateState:true
+        }
+    }
+
+    componentDidMount(){
+        let default_profile
+        let gold_user_profile = {}
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.defaultProfile && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0){ 
+               default_profile = this.props.USER.profiles[this.props.USER.defaultProfile]   
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(!value.isDummyUser && value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
+                })
+               this.setState({primary_profile:default_profile,gold_user_profile:gold_user_profile})
+        }
+    }
+
+    componentWillReceiveProps(props){
+        let default_profile
+        let gold_user_profile = {}
+        if(this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.defaultProfile && this.props.USER.profiles[this.props.USER.defaultProfile] && Object.keys(this.props.USER.profiles[this.props.USER.defaultProfile]).length > 0 && this.state.toUpdateState){ 
+               default_profile = this.props.USER.profiles[this.props.USER.defaultProfile]   
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(!value.isDummyUser && value.is_vip_gold_member){
+                        gold_user_profile = value
+                    } 
+                })
+               this.setState({primary_profile:default_profile,gold_user_profile:gold_user_profile,toUpdateState:false})
         }
     }
 
@@ -105,14 +137,14 @@ class UserSignupView extends React.Component {
                     }
                     break
                 }
-                case "phone_number": {
-                    if (!!this.refs[prp].value) {
-                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
-                    } else {
-                        validated = true
-                    }
-                    break
-                }
+                // case "phone_number": {
+                //     if (!!this.refs[prp].value) {
+                //         validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
+                //     } else {
+                //         validated = true
+                //     }
+                //     break
+                // }
                 case "email": {
                     if (!this.refs[prp].value) {
                         validated = false
@@ -185,6 +217,10 @@ class UserSignupView extends React.Component {
         this.setState({dob:newDate,isDobValidated:isValidDob})
     }
 
+    addToGold(value){
+        this.setState({add_to_gold:value})
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -197,56 +233,8 @@ class UserSignupView extends React.Component {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-12">
-                                        {/* <header className="skin-white fixed horizontal top bdr-1 bottom light sticky-header">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <ul className="inline-list">
-                                                <li onClick={() => {
-                                                    this.props.history.go(-1)
-                                                }}><span className="icon icon-sm text-middle back-icon-white"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span></li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="header-title fw-700 capitalize text-center">{this.state.existingUser ? "Add Profile" : "Signup User"}</div>
-                                        </div>
-                                        <div className="col-2">
-                                            {
-                                                this.state.showMedical ? <div onClick={() => {
-                                                    const parsed = queryString.parse(this.props.location.search)
-                                                    if (parsed.callback) {
-                                                        this.props.history.replace(parsed.callback)
-                                                    } else {
-                                                        this.props.history.go(-1)
-                                                    }
-                                                }} className="header-title fw-700 capitalize text-center text-primary">Skip</div> : ""
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </header> */}
 
                                         <section className="validation-book-screen">
-
-                                            {/* <div style={stepperStyle}>
-    <div className="col-12">
-        <div className="app-timeline book-confirmed-timeline">
-            <ul className="inline-list">
-                <li className={!this.state.showMedical ? "active" : ""}>
-                    <span className="dot">1</span>
-                    <p className="text-sm fw-700 text-light">Details</p>
-                </li>
-                <li>
-
-                </li>
-                <li className={this.state.showMedical ? "active" : ""}>
-                    <span className="dot">2</span>
-                    <p className="text-sm fw-700 text-light">Medical</p>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div> */}
 
                                             {
                                                 !this.state.showMedical ?
@@ -254,9 +242,13 @@ class UserSignupView extends React.Component {
                                                         <div className="widget-content">
                                                             <form className="go-bottom" >
 
-                                                                <div className="labelWrap">
+                                                                {/*<div className="labelWrap">
                                                                     <input id="number" name="phone_number" type="text" onChange={this.inputHandler.bind(this)} value={this.state.phone_number} required ref="phone_number" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="number">Mobile Number</label>
+                                                                </div>*/}
+                                                                <div className="d-flex">
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'm'?'btn-active':''}`} name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })}>Male</p>
+                                                                    <p className={`label-names-buttons ${this.state.gender == 'f'?'btn-active':''}`} name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })}>Female</p>
                                                                 </div>
                                                                 <div className="labelWrap">
                                                                     <input id="fname" name="name" type="text" value={this.state.name} onChange={this.inputHandler.bind(this)} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} />
@@ -282,34 +274,36 @@ class UserSignupView extends React.Component {
                                                                         />
                                                                     </div></div> : ""
                                                                 }
-                                                                <div className="form-group input-group">
-                                                                    <label className="inline input-label">Gender</label>
-                                                                    <div className="choose-gender slt-label-radio">
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Male<input value={'m'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'm'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Female<input value={'f'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'f'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                        <div className="dtl-radio">
-                                                                            <label className="container-radio">Other<input value={'o'} onChange={this.inputHandler.bind(this)} checked={this.state.gender == 'o'} type="radio" name="gender" /><span className="doc-checkmark"></span></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="labelWrap">
+                                                                {this.state.primary_profile && Object.keys(this.state.primary_profile).length > 0 && this.state.primary_profile.is_default_user && !this.state.primary_profile.email ?<div className="labelWrap">
                                                                     <input id="email" name="email" type="email" value={this.state.email} onChange={this.inputHandler.bind(this)} required ref="email" onKeyPress={this.handleEnterPress.bind(this)} />
                                                                     <label htmlFor="email">Email</label>
-                                                                </div>
-                                                                <div className="referral-select">
+                                                                </div>:''}
+                                                                {/*<div className="referral-select">
                                                                     <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
-                                                                </div>
+                                                                </div>*/}
 
                                                                 {
-                                                                    this.state.have_referralCode ? <div className="referralContainer">
+                                                                    /*this.state.have_referralCode ? <div className="referralContainer">
                                                                         <div className="slt-nw-input">
                                                                             <input style={{ paddingRight: '80px' }} type="text" className="slt-text-input" onChange={this.inputHandler.bind(this)} placeholder="Enter here" name="referralCode" value={this.state.referralCode} />
                                                                         </div>
-                                                                    </div> : ""
+                                                                    </div> : ""*/
+                                                                }
+                                                                {
+                                                                this.state.gold_user_profile && Object.keys(this.state.gold_user_profile).length && this.state.gold_user_profile.vip_data && Object.keys(this.state.gold_user_profile.vip_data).length && this.state.gold_user_profile.vip_data.total_members_allowed > 0 && !this.state.primary_profile.isDummyUser && this.state.gold_user_profile.vip_data.is_member_allowed?
+                                                                <div className="defaultProfile">
+                                                                    <label className="ck-bx add-member-chkbx"> 
+                                                                        <span>
+                                                                            Add this member to Docprime
+                                                                            <img className="ml-2" width="35" src="https://cdn.docprime.com/cp/assets/img/gold-lg.png"  alt="gold"/>
+                                                                        </span><br/>
+                                                                        <span className="profile-warning-text">Once added to gold, you cannont edit or remove the member</span>
+                                                                        <input type="checkbox" onClick={this.addToGold.bind(this, !this.state.add_to_gold)} checked={
+                                                                        this.state.add_to_gold}/>
+                                                                        <span className="checkmark"></span>
+                                                                    </label>
+                                                                </div>
+                                                                :''
                                                                 }
                                                             </form>
                                                         </div>
@@ -326,7 +320,7 @@ class UserSignupView extends React.Component {
                                             this.state.showMedical ?
                                                 <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Done</button>
                                                 :
-                                                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Next</button>
+                                                <button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Done</button>
                                         }
 
                                     </div>

@@ -7,7 +7,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
 import InitialsPicture from '../initialsPicture'
-
+import PrescriptionUpload from '../../../containers/commons/PrescriptionUpload.js'
 
 const debouncer = (fn, delay) => {
     let timer = null
@@ -23,6 +23,7 @@ const debouncer = (fn, delay) => {
 class CriteriaElasticSearchView extends React.Component {
     constructor(props) {
         super(props)
+        
         this.state = {
             searchValue: '',
             searchResults: [],
@@ -30,7 +31,9 @@ class CriteriaElasticSearchView extends React.Component {
             searchCities: [],
             currentTestType: {},
             type: '',
-            visibleType: ''
+            visibleType: '',
+            is_user_insurance_active: false,
+            showPrescriptionInsuranceError: false
         }
     }
 
@@ -40,6 +43,14 @@ class CriteriaElasticSearchView extends React.Component {
         if (window) {
             window.scroll(0, 0)
         }
+
+        let user_insurance_status = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        this.setState({is_user_insurance_active: user_insurance_status})
+
         // if coming back or refresh focus on search bar
         if (this.props.history.action === 'POP' && !this.props.location.search.includes('search')) {
             // input.focus()
@@ -350,7 +361,26 @@ class CriteriaElasticSearchView extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    afterUserLogin = ()=>{
+        let is_user_insurance_active = false;
+        let user_insurance_status = null;
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+        is_user_insurance_active = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
+        //this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+        if(is_user_insurance_active){
+            this.setState({is_user_insurance_active: true, showPrescriptionInsuranceError: true})
+        }
+    }
+
     render() {
+        //Check user for insurance 
+        let user_insurance_status = null
+        if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+
         return (
             <div className="profile-body-wrap">
                 {
@@ -361,66 +391,85 @@ class CriteriaElasticSearchView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
-                        <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
+                        <div className="vip-new-container center-column pt-0">
                             <img className="search-back-main-ico" src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} onClick={()=> this.props.history.goBack()}/>
                             {
                                 // goback decides if search bar will be shown
-                                this.props.goBack ? "" : <div className="widget mb-10">
-                                    <div className="search-top-container">
-                                        {/* <p className="srch-heading">Search</p> */}
-                                        <div className="serch-nw-inputs-container">
+                                this.props.goBack ? "" :
+                                    <div className="widget mb-3">
+                                        <div className="search-top-container">
+                                            {/* <p className="srch-heading">Search</p> */}
+                                            <div className="serch-nw-inputs-container">
 
-                                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
-                                            {
-                                                this.state.searchCities.length > 0 ? "" : <div>
-                                                    <div className="srch-radio-btns ipd-srch-radio-btn" id="search_results_view">
-                                                        <div className="dtl-radio">
-                                                            <label className="container-radio">Doctor
-                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'opd')} checked={this.props.selected == 'opd'} name="radio" />
-                                                                <span className="doc-checkmark"></span>
-                                                            </label>
+                                                {
+                                                    this.props.selected == 'lab' && this.state.showPrescriptionInsuranceError?
+                                                    <div className="health-advisor-col d-flex align-items-start mb-2">
+                                                        <img width="17" className="info-detail-icon" src={ASSETS_BASE_URL + "/img/info-icon.svg"} />
+                                                        <p className="ml-2"> For insured customers, prescription upload is required at the time of booking</p>
+                                                        <img className="cursor-pntr" width="15" src={ASSETS_BASE_URL + "/img/red-times-icon.svg"} onClick={ ()=>this.setState({showPrescriptionInsuranceError: false}) } />
+                                                    </div>:''
+
+                                                }
+
+                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
+                                                {
+                                                    this.state.searchCities.length > 0 ? "" : <div>
+                                                        <div className="srch-radio-btns ipd-srch-radio-btn" id="search_results_view">
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Doctor
+                                                                <input type="radio" onChange={this.selectSearchType.bind(this, 'opd')} checked={this.props.selected == 'opd'} name="radio" />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Lab Test
+                                                                <input type="radio" onChange={this.selectSearchType.bind(this, 'lab')} checked={this.props.selected == 'lab'} name="radio" />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            {/* 
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Health Packages
+                                                                <input type="radio" onChange={this.props.changeSelection.bind(this, 'package', '')} checked={this.props.selected == 'package'} name="radio" />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            */}
+                                                            {/* 
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Surgery
+                                                                <input type="radio" onChange={this.selectSearchType.bind(this, 'ipd')} checked={this.props.selected == 'ipd'} name="radio" />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div> 
+                                                            */}
                                                         </div>
-                                                        <div className="dtl-radio">
-                                                            <label className="container-radio">Lab Test
-                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'lab')} checked={this.props.selected == 'lab'} name="radio" />
-                                                                <span className="doc-checkmark"></span>
-                                                            </label>
-                                                        </div>
-                                                        {/* <div className="dtl-radio">
-                                                            <label className="container-radio">Health Packages
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'package', '')} checked={this.props.selected == 'package'} name="radio" />
-                                                                <span className="doc-checkmark"></span>
-                                                            </label>
-                                            </div>*/}
-                                                        <div className="dtl-radio">
-                                                            <label className="container-radio">Surgery
-                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'ipd')} checked={this.props.selected == 'ipd'} name="radio" />
-                                                                <span className="doc-checkmark"></span>
-                                                            </label>
+                                                        <div className="serch-nw-inputs mb-0">
+                                                            <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                                if (this.props.goBack) {
+                                                                    this.props.history.go(-1)
+                                                                }
+                                                            }} onBlur={() => this.focusOut()} 
+                                                            ref={(input) => {this.textInput = input }}/>
+                                                            <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
+                                                                if (this.props.goBack) {
+                                                                    this.props.history.go(-1)
+                                                                }
+                                                            }} onBlur={() => this.focusOut()} 
+                                                            />
+                                                            <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                         </div>
                                                     </div>
-                                                    <div className="serch-nw-inputs mb-0">
-                                                        <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                                            if (this.props.goBack) {
-                                                                this.props.history.go(-1)
-                                                            }
-                                                        }} onBlur={() => this.focusOut()} 
-                                                        ref={(input) => {this.textInput = input }}/>
-                                                        <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
-                                                            if (this.props.goBack) {
-                                                                this.props.history.go(-1)
-                                                            }
-                                                        }} onBlur={() => this.focusOut()} 
-                                                        />
-                                                        <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                    </div>
-                                                </div>
-                                            }
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             }
-
+                            {
+                                this.props.selected == 'lab' && !(this.state.is_user_insurance_active)?
+                                <PrescriptionUpload historyObj={this.props.history} search_lab={true} locationObj = {this.props.location} profiles={this.props.profiles} afterUserLogin={this.afterUserLogin} />
+                                :''
+                            }
                             {
                                 this.state.searchCities.length > 0 ?
                                     <section>

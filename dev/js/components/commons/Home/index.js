@@ -1,3 +1,3 @@
-import HomeView from './HomeView'
+import MainView from './HomeNewView'
 
-export default HomeView
+export default MainView

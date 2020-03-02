@@ -9,7 +9,7 @@ class VipLoginPopup extends React.Component {
         this.state = {
             profile_id: '',
             newprofile: {},
-            phoneNumber: '',
+            phoneNumber: this.props.user_loggedIn_number?this.props.user_loggedIn_number:'',
             validationError: '',
             showOTP: false,
             otp: "",
@@ -28,22 +28,22 @@ class VipLoginPopup extends React.Component {
         }
     }
     handleChange(profileid, newProfile, selectedProfileAge, event) {
-        let newProfileNames = {}
-        let newName = newProfile.name.split(" ")
-        let tempArray
-        if (newName.length == 2) {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = newName[1]
-        } else if (newName.length > 2) {
-            tempArray = newName.slice(1, newName.length)
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = tempArray.join(' ')
-        } else {
-            newProfileNames.name = newName[0]
-            newProfileNames.last_name = ''
-        }
-        let exactProfile = { ...newProfile, ...newProfileNames }
-        this.setState({ profile_id: profileid, newprofile: exactProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
+        // let newProfileNames = {}
+        // let newName = newProfile.name.split(" ")
+        // let tempArray
+        // if (newName.length == 2) {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = newName[1]
+        // } else if (newName.length > 2) {
+        //     tempArray = newName.slice(1, newName.length)
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = tempArray.join(' ')
+        // } else {
+        //     newProfileNames.name = newName[0]
+        //     newProfileNames.last_name = ''
+        // }
+        // let exactProfile = { ...newProfile, ...newProfileNames }
+        this.setState({ profile_id: profileid, newprofile: newProfile, selectedProfileAge: selectedProfileAge, age: newProfile.age })
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -444,7 +444,7 @@ class VipLoginPopup extends React.Component {
                             <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.closeLeadPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             <div className="ins-form-slider">
                                 <div className="one">
-                                    <div className="widget-header text-center mv-header">
+                                    <div className="widget-header text-center mv-header ">
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your registered mobile number to login</h4>
                                     </div>
                                     <div className="widget-content text-center">

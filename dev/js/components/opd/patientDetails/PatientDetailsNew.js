@@ -84,7 +84,9 @@ class PatientDetailsNew extends React.Component {
             paymentBtnClicked: false,
             enableDropOfflead: true,
             showNonIpdPopup: parsed.show_popup,
-            to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1
+            to_be_force: parsed.is_docAds_lead ? parsed.is_docAds_lead : 1,
+            disable_page:true,
+            is_lead_enabled:true
         }
     }
 
@@ -101,10 +103,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentDidMount() {
-
-        /*if (!STORAGE.checkAuth()) {
-            return
-        }*/
 
         if (window) {
             window.scrollTo(0, 0)
@@ -342,6 +340,9 @@ class PatientDetailsNew extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         //Ref to update date every time on route
+        if (STORAGE.checkAuth()) {
+            this.setState({disable_page:false})
+        }
         if (nextProps.selectedDateFormat && nextProps.selectedDateFormat != this.state.dateTimeSelectedValue) {
             this.setState({ dateTimeSelectedValue: nextProps.selectedDateFormat })
         }
@@ -350,7 +351,7 @@ class PatientDetailsNew extends React.Component {
         if (nextProps && nextProps.selected_vip_plan && nextProps.selected_vip_plan.id && (nextProps.selected_vip_plan.id != this.state.selectedVipGoldPackageId)) {
             this.setState({ selectedVipGoldPackageId: nextProps.selected_vip_plan.id })
         }
-        if (this.state.enableDropOfflead && STORAGE.checkAuth()) {
+        if (this.state.enableDropOfflead && STORAGE.checkAuth() && !STORAGE.isAgent()) {
             this.nonIpdLeads()
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor] || (this.props.selectedProfile != nextProps.selectedProfile)) {
@@ -1417,6 +1418,8 @@ class PatientDetailsNew extends React.Component {
         let selected_hospital = {}
         let patient
         let specialization
+        let display_total_mrp = 0
+        let display_docprime_discount = 0
         if (doctorDetails) {
             let { hospitals, general_specialization } = doctorDetails
             specialization = general_specialization
@@ -1458,6 +1461,12 @@ class PatientDetailsNew extends React.Component {
                 data.selected_time = null
                 data.selected_date = null
             }
+            display_total_mrp = parseInt(selected_hospital.mrp)
+            display_docprime_discount = display_total_mrp - (parseInt(selected_hospital.deal_price))
+            if (!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                display_docprime_discount = display_total_mrp - (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
+            }
+            data.discount = display_docprime_discount
 
             let visitor_info = GTM.getVisitorInfo()
             if (visitor_info && visitor_info.visit_id) {
@@ -1469,7 +1478,13 @@ class PatientDetailsNew extends React.Component {
                 data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
             }
             this.setState({ enableDropOfflead: false })
-            this.props.NonIpdBookingLead(data)
+            if(this.state.is_lead_enabled){
+                this.setState({is_lead_enabled:false})
+                this.props.NonIpdBookingLead(data)
+                setTimeout(() => {
+                    this.setState({is_lead_enabled:true})
+                }, 5000)
+            }
         }
     }
 
@@ -1482,10 +1497,17 @@ class PatientDetailsNew extends React.Component {
         let criteriaStr = this.props.DOCTORS[doctor_id].display_name
         let hospital_id
         let selected_hospital = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
+        let display_total_mrp = 0
+        let display_docprime_discount = 0
         if (selected_hospital.length) {
             hospital_id = selected_hospital[0].hospital_id
+            display_total_mrp = parseInt(selected_hospital[0].mrp)
+            display_docprime_discount = display_total_mrp - (parseInt(selected_hospital[0].deal_price))
+            if (!this.props.is_any_user_buy_gold && this.props.payment_type == 6 && this.props.selected_vip_plan && this.props.selected_vip_plan.opd) {
+                display_docprime_discount = display_total_mrp - (this.props.selected_vip_plan.opd.gold_price + this.props.selected_vip_plan.opd.convenience_charge)
+            }
         }
-        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null })
+        let data = ({ phone_number: phone_number, lead_source: 'docads', source: parsed, lead_type: 'DOCADS', exitpoint_url: `http://docprime.com${this.props.location.pathname}?doctor_id=${doctor_id}&hospital_id=${hospital_id}`, doctor_id: doctor_id, hospital_id: hospital_id, doctor_name: criteriaStr, hospital_name: null,amount_discount: display_docprime_discount })
         if (this.props.common_utm_tags && this.props.common_utm_tags.length) {
             data.utm_tags = this.props.common_utm_tags.filter(x => x.type == "common_xtra_tags")[0].utm_tags
         }
@@ -1496,7 +1518,14 @@ class PatientDetailsNew extends React.Component {
         }
         let gtm_data = { 'Category': 'ConsumerApp', 'Action': 'DocAdsBookingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-booking-Submit-click' }
         GTM.sendEvent({ data: gtm_data })
-        this.props.NonIpdBookingLead(data)
+        this.props.saveLeadPhnNumber(phone_number)
+        if(this.state.is_lead_enabled && !STORAGE.isAgent){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
         this.setState({ to_be_force: 0 }, () => {
             this.appendParamToUrl()
         })
@@ -1776,8 +1805,8 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 ?
-                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} />
+                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                        <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeadsDocAds.bind(this)} closeIpdLeadPopup={this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_booking={true} doctor_id={this.props.selectedDoctor} hospital_id={this.state.selectedClinic} />
                         : ''
                 }
                 {
@@ -1821,6 +1850,7 @@ class PatientDetailsNew extends React.Component {
                                                                 />
                                                                 {/* new time slot */}
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)} is_docAds_lead={this.state.to_be_force} />
+                                                                <div className={`${this.state.disable_page && !STORAGE.isAgent()?'disable-opacity':''}`}>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -1979,7 +2009,7 @@ class PatientDetailsNew extends React.Component {
                                                                 }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {
-                                                                    !showGoldTogglePaymentMode && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
+                                                                    /*!showGoldTogglePaymentMode && !is_vip_applicable && !is_insurance_applicable && !is_selected_user_gold && vip_data.hosp_is_gold && vip_discount_price > 0 ?
                                                                         <div className="widget cpn-blur mrb-15 cursor-pointer gold-green-cont" onClick={(e) => {
                                                                             e.stopPropagation();
                                                                             this.props.clearVipSelectedPlan()
@@ -1999,7 +2029,8 @@ class PatientDetailsNew extends React.Component {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        : ''}
+                                                                        : ''*/
+                                                                    }
                                                                 {/* ============================= gold card details ============================= */}
                                                                 {/*
                                                                 !enabled_for_cod_payment && is_insurance_buy_able ?
@@ -2363,6 +2394,7 @@ class PatientDetailsNew extends React.Component {
                                                                         {/* <span className="errorMessage">{this.state.error}</span> */}
                                                                     </div>
                                                                 </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2393,7 +2425,7 @@ class PatientDetailsNew extends React.Component {
                                             : ''
                                     }
 
-                                    <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
+                                    <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page?'disable-all':''}`}>
 
                                         {
                                             this.props.payment_type != 6 && ((STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true')) ?

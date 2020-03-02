@@ -14,7 +14,7 @@ class ChoosePatientNewView extends React.Component {
             showOtp: false,
             otpVerifySuccess: false,
             name: '',
-            phoneNumber: '',
+            phoneNumber: this.props.user_loggedIn_number?this.props.user_loggedIn_number:'',
             gender: 'm',
             data: false,
             email: '',
@@ -47,6 +47,12 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+        if(document.getElementById('otpMob')){
+            document.getElementById('otpMob').focus()
+        }
+        if(this.props.user_loggedIn_number){
+            this.setState({phoneNumber:this.props.user_loggedIn_number?this.props.user_loggedIn_number:''})
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,6 +71,7 @@ class ChoosePatientNewView extends React.Component {
 
             }
         }
+
     }
 
     inputHandler(e) {
@@ -200,7 +207,7 @@ class ChoosePatientNewView extends React.Component {
             this.setState({ dob: data.dob ? data.dob : this.state.dob }, () => {
                 if (this.state.dob) {
                     if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
-                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
                         return
                     }
                     this.setState({isDobNotValid: false })
@@ -450,7 +457,7 @@ class ChoosePatientNewView extends React.Component {
                     <React.Fragment>
                         <div className="otp-heading">
                             <h4 className="title d-flex mb-0">
-                                Please enter your mobile number
+                                Please enter your mobile number to proceed
                             </h4>
                             <p className="otp-sub-heading">Appointment details will be sent to this number</p>
                         </div>
@@ -499,7 +506,7 @@ class ChoosePatientNewView extends React.Component {
                                         </React.Fragment>
                                     }
                                 </div>
-                                <p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  
+                                {/*<p className="wtsapp-chk-txt mb-0" style={{fontSize: '10px'}}><img style={{width:'10px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} /> Enable Whatsapp for seamless communication</p>  */}
                             </form>
                         </div>
                     </React.Fragment>

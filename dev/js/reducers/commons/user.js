@@ -6,7 +6,8 @@ const DUMMY_PROFILE = {
     is_default_user: true,
     name: "User",
     dob: null,
-    isDummyUser: true
+    isDummyUser: true,
+    email:null
 }
 
 const defaultState = {
@@ -69,7 +70,8 @@ const defaultState = {
     is_any_user_buy_gold: null,
     refreshedToken: null,
     refer_amount : null,
-    user_loggedIn_number:null
+    user_loggedIn_number:null,
+    user_detail_fetched: false
 }
 
 export default function (state = defaultState, action) {
@@ -124,6 +126,7 @@ export default function (state = defaultState, action) {
             if (!newState.defaultProfile && action.payload.length) {
                 newState.defaultProfile = action.payload[0].id
             }
+            newState.user_detail_fetched = true;
 
             return newState
         }
