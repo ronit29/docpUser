@@ -15461,3 +15461,7 @@ margin: 10px 0px 20px 15px;
 }
 /* ======================================= home gold banner design ======================================= */
 
+.pb-gold-banner{
+    padding-bottom: 15px;
+    width: 100%;
+}

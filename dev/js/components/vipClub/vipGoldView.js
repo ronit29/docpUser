@@ -183,7 +183,7 @@ class VipGoldView extends React.Component {
                                         {
                                             this.props.is_pb?
                                             <div>
-                                                <img src = "https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png"/>
+                                                <img src = "https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png" className="pb-gold-banner"/>
                                             </div>
                                         :''}
                                         {/* ================== gold benifits  ================== */}
