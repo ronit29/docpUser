@@ -443,7 +443,7 @@ class TopBar extends React.Component {
                     </div>
                 </div> : ""
                 }
-            <div className="filter-row sticky-header mbl-stick" style={{top:'54px'}}>
+            <div className="filter-row sticky-header mbl-stick" style={{top:'55px'}}>
                 <div className="">
 
                     {this.props.forOrganicSearch ?

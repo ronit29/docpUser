@@ -70,11 +70,11 @@ class NonIpdPopupView extends React.Component {
 	}
 
 	render() {
-		let criteriaStr
+		let criteriaStr = 'Health Packages'
 		var thumbnail = null;
 		let is_license_verified = false;
 
-		let common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book
+		let common_msg = <p style={{ fontWeight: 'bold' ,textAlign:'center'}} className="cancel-appointment-head">Book
 										<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br />
 			at the Lowest Prices!
 									</p>
@@ -82,7 +82,7 @@ class NonIpdPopupView extends React.Component {
 			if (this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.length > 0) {
 				criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br />
 				at the Lowest Prices!
 					</p>
@@ -93,7 +93,7 @@ class NonIpdPopupView extends React.Component {
 			if (this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length > 0) {
 				criteriaStr = this.getDocCriteriaString(this.props.commonSelectedCriterias)
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book Appointment with <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
 		} else if (this.props.is_dpp || this.props.is_booking || this.props.is_organic) {
@@ -117,10 +117,13 @@ class NonIpdPopupView extends React.Component {
 							</InitialsPicture>
 							{is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
 						</div>
-						: ''}
+						: ''}						
 				{
-					this.props.is_organic?<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">{criteriaStr} is part of Docprime Gold <br />
-						<span className="fw-500 text-capitalize"> India’s Best Healthcare Membership</span>
+					this.props.is_organic?<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">
+						Book Appointment with
+						<br />
+						{criteriaStr}
+						{/* <span className="fw-500 text-capitalize"> India’s Best Healthcare Membership</span> */}
 					</p>
 					:<p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span>
@@ -133,11 +136,16 @@ class NonIpdPopupView extends React.Component {
 			if (hospital_data) {
 				criteriaStr = hospital_data.name
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment at <br />
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book Appointment at <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
-		} else {
-			criteriaStr = 'Health Packages'
+		}else if(this.props.is_package){
+			if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length == 1){
+				criteriaStr = this.props.packagesList.result[0].name
+	        }
+	        common_msg = <p style={{ fontWeight: 'bold' ,textAlign:'center'}} className="cancel-appointment-head">Book
+										<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br /> at the Lowest Prices!
+						</p>
 		}
 		return (
 
@@ -147,7 +155,7 @@ class NonIpdPopupView extends React.Component {
 					<div className="widget-header text-center action-screen-header">
 						{common_msg}
 						{
-							this.props.is_force == 1  || this.props.is_organic?
+							this.props.is_force == 1  /*|| this.props.is_organic*/?
 								<a href="#" onClick={this.props.closeIpdLeadPopup.bind(this, true)} className="close-times-icon">&times;</a>
 								: ''
 						}
@@ -155,7 +163,7 @@ class NonIpdPopupView extends React.Component {
 					{
 						this.props.is_organic?
 						<div className="gold-wdgt-text-strip">
-							<p>Save 6000+/yr by availing exclusive benefits </p>
+							<p>Save 6000+/yr by availing exclusive benefits with Docprime Gold </p>
 						</div>
 						:''
 					}
@@ -221,7 +229,7 @@ class NonIpdPopupView extends React.Component {
 						<p className="fw-500 col-sm-12 p-0 mr-t-5" style={{ fontSize: 11, fontStyle: 'italic' }}>*Your booking details will be sent to this number</p>
 					</div>
 					<div className="payment-content-btn text-center m-0 pd-10 pt-0">
-						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">{`${this.props.is_organic?'View Membership @199':'Book Appointment'}`}</p>
+						<button className="fw-500 text-white pop-subText" onClick={this.submitLead.bind(this)}><p className="fw-500">{`${this.props.is_organic?'Book Appointment at Discounted Price':'Book Appointment'}`}</p>
 							{this.props.is_organic?'':<span >No Service Fee</span>}
 						</button>
 					</div>

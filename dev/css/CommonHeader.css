@@ -1,0 +1,315 @@
+.new-common-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    height: auto;
+}
+/***** Top Header CSS Start ****/
+.top-header{
+    background: #F5F8FF;
+    color: #000000;
+    padding: 5px 20px;
+    margin-bottom: -1px;
+}
+
+.top-header h6{
+    font-weight: 400;
+    font-size: 12px;
+}
+.top-header > .down-list{
+    display: none;
+    cursor: pointer;
+    width: 9px;
+    height: 9px;
+    transform: rotate(133deg);
+    border-left: 2px solid #000;
+    border-top: 2px solid #000;
+}
+.top-header ul{
+    display: flex;
+}
+.top-header ul li{
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 12px;
+    margin-left: 25px;
+    text-transform: capitalize;
+    transition: 0.3s ease-in-out;
+}
+.top-header ul li:first-child{
+    margin-left: 0px;
+}
+.top-header ul li:hover{
+    color: var(--text--primary--color);
+}
+.r-90{
+    transform: rotate(223deg)!important;
+}
+
+/***** Top Header CSS Ends ****/
+
+/***** Main Header CSS Starts ****/
+.main-header{
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12);
+    padding:0px;
+}
+.pkgComp{
+    box-shadow: none!important;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+.user-name-initials{
+    background: var(--text--primary--color)!important;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 13px;
+    line-height: 17px;
+    color: #fff!important;
+}
+.main-header-left-col{
+    padding: 15px;
+    overflow: hidden;
+    width: 135px;
+}
+.main-header-right-col{
+    padding: 15px 15px 15px 0;
+    width: calc(100% - 135px);
+}
+.menu-icon{
+    float: left;
+    margin: 5px 15px 0px 15px;
+    position: relative;
+}
+.menu-icon > ul{
+    cursor: pointer;
+}
+.menu-icon > ul >li{
+    width: 21px;
+    height: 2px;
+    margin-bottom: 4px;
+    background-color: var(--text--primary--color);
+}
+
+.home-icon-view{
+    height: 100%;
+    display: inline-block;
+    padding: 28px 14px;
+    border-bottom: 1px solid transparent;
+}
+
+.home-icon-view:hover, .home-icon-view.active {
+    border-bottom: 1px solid #f1853b;
+}
+.header-search-full-width {
+    box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
+    border-radius: 50px;
+    width: 100%;
+    position: relative;
+}
+.no-border{
+    border: none!important;
+}
+.header-list-items > li{
+    padding-left: 1rem;
+}
+.header-list-items > li > a{
+    font-size: 14px;
+    font-weight: 500;
+    border-right: 1px solid rgba(112, 112, 112, 0.2);
+    padding: 5px 1rem 5px 0px;
+    min-height: 30px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+.header-list-items > li > a:hover{
+    color: var(--text--primary--color);
+}   
+.header-list-items > li > a > span{
+    margin-left: 10px;
+}
+.down-caret-img{
+    margin-left: 10px;
+    margin-top: 3px;
+}
+.user-name-span{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+.cart-count-notify {
+    text-align: center;
+    width: 5px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: var(--text--primary--color);
+    left: -7px;
+    top: -5px;
+    color: #fff;
+    border: 2px solid var(--text--primary--color);
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+/***** Main Header CSS Ends ****/
+
+/***** Responsive Media CSS starts ****/
+@media screen and (max-width:767px){
+    .new-common-header{
+        position: relative;
+    }
+    .user-name-initials{
+        display: none;
+    }
+    .top-header{
+        padding: 5px 10px;
+    }
+    .top-header > .down-list{
+        display: none;
+    }
+    .top-header ul{
+        display: none;
+        position: absolute;
+        width: 89%;
+        top: 43px;
+    }
+    .top-header > ul > li{
+        border-bottom: 1px dashed rgba(117, 117, 117, 0.41);
+        padding: 20px 0;
+        width: 100%;
+        font-weight: 400;
+        margin-left: 0px;
+    }
+    .top-header > ul > li:last-child{
+        border-bottom: none;
+    }
+    .top-header-mobile{
+        position: fixed;
+        z-index: 111;
+        height: 100vh;
+        align-items: baseline!important;
+    }
+    .listing-header > .menu-icon > ul >li{
+        background: var(--text--primary--color);
+    }
+    .header-list-items{
+        padding-right: 0px!important;
+    }
+    .header-list-items > li{
+        border-right: none!important;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        min-height: auto;
+    }
+    .header-list-items > li > a{
+        margin-left: 0px;
+        padding-right: 0px!important;
+        border-right: none;
+    }
+    .user-name-col{
+        display: none!important;
+    }
+    .menu-icon{
+        margin: 0px;
+        display: flex;
+        align-items: center;
+    }
+    .menu-icon > ul{
+        margin-top: 2px;
+    }
+    .menu-icon > ul >li{
+        margin-bottom: 3px;
+        width: 19px;
+        height: 2px;
+
+    }
+    .cart-count-notify{
+        left: -8px;
+    }
+    .main-header{
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+    .main-header > .col-8{
+        justify-content: flex-end!important;
+    }
+    .main-header-left-col{
+        padding-left: 16px!important;
+        overflow: visible;
+    }
+    .main-header-left-col,.main-header-right-col{
+        padding: 0px;
+    }
+    .main-header-right-col{
+        padding-right: 15px!important;
+    }
+    .header-list-items{
+        width: 100%;
+        justify-content: flex-end;
+    }
+    .header-list-items > li, .header-list-items > li > a > span{
+        margin-left: 0px!important;
+    }
+    .notification-page{
+        padding: 10px;
+    }
+    .header-serach-input-div{
+        margin-top: 5px;
+    }
+    .listing-view-header>.menu-icon > ul >li{
+        width: 19px;
+        height: 2px;
+    }
+    .header-serach-input-div{
+        width: 100%;
+        height: 33px!important;
+        padding: 8px 116px 7px 33px!important;
+        border-radius: 5px;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: left;
+        margin: 0px!important;
+        font-size: 12px;
+    }
+    .search-input-for-mobile{
+        box-shadow: none!important;
+        border: 1px solid #dcd8d8;
+        background: #fff;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .top-header{
+        display: block!important;
+    }
+    .top-header h6{
+       margin-bottom: 10px;
+    }
+    .top-header > ul{
+        justify-content: space-between;
+    }
+    .main-header-right-col{
+        justify-content: flex-end!important;
+    }
+    .book-appointment-section{
+        margin-top: 140px;
+    }
+    .header-list-items > li{
+        border-right: none!important;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        min-height: auto;
+    }
+}
+@media (min-width: 767px) {
+    .mbl-search-box{
+        display:none;
+    }
+}
+/***** Responsive Media CSS Ends ****/

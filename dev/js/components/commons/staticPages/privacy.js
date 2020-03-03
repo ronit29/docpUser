@@ -313,7 +313,7 @@ class Privacy extends React.Component {
                         <p className="privacy-desc">Mr. Ashish Ajmani</p>
                         <br />
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>docprime.com</p>
-                        <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Plot No. 119,</p>
+                        <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Plot No. 131,</p>
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 0 }}>Sector-44, Gurugram-122001,</p>
                         <p className="privacy-desc" style={{ marginTop: 0, marginBottom: 10 }}>Haryana</p>
                         <br />
