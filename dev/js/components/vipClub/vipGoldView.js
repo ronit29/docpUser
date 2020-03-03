@@ -180,6 +180,12 @@ class VipGoldView extends React.Component {
                                             }
 
                                         </div>
+                                        {
+                                            this.props.is_pb?
+                                            <div>
+                                                <img src = "https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png"/>
+                                            </div>
+                                        :''}
                                         {/* ================== gold benifits  ================== */}
                                         <div className="gold-white-bg-container mb-24">
                                             <h4 className="vip-card-heading">Gold Benefits</h4>
