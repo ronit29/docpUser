@@ -416,11 +416,13 @@ class DoctorProfileView extends React.Component {
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].search_data) {
             search_data = this.props.DOCTORS[doctor_id].search_data
         }
+        let doc_organic_price =0
         if (this.props.DOCTORS[doctor_id]) {
             enabled_for_online_booking = this.props.DOCTORS[doctor_id].enabled_for_online_booking
+            doc_organic_price = this.props.DOCTORS[doctor_id].lead_compare_amount
             if(this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
                 this.props.DOCTORS[doctor_id].hospitals.map((hospital, i) => {
-                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= 100)){
+                    if(!hospital.insurance.is_user_insured && !hospital.vip.is_vip_member && !hospital.vip.is_gold_member && hospital.vip.is_enable_for_vip && (hospital.discounted_price -(hospital.vip.vip_convenience_amount + hospital.vip.vip_gold_price) >= doc_organic_price)){
                         show_dpp_organic_popup = true
                     }
                 })
@@ -430,7 +432,6 @@ class DoctorProfileView extends React.Component {
                 seo_url = "/" + seo_url
             }
         }
-
         let nearbyDoctors = {}
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].doctors && Object.keys(this.props.DOCTORS[doctor_id].doctors).length) {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
