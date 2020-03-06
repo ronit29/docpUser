@@ -8974,6 +8974,14 @@ p.cstm-cpn {
     margin-bottom: 10px;
 }
 
+.hsptWidget{
+    height: 77px;
+}
+.hsptWidget>img{
+    object-fit: contain;
+    height: 100%;
+}
+
 .ipd-section .hsptl-info {
     display: flex;
     justify-content: space-evenly;
