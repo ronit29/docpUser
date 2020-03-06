@@ -30,7 +30,7 @@ class GoldHomePageView extends React.PureComponent  {
                         </div>
                         <div className="gld-ico-card">
                             <img className="img-fluid" src={ASSETS_BASE_URL + '/img/gold-3.svg'} />
-                            <p>Flat 23% OFF<br />
+                            <p>Flat 23% OFF<br /> 
                                 on Medicines
                             </p>
                         </div>
