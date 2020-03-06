@@ -1,6 +1,5 @@
 .gold-new-view{
     padding: 95px 0px 0px 0px;
-    background: #f1f1f1;
 }
 
 .heading-name{
@@ -9,13 +8,14 @@
     padding: 3px 10px;
     font-size: 21px;
 }
-
-.heading-name>img{
-    /* position: relative;
-    top: 5px; */
-    margin-left: 5px;
+.gold-new-view >.heading-section{
+    background-image: url(/assets/img/gold-family.png);
+    background-size: cover;
+    height: 300px;
+    padding-left: 13%;
+    background-color: #f1f1f1;
 }
-.gold-new-view >.heading-section >.col-6>h4{
+.gold-new-view >.heading-section>h4{
     font-size: 24px;
     font-weight: 400;
     margin-top: 15px;
@@ -24,4 +24,12 @@
 .gold-family-img{
     position: relative;
     right: 20%;
+}
+
+.gold-view-main-container{
+    margin: -20px 30px 0;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px #00000029;
+    height: 500px;
+    background: #fff;
 }

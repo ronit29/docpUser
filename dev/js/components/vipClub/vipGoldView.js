@@ -612,18 +612,16 @@ class VipGoldView extends React.Component {
                     
                     {/* ================== new gold page view ================== */}
                     <div className="container-fluid gold-new-view">
-                        <section className="heading-section d-flex align-items-center">
-                            <div className="col-sm-3 col-6">
-                                <h3 className="d-inline-block">
-                                    <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
-                                        <img  src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
-                                    </span>
-                                </h3>
-                                <h4>Membership Plan For <br/>Exclusive Dicount</h4>
-                            </div>
-                            <div className="col-sm-9 col-6">
-                                <img className="gold-family-img" src={ASSETS_BASE_URL + "/img/gold-family.png"} height="250"/>
-                            </div>
+                        <section className="heading-section d-flex align-items-baseline flex-column justify-content-center">
+                            <h3 className="d-inline-block">
+                                <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
+                                    <img  src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
+                                </span>
+                            </h3>
+                            <h4>Membership Plan For <br/>Exclusive Dicount</h4>
+                        </section>
+                        <section className="gold-view-main-container">
+                            
                         </section>
                     </div>
                 </React.Fragment>
