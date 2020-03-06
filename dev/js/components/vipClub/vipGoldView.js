@@ -414,7 +414,7 @@ class VipGoldView extends React.Component {
                                                 </div>
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-medlife-bg">
-                                                        <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                        <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Unlimited usage with no maximum cap </p>
@@ -453,7 +453,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(1) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(1) > -1 ? 'd-none' : ''}`}>
-                                                                    You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. Additionally, you can get upto 23% discount on prescribed medicines on Medlife.com. The membership will last till the duration of the plan.
+                                                                    You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. Additionally, you will get flat 23% discount on prescribed medicines on Medlife.com. The membership will last till the duration of the plan.
                                                                 </p>
                                                             </div>
                                                             <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
@@ -462,7 +462,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
-                                                                    You can visit <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://www.medlife.com/"> www.medlife.com</a> website or mobile application and use the exclusive coupon code provided to you once you become a gold member. You can get upto 23% discount on prescription drugs. Promo code can be used multiple times for 1 year without any minimum order value.
+                                                                    You can visit <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://www.medlife.com/"> www.medlife.com</a> website or mobile application and use the exclusive coupon code provided to you once you become a gold member. You will get flat 23% discount on prescription drugs. Promo code can be used multiple times for 1 year without any minimum order value.
                                                                 <br />
                                                                     <span> For more details  <span style={{ color: '#f78631', cursor: 'pointer' }} onClick={this.props.toggle.bind(this, true)}>click here</span></span>
                                                                 </p>

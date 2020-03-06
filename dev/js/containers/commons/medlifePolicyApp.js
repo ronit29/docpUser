@@ -22,7 +22,7 @@ class medlifePolicyApp extends React.Component {
 			                <h3 className="mb-24"><strong>Medlife TnC</strong></h3>
 			                <h5><strong>Offer Terms:</strong></h5>
 			                <ul className="offer-terms-column">
-			                    <li>Save Up to 23% on all prescribed medicines exclusively for <strong>Docprime Gold / VIP users</strong></li>
+			                    <li>Save 23% on all prescribed medicines exclusively for <strong>Docprime Gold / VIP users</strong></li>
 			                    <li>No minimum order value required to avail discount.</li>
 			                    <li>Visit <a href="https://www.medlife.com/">Medlife.com</a></li>
 			                    <li>Upload prescription &amp; select medicines.</li>
