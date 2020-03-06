@@ -273,7 +273,7 @@ class VipClubView extends React.Component {
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?
                 <div className="profile-body-wrap" style={{ background: "" }}>
-                    {/* <ProfileHeader /> */}
+                    <ProfileHeader homePage={true} showSearch={true}  new_fixed_header={1} />
                     <HelmetTags tagsData={{
                         canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
                         title: `${'Docprime Vip' || ''}`,
@@ -292,18 +292,18 @@ class VipClubView extends React.Component {
                         }
                         {
                             this.props.is_gold?
-                                <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <div className={`vip-logo-cont d-none ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                     <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/docgold.png"} />
                                     <p className="scrl-cont-dat gld-hd-txt-algn">Membership plan for </p>
                                     <h1 className="scrl-cont-dat">exclusive discounts</h1>
-                                    {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                                    
                                 </div>
                             :
-                                <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                                <div className={`vip-logo-cont d-none ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                                     <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                                     <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                                     <h1 className="scrl-cont-dat">for just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
-                                    {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                                    
                                 </div>
                         }
                     </div>

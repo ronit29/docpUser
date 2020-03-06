@@ -1,0 +1,27 @@
+.gold-new-view{
+    padding: 95px 0px 0px 0px;
+    background: #f1f1f1;
+}
+
+.heading-name{
+    background: rgba(247, 134, 49, 0.2);
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 21px;
+}
+
+.heading-name>img{
+    /* position: relative;
+    top: 5px; */
+    margin-left: 5px;
+}
+.gold-new-view >.heading-section >.col-6>h4{
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+.gold-family-img{
+    position: relative;
+    right: 20%;
+}

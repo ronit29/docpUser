@@ -152,7 +152,7 @@ class VipGoldView extends React.Component {
                         this.state.showPopup ?
                             <VipLoginPopup {...this.props} closeLeadPopup={this.closeLeadPopup.bind(this)} is_see_more={true} /> : ''
                     }
-                    <section className={`container container-top-margin sub-pdng-add ${this.props.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
+                    <section className={`container container-top-margin sub-pdng-add d-none ${this.props.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
                             <div className="col-12 center-column">
@@ -609,6 +609,23 @@ class VipGoldView extends React.Component {
                             }
                         </div>
                     </section>
+                    
+                    {/* ================== new gold page view ================== */}
+                    <div className="container-fluid gold-new-view">
+                        <section className="heading-section d-flex align-items-center">
+                            <div className="col-sm-3 col-6">
+                                <h3 className="d-inline-block">
+                                    <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
+                                        <img  src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
+                                    </span>
+                                </h3>
+                                <h4>Membership Plan For <br/>Exclusive Dicount</h4>
+                            </div>
+                            <div className="col-sm-9 col-6">
+                                <img className="gold-family-img" src={ASSETS_BASE_URL + "/img/gold-family.png"} height="250"/>
+                            </div>
+                        </section>
+                    </div>
                 </React.Fragment>
                 : <div></div>
         );
