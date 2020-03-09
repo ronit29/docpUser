@@ -40,7 +40,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.16);
 }
 .discount-list-item{
-    padding: 30px 0px;
+    padding: 40px 0px;
 }
 
 .discount-list-item > h4 {
@@ -51,10 +51,11 @@
 /******** Pricing Table css ********/
 
 .pricing-row > h3{
-    font-size: 18px;
+    font-size: 23px;
     font-weight: 500;
     width: 100%;
     padding: 40px 0 25px;
+    text-transform: uppercase;
 }
 .price-card-list>ul>li{
     font-size: 20px;
@@ -73,7 +74,7 @@
     text-align: center;
     width: 25%;
     display: inline-block;
-    border-right: 1px solid rgba(0, 0, 0, 0.16);
+    border-right: 1px solid rgba(10, 9, 9, 0.1);
     transition: 0.4s ease-in-out;
     background: #fff;
 }
@@ -120,3 +121,18 @@
 
 }
 /******** Pricing Table css ********/
+
+.med-blocks{
+    padding: 40px 0px 40px 0px;
+    margin: 0px;
+}
+.med-blocks>.col-sm-6>.vip-offer-cards{
+    border: 1px solid #7575755F;
+    border-radius: 10px;
+    box-shadow: none;
+    width: 100%;
+}
+.med-blocks>.col-sm-6{
+    display: flex;
+    flex: 1;
+}

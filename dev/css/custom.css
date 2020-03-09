@@ -6329,7 +6329,7 @@ p.vp-sb-txt.vp-act {
 }
 
 .vip-medlife-bg {
-    background: url(/assets/img/vip-medlife.png );
+    /* background: url(/assets/img/vip-medlife.png ); */
     background-size: 63px;
     background-position: 96% 100% !important;
     padding-bottom: 5px!important;
