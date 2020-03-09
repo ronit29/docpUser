@@ -1,7 +1,7 @@
 .gold-new-view{
     padding: 95px 0px 0px 0px;
 }
-
+/******** heading section css ********/
 .heading-name{
     background: rgba(247, 134, 49, 0.2);
     border-radius: 5px;
@@ -25,11 +25,98 @@
     position: relative;
     right: 20%;
 }
+/******** heading section css ********/
 
 .gold-view-main-container{
     margin: -20px 30px 0;
     border-radius: 5px;
     box-shadow: 0px 3px 6px #00000029;
-    height: 500px;
+    background: #fff;
+    padding: 0px 30px;
+}
+
+/******** Discount listing css ********/
+.discount-listing-view{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+.discount-list-item{
+    padding: 30px 0px;
+}
+
+.discount-list-item > h4 {
+    font-size: 17px;
+} 
+/******** Discount listing css ********/
+
+/******** Pricing Table css ********/
+
+.pricing-row > h3{
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    padding: 40px 0 25px;
+}
+.price-card-list>ul>li{
+    font-size: 20px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+.price-card-list>ul>li:first-child{
+    padding: 67px 0  15px
+}
+.price-card-list>ul>li:last-child{
+    padding-top: 21px;
+}
+.pricing-card{
+    text-align: center;
+    width: 25%;
+    display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, 0.16);
+    transition: 0.4s ease-in-out;
     background: #fff;
 }
+.pricing-card:last-child{
+    border-right: none;
+}
+.pricing-card:hover{
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 5px;
+    border: none;
+    transform: scale(1.05);
+}
+.pricing-card>h5{
+    font-size: 25px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: uppercase;
+    margin-top: 35px;
+}
+.pricing-card>ul>li{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.pricing-card>ul>li.buy-price{
+    color: #41A2F9;
+    font-size: 43px;
+}
+.times-icon-list{
+    font-size: 40px!important;
+    font-weight: 400!important;
+}
+.pricing-card>ul>li>button{
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    background:var(--text--primary--color);
+    border-color: var(--text--primary--color);
+
+}
+/******** Pricing Table css ********/

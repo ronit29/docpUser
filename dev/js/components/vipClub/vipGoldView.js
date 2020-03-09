@@ -612,6 +612,7 @@ class VipGoldView extends React.Component {
                     
                     {/* ================== new gold page view ================== */}
                     <div className="container-fluid gold-new-view">
+                        {/* ================== Heading section ================== */}
                         <section className="heading-section d-flex align-items-baseline flex-column justify-content-center">
                             <h3 className="d-inline-block">
                                 <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
@@ -620,9 +621,101 @@ class VipGoldView extends React.Component {
                             </h3>
                             <h4>Membership Plan For <br/>Exclusive Dicount</h4>
                         </section>
+                        {/* ================== Heading section ================== */}
+                        {/* ================== Gold View Main container ================== */}
                         <section className="gold-view-main-container">
-                            
+
+                            {/* ================== Discount Listing view ================== */}
+                            <div className="row m-0 discount-listing-view">
+                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
+                                    <h4 className="ml-3 fw-700">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
+                                </div>
+                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
+                                    <h4 className="ml-3 fw-700">Discounts on <br/>5,000 Labs</h4>
+                                </div>
+                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
+                                    <h4 className="ml-3 fw-700">Flat 23% OFF <br/>on Medicines</h4>
+                                </div>
+                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
+                                    <h4 className="ml-3 fw-700">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
+                                </div>
+                            </div>   
+                            {/* ================== Discount Listing view ================== */}
+                            {/* ================== Pricing table ================== */}
+                            <div className="row m-0 pricing-row">
+                                <h3 className="text-center">Select your plan</h3>
+                                <div className="row m-0" style={{width: '100%'}}>
+                                    <div className="col-sm-3">
+                                        <div className="price-card-list">
+                                            <h5>&nbsp;</h5>
+                                            <ul>
+                                                <li>Price</li>
+                                                <li>Coverage</li>
+                                                <li> Validity</li>
+                                                <li>Online Consultation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-9">
+                                        <div className="pricing-card">
+                                            <h5>single</h5>
+                                            <ul>
+                                                <li className="buy-price">₹ 199</li>
+                                                <li>1 Member</li>
+                                                <li> 12 months</li>
+                                                <li className="times-icon-list">x</li>
+                                                <li>
+                                                    <button>Buy</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="pricing-card">
+                                            <h5>Couple</h5>
+                                            <ul>
+                                                <li className="buy-price">₹ 349</li>
+                                                <li>2 Member</li>
+                                                <li> 12 months</li>
+                                                <li className="times-icon-list">x</li>
+                                                <li>
+                                                    <button>Buy</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="pricing-card">
+                                            <h5>Family</h5>
+                                            <ul>
+                                                <li className="buy-price">₹ 399</li>
+                                                <li>6 Member</li>
+                                                <li> 12 months</li>
+                                                <li className="times-icon-list">x</li>
+                                                <li>
+                                                    <button>Buy</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="pricing-card">
+                                            <h5>Family Pro</h5>
+                                            <ul>
+                                                <li className="buy-price">₹ 599</li>
+                                                <li>1 Member</li>
+                                                <li> 12 months</li>
+                                                <li>Unlimited Chat | Audio | Video</li>
+                                                <li>
+                                                    <button>Buy</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* ================== Pricing table ================== */}    
                         </section>
+                        {/* ================== Gold View Main container ================== */}
+                        
                     </div>
                 </React.Fragment>
                 : <div></div>
