@@ -627,19 +627,22 @@ class VipGoldView extends React.Component {
 
                             {/* ================== Discount Listing view ================== */}
                             <div className="row m-0 discount-listing-view">
-                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
                                     <h4 className="ml-3 fw-700">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
+                                    <h5 className="fw-700">Exclusive Prices On Doctors &amp; Labs</h5>
                                 </div>
-                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
                                     <h4 className="ml-3 fw-700">Discounts on <br/>5,000 Labs</h4>
+                                    <h5 className="fw-700">Flat 23% OFF on Medicines</h5>
                                 </div>
-                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
                                     <h4 className="ml-3 fw-700">Flat 23% OFF <br/>on Medicines</h4>
+                                    <h5 className="fw-700">Unlimited Tele Consultations</h5>
                                 </div>
-                                <div className="col-sm-3 col-6 discount-list-item d-flex justify-content-center align-item-center">
+                                <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
                                     <h4 className="ml-3 fw-700">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
                                 </div>

@@ -6363,7 +6363,7 @@ p.vp-sb-txt.vp-act {
 }
 
 h4.vip-card-heading {
-    font-size: 16px;
+    font-size: 16   px;
     font-weight: 600;
     margin-bottom: 10px;
     padding-right: 90px;
@@ -8496,7 +8496,7 @@ div.onln-doc-cnslt div.chatbox-right {
 .gold-grntee-card {
     background: #F786312F;
     border: 1px dashed #F78631;
-    border-radius: 4px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     padding: 30px 15px;

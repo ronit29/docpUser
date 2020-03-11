@@ -11,6 +11,7 @@
 .gold-new-view >.heading-section{
     background-image: url(/assets/img/gold-family.png);
     background-size: cover;
+    background-position: top;
     height: 300px;
     padding-left: 13%;
     background-color: #f1f1f1;
@@ -139,4 +140,57 @@
 }
 p.vip-card-list{
     font-size: 16px;
+}
+
+/******** Responsive css ********/
+@media screen and (max-width:767px){
+    .gold-new-view{
+        padding: 0px!important;
+    }
+    .heading-name{
+        font-size: 14px;
+    }
+    .gold-new-view >.heading-section{
+        height: 173px;
+        padding: 5px 0px 50px 30px;
+    }
+    .gold-new-view >.heading-section>h4{
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+    .gold-view-main-container{
+        margin: 0px;
+        padding: 0px;
+        background: transparent;
+    }
+    .discount-listing-view{
+        margin: -44px 10px 0px!important;
+        background: #fff;
+        border-radius: 5px;
+        padding: 15px 10px 15px;
+        border-bottom: none;
+        box-shadow: 0px 3px 6px #00000029;
+        display: flex;
+        justify-content: space-around;
+    }
+    .discount-list-item{
+        display: block!important;
+        text-align: center;
+        padding: 0px;
+    }
+    .discount-list-item:nth-child(4){
+        display: none!important;
+    }
+    .discount-list-item>img{
+        height: 45px;
+    }
+    .discount-list-item > h4{
+        display: none!important;
+    }
+    .discount-list-item > h5{
+        font-size: 10px;
+        margin: 0px!important;
+        padding-top: 10px;
+    }
 }
