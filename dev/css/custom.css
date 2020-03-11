@@ -6363,7 +6363,7 @@ p.vp-sb-txt.vp-act {
 }
 
 h4.vip-card-heading {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
     padding-right: 90px;
@@ -6371,7 +6371,7 @@ h4.vip-card-heading {
 
 p.vip-card-list {
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: flex;
     align-items: start;
 }
@@ -8089,8 +8089,9 @@ p.dp-gld-mem-grn {
 .medlife-col {
     display: flex;
     flex-direction: column;
-    position: relative;
-    top: -13px;
+    position: absolute;
+    right: 8px;
+    top: 3px;
     text-align: right;
 }
 
@@ -8112,7 +8113,6 @@ p.dp-gld-mem-grn {
     display: flex;
     justify-content: space-between;
     padding-right: 0px;
-    margin-bottom: 0px!important;
     font-size: 14px;
 }
 
@@ -8494,12 +8494,12 @@ div.onln-doc-cnslt div.chatbox-right {
     margin-bottom: 10px;
 }
 .gold-grntee-card {
-    background: rgba(255, 110, 1, .1);
-    border: 1px dotted #ff6e01;
+    background: #F786312F;
+    border: 1px dashed #F78631;
     border-radius: 4px;
     display: flex;
     align-items: center;
-    padding: 10px 10px;
+    padding: 30px 15px;
 }
 .round-img-gld {
     padding-right: 15px;
@@ -8510,11 +8510,11 @@ div.onln-doc-cnslt div.chatbox-right {
 .gold-grnte-content h4 {
     color: #27435b;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 3px;
 }
 .gold-grnte-content p {
-    font-size: 13px;
+    font-size: 16px;
     color: #757575;
     font-weight: 500;
     padding-right: 61px;

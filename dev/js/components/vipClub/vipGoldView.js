@@ -250,7 +250,7 @@ class VipGoldView extends React.Component {
                                         {/* ================== gold slider ================== */}
                                         <div className="gold-white-bg-container">
                                             <div className="gold-grntee-card-container">
-                                                <div className="gold-grntee-card gaurantee-img mb-3">
+                                                <div className="gold-grntee-card  mb-3">
                                                     <div className="round-img-gld">
                                                         <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
                                                     </div>
@@ -424,7 +424,7 @@ class VipGoldView extends React.Component {
                                                 {/* ================== gold benifits  ================== */}
 
                                                 {/* ================== gold benefit video section  ================== */}
-                                                <div className="col-12 p-0">
+                                                {/* <div className="col-12 p-0">
                                                     <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                     <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
                                                         <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
@@ -434,7 +434,7 @@ class VipGoldView extends React.Component {
                                                         </a>
                                                         <h5 id="video-time" className="fw-500 text-center"></h5>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                                 {/* ================== gold benefit Review starts ================== */}
                                                 <VipReviewSection />
                                                 {/* ================== gold benefit Review End ================== */}
@@ -738,7 +738,60 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                             {/* ================== Medlife & consulataion widget ================== */}    
-
+                            {/* ================== list & gold video widget ================== */}
+                            <div className="row m-0">
+                                <div className="col-sm-6 col-12">
+                                    <div className="gold-grntee-card-container">
+                                        <div className="gold-grntee-card mb-3">
+                                            <div className="round-img-gld">
+                                                <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
+                                            </div>
+                                            <div className="gold-grnte-content">
+                                                <h4>100% Satisfaction Guarantee</h4>
+                                                <p>Cancel anytime within a year and get full refund. No questions asked</p>
+                                            </div>
+                                        </div>
+                                        <div className="gold-grntee-card mb-3">
+                                            <div className="round-img-gld">
+                                                <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
+                                            </div>
+                                            <div className="gold-grnte-content">
+                                                <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
+                                                <p className="gld-see-more p-0" onClick={(e) => {
+                                                    let data = {
+                                                        'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                                    }
+                                                    GTM.sendEvent({ data: data });
+                                                    this.setState({ showPopup: true })
+                                                }
+                                                }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
+                                            </div>
+                                        </div>
+                                        {/* consult doctor widget added */}
+                                        <div className="gold-grntee-card mb-3">
+                                            <div className="round-img-gld">
+                                                <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                            </div>
+                                            <div className="gold-grnte-content">
+                                                <h4>Free Doctor Consultation after every Lab appointment</h4>
+                                            </div>
+                                        </div>
+                                        {/* consult doctor widget added end */}
+                                    </div>
+                                </div>
+                                <div className="col-sm-6 col-12">
+                                    <h4 className="vip-card-heading text-center p-0" style={{marginBottom: 20}}>Why Docprime Gold ?</h4>
+                                    <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
+                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
+                                        </video>
+                                        <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
+                                            <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
+                                        </a>
+                                        <h5 id="video-time" className="fw-500 text-center"></h5>
+                                    </div>            
+                                </div>
+                            </div>
+                            {/* ================== list & gold video widget ================== */}
                         </section>
                         {/* ================== Gold View Main container ================== */}
                         
