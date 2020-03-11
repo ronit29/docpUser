@@ -191,13 +191,16 @@
     transform: rotate(-45deg);
     box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.1);
 }
-.mbl-view-pricing-table>.price-table:hover> .shadow-box{
+.mbl-view-pricing-table>.price-table:hover> .shadow-box,
+.mbl-view-pricing-table>.price-table.active> .shadow-box{
     opacity: 1;
     transform: scale(1.01)!important;
     transition: 0.4s ease-in-out;
 }
 .mbl-view-pricing-table>.price-table:hover >h4,
-.mbl-view-pricing-table>.price-table:hover >h4>span{
+.mbl-view-pricing-table>.price-table:hover >h4>span,
+.mbl-view-pricing-table>.price-table.active >h4,
+.mbl-view-pricing-table>.price-table.active >h4>span{
     color: #F78631;
     transform: scale(1.05)!important;
 
@@ -205,10 +208,12 @@
 .mbl-view-pricing-table>.price-table:hover>h4:first-child{
     border-right: none!important;
 }
-.mbl-view-pricing-table>.price-table:hover> .indicator-box{
+.mbl-view-pricing-table>.price-table:hover> .indicator-box,
+.mbl-view-pricing-table>.price-table.active> .indicator-box{
     background: #8EA51D;
 }
-.mbl-view-pricing-table>.price-table:hover> .indicator-box>img{
+.mbl-view-pricing-table>.price-table:hover>.indicator-box>img,
+.mbl-view-pricing-table>.price-table.active>.indicator-box>img{
     opacity: 1;
 }
 .mbl-view-pricing-table>.price-table>h3{

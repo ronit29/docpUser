@@ -752,7 +752,7 @@ class VipGoldView extends React.Component {
                                          <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>X</h4>  
                                     </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column active">
                                         <div className="shadow-box">&nbsp;</div>
                                         <div className="indicator-box d-flex justify-content-center align-items-center">
                                             <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
