@@ -715,57 +715,62 @@ class VipGoldView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="row m-0 mbl-view-pricing-table" style={{width: '100%'}}>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
+                                        <div className="shadow-box">&nbsp;</div>
                                         <div className="indicator-box">&nbsp;</div>
                                         <h4>
-                                            <span>single</span><br/>
-                                            <span className="price-text">199</span>
+                                            <span>single</span>
+                                            <span className="price-text">₹ 199</span>
                                         </h4>
-                                         <hr style={{width: '100%'}} /> 
-                                         <h4>1</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                        <h3>Coverage(members)</h3>
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                         <h4 className="member-count">1</h4>
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>12</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>X</h4>  
                                     </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
+                                        <div className="shadow-box">&nbsp;</div>
                                         <div className="indicator-box">&nbsp;</div>
                                         <h4>
-                                            <span>single</span><br/>
-                                            <span className="price-text">199</span>
+                                            <span>Couple</span>
+                                            <span className="price-text">₹ 349</span>
                                         </h4>
-                                         <hr style={{width: '100%'}} /> 
-                                         <h4>1</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                         <h4 className="member-count">2</h4>
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>12</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>X</h4>  
                                     </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
+                                        <div className="shadow-box">&nbsp;</div>
                                         <div className="indicator-box">&nbsp;</div>
                                         <h4>
-                                            <span>single</span><br/>
-                                            <span className="price-text">199</span>
+                                            <span>Family</span>
+                                            <span className="price-text">₹ 399</span>
                                         </h4>
-                                         <hr style={{width: '100%'}} /> 
-                                         <h4>1</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                         <h4 className="member-count">6</h4>
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>12</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>X</h4>  
                                     </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0 family-pro-table">
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column family-pro-table">
+                                        <div className="shadow-box">&nbsp;</div>
                                         <div className="indicator-box">&nbsp;</div>
                                         <h4>
-                                            <span>single</span><br/>
-                                            <span className="price-text">199</span>
+                                            <span>Family pro</span>
+                                            <span className="price-text">₹ 599</span>
                                         </h4>
-                                         <hr style={{width: '100%'}} /> 
-                                         <h4>1</h4>
-                                         <hr style={{width: '100%'}} /> 
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                         <h4 className="member-count">6</h4>
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4>12</h4>
-                                         <hr style={{width: '100%'}} /> 
-                                         <h4>X</h4>  
+                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                         <h4 style={{ fontSize: 10}}> Unlimited Chat | Audio | Video</h4>  
                                     </div>
                                 </div>
                             </div>

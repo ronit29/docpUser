@@ -127,26 +127,84 @@
 .mbl-view-pricing-table{
     display: none;
     padding: 0px 10px;
+    margin-bottom: 15px!important;
 }
 .mbl-view-pricing-table>.price-table>.indicator-box{
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: rgba(117, 117, 117, 0.30);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
 }
 .mbl-view-pricing-table>.price-table>h4{
     color: #757575;
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 500;
     text-transform: uppercase;
     text-align: center;
-    border-right: 1px solid #757575;
+    border-right: 1px solid rgba(112, 112, 112, 0.2);
     width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:center;
+    min-height: 36px;
+    padding: 2px;
+    position: relative;
+    z-index: 1;
+    transition: 0.8s ease-in-out;
+}
+.mbl-view-pricing-table>.price-table{
+    transition: 0.8s ease-in-out;
+    background: #fff;
+    cursor: pointer;
+    padding: 10px 0;
+}
+/* .mbl-view-pricing-table>.price-table:hover{
+    transform: scale(1.05)!important;
+} */
+.mbl-view-pricing-table>.price-table> .shadow-box{
+    box-shadow: 0px 3px 6px 4px #00000029;
+    position: absolute;
+    background: #fff;
+    top: 0px;
+    width: 100%;
+    height: 84px;
+    opacity: 0;
+    z-index: 1;
+}
+.mbl-view-pricing-table>.price-table:hover> .shadow-box{
+    opacity: 1;
+    transform: scale(1.05)!important;
+    transition: 0.4s ease-in-out;
+}
+.mbl-view-pricing-table>.price-table:hover >h4,
+.mbl-view-pricing-table>.price-table:hover >h4>span{
+    color: #F78631;
+    transform: scale(1.05)!important;
+
+}
+.mbl-view-pricing-table>.price-table:hover>h4:first-child{
+    border-right: none!important;
+}
+.mbl-view-pricing-table>.price-table>.member-count{
+    margin-top: 20px!important;
+}
+.mbl-view-pricing-table>.price-table>h3{
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    top: 5.7rem;
+    z-index: 1;
+    text-align: center;
+    left: 9rem;
+    font-size: 12px;
 }
 .mbl-view-pricing-table>.price-table>h4>.price-text{
     color: #41A2F9;
-    font-size: 25px;
+    font-size: 17px;
 }
 .family-pro-table> h4{
     border-right: none!important;
