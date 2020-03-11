@@ -142,7 +142,7 @@ self.addEventListener('activate', function(event){
 	// )
 
 self.addEventListener('fetch', function(event){
-	console.log('Service Worker url.....', event.request);
+	//console.log('Service Worker url.....', event.request);
 
 	if ( event.request.url.includes('api') || event.request.url.includes('/default') ||  event.request.url.includes('/io') ){
 		//For API request
@@ -169,8 +169,8 @@ self.addEventListener('fetch', function(event){
 			)
 		}else {
 			event.respondWith(fetch(event.request).catch((e)=>{
-				console.log('Error in Fetch ',event.request);
-				console.log('Error is ', e);
+				//console.log('Error in Fetch ',event.request);
+				//console.log('Error is ', e);
 			}))
 		}
 	} else {
