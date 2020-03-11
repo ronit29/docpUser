@@ -344,7 +344,7 @@ class PrimeCareView extends React.Component {
             return (
                 <React.Fragment>
                     <ProfileHeader homePage={true} showSearch={true} />
-                    <div className="headerSubLinkContainer">
+                    <div className="headerSubLinkContainer d-none">
                         <div className="container">
                             <div className="head_text_container">
                                 {this.props.common_settings && this.props.common_settings.insurance_availability ?

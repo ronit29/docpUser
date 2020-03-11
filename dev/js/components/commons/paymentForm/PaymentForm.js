@@ -112,6 +112,24 @@ class PaymentForm extends React.Component {
                         </React.Fragment>
                         : ''
                     }
+
+                    {
+                        this.props.paymentData && this.props.paymentData['refOrderId']?
+                        <input type="text" name="refOrderId" defaultValue={this.props.paymentData['refOrderId']} />
+                        :''
+                    }
+
+                    {
+                        this.props.paymentData && this.props.paymentData['refOrderNo']?
+                        <input type="text" name="refOrderNo" defaultValue={this.props.paymentData['refOrderNo']} />
+                        :''
+                    }
+
+                    {
+                        this.props.paymentData && this.props.paymentData['parentProductId']?
+                        <input type="text" name="parentProductId" defaultValue={this.props.paymentData['parentProductId']} />
+                        :''
+                    }
                     
                 </form>
 

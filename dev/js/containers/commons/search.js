@@ -173,9 +173,9 @@ const mapStateToProps = (state) => {
 
     })()
 
-    let { selectedSearchType, is_login_user_insured } = state.USER
+    let { selectedSearchType, is_login_user_insured, profiles, defaultProfile } = state.USER
 
-    return { OPD_STATE, LAB_STATE, selectedSearchType, IPD_STATE, is_login_user_insured }
+    return { OPD_STATE, LAB_STATE, selectedSearchType, IPD_STATE, is_login_user_insured, profiles, defaultProfile }
 
 }
 

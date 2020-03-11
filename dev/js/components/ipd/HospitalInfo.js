@@ -44,8 +44,8 @@ class HospitalInfoView extends React.Component {
           {
             hospital_data.logo ?
               <div className="hosNme">
-                <div className={`hs-nme hsptName ${this.props.showPopup ? 'popupTopChange' : ''}`}>
-                  <img style={{ width: '135px' }} src={hospital_data.logo} alt={name} className="img-fluid" />
+                <div className={`hs-nme hsptName hsptWidget ${this.props.showPopup ? 'popupTopChange' : ''}`}>
+                  <img src={hospital_data.logo} alt={name} className="img-fluid" />
                 </div>
               </div>
               : ''

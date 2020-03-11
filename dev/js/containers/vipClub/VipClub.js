@@ -22,7 +22,9 @@ class VipClub extends React.Component{
             // is_gold:parsed.is_gold?parsed.is_gold:false,
             is_gold:this.props.match.url.includes('vip-gold-details'),
             is_vip_gold:parsed.is_vip_gold?parsed.is_vip_gold:false,
-            is_booking_page:parsed.booking_page?parsed.booking_page:null
+            is_booking_page:parsed.booking_page?parsed.booking_page:null,
+            is_from_organic:parsed.fromOrganic,
+            is_pb:parsed.utm_source?parsed.utm_source && parsed.utm_source.includes('policybazaar.com'):false
         }
     }
 
@@ -57,7 +59,7 @@ class VipClub extends React.Component{
             
                 {/*<VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>*/}
             
-                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan} is_booking_page={this.state.is_booking_page}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan} is_booking_page={this.state.is_booking_page} is_from_organic={this.state.is_from_organic} is_pb={this.state.is_pb}/>
                        
             </React.Fragment>
         }else{
@@ -80,7 +82,7 @@ class VipClub extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { user_cities, common_utm_tags } = state.USER
+    let { user_cities, common_utm_tags, user_loggedIn_number } = state.USER
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan, odpGoldPredictedPrice, labGoldPredictedPrice } = state.VIPCLUB
     const {
         selectedLocation,
@@ -88,7 +90,7 @@ const mapStateToProps = (state) => {
         nearbyHospitals
     } = state.SEARCH_CRITERIA_OPD
     return {
-        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice, common_utm_tags
+        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, user_cities, topHospitals, nearbyHospitals, odpGoldPredictedPrice, labGoldPredictedPrice, common_utm_tags, user_loggedIn_number
     }
 }
 

@@ -195,10 +195,6 @@ body {
     font-weight: 500;
 }
 
-.profile-body-wrap {
-    background: #f8f8f8;
-}
-
 .cht-btn-cont {
     display: block;
     margin-top: 15px;
@@ -548,9 +544,9 @@ background: black;
 /*header styling*/
 
 .sub-header {
-	background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+	/* background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color)); */
 	width: 100%;
-	margin-top: 94px;
+	margin-top: 60px;
 	height: 65px;
 }
 
@@ -628,9 +624,6 @@ p.top-head-link.card-lab-link span {
     }
     .dr-profile-screen {
         padding-bottom: 0px !important;
-    }
-    .profile-footer {
-        margin-top: 0px;
     }
     .ipd-section .opd-status {
         float: unset !important;
@@ -837,7 +830,9 @@ p.top-head-link.card-lab-link span {
     cursor: pointer;
 }
 
-
+.hide-762{
+    margin-left: -15px;
+}
 /*header styling*/
 
 @media(max-width: 767px) {
@@ -990,7 +985,7 @@ p.top-head-link.card-lab-link span {
         margin-left: 0;
     }
     .text-sm {
-        font-size: 14px;
+        font-size: 12px;
     }
     p.fltr-prices {
         font-size: 16px;
@@ -3662,7 +3657,7 @@ span.tbl-price-span {
     display: block;
     position: relative;
     padding-left: 29px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
     cursor: pointer;
     font-size: 16px;
     -webkit-user-select: none;
@@ -3900,7 +3895,10 @@ label.procedure-check.ck-bx .checkmark {
     margin-bottom: 5px;
 }
 
-@media(max-width: 767px) {
+@media screen and (max-width: 767px) {
+    .sign-up-container{
+        margin-top: 40px;
+    }
     .speciality-footer-list li {
         display: inline-block;
         padding-right: 4px;
@@ -4220,7 +4218,7 @@ header.searcLocationHeaderPadding{
 
 .serch-nw-inputs {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .serch-nw-inputs input.new-srch-inp {
@@ -4855,11 +4853,6 @@ ul.stc-data-ul-list li {
     margin-top: 12px;
 }
 
-.header-search-full-widht {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
 
 .hed-links-search-flex {
     flex: 1;
@@ -4879,9 +4872,13 @@ ul.stc-data-ul-list li {
 }
 
 .search-input-for-mobile {
-    margin-bottom: 0px!important;
+    margin-bottom: 10px!important;
+    box-shadow: 0 3px 11px -3px rgba(0, 0, 0, .4);
+    border-radius: 50px;
 }
-
+.new-listing-search{
+    margin: 0px!important;
+}
 
 /* ================= Journey ui fix ====================== */
 
@@ -4889,7 +4886,7 @@ ul.stc-data-ul-list li {
 /* ================= new search design ====================== */
 
 .container-top-margin {
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .text-black {
@@ -4902,7 +4899,7 @@ ul.stc-data-ul-list li {
         padding: 0px;
     }
     .container-top-margin {
-        margin-top: 34px;
+        margin-top: 40px;
     }
     .searcLocationHeaderPadding {
         padding-top: 100px !important;
@@ -5032,15 +5029,10 @@ span.search-span-sub {
     flex: 1;
 }
 
-.srch-img {}
-
-.usr-srch-img {}
-
 .header-serach-input-div {
-    background: white;
     width: 100%;
     height: 36px;
-    padding: 9px 118px 10px 34px;
+    padding: 9px 116px 10px 34px;
     border-radius: 5px;
     cursor: pointer;
     text-overflow: ellipsis;
@@ -5698,7 +5690,7 @@ p.error-msg.subAlertins {
     background: white;
     position: fixed;
     bottom: 0;
-    z-index: 99;
+    z-index: 1;
     left: 0;
     width: 97%;
     border-radius: 7px;
@@ -5790,7 +5782,7 @@ p.vip-foot-txt {
 
 .nw-cht-border-btn {
     width: 100%;
-    height: 7px;
+    height: 2px;
     background: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -6229,7 +6221,7 @@ margin: 10px 0px;
 
 @media screen and (max-width: 992px) {
     .book-appointment-section-login {
-        margin-top: 30px;
+        margin-top: 10px;
     }
     .chat-load-mobile.mt-21 {
         margin-top: 18px;
@@ -6241,7 +6233,7 @@ margin: 10px 0px;
 }
 
 .breadcrumb-mrgn {
-    margin-top: 130px;
+    margin-top: 90px;
 }
 
 @media screen and (max-width: 767px) {
@@ -6562,25 +6554,6 @@ color: 	var(--text--primary--color);
     margin-top: 0px !important;
 }
 
-.cart-count-notify {
-    text-align: center;
-    width: 12px;
-    height: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    background: white;
-    top: -5px;
-    color: var(--text--primary--color);
-    border: 2px solid var(--text--primary--color);
-    border-radius: 10px;
-    padding: 8px;
-    font-size: 11px;
-    font-weight: 600;
-}
-
 .cart-appntmnt {
     color: #11b619;
     font-size: 15px;
@@ -6824,7 +6797,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 .header-box{
     background: var(--text--primary--color) url(/assets/images/doc-logo.png) no-repeat top right;
-    padding: 15px 15px 30px;
+    padding: 36px 15px;
     position: relative;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -7920,7 +7893,7 @@ ul.edit-compliment {
 }
 
 .scroll-shadow-bar {
-    box-shadow: 0px 1px 1px #dedede;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12);
 }
 .search-prnsl-rslts{
 	color: var(--text--primary--color);
@@ -8405,7 +8378,7 @@ button.padding-btn-adjust {
     padding: 10px 15px 0;
     margin-bottom: 15px;
     position: sticky;
-    top: 94px;
+    top: 68px;
     z-index: 9;
 }
 
@@ -8674,6 +8647,7 @@ button.cstm-book-btn {
     box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
     padding: 8px;
     margin-top: 5px;
+    position: relative;
 }
 
 button.cstm-view-btn {
@@ -8998,6 +8972,14 @@ p.cstm-cpn {
 
 .ipd-section .hs-nme.hsptName {
     margin-bottom: 10px;
+}
+
+.hsptWidget{
+    height: 77px;
+}
+.hsptWidget>img{
+    object-fit: contain;
+    height: 100%;
 }
 
 .ipd-section .hsptl-info {
@@ -10217,6 +10199,11 @@ a.btn-search.btn-cnte {
     margin-top: 5px;
 }
 
+@media (min-width: 768px){
+    .aptmnt-card{
+        display: none;
+    }
+}
 @media screen and (max-width: 320px) {
     .leftBlock div {
         font-size: 11px;
@@ -10876,7 +10863,7 @@ ul.careListing li {
 }
 
 .pkgComapre {
-    margin-top: 94px;
+    margin-top: 70px;
 }
 
 .pkgComapre .top-filter-tabs-select img {
@@ -11405,7 +11392,7 @@ li {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 11;
 }
 
 .cm-footer.compare-package-footer {
@@ -11414,7 +11401,7 @@ li {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 11;
 }
 
 .pkgComapre .compare-packages {
@@ -11703,7 +11690,7 @@ li {
     position: -webkit-sticky;
     left: 0;
     right: 0;
-    top: 94px;
+    top: 68px;
     z-index: 99;
 }
 .hide-all{
@@ -12040,7 +12027,7 @@ li {
     }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 992px) {
     .pkgMrgnAdjst {
         margin-top: 44px !important;
     }
@@ -12048,7 +12035,7 @@ li {
         margin-top: 0px;
     }
     .pkgComapre .filter-row {
-        top: 44px;
+        top: 102px;
     }
     .pkgComapre .chat-load-mobile.mt-21 {
         margin-top: 0;
@@ -13659,8 +13646,8 @@ p.pkgtstName.prcd-height {
     position: absolute;
     top: 4px;
     right: 8px;
-    color: var(--text--primary--color);
-    border: 1px dashed var(--text--primary--color);
+    color: #1b97fd;
+    border: 1px dashed #1b97fd;
     border-radius: 5px;
     text-align: center;
     font-size: 10px;
@@ -14453,7 +14440,7 @@ div.doc-srch-fltr.vip-slct-pop {
 @media (min-width:768px) {
     .fixed-chatbox {
         position: sticky;
-        top: 100px;
+        top: 85px;
         z-index: 1;
     }
 }
@@ -14479,7 +14466,8 @@ div.doc-srch-fltr.vip-slct-pop {
         display: flex;
         margin-top: -10px;
         padding: 10px 10px 10px;
-        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        background: #fff;
+        box-shadow: 0 13px 12px -11px rgba(0, 0, 0, .4);
         position: fixed;
         width: 100%;
         top: 0px;
@@ -14496,7 +14484,8 @@ div.doc-srch-fltr.vip-slct-pop {
     }
     #lw-header {
         /* background-image: linear-gradient(to left, #f78631, #ff6d00); */
-        background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+        /* background-image: linear-gradient(to left, var(--dark--text--color), var(--dark--gradient--color)); */
+        background: #fff;
         position: relative;
     }
     .doc-header {
@@ -14614,6 +14603,200 @@ div.doc-srch-fltr.vip-slct-pop {
     } */
 }
 
+/*upload prescription css*/
+
+.upload-prescription{
+    margin: -8px;
+}
+.upload-prescription-widget{
+    padding:12px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+}
+.cross-presc-modal{
+    cursor: pointer;
+    right:15px;
+    top:10px; 
+    position: absolute;
+    font-size: 31px; 
+    line-height: 14px;
+}
+
+.upload-prescription-widget > div > h6{
+    font-size: 12px;
+    line-height: 13px;
+}
+
+.upload-prescription-widget > button{
+    font-size: 14px;
+    line-height: 1.09;
+    width:auto;
+    padding:8px 23px
+}
+.cstm-upload-btn{
+    background-image: linear-gradient(to left, var(--text--primary--color), var(--gradient--dull--color));
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    padding: 5px 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+#presc-upload{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    opacity: 0;
+    left: 0px;
+}
+.upload-prescription > .upload-prescription-column{
+    width: 210px;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    background-color: #efefef;
+    padding: 5px;
+}
+.upload-prescription > .upload-prescription-column > button{
+    min-width: 120px;
+    padding: 8px 20px;
+    max-width: 130px;
+}
+.upload-prescription > .upload-prescription-column > button >span{
+    width: 100%;
+}
+.prescription-uploaded{
+    margin: 15px 0;
+}
+.prescription-uploaded-img{
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    max-height: 130px;
+      
+}
+.upload-presc-loading-pdf{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    border-radius: 5px;
+}
+
+/*error msg css*/
+.error-msg-text{
+    font-size: 14px;
+    font-weight: 500;
+    color: #fe0000;
+}
+.error-border-color{
+    border-color: #ff0000!important;
+}
+
+/**prescription guidelines css**/
+.prescription-guidelines> h5{
+    font-size: 16px;
+}
+
+.presc-submit-btn{
+    padding: 20px 0 25px!important;
+    font-size: 16px;
+}
+@media screen and (max-width:767px){
+    .upload-prescription{
+        overflow: hidden;
+    }
+    .cross-presc-modal{
+        top:14px !important; 
+    }
+}
+@media (min-width: 992px){
+    .presc-submit-btn{
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        padding: 15px 0px!important; 
+    }
+}
+/*health advisor col*/
+.health-advisor-col{
+    border-radius: 5px;
+    background-color: rgba(66, 137, 254, 0.1);
+    position: relative;
+    padding: 10px;
+}
+.health-advisor-col > p{
+    font-weight: bold;
+    white-space: pre-wrap;
+    font-size: 13px;
+}
+.health-advisor-col >.cursor-pntr{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+}
+/*guidelines col*/
+.guidelines-col > ul{
+    padding-left: 15px;
+}
+.guidelines-col > ul > li{
+    color: #757575;
+    list-style: disc!important;
+    line-height: 23px;
+    font-size: 12px;
+}
+
+@media screen and (max-width:767px){
+    .guidelines-col{
+        padding: 0px!important;
+    }
+    .guidelines-col > h5{
+        padding-left: 10px!important;
+    }
+    .guidelines-col > ul{
+        padding-left: 30px!important;
+    }
+}
+
+/*received prescription css*/
+.rcvd-section{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+}
+.received-prescription-section{
+    padding: 30px;
+    width: 400px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.received-prescription-section > p{
+    white-space: normal;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    margin: 20px;
+    line-height: 21px;
+}
+
+@media screen and (max-width:600px){
+    .info-detail-icon{
+        margin-top: 2px;
+    }
+    .received-prescription-section{ 
+        width:90%;
+    }
+}
 .refer-bonus{
     background: #319bd6;
     border-radius: 5px;
@@ -14897,7 +15080,6 @@ p.num-verified img {
 .docImg-Popup {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .doc-img-popupSection {
     margin-right: 12px;
@@ -14911,8 +15093,8 @@ button.pop-subText{
     background-color: #ffffff;
     border: solid 1px #178ddd;
     cursor: pointer;
-    width: 58%;
-    padding: 5px 0;
+    width: 80%;
+    padding: 5px 15px;
 }
 .fs-12{
     font-size: 12px !important;
@@ -14947,6 +15129,15 @@ p.wtsapp-chk-txt img {
     margin-top: 10px !important;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+.gold-wdgt-text-strip {
+    background: rgba(254, 112, 4, .1);
+    padding: 5px 12px;
+    margin: 0 -8px;
+}
+.gold-wdgt-text-strip p {
+    text-align: center;
+    font-weight: 600;
 }
 /* ======================================= popup DPP HPP  ======================================= */
 
@@ -15028,6 +15219,116 @@ button.fb-btn-sec {
     padding-bottom: 5px;
 }
 /* ======================================= chat feedback section  ======================================= */
+/* ======================================= gold user add on  ======================================= */
+div.widget.goldUserAddon .ins-form-group input {
+    padding-left: 12px;
+}
+div.widget.goldUserAddon .ins-form-group img{
+    display: none;
+}
+div.widget.goldUserAddon .ins-form-group .form-control-placeholder{
+    left: 8px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput input{
+    padding: 8px 15px;
+    line-height: 17px;
+    font-size: 13px;
+}
+div.widget.goldUserAddon form .labelWrap.ddmminput label{
+    padding: 8px 15px;
+    line-height: 18px;
+    font-size: 13px;
+}
+.orSeparator {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.orSeparator:before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background: rgba(0, 0, 0, .2);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.orSeparator span {
+    background: white;
+    color: #1b97fd;
+    font-weight: 500;
+    height: 30px;
+    width: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.orSeparator span:after {
+    content: '';
+    background: rgba(27, 151, 253, .3);
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 30px;
+}
+/* ======================================= gold user add on  ======================================= */
+/* ======================================= new user addon  ======================================= */
+
+.add-member-chkbx{
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.profile-warning-text{
+    color: #757575;
+    margin-top: 5px;
+}
+
+.gold-covrd-txt {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: var(--text--primary--color);
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}
+.gold-covrd-btn{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--text--primary--color);
+    border: 1px dashed var(--text--primary--color);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+    z-index: 2;
+    background: white;
+    outline: none;
+}
+.user-heading{
+font-size: 14px;
+padding: 15px 0px 10px 20px;
+}
+.box-shadow-none{
+box-shadow: none !important;
+}
+.pipe-sign{
+    padding: 0px 5px;
+    color: #646464;
+    font-weight: 900;
+}
+/* ======================================= new user addon  ======================================= */
+
 /* ======================================= whtsapp buttons on pages ======================================= */
 .whtsappPages{
     background-color: #25D366;
@@ -15047,4 +15348,128 @@ button.fb-btn-sec {
     width: 20px;
     margin-right: 8px;
 }
+.disable-opacity{
+    pointer-events: none;
+    filter: grayscale(1);
+    cursor: -webkit-zoom-in;
+    opacity: .5;
+}
 /* ======================================= whtsapp buttons on pages ======================================= */
+/* ======================================= home gold banner design ======================================= */
+.gold-banner-card {
+    background: #fde3ca;
+    padding: 12px;
+    position: relative;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 1px 1px 4px rgba(0, 0, 0, 0.24);
+    border: 0px;
+    border-radius: 5px;
+    border-bottom-right-radius: 80px;
+    z-index: 1;
+    overflow: hidden;
+}
+/* .gold-banner-card:before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: #f78631;
+    border-radius: 100px;
+    z-index: -1;`
+    top: -50px;
+    left: -20px;
+} */
+.gold-banner-card:after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, .21);
+    z-index: -1;
+    border-radius: 100px;
+    top: -100px;
+    right: -60px;
+}
+.gld-home-icon img {
+    width: 100px;
+}
+.gld-home-content {
+margin: 10px 0px 20px 15px;
+}
+.gld-home-content h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.gld-home-content p {
+    font-size: 14px;
+    font-weight: 500;
+}
+.gld-home-ico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.gld-ico-card {
+    text-align: center;
+    width: 33.33%;
+}
+.gld-ico-card img {
+    width: 50px;
+}
+.gld-ico-card p {
+    font-weight: 500;
+    margin-top: 12px;
+    font-size: 12px;
+}
+.gld-ico-card p strong {
+    font-weight: 600;
+}
+.gold-home-price {
+    text-align: center;
+    margin-top: 30px;
+}
+.gold-home-price p {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.gold-home-price strong {
+    font-weight: 600;
+    font-size: 21px;
+    margin: -5px 2px 0;
+    display: inline-flex;
+}
+.gold-home-price button {
+    color: #f78631;
+    border: 1px solid #f78631;
+    border-radius: 4px;
+    padding: 10px 70px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.04), 1px 1px 4px rgba(0, 0, 0, 0.12);
+    font-weight: 500;
+}
+.gld-home-icon {
+    position: relative;
+    left: -12px;
+    top: 0px;
+    background: rgba(255, 255, 255, .6);
+    display: inline-flex;
+    padding: 5px 15px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    align-items: center;
+}
+.gld-home-icon p {
+    font-weight: 600;
+    font-size: 16px;
+}
+.gld-home-icon img {
+    width: 42px;
+    margin-left: 0px;
+}
+/* ======================================= home gold banner design ======================================= */
+
+.pb-gold-banner{
+    padding-bottom: 15px;
+    width: 100%;
+}

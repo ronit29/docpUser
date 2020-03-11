@@ -40,6 +40,7 @@ class VipGoldView extends React.Component {
         self.setState({ tabsValue: tabs })
     }
     goBack() {
+        const parsed = queryString.parse(this.props.location.search)
         let selectPlan = this.props.selected_plan_data && this.props.selected_plan_data.id
         if (selectPlan) {
 
@@ -56,7 +57,21 @@ class VipGoldView extends React.Component {
             }
 
         }
-        this.props.history.go(-1)
+        if(this.props.is_from_organic){
+            let url 
+            if(parsed.callBackUrl){
+                url = parsed.callBackUrl
+                if(parsed.hospital_id && !url.includes('hospital_id')){
+                    url += `?hospital_id=${parsed.hospital_id}`
+                }
+                if(parsed.doctor_id){
+                    url += `&doctor_id=${parsed.doctor_id}`
+                }
+                this.props.history.push(url)
+            }
+        }else{
+            this.props.history.go(-1)
+        }
     }
 
     closeLeadPopup() {
@@ -165,6 +180,12 @@ class VipGoldView extends React.Component {
                                             }
 
                                         </div>
+                                        {
+                                            this.props.is_pb?
+                                            <div>
+                                                <img src = "https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png" className="pb-gold-banner"/>
+                                            </div>
+                                        :''}
                                         {/* ================== gold benifits  ================== */}
                                         <div className="gold-white-bg-container mb-24">
                                             <h4 className="vip-card-heading">Gold Benefits</h4>
@@ -393,7 +414,7 @@ class VipGoldView extends React.Component {
                                                 </div>
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-medlife-bg">
-                                                        <h4 className="vip-card-heading">Upto 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                        <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Exclusive for Gold members</p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No minimum order values </p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Unlimited usage with no maximum cap </p>
@@ -406,7 +427,7 @@ class VipGoldView extends React.Component {
                                                 <div className="col-12 p-0">
                                                     <h4 className="vip-card-heading mb-24">Why Docprime Gold ?</h4>
                                                     <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
-                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad_AME_3.mp4">
+                                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
                                                         </video>
                                                         <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
                                                             <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
@@ -432,7 +453,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(1) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(1) > -1 ? 'd-none' : ''}`}>
-                                                                    You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. Additionally, you can get upto 23% discount on prescribed medicines on Medlife.com. The membership will last till the duration of the plan.
+                                                                    You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. Additionally, you will get flat 23% discount on prescribed medicines on Medlife.com. The membership will last till the duration of the plan.
                                                                 </p>
                                                             </div>
                                                             <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
@@ -441,7 +462,7 @@ class VipGoldView extends React.Component {
                                                                     <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                                                 </div>
                                                                 <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
-                                                                    You can visit <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://www.medlife.com/"> www.medlife.com</a> website or mobile application and use the exclusive coupon code provided to you once you become a gold member. You can get upto 23% discount on prescription drugs. Promo code can be used multiple times for 1 year without any minimum order value.
+                                                                    You can visit <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://www.medlife.com/"> www.medlife.com</a> website or mobile application and use the exclusive coupon code provided to you once you become a gold member. You will get flat 23% discount on prescription drugs. Promo code can be used multiple times for 1 year without any minimum order value.
                                                                 <br />
                                                                     <span> For more details  <span style={{ color: '#f78631', cursor: 'pointer' }} onClick={this.props.toggle.bind(this, true)}>click here</span></span>
                                                                 </p>
@@ -575,8 +596,11 @@ class VipGoldView extends React.Component {
                                     <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
                                         <p>Continue Booking</p>
                                     </button>
-                                    :
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                    :this.props.is_from_organic?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
                                         <p>Continue</p>
                                     </button>
                             }

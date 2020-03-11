@@ -141,7 +141,7 @@
 }
 
 .book-appointment-section {
-    margin-top: 78px;
+    margin-top: 80px;
 }
 
 .time-picker-section {
@@ -216,8 +216,8 @@
     .sticky-header {
         position: sticky!important;
         position: -webkit-sticky!important;
-        top: 94px!important;
-        margin-top: 20px;
+        top: 66px!important;
+        margin-top: 22px;
         z-index: 9;
     }
     .sticky-header-2 {
@@ -238,7 +238,7 @@
         margin-top: 0px!important;
     }
     .parent-section {
-        margin-top: 100px;
+        margin-top: 80px;
         padding-top: 0px;
     }
     .parent-section-temp {
@@ -2036,9 +2036,10 @@ body.lineLoader {
 
 .headerSubLinkContainer {
     width: 100%;
-    margin-top: 94px;
+    margin-top: 80px;
     background: white;
     box-shadow: 1px 1px 1px #8080801c;
+    visibility: hidden;
 }
 
 .logo-width-cut {
@@ -2052,7 +2053,7 @@ body.lineLoader {
 
 @media(max-width: 992px) {
     .headerSubLinkContainer {
-        margin-top: 111px;
+        margin-top: 90px;
     }
     div.onln-cnslt-head {
         margin-top: 126px;
@@ -2961,7 +2962,7 @@ button.sortBtns.srtBtnAct {
     align-items: center;
     justify-content: space-around;
     position: sticky;
-    top: 94px;
+    top: 68px;
     z-index: 9;
     box-shadow: 0 1px 1px #dedede;
 }
@@ -6595,6 +6596,9 @@ p.vipbtn-sub-txt {
     align-items: center;
     border-radius: 5px;
 }
+.vip-dsh-main-cont{
+    margin-top: 30px;
+}
 
 .vip-acnt-heading {
     display: flex;
@@ -6961,6 +6965,9 @@ section.container.container-top-margin.sub-pdng-add {
 @media (max-width: 767px) {
     section.container.container-top-margin.sub-pdng-add {
         padding-top: 110px;
+    }
+    .vip-dsh-main-cont{
+        margin-top: 0px;
     }
 }
 

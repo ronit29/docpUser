@@ -13,6 +13,7 @@ const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
 import CarouselView from './carouselView.js'
 import NonIpdPopupView from '../../commons/nonIpdPopup.js'
+import STORAGE from '../../../helpers/storage'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -41,7 +42,8 @@ class SearchResultsView extends React.Component {
             showSearchBtn:false,
             scrollEventAdded: false,
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_lead_enabled:true
         }
     }
 
@@ -771,7 +773,14 @@ class SearchResultsView extends React.Component {
             }
         let gtm_data = {'Category': 'ConsumerApp', 'Action': 'DocAdsSearchListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'doc-ads-search-listing-Submit-click'}
         GTM.sendEvent({ data: gtm_data })
-       this.props.NonIpdBookingLead(data) 
+        this.props.saveLeadPhnNumber(phone_number)
+        if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
        this.setState({to_be_force:0})
     }
 

@@ -340,7 +340,7 @@ class VipClub extends React.Component { // dashboard view
                                     <div className="vip-discount-col p-12 mb-24 no-overflow">
                                         <img className="bg-circle-img" src="/assets/img/circle-bg.png" alt="circle" />
                                         <div className="offer-col">
-                                            <p>Upto 23% OFF <br /> <span>on medicines</span></p>
+                                            <p>Flat 23% OFF <br /> <span>on medicines</span></p>
                                             <p className="mb-12"><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Medlife" /></p>
                                             <a className="tc-apply pd-r-0" onClick={this.toggle.bind(this)}>T&amp;C Apply</a>
                                         </div>

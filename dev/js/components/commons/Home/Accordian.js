@@ -14,7 +14,7 @@ class Accordian extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid p-0">
                 <div className="row">
                     <div className="col-12">
                         <div className="dp-accordian">

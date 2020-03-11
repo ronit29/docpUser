@@ -23,7 +23,8 @@ const DUMMY_PROFILE = {
     is_default_user: true,
     name: "User",
     dob: new Date(),
-    isDummyUser: true
+    isDummyUser: true,
+    email:null
 }
 
 export default function (state = defaultState, action) {

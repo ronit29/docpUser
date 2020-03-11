@@ -11,6 +11,7 @@ import ResultCount from './topBar/result_count.js'
 import GTM from '../../../helpers/gtm.js'
 import NonIpdPopupView from '../../commons/nonIpdPopup.js'
 const queryString = require('query-string');
+import STORAGE from '../../../helpers/storage'
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -30,7 +31,8 @@ class SearchPackagesView extends React.Component {
             isCompare: false,
             quickFilter: {},
             showNonIpdPopup: parsed.show_popup,
-            to_be_force:1
+            to_be_force:1,
+            is_lead_enabled:true
         }
     }
 
@@ -366,7 +368,14 @@ class SearchPackagesView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'NonIpdPackageListingSubmitClick', 'CustomerID': GTM.getUserId() || '', 'event': 'non-ipd-package-listing-submit-click'
         }
         GTM.sendEvent({ data: gtm_data })
-       this.props.NonIpdBookingLead(data) 
+        this.props.saveLeadPhnNumber(phone_number)
+       if(this.state.is_lead_enabled && !STORAGE.isAgent()){
+            this.setState({is_lead_enabled:false})
+            this.props.NonIpdBookingLead(data)
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
+        }
        this.setState({to_be_force:0})
     }
 
@@ -408,7 +417,7 @@ class SearchPackagesView extends React.Component {
                 }} noIndex={false} />
                 {
                     (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
-                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false} />
+                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false}  is_package={true}/>
                     :''
                 }
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count > 0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content != null && this.props.forOrganicSearch ? this.props.packagesList.bottom_content : ''} page={1} isPackage={true}>
