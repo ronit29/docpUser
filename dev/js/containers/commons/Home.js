@@ -105,7 +105,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories, nearbyHospitals, defaultProfile, is_any_user_buy_gold, user_detail_fetched, static_footer_data
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories, nearbyHospitals, static_footer_data, defaultProfile, is_any_user_buy_gold, user_detail_fetched
     }
 }
 
