@@ -9,12 +9,12 @@ const defaultState = {
     rescheduleSlot: { time: {} },
     selectedAppointmentType: {
         r_pickup: 'home',
-        p_pickup: 'lab' 
+        p_pickup: 'home' 
     },
     selectedAddress: null,
     SET_FROM_SERVER: false,
     labCoupons: {},
-    disCountedLabPrice: 0,
+    disCountedLabPrice: 0,  
     couponAutoApply: true,
     curr_page: null,
     packagesList: [],

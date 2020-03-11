@@ -1744,13 +1744,6 @@ class BookingSummaryViewNew extends React.Component {
         let reset = false
 
         if(radiology_tests.length || pathology_tests.length) {
-            if(this.props.selectedAppointmentType.r_pickup == 'home' && !r_pickup_home && (r_pickup_center || !radiology_tests.length)) {
-                if(r_pickup_center){
-                    r_pickup = 'lab'    
-                }
-                
-                reset = true
-            } 
 
             if(this.props.selectedAppointmentType.r_pickup == 'lab' && !r_pickup_center && (r_pickup_home || !radiology_tests.length) ) {
                 if(r_pickup_home){
@@ -1759,16 +1752,24 @@ class BookingSummaryViewNew extends React.Component {
                 reset = true
             }
 
-            if(this.props.selectedAppointmentType.p_pickup == 'home' && !p_pickup_home && (p_pickup_center || !pathology_tests.length)) {
-                if(p_pickup_center){
-                    p_pickup = 'lab'    
+            if(this.props.selectedAppointmentType.r_pickup == 'home' && !r_pickup_home && (r_pickup_center || !radiology_tests.length)) {
+                if(r_pickup_center){
+                    r_pickup = 'lab'    
                 }
+                
                 reset = true
-            }
+            } 
 
             if(this.props.selectedAppointmentType.p_pickup == 'lab' && !p_pickup_center && (p_pickup_home || !pathology_tests.length) ) {
                 if(p_pickup_home){
                     p_pickup = 'home'    
+                }
+                reset = true
+            }
+
+            if(this.props.selectedAppointmentType.p_pickup == 'home' && !p_pickup_home && (p_pickup_center || !pathology_tests.length)) {
+                if(p_pickup_center){
+                    p_pickup = 'lab'    
                 }
                 reset = true
             }
