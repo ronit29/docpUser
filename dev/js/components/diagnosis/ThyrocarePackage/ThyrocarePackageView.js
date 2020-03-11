@@ -148,13 +148,13 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B<br />(Includes 56 tests)</p>
-                                            <p className="stc-price-cut">₹ 700{/*634 <span>₹ 750</span>*/}</p>
+                                            <p className="stc-price-cut">₹ 750{/*634 <span>₹ 750</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(Includes 59 tests)</p>
-                                            <p className="stc-price-cut">₹ 1000{/*950 <span>₹ 1100</span>*/}</p>
+                                            <p className="stc-price-cut">₹ 1500{/*950 <span>₹ 1100</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
