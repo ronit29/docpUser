@@ -50,7 +50,9 @@
 /******** Discount listing css ********/
 
 /******** Pricing Table css ********/
-
+.desktop-view-pricing-table{
+    display: block;
+}
 .pricing-row > h3{
     font-size: 23px;
     font-weight: 500;
@@ -192,5 +194,36 @@ p.vip-card-list{
         font-size: 10px;
         margin: 0px!important;
         padding-top: 10px;
+    }
+    .desktop-view-pricing-table{
+        display: none;
+    }
+    .pricing-row > h3{
+        font-size: 16px;
+        padding: 15px 0px;
+    }
+    .med-blocks{
+        padding: 10px 0;
+        display: inline-block;
+        width: 100%;
+    }
+    .med-blocks>.col-12{
+        margin-bottom: 10px;
+    }
+    p.vip-card-list{
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    h4.vip-card-heading{
+        font-size: 13px!important;
+    }
+    .gold-grntee-card{
+        padding: 10px;
+    }
+    .gold-grnte-content h4{
+        font-size: 13px;
+    }
+    .gold-grnte-content p{
+        font-size: 11px;
     }
 }

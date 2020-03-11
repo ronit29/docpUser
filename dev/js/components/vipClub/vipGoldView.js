@@ -651,7 +651,7 @@ class VipGoldView extends React.Component {
                             {/* ================== Pricing table ================== */}
                             <div className="row m-0 pricing-row">
                                 <h3 className="text-center">Select your plan</h3>
-                                <div className="row m-0" style={{width: '100%'}}>
+                                <div className="row m-0 desktop-view-pricing-table" style={{width: '100%'}}>
                                     <div className="col-sm-3">
                                         <div className="price-card-list">
                                             <h5>&nbsp;</h5>
