@@ -717,12 +717,17 @@ class VipGoldView extends React.Component {
                                 <div className="row m-0 mbl-view-pricing-table" style={{width: '100%'}}>
                                     <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
                                         <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box">&nbsp;</div>
-                                        <h4>
+                                        <div className="indicator-box d-flex justify-content-center align-items-center">
+                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                        </div>
+                                        <h4 className="m-0">
+                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
                                             <span>single</span>
                                             <span className="price-text">₹ 199</span>
                                         </h4>
-                                        <h3>Coverage(members)</h3>
+                                        <h3>COVERAGE(Members)</h3>
+                                        <h3 style={{top: '13.3rem'}}>VALIDITY(Months)</h3>
+                                        <h3 style={{top: '18.8rem'}}>ONLINE CONSULTATION</h3>
                                          <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                          <h4 className="member-count">1</h4>
                                          <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
@@ -732,8 +737,11 @@ class VipGoldView extends React.Component {
                                     </div>
                                     <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
                                         <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box">&nbsp;</div>
-                                        <h4>
+                                        <div className="indicator-box d-flex justify-content-center align-items-center">
+                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                        </div>
+                                        <h4 className="m-0">
+                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
                                             <span>Couple</span>
                                             <span className="price-text">₹ 349</span>
                                         </h4>
@@ -746,8 +754,11 @@ class VipGoldView extends React.Component {
                                     </div>
                                     <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
                                         <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box">&nbsp;</div>
-                                        <h4>
+                                        <div className="indicator-box d-flex justify-content-center align-items-center">
+                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                        </div>
+                                        <h4 className="m-0">
+                                            <span className="popular-col">popular</span>
                                             <span>Family</span>
                                             <span className="price-text">₹ 399</span>
                                         </h4>
@@ -760,8 +771,11 @@ class VipGoldView extends React.Component {
                                     </div>
                                     <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column family-pro-table">
                                         <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box">&nbsp;</div>
-                                        <h4>
+                                        <div className="indicator-box d-flex justify-content-center align-items-center">
+                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                        </div>
+                                        <h4 className="m-0">
+                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
                                             <span>Family pro</span>
                                             <span className="price-text">₹ 599</span>
                                         </h4>

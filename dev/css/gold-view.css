@@ -130,13 +130,16 @@
     margin-bottom: 15px!important;
 }
 .mbl-view-pricing-table>.price-table>.indicator-box{
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: rgba(117, 117, 117, 0.30);
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     position: relative;
     z-index: 1;
+}
+.mbl-view-pricing-table>.price-table>.indicator-box>img{
+    opacity: 0;
 }
 .mbl-view-pricing-table>.price-table>h4{
     color: #757575;
@@ -155,6 +158,7 @@
     position: relative;
     z-index: 1;
     transition: 0.8s ease-in-out;
+    margin-top: 40px;
 }
 .mbl-view-pricing-table>.price-table{
     transition: 0.8s ease-in-out;
@@ -162,22 +166,34 @@
     cursor: pointer;
     padding: 10px 0;
 }
-/* .mbl-view-pricing-table>.price-table:hover{
-    transform: scale(1.05)!important;
-} */
 .mbl-view-pricing-table>.price-table> .shadow-box{
-    box-shadow: 0px 3px 6px 4px #00000029;
+    box-shadow: 0px 1px 6px 1px #00000029;
     position: absolute;
     background: #fff;
     top: 0px;
     width: 100%;
-    height: 84px;
+    height: 105px;
     opacity: 0;
     z-index: 1;
 }
+.shadow-box::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    /* margin-left: -0.5em; */
+    bottom: -17px;
+    left: 35%;
+    box-sizing: border-box;
+    border: 9px solid #fff;
+    border-color: transparent transparent #fff #fff;
+    transform-origin: 0 0;
+    transform: rotate(-45deg);
+    box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
 .mbl-view-pricing-table>.price-table:hover> .shadow-box{
     opacity: 1;
-    transform: scale(1.05)!important;
+    transform: scale(1.01)!important;
     transition: 0.4s ease-in-out;
 }
 .mbl-view-pricing-table>.price-table:hover >h4,
@@ -189,17 +205,21 @@
 .mbl-view-pricing-table>.price-table:hover>h4:first-child{
     border-right: none!important;
 }
-.mbl-view-pricing-table>.price-table>.member-count{
-    margin-top: 20px!important;
+.mbl-view-pricing-table>.price-table:hover> .indicator-box{
+    background: #8EA51D;
+}
+.mbl-view-pricing-table>.price-table:hover> .indicator-box>img{
+    opacity: 1;
 }
 .mbl-view-pricing-table>.price-table>h3{
     position: absolute;
     background: #fff;
-    width: 100%;
-    top: 5.7rem;
+    color: #757575;
+    width: 200px;
+    top: 7.5rem;
     z-index: 1;
     text-align: center;
-    left: 9rem;
+    left: 5rem;
     font-size: 12px;
 }
 .mbl-view-pricing-table>.price-table>h4>.price-text{
@@ -208,6 +228,15 @@
 }
 .family-pro-table> h4{
     border-right: none!important;
+}
+.popular-col{
+    background: #F26363;
+    font-size: 8px!important;
+    font-weight: 400!important;
+    border-radius: 3px;
+    color: #fff!important;
+    padding: 2px 4px;
+    margin: 5px 0;
 }
 /******** Pricing Table css ********/
 
