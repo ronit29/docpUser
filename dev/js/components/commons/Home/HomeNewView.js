@@ -469,7 +469,7 @@ class MainView extends React.Component{
                         {/******  full width banner *********/}
                         <UpComingAppointmentView {...this.props} />
                         <section className="full-banner-section">
-                            <img  className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/banner2x-min.png" onClick={(e) => {
+                            <img style={{width:'100%'}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Gold_banner_web.png" onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                                 }
@@ -477,7 +477,7 @@ class MainView extends React.Component{
                                 this.props.history.push('/vip-gold-details?is_gold=true&source=mobile-leftmenu-gold-clicked&lead_source=Docprime')
                             }} />
                             <a href="" onClick={(e)=>e.preventDefault()}>
-                                <span onClick={this.getCorporateLead} >Special plans available for Corporatess 
+                                <span onClick={this.getCorporateLead} >Special plans available for Corporates 
                                     <span className="down-icon-yellow">&gt;</span>
                                 </span>
                             </a>

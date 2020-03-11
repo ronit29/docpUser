@@ -136,7 +136,7 @@ class ChoosePatientNewView extends React.Component {
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     //Create IPD lead for IPD Hospital
-                    if (self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
+                    /*if (self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
                         let formData = {
                             phone_number: this.state.phoneNumber,
                             source: 'dropoff',
@@ -150,7 +150,7 @@ class ChoosePatientNewView extends React.Component {
                             formData['hospital'] = self.props.hospital_id
                         }
                         self.props.submitIPDForm(formData, this.props.selectedLocation)
-                    }
+                    }*/
                     if(response.user_exists == 1){
                         self.props.getUserProfile().then(() => {
                             if (self.props.is_lab) {
@@ -207,7 +207,7 @@ class ChoosePatientNewView extends React.Component {
             this.setState({ dob: data.dob ? data.dob : this.state.dob }, () => {
                 if (this.state.dob) {
                     if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
-                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
                         return
                     }
                     this.setState({isDobNotValid: false })

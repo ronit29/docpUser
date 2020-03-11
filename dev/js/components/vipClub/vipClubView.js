@@ -77,7 +77,7 @@ class VipClubView extends React.Component {
                 }
             }
         }
-        if(!STORAGE.checkAuth() && this.props.user_loggedIn_number && !this.props.is_from_organic){
+        if(!STORAGE.checkAuth() && this.props.user_loggedIn_number && !this.props.is_from_organic && this.state.is_lead_enabled){
             this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:this.props.user_loggedIn_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:'', extraParams:extraParams,
                 cb: (resp) => {
                     let LeadIdData = {
@@ -86,6 +86,9 @@ class VipClubView extends React.Component {
                     GTM.sendEvent({ data: LeadIdData })
                 }
             })
+            setTimeout(() => {
+                this.setState({is_lead_enabled:true})
+            }, 5000)
         }
 
         let self = this

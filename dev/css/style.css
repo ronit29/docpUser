@@ -6797,7 +6797,7 @@ button.add-shpng-cart-btn.update-btn {
 }
 .header-box{
     background: var(--text--primary--color) url(/assets/images/doc-logo.png) no-repeat top right;
-    padding: 15px;
+    padding: 36px 15px;
     position: relative;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -8972,6 +8972,14 @@ p.cstm-cpn {
 
 .ipd-section .hs-nme.hsptName {
     margin-bottom: 10px;
+}
+
+.hsptWidget{
+    height: 77px;
+}
+.hsptWidget>img{
+    object-fit: contain;
+    height: 100%;
 }
 
 .ipd-section .hsptl-info {
@@ -15461,3 +15469,7 @@ margin: 10px 0px 20px 15px;
 }
 /* ======================================= home gold banner design ======================================= */
 
+.pb-gold-banner{
+    padding-bottom: 15px;
+    width: 100%;
+}
