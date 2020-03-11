@@ -53,8 +53,7 @@ class BookingSummary extends React.Component {
             let dataParams = {
                 booking_page: true
             }
-
-            props.getLabById(lab_id, testIds, forceAddTestids,dataParams)
+            props.getLabById(lab_id, testIds, forceAddTestids, dataParams)
         }
     }
 
@@ -82,7 +81,7 @@ class BookingSummary extends React.Component {
                     let dataParams = {
                         booking_page: true
                     }
-                    props.getLabById(lab_id, testIds, forceAddTestids,dataParams)
+                    props.getLabById(lab_id, testIds, forceAddTestids, dataParams)
                 },100)
             })
         }
@@ -176,7 +175,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getLabById: (labId, testIds, forceAddTestids,dataParams) => dispatch(getLabById(labId, testIds, forceAddTestids,dataParams)),
+        getLabById: (labId, testIds, forceAddTestids, dataParams) => dispatch(getLabById(labId, testIds, forceAddTestids, dataParams)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),

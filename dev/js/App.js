@@ -74,6 +74,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        //Cache Assets
+        STORAGE.registerServiceWorker();
         const parsed = queryString.parse(window.location.search)
         let OTT = parsed.access_token
         if (OTT && !STORAGE.checkAuth()) {

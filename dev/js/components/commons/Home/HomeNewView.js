@@ -36,12 +36,12 @@ class MainView extends React.Component{
     
     constructor(props) {
         super(props);
-        let footerData = null
-        if (this.props.initialServerData) {
-            footerData = this.props.initialServerData.footerData
-        }
+        // let footerData = null
+        // if (this.props.initialServerData) {
+        //     footerData = this.props.initialServerData.footerData
+        // }
         this.state = {
-            specialityFooterData: footerData,
+            // specialityFooterData: footerData,
             showPopup: false,
             clickedOn: '',
             show_popup:false,
@@ -62,9 +62,12 @@ class MainView extends React.Component{
         user_insurance_status = (user_insurance_status==1 || user_insurance_status==5 || user_insurance_status==4 || user_insurance_status==7)
         this.setState({is_user_insurance_active: user_insurance_status})
 
-        this.props.getSpecialityFooterData((cb) => {
-            this.setState({ specialityFooterData: cb });
-        });
+        // this.props.getSpecialityFooterData((cb) => {
+        //     this.setState({ specialityFooterData: cb });
+        // });
+        if(!this.props.static_footer_data) {
+            this.props.getSpecialityFooterData();
+        }
 
         let selectedLocation = ''
         let lat = 28.644800
@@ -666,7 +669,7 @@ class MainView extends React.Component{
                     {/****** homepage  view *********/}
                     {/****** footer *********/}
                     <FixedMobileFooter {...this.props} />
-                    <Footer specialityFooterData={this.state.specialityFooterData}/>
+                    <Footer specialityFooterData={this.props.static_footer_data}/>
                     {/****** footer *********/}
                 </div>
                 {/****** chat view button  *********/}
