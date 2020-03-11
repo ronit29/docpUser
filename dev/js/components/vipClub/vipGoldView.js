@@ -667,48 +667,56 @@ class VipGoldView extends React.Component {
                                         <div className="pricing-card">
                                             <h5>single</h5>
                                             <ul>
-                                                <li className="buy-price">₹ 199</li>
+                                                <li className="buy-price">₹ 199<br/>
+                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
+                                                </li>
                                                 <li>1 Member</li>
                                                 <li> 12 months</li>
                                                 <li className="times-icon-list">x</li>
                                                 <li>
-                                                    <button>Buy</button>
+                                                    <button className="cstm-book-btn">Buy</button>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div className="pricing-card">
                                             <h5>Couple</h5>
                                             <ul>
-                                                <li className="buy-price">₹ 349</li>
+                                                <li className="buy-price">₹ 349<br/>
+                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
+                                                </li>
                                                 <li>2 Member</li>
                                                 <li> 12 months</li>
                                                 <li className="times-icon-list">x</li>
                                                 <li>
-                                                    <button>Buy</button>
+                                                    <button className="cstm-book-btn">Buy</button>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="pricing-card">
+                                        <div className="pricing-card active">
                                             <h5>Family</h5>
                                             <ul>
-                                                <li className="buy-price">₹ 399</li>
+                                                <li className="buy-price">₹ 399 <br/>
+                                                    <span className="popular-col d-inline-block">POPULAR</span>
+                                                </li>
                                                 <li>6 Member</li>
                                                 <li> 12 months</li>
                                                 <li className="times-icon-list">x</li>
                                                 <li>
-                                                    <button>Buy</button>
+                                                    <button className="cstm-book-btn">Buy</button>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div className="pricing-card">
                                             <h5>Family Pro</h5>
                                             <ul>
-                                                <li className="buy-price">₹ 599</li>
+                                                <li className="buy-price">₹ 599<br/>
+                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
+                                                </li>
                                                 <li>1 Member</li>
                                                 <li> 12 months</li>
                                                 <li>Unlimited Chat | Audio | Video</li>
                                                 <li>
-                                                    <button>Buy</button>
+                                                    <button className="cstm-book-btn">Buy</button>
                                                 </li>
                                             </ul>
                                         </div>

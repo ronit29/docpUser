@@ -29,7 +29,7 @@
 /******** heading section css ********/
 
 .gold-view-main-container{
-    margin: -20px 30px 0;
+    margin: -30px 30px 0;
     border-radius: 5px;
     box-shadow: 0px 3px 6px #00000029;
     background: #fff;
@@ -84,7 +84,8 @@
 .pricing-card:last-child{
     border-right: none;
 }
-.pricing-card:hover{
+.pricing-card:hover,
+.pricing-card.active{
     box-shadow: 0px 3px 10px #00000029;
     border-radius: 5px;
     border: none;
@@ -107,6 +108,11 @@
 .pricing-card>ul>li.buy-price{
     color: #41A2F9;
     font-size: 43px;
+    margin-bottom: 0px;
+}
+.pricing-card>ul>li.buy-price>.popular-col{
+    font-size: 21px!important;
+    padding: 2px 10px;
 }
 .times-icon-list{
     font-size: 28px!important;
@@ -246,7 +252,7 @@
 /******** Pricing Table css ********/
 
 .med-blocks{
-    padding: 40px 0px 40px 0px;
+    padding: 60px 0px 40px 0px;
     margin: 0px;
 }
 .med-blocks>.col-sm-6>.vip-offer-cards{
