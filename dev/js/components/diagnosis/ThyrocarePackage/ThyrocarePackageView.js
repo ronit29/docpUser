@@ -175,7 +175,7 @@ class ThyrocarePackageView extends React.Component {
 
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,12227)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 490</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 540</span>
                                         </div>
 
                                         <p className="stc-free-pick">Free Home Pickup</p>
@@ -190,7 +190,7 @@ class ThyrocarePackageView extends React.Component {
                                         </div>*/}
                                         <div className="d-flex align-items-center justify-content-center goldCard mt-0" onClick={this.goldClicked.bind(this,12213)}>
                                             <img className="gld-cd-icon" src={ASSETS_BASE_URL + '/img/gold-sm.png'} />
-                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 790</span>
+                                            <p className="gld-p-rc">Price</p> <span className="gld-rate-lf">₹ 840</span>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
