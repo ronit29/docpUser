@@ -51,7 +51,7 @@
 
 /******** Pricing Table css ********/
 .desktop-view-pricing-table{
-    display: block;
+    display: flex;
 }
 .pricing-row > h3{
     font-size: 23px;
@@ -124,6 +124,33 @@
     border-color: var(--text--primary--color);
 
 }
+.mbl-view-pricing-table{
+    display: none;
+    padding: 0px 10px;
+}
+.mbl-view-pricing-table>.price-table>.indicator-box{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(117, 117, 117, 0.30);
+    margin-bottom: 15px;
+}
+.mbl-view-pricing-table>.price-table>h4{
+    color: #757575;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    border-right: 1px solid #757575;
+    width: 100%;
+}
+.mbl-view-pricing-table>.price-table>h4>.price-text{
+    color: #41A2F9;
+    font-size: 25px;
+}
+.family-pro-table> h4{
+    border-right: none!important;
+}
 /******** Pricing Table css ********/
 
 .med-blocks{
@@ -143,11 +170,14 @@
 p.vip-card-list{
     font-size: 16px;
 }
-
+.discount-list-item > h5{
+    display: none;
+}
 /******** Responsive css ********/
 @media screen and (max-width:767px){
     .gold-new-view{
         padding: 0px!important;
+        background: #fff;
     }
     .heading-name{
         font-size: 14px;
@@ -194,6 +224,7 @@ p.vip-card-list{
         font-size: 10px;
         margin: 0px!important;
         padding-top: 10px;
+        display: inline-block;
     }
     .desktop-view-pricing-table{
         display: none;
@@ -225,5 +256,8 @@ p.vip-card-list{
     }
     .gold-grnte-content p{
         font-size: 11px;
+    }
+    .mbl-view-pricing-table{
+        display: flex;
     }
 }

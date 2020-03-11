@@ -714,6 +714,60 @@ class VipGoldView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="row m-0 mbl-view-pricing-table" style={{width: '100%'}}>
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                        <div className="indicator-box">&nbsp;</div>
+                                        <h4>
+                                            <span>single</span><br/>
+                                            <span className="price-text">199</span>
+                                        </h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>1</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>12</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>X</h4>  
+                                    </div>
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                        <div className="indicator-box">&nbsp;</div>
+                                        <h4>
+                                            <span>single</span><br/>
+                                            <span className="price-text">199</span>
+                                        </h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>1</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>12</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>X</h4>  
+                                    </div>
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0">
+                                        <div className="indicator-box">&nbsp;</div>
+                                        <h4>
+                                            <span>single</span><br/>
+                                            <span className="price-text">199</span>
+                                        </h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>1</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>12</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>X</h4>  
+                                    </div>
+                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column p-0 family-pro-table">
+                                        <div className="indicator-box">&nbsp;</div>
+                                        <h4>
+                                            <span>single</span><br/>
+                                            <span className="price-text">199</span>
+                                        </h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>1</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>12</h4>
+                                         <hr style={{width: '100%'}} /> 
+                                         <h4>X</h4>  
+                                    </div>
+                                </div>
                             </div>
                             {/* ================== Pricing table ================== */}
                             {/* ================== Medlife & consulataion widget ================== */}
