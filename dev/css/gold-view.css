@@ -152,7 +152,7 @@
 }
 .mbl-view-pricing-table>.price-table>h4{
     color: #757575;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     text-transform: uppercase;
     text-align: center;
@@ -192,7 +192,7 @@
     height: 0;
     /* margin-left: -0.5em; */
     bottom: -17px;
-    left: 35%;
+    left: 43%;
     box-sizing: border-box;
     border: 9px solid #fff;
     border-color: transparent transparent #fff #fff;
