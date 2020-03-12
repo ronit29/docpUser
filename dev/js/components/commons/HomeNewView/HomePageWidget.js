@@ -137,6 +137,11 @@ class HomePageWidgets extends React.PureComponent {
                                             
                                         </h5>
                                         {
+                                            this.props.fromGold && listItem.vip_percentage?
+                                                <h5 className="off-txt">{parseInt(listItem.vip_percentage)}% OFF</h5>
+                                            :''
+                                        }
+                                        {
                                             type == "package"?
                                             <React.Fragment>
                                             {

@@ -129,6 +129,8 @@
 .card-slider-container>.slider-card-column>.off-txt {
     color: #94B107;
     font-size: 11px;
+    position: absolute;
+    bottom: 11px;
 }
 
 .discount-badge{
