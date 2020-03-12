@@ -682,8 +682,20 @@ class VipGoldView extends React.Component {
                             </div>
                             {/* ================== Medlife & consulataion widget ================== */}    
                             {/* ================== list & gold video widget ================== */}
-                            <div className="row m-0">
-                                <div className="col-sm-6 col-12">
+                            <div className="row m-0 p-3 pt-0 d-flex flex-column">
+                                <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Why Docprime Gold ?</h4>
+                                <div className="row">
+                                    <div className="col-sm-6 col-12">
+                                        <div className="vip-offer-cards">
+                                            <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
+                                            </video>
+                                            <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
+                                                <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
+                                            </a>
+                                            <h5 id="video-time" className="fw-500 text-center"></h5>
+                                        </div>            
+                                    </div>
+                                    <div className="col-sm-6 col-12">
                                     <div className="gold-grntee-card-container">
                                         <div className="gold-grntee-card mb-3">
                                             <div className="round-img-gld">
@@ -722,16 +734,6 @@ class VipGoldView extends React.Component {
                                         {/* consult doctor widget added end */}
                                     </div>
                                 </div>
-                                <div className="col-sm-6 col-12">
-                                    <h4 className="vip-card-heading text-center p-0" style={{marginBottom: 20}}>Why Docprime Gold ?</h4>
-                                    <div className="vip-offer-cards mb-24" style={{ padding: 5 }}>
-                                        <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
-                                        </video>
-                                        <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
-                                            <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
-                                        </a>
-                                        <h5 id="video-time" className="fw-500 text-center"></h5>
-                                    </div>            
                                 </div>
                             </div>
                             {/* ================== list & gold video widget ================== */}
