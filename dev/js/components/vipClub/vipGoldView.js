@@ -685,6 +685,64 @@ class VipGoldView extends React.Component {
                                 }
                             </div>
                         </div>
+                        <div className="card-block-widget">
+                            <section className="card-block-row">
+                                <div className="top-card-row">
+                                    <h6 style={{marginTop: 15}}>Top Labs</h6>
+                                </div>
+                                {/* card slider */}
+                                <div className="card-slider-container">
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 50% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/9be7c3c53ed30877c1433bf6d9f7d916_GjgCeik.jpg" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 50% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 70% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/2c25c272c61b8b646301741f1c980387.jpg" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 20% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/45ae4aff8b1b9bf6d1dff2e86e97400a.jpg" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 50% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/da7ccb6125dda7b3eba1c38d7bd9c0b9_Zp0O1EX.jpg" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 70% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 18% OFF</h5>
+                                    </div>
+                                    <div className="slider-card-column" id="cardBlock">
+                                        <div className="slide-img-col d-flex justify-content-center align-item-center">
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/c2748b2e22e2f8e3ed90cb3ca5ea29be_i3PE0Ya.jpg" alt="Partners"/>
+                                        </div>
+                                        <h5 className="off-txt"> Upto 40% OFF</h5>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                         {/* ================== Frequently asked question widget ================== */}
                         <section className="faq-row">
                             <div className="gold-acrd-main">

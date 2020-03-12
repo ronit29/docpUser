@@ -212,10 +212,14 @@
 .mbl-view-pricing-table>.price-table.active >h4>span{
     color: #F78631;
     transform: scale(1.05)!important;
-
 }
-.mbl-view-pricing-table>.price-table:hover>h4:first-child{
+.price-table> h4:last-child,
+.price-table:hover >h4:first-child,
+.price-table.active >h4:first-child{
     border-right: none!important;
+}
+.price-table> h4:last-child{
+    border-right: 0px;
 }
 .mbl-view-pricing-table>.price-table:hover> .indicator-box,
 .mbl-view-pricing-table>.price-table.active> .indicator-box{
