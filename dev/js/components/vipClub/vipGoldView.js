@@ -599,7 +599,7 @@ class VipGoldView extends React.Component {
                             <div className="row m-0 p-3 pt-0 d-flex flex-column">
                                 <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Why Docprime Gold ?</h4>
                                 <div className="row">
-                                    <div className="col-sm-6 col-12">
+                                    <div className="col-sm-6 col-12 gold-video-col">
                                         <div className="vip-offer-cards">
                                             <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
                                             </video>
@@ -651,10 +651,12 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                             {/* ================== list & gold video widget ================== */}
+                        </section>
+                        <div className="card-block-widget">
                             {
-                            this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 ?
+                                this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 ?
                                 <HomePageWidget
-                                    heading="Top Hospitals"
+                                    heading="Key Hospital Partner"
                                     list={this.props.topHospitals.top_hospitals}
                                     topHospitals={true}
                                     dataType='home_top_hsptl'
@@ -666,26 +668,26 @@ class VipGoldView extends React.Component {
                                 : ''
                             }
                             <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                            {
-                                this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
-                                        <p>Continue Booking</p>
-                                    </button>
-                                    :this.props.is_from_organic?
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
-                                        <p>Continue Booking</p>
-                                    </button>
-                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
-                                        <p>Continue</p>
-                                    </button>
-                            }
-                            {
-                                STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
-                            }
+                                {
+                                    this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                        <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                            <p>Continue Booking</p>
+                                        </button>
+                                        :this.props.is_from_organic?
+                                        <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                            <p>Continue Booking</p>
+                                        </button>
+                                        :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                            <p>Continue</p>
+                                        </button>
+                                }
+                                {
+                                    STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                                }
                             </div>
-                        </section>
+                        </div>
                         {/* ================== Frequently asked question widget ================== */}
-                        <section className="gold-view-main-container" style={{marginTop: 30, padding: 15}}>
+                        <section className="faq-row">
                             <div className="gold-acrd-main">
                                 <div className="acdn-title d-flex align-items-center justify-content-between" onClick={this.ButtonHandler.bind(this, 0)}>
                                     <h3 className="fw-700" style={{ fontSize: '15px' }}>Frequently asked questions</h3>
