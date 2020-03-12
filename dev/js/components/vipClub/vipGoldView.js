@@ -473,22 +473,22 @@ class VipGoldView extends React.Component {
                             <div className="row m-0 discount-listing-view">
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-700">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
-                                    <h5 className="fw-700">Exclusive Prices On Doctors &amp; Labs</h5>
+                                    <h4 className="ml-3 fw-500">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
+                                    <h5 className="fw-500">Exclusive Prices On Doctors &amp; Labs</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-700">Discounts on <br/>5,000 Labs</h4>
-                                    <h5 className="fw-700">Flat 23% OFF on Medicines</h5>
+                                    <h4 className="ml-3 fw-500">Discounts on <br/>5,000 Labs</h4>
+                                    <h5 className="fw-500">Flat 23% OFF on Medicines</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-700">Flat 23% OFF <br/>on Medicines</h4>
-                                    <h5 className="fw-700">Unlimited Tele Consultations</h5>
+                                    <h4 className="ml-3 fw-500">Flat 23% OFF <br/>on Medicines</h4>
+                                    <h5 className="fw-500">Unlimited Tele Consultations</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-700">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
+                                    <h4 className="ml-3 fw-500">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
                                 </div>
                             </div>   
                             {/* ================== Discount Listing view ================== */}
@@ -574,7 +574,7 @@ class VipGoldView extends React.Component {
                             <div className="row med-blocks">
                                 <div className="col-sm-6 col-12">
                                     <div className="vip-offer-cards">
-                                        <div className="vip-free-doc vip-medlife-bg">
+                                        <div className="vip-free-doc">
                                             <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
                                             <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Exclusive for Gold members</p>
                                             <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />No minimum order values </p>
@@ -597,7 +597,7 @@ class VipGoldView extends React.Component {
                             {/* ================== Medlife & consulataion widget ================== */}    
                             {/* ================== list & gold video widget ================== */}
                             <div className="row m-0 p-3 pt-0 d-flex flex-column">
-                                <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Why Docprime Gold ?</h4>
+                                <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Gold Membership Benefits</h4>
                                 <div className="row">
                                     <div className="col-sm-6 col-12 gold-video-col">
                                         <div className="vip-offer-cards">
