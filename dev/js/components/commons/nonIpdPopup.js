@@ -70,11 +70,11 @@ class NonIpdPopupView extends React.Component {
 	}
 
 	render() {
-		let criteriaStr
+		let criteriaStr = 'Health Packages'
 		var thumbnail = null;
 		let is_license_verified = false;
 
-		let common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book
+		let common_msg = <p style={{ fontWeight: 'bold' ,textAlign:'center'}} className="cancel-appointment-head">Book
 										<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br />
 			at the Lowest Prices!
 									</p>
@@ -82,7 +82,7 @@ class NonIpdPopupView extends React.Component {
 			if (this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.length > 0) {
 				criteriaStr = this.getCriteriaString(this.props.currentSearchedCriterias)
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book
 						<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br />
 				at the Lowest Prices!
 					</p>
@@ -93,7 +93,7 @@ class NonIpdPopupView extends React.Component {
 			if (this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length > 0) {
 				criteriaStr = this.getDocCriteriaString(this.props.commonSelectedCriterias)
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment with <br />
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book Appointment with <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
 		} else if (this.props.is_dpp || this.props.is_booking || this.props.is_organic) {
@@ -136,11 +136,16 @@ class NonIpdPopupView extends React.Component {
 			if (hospital_data) {
 				criteriaStr = hospital_data.name
 			}
-			common_msg = <p style={{ fontWeight: 'bold' }} className="cancel-appointment-head">Book Appointment at <br />
+			common_msg = <p style={{ fontWeight: 'bold',textAlign:'center' }} className="cancel-appointment-head">Book Appointment at <br />
 				<span className="fw-500 text-capitalize"> {criteriaStr}</span>
 			</p>
-		} else {
-			criteriaStr = 'Health Packages'
+		}else if(this.props.is_package){
+			if(this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length == 1){
+				criteriaStr = this.props.packagesList.result[0].name
+	        }
+	        common_msg = <p style={{ fontWeight: 'bold' ,textAlign:'center'}} className="cancel-appointment-head">Book
+										<span className="fw-500 text-capitalize"> {criteriaStr}</span> <br /> at the Lowest Prices!
+						</p>
 		}
 		return (
 

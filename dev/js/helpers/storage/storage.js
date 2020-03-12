@@ -66,10 +66,14 @@ function eraseCookie(name) {
 
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
-    if (base64Url && window && typeof window =="object") {
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-        return JSON.parse(window.atob(base64));
-    } else {
+    try{
+        if (base64Url && window && typeof window =="object") {
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+            return JSON.parse(window.atob(base64));
+        } else {
+            return {}
+        }
+    }catch(e){
         return {}
     }
 };
@@ -200,6 +204,33 @@ const STORAGE = {
 
         }else{
             return Promise.resolve(getCookie('tokenauth')) 
+        }
+    },
+    registerServiceWorker(){
+        if('serviceWorker' in navigator) {
+            window.addEventListener('load', ()=>{
+                navigator.serviceWorker.register('/sw.js').then(function (registration){
+                    console.log('Service Worker registration Success', registration.scope)
+                }, function(err){
+                    //registration Failed
+                    console.log('Service Worker registration Failed', err)
+                })
+            })
+        }
+    },
+    unregisterServiceWorker(){
+        if('serviceWorker' in navigator) {
+            try{
+                navigator.serviceWorker.getRegistrations().
+                then((registers)=>{
+                    for( let i = 0; i < registers.length; i++ ) {
+                        registers[i].unregister();
+                    }
+                })
+            
+            }catch(e){
+
+            }
         }
     }
 

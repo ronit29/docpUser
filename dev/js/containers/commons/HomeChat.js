@@ -16,13 +16,11 @@ class HomeChat extends React.Component {
 
     static loadData(store, match) {
         return new Promise((resolve, reject) => {
-            getSpecialityFooterData((footerData) => {
-                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
-                    resolve({ footerData: (footerData || null) })
-                }).catch((e) => {
-                    reject()
-                })
-            })()
+            Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
+                resolve({ })
+            }).catch((e) => {
+                reject()
+            })
         })
     }
 
@@ -92,8 +90,12 @@ const mapStateToProps = (state, passedProps) => {
 
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
+    let {
+        static_footer_data
+    } = state.DOCTOR_SEARCH
+
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, static_footer_data
     }
 }
 

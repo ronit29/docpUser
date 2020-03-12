@@ -1431,7 +1431,7 @@ class PatientDetailsNew extends React.Component {
                 })
             }
         }
-        if (Object.keys(selected_hospital).length > 0 && !selected_hospital.is_ipd_hospital) {
+        if (Object.keys(selected_hospital).length > 0 /*&& !selected_hospital.is_ipd_hospital*/) {
             data.lead_type = 'DROPOFF'
             data.lead_source = 'dropoff'
             data.test_name = null

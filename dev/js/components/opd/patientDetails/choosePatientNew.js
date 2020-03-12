@@ -136,7 +136,7 @@ class ChoosePatientNewView extends React.Component {
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
                     //Create IPD lead for IPD Hospital
-                    if (self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
+                    /*if (self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
                         let formData = {
                             phone_number: this.state.phoneNumber,
                             source: 'dropoff',
@@ -150,7 +150,7 @@ class ChoosePatientNewView extends React.Component {
                             formData['hospital'] = self.props.hospital_id
                         }
                         self.props.submitIPDForm(formData, this.props.selectedLocation)
-                    }
+                    }*/
                     if(response.user_exists == 1){
                         self.props.getUserProfile().then(() => {
                             if (self.props.is_lab) {
@@ -207,7 +207,7 @@ class ChoosePatientNewView extends React.Component {
             this.setState({ dob: data.dob ? data.dob : this.state.dob }, () => {
                 if (this.state.dob) {
                     if (this.state.dob != null && data.dob == null && !this.state.isDobValidated) {
-                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Date of Birth" })
                         return
                     }
                     this.setState({isDobNotValid: false })
@@ -466,7 +466,7 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="labelWrap">
                                     <div className="p-relative">
                                         <input type="number" required id="otpMob" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} className={this.state.showOtp?'click-disable':''}/>
-                                        <label for="otpMob">Mobile number</label>
+                                        <label htmlFor="otpMob">Mobile number</label>
                                         {
                                             this.state.showOtp?
                                             <button className="otp-edit" onClick={(e) =>{e.preventDefault(); this.editPhoneNumber()}}>Edit</button>
@@ -479,7 +479,7 @@ class ChoosePatientNewView extends React.Component {
                                     <div className="labelWrap">
                                         <div className="p-relative">
                                             <input type="number" required id="otpNumber" autoComplete="off" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" value={this.state.otp}/>
-                                            <label for="otpNumber">Enter 6 digit OTP</label>
+                                            <label htmlFor="otpNumber">Enter 6 digit OTP</label>
                                             <div className="otp-edit">
                                                 {this.state.enableOtpRequest ? ''
                                                 :<React.Fragment>
@@ -522,7 +522,7 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="labelWrap">
                                     <div className="p-relative">
                                         <input type="number" id="otpMobver" className="click-disable" value = {this.props.user_loggedIn_number?this.props.user_loggedIn_number:this.state.phoneNumber?this.state.phoneNumber:''} autoComplete="off"/>
-                                        <label for="otpMobver">Mobile number</label>
+                                        <label htmlFor="otpMobver">Mobile number</label>
                                         <p className="num-verified"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/chk-green.svg'} /> Verified</p>
                                     </div>
                                 </div>
@@ -533,7 +533,7 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="labelWrap">
                                     <div className="p-relative">
                                         <input type="text" required id="ptntName" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
-                                        <label for="ptntName">Name</label>
+                                        <label htmlFor="ptntName">Name</label>
                                     </div>
                                 </div>
                                 {/* date section */}
@@ -542,7 +542,7 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="labelWrap">
                                     <div className="p-relative">
                                         <input type="text" required id="ptntEmail" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" autoComplete="off"/>
-                                        <label for="ptntEmail">Email</label>
+                                        <label htmlFor="ptntEmail">Email</label>
                                     </div>
                                 </div>
                                 <div className="text-center">

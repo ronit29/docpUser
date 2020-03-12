@@ -426,7 +426,7 @@ class BannerCarousel extends React.Component {
                                 {
                                     filteredBanners && filteredBanners.length ?
                                         filteredBanners.map((offer, i) => {
-                                            return <a key={offer.id} href="#">
+                                            return <a key={offer.id}>
                                                         <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={{ cursor: 'pointer'}} alt="bannerLogoDocprime"/>
                                                     </a>
                                         }) : ''

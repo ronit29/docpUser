@@ -66,7 +66,7 @@ class AppointmentSlot extends React.Component {
                 })
             }
 
-            if(hospital && hospital.is_ipd_hospital) {
+            /*if(hospital && hospital.is_ipd_hospital) {
                 let formData = {
                     phone_number: this.props.primaryMobile,
                     doctor: this.props.selectedDoctor,
@@ -76,7 +76,7 @@ class AppointmentSlot extends React.Component {
                     first_name: this.props.userName||'unknown'
                 }
                 this.props.submitIPDForm(formData, this.props.selectedLocation)
-            }
+            }*/
         }
 
 
