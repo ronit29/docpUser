@@ -89,6 +89,7 @@
     border-radius: 5px;
     border: none;
     transform: scale(1.05);
+    z-index: 1;
 }
 .pricing-card>h5{
     font-size: 25px;
@@ -278,7 +279,21 @@ p.vip-card-list{
     transform: rotate(180deg);
 }
 .gold-tnc{
-    margin: 30px 0px 0px 30px;
+    margin-left: 30px;
+}
+.card-block-widget{
+    padding: 30px 30px 0px 30px;
+}
+.faq-row{
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px #00000029;
+    background: #fff;
+    margin: 30px 30px 0px;
+    padding: 15px;    
+}
+.gold-video-col>.vip-offer-cards{
+    box-shadow: none;
+    border: 1px solid #cccccc;
 }
 /******** Responsive css ********/
 @media screen and (max-width:767px){
@@ -302,6 +317,7 @@ p.vip-card-list{
         margin: 0px;
         padding: 0px;
         background: transparent;
+        box-shadow: none;
     }
     .discount-listing-view{
         margin: -44px 10px 0px!important;
@@ -366,5 +382,19 @@ p.vip-card-list{
     }
     .mbl-view-pricing-table{
         display: flex;
+    }
+    .card-block-widget{
+        padding: 10px;
+    }
+    .faq-row{
+        margin: 10px;
+    }
+    .gold-tnc{
+        margin: 0px 0px 10px 15px;
+    }
+}
+@media (min-width: 768px){
+    .buttons-addcart-container{
+        display: none!important;
     }
 }
