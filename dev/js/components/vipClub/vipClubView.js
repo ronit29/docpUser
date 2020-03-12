@@ -234,7 +234,7 @@ class VipClubView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
-    hospitalCardClicked(top = false, data) {
+    hospitalCardClicked = (data,top = true) => {    
         let gtmData = {}
         if (top) {
             gtmData = {
@@ -257,9 +257,7 @@ class VipClubView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
-    viewDocprimeNetworkClicked(gold=false,event){
-        event.preventDefault()
-        event.stopPropagation()
+    viewDocprimeNetworkClicked(gold=false){
         let is_gold = this.props.is_gold || this.state.is_gold_clicked || gold
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': `Vip${is_gold?'gold':''}DoctorNetworkClicked`, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `vip-${is_gold?'gold-':''}doctor-network-clicked`
@@ -328,7 +326,7 @@ class VipClubView extends React.Component {
                             selected_plan_id={this.state.selected_plan_id} 
                             selected_plan_data={this.state.selected_plan_data} 
                             viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data,this)} 
-                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            hospitalCardClicked={this.hospitalCardClicked} 
                             toggleTabType={this.state.toggleTabType} 
                             selectGoldPlan={this.selectGoldPlan.bind(this)} 
                             toggle = {this.toggle.bind(this)}
@@ -347,7 +345,7 @@ class VipClubView extends React.Component {
                             selected_plan_id={this.state.selected_plan_id} 
                             selected_plan_data={this.state.selected_plan_data} 
                             viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data,this)} 
-                            hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
+                            hospitalCardClicked={this.hospitalCardClicked} 
                             toggleTabType={this.state.toggleTabType} 
                             selectGoldPlan={this.selectGoldPlan.bind(this)} 
                             toggle = {this.toggle.bind(this)}

@@ -659,21 +659,11 @@ class VipGoldView extends React.Component {
                                     topHospitals={true}
                                     dataType='home_top_hsptl'
                                     historyObj ={this.props.history}
-                                    searchFunc={this.props.viewDocprimeNetworkClicked.bind(this)}
+                                    searchFunc={this.props.hospitalCardClicked}
+                                    goldNetwork = {this.props.viewDocprimeNetworkClicked.bind()}
+                                    fromGold={true}
                                 />
                                 : ''
-                            }
-                            {
-                                this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 ?
-                                <HomePageWidget
-                                    heading="Hospitals Near You<"
-                                    list={this.props.nearbyHospitals.hospitals}
-                                    topHospitals={true}
-                                    dataType='home_top_hsptl'
-                                    historyObj ={this.props.history}
-                                    searchFunc={this.props.viewDocprimeNetworkClicked.bind(this)}
-                                />
-                                : ''   
                             }
                             <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                             {

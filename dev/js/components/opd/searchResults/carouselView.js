@@ -46,7 +46,7 @@ class CarouselView extends React.Component {
                     <div className={`pkgCardsList d-inline-flex sub-wd-cards top_${this.props.dataType}_list`}>
                     	{
                     		dataList.map((data, key)=>{
-                			return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.props.carouselCardClicked(topHospital?true:false,data)}>
+                			return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.props.carouselCardClicked(data,topHospital?true:false)}>
 	                            <div className="pkgcardImgCont">
 	                            	{
 	                            		data.logo && <img style={{width: '82px'}} className="img-fluid" src={data.logo} />
