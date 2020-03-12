@@ -271,6 +271,16 @@ p.vip-card-list{
 .discount-list-item > h5{
     display: none;
 }
+.acdn-title>img{
+    position: absolute;
+    right: 4px;
+}
+.acdn-up{
+    transform: rotate(180deg);
+}
+.gold-tnc{
+    margin: 30px 0px 0px 30px;
+}
 /******** Responsive css ********/
 @media screen and (max-width:767px){
     .gold-new-view{
