@@ -117,7 +117,7 @@ class HomePageWidgets extends React.PureComponent {
                         {
                             dataList.map((listItem, i) => {
 
-                            return <div className={`slider-card-column`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages })}>
+                            return <div className={`slider-card-column`} key={`${i}_dataType`} onClick={()=>this.props.searchFunc({...listItem, topHospitals, topPackages },this)}>
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
                                             <img className="img-fluid" src={listItem.svg_icon?listItem.svg_icon:listItem.icon?listItem.icon:listItem.logo} alt="Partners"/>
                                         </div>

@@ -125,7 +125,7 @@ class VipClubView extends React.Component {
        this.setState({openMedlifeTnC:false}) 
     }
 
-    selectGoldPlan(plan_to_toggle,isHeader) {
+    selectGoldPlan(plan_to_toggle,isHeader,is_desktop_view) {
         this.setState({is_gold_clicked:true})
         let plan
         if(isHeader && this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0){
@@ -136,6 +136,9 @@ class VipClubView extends React.Component {
         plan.isForceUpdate = false
         this.props.selectVipClubPlan('plan', plan, (resp) => { // toggle/select gold plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
+            if(is_desktop_view){
+                this.proceed()
+            }
         })
     }
 
@@ -254,7 +257,9 @@ class VipClubView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
-    viewDocprimeNetworkClicked(gold=false){
+    viewDocprimeNetworkClicked(gold=false,event){
+        event.preventDefault()
+        event.stopPropagation()
         let is_gold = this.props.is_gold || this.state.is_gold_clicked || gold
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': `Vip${is_gold?'gold':''}DoctorNetworkClicked`, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `vip-${is_gold?'gold-':''}doctor-network-clicked`
@@ -322,7 +327,7 @@ class VipClubView extends React.Component {
                             proceed={this.proceed.bind(this)} 
                             selected_plan_id={this.state.selected_plan_id} 
                             selected_plan_data={this.state.selected_plan_data} 
-                            viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data)} 
+                            viewDocprimeNetworkClicked={(data)=>this.viewDocprimeNetworkClicked(data,this)} 
                             hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
                             toggleTabType={this.state.toggleTabType} 
                             selectGoldPlan={this.selectGoldPlan.bind(this)} 
@@ -341,7 +346,7 @@ class VipClubView extends React.Component {
                             proceed={this.proceed.bind(this)} 
                             selected_plan_id={this.state.selected_plan_id} 
                             selected_plan_data={this.state.selected_plan_data} 
-                            viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data)} 
+                            viewDocprimeNetworkClicked={(data=false)=>this.viewDocprimeNetworkClicked(data,this)} 
                             hospitalCardClicked={this.hospitalCardClicked.bind(this)} 
                             toggleTabType={this.state.toggleTabType} 
                             selectGoldPlan={this.selectGoldPlan.bind(this)} 

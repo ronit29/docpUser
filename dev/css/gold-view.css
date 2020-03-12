@@ -75,7 +75,6 @@
 }
 .pricing-card{
     text-align: center;
-    width: 25%;
     display: inline-block;
     border-right: 1px solid rgba(10, 9, 9, 0.1);
     transition: 0.4s ease-in-out;

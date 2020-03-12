@@ -12,6 +12,7 @@ const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
 import CarouselView from '../opd/searchResults/carouselView.js'
 import VipReviewSection from './vipReviewSection.js'
+import HomePageWidget from '../commons/HomeNewView/HomePageWidget.js'
 
 class VipGoldView extends React.Component {
     constructor(props) {
@@ -152,6 +153,7 @@ class VipGoldView extends React.Component {
                         this.state.showPopup ?
                             <VipLoginPopup {...this.props} closeLeadPopup={this.closeLeadPopup.bind(this)} is_see_more={true} /> : ''
                     }
+                    {/*old View Starts*/}
                     <section className={`container container-top-margin sub-pdng-add d-none ${this.props.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
@@ -449,25 +451,8 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                            {
-                                this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
-                                        <p>Continue Booking</p>
-                                    </button>
-                                    :this.props.is_from_organic?
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
-                                        <p>Continue Booking</p>
-                                    </button>
-                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
-                                        <p>Continue</p>
-                                    </button>
-                            }
-                            {
-                                STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
-                            }
-                        </div>
                     </section>
+                {/*old View Ends*/}
                     
                     {/* ================== new gold page view ================== */}
                     <div className="container-fluid gold-new-view">
@@ -508,6 +493,7 @@ class VipGoldView extends React.Component {
                             </div>   
                             {/* ================== Discount Listing view ================== */}
                             {/* ================== Pricing table ================== */}
+                            {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
                             <div className="row m-0 pricing-row">
                                 <h3 className="text-center">Select your plan</h3>
                                 <div className="row m-0 desktop-view-pricing-table" style={{width: '100%'}}>
@@ -523,138 +509,66 @@ class VipGoldView extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-sm-9">
-                                        <div className="pricing-card">
-                                            <h5>single</h5>
-                                            <ul>
-                                                <li className="buy-price">₹ 199<br/>
-                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
-                                                </li>
-                                                <li>1 Member</li>
-                                                <li> 12 months</li>
-                                                <li className="times-icon-list">x</li>
-                                                <li>
-                                                    <button className="cstm-book-btn">Buy</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="pricing-card">
-                                            <h5>Couple</h5>
-                                            <ul>
-                                                <li className="buy-price">₹ 349<br/>
-                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
-                                                </li>
-                                                <li>2 Member</li>
-                                                <li> 12 months</li>
-                                                <li className="times-icon-list">x</li>
-                                                <li>
-                                                    <button className="cstm-book-btn">Buy</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="pricing-card active">
-                                            <h5>Family</h5>
-                                            <ul>
-                                                <li className="buy-price">₹ 399 <br/>
-                                                    <span className="popular-col d-inline-block">POPULAR</span>
-                                                </li>
-                                                <li>6 Member</li>
-                                                <li> 12 months</li>
-                                                <li className="times-icon-list">x</li>
-                                                <li>
-                                                    <button className="cstm-book-btn">Buy</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="pricing-card">
-                                            <h5>Family Pro</h5>
-                                            <ul>
-                                                <li className="buy-price">₹ 599<br/>
-                                                    <span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
-                                                </li>
-                                                <li>1 Member</li>
-                                                <li> 12 months</li>
-                                                <li>Unlimited Chat | Audio | Video</li>
-                                                <li>
-                                                    <button className="cstm-book-btn">Buy</button>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        {
+                                            Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                                return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} ${value.id == self.props.selected_plan_id ?'active':''} pricing-card`}>
+                                                    <h5>{value.plan_name}</h5>
+                                                    <ul>
+                                                        <li className="buy-price">₹ {value.deal_price}<br/>
+                                                        {   value.is_selected?
+                                                            <span className="popular-col d-inline-block">POPULAR</span>
+                                                            :<span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
+                                                        }
+                                                        </li>
+                                                        <li>{value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}</li>
+                                                        <li> {value.tenure} months</li>
+                                                        <li className="times-icon-list">x</li>
+                                                        <li>
+                                                            <button className="cstm-book-btn" onClick={self.props.selectGoldPlan.bind(self, value, false,true)}>Buy</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            })
+                                        }
                                     </div>
                                 </div>
                                 <div className="row m-0 mbl-view-pricing-table" style={{width: '100%'}}>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
-                                        <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box d-flex justify-content-center align-items-center">
-                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
-                                        </div>
-                                        <h4 className="m-0">
-                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
-                                            <span>single</span>
-                                            <span className="price-text">₹ 199</span>
-                                        </h4>
-                                        <h3>COVERAGE(Members)</h3>
-                                        <h3 style={{top: '13.3rem'}}>VALIDITY(Months)</h3>
-                                        <h3 style={{top: '18.8rem'}}>ONLINE CONSULTATION</h3>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4 className="member-count">1</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>12</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>X</h4>  
-                                    </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column">
-                                        <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box d-flex justify-content-center align-items-center">
-                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
-                                        </div>
-                                        <h4 className="m-0">
-                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
-                                            <span>Couple</span>
-                                            <span className="price-text">₹ 349</span>
-                                        </h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4 className="member-count">2</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>12</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>X</h4>  
-                                    </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column active">
-                                        <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box d-flex justify-content-center align-items-center">
-                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
-                                        </div>
-                                        <h4 className="m-0">
-                                            <span className="popular-col">popular</span>
-                                            <span>Family</span>
-                                            <span className="price-text">₹ 399</span>
-                                        </h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4 className="member-count">6</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>12</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>X</h4>  
-                                    </div>
-                                    <div className="col-3 price-table d-flex justify-content-center align-items-center flex-column family-pro-table">
-                                        <div className="shadow-box">&nbsp;</div>
-                                        <div className="indicator-box d-flex justify-content-center align-items-center">
-                                            <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
-                                        </div>
-                                        <h4 className="m-0">
-                                            <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
-                                            <span>Family pro</span>
-                                            <span className="price-text">₹ 599</span>
-                                        </h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4 className="member-count">6</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4>12</h4>
-                                         <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                         <h4 style={{ fontSize: 10}}> Unlimited Chat | Audio | Video</h4>  
-                                    </div>
+                                    {
+                                        Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                            return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} price-table d-flex justify-content-center align-items-center flex-column ${value.id == self.props.selected_plan_id ?'active':''}`} onClick={self.props.selectGoldPlan.bind(self, value, false,false)}>
+                                                <div className="shadow-box">&nbsp;</div>
+                                                <div className="indicator-box d-flex justify-content-center align-items-center">
+                                                    <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                                </div>
+                                                <h4 className="m-0">
+                                                    { value.is_selected?
+                                                        <span className="popular-col">popular</span>
+                                                        :''
+                                                    }
+                                                    <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
+                                                    <span>{value.plan_name}</span>
+                                                    <span className="price-text">₹ {value.deal_price}</span>
+                                                </h4>
+                                                {key == 0?
+                                                    <React.Fragment>
+                                                    <h3>COVERAGE(Members)</h3>
+                                                    <h3 style={{top: '13.3rem'}}>VALIDITY(Months)</h3>
+                                                    <h3 style={{top: '18.8rem'}}>ONLINE CONSULTATION</h3>
+                                                    </React.Fragment>
+                                                :''}
+                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                                 <h4 className="member-count">{value.total_allowed_members}</h4>
+                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                                 <h4>{value.tenure}</h4>
+                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
+                                                 <h4>X</h4>  
+                                            </div>
+                                        })
+                                    }
+                                    
                                 </div>
                             </div>
+                            :''}
                             {/* ================== Pricing table ================== */}
                             {/* ================== Medlife & consulataion widget ================== */}
                             <div className="row med-blocks">
@@ -737,6 +651,48 @@ class VipGoldView extends React.Component {
                                 </div>
                             </div>
                             {/* ================== list & gold video widget ================== */}
+                            {
+                            this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 ?
+                                <HomePageWidget
+                                    heading="Top Hospitals"
+                                    list={this.props.topHospitals.top_hospitals}
+                                    topHospitals={true}
+                                    dataType='home_top_hsptl'
+                                    historyObj ={this.props.history}
+                                    searchFunc={this.props.viewDocprimeNetworkClicked.bind(this)}
+                                />
+                                : ''
+                            }
+                            {
+                                this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 ?
+                                <HomePageWidget
+                                    heading="Hospitals Near You<"
+                                    list={this.props.nearbyHospitals.hospitals}
+                                    topHospitals={true}
+                                    dataType='home_top_hsptl'
+                                    historyObj ={this.props.history}
+                                    searchFunc={this.props.viewDocprimeNetworkClicked.bind(this)}
+                                />
+                                : ''   
+                            }
+                            <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            {
+                                this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :this.props.is_from_organic?
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.goBack.bind(this)}>
+                                        <p>Continue Booking</p>
+                                    </button>
+                                    :<button className="v-btn-primary book-btn-mrgn-adjust" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                        <p>Continue</p>
+                                    </button>
+                            }
+                            {
+                                STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                            }
+                            </div>
                         </section>
                         {/* ================== Frequently asked question widget ================== */}
                         <section className="gold-view-main-container" style={{marginTop: 30, padding: 15}}>
