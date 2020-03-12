@@ -543,9 +543,8 @@ class VipGoldView extends React.Component {
                                                 <h4 className="m-0">
                                                     { value.is_selected?
                                                         <span className="popular-col">popular</span>
-                                                        :''
+                                                        :<span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
                                                     }
-                                                    <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
                                                     <span>{value.internal_name}</span>
                                                     <span className="price-text">₹ {value.deal_price}</span>
                                                 </h4>
