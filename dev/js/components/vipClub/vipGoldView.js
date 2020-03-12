@@ -512,7 +512,7 @@ class VipGoldView extends React.Component {
                                         {
                                             Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
                                                 return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} ${value.id == self.props.selected_plan_id ?'active':''} pricing-card`}>
-                                                    <h5>{value.plan_name}</h5>
+                                                    <h5>{value.internal_name}</h5>
                                                     <ul>
                                                         <li className="buy-price">₹ {value.deal_price}<br/>
                                                         {   value.is_selected?
@@ -546,7 +546,7 @@ class VipGoldView extends React.Component {
                                                         :''
                                                     }
                                                     <span style={{opacity: 0}} className="popular-col">&nbsp;</span>
-                                                    <span>{value.plan_name}</span>
+                                                    <span>{value.internal_name}</span>
                                                     <span className="price-text">₹ {value.deal_price}</span>
                                                 </h4>
                                                 {key == 0?
@@ -561,7 +561,7 @@ class VipGoldView extends React.Component {
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                                  <h4>{value.tenure}</h4>
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                                 <h4>X</h4>  
+                                                 <h4>{value.chat_plan_description?chat_plan_description:'X'}</h4>  
                                             </div>
                                         })
                                     }
