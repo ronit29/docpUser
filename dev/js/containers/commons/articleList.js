@@ -34,9 +34,10 @@ class ArticleList extends React.Component {
                     reject({})
                     return
                 }
-                getSpecialityFooterData((footerData) => {
-                    resolve({ footerData: (footerData || null) })
-                })()
+                // getSpecialityFooterData((footerData) => {
+                //     resolve({ footerData: (footerData || null) })
+                // })()
+                resolve({});
             }).catch((e) => {
                 reject()
             })
@@ -76,13 +77,21 @@ const mapStateToProps = (state, passedProps) => {
         pageButtonCount,
         articlePageCount
     } = state.USER
+
+    let {
+        static_footer_data
+    } = state.DOCTOR_SEARCH
+
+
     return {
         articleList,
         articleListData,
         ARTICLE_LOADED,
         pageButtonCount,
         articlePageCount,
-        initialServerData
+        initialServerData,
+        static_footer_data
+
     }
 }
 
