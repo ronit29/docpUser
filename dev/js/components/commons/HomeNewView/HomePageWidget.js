@@ -99,7 +99,9 @@ class HomePageWidgets extends React.PureComponent {
                         }
                         {
                             this.props.fromGold?
-                            <span style={{ fontSize: '13px',marginRight:10 }} className="right-text-col" onClick={() => this.props.goldNetwork()}>View Docprime Gold Network</span>
+                            <a style={{position:'absolute', right:0, top:0}}>
+                                <span style={{ fontSize: '13px',marginRight:10 }} className="right-text-col" onClick={() => this.props.goldNetwork()}>View Docprime Gold Network</span>
+                            </a>
                             :''
                         }
                     </div>
