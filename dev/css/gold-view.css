@@ -77,11 +77,11 @@
 }
 
 .price-card-list>ul>li:first-child {
-    padding: 67px 0 15px
+    padding: 54px 0 15px
 }
 
 .price-card-list>ul>li:last-child {
-    padding-top: 19px;
+    padding-top: 4px;
 }
 
 .pricing-card {
@@ -484,6 +484,7 @@ p.vip-card-list {
         width: 300px!important;
         margin: 0 auto;
         bottom: 20px!important;
+        display: none;
     }
     .mbl-cont-btn{
         display: none;

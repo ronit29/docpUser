@@ -669,7 +669,7 @@ class VipGoldView extends React.Component {
                             <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 {
                                     this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                        <button className="desk-cont-btn" onClick={this.goBack.bind(this)}>
+                                        <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
                                             <p>Continue Booking</p>
                                         </button>
                                         :this.props.is_from_organic?
