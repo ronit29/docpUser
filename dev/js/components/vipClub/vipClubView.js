@@ -276,7 +276,7 @@ class VipClubView extends React.Component {
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?
                 <div className="profile-body-wrap" style={{ background: "" }}>
-                    <ProfileHeader homePage={true} showSearch={true}  new_fixed_header={1} />
+                    <ProfileHeader bookingPage={true} />
                     <HelmetTags tagsData={{
                         canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
                         title: `${'Docprime Vip' || ''}`,
