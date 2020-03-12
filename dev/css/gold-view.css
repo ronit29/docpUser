@@ -298,7 +298,7 @@ p.vip-card-list{
 /******** Responsive css ********/
 @media screen and (max-width:767px){
     .gold-new-view{
-        padding: 0px!important;
+        padding: 51px 0px 0px 0px;
         background: #fff;
     }
     .heading-name{
@@ -306,7 +306,10 @@ p.vip-card-list{
     }
     .gold-new-view >.heading-section{
         height: 173px;
-        padding: 5px 0px 50px 30px;
+        padding: 20px;
+    }
+    .gold-new-view >.heading-section>h3{
+        margin-top: -40px;
     }
     .gold-new-view >.heading-section>h4{
         font-size: 14px;
