@@ -130,6 +130,34 @@ class VipGoldView extends React.Component {
         })
     }
 
+    scroll(type) {
+        let dataType = 'static_review_blck'
+        var elmnt = document.getElementById(dataType)
+
+        if(elmnt) {
+            let outerDivWidth = elmnt.offsetWidth
+            let cardCount = elmnt.children && elmnt.children.length?elmnt.children.length:6;
+            let childDivWidth = elmnt.scrollWidth?elmnt.scrollWidth:3000;
+            let cardWidth = Math.ceil(childDivWidth / cardCount)
+
+            let leftScroll = elmnt.scrollLeft
+
+            if (type == 'right') {
+                elmnt.scroll({ left: leftScroll + outerDivWidth, behavior: 'smooth' })
+                if (childDivWidth <= (leftScroll +  2*outerDivWidth ) )  {
+                    document.getElementById(`${dataType}_leftArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_RightArrow_hsptl`).classList.remove("d-none")
+            } else {
+                elmnt.scroll({ left: leftScroll - outerDivWidth, behavior: 'smooth' })
+                if (leftScroll - outerDivWidth <= 0) {
+                    document.getElementById(`${dataType}_RightArrow_hsptl`).classList.add("d-none")
+                }
+                document.getElementById(`${dataType}_leftArrow_hsptl`).classList.remove("d-none")
+            }
+        }
+    }
+
 
     render() {
         let self = this
@@ -708,9 +736,9 @@ class VipGoldView extends React.Component {
                         </div>
                         {/******  customer review *********/}
                         <div className="card-block-widget pt-0">
-                            <section className="card-block-row ">
+                            <section className="card-block-row">
                                 <h6 className="fw-500" style={{fontSize: 14, paddingBottom: 5}}>Our Happy Gold Customers</h6>
-                                <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
+                                <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col" id="static_review_blck">
                                     <div className="col-12 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                             {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
@@ -744,6 +772,13 @@ class VipGoldView extends React.Component {
                                         <p className="text-center mb-2">I booked preventive health packages for my parents living in Delhi. I am so glad that I can take care of their health by sitting in Bangalore. They collected the blood sample from my parent's home and sent the report on email which was reviewed by their Doctor. He prescribed some medicines to my parents and I got 23% off on medicine online delivery. Had an overall amazing experience!</p>
                                     </div>
                                 </div>
+                                {/* slider buttons */}
+                                <a className="pkg-btnlft d-none"  id={`static_review_blck_RightArrow_hsptl`} onClick={this.scroll.bind(this,'left')}> 
+                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                                </a>
+                                <a className="pkg-btnrgt" id={`static_review_blck_leftArrow_hsptl`} onClick={this.scroll.bind(this,'right')}> 
+                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                                </a>
                             </section>       
                         </div>
                         {/******  customer review *********/}
