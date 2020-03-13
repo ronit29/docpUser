@@ -662,24 +662,28 @@ class VipGoldView extends React.Component {
                                 />
                                 : ''
                             }
-                            <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
-                                {
-                                    this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                        <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
-                                            <p>Continue Booking</p>
-                                        </button>
-                                        :this.props.is_from_organic?
-                                        <button className="desk-cont-btn" onClick={this.goBack.bind(this)}>
-                                            <p>Continue Booking</p>
-                                        </button>
-                                        :<button className="v-btn-primary book-btn-mrgn-adjust mbl-cont-btn" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
-                                            <p>Continue</p>
-                                        </button>
-                                }
-                                {
-                                    STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
-                                }
-                            </div>
+                            {console.log(this.props.selected_plan)}
+                            {
+                                this.props.selected_plan && Object.keys(this.props.selected_plan).length?
+                                <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                    {
+                                        this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                            <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
+                                                <p>Continue Booking</p>
+                                            </button>
+                                            :this.props.is_from_organic?
+                                            <button className="desk-cont-btn" onClick={this.goBack.bind(this)}>
+                                                <p>Continue Booking</p>
+                                            </button>
+                                            :<button className="v-btn-primary book-btn-mrgn-adjust mbl-cont-btn" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
+                                                <p>Continue with {`${this.props.selected_plan.internal_name} ₹ ${this.props.selected_plan.deal_price}`}</p>
+                                            </button>
+                                    }
+                                    {
+                                        STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                                    }
+                                </div>
+                            :''}
                         </div>
                         <div className="card-block-widget pt-0">
                             <section className="card-block-row">
