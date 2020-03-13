@@ -282,7 +282,7 @@ class VipClubView extends React.Component {
                         title: `${'Docprime Vip' || ''}`,
                         // description: `${this.props.data.description || ''}`
                     }} noIndex={false} />
-                    <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
+                    <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''} d-none`} ref="vipHeaderBar">
                         {
                             this.props.isSalesAgent && this.props.isAgent ? '' :
                                 this.props.source == 'doctorlisting' || this.props.source == 'bookingpage'
