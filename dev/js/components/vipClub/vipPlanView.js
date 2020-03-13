@@ -42,7 +42,7 @@ class VipPlanView extends React.Component {
 
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 ?
                     
-                    <section className={`container container-top-margin sub-pdng-add ${this.props.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
+                    <section className={`container container-top-margin  ${this.props.toggleTabType ? '' : ''}`}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
                             <div className="col-12 center-column">

@@ -6262,7 +6262,7 @@ p.vp-sb-txt.vp-act:after {
     margin-bottom: 16px;
     position: sticky;
     position: -webkit-sticky;
-    top: 59px;
+    top: 66px;
     z-index: 9;
     background-color: #ffffff;
     box-shadow: 3px 1px 0px 0px #eae6e6;
@@ -8510,11 +8510,11 @@ div.onln-doc-cnslt div.chatbox-right {
 .gold-grnte-content h4 {
     color: #27435b;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 15px;
     margin-bottom: 3px;
 }
 .gold-grnte-content p {
-    font-size: 16px;
+    font-size: 14px;
     color: #757575;
     font-weight: 500;
     padding-right: 61px;

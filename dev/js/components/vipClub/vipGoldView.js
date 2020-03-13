@@ -18,7 +18,7 @@ class VipGoldView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14,15],
             showPopup: false
         }
     }
@@ -451,7 +451,7 @@ class VipGoldView extends React.Component {
                         <section className="heading-section d-flex align-items-baseline flex-column justify-content-center">
                             <h3 className="d-inline-block">
                                 <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
-                                    <img  src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
+                                    <img  style={{marginTop: 4}} src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                                 </span>
                             </h3>
                             <h4>Membership Plan For <br/>Exclusive Dicount</h4>
@@ -463,23 +463,23 @@ class VipGoldView extends React.Component {
                             {/* ================== Discount Listing view ================== */}
                             <div className="row m-0 discount-listing-view">
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
-                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/ico-1.svg"} />
                                     <h4 className="ml-3 fw-500">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
                                     <h5 className="fw-500">Exclusive Prices On Doctors &amp; Labs</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
-                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-500">Discounts on <br/>5,000 Labs</h4>
-                                    <h5 className="fw-500">Flat 23% OFF on Medicines</h5>
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/ico-3.svg"} />
+                                    <h4 className="ml-3 fw-500">Flat 23% OFF <br/>on Medicines</h4>
+                                    <h5 className="fw-500">Flat 23% OFF On Medicines</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
-                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-500">Flat 23% OFF <br/>on Medicines</h4>
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/ico-4.svg"} />
+                                    <h4 className="ml-3 fw-500">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
                                     <h5 className="fw-500">Unlimited Tele Consultations</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
-                                    <img height="53"  src={ASSETS_BASE_URL + "/img/dicicon.svg"} />
-                                    <h4 className="ml-3 fw-500">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
+                                    <img height="53"  src={ASSETS_BASE_URL + "/img/ico-2.svg"} />
+                                    <h4 className="ml-3 fw-500">Discounts on <br/>5,000 Labs</h4>
                                 </div>
                             </div>   
                             {/* ================== Discount Listing view ================== */}
@@ -513,7 +513,9 @@ class VipGoldView extends React.Component {
                                                         </li>
                                                         <li>{value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}</li>
                                                         <li> {value.tenure} months</li>
-                                                        <li className="times-icon-list">x</li>
+                                                        <li className="times-icon-list">
+                                                            <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>|</span>
+                                                        </li>
                                                         <li>
                                                             <button className="cstm-book-btn" onClick={self.props.selectGoldPlan.bind(self, value, false,true)}>Buy</button>
                                                         </li>
@@ -541,8 +543,8 @@ class VipGoldView extends React.Component {
                                                 </h4>
                                                 {key == 0?
                                                     <React.Fragment>
-                                                    <h3>COVERAGE(Members)</h3>
-                                                    <h3 style={{top: '13.3rem'}}>VALIDITY(Months)</h3>
+                                                    <h3>COVERAGE (Members)</h3>
+                                                    <h3 style={{top: '13.3rem'}}>VALIDITY (Months)</h3>
                                                     <h3 style={{top: '18.8rem'}}>ONLINE CONSULTATION</h3>
                                                     </React.Fragment>
                                                 :''}
@@ -551,7 +553,9 @@ class VipGoldView extends React.Component {
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                                  <h4>{value.tenure}</h4>
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                                 <h4>{value.chat_plan_description?chat_plan_description:'X'}</h4>  
+                                                 <h4>
+                                                     <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>{value.chat_plan_description?chat_plan_description:'|'}</span>
+                                                 </h4>  
                                             </div>
                                         })
                                     }
@@ -579,7 +583,7 @@ class VipGoldView extends React.Component {
                                             <h4 className="vip-card-heading">Online Doctor Consultations</h4>
                                             <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Online Doctor Consultations</p>
                                             <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited online consultations for full family</p>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat, Call & Video</p>
+                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat &amp; Call</p>
                                         </div>
                                     </div>
                                 </div>
@@ -599,7 +603,7 @@ class VipGoldView extends React.Component {
                                             <h5 id="video-time" className="fw-500 text-center"></h5>
                                         </div>            
                                     </div>
-                                    <div className="col-sm-6 col-12">
+                                    <div className="col-sm-6 col-12 d-flex align-items-center justify-content-center">
                                         <div className="gold-grntee-card-container m-0">
                                             <div className="gold-grntee-card mb-3">
                                                 <div className="round-img-gld">
@@ -743,7 +747,7 @@ class VipGoldView extends React.Component {
                             <section className="card-block-row">
                                 <h6 className="fw-500" style={{fontSize: 14, paddingBottom: 5}}>Our Happy Gold Customers</h6>
                                 <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col" id="static_review_blck">
-                                    <div className="col-12 col-sm-4 text-center">
+                                    <div className="col-10 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                             {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
                                             <span>KP</span>
@@ -752,7 +756,7 @@ class VipGoldView extends React.Component {
                                         <p className="text-center mb-2">Can you imagine having a discount on doctor's fee. Yeah, I was surprised too. But with Docprime Gold membership, i got heavy discounts on doctor fees, lab tests and full-body health packages. Definitely saved some good money here.</p>
                                         {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                                     </div>
-                                    <div className="col-12 col-sm-4 text-center">
+                                    <div className="col-10 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                             {/* <img src={ASSETS_BASE_URL + "/img/profile-img.png"} alt="name"/> */}
                                             <span>PS</span>
@@ -761,14 +765,14 @@ class VipGoldView extends React.Component {
                                         <p className="text-center mb-2">I have booked 3 full body health packages for my family. After receiving the report, I got a call from a doctor who explained each and every element of the report to me and my family. He even prescribed some medicines to my mother and directed us to take some multivitamins. I truly loved the service.</p>
                                         {/* <img height="20" src={ASSETS_BASE_URL + "/img/g-play.png"} alt="google-play"/> */}
                                     </div>
-                                    <div className="col-12 col-sm-4 text-center">
+                                    <div className="col-10 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                             <span>AS</span>
                                         </div>
                                         <h3>Akash Saini</h3>
                                         <p className="text-center mb-2">I didn’t believe in the Gold membership product at first. I was happy with discounts but was suspecting the network of hospitals & labs. I am happy that I took this chance and booked the membership. Docprime has partnered with most of the top hospitals and labs. I recently got a discount on Medanta’s Doctor fee.</p>
                                     </div>
-                                    <div className="col-12 col-sm-4 text-center">
+                                    <div className="col-10 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
                                             <span>SS</span>
                                         </div>
@@ -913,6 +917,25 @@ class VipGoldView extends React.Component {
                                         </div>
                                         <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(13) > -1 ? 'd-none' : ''}`}>
                                             No, Gold plans are not insurance products. It is membership to get discounts on doctor and lab appointments that will help you reduce your healthcare expenses.
+                                        </p>
+                                    </div>
+                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 14)}>
+                                        <div className="acdn-title">
+                                            <h2 className="fw-500"> How to use online consultation? </h2>
+                                            <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(14) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(14) > -1 ? 'd-none' : ''}`}>
+                                            Start by clicking on 'Online Consultation' at the bottom of the website/app and when prompted provide the primary mobile number registered with Docprime Gold and your consultation will be absolutely free. However, it is not for emergencies.
+                                        </p>
+                                    </div>
+                                    <div className="gold-sub-acrd" style={{borderBottom: 'none'}} onClick={this.ButtonHandler.bind(this, 15)}>
+                                        <div className="acdn-title">
+                                            <h2 className="fw-500 m-0"> How will online doctor solve my medical issue?
+                                            </h2>
+                                            <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(15) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(15) > -1 ? 'd-none' : ''}`}>
+                                            We have built features like image sharing and audio calling along with chat to ensure doctors can get all the required information for diagnosis. You just need to answer a few questions and our doctors will give you qualified medical advice on your health issues.
                                         </p>
                                     </div>
                                 </div>

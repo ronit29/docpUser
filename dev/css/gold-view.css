@@ -235,11 +235,10 @@
 }
 
 .mbl-view-pricing-table>.price-table:hover>h4,
-.mbl-view-pricing-table>.price-table:hover>h4>span,
-.mbl-view-pricing-table>.price-table.active>h4,
-.mbl-view-pricing-table>.price-table.active>h4>span {
+.mbl-view-pricing-table>.price-table.active>h4 {
     color: #F78631;
     transform: scale(1.05) !important;
+    font-weight: bold;
 }
 
 .mbl-view-pricing-table>.price-table:hover>.indicator-box,
