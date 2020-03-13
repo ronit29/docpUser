@@ -207,9 +207,13 @@ app.all('*', function (req, res) {
             }
 
             if (match && route.RENDER_ON_SERVER) {
-                
-                promises.push(store.dispatch(getSpecialityFooterData()));
+                try{
+                    promises.push(store.dispatch(getSpecialityFooterData()));
 
+                }catch(e){
+                    console.log(e);
+                }
+                
                 /**
                  * If a component needs preloading, chain preload followed by loadData if required
                  */
