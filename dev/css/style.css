@@ -15473,3 +15473,47 @@ margin: 10px 0px 20px 15px;
     padding-bottom: 15px;
     width: 100%;
 }
+
+/* ======================================= benefit section ======================================= */
+.benifit-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    background: rgba(85, 167, 64, .17);
+    border: 1px solid #55a740;
+    border-radius: 5px;
+    padding: 5px;
+}
+p.bnft-txt {
+    font-size: 13px;
+    font-weight: 500;
+}
+p.bnft-txt strong {
+    color: #55a740;
+    font-weight: 600;
+    font-size: 13px;
+}
+p.bnft-subtxt {
+    font-weight: 500;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #282828;
+}
+p.bnft-subtxt span img {
+    width: 12px;
+    cursor: pointer;
+    margin-left: 1px;
+}
+.bnft-btn button {
+    background: #55a740;
+    color: white;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 8px;
+    border: none;
+    box-shadow: -1.4px 2.7px 6px 0 rgba(0, 0, 0, 0.17);
+}
+/* ======================================= benefit section ======================================= */
+
