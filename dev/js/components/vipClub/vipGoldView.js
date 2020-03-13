@@ -18,7 +18,7 @@ class VipGoldView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14,15],
             showPopup: false
         }
     }
@@ -911,14 +911,23 @@ class VipGoldView extends React.Component {
                                             No, Gold plans are not insurance products. It is membership to get discounts on doctor and lab appointments that will help you reduce your healthcare expenses.
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" style={{borderBottom: 'none'}} onClick={this.ButtonHandler.bind(this, 2)}>
+                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 14)}>
                                         <div className="acdn-title">
-                                            <h2 className="fw-500 m-0">How does online consultation work? </h2>
-                                            <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                            <h2 className="fw-500"> How to use online consultation? </h2>
+                                            <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(14) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
-                                        <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(2) > -1 ? 'd-none' : ''}`}>
-                                            Provide primary mobile number registered with Docprime Gold on 
-                                            <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://docprime.com/mobileviewchat"> www.docprime.com</a> and your consultation will be free. We have built features like image sharing and audio calling along with chat to ensure doctors get all required information for diagnosis. Answer a few questions and our doctors will give you qualified medical advice on your health issues
+                                        <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(14) > -1 ? 'd-none' : ''}`}>
+                                            Visit <a style={{ color: '#f78631', cursor: 'pointer' }} href="https://docprime.com/mobileviewchat"> www.docprime.com</a>  and when prompted provide the primary mobile number registered with Docprime Gold and your consultation will be absolutely free. However, it is not for emergencies.
+                                        </p>
+                                    </div>
+                                    <div className="gold-sub-acrd" style={{borderBottom: 'none'}} onClick={this.ButtonHandler.bind(this, 15)}>
+                                        <div className="acdn-title">
+                                            <h2 className="fw-500 m-0"> How will online doctor solve my medical issue?
+                                            </h2>
+                                            <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(15) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(15) > -1 ? 'd-none' : ''}`}>
+                                            We have built features like image sharing and audio calling along with chat to ensure doctors can get all the required information for diagnosis. You just need to answer a few questions and our doctors will give you qualified medical advice on your health issues.
                                         </p>
                                     </div>
                                 </div>
