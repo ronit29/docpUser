@@ -474,7 +474,7 @@ class VipGoldView extends React.Component {
                                     <div className="col-sm-9">
                                         {
                                             Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-                                                return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} ${value.id == self.props.selected_plan_id ?'active':''} pricing-card`}>
+                                                return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} pricing-card`}>
                                                     <h5>{value.internal_name}</h5>
                                                     <ul>
                                                         <li className="buy-price">₹ {value.deal_price}<br/>
