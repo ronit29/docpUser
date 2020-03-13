@@ -481,26 +481,32 @@ p.vip-card-list {
 }
 
 @media (min-width: 768px) {
-    .buttons-addcart-container {
-        width: 300px !important;
+    .new-cont-ui{
+        width: 300px!important;
         margin: 0 auto;
         bottom: 20px !important;
-        display: none !important;
     }
 
     .mbl-cont-btn {
         display: none;
     }
+    .desk-cont-btn {
+        border-color: var(--text--primary--color);
+        background: #fff;
+        width: 100%;
+        box-shadow: 0px 3px 6px #00000029;
+        color: var(--text--primary--color);
+        font-weight: 500;
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex!important;
+    }
+    .desk-cont-btn>p{
+        width: 100%;
+    }
 }
 
-.desk-cont-btn {
-    border-color: var(--text--primary--color);
-    background: #fff;
-    width: 100%;
-    box-shadow: 0px 3px 6px #00000029;
-    color: var(--text--primary--color);
-    font-weight: 500;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 5px;
-}
+
+
+
