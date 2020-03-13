@@ -632,6 +632,7 @@
     .card-slider-container>.slider-card-column>h5{
         font-size: 12px;
         margin-top: 5px;
+        margin-bottom: 5px;
         width: inherit;
     }
     .card-block-row>.top-card-row>h6,
@@ -800,6 +801,10 @@
     }
     .right-text-col{
         display: none;
+    }
+    .card-slider-container>.slider-card-column>.off-txt{
+        bottom: 0px;
+        font-size: 10px;
     }
 }   
 @media screen and (max-width: 600px){

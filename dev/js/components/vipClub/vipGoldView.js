@@ -251,43 +251,6 @@ class VipGoldView extends React.Component {
                                         {/* ================== gold HTML select  ================== */}
                                         {/* ================== gold slider ================== */}
                                         <div className="gold-white-bg-container">
-                                            <div className="gold-grntee-card-container">
-                                                <div className="gold-grntee-card  mb-3">
-                                                    <div className="round-img-gld">
-                                                        <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
-                                                    </div>
-                                                    <div className="gold-grnte-content">
-                                                        <h4>100% Satisfaction Guarantee</h4>
-                                                        <p>Cancel anytime within a year and get full refund. No questions asked</p>
-                                                    </div>
-                                                </div>
-                                                <div className="gold-grntee-card mb-3">
-                                                    <div className="round-img-gld">
-                                                        <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
-                                                    </div>
-                                                    <div className="gold-grnte-content">
-                                                        <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
-                                                        <p className="gld-see-more p-0" onClick={(e) => {
-                                                            let data = {
-                                                                'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
-                                                            }
-                                                            GTM.sendEvent({ data: data });
-                                                            this.setState({ showPopup: true })
-                                                        }
-                                                        }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
-                                                    </div>
-                                                </div>
-                                                {/* consult doctor widget added */}
-                                                <div className="gold-grntee-card mb-3">
-                                                    <div className="round-img-gld">
-                                                        <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
-                                                    </div>
-                                                    <div className="gold-grnte-content">
-                                                        <h4>Free Doctor Consultation after every Lab appointment</h4>
-                                                    </div>
-                                                </div>
-                                                {/* consult doctor widget added end */}
-                                            </div>
                                             <div className="gold-slider-container">
                                                 {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
@@ -595,9 +558,9 @@ class VipGoldView extends React.Component {
                             </div>
                             {/* ================== Medlife & consulataion widget ================== */}    
                             {/* ================== list & gold video widget ================== */}
-                            <div className="row m-0 p-3 pt-0 d-flex flex-column">
+                            <div className="row m-0 d-flex flex-column video-block-row">
                                 <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Gold Membership Benefits</h4>
-                                <div className="row">
+                                <div className="row gold-list-row">
                                     <div className="col-sm-6 col-12 gold-video-col">
                                         <div className="vip-offer-cards">
                                             <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
@@ -609,44 +572,44 @@ class VipGoldView extends React.Component {
                                         </div>            
                                     </div>
                                     <div className="col-sm-6 col-12">
-                                    <div className="gold-grntee-card-container">
-                                        <div className="gold-grntee-card mb-3">
-                                            <div className="round-img-gld">
-                                                <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
+                                        <div className="gold-grntee-card-container m-0">
+                                            <div className="gold-grntee-card mb-3">
+                                                <div className="round-img-gld">
+                                                    <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
+                                                </div>
+                                                <div className="gold-grnte-content">
+                                                    <h4>100% Satisfaction Guarantee</h4>
+                                                    <p>Cancel anytime within a year and get full refund. No questions asked</p>
+                                                </div>
                                             </div>
-                                            <div className="gold-grnte-content">
-                                                <h4>100% Satisfaction Guarantee</h4>
-                                                <p>Cancel anytime within a year and get full refund. No questions asked</p>
-                                            </div>
-                                        </div>
-                                        <div className="gold-grntee-card mb-3">
-                                            <div className="round-img-gld">
-                                                <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
-                                            </div>
-                                            <div className="gold-grnte-content">
-                                                <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
-                                                <p className="gld-see-more p-0" onClick={(e) => {
-                                                    let data = {
-                                                        'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                            <div className="gold-grntee-card mb-3">
+                                                <div className="round-img-gld">
+                                                    <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
+                                                </div>
+                                                <div className="gold-grnte-content">
+                                                    <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
+                                                    <p className="gld-see-more p-0" onClick={(e) => {
+                                                        let data = {
+                                                            'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                                        }
+                                                        GTM.sendEvent({ data: data });
+                                                        this.setState({ showPopup: true })
                                                     }
-                                                    GTM.sendEvent({ data: data });
-                                                    this.setState({ showPopup: true })
-                                                }
-                                                }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
+                                                    }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
+                                                </div>
                                             </div>
+                                            {/* consult doctor widget added */}
+                                            <div className="gold-grntee-card">
+                                                <div className="round-img-gld">
+                                                    <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                                </div>
+                                                <div className="gold-grnte-content">
+                                                    <h4>Free Doctor Consultation after every Lab appointment</h4>
+                                                </div>
+                                            </div>
+                                            {/* consult doctor widget added end */}
                                         </div>
-                                        {/* consult doctor widget added */}
-                                        <div className="gold-grntee-card mb-3">
-                                            <div className="round-img-gld">
-                                                <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
-                                            </div>
-                                            <div className="gold-grnte-content">
-                                                <h4>Free Doctor Consultation after every Lab appointment</h4>
-                                            </div>
-                                        </div>
-                                        {/* consult doctor widget added end */}
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             {/* ================== list & gold video widget ================== */}
@@ -746,7 +709,7 @@ class VipGoldView extends React.Component {
                         {/******  customer review *********/}
                         <div className="card-block-widget pt-0">
                             <section className="card-block-row ">
-                                <h6 className="fw-500" style={{fontSize: 16}}>Our Happy Gold Customers</h6>
+                                <h6 className="fw-500" style={{fontSize: 14, paddingBottom: 5}}>Our Happy Gold Customers</h6>
                                 <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col">
                                     <div className="col-12 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">

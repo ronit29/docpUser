@@ -37,7 +37,7 @@
     border-radius: 5px;
     box-shadow: 0px 3px 6px #00000029;
     background: #fff;
-    padding: 0px 30px;
+    padding: 0px 30px 20px;
 }
 
 /******** Discount listing css ********/
@@ -242,16 +242,6 @@
     transform: scale(1.05) !important;
 }
 
-.price-table>h4:last-child,
-.price-table:hover>h4:first-child,
-.price-table.active>h4:first-child {
-    border-right: none !important;
-}
-
-.price-table>h4:last-child {
-    border-right: 0px;
-}
-
 .mbl-view-pricing-table>.price-table:hover>.indicator-box,
 .mbl-view-pricing-table>.price-table.active>.indicator-box {
     background: #8EA51D;
@@ -274,13 +264,13 @@
     font-size: 12px;
 }
 
+.mbl-view-pricing-table>.price-table:last-child>h4 {
+    border-right: none !important;
+}
+
 .mbl-view-pricing-table>.price-table>h4>.price-text {
     color: #41A2F9;
     font-size: 17px;
-}
-
-.family-pro-table>h4 {
-    border-right: none !important;
 }
 
 .popular-col {
@@ -298,6 +288,10 @@
 .med-blocks {
     padding: 60px 0px 20px 0px;
     margin: 0px;
+}
+
+.med-blocks>.col-sm-6 {
+    padding: 0px 10px;
 }
 
 .med-blocks>.col-sm-6>.vip-offer-cards {
@@ -348,6 +342,10 @@ p.vip-card-list {
 .gold-video-col>.vip-offer-cards {
     box-shadow: none;
     border: 1px solid #cccccc;
+}
+
+.video-block-row {
+    padding: 0px 15px 15px;
 }
 
 /******** Responsive css ********/
@@ -463,7 +461,7 @@ p.vip-card-list {
     }
 
     .card-block-widget {
-        padding: 10px;
+        padding: 10px 10px 0;
     }
 
     .faq-row {
@@ -477,20 +475,26 @@ p.vip-card-list {
     .gold-video-col>.vip-offer-cards {
         margin-bottom: 15px;
     }
+
+    .video-block-row {
+        padding: 0px 10px;
+    }
 }
 
 @media (min-width: 768px) {
     .buttons-addcart-container {
-        width: 300px!important;
+        width: 300px !important;
         margin: 0 auto;
-        bottom: 20px!important;
-        display: none;
+        bottom: 20px !important;
+        display: none !important;
     }
-    .mbl-cont-btn{
+
+    .mbl-cont-btn {
         display: none;
     }
 }
-.desk-cont-btn{
+
+.desk-cont-btn {
     border-color: var(--text--primary--color);
     background: #fff;
     width: 100%;
