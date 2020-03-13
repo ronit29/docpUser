@@ -495,7 +495,7 @@ class VipGoldView extends React.Component {
                                                 <li>Price</li>
                                                 <li>Coverage</li>
                                                 <li> Validity</li>
-                                                <li>Online Consultation</li>
+                                                <li>Unlimited <br/> Online Consultation</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -514,7 +514,7 @@ class VipGoldView extends React.Component {
                                                         <li>{value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}</li>
                                                         <li> {value.tenure} months</li>
                                                         <li className="times-icon-list">
-                                                            <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>|</span>
+                                                            <span style={{fontSize: 16, position: 'relative', top: 6,fontWeight: 500}} >{value.chat_plan_description?value.chat_plan_description:'-'}</span>
                                                         </li>
                                                         <li>
                                                             <button className="cstm-book-btn" onClick={self.props.selectGoldPlan.bind(self, value, false,true)}>Buy</button>
@@ -545,7 +545,7 @@ class VipGoldView extends React.Component {
                                                     <React.Fragment>
                                                     <h3>COVERAGE (Members)</h3>
                                                     <h3 style={{top: '13.3rem'}}>VALIDITY (Months)</h3>
-                                                    <h3 style={{top: '18.8rem'}}>ONLINE CONSULTATION</h3>
+                                                    <h3 style={{top: '18.8rem'}}>UNLIMITED ONLINE CONSULTATION</h3>
                                                     </React.Fragment>
                                                 :''}
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
@@ -554,7 +554,7 @@ class VipGoldView extends React.Component {
                                                  <h4>{value.tenure}</h4>
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                                  <h4>
-                                                     <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>{value.chat_plan_description?value.chat_plan_description:'|'}</span>
+                                                     <span>{value.chat_plan_description?value.chat_plan_description:'|'}</span>
                                                  </h4>  
                                             </div>
                                         })
