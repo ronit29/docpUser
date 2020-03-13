@@ -2104,12 +2104,13 @@ class PatientDetailsNew extends React.Component {
                                                                                                     <span className="doc-checkmark"></span>
                                                                                                 </label>
                                                                                             </div>
-                                                                                            <div className="dp-gold-pln-change-container">
-                                                                                                <div className="dp-gold-pay-lft">
-                                                                                                    {/* <p onClick={(event)=>{
+                                                                                            {/* <p onClick={(event)=>{
                                                                                                     event.stopPropagation();
                                                                                                     this.toggleGoldPricePopup(true)
                                                                                                 }} className="dp-gld-txt-mem">{`Docprime Gold: ${this.props.selected_vip_plan.total_allowed_members} Member`}<span>Change Plan<img src={ASSETS_BASE_URL + '/images/down-arrow-o.png'}/></span></p> */}
+                                                                                            {/*<div className="dp-gold-pln-change-container">
+                                                                                                <div className="dp-gold-pay-lft">
+                                                                                                    
                                                                                                     <p className="dp-gld-txt-mem" onClick={(e) => {
                                                                                                         e.stopPropagation();
                                                                                                         e.preventDefault();
@@ -2123,7 +2124,30 @@ class PatientDetailsNew extends React.Component {
                                                                                                         this.toggleGoldPricePopup(true)
                                                                                                     }} /> </p>
                                                                                                 </div>
-                                                                                            </div>
+                                                                                            </div>*/}
+
+                                                                                            {
+                                                                                                this.props.selected_vip_plan && this.props.selected_vip_plan.total_allowed_members?
+                                                                                                <div className="benifit-card">
+                                                                                                    <div className="bnft-content">
+                                                                                                        <p className="bnft-txt"><strong>{`Save ₹${display_docprime_discount}`}</strong> on this appointment</p>
+                                                                                                        <p className="bnft-subtxt">{`${this.props.selected_vip_plan.total_allowed_members} member plan @Rs${this.props.selected_vip_plan.deal_price}`}<span><img src={ASSETS_BASE_URL + '/img/customer-icons/edit.svg'} onClick={(e) => {
+                                                                                                            e.stopPropagation();
+                                                                                                            e.preventDefault();
+                                                                                                            this.goToGoldPage()
+                                                                                                        }}/></span></p>
+                                                                                                    </div>
+                                                                                                    <div className="bnft-btn" onClick={(e) => {
+                                                                                                        e.stopPropagation();
+                                                                                                        e.preventDefault();
+                                                                                                        this.goToGoldPage()
+                                                                                                    }}>
+                                                                                                        <button type="button">View All Benefits</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                :''
+                                                                                            }
+
                                                                                         </div>
                                                                                         <hr className="aabb" />
                                                                                     </React.Fragment> : ''

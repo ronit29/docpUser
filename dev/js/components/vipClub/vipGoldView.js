@@ -554,7 +554,7 @@ class VipGoldView extends React.Component {
                                                  <h4>{value.tenure}</h4>
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                                  <h4>
-                                                     <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>{value.chat_plan_description?chat_plan_description:'|'}</span>
+                                                     <span className="d-inline-block" style={{transform: 'rotate(90deg)'}}>{value.chat_plan_description?value.chat_plan_description:'|'}</span>
                                                  </h4>  
                                             </div>
                                         })
@@ -662,10 +662,9 @@ class VipGoldView extends React.Component {
                                 />
                                 : ''
                             }
-                            {console.log(this.props.selected_plan)}
                             {
                                 this.props.selected_plan && Object.keys(this.props.selected_plan).length?
-                                <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container new-cont-ui">
                                     {
                                         this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
                                             <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
