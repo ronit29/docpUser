@@ -6262,7 +6262,7 @@ p.vp-sb-txt.vp-act:after {
     margin-bottom: 16px;
     position: sticky;
     position: -webkit-sticky;
-    top: 59px;
+    top: 66px;
     z-index: 9;
     background-color: #ffffff;
     box-shadow: 3px 1px 0px 0px #eae6e6;
