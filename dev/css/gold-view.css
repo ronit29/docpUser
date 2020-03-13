@@ -254,13 +254,14 @@
 .mbl-view-pricing-table>.price-table>h3 {
     position: absolute;
     background: #fff;
-    color: #757575;
+    color: #000000;
     width: 200px;
     top: 7.5rem;
     z-index: 1;
     text-align: center;
     left: 5rem;
     font-size: 12px;
+    font-weight: 400;
 }
 
 .mbl-view-pricing-table>.price-table:last-child>h4 {
@@ -284,26 +285,19 @@
 
 /******** Pricing Table css ********/
 
-.med-blocks {
-    padding: 60px 0px 20px 0px;
-    margin: 0px;
-}
 
-.med-blocks>.col-sm-6 {
+.gold-list-row>.col-sm-6 {
     padding: 0px 10px;
 }
 
-.med-blocks>.col-sm-6>.vip-offer-cards {
+.gold-list-row>.col-sm-6>.vip-offer-cards {
     border: 1px solid #7575755F;
     border-radius: 10px;
     box-shadow: none;
     width: 100%;
+    margin-top: 20px;
 }
 
-.med-blocks>.col-sm-6 {
-    display: flex;
-    flex: 1;
-}
 
 p.vip-card-list {
     font-size: 16px;
@@ -477,6 +471,18 @@ p.vip-card-list {
 
     .video-block-row {
         padding: 0px 10px;
+    }
+    .gold-list-row>.col-sm-6:nth-child(2){
+        order: 1;
+    }
+    .gold-list-row>.col-sm-6:nth-child(4){
+        order: 2;
+    }
+    .gold-list-row>.col-sm-6:nth-child(3){
+        order: 3;
+    }
+    .gold-list-row>.col-sm-6:nth-child(1){
+        order: 4;
     }
 }
 

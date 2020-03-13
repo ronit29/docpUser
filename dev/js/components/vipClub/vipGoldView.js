@@ -564,36 +564,11 @@ class VipGoldView extends React.Component {
                             </div>
                             :''}
                             {/* ================== Pricing table ================== */}
-                            {/* ================== Medlife & consulataion widget ================== */}
-                            <div className="row med-blocks">
-                                <div className="col-sm-6 col-12">
-                                    <div className="vip-offer-cards">
-                                        <div className="vip-free-doc">
-                                            <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Exclusive for Gold members</p>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />No minimum order values </p>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited usage with no maximum cap </p>
-                                            <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this, true)}>T&amp;C Apply</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6 col-12">
-                                    <div className="vip-offer-cards">
-                                        <div className="vip-free-doc">
-                                            <h4 className="vip-card-heading">Online Doctor Consultations</h4>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Online Doctor Consultations</p>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited online consultations for full family</p>
-                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat &amp; Call</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* ================== Medlife & consulataion widget ================== */}    
                             {/* ================== list & gold video widget ================== */}
                             <div className="row m-0 d-flex flex-column video-block-row">
-                                <h4 className="vip-card-heading p-0" style={{marginBottom: 20}}>Gold Membership Benefits</h4>
                                 <div className="row gold-list-row">
                                     <div className="col-sm-6 col-12 gold-video-col">
+                                        <h4 className="vip-card-heading p-0" style={{marginBottom: 10,marginTop: 10}}>Gold Membership Benefits</h4>
                                         <div className="vip-offer-cards">
                                             <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
                                             </video>
@@ -642,8 +617,34 @@ class VipGoldView extends React.Component {
                                             {/* consult doctor widget added end */}
                                         </div>
                                     </div>
+                                    <div className="col-sm-6 col-12" style={{display: 'flex', flex : 1}}>
+                                        <div className="vip-offer-cards">
+                                            <div className="vip-free-doc">
+                                                <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Exclusive for Gold members</p>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />No minimum order values </p>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited usage with no maximum cap </p>
+                                                <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this, true)}>T&amp;C Apply</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6 col-12 d-flex">
+                                        <div className="vip-offer-cards">
+                                            <div className="vip-free-doc">
+                                                <h4 className="vip-card-heading">Online Doctor Consultations</h4>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Online Doctor Consultations</p>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited online consultations for full family</p>
+                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat &amp; Call</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            {/* ================== Medlife & consulataion widget ================== */}
+                            {/* <div className="row med-blocks">
+                                
+                            </div> */}
+                            {/* ================== Medlife & consulataion widget ================== */}    
                             {/* ================== list & gold video widget ================== */}
                         </section>
                         <div className="card-block-widget">
