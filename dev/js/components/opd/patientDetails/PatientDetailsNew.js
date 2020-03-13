@@ -1686,7 +1686,7 @@ class PatientDetailsNew extends React.Component {
         if (showGoldTogglePaymentMode)
             payment_mode_count++
 
-        let showCodPaymentMode = !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') && !(vip_data.hosp_is_gold && is_selected_user_gold)
+        let showCodPaymentMode = /*!is_insurance_applicable && !is_vip_applicable &&*/ enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true') /*&& !(vip_data.hosp_is_gold && is_selected_user_gold)*/
 
         let resetPaymentType = false
         if (!showGoldTogglePaymentMode && this.props.payment_type == 6) {
