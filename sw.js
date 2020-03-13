@@ -181,7 +181,12 @@ self.addEventListener('fetch', function(event){
 
 					return fetch(event.request).then((resp)=>{
 						
-						cache.put(event.request, resp.clone());
+						cache.put(event.request, resp.clone()).then((respCache)=>{
+
+						}).catch((cacheError)=>{
+							console.log('ERROR in Cache',cacheError);
+							trimCache(cache_dynamic_name, 80);
+						});
 						trimCache(cache_dynamic_name, 150);
 						return resp;
 					}).catch((e)=>{

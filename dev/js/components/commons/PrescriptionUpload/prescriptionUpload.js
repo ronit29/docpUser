@@ -99,6 +99,9 @@ class PrescriptionView extends React.PureComponent {
         if (dataUrl) {
             file_blob_data = this.dataURItoBlob(dataUrl)
         }
+        // if(file) {
+        //     file = this.dataURItoBlob(file)
+        // }
         let mem_data = {}
         let existingData
         let img_tag = "file"
@@ -111,15 +114,15 @@ class PrescriptionView extends React.PureComponent {
             } else {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
-            this.props.uploadCommonPrescription(form_data, (data, err) => {
-                if (data) {
+            this.props.uploadCommonPrescription(form_data, (dataResp, err) => {
+                if (dataResp) {
                     let user_no = this.props.primaryMobile?this.props.primaryMobile:this.props.user_loggedIn_number
                     if(user_no){
                         user_no = Number(user_no)
                     }
                     const parsed = queryString.parse(this.props.locationObj.search)
                     let data = {
-                        phone_number:user_no,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:'http://docprime.com' + this.props.locationObj.pathname,doctor_id:null,hospital_id:null,hospital_name:null
+                        phone_number:user_no,lead_source:'Prescriptions',source:parsed,lead_type:'PRESCRIPTIONS',doctor_name:'',exitpoint_url:dataResp.file_url ,doctor_id:null,hospital_id:null,hospital_name:null
                     }
                     let gtm_data = {'Category': 'ConsumerApp', 'Action': 'PrescriptionSubmitted', 'CustomerID': GTM.getUserId() || '', 'event': 'prescription-submitted'}
                     GTM.sendEvent({ data: gtm_data })
@@ -267,7 +270,7 @@ class PrescriptionView extends React.PureComponent {
                                                             <input id="presc-upload" type="file" accept="image/*;capture=camera" onChange = {(e)=>this.upload(e)}/>
                                                         </button>
                                                     </React.Fragment>
-                                                    :<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3">
+                                                    :<button className="cstm-book-btn fw-700 d-flex align-item-center mt-3 mb-3" onClick={(e)=>e.stopPropagation()}>
                                                         <img src={ASSETS_BASE_URL + "/img/up-arrow.svg"} height="17" />
                                                         <span>
                                                             <label className="text-white" htmlFor="presc-upload" style={{ fontSize: 13}}>{this.state.selected_file?'Re-Upload':'Upload'}</label>
