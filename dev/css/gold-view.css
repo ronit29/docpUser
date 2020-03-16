@@ -11,8 +11,8 @@
 }
 
 .gold-new-view>.heading-section {
-    background-image: url(/assets/img/gold-family.png);
-    background-size: cover;
+    background-image: url(/assets/img/goldbgnew.png);
+    background-repeat: no-repeat;
     background-position: top;
     height: 300px;
     padding-left: 13%;
@@ -353,8 +353,9 @@ p.vip-card-list {
     }
 
     .gold-new-view>.heading-section {
-        height: 173px;
+        height: 194px;
         padding: 20px;
+        background-size: 100%;
     }
 
     .gold-new-view>.heading-section>h3 {

@@ -15467,6 +15467,9 @@ margin: 10px 0px 20px 15px;
     width: 42px;
     margin-left: 0px;
 }
+.dashRotate{
+    transform: rotate(90deg);
+}
 /* ======================================= home gold banner design ======================================= */
 
 .pb-gold-banner{

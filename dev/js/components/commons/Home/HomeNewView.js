@@ -472,7 +472,7 @@ class MainView extends React.Component{
                         {/******  full width banner *********/}
                         <UpComingAppointmentView {...this.props} />
                         <section className="full-banner-section">
-                            <img style={{width:'100%'}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Gold_banner_web.png" onClick={(e) => {
+                            <img style={{width:'100%'}} className="img-fluid" src="https://cdn.docprime.com/media/web/custom_images/Gold_home-min_1.png" onClick={(e) => {
                                 let data = {
                                 'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'
                                 }

@@ -454,7 +454,7 @@ class VipGoldView extends React.Component {
                                     <img  style={{marginTop: 4}} src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                                 </span>
                             </h3>
-                            <h4>Membership Plan For <br/>Exclusive Dicount</h4>
+                            <h4>Membership Plan For <br/>Exclusive Discounts</h4>
                         </section>
                         {/* ================== Heading section ================== */}
                         {/* ================== Gold View Main container ================== */}
@@ -474,7 +474,7 @@ class VipGoldView extends React.Component {
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/ico-4.svg"} />
-                                    <h4 className="ml-3 fw-500">Unlimited Video, Audio <br/>&amp; Chat Consultation</h4>
+                                    <h4 className="ml-3 fw-500">Unlimited Audio <br/>&amp; Chat Consultation</h4>
                                     <h5 className="fw-500">Unlimited Tele Consultations</h5>
                                 </div>
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
@@ -554,7 +554,11 @@ class VipGoldView extends React.Component {
                                                  <h4>{value.tenure}</h4>
                                                  <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
                                                  <h4>
-                                                     <span>{value.chat_plan_description?value.chat_plan_description:'|'}</span>
+                                                     {
+                                                         value.chat_plan_description?
+                                                         <span>{value.chat_plan_description}</span>
+                                                         :<span className="dashRotate">|</span>
+                                                     }
                                                  </h4>  
                                             </div>
                                         })
