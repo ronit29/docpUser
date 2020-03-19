@@ -858,9 +858,9 @@ class SearchResultsView extends React.Component {
                 }} />
 
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    /*(this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_opd={true}/>
-                    :''
+                    :''*/
                 }
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>

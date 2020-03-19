@@ -247,7 +247,7 @@ class ProfileData extends React.Component {
                             </li> : ""
                         }
 
-                        <li className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => { // redirect to referral section
+                        {/*<li className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => { // redirect to referral section
                             this.props.history.push('/referral')
                         }}>
                             <div className="usr-dtls-off-act">
@@ -266,7 +266,7 @@ class ProfileData extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li>*/}
 
                         {/* <li>
                             <a>

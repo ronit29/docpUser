@@ -416,9 +416,9 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
+                    /*(this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.props.LOADED_LABS_SEARCH && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_lab={false}  is_package={true}/>
-                    :''
+                    :''*/
                 }
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count > 0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content != null && this.props.forOrganicSearch ? this.props.packagesList.bottom_content : ''} page={1} isPackage={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared} quickFilter={this.state.quickFilter} resetQuickFilters={this.resetQuickFilters.bind(this)} />
