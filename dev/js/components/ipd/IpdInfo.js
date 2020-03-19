@@ -193,7 +193,7 @@ class IpdView extends React.Component {
 
 		const parsed = queryString.parse(this.props.location.search)
 
-		let showPopup = this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about
+		let showPopup = false && this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about
 
 		return(                  		
            <div className ="ipd-section ipdSection cardMainPaddingRmv">

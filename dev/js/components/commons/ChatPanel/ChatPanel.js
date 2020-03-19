@@ -545,6 +545,12 @@ class ChatPanel extends React.Component {
     }
 
     render() {
+
+        return(
+            <React.Fragment>
+
+            </React.Fragment>
+        )
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
             if (this.props.USER.chatDoctors[this.props.USER.chatRoomIds[this.state.selectedRoom]]) {

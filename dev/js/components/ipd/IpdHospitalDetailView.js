@@ -382,6 +382,8 @@ class HospitalDetailView extends React.Component {
 
         	specialization_data = this.props.ipd_hospital_detail.specialization_doctors.specializations
         }
+        showPopup = false;
+        showForcedPopup = false;
 
 		return (
 			<React.Fragment>
