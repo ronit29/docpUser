@@ -651,13 +651,17 @@ class VipGoldView extends React.Component {
                         </section>
                         <section className="gold-view-main-container">
                             <h3 className="text-center mt-10">Gold plan</h3>
-                            <div className="gold-pln-cont">
-                                <div className="goldPlanSec">
-                                    <p>Covered 1 Members</p>
-                                    <span>Valid for 12 months</span>
-                                </div>
-                                <p className="goldPrices">₹199</p>
-                            </div>
+                            {
+                                    Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                            return <div className="gold-pln-cont">
+                                                <div className="goldPlanSec">
+                                                    <p> {`Covered ${value.total_allowed_members} Members`} </p>
+                                                    <span> {`Valid for ${value.tenure} months`}</span>
+                                                </div>
+                                                <p className="goldPrices">₹{value.deal_price}</p>
+                                            </div>           
+                                    })
+                            }
                         </section>
                         <div className="card-block-widget">
                             {
