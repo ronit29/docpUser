@@ -461,7 +461,7 @@ class VipGoldView extends React.Component {
                         <section className="gold-view-main-container">
 
                             {/* ================== Discount Listing view ================== */}
-                            <div className="row m-0 discount-listing-view">
+                            {/*<div className="row m-0 discount-listing-view">
                                 <div className="col-sm-3 col-4 discount-list-item d-flex justify-content-center align-item-center">
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/ico-1.svg"} />
                                     <h4 className="ml-3 fw-500">Exclusive Discounts <br/> On 30,000+ Doctors</h4>
@@ -481,7 +481,7 @@ class VipGoldView extends React.Component {
                                     <img height="53"  src={ASSETS_BASE_URL + "/img/ico-2.svg"} />
                                     <h4 className="ml-3 fw-500">Discounts on <br/>5,000 Labs</h4>
                                 </div>
-                            </div>   
+                            </div>   */}
                             {/* ================== Discount Listing view ================== */}
                             {/* ================== Pricing table ================== */}
                             {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
@@ -569,7 +569,7 @@ class VipGoldView extends React.Component {
                             :''}
                             {/* ================== Pricing table ================== */}
                             {/* ================== list & gold video widget ================== */}
-                            <div className="row m-0 d-flex flex-column video-block-row">
+                            {/*<div className="row m-0 d-flex flex-column video-block-row">
                                 <div className="row gold-list-row">
                                     <div className="col-sm-6 col-12 gold-video-col">
                                         <h4 className="vip-card-heading p-0" style={{marginBottom: 10,marginTop: 10}}>Gold Membership Benefits</h4>
@@ -609,7 +609,6 @@ class VipGoldView extends React.Component {
                                                     }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
                                                 </div>
                                             </div>
-                                            {/* consult doctor widget added */}
                                             <div className="gold-grntee-card">
                                                 <div className="round-img-gld">
                                                     <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
@@ -618,7 +617,6 @@ class VipGoldView extends React.Component {
                                                     <h4>Free Doctor Consultation after every Lab appointment</h4>
                                                 </div>
                                             </div>
-                                            {/* consult doctor widget added end */}
                                         </div>
                                     </div>
                                     <div className="col-sm-6 col-12" style={{display: 'flex', flex : 1}}>
@@ -643,7 +641,7 @@ class VipGoldView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*/}
                             {/* ================== Medlife & consulataion widget ================== */}
                             {/* <div className="row med-blocks">
                                 
