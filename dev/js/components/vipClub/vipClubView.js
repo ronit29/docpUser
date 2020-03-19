@@ -61,7 +61,7 @@ class VipClubView extends React.Component {
                             lead_data.visitor_id = visitor_info.visitor_id
                         }
                     if(this.state.is_lead_enabled){
-                        this.setState({is_lead_enabled:false})
+                        /*this.setState({is_lead_enabled:false})
                         this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
                             cb: (resp) => {
                                 let LeadIdData = {
@@ -71,14 +71,14 @@ class VipClubView extends React.Component {
                             }
                         })
                         setTimeout(() => {
-                            // this.setState({is_lead_enabled:true})
-                        }, 5000)
+                         this.setState({is_lead_enabled:true})
+                        }, 5000)*/
                     }
                 }
             }
         }
         if(!STORAGE.checkAuth() && this.props.user_loggedIn_number && !this.props.is_from_organic && this.state.is_lead_enabled){
-            this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:this.props.user_loggedIn_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:'', extraParams:extraParams,
+            /*this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:this.props.user_loggedIn_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:'', extraParams:extraParams,
                 cb: (resp) => {
                     let LeadIdData = {
                     'Category': 'ConsumerApp', 'Action': 'VipAutoLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id ? resp.lead_id : 0, 'event': 'vip-auto-lead-clicked', 'source': lead_data.source || ''
@@ -87,8 +87,8 @@ class VipClubView extends React.Component {
                 }
             })
             setTimeout(() => {
-                // this.setState({is_lead_enabled:true})
-            }, 5000)
+                 this.setState({is_lead_enabled:true})
+            }, 5000)*/
         }
 
         let self = this
@@ -174,7 +174,7 @@ class VipClubView extends React.Component {
                             lead_data.visitor_id = visitor_info.visitor_id
                         }
                     if(this.state.is_lead_enabled){
-                        this.setState({is_lead_enabled:false})
+                        /*this.setState({is_lead_enabled:false})
                         this.props.generateVipClubLead({selectedPlan:this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', number:loginUser.phone_number, lead_data:lead_data, selectedLocation:this.props.selectedLocation, user_name:loginUser.name, extraParams:extraParams,
                             cb: (resp) => {
                                 let LeadIdData = {
@@ -185,7 +185,7 @@ class VipClubView extends React.Component {
                         })
                         setTimeout(() => {
                             // this.setState({is_lead_enabled:true})
-                        }, 5000)
+                        }, 5000)*/
                     }
                 }
                 let url = '/vip-club-member-details?isDummy=true'
