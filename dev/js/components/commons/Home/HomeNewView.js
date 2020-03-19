@@ -673,7 +673,7 @@ class MainView extends React.Component{
                     {/****** footer *********/}
                 </div>
                 {/****** chat view button  *********/}
-                <div className="new-chat-box">
+                <div className="d-none new-chat-box">
                     <input type="checkbox"/>
                     <div className="chatbox-main mb-3">
 
