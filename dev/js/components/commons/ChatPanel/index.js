@@ -60,7 +60,7 @@ class ChatPanel extends React.Component {
                         </div> : ''
                 }
                 {
-                    this.state.ssrFlag ?
+                    this.state.ssrFlag && false?
                         <ChatPanelView {...this.props} /> : ''
                 }
             </div>
