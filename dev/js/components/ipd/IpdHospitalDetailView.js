@@ -402,9 +402,9 @@ class HospitalDetailView extends React.Component {
 							}
 
 							{
-			                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 && !STORAGE.isAgent()?
+			                    /*(this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1 && !STORAGE.isAgent()?
 			                    <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_hpp={true} hospital_data={this.props.ipd_hospital_detail}/>
-			                    :''
+			                    :''*/
 			                }
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />

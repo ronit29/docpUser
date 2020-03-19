@@ -526,14 +526,14 @@ class DoctorProfileView extends React.Component {
                         : ''
                 }
                 {
-                    (this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
+                    /*(this.state.showNonIpdPopup == 1 || this.state.showNonIpdPopup == 2) && this.state.to_be_force == 1?
                     <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id} hospital_id={this.state.selectedClinic}/>
-                    :''
+                    :''*/
                 }
                 {
-                    show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1 && !isUtmTagsExist?
+                    /*show_dpp_organic_popup && this.state.seoFriendly && enabled_for_online_booking && landing_page && this.state.is_organic_landing && this.state.to_be_force == 1 && !isUtmTagsExist?
                      <NonIpdPopupView {...this.props} nonIpdLeads={this.nonIpdLeads.bind(this)} closeIpdLeadPopup = {this.closeIpdLeadPopup.bind(this)} is_force={this.state.showNonIpdPopup} is_dpp={true} doctor_id={doctor_id} is_organic={false} hospital_id={this.state.selectedClinic}/>
-                    :''
+                    :''*/
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
