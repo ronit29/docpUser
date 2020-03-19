@@ -18,7 +18,7 @@ class VipGoldView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14,15],
+            tabsValue: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
             showPopup: false
         }
     }
@@ -58,19 +58,19 @@ class VipGoldView extends React.Component {
             }
 
         }
-        if(this.props.is_from_organic){
-            let url 
-            if(parsed.callBackUrl){
+        if (this.props.is_from_organic) {
+            let url
+            if (parsed.callBackUrl) {
                 url = parsed.callBackUrl
-                if(parsed.hospital_id && !url.includes('hospital_id')){
+                if (parsed.hospital_id && !url.includes('hospital_id')) {
                     url += `?hospital_id=${parsed.hospital_id}`
                 }
-                if(parsed.doctor_id){
+                if (parsed.doctor_id) {
                     url += `&doctor_id=${parsed.doctor_id}`
                 }
                 this.props.history.push(url)
             }
-        }else{
+        } else {
             this.props.history.go(-1)
         }
     }
@@ -116,7 +116,7 @@ class VipGoldView extends React.Component {
 
     sendPageUrl = () => {
         let data = {
-            callback: window.location.pathname.split('/')[1] + window.location.search.replace(/&/g,'*'),
+            callback: window.location.pathname.split('/')[1] + window.location.search.replace(/&/g, '*'),
             template: 'gold_template_1'
         }
         this.props.sendAgentWhatsupPageURL(data).then((resp) => {
@@ -134,17 +134,17 @@ class VipGoldView extends React.Component {
         let dataType = 'static_review_blck'
         var elmnt = document.getElementById(dataType)
 
-        if(elmnt) {
+        if (elmnt) {
             let outerDivWidth = elmnt.offsetWidth
-            let cardCount = elmnt.children && elmnt.children.length?elmnt.children.length:6;
-            let childDivWidth = elmnt.scrollWidth?elmnt.scrollWidth:3000;
+            let cardCount = elmnt.children && elmnt.children.length ? elmnt.children.length : 6;
+            let childDivWidth = elmnt.scrollWidth ? elmnt.scrollWidth : 3000;
             let cardWidth = Math.ceil(childDivWidth / cardCount)
 
             let leftScroll = elmnt.scrollLeft
 
             if (type == 'right') {
                 elmnt.scroll({ left: leftScroll + outerDivWidth, behavior: 'smooth' })
-                if (childDivWidth <= (leftScroll +  2*outerDivWidth ) )  {
+                if (childDivWidth <= (leftScroll + 2 * outerDivWidth)) {
                     document.getElementById(`${dataType}_leftArrow_hsptl`).classList.add("d-none")
                 }
                 document.getElementById(`${dataType}_RightArrow_hsptl`).classList.remove("d-none")
@@ -211,11 +211,11 @@ class VipGoldView extends React.Component {
 
                                         </div>
                                         {
-                                            this.props.is_pb?
-                                            <div>
-                                                <img src = "https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png" className="pb-gold-banner"/>
-                                            </div>
-                                        :''}
+                                            this.props.is_pb ?
+                                                <div>
+                                                    <img src="https://cdn.docprime.com/media/web/custom_images/Pb_banner_exclusive_-min.png" className="pb-gold-banner" />
+                                                </div>
+                                                : ''}
                                         {/* ================== gold benifits  ================== */}
                                         <div className="gold-white-bg-container mb-24">
                                             <h4 className="vip-card-heading">Gold Benefits</h4>
@@ -432,7 +432,7 @@ class VipGoldView extends React.Component {
                                                 <VipReviewSection />
                                                 {/* ================== gold benefit Review End ================== */}
                                                 {/* ================== gold benefit video section ends ================== */}
-                                                
+
 
                                             </div>
                                         </div>
@@ -443,22 +443,22 @@ class VipGoldView extends React.Component {
                             </div>
                         </div>
                     </section>
-                {/*old View Ends*/}
-                    
+                    {/*old View Ends*/}
+
                     {/* ================== new gold page view ================== */}
                     <div className="container-fluid gold-new-view">
                         {/* ================== Heading section ================== */}
                         <section className="heading-section d-flex align-items-baseline flex-column justify-content-center">
                             <h3 className="d-inline-block">
                                 <span className="fw-500 pr-2 heading-name d-flex align-items-center">Docprime
-                                    <img  style={{marginTop: 4}} src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
+                                    <img style={{ marginTop: 4 }} src={ASSETS_BASE_URL + "/img/gold-lg.png"} width="35" />
                                 </span>
                             </h3>
-                            <h4>Membership Plan For <br/>Exclusive Discounts</h4>
+                            <h4>Membership Plan For <br />Exclusive Discounts</h4>
                         </section>
                         {/* ================== Heading section ================== */}
                         {/* ================== Gold View Main container ================== */}
-                        <section className="gold-view-main-container">
+                        <section className="gold-view-main-container d-none">
 
                             {/* ================== Discount Listing view ================== */}
                             {/*<div className="row m-0 discount-listing-view">
@@ -485,91 +485,91 @@ class VipGoldView extends React.Component {
                             {/* ================== Discount Listing view ================== */}
                             {/* ================== Pricing table ================== */}
                             {this.props.vipClubList && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length > 0 ?
-                            <div className="row m-0 pricing-row">
-                                <h3 className="text-center">Select your plan</h3>
-                                <div className="row m-0 desktop-view-pricing-table" style={{width: '100%'}}>
-                                    <div className="col-sm-3">
-                                        <div className="price-card-list">
-                                            <h5>&nbsp;</h5>
-                                            <ul>
-                                                <li>Price</li>
-                                                <li>Coverage</li>
-                                                <li> Validity</li>
-                                                <li>Unlimited <br/> Online Consultation</li>
-                                            </ul>
+                                <div className="row m-0 pricing-row">
+                                    <h3 className="text-center">Select your plan</h3>
+                                    <div className="row m-0 desktop-view-pricing-table" style={{ width: '100%' }}>
+                                        <div className="col-sm-3">
+                                            <div className="price-card-list">
+                                                <h5>&nbsp;</h5>
+                                                <ul>
+                                                    <li>Price</li>
+                                                    <li>Coverage</li>
+                                                    <li> Validity</li>
+                                                    <li>Unlimited <br /> Online Consultation</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {
+                                                Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
+                                                    return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length < 4 ? 'col-4' : 'col-3'} pricing-card`}>
+                                                        <h5>{value.internal_name}</h5>
+                                                        <ul>
+                                                            <li className="buy-price">₹ {value.deal_price}<br />
+                                                                {value.is_selected ?
+                                                                    <span className="popular-col d-inline-block">POPULAR</span>
+                                                                    : <span style={{ opacity: 0 }} className="popular-col d-inline-block">&nbsp;</span>
+                                                                }
+                                                            </li>
+                                                            <li>{value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}</li>
+                                                            <li> {value.tenure} months</li>
+                                                            <li className="times-icon-list">
+                                                                <span style={{ fontSize: 16, position: 'relative', top: 6, fontWeight: 500 }} >{value.chat_plan_description ? value.chat_plan_description : '-'}</span>
+                                                            </li>
+                                                            <li>
+                                                                <button className="cstm-book-btn" onClick={self.props.selectGoldPlan.bind(self, value, false, true)}>Buy</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                })
+                                            }
                                         </div>
                                     </div>
-                                    <div className="col-sm-9">
+                                    <div className="row m-0 mbl-view-pricing-table" style={{ width: '100%' }}>
                                         {
                                             Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-                                                return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} pricing-card`}>
-                                                    <h5>{value.internal_name}</h5>
-                                                    <ul>
-                                                        <li className="buy-price">₹ {value.deal_price}<br/>
-                                                        {   value.is_selected?
-                                                            <span className="popular-col d-inline-block">POPULAR</span>
-                                                            :<span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
+                                                return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length < 4 ? 'col-4' : 'col-3'} price-table d-flex justify-content-center align-items-center flex-column ${value.id == self.props.selected_plan_id ? 'active' : ''}`} onClick={self.props.selectGoldPlan.bind(self, value, false, false)}>
+                                                    <div className="shadow-box">&nbsp;</div>
+                                                    <div className="indicator-box d-flex justify-content-center align-items-center">
+                                                        <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
+                                                    </div>
+                                                    <h4 className="m-0">
+                                                        {value.is_selected ?
+                                                            <span className="popular-col">popular</span>
+                                                            : <span style={{ opacity: 0 }} className="popular-col d-inline-block">&nbsp;</span>
                                                         }
-                                                        </li>
-                                                        <li>{value.total_allowed_members} {parseInt(value.total_allowed_members) > 1 ? 'Members' : 'Member'}</li>
-                                                        <li> {value.tenure} months</li>
-                                                        <li className="times-icon-list">
-                                                            <span style={{fontSize: 16, position: 'relative', top: 6,fontWeight: 500}} >{value.chat_plan_description?value.chat_plan_description:'-'}</span>
-                                                        </li>
-                                                        <li>
-                                                            <button className="cstm-book-btn" onClick={self.props.selectGoldPlan.bind(self, value, false,true)}>Buy</button>
-                                                        </li>
-                                                    </ul>
+                                                        <span>{value.internal_name}</span>
+                                                        <span className="price-text">₹ {value.deal_price}</span>
+                                                    </h4>
+                                                    {key == 0 ?
+                                                        <React.Fragment>
+                                                            <h3>COVERAGE (Members)</h3>
+                                                            <h3 style={{ top: '13.3rem' }}>VALIDITY (Months)</h3>
+                                                            <h3 style={{ top: '18.8rem' }}>UNLIMITED ONLINE CONSULTATION</h3>
+                                                        </React.Fragment>
+                                                        : ''}
+                                                    <hr style={{ width: '100%', background: 'rgba(112, 112, 112, 0.2)' }} />
+                                                    <h4 className="member-count">{value.total_allowed_members}</h4>
+                                                    <hr style={{ width: '100%', background: 'rgba(112, 112, 112, 0.2)' }} />
+                                                    <h4>{value.tenure}</h4>
+                                                    <hr style={{ width: '100%', background: 'rgba(112, 112, 112, 0.2)' }} />
+                                                    <h4>
+                                                        {
+                                                            value.chat_plan_description ?
+                                                                <span>{value.chat_plan_description}</span>
+                                                                : <span className="dashRotate">|</span>
+                                                        }
+                                                    </h4>
                                                 </div>
                                             })
                                         }
+
                                     </div>
                                 </div>
-                                <div className="row m-0 mbl-view-pricing-table" style={{width: '100%'}}>
-                                    {
-                                        Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-                                            return <div className={`${self.props.vipClubList.gold_plans && self.props.vipClubList.gold_plans.length <4?'col-4':'col-3'} price-table d-flex justify-content-center align-items-center flex-column ${value.id == self.props.selected_plan_id ?'active':''}`} onClick={self.props.selectGoldPlan.bind(self, value, false,false)}>
-                                                <div className="shadow-box">&nbsp;</div>
-                                                <div className="indicator-box d-flex justify-content-center align-items-center">
-                                                    <img width="12" src={ASSETS_BASE_URL + '/img/white-check.svg'} />
-                                                </div>
-                                                <h4 className="m-0">
-                                                    { value.is_selected?
-                                                        <span className="popular-col">popular</span>
-                                                        :<span style={{opacity: 0}} className="popular-col d-inline-block">&nbsp;</span>
-                                                    }
-                                                    <span>{value.internal_name}</span>
-                                                    <span className="price-text">₹ {value.deal_price}</span>
-                                                </h4>
-                                                {key == 0?
-                                                    <React.Fragment>
-                                                    <h3>COVERAGE (Members)</h3>
-                                                    <h3 style={{top: '13.3rem'}}>VALIDITY (Months)</h3>
-                                                    <h3 style={{top: '18.8rem'}}>UNLIMITED ONLINE CONSULTATION</h3>
-                                                    </React.Fragment>
-                                                :''}
-                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                                 <h4 className="member-count">{value.total_allowed_members}</h4>
-                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                                 <h4>{value.tenure}</h4>
-                                                 <hr style={{width: '100%', background:'rgba(112, 112, 112, 0.2)'}} /> 
-                                                 <h4>
-                                                     {
-                                                         value.chat_plan_description?
-                                                         <span>{value.chat_plan_description}</span>
-                                                         :<span className="dashRotate">|</span>
-                                                     }
-                                                 </h4>  
-                                            </div>
-                                        })
-                                    }
-                                    
-                                </div>
-                            </div>
-                            :''}
+                                : ''}
                             {/* ================== Pricing table ================== */}
                             {/* ================== list & gold video widget ================== */}
-                                {/*<div className="row m-0 d-flex flex-column video-block-row">
+                            {/*<div className="row m-0 d-flex flex-column video-block-row">
                                     <div className="row gold-list-row">
                                         <div className="col-sm-6 col-12 gold-video-col">
                                             <h4 className="vip-card-heading p-0" style={{marginBottom: 10,marginTop: 10}}>Gold Membership Benefits</h4>
@@ -646,45 +646,55 @@ class VipGoldView extends React.Component {
                             {/* <div className="row med-blocks">
                                 
                             </div> */}
-                            {/* ================== Medlife & consulataion widget ================== */}    
+                            {/* ================== Medlife & consulataion widget ================== */}
                             {/* ================== list & gold video widget ================== */}
+                        </section>
+                        <section className="gold-view-main-container">
+                            <h3 className="text-center mt-10">Gold plan</h3>
+                            <div className="gold-pln-cont">
+                                <div className="goldPlanSec">
+                                    <p>Covered 1 Members</p>
+                                    <span>Valid for 12 months</span>
+                                </div>
+                                <p className="goldPrices">₹199</p>
+                            </div>
                         </section>
                         <div className="card-block-widget">
                             {
                                 this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 ?
-                                <HomePageWidget
-                                    heading="Key Hospital Partner"
-                                    list={this.props.topHospitals.top_hospitals}
-                                    topHospitals={true}
-                                    dataType='home_top_hsptl'
-                                    historyObj ={this.props.history}
-                                    searchFunc={this.props.hospitalCardClicked}
-                                    goldNetwork = {this.props.viewDocprimeNetworkClicked.bind()}
-                                    fromGold={true}
-                                />
-                                : ''
+                                    <HomePageWidget
+                                        heading="Key Hospital Partner"
+                                        list={this.props.topHospitals.top_hospitals}
+                                        topHospitals={true}
+                                        dataType='home_top_hsptl'
+                                        historyObj={this.props.history}
+                                        searchFunc={this.props.hospitalCardClicked}
+                                        goldNetwork={this.props.viewDocprimeNetworkClicked.bind()}
+                                        fromGold={true}
+                                    />
+                                    : ''
                             }
                             {
-                                this.props.selected_plan && Object.keys(this.props.selected_plan).length?
-                                <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container new-cont-ui">
-                                    {
-                                        this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
-                                            <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
-                                                <p>Continue Booking</p>
-                                            </button>
-                                            :this.props.is_from_organic?
-                                            <button className="desk-cont-btn" onClick={this.goBack.bind(this)}>
-                                                <p>Continue Booking</p>
-                                            </button>
-                                            :<button className="v-btn-primary book-btn-mrgn-adjust mbl-cont-btn" style={{background:'#1b97fd',borderColor: "#1b97fd"}} onClick={this.props.proceed.bind(this)}>
-                                                <p>Continue with {`${this.props.selected_plan.internal_name} ₹ ${this.props.selected_plan.deal_price}`}</p>
-                                            </button>
-                                    }
-                                    {
-                                        STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{borderColor: "#1b97fd", color:"#1b97fd"}} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
-                                    }
-                                </div>
-                            :''}
+                                this.props.selected_plan && Object.keys(this.props.selected_plan).length ?
+                                    <div className="fixed p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container new-cont-ui">
+                                        {
+                                            this.props.is_booking_page !== '' && (this.props.is_booking_page == 'opd' || this.props.is_booking_page == 'lab') ?
+                                                <button className="v-btn-primary book-btn-mrgn-adjust desk-cont-btn" onClick={this.goBack.bind(this)}>
+                                                    <p>Continue Booking</p>
+                                                </button>
+                                                : this.props.is_from_organic ?
+                                                    <button className="desk-cont-btn" onClick={this.goBack.bind(this)}>
+                                                        <p>Continue Booking</p>
+                                                    </button>
+                                                    : <button className="v-btn-primary book-btn-mrgn-adjust " style={{ background: '#1b97fd', borderColor: "#1b97fd" }} onClick={this.props.proceed.bind(this)}>
+                                                        <p>Continue with {`${this.props.selected_plan.internal_name} ₹ ${this.props.selected_plan.deal_price}`}</p>
+                                                    </button>
+                                        }
+                                        {
+                                            STORAGE.isAgent() ? <button className="add-shpng-cart-btn" style={{ borderColor: "#1b97fd", color: "#1b97fd" }} onClick={this.sendPageUrl}><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Send on Whatsapp</button> : ''
+                                        }
+                                    </div>
+                                    : ''}
                         </div>
                         <div className="card-block-widget pt-0">
                             <section className="card-block-row">
@@ -695,51 +705,51 @@ class VipGoldView extends React.Component {
                                 <div className="card-slider-container">
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare_JthRqFf.png" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 50% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 50% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/9be7c3c53ed30877c1433bf6d9f7d916_GjgCeik.jpg" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/9be7c3c53ed30877c1433bf6d9f7d916_GjgCeik.jpg" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 50% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 50% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 70% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 70% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/2c25c272c61b8b646301741f1c980387.jpg" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/2c25c272c61b8b646301741f1c980387.jpg" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 20% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 20% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/45ae4aff8b1b9bf6d1dff2e86e97400a.jpg" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/45ae4aff8b1b9bf6d1dff2e86e97400a.jpg" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 50% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 50% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/da7ccb6125dda7b3eba1c38d7bd9c0b9_Zp0O1EX.jpg" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/da7ccb6125dda7b3eba1c38d7bd9c0b9_Zp0O1EX.jpg" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 70% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 70% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/healtiens.png" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 18% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 18% OFF</h5>
                                     </div>
                                     <div className="slider-card-column" id="cardBlock">
                                         <div className="slide-img-col d-flex justify-content-center align-item-center">
-                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/c2748b2e22e2f8e3ed90cb3ca5ea29be_i3PE0Ya.jpg" alt="Partners"/>
+                                            <img className="img-fluid" src="https://cdn.docprime.com/media/lab/images/90x60/c2748b2e22e2f8e3ed90cb3ca5ea29be_i3PE0Ya.jpg" alt="Partners" />
                                         </div>
-                                        <h5 className="off-txt" style={{position:'relative', bottom: 0}}> Upto 40% OFF</h5>
+                                        <h5 className="off-txt" style={{ position: 'relative', bottom: 0 }}> Upto 40% OFF</h5>
                                     </div>
                                 </div>
                             </section>
@@ -747,7 +757,7 @@ class VipGoldView extends React.Component {
                         {/******  customer review *********/}
                         <div className="card-block-widget pt-0">
                             <section className="card-block-row">
-                                <h6 className="fw-500" style={{fontSize: 14, paddingBottom: 5}}>Our Happy Gold Customers</h6>
+                                <h6 className="fw-500" style={{ fontSize: 14, paddingBottom: 5 }}>Our Happy Gold Customers</h6>
                                 <div className="card-slider-container cust-review d-flex justify-content-between cust-feedback-col" id="static_review_blck">
                                     <div className="col-10 col-sm-4 text-center">
                                         <div className="cust-img-block d-flex justify-content-center align-items-center fw-500">
@@ -783,13 +793,13 @@ class VipGoldView extends React.Component {
                                     </div>
                                 </div>
                                 {/* slider buttons */}
-                                <a className="pkg-btnlft d-none"  id={`static_review_blck_RightArrow_hsptl`} onClick={this.scroll.bind(this,'left')}> 
-                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left"/>
+                                <a className="pkg-btnlft d-none" id={`static_review_blck_RightArrow_hsptl`} onClick={this.scroll.bind(this, 'left')}>
+                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-left" />
                                 </a>
-                                <a className="pkg-btnrgt" id={`static_review_blck_leftArrow_hsptl`} onClick={this.scroll.bind(this,'right')}> 
-                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right"/>
+                                <a className="pkg-btnrgt" id={`static_review_blck_leftArrow_hsptl`} onClick={this.scroll.bind(this, 'right')}>
+                                    <img height="12" src={ASSETS_BASE_URL + "/img/color-chev.svg"} alt="chev-right" />
                                 </a>
-                            </section>       
+                            </section>
                         </div>
                         {/******  customer review *********/}
                         {/* ================== Frequently asked question widget ================== */}
@@ -930,7 +940,7 @@ class VipGoldView extends React.Component {
                                             Start by clicking on 'Online Consultation' at the bottom of the website/app and when prompted provide the primary mobile number registered with Docprime Gold and your consultation will be absolutely free. However, it is not for emergencies.
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" style={{borderBottom: 'none'}} onClick={this.ButtonHandler.bind(this, 15)}>
+                                    <div className="gold-sub-acrd" style={{ borderBottom: 'none' }} onClick={this.ButtonHandler.bind(this, 15)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500 m-0"> How will online doctor solve my medical issue?
                                             </h2>
@@ -948,7 +958,7 @@ class VipGoldView extends React.Component {
                         {/* ================== Frequently asked question widget ================== */}
                         <p className="gold-trms-cnd gold-tnc" onClick={() => this.props.history.push('/terms')}>Terms of Use</p>
                         {/* ================== Gold View Main container ================== */}
-                        
+
                     </div>
                 </React.Fragment>
                 : <div></div>

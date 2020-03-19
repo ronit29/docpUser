@@ -15520,4 +15520,24 @@ p.bnft-subtxt span img {
     box-shadow: -1.4px 2.7px 6px 0 rgba(0, 0, 0, 0.17);
 }
 /* ======================================= benefit section ======================================= */
+.gold-pln-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    box-shadow: 0px 3px 6px #00000029;
+    margin: 10px 10px;
+    border-radius: 10px;
+}
+.goldPlanSec p {
+    font-weight: 500;
+}
+.goldPlanSec span {
+    color: #757575;
+}
+p.goldPrices {
+    color: #41A2F9;
+    font-size: 22px;
+    font-weight: 500;
+}
 
