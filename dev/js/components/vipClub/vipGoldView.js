@@ -569,79 +569,79 @@ class VipGoldView extends React.Component {
                             :''}
                             {/* ================== Pricing table ================== */}
                             {/* ================== list & gold video widget ================== */}
-                            {/*<div className="row m-0 d-flex flex-column video-block-row">
-                                <div className="row gold-list-row">
-                                    <div className="col-sm-6 col-12 gold-video-col">
-                                        <h4 className="vip-card-heading p-0" style={{marginBottom: 10,marginTop: 10}}>Gold Membership Benefits</h4>
-                                        <div className="vip-offer-cards">
-                                            <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
-                                            </video>
-                                            <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
-                                                <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
-                                            </a>
-                                            <h5 id="video-time" className="fw-500 text-center"></h5>
-                                        </div>            
-                                    </div>
-                                    <div className="col-sm-6 col-12 d-flex align-items-center justify-content-center">
-                                        <div className="gold-grntee-card-container m-0">
-                                            <div className="gold-grntee-card mb-3">
-                                                <div className="round-img-gld">
-                                                    <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
+                                {/*<div className="row m-0 d-flex flex-column video-block-row">
+                                    <div className="row gold-list-row">
+                                        <div className="col-sm-6 col-12 gold-video-col">
+                                            <h4 className="vip-card-heading p-0" style={{marginBottom: 10,marginTop: 10}}>Gold Membership Benefits</h4>
+                                            <div className="vip-offer-cards">
+                                                <video id="goldVideo" height="auto" src="https://cdn.docprime.com/media/web/custom_images/Gold_ad.mp4">
+                                                </video>
+                                                <a className="video-player d-flex justify-content-center align-item-center" onClick={this.playVideo}>
+                                                    <img id="player-icon" width="85" src={ASSETS_BASE_URL + '/img/play.svg'} alt="Play Video" />
+                                                </a>
+                                                <h5 id="video-time" className="fw-500 text-center"></h5>
+                                            </div>            
+                                        </div>
+                                        <div className="col-sm-6 col-12 d-flex align-items-center justify-content-center">
+                                            <div className="gold-grntee-card-container m-0">
+                                                <div className="gold-grntee-card mb-3">
+                                                    <div className="round-img-gld">
+                                                        <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/rupedwn1.svg'} />
+                                                    </div>
+                                                    <div className="gold-grnte-content">
+                                                        <h4>100% Satisfaction Guarantee</h4>
+                                                        <p>Cancel anytime within a year and get full refund. No questions asked</p>
+                                                    </div>
                                                 </div>
-                                                <div className="gold-grnte-content">
-                                                    <h4>100% Satisfaction Guarantee</h4>
-                                                    <p>Cancel anytime within a year and get full refund. No questions asked</p>
-                                                </div>
-                                            </div>
-                                            <div className="gold-grntee-card mb-3">
-                                                <div className="round-img-gld">
-                                                    <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
-                                                </div>
-                                                <div className="gold-grnte-content">
-                                                    <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
-                                                    <p className="gld-see-more p-0" onClick={(e) => {
-                                                        let data = {
-                                                            'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                                <div className="gold-grntee-card mb-3">
+                                                    <div className="round-img-gld">
+                                                        <img style={{ width: '' }} alt="rupeedown" src={ASSETS_BASE_URL + '/img/greenrp.svg'} />
+                                                    </div>
+                                                    <div className="gold-grnte-content">
+                                                        <h4>Potential savings of ₹6000/year on OPD, Health check-ups and Medicines</h4>
+                                                        <p className="gld-see-more p-0" onClick={(e) => {
+                                                            let data = {
+                                                                'Category': 'ConsumerApp', 'Action': 'goldSeeHowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'gold-see-how-click'
+                                                            }
+                                                            GTM.sendEvent({ data: data });
+                                                            this.setState({ showPopup: true })
                                                         }
-                                                        GTM.sendEvent({ data: data });
-                                                        this.setState({ showPopup: true })
-                                                    }
-                                                    }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
+                                                        }>See how <img src={ASSETS_BASE_URL + '/img/icons/back-orange.svg'} /></p>
+                                                    </div>
+                                                </div>
+                                                <div className="gold-grntee-card">
+                                                    <div className="round-img-gld">
+                                                        <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                                    </div>
+                                                    <div className="gold-grnte-content">
+                                                        <h4>Free Doctor Consultation after every Lab appointment</h4>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="gold-grntee-card">
-                                                <div className="round-img-gld">
-                                                    <img alt="rupeedown" src={ASSETS_BASE_URL + '/img/consult-report.svg'} />
+                                        </div>
+                                        <div className="col-sm-6 col-12" style={{display: 'flex', flex : 1}}>
+                                            <div className="vip-offer-cards">
+                                                <div className="vip-free-doc">
+                                                    <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Exclusive for Gold members</p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />No minimum order values </p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited usage with no maximum cap </p>
+                                                    <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this, true)}>T&amp;C Apply</a></p>
                                                 </div>
-                                                <div className="gold-grnte-content">
-                                                    <h4>Free Doctor Consultation after every Lab appointment</h4>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6 col-12 d-flex">
+                                            <div className="vip-offer-cards">
+                                                <div className="vip-free-doc">
+                                                    <h4 className="vip-card-heading">Online Doctor Consultations</h4>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Online Doctor Consultations</p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited online consultations for full family</p>
+                                                    <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat &amp; Call</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-sm-6 col-12" style={{display: 'flex', flex : 1}}>
-                                        <div className="vip-offer-cards">
-                                            <div className="vip-free-doc">
-                                                <h4 className="vip-card-heading">Flat 23% Discounts on Medicines <span className="medlife-col"><span className="powered-col text-left">Powered By</span><img src="https://cdn.docprime.com/media/diagnostic/common_package_icons/medlife_hDQxilJ.png" /></span> </h4>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Exclusive for Gold members</p>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />No minimum order values </p>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited usage with no maximum cap </p>
-                                                <p className="text-left"><a className="tc-apply" onClick={this.props.toggle.bind(this, true)}>T&amp;C Apply</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6 col-12 d-flex">
-                                        <div className="vip-offer-cards">
-                                            <div className="vip-free-doc">
-                                                <h4 className="vip-card-heading">Online Doctor Consultations</h4>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Online Doctor Consultations</p>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Unlimited online consultations for full family</p>
-                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/chk-2.svg'} />Instant connect over Chat &amp; Call</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*/}
+                                </div>*/}
                             {/* ================== Medlife & consulataion widget ================== */}
                             {/* <div className="row med-blocks">
                                 

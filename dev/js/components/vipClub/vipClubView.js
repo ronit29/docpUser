@@ -26,7 +26,7 @@ class VipClubView extends React.Component {
             toggleTabType: false,
             is_gold_clicked:this.props.is_vip_gold?this.props.is_vip_gold:false,
             openMedlifeTnC:false,
-            is_lead_enabled:true
+            is_lead_enabled:false
         }
     }
 
@@ -71,7 +71,7 @@ class VipClubView extends React.Component {
                             }
                         })
                         setTimeout(() => {
-                            this.setState({is_lead_enabled:true})
+                            // this.setState({is_lead_enabled:true})
                         }, 5000)
                     }
                 }
@@ -87,7 +87,7 @@ class VipClubView extends React.Component {
                 }
             })
             setTimeout(() => {
-                this.setState({is_lead_enabled:true})
+                // this.setState({is_lead_enabled:true})
             }, 5000)
         }
 
@@ -184,7 +184,7 @@ class VipClubView extends React.Component {
                             }
                         })
                         setTimeout(() => {
-                            this.setState({is_lead_enabled:true})
+                            // this.setState({is_lead_enabled:true})
                         }, 5000)
                     }
                 }
