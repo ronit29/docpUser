@@ -650,13 +650,13 @@ class VipGoldView extends React.Component {
                             {/* ================== list & gold video widget ================== */}
                         </section>
                         <section className="gold-view-main-container">
-                            <h3 className="text-center mt-10">Gold plan</h3>
+                            <h3 className="mt-10 gldhdng">Gold plan</h3>
                             {
                                     Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
                                             return <div className="gold-pln-cont">
                                                 <div className="goldPlanSec">
-                                                    <p> {`Covered ${value.total_allowed_members} Members`} </p>
-                                                    <span> {`Valid for ${value.tenure} months`}</span>
+                                                    <p> {`Coverage: ${value.total_allowed_members} Member`} </p>
+                                                    <span> {`Valid for ${value.tenure} Month`}</span>
                                                 </div>
                                                 <p className="goldPrices">₹{value.deal_price}</p>
                                             </div>           
@@ -821,10 +821,10 @@ class VipGoldView extends React.Component {
                                             <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(1) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <p className={`gold-sub-acrd-content ${this.state.tabsValue.indexOf(1) > -1 ? 'd-none' : ''}`}>
-                                            You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. Additionally, you will get flat 23% discount on prescribed medicines on Medlife.com. The membership will last till the duration of the plan.
+                                            You can avail exclusive discounts on Doctor and Lab test appointments for the covered members in the plan. The membership will last till the duration of the plan.
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
+                                    {/*<div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 2)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500">How can I avail discounts on medicines? </h2>
                                             <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(2) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -834,7 +834,7 @@ class VipGoldView extends React.Component {
                                         <br />
                                             <span> For more details  <span style={{ color: '#f78631', cursor: 'pointer' }} onClick={this.props.toggle.bind(this, true)}>click here</span></span>
                                         </p>
-                                    </div>
+                                    </div>*/}
                                     <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 3)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500">Whom can I add members under the plan? </h2>
@@ -844,7 +844,8 @@ class VipGoldView extends React.Component {
                                             You can add your family, extended family or friends under the plan
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 4)}>
+                                   {/*
+                                         <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 4)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500">How can I avail free doctor consultations for lab appointment?</h2>
                                             <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(4) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -853,6 +854,7 @@ class VipGoldView extends React.Component {
                                             After completion of a pathology lab appointment, you will have the option to consult with our panel of doctors for free & get your lab report reviewed.
                                         </p>
                                     </div>
+                                   */}
 
                                     <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 5)}>
                                         <div className="acdn-title">
@@ -908,7 +910,8 @@ class VipGoldView extends React.Component {
                                             No, you can’t pay for membership fee using Docprime’s wallet promotional balance
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 11)}>
+                                    {/*
+<div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 11)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500">How can I cancel my gold membership and get refund for the same? </h2>
                                             <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(11) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -917,6 +920,7 @@ class VipGoldView extends React.Component {
                                             We assure you the best discounts and service quality on Docprime for full year. However, if you are still not satisfied for any reason, you can place a 100% refund request by sending an email at customercare@docprime.com with your contact no. The refund will be credited in the original payment mode within 5- 7 working days.
                                         </p>
                                     </div>
+                                    */}
                                     <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 12)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500">Will I get any tax benefit? </h2>
@@ -935,7 +939,7 @@ class VipGoldView extends React.Component {
                                             No, Gold plans are not insurance products. It is membership to get discounts on doctor and lab appointments that will help you reduce your healthcare expenses.
                                         </p>
                                     </div>
-                                    <div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 14)}>
+                                    {/*<div className="gold-sub-acrd" onClick={this.ButtonHandler.bind(this, 14)}>
                                         <div className="acdn-title">
                                             <h2 className="fw-500"> How to use online consultation? </h2>
                                             <img className={`acdn-arrow  ${this.state.tabsValue.indexOf(14) > -1 ? '' : 'acdn-arrow-up'}`} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -954,6 +958,7 @@ class VipGoldView extends React.Component {
                                             We have built features like image sharing and audio calling along with chat to ensure doctors can get all the required information for diagnosis. You just need to answer a few questions and our doctors will give you qualified medical advice on your health issues.
                                         </p>
                                     </div>
+                                */}
                                 </div>
 
                                 {/* ===================inner accordion container=================== */}

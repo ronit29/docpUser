@@ -6,7 +6,7 @@ class GoldHomePageView extends React.PureComponent {
 
         return (
 
-            <div className="gold-banner-container d-lg-none mb-10">
+            <div className="gold-banner-container d-lg-none d-none mb-10">
                 <div className="gold-banner-card">
                     <div className="gld-home-icon">
                         <p>Docprime <img className="img-fluid" src={ASSETS_BASE_URL + '/img/gold-lg.png'} /></p>

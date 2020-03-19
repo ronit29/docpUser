@@ -836,7 +836,7 @@ p.top-head-link.card-lab-link span {
 /*header styling*/
 
 @media(max-width: 767px) {
-    .hs-card{
+     .hs-card{
         margin-top: 5px;
     }
     .hide-762 {
@@ -15520,24 +15520,43 @@ p.bnft-subtxt span img {
     box-shadow: -1.4px 2.7px 6px 0 rgba(0, 0, 0, 0.17);
 }
 /* ======================================= benefit section ======================================= */
+
+@media(max-width: 767px) {
+    .gold-pln-cont {
+    margin: 10px 10px !important;
+    width: auto !important;
+}
+}
 .gold-pln-cont {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 20px;
     box-shadow: 0px 3px 6px #00000029;
-    margin: 10px 10px;
+    margin: 10px auto;
+    width: 50%;
     border-radius: 10px;
 }
 .goldPlanSec p {
     font-weight: 500;
+    color: #1b97fd;
+    font-size:16px;
 }
 .goldPlanSec span {
     color: #757575;
+    font-weight: 500;
+    margin-top: 3px;
+    display: inline-block;
 }
 p.goldPrices {
     color: #41A2F9;
     font-size: 22px;
     font-weight: 500;
+}
+.gldhdng{
+        font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-left: 10px;
 }
 
