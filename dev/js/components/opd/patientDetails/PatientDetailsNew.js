@@ -1788,7 +1788,7 @@ class PatientDetailsNew extends React.Component {
         }
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader bookingPage={true} />
+                <ProfileHeader bookingPage={true} summaryPage={true}/>
                 {
                     /*this.state.show_banner ?
                         <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable={is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)} />
@@ -1818,7 +1818,7 @@ class PatientDetailsNew extends React.Component {
                 }
                 {
                     this.props.codError ? <CodErrorPopup codErrorClicked={() => this.codErrorClicked()} codMsg={this.props.codError} /> :
-                        <section className="container container-top-margin">
+                        <section className="container container-top-margin cls-bnr">
                             <div className="row main-row parent-section-row">
                                 <LeftBar />
                                 <div className="col-12 col-md-7 col-lg-7 center-column">

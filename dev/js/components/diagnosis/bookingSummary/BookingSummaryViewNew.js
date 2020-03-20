@@ -1912,7 +1912,7 @@ class BookingSummaryViewNew extends React.Component {
         return (
 
             <div className="profile-body-wrap">
-                <ProfileHeader bookingPage={true} />
+                <ProfileHeader bookingPage={true} summaryPage={true}/>
                 {
                     this.state.showConfirmationPopup == 'open' && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={() => { }} isLab={true} />
@@ -1931,7 +1931,7 @@ class BookingSummaryViewNew extends React.Component {
                     this.state.paymentBtnClicked ?
                         <div className="bkng-time-overlay"><Loader /></div> : ''
                 }
-                <section className="container container-top-margin">
+                <section className="container container-top-margin cls-bnr">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
