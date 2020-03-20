@@ -33,6 +33,8 @@ class LeftMenu extends React.Component {
     let user_ins_status
     let is_user_gold_member = false 
     let gold_user_profile = {}
+    let is_care = false
+    let care_user_profile ={}
     if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 
       user = this.props.profiles[this.props.defaultProfile]
@@ -49,12 +51,18 @@ class LeftMenu extends React.Component {
          Object.entries(this.props.profiles).map(function([key, value]) { 
               if(value.is_vip_gold_member){
                   gold_user_profile = value
+              }
+              if(value.is_care){
+                  care_user_profile = value
               } 
           })
          if(gold_user_profile && Object.keys(gold_user_profile).length){
             is_user_gold_member = true
             memberClass = 'float-right memAct'
             memStatus = 'Active'
+         }
+         if(care_user_profile && Object.keys(care_user_profile).length){
+            is_care = true
          }
     }
 
@@ -136,9 +144,14 @@ class LeftMenu extends React.Component {
                           }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7? 'Active' : 'New'}</span></a></li>
                           : ''
                       }
-                      <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
-                                    {/* <span className={memberClass}>{memStatus}</span> */}
-                                    </a></li>
+                      {
+                        is_care?
+                        <li>
+                          <a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care <span className="float-right memAct">Active</span>
+                          </a>
+                        </li>
+                        :''
+                      }
 
                       <li><a onClick={(e) => {
                         e.preventDefault()

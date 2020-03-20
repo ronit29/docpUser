@@ -91,7 +91,21 @@ class ProfileData extends React.Component {
             memStatus = 'Active'
         }
 
+        let is_care = false
+        let care_user_profile ={}
+
         let defaultProfile = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]:null;
+
+        if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length){
+             Object.entries(this.props.USER.profiles).map(function([key, value]) { 
+                  if(value.is_care){
+                      care_user_profile = value
+                  } 
+              })
+             if(care_user_profile && Object.keys(care_user_profile).length){
+                is_care = true
+             }
+        }
 
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav new-profile-header-margin">
@@ -354,18 +368,22 @@ class ProfileData extends React.Component {
                             </li>
                             : ''}
                             {/* redirect to  docprime care page*/}
-                        <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
-                            <a>
-                                <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
-                                </span>
-                                <div className="nav-content" style={{ width: '100%' }}>
-                                    <h4 className="title app-title">Docprime Care
-                                        {/* <button className={memberClass}>{memStatus}</button> */}
-                                    </h4>
-                                </div>
-                            </a>
-                        </li>
+                        {
+                            is_care?
+                            <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content" style={{ width: '100%' }}>
+                                        <h4 className="title app-title">Docprime Care
+                                            <button className="ins-userdetails-active">Active</button>
+                                        </h4>
+                                    </div>
+                                </a>
+                            </li>
+                            :''
+                        }
                         {/*Prescriptions page */}
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
