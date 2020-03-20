@@ -15526,6 +15526,9 @@ p.bnft-subtxt span img {
     margin: 10px 10px !important;
     width: auto !important;
 }
+p.coronaVirus {
+    padding: 10px 5% !important;
+}
 }
 .gold-pln-cont {
     display: flex;
@@ -15559,4 +15562,13 @@ p.goldPrices {
     font-weight: 600;
     margin-left: 10px;
 }
-
+p.coronaVirus {
+    background: #c353a7;
+    color: white;
+    padding: 10px 10%;
+    font-weight: 500;
+}
+p.coronaVirus a{
+    font-weight: 700;
+    color: white;
+}
