@@ -103,7 +103,7 @@ class LeftMenu extends React.Component {
                       {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                                 */}
                       {
-                        CONFIG.ENABLE_VIP_GOLD ?
+                        CONFIG.ENABLE_VIP_GOLD && false?
                           <li><a className="p-relative" onClick={(e) => {
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'

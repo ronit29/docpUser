@@ -173,7 +173,7 @@ class DesktopProfileHeader extends React.Component {
                             <img src={ASSETS_BASE_URL + "/img/logo-pg.png"}  height="18px"/>
                         </h6>
                         <ul id="listView">
-                            <li className="text-capitalize"  onClick={(e) => {
+                            {/*<li className="text-capitalize"  onClick={(e) => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
                                 }
@@ -183,7 +183,7 @@ class DesktopProfileHeader extends React.Component {
                                 this.navigateTo("/vip-gold-details?is_gold=true&source=desktop-submenu-gold-clicked&lead_source=Docprime", 'opd')}}>
                                 <img src={ASSETS_BASE_URL + "/img/gold-lg.png"}  width="35" />
                                 <span className="ml-2">docprime gold</span>
-                            </li>
+                            </li>*/}
                             <li className="text-capitalize" onClick={(e) => {
                                 e.preventDefault();
                                 this.navigateTo("/search", 'opd')}}>find a doctor</li>
