@@ -84,7 +84,7 @@ class VisitTimeNew extends React.Component {
         return (
             <div className={`widget mrb-15 ${this.props.timeError ? 'rnd-error-nm' : ''}`}>
                 <div className="widget-content pos-relative">
-                    {/*
+                    {
                         this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare ?
                            
                             this.props.pincode ?
@@ -97,7 +97,7 @@ class VisitTimeNew extends React.Component {
                                     <a href="javascript:void(0);">Add</a>
                                 </div>
                             : ''
-                    */}
+                    }
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title d-flex"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
@@ -112,10 +112,7 @@ class VisitTimeNew extends React.Component {
                         
                         </div>*/}
                         {
-                            this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare?<div className='nw-timeslot-container'>
-                                        <div>No time slots Available</div>
-                                    </div>
-                            :!(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab] ) && <a href="" onClick={(e) => {
+                            !(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab] ) && <a href="" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.navigateTo('time', this.props.is_insurance_applicable)
@@ -123,7 +120,7 @@ class VisitTimeNew extends React.Component {
                         }
                     </div>
                     {
-                        this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare?
+                        this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab]?
                             <div className="vst-time-cont">
                                 <React.Fragment>
                                     {
