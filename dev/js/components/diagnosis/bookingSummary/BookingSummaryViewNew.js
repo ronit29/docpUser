@@ -1861,11 +1861,11 @@ class BookingSummaryViewNew extends React.Component {
         if (!total_test_count && is_selected_user_gold) {
             is_vip_gold_applicable = true
         }
-
+        let is_cover_under_vip_gold = false;
         if (vip_data && (vip_data.is_enable_for_vip)) {
 
             if (is_selected_user_gold) {
-
+                is_cover_under_vip_gold = true;
                 if (finalPrice < (vip_data.vip_amount + vip_data.vip_convenience_amount)) {
                     vip_data.is_enable_for_vip = false;
                     is_vip_applicable = false;
@@ -1879,6 +1879,7 @@ class BookingSummaryViewNew extends React.Component {
             } else {
 
                 if (is_vip_applicable) {
+                    is_cover_under_vip_gold = true;
                     vip_discount_price = finalMrp - vip_data.vip_amount
                     total_amount_payable = vip_data.vip_amount + (is_home_charges_applicable ? labDetail.home_pickup_charges : 0) - (this.state.is_cashback ? 0 : (this.props.disCountedLabPrice || 0))
                 } else if (vip_data.is_gold) {
@@ -1909,6 +1910,10 @@ class BookingSummaryViewNew extends React.Component {
             is_gold_member: vip_data && /*vip_data.is_gold &&*/ is_selected_user_gold,
             total_amount_payable: total_amount_payable
         }
+
+        //Disable All Retail Bookings
+        let disable_all_bookings = !(is_cover_under_vip_gold || is_insurance_applicable);
+
         return (
 
             <div className="profile-body-wrap">
@@ -1984,7 +1989,14 @@ class BookingSummaryViewNew extends React.Component {
                                                         <div className="login">
                                                             {this.getPatientDetails(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
-                                                        <div className={`${this.state.disable_page && !STORAGE.isAgent() ? 'disable-opacity' : ''}`}>
+                                                        {
+                                                            disable_all_bookings?
+                                                            <div className="widget mrb-15 info-rtl">
+                                                                All bookings are disabled for new retail customers. Please contact us at customercare@docprime.com if you need more information
+                                                            </div>
+                                                            :''
+                                                        }
+                                                        <div className={`${(disable_all_bookings || this.state.disable_page && !STORAGE.isAgent() ) ? 'disable-opacity' : ''}`}>
                                                             <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="lab-visit-time d-flex jc-spaceb">
@@ -2447,7 +2459,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
 
-                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page && !STORAGE.isAgent() ? 'disable-all' : ''}`}>
+                            <div className={`${disable_all_bookings?'disable-opacity':''} fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page && !STORAGE.isAgent() ? 'disable-all' : ''}`}>
                                 {
                                     (STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured && this.props.payment_type != 6)) ?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={

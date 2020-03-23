@@ -1751,16 +1751,20 @@ class PatientDetailsNew extends React.Component {
         let total_amount_payable = finalPrice
         // is_selected_user_gold = vip_data.cover_under_vip && is_selected_user_gold
         cover_under_vip = vip_data.cover_under_vip
+
+        let is_cover_under_vip_gold = false
         if (vip_data && (vip_data.is_enable_for_vip)) {
 
             vip_discount_price = total_price - vip_data.vip_amount
 
             if (/*vip_data.hosp_is_gold && */is_selected_user_gold && cover_under_vip) {
-
+                is_cover_under_vip_gold = true
                 total_amount_payable = vip_data.vip_amount + vip_data.vip_convenience_amount - (this.state.is_cashback ? 0 : (this.props.disCountedOpdPrice || 0))
                 vip_discount_price = total_price - (vip_data.vip_amount + vip_data.vip_convenience_amount)
             } else {
+
                 if (is_vip_applicable) {
+                    is_cover_under_vip_gold = true;
                     total_amount_payable = vip_data.vip_amount - (this.state.is_cashback ? 0 : (this.props.disCountedOpdPrice || 0))
                 } else if (vip_data.hosp_is_gold) {
                     // vip_discount_price = total_price - (vip_data.vip_gold_price + vip_data.vip_convenience_amount)
@@ -1786,6 +1790,10 @@ class PatientDetailsNew extends React.Component {
             is_gold_member: vip_data && vip_data.is_gold && is_selected_user_gold,
             total_amount_payable: total_amount_payable
         }
+
+        //Disable All Retail Bookings
+        let disable_all_bookings = !(is_cover_under_vip_gold || is_insurance_applicable)
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} summaryPage={true}/>
@@ -1850,7 +1858,15 @@ class PatientDetailsNew extends React.Component {
                                                                 />
                                                                 {/* new time slot */}
                                                                 <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={hospital && hospital.is_ipd_hospital ? hospital.is_ipd_hospital : ''} doctor_id={this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : ''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true} sendEmailNotification={this.sendEmailNotification.bind(this)} getDataAfterLogin={this.getDataAfterLogin} nonIpdLeads={this.nonIpdLeads.bind(this)} is_docAds_lead={this.state.to_be_force} />
-                                                                <div className={`${this.state.disable_page && !STORAGE.isAgent()?'disable-opacity':''}`}>
+                                                                {
+                                                                    disable_all_bookings?
+                                                                    <div className="widget info-rtl mrb-15">
+                                                                        All bookings are disabled for new retail customers. Please contact us at customercare@docprime.com if you need more information
+                                                                    </div>
+                                                                    :''
+                                                                }
+                                                                
+                                                                <div className={`${(disable_all_bookings || this.state.disable_page && !STORAGE.isAgent() )?'disable-opacity':''}`}>
                                                                 {
                                                                     parsed.appointment_id && parsed.cod_to_prepaid == 'true' ?
                                                                         <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
@@ -2441,7 +2457,7 @@ class PatientDetailsNew extends React.Component {
                                     {
                                         (STORAGE.isAgent() && this.props.payment_type == 6) ?
                                             <React.Fragment>
-                                                <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                                <div className={`${disable_all_bookings?'disable-opacity':''} fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container`}>
                                                     <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, {})} className="v-btn-primary book-btn-mrgn-adjust">Send SMS EMAIL</button>
                                                     <button onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_amount_payable, total_wallet_balance, is_selected_user_insurance_status, { sendWhatsup: true })} className="add-shpng-cart-btn"><img className="img-fluid" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'}/>Send on Whatsapp</button>
                                                 </div>
@@ -2449,7 +2465,7 @@ class PatientDetailsNew extends React.Component {
                                             : ''
                                     }
 
-                                    <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page?'disable-all':''}`}>
+                                    <div className={`${disable_all_bookings?'disable-opacity':''} fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''} ${this.state.disable_page?'disable-all':''}`}>
 
                                         {
                                             this.props.payment_type != 6 && ((STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid == 'true')) ?

@@ -15575,3 +15575,8 @@ p.coronaVirus a{
 section.container.container-top-margin.cls-bnr {
     margin-top: 130px;
 }
+
+.info-rtl{
+    color: red;
+    padding: 5px;
+}
