@@ -151,6 +151,8 @@ class VipClubView extends React.Component {
     }
 
     proceed() {
+        SnackBar.show({ pos: 'bottom-center', text: 'We have currently stopped Gold subscriptions for new users. Sorry for the inconvenience caused.' })
+        return;
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
         let gtmData = {
