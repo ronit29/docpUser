@@ -17,7 +17,7 @@ class LeftMenu extends React.Component {
 
   isDocCare() {
     this.props.toggleLeftMenu()
-    if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
+    if (this.props.isUserCared && this.props.isUserCared.user_plan_id) {
       this.props.history.push('/prime/success?user_plan=' + this.props.isUserCared.user_plan_id)
     } else {
       this.props.history.push('/prime/plans')
@@ -103,7 +103,7 @@ class LeftMenu extends React.Component {
                       {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                                 */}
                       {
-                        CONFIG.ENABLE_VIP_GOLD && false?
+                        CONFIG.ENABLE_VIP_GOLD && is_user_gold_member?
                           <li><a className="p-relative" onClick={(e) => {
                             let data = {
                               'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuGoldClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-gold-clicked'

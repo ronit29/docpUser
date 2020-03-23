@@ -15580,3 +15580,6 @@ section.container.container-top-margin.cls-bnr {
     color: red;
     padding: 5px;
 }
+.chat-err{
+    text-align: justify;
+}

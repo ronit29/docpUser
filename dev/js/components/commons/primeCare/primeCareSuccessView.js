@@ -8,6 +8,9 @@ import Loader from '../../commons/Loader'
 class PrimeCareSuccessView extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            chatError: false
+        }
     }
 
     getDate(unix_date){
@@ -72,9 +75,16 @@ class PrimeCareSuccessView extends React.Component {
                                             }
                                             
                                         </ul>
-                                        <div className="d-flex justify-content-center align-items-center mrb-10" onClick={() => this.props.history.push('/mobileviewchat')}>
+                                        <div className="d-flex justify-content-center align-items-center mrb-10" onClick={()=>this.setState({chatError: true}) } >
                                             <button class="cstm-book-btn fw-500" style={{ width: 100, marginTop: 0 }}>Chat now</button>
                                         </div>
+                                        {
+                                            this.state.chatError?
+                                            <div className="info-rtl chat-err mrb-15">
+                                                Due to Covida-19 outbreak, our chat services are temporarily suspended. We are sorry for the inconvenience caused
+                                            </div>
+                                            :''
+                                        }
                                         <p className="careThankpara">Thanks for choosing <a onClick={(e) =>this.props.history.push('/')}>docprime.com</a></p>
                                     </div>
                                 </div>

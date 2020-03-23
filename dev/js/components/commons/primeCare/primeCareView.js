@@ -313,8 +313,8 @@ class PrimeCareView extends React.Component {
 
                                                                     </div>
                                                                     <div className="new-care-btn">
-                                                                        <button onClick={self.buyNow.bind(self, value.id)}>Buy Now
-                                                                            <span>{self.props.data && self.props.data.plans && self.props.data.plans.length?`(₹ ${parseInt(self.props.data.plans[0].deal_price)})`:''}</span>
+                                                                        <button onClick={self.buyNow.bind(self, value.id)}>Show Care Info
+                                                                           {/*} <span>{self.props.data && self.props.data.plans && self.props.data.plans.length?`(₹ ${parseInt(self.props.data.plans[0].deal_price)})`:''}</span>*/}
                                                                         </button>
                                                                     </div>
                                                                 </div>

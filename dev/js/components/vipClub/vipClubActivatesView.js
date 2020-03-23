@@ -354,7 +354,7 @@ class VipClub extends React.Component { // dashboard view
                                                     <input style={{ opacity: 0 }} id="myInput" type="text" value="DOCPRIME" />
                                                 </p>
                                             </div>
-                                            <a href="http://bit.ly/2NXLR5u" target="_blank" className="order-now">
+                                            <a href="http://bit.ly/2vHLpmW" target="_blank" className="order-now">
                                                 <span>Order medicine now</span>
                                                 <img src="/assets/img/customer-icons/dropdown-arrow.svg"></img>
                                             </a>
