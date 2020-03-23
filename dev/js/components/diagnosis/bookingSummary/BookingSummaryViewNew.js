@@ -1913,7 +1913,11 @@ class BookingSummaryViewNew extends React.Component {
 
         //Disable All Retail Bookings
         let disable_all_bookings = !(is_cover_under_vip_gold || is_insurance_applicable);
+        if(STORAGE.checkAuth()){
 
+        }else{
+            disable_all_bookings = false
+        }
         return (
 
             <div className="profile-body-wrap">
