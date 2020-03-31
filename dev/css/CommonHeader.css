@@ -164,7 +164,7 @@
         position: relative;
     }
     .user-name-initials{
-        display: none;
+        display: none!important;
     }
     .top-header{
         padding: 5px 10px;

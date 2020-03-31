@@ -247,12 +247,13 @@ class DesktopProfileHeader extends React.Component {
                                         {
                                             this.props.homePage?
                                             <div className="d-lg-none" >
-                                                <img style={{ width: '95px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/SBI_Logo.png"} alt="docprime" />
+                                                <img style={{ width: '95px', marginRight: '5px', marginLeft: 10, marginTop: 10 }} src={ASSETS_BASE_URL + "/img/SBI_Logo.jpeg"} alt="docprime" />
                                             </div>
                                             :''
                                         }
                                         <div className="d-lg-none" >
                                             <img height="50" style={{marginLeft: 6}} src="https://cdn.docprime.com/media/web/custom_images/LOGO-01.svg" alt="docprime" />
+                                            
                                         </div>
                                     </React.Fragment>
                                     :<div className="d-lg-none" >
@@ -388,7 +389,12 @@ class DesktopProfileHeader extends React.Component {
                                         : <a className="d-flex align-item-center no-border" onClick={() => {
                                         this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                         }}>
-                                            <img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+                                            {
+                                                this.state.showSBI && document && typeof document=='object' && document.location && document.location.host && document.location.host.includes('sbi')?
+                                                <img height="24px" src={ASSETS_BASE_URL + "/img/login-sbi.svg"} />
+                                                :<img height="24px" src={ASSETS_BASE_URL + "/img/login.svg"} />
+
+                                            }
                                             <span className="d-none d-sm-block d-lg-block user-name-span">login</span>
                                         </a>
                                     }
