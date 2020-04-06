@@ -16,7 +16,7 @@ class ChatHistory extends React.Component {
 
     componentDidMount() {
         if (STORAGE.checkAuth()) {
-            this.props.fetchChatHistory()
+           // this.props.fetchChatHistory()
         }
     }
 

@@ -153,11 +153,11 @@ class LeftMenu extends React.Component {
                         :''
                       }
 
-                      <li><a onClick={(e) => {
+                     {/* <li><a onClick={(e) => {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/user/onlinePrescriptions')
-                      }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />My Online Prescriptions</a></li>
+                      }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />My Online Prescriptions</a></li>*/}
 
                       <li><a onClick={(e) => {
                         e.preventDefault()

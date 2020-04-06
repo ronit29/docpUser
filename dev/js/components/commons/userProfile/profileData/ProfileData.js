@@ -384,7 +384,7 @@ class ProfileData extends React.Component {
                             </li>
                             :''
                         }
-                        {/*Prescriptions page */}
+                        {/*Prescriptions page 
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
@@ -392,11 +392,10 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Online Prescriptions
-                                        {/* <span className="float-right badge badge-warning">1</span> */}
                                     </h4>
                                 </div>
                             </a>
-                        </li>
+                        </li> */}
                         {/*Appointments page*/}
                         <li onClick={this.gotTo.bind(this, 'appointments')} className="my-profile-item lst-spcng">
                             <a>

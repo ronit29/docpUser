@@ -5,7 +5,7 @@ class UserPrescriptionList extends React.Component{
 
 	componentDidMount(){
 		if(this.props.USER.primaryMobile){
-			this.props.getUserPrescription(this.props.USER.primaryMobile);
+			//this.props.getUserPrescription(this.props.USER.primaryMobile);
 		}
 	}
 

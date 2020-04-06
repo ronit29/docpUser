@@ -128,12 +128,12 @@ class ChatPanel extends React.Component {
 
                             }
 
-                            this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
-                                this.dispatchCustomEvent('profile_assigned', {
-                                    profileId: data.id
-                                })
+                            // this.props.getChatDoctorById(data.data.manager, data.data.rid, (data) => {
+                            //     this.dispatchCustomEvent('profile_assigned', {
+                            //         profileId: data.id
+                            //     })
 
-                            })
+                            // })
                             break
                         }
 
