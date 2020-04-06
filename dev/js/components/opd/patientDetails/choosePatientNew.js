@@ -492,15 +492,15 @@ class ChoosePatientNewView extends React.Component {
                                         <p className={`get-otp ${this.state.otpTimeout?'otp-rsnd-active':'otp-rsnd click-disable'}`} onClick={(e) => {e.preventDefault(); this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}}> {this.state.smsBtnType ? 'Get OTP on Whatsapp' : 'Get OTP on SMS'}</p>
                                     </div>
                                 :""}
-                                <div className= {`input-booking-smswhts d-flex align-flex-sp-bt ${this.state.showLogin?'otpLogin':''}`} >
+                                <div className= {`input-booking-smswhts d-flex align-flex-sp-bt  single-btn ${this.state.showLogin?'otpLogin':''}`} >
                                     {
                                         this.state.showLogin?
                                         <button className="otp-login-btn" onClick={(e) =>{e.preventDefault(); this.submitOTPRequest()}}>
                                         Login
                                         </button>
                                         :<React.Fragment>
-                                        <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
-                                            <img className="whtsp-ico" src="/assets/img/wa-logo-main.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button>
+                                        {/* <button className="input-sms-whts" onClick={(e) => {e.preventDefault(); this.verify(false, false, true)}}>
+                                            <img className="whtsp-ico" src="/assets/img/wa-logo-main.svg" style={{ marginRight: '5px' }} />Get OTP on Whatsapp</button> */}
                                         <button className="input-sms-ver mr-0" onClick={(e) => {e.preventDefault(); this.verify(false, true, false)}}>
                                             <img className="sms-ico" src="/assets/img/smsicon.svg" style={{ marginRight: '5px' }} />Get OTP on SMS</button>
                                         </React.Fragment>

@@ -8654,3 +8654,7 @@ p.avl-cont {
     align-items: center;
     justify-content: center;
 }
+
+.single-btn{
+    justify-content: center;
+}

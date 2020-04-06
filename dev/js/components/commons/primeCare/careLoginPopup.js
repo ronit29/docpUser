@@ -148,11 +148,11 @@ class CareLoginPopup extends React.Component{
                                                     <img className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS
                                                 </button>
                                             </div>
-                                            <div className="text-center">
+                                            {/* <div className="text-center">
                                                 <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, false, true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
                                                     <img className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp
                                                 </button>
-                                            </div>
+                                            </div> */}
                                         </React.Fragment>
                                 }
                             </div>
