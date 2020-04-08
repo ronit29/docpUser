@@ -22,7 +22,7 @@ class IpdTabForm extends React.Component {
 			dateModal: false,
 			formattedDate: '',
 			submitFormSuccess: false,
-			whatsapp_optin: true,
+			whatsapp_optin: false,
 			isDobValidated:false
 		}
 	}
@@ -310,10 +310,10 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
-					<div className="mrb-15">
+					{/*<div className="mrb-15">
                          <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
                          </label>
-                	</div>
+                	</div>*/}
 					{
 					this.props.tabView?
 						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
