@@ -14958,7 +14958,7 @@ a.text-center.ref-whtsp img {
     outline: none;
     font-weight: 500;
 }
-button.med-popBtn {
+a.med-popBtn, button.med-popBtn {
     display: block;
     margin: auto;
     color: #171c42;

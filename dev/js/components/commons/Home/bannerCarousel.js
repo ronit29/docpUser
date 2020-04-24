@@ -422,7 +422,7 @@ class BannerCarousel extends React.Component {
                             }
                         </div>
                         :this.props.sliderLocation=='home_page'?
-                            <div className="slider-container">
+                            <div className="slider-container bnnrForCovivd">
                                 {
                                     filteredBanners && filteredBanners.length ?
                                         filteredBanners.map((offer, i) => {
