@@ -91,6 +91,9 @@ const STORAGE = {
         return Promise.resolve(true)
     },
     getAuthToken: (dataParams={}) => {
+
+        return Promise.resolve(getCookie('tokenauth'))  
+        
         let istokenRefreshCall = dataParams.url && dataParams.url.includes('api-token-refresh')
         let exp_time = {}
         try{

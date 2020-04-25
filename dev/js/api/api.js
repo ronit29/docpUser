@@ -12,13 +12,13 @@ let axiosInstance = Axios.create({
 
 function rejectHandler(response, urlInfo, callback) {
 
-    if (urlInfo && urlInfo.url && urlInfo.url.includes('api-token-refresh') && response && response.response && (response.response.status <= 500) ) {
+    if (false && urlInfo && urlInfo.url && urlInfo.url.includes('api-token-refresh') && response && response.response && (response.response.status <= 500) ) {
         STORAGE.deleteAuth().then(() => {
             // send to login page
             NAVIGATE.navigateTo('/')
             // clear entire store (initially peristed)
         })
-    }else if(response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token && STORAGE.checkAuth()){
+    }else if(false && response && response.response && (response.response.status == 401) && urlInfo && urlInfo.url && urlInfo.token && STORAGE.checkAuth()){
         STORAGE.refreshTokenCall({token:urlInfo.token, fromWhere:'API', isForceUpdate:true}).then(()=>{
 
             if(urlInfo.type=='API_GET'){

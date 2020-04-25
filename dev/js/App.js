@@ -230,7 +230,7 @@ class App extends React.Component {
     }
 
     componentWillReceiveProps(props){
-        this.tokenRefresh(props)
+        //this.tokenRefresh(props)
     }
 
     toggleLeftMenu(toggle, defaultVal) {
