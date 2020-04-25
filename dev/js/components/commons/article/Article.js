@@ -384,7 +384,7 @@ class Article extends React.Component {
     mainPopupData() {
         let data = (
             <div className="articleImgPop">
-                <div className="p-relative gold-med-bnr">
+                {/* <div className="p-relative gold-med-bnr">
                     <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-cross-clicked'
@@ -394,8 +394,31 @@ class Article extends React.Component {
                         this.setState({showMainPopup:false})}} />
                     <img className="img-fluid " src={ASSETS_BASE_URL + '/img/popimage.png'} onClick={this.navigateToGold}/>
                     <div className="med-popUpInput-cont">
-                        {/*<input type="tel" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>*/}
+                        <input type="tel" placeholder="Enter mobile number to view offer" maxLength="10" value={this.state.phone_number} onChange={this.handleChange} style={{border:this.state.inValidPhno?'1px solid red':''}}/>
                         <button type="button" onClick={this.navigateToGold} className="med-popBtn">Become Gold Member Now <span className="circle-arrow"><i></i></span></button>
+                    </div>
+
+                </div> */}
+                <div className="p-relative gold-med-bnr covidBanner">
+                    <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-cross-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        event.stopPropagation();
+                        this.setState({showMainPopup:false})}} />
+                    <h4>Protect yourself against</h4>
+                    <p>COR<img className="img-fluid" src={ASSETS_BASE_URL + '/img/virus.svg'}/>NAVIRUS</p>
+                    {/* <p className="subTxtCorona">"Stay home and View Quotes Online"</p> */}
+                    <div className="covidBtn-cont">
+                        <a target="_blank" href="https://termlife.policybazaar.com/?pb_source=docprime " type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
+                        <img src={ASSETS_BASE_URL + '/img/ins.svg'}/>
+                        <span>Term Insurance</span> 
+                        </a>
+                        <a target="_blank" href="https://health.policybazaar.com/?utm_source=docprime" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
+                        <img src={ASSETS_BASE_URL + '/img/helth.svg'}/>
+                        <span>Health Insurance</span>
+                        </a>
                     </div>
 
                 </div>

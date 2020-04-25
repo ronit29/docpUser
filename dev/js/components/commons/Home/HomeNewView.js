@@ -469,6 +469,26 @@ class MainView extends React.Component{
                     }
                     {/****** homepage  view *********/}
                     <div className="new-main-view" id="mainView">
+                    {
+                            showGoldBanner?
+                            <section className="card-block-row banner-slider-row mbl-banner">
+                                {
+                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                                }
+                                
+                            </section>
+                            :''
+                        }
+                        {/******  desktop banner *********/}
+                        <section className="card-block-row banner-slider-row d-banner">
+                                {
+                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                                }
+                            </section>
+                        {/******  desktop banner *********/}  
+
                         {/******  full width banner *********/}
                         <UpComingAppointmentView {...this.props} />
                         <section className="d-none full-banner-section">
@@ -556,17 +576,7 @@ class MainView extends React.Component{
                         }
                         
 
-                        {
-                            showGoldBanner?
-                            <section className="card-block-row banner-slider-row mbl-banner">
-                                {
-                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                                }
-                                
-                            </section>
-                            :''
-                        }
+                        
                         
                         {/******  Popular health packages section *********/}    
                         {
@@ -591,14 +601,7 @@ class MainView extends React.Component{
                             :''
                         }  
                         
-                        {/******  desktop banner *********/}
-                            <section className="card-block-row banner-slider-row d-banner">
-                                {
-                                    !isSBI && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                                }
-                            </section>
-                        {/******  desktop banner *********/}    
+                          
                         {/******  Book lab test *********/}  
                         
                         {

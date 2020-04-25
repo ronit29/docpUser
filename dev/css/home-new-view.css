@@ -1,6 +1,6 @@
 .new-main-view {
-    /* padding: 110px 37px 37px 37px; */
-    padding: 160px 37px 37px 37px;
+    padding: 110px 37px 37px 37px;
+    /* padding: 160px 37px 37px 37px; */
     background: url(/assets/img/main-bg.svg) no-repeat;
     background-size: 90%;
     background-position: 0% 0%;
@@ -594,7 +594,9 @@
     .upload-lab-widget{
         display:none;
     }
-
+.bnnrForCovivd{
+    display: block !important;
+}
     .banner-slider-row>div>.slider-container{
         left: 0px;
         padding: 10px!important;

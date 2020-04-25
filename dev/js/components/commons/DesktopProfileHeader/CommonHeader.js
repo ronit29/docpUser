@@ -247,7 +247,7 @@ class DesktopProfileHeader extends React.Component {
                                         {
                                             this.props.homePage?
                                             <div className="d-lg-none" >
-                                                <img style={{ width: '95px', marginRight: '5px', marginLeft: 10, marginTop: 10 }} src={ASSETS_BASE_URL + "/img/SBI_Logo.jpeg"} alt="docprime" />
+                                                <img style={{ width: '95px', marginRight: '5px', marginLeft: 10, marginTop: 10 }} src={ASSETS_BASE_URL + "/img/SBI_Logo1.png"} alt="docprime" />
                                             </div>
                                             :''
                                         }
@@ -402,11 +402,11 @@ class DesktopProfileHeader extends React.Component {
                             </ul>
                             {/* header list items    */}
                         </div>
-                        {
+                        {/* {
                             this.props.summaryPage?
                             <p className="coronaVirus">Due to Coronavirus outbreak, our team is working from home. Our toll free no will be unresponsive. Please accept apologies for the possible delay in service. For any urgent queries, please write to us  <a href="mailto:customercare@docprime.com">customercare@docprime.com</a></p>
                             :''
-                        }
+                        } */}
                     </div>
                     {/* mobile view search box */}
                     <div className="col-12 mbl-search-box d-lg-none">
@@ -455,11 +455,11 @@ class DesktopProfileHeader extends React.Component {
                     
                 </div>
                 {/* new main header */}
-                {
+                {/* {
                     this.props.homePage?
                     <p className="coronaVirus">Due to Coronavirus outbreak, our team is working from home. Our toll free no will be unresponsive. Please accept apologies for the possible delay in service. For any urgent queries, please write to us  <a href="mailto:customercare@docprime.com">customercare@docprime.com</a></p>
                     :''
-                }
+                } */}
             </header>
         );
     }

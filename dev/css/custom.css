@@ -210,6 +210,7 @@
         position: -webkit-sticky!important;
         bottom: 0!important;
     }
+    
 }
 
 @media(min-width: 993px) {
@@ -7031,6 +7032,9 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
         left: 0;
         right: 0;
     }
+    .covidBanner{
+        min-width: 360px !important;
+    }
     .new-care-btn button {
         width: 90%;
         margin: auto;
@@ -8475,6 +8479,8 @@ div.onln-doc-cnslt div.chatbox-right {
     top: -9px;
     cursor: pointer;
     width: 20px;
+    box-shadow: -1px 1px 0 0 #aba8a8;
+    border-radius: 100px;
 }
 @media (max-width:767px){ 
     .articleImgPop .gold-med-bnr{
@@ -8657,4 +8663,67 @@ p.avl-cont {
 
 .single-btn{
     justify-content: center;
+}
+
+.covidBanner{
+    background: white;
+    min-width: 380px;
+    padding: 12px;
+    text-align: center;
+}
+.covidBanner h4{
+    font-weight: 500;
+    font-size: 20px;
+}
+.covidBanner p{
+    font-weight: 500;
+    margin: 10px 0px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.covidBanner img{
+    width: 20px;
+    margin: 0 3px;
+}
+.covidBtn-cont{
+    display: flex;
+    margin-top: 20px;
+}
+.covidBtn-cont a.med-popBtn{
+    background-color: #3d6cf9;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    overflow: hidden;
+    width: 40%;
+    padding-bottom: 5px;
+}
+span.upName {
+    color: white;
+    background: #12ad3e;
+    padding: 5px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.covidBtn-cont a.med-popBtn img{
+    margin: 10px 0;
+    width: 30px;
+}
+.bnnrForCovivd{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.subTxtCorona{
+    color: #5c5c5c;
+    border: 1px solid #e8e6e6;
+    border-right: none;
+    border-left: none;
+    padding: 5px 0;
+    font-size: 12px;
 }
