@@ -13,11 +13,11 @@ class Insurance extends React.Component {
 				<div className="profile-body-wrap">
 					<ProfileHeader showPackageStrip={true} />
 
-					<section className="container article-container">
+					<section className="container article-container bottomMargin">
 						<div className="row main-row parent-section-row justify-content-center">
 							<div className="col-12 col-md-10 col-lg-10 center-column">
-								<div className="container-fluid article-column">
-									<div className="ins-landing-container">
+								<div className="container-fluid mt-20">
+									{/* <div className="ins-landing-container">
 										<div>
 											<div className="ins-steps-section">
 												<div className="doc-usr-only">
@@ -93,6 +93,430 @@ class Insurance extends React.Component {
 												<li>Docprime's Insurance network is dynamic in nature and may change from time to time</li>
 											</ul>
 										</div>
+									</div> */}
+									<div>
+										<div className="widget mrb-10">
+											<div className="ins-card-head">
+												<div className="ins-name-head-div d-flex align-items-start digit-logo">
+													<img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
+													<p className="fw-500 mrt-10">
+														Group Out-patient Insurance</p>
+												</div>
+												<div className="ins-pdf-dwnload-div d-flex align-items-center">
+													<a href="" >
+														<img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
+													</a>
+													<span className="fw-500">
+														Policy Details</span>
+												</div>
+											</div>
+											<div className="ins-swich-tabs-container">
+												<div className="ins-tabs">
+													<ul>
+														<li onClick={() => this.setState({ toggle: 'one' })}>
+															<p className='ins-tab-inactive'>Salient Features</p>
+														</li>
+														<li >
+															<p className='active' >What's not Covered?</p></li>
+													</ul>
+												</div>
+												<div className="ins-tabs-content widget-content">
+													<ul>
+														<li>All procedures (dental, daycare etc..) and sessions  </li>
+														<li> procedures (dental, daycare etc..) and sessions  </li>
+														<li>ss procedures (dental, daycare etc..) and sessions  </li>
+														<li>Af procedures (dental, daycare etc..) and sessions  </li>
+														<li> procedures (dental, daycare etc..) and sessions  </li>
+													</ul>
+													{/* <div style={{ paddingBottom: 10 }}>
+														<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+															<a style={{ paddingLeft: '12px', fontWeight: '500', fontSize: '12px', color: '#f78631', textDecoration: 'underline', cursor: 'pointer' }} href="" id="terms_condition">T&C apply</a>
+															<a style={{ paddingRight: '12px', fontWeight: '500', fontSize: '12px', color: '#f78631', textDecoration: 'underline', cursor: 'pointer' }} href='/insurance/network' >View Network</a>
+														</div>
+
+													</div> */}
+												</div>
+											</div>
+										</div>
+										{/* <div className="mt-0" style={{ padding: '0 4px 10px' }} >
+												<div className="d-flex align-items-start">
+													<div className="d-flex ins-form-info align-items-center text-center">
+														<p className="fw-500 mrb-10">Coverage (1 Year)</p>
+														<p className="fw-500">dummy</p>
+													</div>
+													<div className="d-flex ins-form-info align-items-center text-center">
+														<p className="fw-500 mrb-10">Annual Premium</p>
+														<p className="fw-500">₹ 9999</p>
+													</div>
+												</div>
+												<div className="mrt-10" style={{ cursor: 'pointer', paddingLeft: 5 }}>
+													<p className="fw-500 text-primary">Select another plan':'Edit'</p>
+												</div>
+											</div> */}
+										<div className="widget mrb-10 digi-step">
+											<div className="ins-status-container">
+												<div className="navigation_menu" id="">
+													<ul className="navigation_tabs" id="">
+														<li className="tab_inactive">
+															<a href="#">Choose Your Plan</a>
+														</li>
+														<li className='tab_inactive'>
+															<a href="#">Fill Member Details</a>
+														</li>
+														<li className="tab_disabled">
+															<a href="#">Payment</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div className="widget mrb-10">
+											<table className="table table-bordered insurance-tbl insurance-checkboxes">
+												<thead>
+													<tr>
+														<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
+														<th className="tbl-second-head"><p>Annual Premium</p></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><p className="ins-dtls-members-edit">{this.props.is_edit ? 'Change Insured Plan' : 'Insured Member Details'}
+															<span style={{ 'cursor': 'pointer' }}>EDIT</span></p></td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>
+															<label className="ck-bx" htmlFor="test11" style={{ 'fontWeight': '400', 'fontSsize': '14' }}>
+																<input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
+																<span className="checkmark"></span><p className="dgt-tbl-data">Dummy Content</p></label>
+														</td>
+														<td><span>₹ 8888</span></td>
+													</tr>
+													<tr>
+														<td>
+															<label className="ck-bx" htmlFor="test11" style={{ 'fontWeight': '400', 'fontSsize': '14' }}>
+																<input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
+																<span className="checkmark"></span><p className="dgt-tbl-data">Dummy Content</p></label>
+														</td>
+														<td><span>₹ 8888</span></td>
+													</tr>
+													<tr>
+														<td>
+															<label className="ck-bx" htmlFor="test11" style={{ 'fontWeight': '400', 'fontSsize': '14' }}>
+																<input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
+																<span className="checkmark"></span><p className="dgt-tbl-data">Dummy Content</p></label>
+														</td>
+														<td><span>₹ 8888</span></td>
+													</tr>
+													<tr>
+														<td>
+															<label className="ck-bx" htmlFor="test11" style={{ 'fontWeight': '400', 'fontSsize': '14' }}>
+																<input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
+																<span className="checkmark"></span><p className="dgt-tbl-data">Dummy Content</p></label>
+														</td>
+														<td><span>₹ 8888</span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										{/* self details  */}
+										<div className="widget mrb-10">
+											<div className="widget-content">
+												<div className="sub-form-input-data">
+													<div>
+														<p className="sub-form-hed">Self</p>
+													</div>
+												</div>
+												<div className="dlts-cnt">
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Mayank Yadav</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>09/02/1990</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>110092</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>mayank@gmail.com</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>B11/1 Vinod nagar West Delhi</span></p>
+												</div>
+											</div>
+										</div>
+										{/* self details  */}
+										{/* dummy data  */}
+										<div className="widget mrb-10 digit-input-container">
+											<div className="widget-content">
+												<div className="ins-sub-forms">
+													{/* <hr className="ins-internal-hr" /> */}
+													<div className="sub-form-input-data">
+														<div>
+															<p className="sub-form-hed">adult</p>
+														</div>
+														<div className="sub-form-hed-click" >
+															Select from profile<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+														</div>
+													</div>
+													<div className="col-12">
+														<button className='label-names-buttons btn-active ' name="title" value='mr.' data-param='title' >Mr.</button>
+														<button className='label-names-buttons' name="title" value='miss.' data-param='title' >Ms.</button>
+														<button className='label-names-buttons' value='mrs.' name="title" data-param='title'  >Mrs.</button>
+													</div>
+													<div className="row no-gutters">
+														<div className="col-12">
+															<div className="ins-form-group">
+																<select className="ins-select-drop" id="relation_dropdown" >
+																	<option data-param="relation" disabled selected hidden value="relation">RELATION</option>
+																	<option data-param="relation" value="spouse">SPOUSE</option>
+																	<option data-param="relation" value="son">SON</option>
+																	<option data-param="relation" value="daughter">DAUGHTER</option>
+																</select>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="name1" className="form-control ins-form-control" required autoComplete="off" name="name" data-param='name' />
+																<label className="form-control-placeholder" htmlFor="name1">First Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="middle_name" className="form-control ins-form-control" required autoComplete="off" name="middle_name" value="" data-param='middle_name' />
+																<label className="form-control-placeholder" htmlFor="middle_name">Middle Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-left">
+																<input type="text" id="last_name" className="form-control ins-form-control" required autoComplete="off" name="last_name" data-param='last_name' />
+																<label className="form-control-placeholder" htmlFor="last_name">Last Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-12 mb-2">
+															<div className="ins-form-radio">
+																<div className="dtl-radio">
+																	<label className="container-radio">Male
+							 		<input type="radio" value='m' checked />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Female
+							 		<input type="radio" data-param='gender' value='f' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Others
+							 		<input type="radio" data-param='gender' value='o' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="date" id="isn-date" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="dob" data-param='dob' value='date' />
+																<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
+																<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="text" className='form-control ins-form-control' required id="mil"/>
+																<label className='form-control-placeholder ' htmlFor="mil">Email</label>
+																<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div className="widget mrb-10 digit-input-container">
+											<div className="widget-content">
+												<div className="ins-sub-forms">
+													{/* <hr className="ins-internal-hr" /> */}
+													<div className="sub-form-input-data">
+														<div>
+															<p className="sub-form-hed">adult 2</p>
+														</div>
+														<div className="sub-form-hed-click" >
+															Select from profile<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+														</div>
+													</div>
+													<div className="col-12">
+														<button className='label-names-buttons btn-active ' name="title" value='mr.' data-param='title' >Mr.</button>
+														<button className='label-names-buttons' name="title" value='miss.' data-param='title' >Ms.</button>
+														<button className='label-names-buttons' value='mrs.' name="title" data-param='title'  >Mrs.</button>
+													</div>
+													<div className="row no-gutters">
+														<div className="col-12">
+															<div className="ins-form-group">
+																<select className="ins-select-drop" id="relation_dropdown" >
+																	<option data-param="relation" disabled selected hidden value="relation">RELATION</option>
+																	<option data-param="relation" value="spouse">SPOUSE</option>
+																	<option data-param="relation" value="son">SON</option>
+																	<option data-param="relation" value="daughter">DAUGHTER</option>
+																</select>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="name1" className="form-control ins-form-control" required autoComplete="off" name="name" data-param='name' />
+																<label className="form-control-placeholder" htmlFor="name1">First Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="middle_name" className="form-control ins-form-control" required autoComplete="off" name="middle_name" value="" data-param='middle_name' />
+																<label className="form-control-placeholder" htmlFor="middle_name">Middle Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-left">
+																<input type="text" id="last_name" className="form-control ins-form-control" required autoComplete="off" name="last_name" data-param='last_name' />
+																<label className="form-control-placeholder" htmlFor="last_name">Last Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-12 mb-2">
+															<div className="ins-form-radio">
+																<div className="dtl-radio">
+																	<label className="container-radio">Male
+							 		<input type="radio" value='m' checked />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Female
+							 		<input type="radio" data-param='gender' value='f' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Others
+							 		<input type="radio" data-param='gender' value='o' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="date" id="isn-date" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="dob" data-param='dob' value='date' />
+																<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
+																<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="text" className='form-control ins-form-control' required id="mil"/>
+																<label className='form-control-placeholder ' htmlFor="mil">Email</label>
+																<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div className="widget mrb-10 digit-input-container">
+											<div className="widget-content">
+												<div className="ins-sub-forms">
+													{/* <hr className="ins-internal-hr" /> */}
+													<div className="sub-form-input-data">
+														<div>
+															<p className="sub-form-hed">Others</p>
+														</div>
+														<div className="sub-form-hed-click" >
+															Select from profile<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
+														</div>
+													</div>
+													<div className="col-12">
+														<button className='label-names-buttons btn-active ' name="title" value='mr.' data-param='title' >Mr.</button>
+														<button className='label-names-buttons' name="title" value='miss.' data-param='title' >Ms.</button>
+														<button className='label-names-buttons' value='mrs.' name="title" data-param='title'  >Mrs.</button>
+													</div>
+													<div className="row no-gutters">
+														<div className="col-12">
+															<div className="ins-form-group">
+																<select className="ins-select-drop" id="relation_dropdown" >
+																	<option data-param="relation" disabled selected hidden value="relation">RELATION</option>
+																	<option data-param="relation" value="spouse">SPOUSE</option>
+																	<option data-param="relation" value="son">SON</option>
+																	<option data-param="relation" value="daughter">DAUGHTER</option>
+																</select>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="name1" className="form-control ins-form-control" required autoComplete="off" name="name" data-param='name' />
+																<label className="form-control-placeholder" htmlFor="name1">First Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-right ">
+																<input type="text" id="middle_name" className="form-control ins-form-control" required autoComplete="off" name="middle_name" value="" data-param='middle_name' />
+																<label className="form-control-placeholder" htmlFor="middle_name">Middle Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-6">
+															<div className="ins-form-group inp-margin-left">
+																<input type="text" id="last_name" className="form-control ins-form-control" required autoComplete="off" name="last_name" data-param='last_name' />
+																<label className="form-control-placeholder" htmlFor="last_name">Last Name</label>
+																<img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+															</div>
+														</div>
+														<div className="col-12 mb-2">
+															<div className="ins-form-radio">
+																<div className="dtl-radio">
+																	<label className="container-radio">Male
+							 		<input type="radio" value='m' checked />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Female
+							 		<input type="radio" data-param='gender' value='f' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+																<div className="dtl-radio">
+																	<label className="container-radio">Others
+							 		<input type="radio" data-param='gender' value='o' />
+																		<span className="doc-checkmark"></span>
+																	</label>
+																</div>
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="date" id="isn-date" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="dob" data-param='dob' value='date' />
+																<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
+																<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+															</div>
+														</div>
+														<div className="col-12">
+															<div className="ins-form-group">
+																<input type="text" className='form-control ins-form-control' required id="mil"/>
+																<label className='form-control-placeholder ' htmlFor="mil">Email</label>
+																<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div className="bottomMargin"></div>
+										{/* dummy data  */}
+
 									</div>
 								</div>
 							</div>

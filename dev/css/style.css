@@ -12283,13 +12283,16 @@ li {
 }
 
 .ins-tabs-content ul {
-    padding-left: 20px;
+    padding-left: 12px;
 }
 
 .ins-tabs-content ul li {
     margin-bottom: 10px;
     position: relative;
     padding-left: 12px;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 500;
 }
 
 .ins-tabs-content ul li p {
@@ -12516,7 +12519,7 @@ li {
 .ins-status-container .navigation_tabs li a {
     text-decoration: none;
     color: #c8c8c8;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .ins-status-container .navigation_tabs li:before {
@@ -15583,3 +15586,41 @@ section.container.container-top-margin.cls-bnr {
 .chat-err{
     text-align: justify;
 }
+
+
+/* ============ DIGIT insurance ============  */
+.dlts-cnt p {
+    display: flex;
+    align-items: start;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.dlts-cnt img {
+    margin-right: 12px;
+    width: 20px;
+}
+.widget.bottomMargin.digit-input-container .ins-form-group img {
+    width: 24px;
+}
+.ins-name-head-div.d-flex.align-items-start.digit-logo img {
+    margin: 0 10px;
+    margin-right: 10px;
+}
+
+.ins-name-head-div.d-flex.align-items-start.digit-logo p {
+    margin: 0 10px;
+}
+.digi-step{
+    overflow: hidden;
+}
+p.dgt-tbl-data {
+    font-size: 12px;
+    font-weight: 500;
+}
+.widget.mrb-10.digit-input-container .form-control-placeholder {
+    font-size: 13px;
+    font-weight: 500;
+}
+/* ============ DIGIT insurance ============  */
