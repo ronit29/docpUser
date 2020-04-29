@@ -15601,7 +15601,7 @@ section.container.container-top-margin.cls-bnr {
     margin-right: 12px;
     width: 20px;
 }
-.widget.bottomMargin.digit-input-container .ins-form-group img {
+.widget.digit-input-container .ins-form-group img {
     width: 24px;
 }
 .ins-name-head-div.d-flex.align-items-start.digit-logo img {
@@ -15622,5 +15622,20 @@ p.dgt-tbl-data {
 .widget.mrb-10.digit-input-container .form-control-placeholder {
     font-size: 13px;
     font-weight: 500;
+}
+ table.insurance-checkboxes.digitTbl .container-radio {
+    font-size: 13px;
+}
+.term-cont-digi {
+    display: flex;
+    align-items: center;
+    padding: 3px 10px;
+}
+.term-cont-digi p {
+    color: #f78631;
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 3px;
+    cursor: pointer;
 }
 /* ============ DIGIT insurance ============  */
