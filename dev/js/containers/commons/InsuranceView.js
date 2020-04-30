@@ -254,9 +254,10 @@ class Insurance extends React.Component {
 													</div>
 												</div>
 												<div className="dlts-cnt">
-													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Mayank Yadav</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Mr. Mayank Yadav</span></p>
 													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>09/02/1990</span></p>
 													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>mayank@gmail.com</span></p>
+													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/call.svg'} /><span>8800327006</span></p>
 													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>110092</span></p>
 													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>B11/1 Vinod nagar West Delhi</span></p>
 													<p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Nominee Name</span></p>
