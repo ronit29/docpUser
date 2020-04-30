@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM, DIGIT_PLAN_LIST
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -359,4 +359,16 @@ export const removeMembers =(data) =>(dispatch)=>{
     })
 }
 
-
+export const retrieveDigitPlanData = (type,callback) => (dispatch) =>{ // to retrieve digit insurance plans
+    let url = `/api/v1/covid_insurance/plans`
+  
+    API_GET(url).then(function (response) {
+        dispatch({
+            type:DIGIT_PLAN_LIST,
+            payload:response,
+        })
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+}

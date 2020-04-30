@@ -237,6 +237,8 @@ export const GET_HOSP_COMMENTS = 'GET_HOSP_COMMENTS'
 //CitiesData
 export const USER_CITIES = 'USER_CITIES'
 
+//digit insurance 
+export const DIGIT_PLAN_LIST = 'DIGIT_PLAN_LIST'
 
 //vip-club
 export const GET_VIP_LIST = 'GET_VIP_LIST'

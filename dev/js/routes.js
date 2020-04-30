@@ -576,6 +576,13 @@ const ChatRatings = Loadable({
     webpack: () => [require.resolveWeak('./components/commons/chatRatings.js')],
     loading,  
 })
+
+const digitPlans = Loadable({
+    loader: () => import('./containers/vipClub/digitInsurance.js'),
+    modules: ['./containers/vipClub/digitInsurance.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/digitInsurance.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -711,6 +718,7 @@ let routes = [
     { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp},
     { path: '/terms-conditions/:id',exact:true, component: CommonTnC },
     { path: '/chat-ratings',exact:true, component: ChatRatings },
+    { path: '/covid-plans',exact:true, component: digitPlans },
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
