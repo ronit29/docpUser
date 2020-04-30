@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import { sendOTP, submitOTP, resetAuth, getUserProfile } from '../../actions/index.js'
-import DigitInsuranceForm from '../../components/vipClub/digitInsuranceForm.js'
+import DigitSummaryView from '../../components/vipClub/digitSummaryView.js'
 import DigitStaticDataView from '../../components/vipClub/digitStaticDataView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -56,21 +56,14 @@ class DigitInsuranceFormPage extends React.Component{
                                                             <li className='tab_inactive'>
                                                                 <a href="#">Fill Member Details</a>
                                                             </li>
-                                                            <li className="tab_disabled">
+                                                            <li className="tab_inactive">
                                                                 <a href="#">Payment</a>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitInsuranceForm />
-                                            <div className="term-cont-digi">
-                                                <label className="ck-bx" htmlform="test11" style={{ 'fontWeight': '500', 'fontSize': '13px' }}>
-                                                    <input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
-                                                    <span className="checkmark"></span>I Agree to the </label>
-                                                <p onClick={this.openPopup}>Terms and Conditions</p>
-                                            </div>
-                                            <div className="bottomMargin"></div>
+                                            <DigitSummaryView />
                                         </div>
                                     </div>
                                 </div>
