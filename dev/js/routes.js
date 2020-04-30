@@ -577,10 +577,16 @@ const ChatRatings = Loadable({
     loading,  
 })
 
-const digitPlans = Loadable({
-    loader: () => import('./containers/vipClub/digitInsurance.js'),
-    modules: ['./containers/vipClub/digitInsurance.js'],
-    webpack: () => [require.resolveWeak('./containers/vipClub/digitInsurance.js')],
+const DigitPlans = Loadable({
+    loader: () => import('./containers/vipClub/DigitInsurance.js'),
+    modules: ['./containers/vipClub/DigitInsurance.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/DigitInsurance.js')],
+    loading,  
+})
+const DigitForm = Loadable({
+    loader: () => import('./containers/vipClub/DigitInsuranceFormPage.js'),
+    modules: ['./containers/vipClub/DigitInsuranceFormPage.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/DigitInsuranceFormPage.js')],
     loading,  
 })
 /**
@@ -718,7 +724,8 @@ let routes = [
     { path: '/medlife-tnc-app',exact:true, component: MedlifePolicyApp},
     { path: '/terms-conditions/:id',exact:true, component: CommonTnC },
     { path: '/chat-ratings',exact:true, component: ChatRatings },
-    { path: '/covid-plans',exact:true, component: digitPlans },
+    { path: '/covid-plans',exact:true, component: DigitPlans },
+    { path: '/covid-form',exact:true, component: DigitForm }
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
