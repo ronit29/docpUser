@@ -409,7 +409,7 @@ class Article extends React.Component {
                         this.setState({showMainPopup:false})}} />
                     <h4>Protect yourself against</h4>
                     <p>COR<img className="img-fluid" src={ASSETS_BASE_URL + '/img/virus.svg'}/>NAVIRUS</p>
-                    {/* <p className="subTxtCorona">"Stay home and View Quotes Online"</p> */}
+                    <p className="subTxtCorona">"Stay home and View Quotes Online"</p>
                     <div className="covidBtn-cont">
                         <a target="_blank" href="https://termlife.policybazaar.com/?pb_source=docprime " type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
                         <img src={ASSETS_BASE_URL + '/img/ins.svg'}/>
