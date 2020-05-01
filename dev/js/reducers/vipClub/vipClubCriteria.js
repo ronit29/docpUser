@@ -42,6 +42,13 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.digitPlans = action.payload
+            if(Object.keys(newState.selected_digit_plan).length == 0){
+                newState.selected_digit_plan = action.payload.filter((x => x.is_selected))[0]
+                if(Object.keys(newState.selected_digit_plan).length){
+                    newState.selected_digit_plan.isForceUpdate = true
+                    newState.selected_digit_plan = newState.selected_digit_plan
+                }
+            }
             return newState
         }
         case DIGIT_SELF_DETAILS:{
