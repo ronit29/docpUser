@@ -60,6 +60,9 @@ class DigitInsuranceForm extends React.Component {
     componentWillReceiveProps(props) {
         let self = this
         let loginUserId
+        console.log(props.USER.profiles);
+        console.log(this.state.profile_flag);
+        console.log(props.USER.defaultProfile);
         if (props.USER && props.USER.profiles && Object.keys(props.USER.profiles).length > 0 && this.state.profile_flag ) {
             let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
             loginUserId = props.USER.defaultProfile
@@ -69,7 +72,8 @@ class DigitInsuranceForm extends React.Component {
                     profile = Object.assign({}, props.digit_self_details[loginUserId])
                 } else {
                     profile = Object.assign({}, props.digit_self_details[loginUserId])
-                }                
+                }            
+                console.log(profile);    
                 if(profile && Object.keys(profile).length){
                     this.setState({id:profile.id,profile_flag:false},()=>{
                         this.getUserDetails(profile) // fill user details in form    
@@ -346,7 +350,7 @@ class DigitInsuranceForm extends React.Component {
                                         }
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
+                                                <select className="ins-select-drop" name="nominee_relation" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
                                                     <option data-param="relation" disabled>Nominee Relation</option>
                                                     <option data-param="relation" value="father">FATHER</option>
                                                     <option data-param="relation" value="mother">MOTHER</option>
