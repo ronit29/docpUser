@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
-        retrieveDigitInsuranceData: () => dispatch(retrieveDigitInsuranceData(dataParams, cb)),
+        retrieveDigitInsuranceData: (dataParams,cb) => dispatch(retrieveDigitInsuranceData(dataParams, cb)),
         // selectDigitPlan :(data,cb) => dispatch(selectDigitPlan(data,cb))
     }
 }
