@@ -9,7 +9,7 @@ class DigitStaticDataView extends React.Component {
     }
 
     render() {
-
+        let dwnlUrl = 'https://drive.google.com/file/d/1furIUXTcmwgA6zQ1ipfydFDcEGleq2RE/view';
         return (
                         <div className="widget mrb-10">
                             <div className="ins-card-head">

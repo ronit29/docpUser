@@ -8,7 +8,13 @@ class DigitOrderView extends React.Component {
     }
 
     render() {
-
+        let fullName = '';
+        if(this.props.orderdata){
+            let memberData = this.props.orderdata.member_details[0];
+            if (memberData){
+                fullName = memberData.first_name + ' ' + memberData.middle_name + ' ' + memberData.last_name
+            }
+        }
         return (
             <div className="widget mrb-10">
             <div className="ins-card-head">
@@ -26,23 +32,24 @@ class DigitOrderView extends React.Component {
                 <div className="details-flex-cont">
                     <div className="ins-policy-details">
                         <p>Policy Purchase Date</p>
-                        <span>11th Oct 2020</span>
+                        <span>{this.props.orderdata.purchase_date}</span>
                     </div>
                     <div className="ins-policy-details">
                         <p>Valid Upto</p>
-                        <span>11th Oct 2021</span>
+                        {/* <span>11th Oct 2021</span> */}
+                        <span>{this.props.orderdata.expiry_date}</span>
                     </div>
                 </div>
                 <div className="ins-policy-members-details mt-20">
-                    <p><span>Premium</span> : Rs 2000</p>
-                    <p style={{ 'textTransform': 'capitalize' }}><span>Proposer Name </span> : Mayank Yadav</p>
-                    <p><span>Policy Number</span> : DIDIG22926765</p>
-                    <p><span>Cover</span> : 4 'Members'</p>
+                    <p><span>Premium</span> : Rs {this.props.orderdata.amount}</p>
+                    <p style={{ 'textTransform': 'capitalize' }}><span>Proposer Name </span> : {fullName}</p>
+                    <p><span>Policy Number</span> : "Will be provided Shortly"</p>
+                    <p><span>Cover</span> : 1 'Member(s)'</p>
                     <ul>
                         <li style={{ 'textTransform': 'capitalize' }}>
-                            <span className="insa-tbl-names"> Maddy: </span>
-                            <span className="insa-sub-tbl-names"> Shady</span>
-                            <span className="insa-sub-tbl-names"> TestIng</span>
+                            <span className="insa-tbl-names"> {fullName} </span>
+                            {/* <span className="insa-sub-tbl-names"> Shady</span>
+                            <span className="insa-sub-tbl-names"> TestIng</span> */}
                         </li>
                     </ul>
                 </div>

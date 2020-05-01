@@ -414,16 +414,14 @@ export const digitPay = (criteria,callback) => (dispatch) => { // to request for
 
 }
 
-export const retrieveDigitInsuranceData = (id, callback) => (dispatch) =>{ // to retrieve digit insurance data
-    let url = `/api/v1/covid_insurance/retrieve/`+id
-  
-    API_GET(url).then(function (response) {
-        dispatch({
-            type:DIGIT_INSURANCE_DATA,
-            payload:response,
-        })
-        if (callback) callback(response)
-    }).catch(function (error) {
-        if (callback) callback(null)
+export const retrieveDigitInsuranceData = (dataParams, cb) => (dispatch) =>{ // to retrieve digit insurance data
+    let url = '';
+    if(dataParams && dataParams.id) {
+        url = `/api/v1/covid_insurance/retrieve/`+dataParams.id
+    }
+    return API_GET(url).then((data)=> {
+        if(cb)cb(null, data)
+    }).catch((e)=>{
+         if(cb)cb(e, null)
     })
 }
