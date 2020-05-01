@@ -8,7 +8,7 @@ class DigitSummaryView extends React.Component {
     }
 
     render() {
-
+        let fullName = this.props.data.title+ ' ' + this.props.data.first_name + ' ' +this.props.data.last_name;
         return (
             <div>
                 <div className="widget mrb-10">
@@ -19,14 +19,14 @@ class DigitSummaryView extends React.Component {
                             </div>
                         </div>
                         <div className="dlts-cnt">
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Mr. Mayank Yadav</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>09/02/1990</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>mayank@gmail.com</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/call.svg'} /><span>8800327006</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>110092</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>B11/1 Vinod nagar West Delhi</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Nominee Name</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>Brother</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{fullName}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>{this.props.data.first_name}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>{this.props.data.email}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/call.svg'} /><span>{this.props.data.mobile}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>{this.props.data.pincode}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>{this.props.data.address}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.data.nominee_name}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.data.nominee_relation}</span></p>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ class DigitSummaryView extends React.Component {
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">GST</p>
-                        <p className="payment-content fw-500">&#8377; 0,0</p>
+                        <p className="payment-content fw-500">&#8377; 18%</p>
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">Policy StartDate</p>

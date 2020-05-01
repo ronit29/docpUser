@@ -223,7 +223,7 @@ class DigitInsuranceForm extends React.Component {
                                         </div>
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <input type="number" id="mbl" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="phone_number" data-param='phone_number' value=''
+                                                <input type="number" id="mbl" maxlength="10" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="phone_number" data-param='phone_number' value=''
                                                 onChange={this.handleChange.bind(this, 'phone_number')} value={this.state.phone_number}
                                                 onBlur={this.handleSubmit.bind(this)}  />
                                                 <label className="form-control-placeholder" htmlFor="mbl">Mobile</label>
@@ -262,9 +262,10 @@ class DigitInsuranceForm extends React.Component {
                                             <div className="ins-form-group">
                                                 <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
                                                     <option data-param="relation" disabled selected hidden>Nominee Relation</option>
-                                                    <option data-param="relation" value="spouse">SPOUSE</option>
-                                                    <option data-param="relation" value="son">SON</option>
-                                                    <option data-param="relation" value="daughter">DAUGHTER</option>
+                                                    <option data-param="relation" value="father">FATHER</option>
+                                                    <option data-param="relation" value="mother">MOTHER</option>
+                                                    <option data-param="relation" value="brother">BROTHER</option>
+                                                    <option data-param="relation" value="sister">SISTER</option>
                                                 </select>
                                                 <img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                             </div>

@@ -131,7 +131,7 @@ class DigitInsuranceFormPage extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitSummaryView />
+                                            <DigitSummaryView data={this.props.digit_self_details}/>
                                         </div>
                                     </div>
                                 </div>
