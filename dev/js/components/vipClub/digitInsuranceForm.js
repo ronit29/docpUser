@@ -71,7 +71,6 @@ class DigitInsuranceForm extends React.Component {
                     profile = Object.assign({}, props.digit_self_details[loginUserId])
                 }                
                 if(profile && Object.keys(profile).length){
-                    console.log(profile)
                     this.setState({id:profile.id,profile_flag:false},()=>{
                         this.getUserDetails(profile) // fill user details in form    
                     })
@@ -85,12 +84,10 @@ class DigitInsuranceForm extends React.Component {
                     if(profile.isDummyUser){
                         profile.id = 0
                         this.setState({id:0,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)// fill user details in form    
                         })
                     }else{
                         this.setState({id:profile.id,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)    // fill user details in form
                         })
                     }
@@ -100,7 +97,6 @@ class DigitInsuranceForm extends React.Component {
     }
     getUserDetails(profile) {
         let empty_state ={}
-        console.log(profile)
         if(profile.is_tobe_dummy_user){
             this.setState({...empty_state,name:''},()=>{
                 this.handleSubmit()
@@ -195,7 +191,6 @@ class DigitInsuranceForm extends React.Component {
         if(this.props.validateErrors && Object.keys(this.props.validateErrors).length){
            errors = this.props.validateErrors[profile_id]
         }
-        console.log(errors)
         let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
         return (
 
@@ -341,8 +336,8 @@ class DigitInsuranceForm extends React.Component {
                                         }
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
-                                                    <option data-param="relation" disabled selected hidden>Nominee Relation</option>
+                                                <select className="ins-select-drop" value={this.state.nominee_relation} id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
+                                                    <option data-param="relation" disabled hidden>Nominee Relation</option>
                                                     <option data-param="relation" value="father">FATHER</option>
                                                     <option data-param="relation" value="mother">MOTHER</option>
                                                     <option data-param="relation" value="brother">BROTHER</option>

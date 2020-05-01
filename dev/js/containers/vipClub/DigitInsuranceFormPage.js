@@ -73,7 +73,6 @@ class DigitInsuranceFormPage extends React.Component{
             data.members = []
             let fields = []
             this.props.currentSelectedDigitMembersId.map((val, key) => {
-                console.log('rishab')
                 if (Object.keys(this.props.digit_self_details).length > 0) {
                     fields = []
                     param = this.props.digit_self_details[val[key]]
@@ -137,7 +136,6 @@ class DigitInsuranceFormPage extends React.Component{
                     }
                 }
             })
-            console.log(validatingErrors)
             Object.keys(validatingErrors).forEach(function (key) {
                 if (validatingErrors[key].length > 0) {
                     is_disable = true
