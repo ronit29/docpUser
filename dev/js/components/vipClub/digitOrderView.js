@@ -18,7 +18,7 @@ class DigitOrderView extends React.Component {
                                         Digit Covid Group insurance</p>
                                 </div>
                                 <div className="ins-pdf-dwnload-div d-flex align-items-center">
-                                    <a href="" >
+                                    <a href="https://drive.google.com/file/d/1furIUXTcmwgA6zQ1ipfydFDcEGleq2RE/view" target="_blank" download >
                                         <img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
                                     </a>
                                     <span className="fw-500">
