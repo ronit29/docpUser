@@ -596,6 +596,12 @@ const DigitReview = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/DigitSummaryPage.js')],
     loading,  
 })
+const DigitOrder = Loadable({
+    loader: () => import('./containers/vipClub/DigitOrderPage.js'),
+    modules: ['./containers/vipClub/DigitOrderPage.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/DigitOrderPage.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -733,7 +739,8 @@ let routes = [
     { path: '/chat-ratings',exact:true, component: ChatRatings },
     { path: '/covid-plans',exact:true, component: DigitPlans },
     { path: '/covid-form',exact:true, component: DigitForm },
-    { path: '/covid-review',exact:true, component:DigitReview}
+    { path: '/covid-review',exact:true, component:DigitReview},
+    { path: '/covid-order/summary/:id',exact:true, component:DigitOrder}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
