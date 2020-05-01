@@ -89,17 +89,6 @@ class DigitInsuranceForm extends React.Component {
             }else if(profile.name){
                 this.setState({ name:profile.name?profile.name:''})
             }
-            if(this.props.is_from_payment){
-                if(profile.first_name){
-                    this.setState({name:profile.first_name?profile.first_name:profile.name?profile.name:''})
-                }
-            }
-            if(profile.is_tobe_dummy_user){
-                this.setState({is_tobe_dummy_user:profile.is_tobe_dummy_user})
-            }
-            if(this.props.user_email){
-                this.setState({email:this.props.user_email})
-            }
             if(profile.email){
                 this.setState({email:profile.email})
             }
