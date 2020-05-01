@@ -411,11 +411,11 @@ class Article extends React.Component {
                     <p>COR<img className="img-fluid" src={ASSETS_BASE_URL + '/img/virus.svg'}/>NAVIRUS</p>
                     {/* <p className="subTxtCorona">"Stay home and View Quotes Online"</p> */}
                     <div className="covidBtn-cont">
-                        <a target="_blank" href="https://termlife.policybazaar.com/?pb_source=docprime " type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
+                        <a target="_blank" href="https://termlife.policybazaar.com/?pb_source=docprime&covidPop=1 " type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
                         <img src={ASSETS_BASE_URL + '/img/ins.svg'}/>
                         <span>Term Insurance</span> 
                         </a>
-                        <a target="_blank" href="https://health.policybazaar.com/?utm_source=docprime" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
+                        <a target="_blank" href="https://health.policybazaar.com/?utm_source=docprime&covidPop=1" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
                         <img src={ASSETS_BASE_URL + '/img/helth.svg'}/>
                         <span>Health Insurance</span>
                         </a>
