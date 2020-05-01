@@ -48,9 +48,9 @@ class DigitInsuranceFormPage extends React.Component{
                 isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
             }
             if(!isDummyUser){
-                membersId.push({'0':loginUser, type: 'self',member_form_id:0,isUserSelectedProfile:false,to_be_remove:false})
+                membersId.push({'0':loginUser, type: 'self'})
             }else{
-                membersId.push({'0':0, type:'self',member_form_id:0,isUserSelectedProfile:false,to_be_remove:false})
+                membersId.push({'0':0, type:'self'})
             }
             props.saveCurrentSelectedDigitMembers(membersId) // save current visible form member or selected user profile id
             this.setState({ saveMembers: true })
@@ -146,7 +146,7 @@ class DigitInsuranceFormPage extends React.Component{
             if (is_disable && document.getElementById(member_ref)) {
                 document.getElementById(member_ref).scrollIntoView();
             } else {
-                alert('s')
+                this.props.history.push('/covid-review')
             }
 
         }

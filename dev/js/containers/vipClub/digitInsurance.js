@@ -36,29 +36,6 @@ class DigitInsurance extends React.Component{
         return (
             <DigitPlanView {...this.props} plans={this.props.digitPlans} />
         );
-        // if(this.props.LOAD_VIP_CLUB  && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
-        //     return <React.Fragment>
-            
-        //         {/*<VipGoldView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold}/>*/}
-            
-        //         <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source} is_gold={this.state.is_gold} is_vip_gold={this.state.is_vip_gold} selected_plan={this.props.selected_vip_plan} is_booking_page={this.state.is_booking_page} is_from_organic={this.state.is_from_organic} is_pb={this.state.is_pb}/>
-                       
-        //     </React.Fragment>
-        // }else{
-        //     if(this.props.vipClubList.certificate && STORAGE.checkAuth()){ // if already gold or vip user redirect to dashboard
-        //         this.props.history.replace('/vip-club-activated-details')
-        //     }
-        //     if(this.state.isSalesAgent && this.state.isAgent){
-        //         return <div className="profile-body-wrap">
-        //                 <Loader />
-        //                 </div>
-        //     }else{
-        //         return <div className="profile-body-wrap">
-        //             <ProfileHeader showPackageStrip={true}/>
-        //             <Loader />
-        //         </div>
-        //     }               
-        // }
     }
 }
 

@@ -403,8 +403,9 @@ export const saveCurrentSelectedDigitMembers = (membersId,callback) => (dispatch
     if(callback) callback(true) 
 }
 
-export const DigitPay = (criteria,callback) => (dispatch) => { // to request for payment
-    return API_POST('/api/v1/plus/create',criteria).then(function (response) {
+export const digitPay = (criteria,callback) => (dispatch) => { // to request for payment
+    console.log(criteria)
+    return API_POST('/api/v1/covid_insurance/create_order',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
         if(callback) callback(error);

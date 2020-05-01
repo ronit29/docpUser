@@ -589,6 +589,13 @@ const DigitForm = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/DigitInsuranceFormPage.js')],
     loading,  
 })
+
+const DigitReview = Loadable({
+    loader: () => import('./containers/vipClub/DigitSummaryPage.js'),
+    modules: ['./containers/vipClub/DigitSummaryPage.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/DigitSummaryPage.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -725,7 +732,8 @@ let routes = [
     { path: '/terms-conditions/:id',exact:true, component: CommonTnC },
     { path: '/chat-ratings',exact:true, component: ChatRatings },
     { path: '/covid-plans',exact:true, component: DigitPlans },
-    { path: '/covid-form',exact:true, component: DigitForm }
+    { path: '/covid-form',exact:true, component: DigitForm },
+    { path: '/covid-review',exact:true, component:DigitReview}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
