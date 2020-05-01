@@ -77,7 +77,7 @@ class DigitInsuranceFormPage extends React.Component{
                 if (Object.keys(this.props.digit_self_details).length > 0) {
                     fields = []
                     param = this.props.digit_self_details[val[key]]
-                    if(param.id){
+                    if(param && param.id !== ""){
                         if (param && Object.keys(param).length > 0) {
                             //common validation starts
 
@@ -155,9 +155,6 @@ class DigitInsuranceFormPage extends React.Component{
     }
 
     render(){
-        if (!STORAGE.checkAuth()) {
-            this.props.history.push('/covid-plans')
-        }
         return (
             <React.Fragment>
                 <div>
@@ -189,7 +186,7 @@ class DigitInsuranceFormPage extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitInsuranceForm {...this.props} />
+                                            <DigitInsuranceForm {...this.props} validateErrors={this.state.validateErrors || []}/>
                                             <div className="term-cont-digi">
                                                 <label className="ck-bx" htmlform="test11" style={{ 'fontWeight': '500', 'fontSize': '13px' }}>
                                                     <input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
