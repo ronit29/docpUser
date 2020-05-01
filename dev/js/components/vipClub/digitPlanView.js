@@ -14,15 +14,30 @@ import CarouselView from '../opd/searchResults/carouselView.js'
 class DigitPlanView extends React.Component {
     constructor(props) {
         super(props)
+        let defaultPlan = '';
+        
         this.state = {
             // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
-           selected_plan_data: this.props.selected_digit_plan ? this.props.selected_digit_plan : '',
-           selected_plan_id: this.props.selected_digit_plan && Object.keys(this.props.selected_digit_plan).length ? this.props.selected_digit_plan.id:'',
+           selected_plan_data: defaultPlan ? defaultPlan : '',
+           selected_plan_id: defaultPlan.id ? defaultPlan.id:'',
            toggleTabType: false,
         }
     }
 
+    componentWillReceiveProps(props) {
+        let planData = props.plans;
+        let defaultPlan = '';
+        for (var i = 0; i < planData.length; i++) {
+            if(planData[i].is_selected==true ){
+                defaultPlan = planData[i];   
+            }
+        }   
+        this.state.selected_plan_id = defaultPlan.id ? defaultPlan.id:'',
+        this.state.selected_plan_data=  defaultPlan ? defaultPlan : '',
+        console.log(defaultPlan); 
+    }
+    
     proceed() {
         if (STORAGE.checkAuth()) {
             let url  = '/covid-form'
