@@ -25,19 +25,52 @@ class DigitInsuranceForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        let profile
+        let isDummyUser
+        let loginUserId
+
+        if (this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0) {
+            isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+            loginUserId = this.props.USER.profiles[this.props.USER.defaultProfile].id
+            if(this.props.digit_self_details[loginUserId]){
+
+                if (!isDummyUser) {
+                    profile = Object.assign({}, this.props.digit_self_details[loginUserId])
+                } else {
+                    profile = Object.assign({}, this.props.digit_self_details[loginUserId])
+                }
+                if(Object.keys(profile).length > 0){
+                    isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+                    if(profile.isDummyUser){
+                        profile.id = 0
+                        this.setState({id:0},()=>{
+                            this.getUserDetails(profile) // fill user details in form
+                        })
+                    }else{
+                        this.setState({id:profile.id},()=>{
+                            this.getUserDetails(profile) // fill user details in form
+                        })
+                    }
+                }
+            }
+        }
+    }
+
     componentWillReceiveProps(props) {
         let self = this
+        let loginUserId
         if (props.USER && props.USER.profiles && Object.keys(props.USER.profiles).length > 0 && this.state.profile_flag ) {
             let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
+            loginUserId = props.USER.defaultProfile
             if (Object.keys(props.digit_self_details).length > 0) { // retrieve already member details from user store
                 let profile
                 if (!isDummyUser) {
-                    profile = Object.assign({}, props.digit_self_details[props.member_id])
+                    profile = Object.assign({}, props.digit_self_details[loginUserId])
                 } else {
-                    profile = Object.assign({}, props.digit_self_details[props.member_id])
+                    profile = Object.assign({}, props.digit_self_details[loginUserId])
                 }                
                 if(profile && Object.keys(profile).length){
-                    console.log(profile)
                     this.setState({id:profile.id,profile_flag:false},()=>{
                         this.getUserDetails(profile) // fill user details in form    
                     })
@@ -51,12 +84,10 @@ class DigitInsuranceForm extends React.Component {
                     if(profile.isDummyUser){
                         profile.id = 0
                         this.setState({id:0,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)// fill user details in form    
                         })
                     }else{
                         this.setState({id:profile.id,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)    // fill user details in form
                         })
                     }
@@ -66,7 +97,6 @@ class DigitInsuranceForm extends React.Component {
     }
     getUserDetails(profile) {
         let empty_state ={}
-        console.log(profile)
         if(profile.is_tobe_dummy_user){
             this.setState({...empty_state,name:''},()=>{
                 this.handleSubmit()
@@ -88,10 +118,20 @@ class DigitInsuranceForm extends React.Component {
             if(profile.name == 'User' || profile.name == 'user'){
                 this.setState({ name:''})
             }else if(profile.name){
-                this.setState({ name:profile.name?profile.name:''})
+                let profName = profile.name;
+                let splitName = profName.split(' ');
+                if(typeof splitName[0] != 'undefined') {
+                    this.setState({ name:splitName[0]?splitName[0]:''})
+                }
+                if(typeof splitName[1] != 'undefined') {
+                    this.setState({ last_name:splitName[1]?splitName[1]:''})
+                }
             }
             if(profile.email){
                 this.setState({email:profile.email})
+            }
+            if(profile.phone_number){
+                this.setState({phone_number:profile.phone_number})
             }
             this.setState({
                 dob: profile.dob ? profile.dob :''
@@ -151,13 +191,17 @@ class DigitInsuranceForm extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         let isDummyUser
         let profile_id = 0
         if (this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]) {
             isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-            profile_id =  this.props.USER.profiles[this.props.USER.defaultProfile].id
+            profile_id =  isDummyUser?0:this.props.USER.profiles[this.props.USER.defaultProfile].id
         }
+        let errors = []
+        if(this.props.validateErrors && Object.keys(this.props.validateErrors).length){
+           errors = this.props.validateErrors[profile_id]
+        }
+        let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
         return (
 
                     <div className="widget mrb-10 digit-input-container" id={isDummyUser ? 'member_0' : `member_${profile_id}`}>
@@ -177,6 +221,10 @@ class DigitInsuranceForm extends React.Component {
                                         <button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss.')}>Ms.</button>
                                         <button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
                                     </div>
+                                    {
+                                        errors && errors.length && errors.indexOf('title') > -1 ?
+                                            commonMsgSpan : ''
+                                    }
                                     <div className="row no-gutters">
 
                                         <div className="col-6">
@@ -189,6 +237,10 @@ class DigitInsuranceForm extends React.Component {
                                             </div>
 
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('name') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-6">
                                             <div className="ins-form-group inp-margin-right ">
                                                 <input type="text" id="middle_name" className="form-control ins-form-control" required autoComplete="off" name="middle_name" value={this.state.middle_name} data-param='middle_name' 
@@ -208,6 +260,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('last_name') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="date" id="isn-date" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="dob" data-param='dob' value={this.state.dob} 
@@ -218,6 +274,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('dob') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="text" className='form-control ins-form-control' required id="mil" 
@@ -227,6 +287,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('email') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="number" id="mbl" max="9999999999" min="1000000000" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="phone_number" data-param='phone_number' value=''
@@ -236,6 +300,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/call.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('phone_number') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="number" id="pin" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="pincode" data-param='pincode' value={this.state.pincode}
@@ -245,6 +313,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('pincode') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="text" id="adr" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="address" data-param='address' value={this.state.address}
@@ -254,6 +326,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('address') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group inp-margin-right ">
                                                 <input type="text" id="nomName" className="form-control ins-form-control" required autoComplete="off" name="name" data-param='nominee_name'
@@ -264,10 +340,14 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('nominee_name') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
-                                                    <option data-param="relation" disabled selected hidden>Nominee Relation</option>
+                                                    <option data-param="relation" disabled>Nominee Relation</option>
                                                     <option data-param="relation" value="father">FATHER</option>
                                                     <option data-param="relation" value="mother">MOTHER</option>
                                                     <option data-param="relation" value="brother">BROTHER</option>
@@ -276,6 +356,10 @@ class DigitInsuranceForm extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                             </div>
                                         </div>
+                                        {
+                                            errors && errors.length && errors.indexOf('nominee_relation') > -1 ?
+                                                commonMsgSpan : ''
+                                        }
                                     </div>
                                 </div>
                             </div>

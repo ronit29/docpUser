@@ -8,12 +8,13 @@ import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
-class DigitOrder extends React.Component{
+class DigitOrderPage extends React.Component{
 
     constructor(props) {    
         super(props)
         const parsed = queryString.parse(this.props.location.search)
         this.state={
+            data:null, 
             source:parsed.source,
             is_from_organic:parsed.fromOrganic,
             is_pb:parsed.utm_source?parsed.utm_source && parsed.utm_source.includes('policybazaar.com'):false
@@ -28,13 +29,20 @@ class DigitOrder extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-        
-        this.props.retrieveDigitInsuranceData()
+        let dataParams = {
+            id: this.props.match.params.id
+        }
+        console.log(dataParams);
+        this.props.retrieveDigitInsuranceData(dataParams, (err, data,) => {
+            if (!err && data) {
+                this.setState({ data })
+            }
+        });
     }
 
     render(){
         return (
-            <DigitOrderView {...this.props} />
+            <DigitOrderView {...this.props} orderdata={this.state.data} />
         );
     }
 }
@@ -56,11 +64,11 @@ const mapDispatchToProps = (dispatch) => {
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
-        retrieveDigitInsuranceData: () => dispatch(retrieveDigitInsuranceData()),
+        retrieveDigitInsuranceData: () => dispatch(retrieveDigitInsuranceData(dataParams, cb)),
         // selectDigitPlan :(data,cb) => dispatch(selectDigitPlan(data,cb))
     }
 }
 
 
 
-export default connect(mapStateToProps , mapDispatchToProps)(DigitOrder)
+export default connect(mapStateToProps , mapDispatchToProps)(DigitOrderPage)

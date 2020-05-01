@@ -8,53 +8,53 @@ class DigitOrderView extends React.Component {
     }
 
     render() {
-        let dwnlUrl = 'https://drive.google.com/file/d/1furIUXTcmwgA6zQ1ipfydFDcEGleq2RE/view';
+        let fullName = '';
+        if(this.props.orderdata){
+            let memberData = this.props.orderdata.member_details[0];
+            if (memberData){
+                fullName = memberData.first_name + ' ' + memberData.middle_name + ' ' + memberData.last_name
+            }
+        }
         return (
-                        <div className="widget mrb-10">
-                            <div className="ins-card-head">
-                                <div className="ins-name-head-div d-flex align-items-start digit-logo">
-                                    <img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
-                                    <p className="fw-500 mrt-10">
-                                        Digit Covid Group insurance</p>
-                                </div>
-                                <div className="ins-pdf-dwnload-div d-flex align-items-center">
-                                    <a className="tst1" href={dwnlUrl} target="_blank" download >
-                                        <img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
-                                    </a>
-                                    <span className="fw-500">
-                                        Policy Details</span>
-                                </div>
-                            </div>
-                            <div className="ins-swich-tabs-container">
-                                <div className="ins-tabs">
-                                    <ul>
-                                        <li>
-                                            <p className=' active'>Features</p>
-                                        </li>
-                                        <li >
-                                            <p className='ins-tab-inactive' >What's not Covered?</p></li>
-                                    </ul>
-                                </div>
-                                <div className="ins-tabs-content widget-content">
-                                    <ul>
-                                        <li>Sum Insured Type : Individual for each member covered</li>
-                                        <li>Room rent restriction : No Restriction</li>
-                                        <li>ICU limit : No Restriction</li>
-                                        <li>Pre and Post hospitalization days : 30 days and 60 days respectively</li>
-                                        <li>Road Ambulance : 1% of the SI (up to INR 5,000)</li>
-                                        <li>Second medical opinion : Covered</li>
-                                        <li>Types of hospitals covered : All</li>
-                                    </ul>
-                                    <ul className="d-none">
-                                        <li>Hospitalisation expenses not in lieu of treatment for Coronavirus disease (COVID-19) will not be covered.</li>
-                                        <li>Insured members already treated for or quarantined for Coronavirus disease (COVID-19) before the policy issuance will not be covered.</li>
-                                        <li>Treatment taken outside India will not be covered.</li>
-                                        <li>Home hospitalisation (Domiciliary hospitalisation) expenses will not be covered.</li>
-                                        <li>Hospitalisation expenses for patients only under investigation with inconclusive medical report will not be covered.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+            <div className="widget mrb-10">
+            <div className="ins-card-head">
+                <div className="ins-name-head-div d-flex align-items-start digit-logo">
+                    <img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
+                    <p className="fw-500 mrt-10">
+                        Digit Covid Group insurance<br/>
+                        <span className="ins-active-container">
+                            <p>Active <img src={ASSETS_BASE_URL + "/img/chk-green.svg"} /></p>
+                        </span>
+                        </p>
+                </div>
+            </div>
+            <div className="ins-policy-date">
+                <div className="details-flex-cont">
+                    <div className="ins-policy-details">
+                        <p>Policy Purchase Date</p>
+                        <span>{this.props.orderdata.purchase_date}</span>
+                    </div>
+                    <div className="ins-policy-details">
+                        <p>Valid Upto</p>
+                        {/* <span>11th Oct 2021</span> */}
+                        <span>{this.props.orderdata.expiry_date}</span>
+                    </div>
+                </div>
+                <div className="ins-policy-members-details mt-20">
+                    <p><span>Premium</span> : Rs {this.props.orderdata.amount}</p>
+                    <p style={{ 'textTransform': 'capitalize' }}><span>Proposer Name </span> : {fullName}</p>
+                    <p><span>Policy Number</span> : "Will be provided Shortly"</p>
+                    <p><span>Cover</span> : 1 'Member(s)'</p>
+                    <ul>
+                        <li style={{ 'textTransform': 'capitalize' }}>
+                            <span className="insa-tbl-names"> {fullName} </span>
+                            {/* <span className="insa-sub-tbl-names"> Shady</span>
+                            <span className="insa-sub-tbl-names"> TestIng</span> */}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
                 );
             }
         }
