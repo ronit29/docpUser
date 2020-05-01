@@ -7,6 +7,7 @@ import HelmetTags from '../commons/HelmetTags'
 import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
+import VipLoginPopup from './digitLogin.js'
 // const queryString = require('./node_modules/query-string');
 import CarouselView from '../opd/searchResults/carouselView.js'
 
@@ -15,7 +16,28 @@ class DigitPlanView extends React.Component {
         super(props)
         this.state = {
             // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
+            showPopup: false,
+            selected_plan_data: this.props.selected_digit_plan ? this.props.selected_digit_plan : '',
+            selected_plan_id: this.props.selected_digit_plan && Object.keys(this.props.selected_digit_plan).length ? this.props.selected_digit_plan.id:'',
+            toggleTabType: false,
         }
+    }
+
+    proceed(){
+        if (STORAGE.checkAuth()) {
+            let url  = '/covid-form'
+            this.props.history.push(url)
+        }else{
+            this.setState({ showPopup: true })
+        }
+    }
+
+    selectPlan(plan) {
+        this.setState({selected_plan_data:plan,selected_plan_id:plan.id})
+        this.props.selectDigitPlan(plan)
+    }
+    hideLoginPopup() {
+        this.setState({ showPopup: false })
     }
 
     render() {
@@ -43,6 +65,10 @@ class DigitPlanView extends React.Component {
                     <div className="profile-body-wrap">
                     <ProfileHeader showPackageStrip={true} />
                         <section className="container article-container bottomMargin">
+                        {
+                        this.state.showPopup ?
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} closeLeadPopup={this.hideLoginPopup.bind(this)} /> : ''
+                        }
                             <div className="row main-row parent-section-row justify-content-center">
                                 <div className="col-12 col-md-10 col-lg-10 center-column">
                                     <div className="container-fluid mt-20">
@@ -88,9 +114,9 @@ class DigitPlanView extends React.Component {
                                                         {this.props.plans.map(plan=>
                                                             <tr key={plan.id}>
                                                                 <td>
-                                                                    <div className="dtl-radio">
+                                                                    <div className="dtl-radio" onClick={()=>self.selectPlan(plan,self)}>
                                                                         <label className="container-radio">{plan.name}
-                                                                            <input type="radio" />
+                                                                            <input type="radio" checked={this.state.selected_plan_id == plan.id} />
                                                                             <span className="doc-checkmark"></span>
                                                                         </label>
                                                                     </div>
@@ -118,12 +144,12 @@ class DigitPlanView extends React.Component {
                             </div>
                             {/* ==================== Common button ==================== */}
                             <div className="sticky-btn fixed insuBtnsContainer">
-                                <button onClick={this.state.handlePlanSelect} className="insu-right-orng-btn ins-buy-btn">Proceed</button>
+                                <button onClick={()=>this.proceed()} className="insu-right-orng-btn ins-buy-btn">Proceed</button>
                             </div>
                             {/* ==================== Common button ==================== */}
                         </section>
                     </div>
-                </div >
+                </div>
             </React.Fragment>
             : <div></div>
         );

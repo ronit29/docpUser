@@ -239,6 +239,9 @@ export const USER_CITIES = 'USER_CITIES'
 
 //digit insurance 
 export const DIGIT_PLAN_LIST = 'DIGIT_PLAN_LIST'
+export const SELECT_DIGIT_PLAN = 'SELECT_DIGIT_PLAN'
+export const DIGIT_SELF_DETAILS = 'DIGIT_SELF_DETAILS'
+export const SAVE_CURRENT_DIGIT_MEMBERS = 'SAVE_CURRENT_DIGIT_MEMBERS'
 
 //vip-club
 export const GET_VIP_LIST = 'GET_VIP_LIST'

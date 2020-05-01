@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM, DIGIT_PLAN_LIST
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, REMOVE_VIP_COUPONS, SELECT_LAB_PAYMENT_TYPE, SELECT_OPD_PAYMENT_TYPE, REMOVE_ADD_MEMBER_FORM, DIGIT_PLAN_LIST, SELECT_DIGIT_PLAN, DIGIT_SELF_DETAILS, SAVE_CURRENT_DIGIT_MEMBERS
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -372,3 +372,44 @@ export const retrieveDigitPlanData = (type,callback) => (dispatch) =>{ // to ret
         if (callback) callback(null)
     })
 }
+
+export const selectDigitPlan = (selected_vip_plan,callback) => (dispatch) => { // toggle/select vip plan
+    dispatch({
+        type: SELECT_DIGIT_PLAN,
+        payload: {
+            selected_vip_plan
+        }
+    })
+    if(callback) callback(selected_vip_plan)
+}
+export const saveUserDetails = (type, digit_self_details, forceAdd = false, previousProfile='') => (dispatch) => { // to save user form details in store
+    console.log(digit_self_details)
+    dispatch({
+        type: DIGIT_SELF_DETAILS,
+        payload: {
+            type, forceAdd
+        },
+        digit_self_details:[digit_self_details],
+        previousProfile: previousProfile
+    })
+
+}
+
+export const saveCurrentSelectedDigitMembers = (membersId,callback) => (dispatch) => { // save current visible form member or selected user profile id
+    dispatch({
+        type: SAVE_CURRENT_DIGIT_MEMBERS,
+        payload: membersId
+    })
+    if(callback) callback(true) 
+}
+
+export const DigitPay = (criteria,callback) => (dispatch) => { // to request for payment
+    return API_POST('/api/v1/plus/create',criteria).then(function (response) {
+        if(callback) callback(response);
+    }).catch(function (error) {
+        if(callback) callback(error);
+        throw error
+    })
+
+}
+

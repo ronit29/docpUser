@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, ADD_VIP_COUPONS, REMOVE_VIP_COUPONS, REMOVE_ADD_MEMBER_FORM, DIGIT_PLAN_LIST
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM, CLEAR_VIP_SELECTED_PLAN, CLEAR_VIP_MEMBER_DATA, GET_OPD_VIP_GOLD_PLANS, GET_LAB_VIP_GOLD_PLANS, ADD_VIP_COUPONS, REMOVE_VIP_COUPONS, REMOVE_ADD_MEMBER_FORM, DIGIT_PLAN_LIST,SELECT_DIGIT_PLAN, DIGIT_SELF_DETAILS, SAVE_CURRENT_DIGIT_MEMBERS
 } from '../../constants/types';
 
 const defaultState = {
@@ -17,7 +17,10 @@ labGoldPredictedPrice: [],
 vipCoupons:[],
 show_doctor_payment_mode:false,
 show_lab_payment_mode:false,
-digitPlans: {}
+digitPlans: {},
+selected_digit_plan:{},
+digit_self_details:{},
+currentSelectedDigitMembersId:[]
 }
 
 const DUMMY_PROFILE = {
@@ -39,6 +42,36 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.digitPlans = action.payload
+            return newState
+        }
+        case DIGIT_SELF_DETAILS:{
+             let newState = { ...state,
+                digit_self_details: { ...state.digit_self_details }
+            }
+            return action.digit_self_details.reduce((selfData, selfProfile) => {
+                if (newState.digit_self_details[selfProfile.id]) {
+                    newState.digit_self_details[selfProfile.id] = Object.assign({}, selfData[selfProfile.id], selfProfile)
+                } else {
+                    newState.digit_self_details[selfProfile.id] = { ...selfProfile }
+                }
+                return newState
+            }, newState) 
+        }
+        case SELECT_DIGIT_PLAN:{
+            let newState = { ...state,
+                selected_digit_plan: { ...state.selected_vip_plan }
+            }
+            newState.selected_digit_plan = action.payload.selected_vip_plan
+            return newState
+            
+        }
+
+        case SAVE_CURRENT_DIGIT_MEMBERS: {
+            let newState ={
+                ...state,
+                currentSelectedDigitMembersId:[]
+            }
+            newState.currentSelectedDigitMembersId = newState.currentSelectedDigitMembersId.concat(action.payload)
             return newState
         }
         case GET_VIP_LIST :{

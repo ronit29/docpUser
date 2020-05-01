@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, retrieveDigitPlanData } from '../../actions/index.js'
+import { sendOTP, submitOTP, resetAuth, getUserProfile, retrieveDigitPlanData, selectDigitPlan } from '../../actions/index.js'
 import DigitPlanView from '../../components/vipClub/digitPlanView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -34,7 +34,7 @@ class DigitInsurance extends React.Component{
 
     render(){
         return (
-            <DigitPlanView plans={this.props.digitPlans} />
+            <DigitPlanView {...this.props} plans={this.props.digitPlans} />
         );
         // if(this.props.LOAD_VIP_CLUB  && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0){
         //     return <React.Fragment>
@@ -65,10 +65,10 @@ class DigitInsurance extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { common_utm_tags, user_loggedIn_number } = state.USER
-    let {  digitPlans } = state.VIPCLUB
+    let {  digitPlans,selected_digit_plan } = state.VIPCLUB
 
     return {
-        USER, common_utm_tags, user_loggedIn_number, digitPlans
+        USER, common_utm_tags, user_loggedIn_number, digitPlans, selected_digit_plan
     }
 }
 
@@ -80,6 +80,7 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
         retrieveDigitPlanData: () => dispatch(retrieveDigitPlanData()),
+        selectDigitPlan :(data,cb) => dispatch(selectDigitPlan(data,cb))
     }
 }
 
