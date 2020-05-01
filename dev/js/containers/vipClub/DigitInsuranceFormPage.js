@@ -78,7 +78,7 @@ class DigitInsuranceFormPage extends React.Component{
                     fields = []
                     param = this.props.digit_self_details[val[key]]
                     if(param.id){
-                        if (param && Object.keys(param).length > 0 &&) {
+                        if (param && Object.keys(param).length > 0) {
                             //common validation starts
 
                             if (param.name == "") {
