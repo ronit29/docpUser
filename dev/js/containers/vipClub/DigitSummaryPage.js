@@ -73,9 +73,9 @@ class DigitInsuranceFormPage extends React.Component{
                             this.processPayment(resp)
                         } else {
                             if(resp && resp.data){
-                                alert('no payment')
-                                // success_id = '/vip-club-activated-details?payment_success=true&id=' + resp.data.id
-                                // this.props.history.push(success_id)
+                                // alert('no payment')
+                                success_id = '/covid-order/summary/'+resp.data.id+'?payment_success=true'
+                                this.props.history.push(success_id)
                             }
                         }
                     })

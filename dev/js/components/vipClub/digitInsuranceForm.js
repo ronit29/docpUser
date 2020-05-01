@@ -168,9 +168,9 @@ class DigitInsuranceForm extends React.Component {
                                         <div>
                                             <p className="sub-form-hed">Details</p>
                                         </div>
-                                        <div className="sub-form-hed-click" >
+                                        {/* <div className="sub-form-hed-click" >
                                             Add More <img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="col-12">
                                         <button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')}>Mr.</button>
@@ -229,7 +229,7 @@ class DigitInsuranceForm extends React.Component {
                                         </div>
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <input type="number" id="mbl" maxlength="10" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="phone_number" data-param='phone_number' value=''
+                                                <input type="number" id="mbl" max="9999999999" min="1000000000" className="form-control ins-form-control ins-date-picker-style" required autoComplete="off" name="phone_number" data-param='phone_number' value=''
                                                 onChange={this.handleChange.bind(this, 'phone_number')} value={this.state.phone_number}
                                                 onBlur={this.handleSubmit.bind(this)}  />
                                                 <label className="form-control-placeholder" htmlFor="mbl">Mobile</label>
