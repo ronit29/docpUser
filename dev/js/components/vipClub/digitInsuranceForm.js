@@ -101,11 +101,6 @@ class DigitInsuranceForm extends React.Component {
     getUserDetails(profile) {
         let empty_state ={}
         console.log(profile)
-        if(profile.is_tobe_dummy_user){
-            this.setState({...empty_state,name:''},()=>{
-                this.handleSubmit()
-            })
-        }
         if(Object.keys(profile).length > 0){
             if(profile.id){
                 this.setState({profile_id:profile.id?profile.id:''})
@@ -176,9 +171,9 @@ class DigitInsuranceForm extends React.Component {
     handleSubmit() {
     let profile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
     if (!profile.isDummyUser && this.props.member_id > 0) {
-        this.setState({ profile_id: 0 })
+        this.setState({ profile_id: 0, id:0 })
     } else {
-        this.setState({ profile_id: null, id:profile.id })
+        this.setState({ profile_id: null, id:profile.isDummyUser?0:profile.id })
     }
     var self_data = this.state
     this.props.saveUserDetails('self_data', self_data)
