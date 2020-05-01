@@ -8,7 +8,7 @@ class DigitSummaryView extends React.Component {
     }
 
     render() {
-        let fullName = this.props.data.title+ ' ' + this.props.data.first_name + ' ' +this.props.data.last_name;
+        let fullName = this.props.selfdata.title+ ' ' + this.props.selfdata.first_name + ' ' +this.props.selfdata.last_name;
         return (
             <div>
                 <div className="widget mrb-10">
@@ -20,13 +20,13 @@ class DigitSummaryView extends React.Component {
                         </div>
                         <div className="dlts-cnt">
                             <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{fullName}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>{this.props.data.first_name}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>{this.props.data.email}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/call.svg'} /><span>{this.props.data.mobile}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>{this.props.data.pincode}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>{this.props.data.address}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.data.nominee_name}</span></p>
-                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.data.nominee_relation}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/calendar-01.svg'} /><span>{this.props.selfdata.first_name}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/mail-01.svg'} /><span>{this.props.selfdata.email}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/call.svg'} /><span>{this.props.selfdata.mobile}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/location-01.svg'} /><span>{this.props.selfdata.pincode}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} /><span>{this.props.selfdata.address}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.selfdata.nominee_name}</span></p>
+                            <p><img className="img-fluid" src={ASSETS_BASE_URL + '/img/nw-usr.svg'} /><span>{this.props.selfdata.nominee_relation}</span></p>
                         </div>
                     </div>
                 </div>
@@ -37,19 +37,19 @@ class DigitSummaryView extends React.Component {
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">Premium Amount</p>
-                        <p className="payment-content fw-500">&#8377; 0,0</p>
+                        <p className="payment-content fw-500">&#8377; {this.props.plandata.amount}</p>
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">GST</p>
                         <p className="payment-content fw-500">&#8377; 18%</p>
                     </div>
-                    <div className="payment-content-div">
+                    {/* <div className="payment-content-div">
                         <p className="payment-content fw-500">Policy StartDate</p>
                         <p className="payment-content fw-500">--/--/--</p>
-                    </div>
+                    </div> */}
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">Amount Payable</p>
-                        <p className="payment-content fw-500">&#8377; 400</p>
+                        <p className="payment-content fw-500">&#8377;  {this.props.plandata.final_amount}</p>
                     </div>
                 </div>
             </div>

@@ -101,6 +101,7 @@ class DigitInsuranceFormPage extends React.Component{
 
     render(){
         console.log(this.props.digit_self_details)
+        console.log(this.props.selected_digit_plan)
         return (
             <React.Fragment>
                 <div>
@@ -132,7 +133,7 @@ class DigitInsuranceFormPage extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitSummaryView data={this.props.digit_self_details}/>
+                                            <DigitSummaryView selfdata={this.props.digit_self_details} plandata={this.props.selected_digit_plan}/>
                                         </div>
                                     </div>
                                 </div>
