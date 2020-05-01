@@ -71,7 +71,6 @@ class DigitInsuranceForm extends React.Component {
                     profile = Object.assign({}, props.digit_self_details[loginUserId])
                 }                
                 if(profile && Object.keys(profile).length){
-                    console.log(profile)
                     this.setState({id:profile.id,profile_flag:false},()=>{
                         this.getUserDetails(profile) // fill user details in form    
                     })
@@ -85,12 +84,10 @@ class DigitInsuranceForm extends React.Component {
                     if(profile.isDummyUser){
                         profile.id = 0
                         this.setState({id:0,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)// fill user details in form    
                         })
                     }else{
                         this.setState({id:profile.id,profile_flag:false},()=>{
-                            console.log(profile)
                             this.getUserDetails(profile)    // fill user details in form
                         })
                     }
@@ -117,10 +114,20 @@ class DigitInsuranceForm extends React.Component {
             if(profile.name == 'User' || profile.name == 'user'){
                 this.setState({ name:''})
             }else if(profile.name){
-                this.setState({ name:profile.name?profile.name:''})
+                let profName = profile.name;
+                let splitName = profName.split(' ');
+                if(typeof splitName[0] != 'undefined') {
+                    this.setState({ name:splitName[0]?splitName[0]:''})
+                }
+                if(typeof splitName[1] != 'undefined') {
+                    this.setState({ last_name:splitName[1]?splitName[1]:''})
+                }
             }
             if(profile.email){
                 this.setState({email:profile.email})
+            }
+            if(profile.phone_number){
+                this.setState({phone_number:profile.phone_number})
             }
             this.setState({
                 dob: profile.dob ? profile.dob :''
@@ -190,7 +197,6 @@ class DigitInsuranceForm extends React.Component {
         if(this.props.validateErrors && Object.keys(this.props.validateErrors).length){
            errors = this.props.validateErrors[profile_id]
         }
-        console.log(errors)
         let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
         return (
 
@@ -337,7 +343,7 @@ class DigitInsuranceForm extends React.Component {
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
-                                                    <option data-param="relation" disabled selected hidden>Nominee Relation</option>
+                                                    <option data-param="relation" disabled>Nominee Relation</option>
                                                     <option data-param="relation" value="father">FATHER</option>
                                                     <option data-param="relation" value="mother">MOTHER</option>
                                                     <option data-param="relation" value="brother">BROTHER</option>

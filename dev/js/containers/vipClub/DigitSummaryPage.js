@@ -36,9 +36,7 @@ class DigitInsuranceFormPage extends React.Component{
 
     proceed(){
 
-        console.log(this.props.digit_self_details)
         if (this.props.selected_digit_plan && Object.keys(this.props.selected_digit_plan).length > 0 && this.props.digit_self_details && Object.keys(this.props.digit_self_details).length > 0) {
-            console.log('dd')
             var members = {}
             let param
             let data = {}
@@ -63,7 +61,6 @@ class DigitInsuranceFormPage extends React.Component{
                         members.id = param.id
                         members.address = param.address
                         data.members.push(members)
-                        console.log(data)
                         this.props.digitPay(data, (resp) => { // to request for payment
 
                             if (resp && resp.error) {
@@ -100,7 +97,7 @@ class DigitInsuranceFormPage extends React.Component{
     }
 
     render(){
-        console.log(this.props.digit_self_details)
+        let selfDataObj = this.props.digit_self_details[Object.keys(this.props.digit_self_details)[0]]; 
         return (
             <React.Fragment>
                 <div>
@@ -132,7 +129,7 @@ class DigitInsuranceFormPage extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitSummaryView data={this.props.digit_self_details}/>
+                                            <DigitSummaryView selfdata={selfDataObj} plandata={this.props.selected_digit_plan}/>
                                         </div>
                                     </div>
                                 </div>
