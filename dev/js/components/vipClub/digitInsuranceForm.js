@@ -152,9 +152,15 @@ class DigitInsuranceForm extends React.Component {
 
     render() {
         console.log(this.props)
+        let isDummyUser
+        let profile_id = 0
+        if (this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]) {
+            isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+            profile_id =  this.props.USER.profiles[this.props.USER.defaultProfile].id
+        }
         return (
 
-                    <div className="widget mrb-10 digit-input-container">
+                    <div className="widget mrb-10 digit-input-container" id={isDummyUser ? 'member_0' : `member_${profile_id}`}>
                             <div className="widget-content">
                                 <div className="ins-sub-forms">
                                     {/* <hr className="ins-internal-hr" /> */}
