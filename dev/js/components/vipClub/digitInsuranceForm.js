@@ -162,9 +162,9 @@ class DigitInsuranceForm extends React.Component {
                                         <div>
                                             <p className="sub-form-hed">Details</p>
                                         </div>
-                                        <div className="sub-form-hed-click" >
+                                        {/* <div className="sub-form-hed-click" >
                                             Add More <img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="col-12">
                                         <button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')}>Mr.</button>
