@@ -77,62 +77,64 @@ class DigitInsuranceFormPage extends React.Component{
                 if (Object.keys(this.props.digit_self_details).length > 0) {
                     fields = []
                     param = this.props.digit_self_details[val[key]]
-                    if (param && Object.keys(param).length > 0 && param.id) {
-                        //common validation starts
+                    if(param.id){
+                        if (param && Object.keys(param).length > 0 &&) {
+                            //common validation starts
 
-                        if (param.name == "") {
-                            is_disable = true
-                            fields.push('name')
-                        }
-                        if (param.last_name == "") {
-                            is_disable = true
-                            fields.push('last_name')
-                        }
-
-                        if (param.title == "") {
-                            is_disable = true
-                            fields.push('title')
-                        }
-                        if (param.pincode == "") {
-                            is_disable = true
-                            fields.push('pincode')
-                        }
-
-                        if (param.phone_number == "") {
-                            is_disable = true
-                            fields.push('phone_number')
-                        }
-
-                        if (param.address == "") {
-                            is_disable = true
-                            fields.push('address')
-                        }
-
-                        if (param.nominee_name == "") {
-                            is_disable = true
-                            fields.push('nominee_name')
-                        }
-
-                        if (param.nominee_relation == "") {
-                            is_disable = true
-                            fields.push('nominee_relation')
-                        }
-
-                        // if (param.dob == null || param.dob == "") {
-                        //     is_disable = true
-                        //     fields.push('dob')
-                        // }
-
-                        if (param.email != '' && param.relation == 'self') {
-                            let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                            validEmail = validEmail.test(param.email)
-                            if (!validEmail) {
+                            if (param.name == "") {
                                 is_disable = true
-                                fields.push('email')
+                                fields.push('name')
+                            }
+                            if (param.last_name == "") {
+                                is_disable = true
+                                fields.push('last_name')
+                            }
+
+                            if (param.title == "") {
+                                is_disable = true
+                                fields.push('title')
+                            }
+                            if (param.pincode == "") {
+                                is_disable = true
+                                fields.push('pincode')
+                            }
+
+                            if (param.phone_number == "") {
+                                is_disable = true
+                                fields.push('phone_number')
+                            }
+
+                            if (param.address == "") {
+                                is_disable = true
+                                fields.push('address')
+                            }
+
+                            if (param.nominee_name == "") {
+                                is_disable = true
+                                fields.push('nominee_name')
+                            }
+
+                            if (param.nominee_relation == "") {
+                                is_disable = true
+                                fields.push('nominee_relation')
+                            }
+
+                            // if (param.dob == null || param.dob == "") {
+                            //     is_disable = true
+                            //     fields.push('dob')
+                            // }
+
+                            if (param.email != '' && param.relation == 'self') {
+                                let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                validEmail = validEmail.test(param.email)
+                                if (!validEmail) {
+                                    is_disable = true
+                                    fields.push('email')
+                                }
                             }
                         }
+                        validatingErrors[param.id] = fields
                     }
-                    validatingErrors[param.id] = fields
                 }
             })
             console.log(validatingErrors)
@@ -153,6 +155,9 @@ class DigitInsuranceFormPage extends React.Component{
     }
 
     render(){
+        if (!STORAGE.checkAuth()) {
+            this.props.history.push('/covid-plans')
+        }
         return (
             <React.Fragment>
                 <div>
