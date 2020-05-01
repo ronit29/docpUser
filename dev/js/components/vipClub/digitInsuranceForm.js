@@ -336,8 +336,8 @@ class DigitInsuranceForm extends React.Component {
                                         }
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <select className="ins-select-drop" value={this.state.nominee_relation} id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
-                                                    <option data-param="relation" disabled hidden>Nominee Relation</option>
+                                                <select className="ins-select-drop" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
+                                                    <option data-param="relation" disabled>Nominee Relation</option>
                                                     <option data-param="relation" value="father">FATHER</option>
                                                     <option data-param="relation" value="mother">MOTHER</option>
                                                     <option data-param="relation" value="brother">BROTHER</option>
