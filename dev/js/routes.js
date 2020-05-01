@@ -578,9 +578,9 @@ const ChatRatings = Loadable({
 })
 
 const DigitPlans = Loadable({
-    loader: () => import('./containers/vipClub/DigitInsurance.js'),
-    modules: ['./containers/vipClub/DigitInsurance.js'],
-    webpack: () => [require.resolveWeak('./containers/vipClub/DigitInsurance.js')],
+    loader: () => import('./containers/vipClub/digitInsurance.js'),
+    modules: ['./containers/vipClub/digitInsurance.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/digitInsurance.js')],
     loading,  
 })
 const DigitForm = Loadable({
