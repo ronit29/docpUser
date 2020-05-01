@@ -47,39 +47,40 @@ class DigitInsuranceFormPage extends React.Component{
             this.props.currentSelectedDigitMembersId.map((val, key) => {
                 if (Object.keys(this.props.digit_self_details).length > 0) {
                     param = this.props.digit_self_details[val[key]]
-                    members = {}
-                    members.title = param.title
-                    members.first_name = param.name
-                    members.last_name = param.last_name
-                    members.email = param.email
-                    members.dob = param.dob
-                    members.gender = param.gender
-                    members.mobile = param.phone_number
-                    members.nominee_name = param.nominee_name
-                    members.nominee_relation = param.nominee_relation
-                    members.pincode = param.pincode
-                    members.profile = param.profile_id
-                    members.id = param.id
-                    members.address = param.address
-                    data.members.push(members)
-                    console.log(data)
-                    this.props.digitPay(data, (resp) => { // to request for payment
+                    if(param.id){
+                        members = {}
+                        members.title = param.title
+                        members.first_name = param.name
+                        members.last_name = param.last_name
+                        members.email = param.email
+                        members.dob = param.dob
+                        members.gender = param.gender
+                        members.mobile = param.phone_number
+                        members.nominee_name = param.nominee_name
+                        members.nominee_relation = param.nominee_relation
+                        members.pincode = param.pincode
+                        members.profile = param.profile_id
+                        members.id = param.id
+                        members.address = param.address
+                        data.members.push(members)
+                        console.log(data)
+                        this.props.digitPay(data, (resp) => { // to request for payment
 
-                        if (resp && resp.error) {
-                            SnackBar.show({ pos: 'bottom-center', text: resp.error })
-                            return
-                        }
-                        if (resp.payment_required) {
-                            this.processPayment(resp)
-                        } else {
-                            if(resp && resp.data){
-                                // alert('no payment')
-                                success_id = '/covid-order/summary/'+resp.data.id+'?payment_success=true'
-                                this.props.history.push(success_id)
+                            if (resp && resp.error) {
+                                SnackBar.show({ pos: 'bottom-center', text: resp.error })
+                                return
                             }
-                        }
-                    })
-                    
+                            if (resp.payment_required) {
+                                this.processPayment(resp)
+                            } else {
+                                if(resp && resp.data){
+                                    // alert('no payment')
+                                    success_id = '/covid-order/summary/'+resp.data.id+'?payment_success=true'
+                                    this.props.history.push(success_id)
+                                }
+                            }
+                        })
+                    }
                 }
             })
         }
