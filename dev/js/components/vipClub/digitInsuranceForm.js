@@ -168,7 +168,7 @@ class DigitInsuranceForm extends React.Component {
                                     </div>
                                     <div className="col-12">
                                         <button className='label-names-buttons btn-active ' name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')}>Mr.</button>
-                                        <button className='label-names-buttons' name="title" value='miss.' data-param='title' onClick={this.handleTitle.bind(this, 'miss.')}>Ms.</button>
+                                        <button className='label-names-buttons' name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss.')}>Ms.</button>
                                         <button className='label-names-buttons' value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
                                     </div>
                                     <div className="row no-gutters">
@@ -215,7 +215,7 @@ class DigitInsuranceForm extends React.Component {
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="text" className='form-control ins-form-control' required id="mil" 
-                                                onChange={this.handleEmail.bind(this, 'email')} value={this.state.email} name="email"
+                                                onBlur={this.handleEmail.bind(this)} onChange={this.handleChange.bind(this,'email')} value={this.state.email} name="email"
                                                  />
                                                 <label className='form-control-placeholder ' htmlFor="mil">Email</label>
                                                 <img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
