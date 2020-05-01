@@ -318,6 +318,46 @@ class Insurance extends React.Component {
 										</div>
 										<div className="bottomMargin"></div>
 										{/* ==================== Payment ==================== */}
+										{/* ==================== after Payment ==================== */}
+										<div className="widget mrb-10">
+											<div className="ins-card-head">
+												<div className="ins-name-head-div d-flex align-items-start digit-logo">
+													<img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
+													<p className="fw-500 mrt-10">
+														Digit Covid Group insurance<br/>
+														<span className="ins-active-container">
+															<p>Active <img src={ASSETS_BASE_URL + "/img/chk-green.svg"} /></p>
+														</span>
+														</p>
+												</div>
+											</div>
+											<div className="ins-policy-date">
+												<div className="details-flex-cont">
+													<div className="ins-policy-details">
+														<p>Policy Purchase Date</p>
+														<span>11th Oct 2020</span>
+													</div>
+													<div className="ins-policy-details">
+														<p>Valid Upto</p>
+														<span>11th Oct 2021</span>
+													</div>
+												</div>
+												<div className="ins-policy-members-details mt-20">
+													<p><span>Premium</span> : Rs 2000</p>
+													<p style={{ 'textTransform': 'capitalize' }}><span>Proposer Name </span> : Mayank Yadav</p>
+													<p><span>Policy Number</span> : DIDIG22926765</p>
+													<p><span>Cover</span> : 4 'Members'</p>
+													<ul>
+														<li style={{ 'textTransform': 'capitalize' }}>
+															<span className="insa-tbl-names"> Maddy: </span>
+															<span className="insa-sub-tbl-names"> Shady</span>
+															<span className="insa-sub-tbl-names"> TestIng</span>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										{/* ==================== after Payment ==================== */}
 									</div>
 								</div>
 							</div>
@@ -340,7 +380,7 @@ class Insurance extends React.Component {
 									<li>Coverage is applicable only if the insured member(s) is/are diagnosed with and hospitalised solely for COVID-19.</li>
 									<li>Comorbidity exclusion clause- Insured Member(s) is/are not suffering from fever or suffering /suffered from diabetes, hypertension, disease related to heart/lungs/kidney/liver, cancer, stroke or any condition that needs ongoing medication or the insured members(s) is/are due for any medical treatment, at the time of buying this policy</li>
 									<li>Positive test report for Coronavirus disease (COVID-19) conducted from Govt/ICMR Authorized test Centre in India from National Institute of Virology, Pune. <a
-									href="https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf" target="_blank">https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf</a></li>
+										href="https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf" target="_blank">https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf</a></li>
 									<li>Hospitalisation expenses due to Quarantine for COVID-19 are also covered if the insured member(s) was/were suffering from COVID -19 during the hospitalisation and the said hospitalisation was solely due to COVID-19.</li>
 									<li>Child below 18 years can be covered if either parent also takes the policy</li>
 									<li>*Parents can also be covered in case of employer – employee policy provided they are below age 60.</li>
