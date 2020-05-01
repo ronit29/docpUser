@@ -1,10 +1,11 @@
 import React from 'react'
+import SnackBar from 'node-snackbar'
 
 class DigitInsuranceForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title:'',
+            title:'mr.',
             name: '',
             last_name:'',
             middle_name:'',
@@ -101,9 +102,8 @@ class DigitInsuranceForm extends React.Component {
     }
 
     handleRelation(event) {
-        this.setState({'nominee_relation':event.target.value},()=>{
-            this.handleSubmit()
-        })
+        this.setState({'nominee_relation':event.target.value})
+        this.handleSubmit()
     }
 
     handleChange(field, event) {
@@ -115,9 +115,9 @@ class DigitInsuranceForm extends React.Component {
     handleTitle(field, event) {
         let title_value = event.target.value
         if (title_value == 'mr.') {
-            this.setState({ gender: 'm' })
+            this.setState({ gender: 'm',title:title_value })
         } else if (title_value == 'miss' || title_value == 'mrs.') {
-            this.setState({ gender: 'f' })
+            this.setState({ gender: 'f',title:title_value })
         }
         this.setState({ title: event.target.value }, () => {
             var self_data = this.state
@@ -167,9 +167,9 @@ class DigitInsuranceForm extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <button className='label-names-buttons btn-active ' name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')}>Mr.</button>
-                                        <button className='label-names-buttons' name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss.')}>Ms.</button>
-                                        <button className='label-names-buttons' value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
+                                        <button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')}>Mr.</button>
+                                        <button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss.')}>Ms.</button>
+                                        <button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
                                     </div>
                                     <div className="row no-gutters">
 
@@ -215,7 +215,7 @@ class DigitInsuranceForm extends React.Component {
                                         <div className="col-12">
                                             <div className="ins-form-group">
                                                 <input type="text" className='form-control ins-form-control' required id="mil" 
-                                                onBlur={this.handleEmail.bind(this)} onChange={this.handleChange.bind(this,'email')} value={this.state.email} name="email"
+                                                onBlur={this.handleEmail.bind(this)} data-param="email" onChange={this.handleChange.bind(this,'email')} value={this.state.email} name="email"
                                                  />
                                                 <label className='form-control-placeholder ' htmlFor="mil">Email</label>
                                                 <img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
