@@ -214,8 +214,8 @@ class DigitInsuranceForm extends React.Component {
                                         </div>
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <input type="text" className='form-control ins-form-control' required id="mil"
-                                                onChange={this.handleEmail.bind(this, 'email')} value={this.state.email}
+                                                <input type="text" className='form-control ins-form-control' required id="mil" 
+                                                onChange={this.handleEmail.bind(this, 'email')} value={this.state.email} name="email"
                                                  />
                                                 <label className='form-control-placeholder ' htmlFor="mil">Email</label>
                                                 <img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />

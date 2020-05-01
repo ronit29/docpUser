@@ -9,7 +9,7 @@ import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 import SnackBar from 'node-snackbar'
 const queryString = require('query-string');
-import PaymentForm from '../commons/paymentForm'
+import PaymentForm from '../../components/commons/paymentForm'
 
 class DigitInsuranceFormPage extends React.Component{
 
