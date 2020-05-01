@@ -185,6 +185,13 @@ class DigitInsuranceFormPage extends React.Component{
                                                 </div>
                                             </div>
                                             <DigitInsuranceForm {...this.props} />
+                                            <div className="term-cont-digi">
+                                                <label className="ck-bx" htmlform="test11" style={{ 'fontWeight': '500', 'fontSize': '13px' }}>
+                                                    <input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
+                                                    <span className="checkmark"></span>I Agree to the </label>
+                                                <p onClick={this.openPopup}>Terms and Conditions</p>
+                                            </div>
+                                            <div className="bottomMargin"></div>
                                         </div>
                                     </div>
                                 </div>
