@@ -4,6 +4,7 @@ class DigitStaticDataView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            toggle: 'one'
         }
     }
 
@@ -28,30 +29,33 @@ class DigitStaticDataView extends React.Component {
                             <div className="ins-swich-tabs-container">
                                 <div className="ins-tabs">
                                     <ul>
-                                        <li>
-                                            <p className=' active'>Features</p>
+                                        <li onClick={()=> this.setState({toggle:'one'})}>
+                                            <p className={this.state.toggle == "one"?'active':'ins-tab-inactive'}>Features</p>
                                         </li>
-                                        <li >
-                                            <p className='ins-tab-inactive' >What's not Covered?</p></li>
+                                        <li onClick={()=> this.setState({toggle:'two'})}>
+                                            <p className={this.state.toggle == "two"?'active':'ins-tab-inactive'} >What's not Covered?</p></li>
                                     </ul>
                                 </div>
                                 <div className="ins-tabs-content widget-content">
-                                    <ul>
-                                        <li>Sum Insured Type : Individual for each member covered</li>
-                                        <li>Room rent restriction : No Restriction</li>
-                                        <li>ICU limit : No Restriction</li>
-                                        <li>Pre and Post hospitalization days : 30 days and 60 days respectively</li>
-                                        <li>Road Ambulance : 1% of the SI (up to INR 5,000)</li>
-                                        <li>Second medical opinion : Covered</li>
-                                        <li>Types of hospitals covered : All</li>
-                                    </ul>
-                                    <ul className="d-none">
-                                        <li>Hospitalisation expenses not in lieu of treatment for Coronavirus disease (COVID-19) will not be covered.</li>
-                                        <li>Insured members already treated for or quarantined for Coronavirus disease (COVID-19) before the policy issuance will not be covered.</li>
-                                        <li>Treatment taken outside India will not be covered.</li>
-                                        <li>Home hospitalisation (Domiciliary hospitalisation) expenses will not be covered.</li>
-                                        <li>Hospitalisation expenses for patients only under investigation with inconclusive medical report will not be covered.</li>
-                                    </ul>
+                                    {
+                                        this.state.toggle == "one"?
+                                        <ul>
+                                            <li>Sum Insured Type : Individual for each member covered</li>
+                                            <li>Room rent restriction : No Restriction</li>
+                                            <li>ICU limit : No Restriction</li>
+                                            <li>Pre and Post hospitalization days : 30 days and 60 days respectively</li>
+                                            <li>Road Ambulance : 1% of the SI (up to INR 5,000)</li>
+                                            <li>Second medical opinion : Covered</li>
+                                            <li>Types of hospitals covered : All</li>
+                                        </ul>
+                                        :<ul>
+                                            <li>Hospitalisation expenses not in lieu of treatment for Coronavirus disease (COVID-19) will not be covered.</li>
+                                            <li>Insured members already treated for or quarantined for Coronavirus disease (COVID-19) before the policy issuance will not be covered.</li>
+                                            <li>Treatment taken outside India will not be covered.</li>
+                                            <li>Home hospitalisation (Domiciliary hospitalisation) expenses will not be covered.</li>
+                                            <li>Hospitalisation expenses for patients only under investigation with inconclusive medical report will not be covered.</li>
+                                        </ul>
+                                    }
                                 </div>
                             </div>
                         </div>
