@@ -19,7 +19,7 @@ class DigitOrderView extends React.Component {
             <div className="widget mrb-10">
             <div className="ins-card-head">
                 <div className="ins-name-head-div d-flex align-items-start digit-logo">
-                    <img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
+                    <img className="img-fluid " width="60" src={ASSETS_BASE_URL + '/img/digit-insurance-logo.jpg'} />
                     <p className="fw-500 mrt-10">
                         Digit Covid Group insurance<br/>
                         <span className="ins-active-container">
