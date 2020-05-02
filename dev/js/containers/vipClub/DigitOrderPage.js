@@ -42,7 +42,26 @@ class DigitOrderPage extends React.Component{
 
     render(){
         return (
-            <DigitOrderView {...this.props} orderdata={this.state.data} />
+            <React.Fragment>
+                <div>
+					<div className="profile-body-wrap">
+						<ProfileHeader showPackageStrip={true} />
+                        <div className="bottomMargin"></div>
+						<section className="container article-container bottomMargin">
+							<div className="row main-row parent-section-row justify-content-center">
+								<div className="col-12 col-md-10 col-lg-10 center-column">
+									<div className="container-fluid mt-20">
+										<div>
+                                            <div className="bottomMargin"></div>
+                                            <DigitOrderView {...this.props} orderdata={this.state.data} />
+                                         </div>   
+                                        </div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div >    
+            </React.Fragment>    
         );
     }
 }
@@ -64,7 +83,7 @@ const mapDispatchToProps = (dispatch) => {
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, extraParamsData,cb) => dispatch(submitOTP(number, otp,extraParamsData, cb)),
         resetAuth: () => dispatch(resetAuth()),
-        retrieveDigitInsuranceData: () => dispatch(retrieveDigitInsuranceData(dataParams, cb)),
+        retrieveDigitInsuranceData: (dataParams,cb) => dispatch(retrieveDigitInsuranceData(dataParams, cb)),
         // selectDigitPlan :(data,cb) => dispatch(selectDigitPlan(data,cb))
     }
 }

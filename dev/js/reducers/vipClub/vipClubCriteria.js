@@ -193,7 +193,6 @@ export default function (state = defaultState, action) {
             newState.savedMemberData=[]
             newState.vipCoupons= []
             newState.digitPlans={},
-            newState.selected_digit_plan={},
             newState.digit_self_details={},
             newState.currentSelectedDigitMembersId=[]
 

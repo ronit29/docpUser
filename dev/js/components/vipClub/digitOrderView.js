@@ -16,6 +16,7 @@ class DigitOrderView extends React.Component {
             }
         }
         return (
+            this.props.orderdata?
             <div className="widget mrb-10">
             <div className="ins-card-head">
                 <div className="ins-name-head-div d-flex align-items-start digit-logo">
@@ -54,7 +55,7 @@ class DigitOrderView extends React.Component {
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>:<div></div>
                 );
             }
         }

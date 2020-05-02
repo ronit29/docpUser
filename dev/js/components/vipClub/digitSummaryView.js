@@ -36,12 +36,16 @@ class DigitSummaryView extends React.Component {
                         <hr />
                     </div>
                     <div className="payment-content-div">
+                        <p className="payment-content fw-500">Plan Name</p>
+                        <p className="payment-content fw-500">{this.props.plandata.name}</p>
+                    </div>
+                    <div className="payment-content-div">
                         <p className="payment-content fw-500">Premium Amount</p>
                         <p className="payment-content fw-500">&#8377; {this.props.plandata.amount}</p>
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">GST</p>
-                        <p className="payment-content fw-500">&#8377; 18%</p>
+                        <p className="payment-content fw-500"> 18%</p>
                     </div>
                     {/* <div className="payment-content-div">
                         <p className="payment-content fw-500">Policy StartDate</p>

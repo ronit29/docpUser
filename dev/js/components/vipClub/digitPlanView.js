@@ -14,16 +14,31 @@ import CarouselView from '../opd/searchResults/carouselView.js'
 class DigitPlanView extends React.Component {
     constructor(props) {
         super(props)
+        let defaultPlan = '';
+        
         this.state = {
             // selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
-            selected_plan_data: this.props.selected_digit_plan ? this.props.selected_digit_plan : '',
-            selected_plan_id: this.props.selected_digit_plan && Object.keys(this.props.selected_digit_plan).length ? this.props.selected_digit_plan.id:'',
-            toggleTabType: false,
+           selected_plan_data: defaultPlan ? defaultPlan : '',
+           selected_plan_id: defaultPlan.id ? defaultPlan.id:'',
+           toggleTabType: false,
         }
     }
 
-    proceed(){
+    componentWillReceiveProps(props) {
+        let planData = props.plans;
+        let defaultPlan = '';
+        for (var i = 0; i < planData.length; i++) {
+            if(planData[i].is_selected==true ){
+                defaultPlan = planData[i];   
+            }
+        }   
+        this.state.selected_plan_id = defaultPlan.id ? defaultPlan.id:'';
+        this.state.selected_plan_data=  defaultPlan ? defaultPlan : '';
+        
+    }
+    
+    proceed() {
         if (STORAGE.checkAuth()) {
             let url  = '/covid-form'
             this.props.history.push(url)
@@ -39,23 +54,9 @@ class DigitPlanView extends React.Component {
     hideLoginPopup() {
         this.setState({ showPopup: false })
     }
-
     render() {
         let self = this
-        let is_gold_selected = false
-        // let selected_gold_plan_price 
-        //     {
-        //         this.props.selected_plan_data && Object.keys(this.props.selected_plan_data).length > 0 && this.props.vipClubList.gold_plans && this.props.vipClubList.gold_plans.length?
-        //         Object.entries(this.props.vipClubList.gold_plans).map(function ([key, value]) {
-        //             if(value.is_selected){
-        //                 selected_gold_plan_price = value.deal_price
-        //             }
-        //             if(parseInt(value.id) == parseInt(self.props.selected_plan_data.id)){
-        //                 is_gold_selected = true
-        //             }
-        //         })
-        //         :''
-        //     }
+        
 
         return (
             // && Object.keys(this.props.vipClubList).length > 0 && this.props.selected_plan_data &&
@@ -106,7 +107,7 @@ class DigitPlanView extends React.Component {
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><p className="ins-dtls-members-edit">{this.props.is_edit ? 'Change Insured Plan' : 'Insured Member Details'}
+                                                            <td><p className="ins-dtls-members-edit">{this.props.is_edit ? 'Coverage Amounts' : 'Coverage Amounts'}
                                                             </p>
                                                             </td>
                                                             <td></td>
@@ -116,7 +117,7 @@ class DigitPlanView extends React.Component {
                                                                 <td>
                                                                     <div className="dtl-radio" onClick={()=>self.selectPlan(plan,self)}>
                                                                         <label className="container-radio">{plan.name}
-                                                                            <input type="radio" checked={this.state.selected_plan_id == plan.id} />
+                                                                            <input type="radio" checked={this.state.selected_plan_id == plan.id}/>
                                                                             <span className="doc-checkmark"></span>
                                                                         </label>
                                                                     </div>
@@ -128,13 +129,6 @@ class DigitPlanView extends React.Component {
                                                             
                                                     </tbody>
                                                 </table>
-                                            
-                                            {/* <div className="term-cont-digi">
-                                                <label className="ck-bx" htmlform="test11" style={{ 'fontWeight': '500', 'fontSize': '13px' }}>
-                                                    <input type="checkbox" defaultChecked className="ins-chk-bx" value="" id="test11" name="fruit-1" />
-                                                    <span className="checkmark"></span>I Agree to the </label>
-                                                <p onClick={this.openPopup}>Terms and Conditions</p>
-                                            </div> */}
                                         </div>
                                             <div className="bottomMargin"></div>
                                         </div>

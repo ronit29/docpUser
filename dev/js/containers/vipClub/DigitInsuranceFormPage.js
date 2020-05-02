@@ -166,7 +166,7 @@ class DigitInsuranceFormPage extends React.Component{
                                     <div className="container-fluid mt-20">
                                         <div>
                                             {/* ==================== top section with icons and listing ==================== */}
-                                            <DigitStaticDataView /> 
+                                            {/* <DigitStaticDataView />  */}
                                             {/* ==================== top section with icons and listing ==================== */}
                                             {/* ==================== Steps Container ==================== */}
                                             <div className="widget mrb-10 digi-step">
