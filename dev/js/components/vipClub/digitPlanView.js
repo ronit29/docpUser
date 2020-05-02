@@ -33,9 +33,9 @@ class DigitPlanView extends React.Component {
                 defaultPlan = planData[i];   
             }
         }   
-        this.state.selected_plan_id = defaultPlan.id ? defaultPlan.id:'',
-        this.state.selected_plan_data=  defaultPlan ? defaultPlan : '',
-        console.log(defaultPlan); 
+        this.state.selected_plan_id = defaultPlan.id ? defaultPlan.id:'';
+        this.state.selected_plan_data=  defaultPlan ? defaultPlan : '';
+        
     }
     
     proceed() {
