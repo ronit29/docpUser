@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState,NonIpdBookingLead, buildArticleStoreFromRedis } from '../../actions/index.js'
+import { covidData, fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState, setPackageId, submitMedicineLead, citiesData, iFrameState, NonIpdBookingLead, buildArticleStoreFromRedis } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -22,7 +22,7 @@ class Article extends React.Component {
                         // })()
                         resolve({ articleData: data })
                     } else {
-                        resolve({ status: 404})
+                        resolve({ status: 404 })
                     }
                 }))
             })
@@ -32,18 +32,22 @@ class Article extends React.Component {
         }
     }
 
-    static buildStateFromRedis(resp, store){
+    static buildStateFromRedis(resp, store) {
         return new Promise((resolve, reject) => {
-            store.dispatch(buildArticleStoreFromRedis(resp, (resp)=>{
+            store.dispatch(buildArticleStoreFromRedis(resp, (resp) => {
                 resolve();
             }))
-        }).catch((e)=>{
+        }).catch((e) => {
             reject(e);
         })
     }
 
     componentDidMount() {
-        this.props.citiesData()
+        this.props.citiesData();
+        this.props.covidData('', (data) => {
+            // console.log(data);
+            
+        });
     }
 
     static contextTypes = {
@@ -68,7 +72,7 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData = staticContext.data
     }
     let {
-        profiles, defaultProfile, offerList, articleData, user_cities, iFrameUrls,common_utm_tags
+        profiles, defaultProfile, offerList, articleData, user_cities, iFrameUrls, common_utm_tags
     } = state.USER
 
     let {
@@ -113,7 +117,7 @@ const mapStateToProps = (state, passedProps) => {
 
     return {
         initialServerData,
-        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls,common_utm_tags, static_footer_data
+        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities, iFrameUrls, common_utm_tags, static_footer_data
     }
 }
 
@@ -133,7 +137,8 @@ const mapDispatchToProps = (dispatch) => {
         submitMedicineLead: (data, callback) => dispatch(submitMedicineLead(data, callback)),
         citiesData: () => dispatch(citiesData()),
         iFrameState: (url, emptyUrls) => dispatch(iFrameState(url, emptyUrls)),
-        NonIpdBookingLead:(data,cb) =>dispatch(NonIpdBookingLead(data, cb)),
+        NonIpdBookingLead: (data, cb) => dispatch(NonIpdBookingLead(data, cb)),
+        covidData:(data,cb) => dispatch(covidData(data,cb))
     }
 }
 
