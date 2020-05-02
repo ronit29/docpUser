@@ -60,9 +60,6 @@ class DigitInsuranceForm extends React.Component {
     componentWillReceiveProps(props) {
         let self = this
         let loginUserId
-        console.log(props.USER.profiles);
-        console.log(this.state.profile_flag);
-        console.log(props.USER.defaultProfile);
         if (props.USER && props.USER.profiles && Object.keys(props.USER.profiles).length > 0 && this.state.profile_flag ) {
             let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
             loginUserId = props.USER.defaultProfile
@@ -133,6 +130,19 @@ class DigitInsuranceForm extends React.Component {
             if(profile.phone_number){
                 this.setState({phone_number:profile.phone_number})
             }
+            if(profile.pincode){
+                this.setState({pincode:profile.pincode})
+            }
+            if(profile.address){
+                this.setState({address:profile.address})
+            }
+            if(profile.nominee_name){
+                this.setState({nominee_name:profile.nominee_name})
+            }
+            if(profile.nominee_relation){
+                this.setState({nominee_relation:profile.nominee_relation})
+            }
+            
             this.setState({
                 dob: profile.dob ? profile.dob :''
             },()=>{
@@ -142,8 +152,11 @@ class DigitInsuranceForm extends React.Component {
     }
 
     handleRelation(event) {
-        this.setState({'nominee_relation':event.target.value})
-        this.handleSubmit()
+        this.setState({
+            nominee_relation: event.target.value
+        },() =>{
+            this.handleSubmit(event)
+        })
     }
 
     handleChange(field, event) {
@@ -346,12 +359,12 @@ class DigitInsuranceForm extends React.Component {
                                         }
                                         <div className="col-12">
                                             <div className="ins-form-group">
-                                                <select className="ins-select-drop" name="nominee_relation" id="relation_dropdown" onClick={this.handleRelation.bind(this)}>
-                                                    <option data-param="relation" disabled>Nominee Relation</option>
-                                                    <option data-param="relation" value="father">FATHER</option>
-                                                    <option data-param="relation" value="mother">MOTHER</option>
-                                                    <option data-param="relation" value="brother">BROTHER</option>
-                                                    <option data-param="relation" value="sister">SISTER</option>
+                                                <select className="ins-select-drop" name="nominee_relation" id="relation_dropdown" onChange={this.handleRelation.bind(this)} value={this.state.nominee_relation}>
+                                                    <option data-param="relation" disabled >Nominee Relation</option>
+                                                    <option data-param="relation" value="FATHER">FATHER</option>
+                                                    <option data-param="relation" value="MOTHER">MOTHER</option>
+                                                    <option data-param="relation" value="BROTHER">BROTHER</option>
+                                                    <option data-param="relation" value="SISTER">SISTER</option>
                                                 </select>
                                                 <img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                             </div>
