@@ -41,7 +41,7 @@ class DigitSummaryView extends React.Component {
                     </div>
                     <div className="payment-content-div">
                         <p className="payment-content fw-500">GST</p>
-                        <p className="payment-content fw-500">&#8377; 18%</p>
+                        <p className="payment-content fw-500"> 18%</p>
                     </div>
                     {/* <div className="payment-content-div">
                         <p className="payment-content fw-500">Policy StartDate</p>
