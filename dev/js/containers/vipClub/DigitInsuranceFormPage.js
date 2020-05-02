@@ -7,6 +7,7 @@ import DigitStaticDataView from '../../components/vipClub/digitStaticDataView.js
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
+import CommonLoginPopup from '../../components/commons/commonFixedPopup/commonFixedPopup.js'
 const queryString = require('query-string');
 
 class DigitInsuranceFormPage extends React.Component{
@@ -19,10 +20,17 @@ class DigitInsuranceFormPage extends React.Component{
             is_from_organic:parsed.fromOrganic,
             is_pb:parsed.utm_source?parsed.utm_source && parsed.utm_source.includes('policybazaar.com'):false,
             validateErrors:{},
-            saveMembers:false
+            saveMembers:false,
+            showPopup:false
         }
     }
+    cancelOverlay = () => {
+		this.setState({ showPopup: false })
+	}
 
+	openPopup = () => {
+		this.setState({ showPopup: true })
+	}
     componentDidMount() {
         
         if (STORAGE.checkAuth()) {
@@ -207,6 +215,25 @@ class DigitInsuranceFormPage extends React.Component{
                         </section>
                     </div>
                 </div>
+                {/* ==================== PopUp ==================== */}
+				{
+					this.state.showPopup ?
+						<CommonLoginPopup cancelOverlay={this.cancelOverlay} className="test-clas">
+							<div className="digitTNC-cont">
+								<h3>Terms & Conditions</h3>
+								<ul>
+									<li>Coverage is applicable only if the insured member(s) is/are diagnosed with and hospitalised solely for COVID-19.</li>
+									<li>Comorbidity exclusion clause- Insured Member(s) is/are not suffering from fever or suffering /suffered from diabetes, hypertension, disease related to heart/lungs/kidney/liver, cancer, stroke or any condition that needs ongoing medication or the insured members(s) is/are due for any medical treatment, at the time of buying this policy</li>
+									<li>Positive test report for Coronavirus disease (COVID-19) conducted from Govt/ICMR Authorized test Centre in India from National Institute of Virology, Pune. <a
+										href="https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf" target="_blank">https://icmr.nic.in/sites/default/files/upload_documents/Testing_sites_for_COVID19.pdf</a></li>
+									<li>Hospitalisation expenses due to Quarantine for COVID-19 are also covered if the insured member(s) was/were suffering from COVID -19 during the hospitalisation and the said hospitalisation was solely due to COVID-19.</li>
+									<li>Child below 18 years can be covered if either parent also takes the policy</li>
+									<li>*Parents can also be covered in case of employer – employee policy provided they are below age 60.</li>
+								</ul>
+							</div>
+						</CommonLoginPopup> : ''
+				}
+				{/* ==================== PopUp ==================== */}
             </React.Fragment>
         );
 
