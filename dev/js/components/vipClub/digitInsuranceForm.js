@@ -120,8 +120,18 @@ class DigitInsuranceForm extends React.Component {
                 if(typeof splitName[0] != 'undefined') {
                     this.setState({ name:splitName[0]?splitName[0]:''})
                 }
-                if(typeof splitName[1] != 'undefined') {
-                    this.setState({ last_name:splitName[1]?splitName[1]:''})
+                if(splitName.length >2){
+                    if(typeof splitName[1] != 'undefined') {
+                        this.setState({ middle_name:splitName[1]?splitName[1]:''})
+                    }
+                    if(typeof splitName[2] != 'undefined') {
+                        this.setState({ last_name:splitName[2]?splitName[2]:''})
+                    }
+                }
+                else{
+                    if(typeof splitName[1] != 'undefined') {
+                        this.setState({ last_name:splitName[1]?splitName[1]:''})
+                    }
                 }
             }
             if(profile.email){

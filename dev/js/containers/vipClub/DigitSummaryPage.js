@@ -49,6 +49,7 @@ class DigitInsuranceFormPage extends React.Component{
                         members = {}
                         members.title = param.title
                         members.first_name = param.name
+                        members.middle_name = param.middle_name
                         members.last_name = param.last_name
                         members.email = param.email
                         members.dob = param.dob
