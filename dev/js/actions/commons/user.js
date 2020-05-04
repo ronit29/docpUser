@@ -829,6 +829,14 @@ export const getReferAmnt = () => (dispatch) =>{
     }).catch(function (error) {
     })
 }
+export const covidData = (data,cb) => (dispatch) =>{
+    API_GET(`http://api.policybazaar.com/mobile/covid/data`).then(function (response) {
+        if(cb){
+			cb(response);
+		} 
+    }).catch(function (error) {
+    })
+}
 
 export const submitReportReview = (dataParams, cb) => (dispatch) => {
 	API_POST(`/api/v1/diagnostic/feedback_to_matrix?appointment_id=${dataParams.appointment_id}`, dataParams).then((data)=>{

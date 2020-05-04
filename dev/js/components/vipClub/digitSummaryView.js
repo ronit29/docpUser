@@ -8,7 +8,7 @@ class DigitSummaryView extends React.Component {
     }
 
     render() {
-        let fullName = this.props.selfdata.title+ ' ' + this.props.selfdata.name + ' ' +this.props.selfdata.last_name;
+        let fullName = this.props.selfdata.title+ ' ' + this.props.selfdata.name + ' ' +this.props.selfdata.middle_name+ ' ' +this.props.selfdata.last_name;
         return (
             <div>
                 <div className="widget mrb-10">

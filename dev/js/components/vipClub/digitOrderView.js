@@ -36,6 +36,10 @@ class DigitOrderView extends React.Component {
                         <span>{this.props.orderdata.purchase_date}</span>
                     </div>
                     <div className="ins-policy-details">
+                        <p>Policy Start Date</p>
+                        <span>{this.props.orderdata.policystart_date}</span>
+                    </div>
+                    <div className="ins-policy-details">
                         <p>Valid Upto</p>
                         {/* <span>11th Oct 2021</span> */}
                         <span>{this.props.orderdata.expiry_date}</span>
@@ -44,7 +48,7 @@ class DigitOrderView extends React.Component {
                 <div className="ins-policy-members-details mt-20">
                     <p><span>Premium</span> : Rs {this.props.orderdata.amount}</p>
                     <p style={{ 'textTransform': 'capitalize' }}><span>Proposer Name </span> : {fullName}</p>
-                    <p><span>Policy Number</span> : "Will be provided Shortly"</p>
+                    <p><span>Policy Number</span> : "Congratulations on Securing your health! Your Policy Copy Will be shared to your registered email within 24 hours!"</p>
                     <p><span>Cover</span> : 1 'Member(s)'</p>
                     <ul>
                         <li style={{ 'textTransform': 'capitalize' }}>
