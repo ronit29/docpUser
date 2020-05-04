@@ -403,7 +403,7 @@ export const saveCurrentSelectedDigitMembers = (membersId,callback) => (dispatch
     if(callback) callback(true) 
 }
 
-export const digitPay = (criteria,callback) => (dispatch) => { // to request for payment
+export const digitPay = (criteria,callback) => (dispatch) => { // to request for payment for Digit Insurance
     console.log(criteria)
     return API_POST('/api/v1/covid_insurance/create_order',criteria).then(function (response) {
         if(callback) callback(response);
@@ -414,11 +414,20 @@ export const digitPay = (criteria,callback) => (dispatch) => { // to request for
 
 }
 
-export const retrieveDigitInsuranceData = (dataParams, cb) => (dispatch) =>{ // to retrieve digit insurance data
+export const retrieveDigitInsuranceData = (dataParams, cb) => (dispatch) =>{ // to retrieve digit insurance data by ID
     let url = '';
     if(dataParams && dataParams.id) {
         url = `/api/v1/covid_insurance/retrieve/`+dataParams.id
     }
+    return API_GET(url).then((data)=> {
+        if(cb)cb(null, data)
+    }).catch((e)=>{
+         if(cb)cb(e, null)
+    })
+}
+
+export const retrieveUserDigitInsuranceData = (cb) => (dispatch) =>{ // to retrieve digit insurance data by USER
+    let url = '/api/v1/covid_insurance/user_retrieve'
     return API_GET(url).then((data)=> {
         if(cb)cb(null, data)
     }).catch((e)=>{

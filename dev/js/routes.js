@@ -602,6 +602,12 @@ const DigitOrder = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/DigitOrderPage.js')],
     loading,  
 })
+const DigitUserRetrieve = Loadable({
+    loader: () => import('./containers/vipClub/DigitUserRetrievePage.js'),
+    modules: ['./containers/vipClub/DigitUserRetrievePage.js'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/DigitUserRetrievePage.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -740,7 +746,8 @@ let routes = [
     { path: '/covid-plans',exact:true, component: DigitPlans },
     { path: '/covid-form',exact:true, component: DigitForm },
     { path: '/covid-review',exact:true, component:DigitReview},
-    { path: '/covid-order/summary/:id',exact:true, component:DigitOrder}
+    { path: '/covid-order/summary/:id',exact:true, component:DigitOrder},
+    { path: '/digitinsurances',exact:true, component:DigitUserRetrieve}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

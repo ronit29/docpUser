@@ -231,6 +231,12 @@ class LeftMenu extends React.Component {
                               this.props.toggleLeftMenu()
                               this.props.history.push('/user/address')
                             }} href="#">My Address</a></li>
+
+                            <li><a onClick={(e) => {
+                              e.preventDefault()
+                              this.props.toggleLeftMenu()
+                              this.props.history.push('/digitinsurances')
+                            }} href="#">My Digit Insurances</a></li>
                           </div>
                           : ''
                       }
