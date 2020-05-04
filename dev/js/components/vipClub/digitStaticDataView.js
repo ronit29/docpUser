@@ -16,7 +16,7 @@ class DigitStaticDataView extends React.Component {
                                 <div className="ins-name-head-div d-flex align-items-start digit-logo">
                                     <img className="img-fluid " width="60" src="https://www.reinsurancene.ws/wp-content/uploads/2019/03/digit-insurance-logo.jpg" />
                                     <p className="fw-500 mrt-10">
-                                        Digit Covid Group insurance</p>
+                                    Protect Against Coronavirus under Digit group Illness policy</p>
                                 </div>
                                 <div className="ins-pdf-dwnload-div d-flex align-items-center">
                                     <a href="https://drive.google.com/file/d/1furIUXTcmwgA6zQ1ipfydFDcEGleq2RE/view" target="_blank" download >

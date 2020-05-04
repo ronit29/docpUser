@@ -15660,4 +15660,24 @@ p.dgt-tbl-data {
     line-break: anywhere;
     color: #f78631;
 }
+.digitPlan{
+    display: none;
+}
+@media(max-width: 767px) {
+.digitTableCollapse{
+    height: 164px;
+    overflow: hidden;
+   
+}
+
+.digitPlan{
+    display: block;
+text-align: center;
+color: #f78631;
+position: absolute;
+bottom: 14px;
+left: 0px;
+right: 0px;
+}
+}
 /* ============ DIGIT insurance ============  */

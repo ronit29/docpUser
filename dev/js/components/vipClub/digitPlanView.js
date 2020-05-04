@@ -54,6 +54,13 @@ class DigitPlanView extends React.Component {
     hideLoginPopup() {
         this.setState({ showPopup: false })
     }
+    allDigitPlan = () =>{
+        let tablCont = document.getElementById('digitTbl');
+        let vwDgt = document.getElementById('digiVe');
+        console.log(tablCont,vwDgt);
+        tablCont.classList.remove('digitTableCollapse');
+        vwDgt.classList.add('d-none');
+    }
     render() {
         let self = this
         
@@ -97,7 +104,7 @@ class DigitPlanView extends React.Component {
                                             </div>
                                             {/* ==================== Steps Container ==================== */}
                                             {/* ==================== table Container ==================== */}
-                                            <div className="widget mrb-10">
+                                            <div className="widget mrb-10 digitTableCollapse transition" id="digitTbl">
                                                 <table className="table table-bordered insurance-tbl insurance-checkboxes digitTbl">
                                                     <thead>
                                                         <tr>
@@ -129,6 +136,7 @@ class DigitPlanView extends React.Component {
                                                             
                                                     </tbody>
                                                 </table>
+                                                <p className="digitPlan" id="digiVe" onClick={this.allDigitPlan}>View All</p>
                                         </div>
                                             <div className="bottomMargin"></div>
                                         </div>
