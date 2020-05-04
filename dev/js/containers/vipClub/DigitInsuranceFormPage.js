@@ -42,6 +42,10 @@ class DigitInsuranceFormPage extends React.Component{
     }
 
     componentWillReceiveProps(props){
+        
+        if(!Object.keys(this.props.selected_digit_plan).length > 0){
+            this.props.history.push('/covid-plans')
+        }
         if(!this.state.saveMembers && Object.keys(props.selected_digit_plan).length >0 && !props.currentSelectedDigitMembersId.length){
             let loginUser
             let isDefaultUser

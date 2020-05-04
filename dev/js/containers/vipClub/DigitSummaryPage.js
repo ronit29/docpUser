@@ -11,7 +11,7 @@ import SnackBar from 'node-snackbar'
 const queryString = require('query-string');
 import PaymentForm from '../../components/commons/paymentForm'
 
-class DigitInsuranceFormPage extends React.Component{
+class DigitSummaryPage extends React.Component{
 
     constructor(props) {    
         super(props)
@@ -31,6 +31,12 @@ class DigitInsuranceFormPage extends React.Component{
         }
         if (window) {
             window.scrollTo(0, 0)
+        }
+    }
+
+    componentWillReceiveProps(props){
+        if(!Object.keys(this.props.selected_digit_plan).length > 0){
+            this.props.history.push('/covid-plans')
         }
     }
 
@@ -98,7 +104,10 @@ class DigitInsuranceFormPage extends React.Component{
     }
 
     render(){
-        let selfDataObj = this.props.digit_self_details[Object.keys(this.props.digit_self_details)[0]]; 
+        let selfDataObj = null;
+        if(Object.keys(this.props.digit_self_details).length>0){
+            selfDataObj = this.props.digit_self_details[Object.keys(this.props.digit_self_details)[0]]; 
+        }
         return (
             <React.Fragment>
                 <div>
@@ -130,7 +139,7 @@ class DigitInsuranceFormPage extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <DigitSummaryView selfdata={selfDataObj} plandata={this.props.selected_digit_plan}/>
+                                            { selfDataObj!= null ? <DigitSummaryView selfdata={selfDataObj} plandata={this.props.selected_digit_plan}/> : ''}
                                         </div>
                                     </div>
                                 </div>
@@ -176,4 +185,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps , mapDispatchToProps)(DigitInsuranceFormPage)
+export default connect(mapStateToProps , mapDispatchToProps)(DigitSummaryPage)
