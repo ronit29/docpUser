@@ -35,7 +35,7 @@ class DigitSummaryPage extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(!Object.keys(this.props.selected_digit_plan).length > 0){
+        if(STORAGE.checkAuth() === false || !Object.keys(this.props.selected_digit_plan).length > 0){
             this.props.history.push('/covid-plans')
         }
     }
@@ -147,13 +147,13 @@ class DigitSummaryPage extends React.Component{
                             </div>
                             {/* ==================== Common button ==================== */}
                             <div className="sticky-btn fixed insuBtnsContainer">
-                                <button className="insu-right-orng-btn ins-buy-btn" onClick={()=>this.proceed()}>Buy Now</button>
+                                <button className="insu-right-orng-btn ins-buy-btn" onClick={()=>this.proceed()}>Make Payment</button>
                             </div>
                             {/* ==================== Common button ==================== */}
                         </section>
                     </div>
                     {
-                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='digit' /> : ""
                     }
                 </div>
             </React.Fragment>
