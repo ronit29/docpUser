@@ -131,6 +131,10 @@ class DigitInsuranceFormPage extends React.Component{
                                 is_disable = true
                                 fields.push('nominee_relation')
                             }
+                            if (param.email == "") {
+                                is_disable = true
+                                fields.push('email')
+                            }
 
                             // if (param.dob == null || param.dob == "") {
                             //     is_disable = true
