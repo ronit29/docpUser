@@ -13006,10 +13006,11 @@ li {
 
 .ins-policy-details {
     width: 100%;
+    border-right: 1px solid #9a9a9a;
 }
 
-.ins-policy-details:first-child {
-    border-right: 1px solid #9a9a9a;
+.ins-policy-details:last-child {
+    border: transparent;
 }
 
 .ins-policy-details p {
