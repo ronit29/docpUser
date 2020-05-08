@@ -20,6 +20,7 @@ import FixedMobileFooter from '../Home/FixedMobileFooter'
 import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import MainPopup from '../mainPopup.js'
+import CommonLoginPopup from '../commonFixedPopup/commonFixedPopup.js'
 import Loader from '../Loader';
 const queryString = require('query-string');
 // import RelatedArticles from './RelatedArticles'
@@ -327,6 +328,13 @@ class Article extends React.Component {
     hidePopup() {
         this.setState({ showPopup: false })
     }
+    overHide = () =>{
+        this.setState({showMainPopup:false});
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'covidPopClose', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-covid-popup-cross-clicked'
+        }
+        GTM.sendEvent({ data: data })
+    }
 
     handleChange = (e) => {
         this.setState({phone_number:e.target.value}) 
@@ -383,7 +391,7 @@ class Article extends React.Component {
     }
     mainPopupData() {
         let data = (
-            <div className="articleImgPop">
+            <div className="">
                 {/* <div className="p-relative gold-med-bnr">
                     <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
                         let data = {
@@ -400,9 +408,9 @@ class Article extends React.Component {
 
                 </div> */}
                 <div className="p-relative gold-med-bnr covidBanner">
-                    <img className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
+                    <img style={{margin: '7px'}} className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'ArticleGoldBannerCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-gold-banner-cross-clicked'
+                            'Category': 'ConsumerApp', 'Action': 'covidPopClose', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-covid-popup-cross-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         event.stopPropagation();
@@ -415,7 +423,7 @@ class Article extends React.Component {
                         <img src={ASSETS_BASE_URL + '/img/ins.svg'}/>
                         <span>Term Insurance</span> 
                         </a>
-                        <a target="_blank" href="https://health.policybazaar.com/?utm_source=docprime?covidPop=1" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
+                        <a target="_blank" href="https://health.policybazaar.com/?offerid=104&utm_source=docprime?covidPop=1" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
                         <img src={ASSETS_BASE_URL + '/img/helth.svg'}/>
                         <span>Health Insurance</span>
                         </a>
@@ -454,7 +462,10 @@ class Article extends React.Component {
                 <ProfileHeader />
                 {
                     this.state.showMainPopup ?
-                        <MainPopup resp={this.mainPopupData()} />
+                        // <MainPopup resp={this.mainPopupData()} />
+                        <CommonLoginPopup cancelOverlay={this.overHide}>
+                            {this.mainPopupData()}
+                            </CommonLoginPopup>
                         : ''
                 }
                 {

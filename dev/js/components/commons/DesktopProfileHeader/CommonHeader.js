@@ -305,6 +305,19 @@ class DesktopProfileHeader extends React.Component {
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a className="d-flex align-item-center" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/covid-plans');
+                                    let data = {
+                                        'Category': 'ConsumerApp', 'Action': 'insuranceNavbar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-link-clicked'
+                                    }
+                                    GTM.sendEvent({ data: data })
+                                     }}>
+                                        <img height="26px" src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} />
+                                        <span className="d-none d-sm-block d-lg-block">Insurance</span>
+                                    </a>
+                                </li>
                                 <li className="d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center head-dropdowns">
                                         {

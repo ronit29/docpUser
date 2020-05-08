@@ -203,6 +203,16 @@ class LeftMenu extends React.Component {
                             </div> : ''
                         }
                       </li>
+                      <li className="pos-rel"><a onClick={(e) => {
+                        e.preventDefault()
+                        this.props.toggleLeftMenu()
+                        this.props.history.push('/covid-plans');
+                        let data = {
+                          'Category': 'ConsumerApp', 'Action': 'insuranceSidebar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-sidebar-link-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
+                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Insurance</a>
+                      </li>
                     </ul>
 
                     <ul className="drop-list-menu list_2">
