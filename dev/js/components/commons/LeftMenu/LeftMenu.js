@@ -203,15 +203,15 @@ class LeftMenu extends React.Component {
                             </div> : ''
                         }
                       </li>
-                      <li className="pos-rel"><a onClick={(e) => {
-                        e.preventDefault()
-                        this.props.toggleLeftMenu()
-                        this.props.history.push('/covid-plans');
+                      <li className="pos-rel"><a  target="_blank" onClick={(e) => {
+                        // e.preventDefault()
+                        // this.props.toggleLeftMenu()
+                        // this.props.history.push('/covid-plans');
                         let data = {
-                          'Category': 'ConsumerApp', 'Action': 'insuranceSidebar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-sidebar-link-clicked'
+                          'Category': 'MobileHealth', 'Action': 'insuranceSidebar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-sidebar-link-clicked'
                       }
                       GTM.sendEvent({ data: data })
-                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Insurance</a>
+                      }} href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=mobile-navigation&utm_term=health-insurance"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Health Insurance</a>
                       </li>
                     </ul>
 

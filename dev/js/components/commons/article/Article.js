@@ -410,7 +410,7 @@ class Article extends React.Component {
                 <div className="p-relative gold-med-bnr covidBanner">
                     <img style={{margin: '7px'}} className="img-fluid gold-med-cls" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={(event)=>{
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'covidPopClose', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-covid-popup-cross-clicked'
+                            'Category': 'D_ExitPopup', 'Action': 'covidPopClose', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-covid-popup-cross-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         event.stopPropagation();
@@ -419,11 +419,11 @@ class Article extends React.Component {
                     <p>COR<img className="img-fluid" src={ASSETS_BASE_URL + '/img/virus.svg'}/>NAVIRUS</p>
                     <p className="subTxtCorona">"Stay home and View Quotes Online"</p>
                     <div className="covidBtn-cont">
-                        <a target="_blank" href="https://termlife.policybazaar.com/?utm_source=docprime&utm_campaign=newcovidPopUp" type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
+                        <a target="_blank" href="https://termlife.policybazaar.com/?utm_source=docprime&utm_campaign=covidPopUp" type="button" className="med-popBtn"><span className="upName">Covid-19 covered</span>
                         <img src={ASSETS_BASE_URL + '/img/ins.svg'}/>
                         <span>Term Insurance</span> 
                         </a>
-                        <a target="_blank" href="https://health.policybazaar.com/?offerid=104&utm_source=docprime&utm_campaign=newcovidPopUp" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
+                        <a target="_blank" href="https://health.policybazaar.com/?offerid=104&utm_source=docprime&utm_campaign=covidPopUp" type="button" className="med-popBtn"><span className="upName">No medical required</span> 
                         <img src={ASSETS_BASE_URL + '/img/helth.svg'}/>
                         <span>Health Insurance</span>
                         </a>

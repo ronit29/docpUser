@@ -306,16 +306,16 @@ class DesktopProfileHeader extends React.Component {
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="d-flex align-item-center" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.navigateTo('/covid-plans');
+                                    <a href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=top-navigation&utm_term=health-insurance" target="_blank" className="d-flex align-item-center" onClick={(e) => {
+                                    // e.preventDefault();
+                                    // this.navigateTo('/covid-plans');
                                     let data = {
-                                        'Category': 'ConsumerApp', 'Action': 'insuranceNavbar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-link-clicked'
+                                        'Category': 'DesktopHealth', 'Action': 'insuranceNavbar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-link-clicked'
                                     }
                                     GTM.sendEvent({ data: data })
                                      }}>
                                         <img height="26px" src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} />
-                                        <span className="d-none d-sm-block d-lg-block">Insurance</span>
+                                        <span className="d-none d-sm-block d-lg-block">Health Insurance</span>
                                     </a>
                                 </li>
                                 <li className="d-none d-sm-block d-lg-block">
