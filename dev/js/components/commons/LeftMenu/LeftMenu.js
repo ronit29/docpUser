@@ -211,7 +211,7 @@ class LeftMenu extends React.Component {
                           'Category': 'MobileHealth', 'Action': 'insuranceSidebar', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'insurance-sidebar-link-clicked'
                       }
                       GTM.sendEvent({ data: data })
-                      }} href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=mobile-navigation&utm_term=health-insurance"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Health Insurance</a>
+                      }} href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=top-navigation&utm_term=health-insurance"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Health Insurance</a>
                       </li>
                     </ul>
 

@@ -7033,7 +7033,7 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
         right: 0;
     }
     .covidBanner{
-        min-width: 360px !important;
+        /* min-width: 360px !important; */
     }
     .new-care-btn button {
         width: 90%;
@@ -8667,7 +8667,7 @@ p.avl-cont {
 
 .covidBanner{
     background: white;
-    min-width: 380px;
+    /* min-width: 380px; */
     padding: 12px;
     text-align: center;
 }
