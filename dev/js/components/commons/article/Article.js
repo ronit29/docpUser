@@ -91,11 +91,11 @@ class Article extends React.Component {
             this.setState({showPharmacyFooter: true})
         },6000)
         
-        if(this.state.isMedicinePage){
-            setTimeout(() => {
-                this.setState({ showMainPopup: true })
-            }, 4000)
-        }
+        // if(this.state.isMedicinePage){
+        //     setTimeout(() => {
+        //         this.setState({ showMainPopup: true })
+        //     }, 4000)
+        // }
         if (window && this.props.match.path.split('-')[1] === 'mddp') {
             window.addEventListener('scroll', this.scrollHandler)
         }

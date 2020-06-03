@@ -203,7 +203,7 @@ class LeftMenu extends React.Component {
                             </div> : ''
                         }
                       </li>
-                      <li className="pos-rel"><a  target="_blank" onClick={(e) => {
+                      {/* <li className="pos-rel"><a  target="_blank" onClick={(e) => {
                         // e.preventDefault()
                         // this.props.toggleLeftMenu()
                         // this.props.history.push('/covid-plans');
@@ -212,7 +212,7 @@ class LeftMenu extends React.Component {
                       }
                       GTM.sendEvent({ data: data })
                       }} href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=top-navigation&utm_term=health-insurance"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />Health Insurance</a>
-                      </li>
+                      </li> */}
                     </ul>
 
                     <ul className="drop-list-menu list_2">
@@ -242,11 +242,11 @@ class LeftMenu extends React.Component {
                               this.props.history.push('/user/address')
                             }} href="#">My Address</a></li>
 
-                            <li><a onClick={(e) => {
+                            {/* <li><a onClick={(e) => {
                               e.preventDefault()
                               this.props.toggleLeftMenu()
                               this.props.history.push('/digitinsurances')
-                            }} href="#">My Digit Insurances</a></li>
+                            }} href="#">My Digit Insurances</a></li> */}
                           </div>
                           : ''
                       }

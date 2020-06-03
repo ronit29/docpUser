@@ -305,7 +305,7 @@ class DesktopProfileHeader extends React.Component {
                                         <span className="d-none d-sm-block d-lg-block">contact us</span>
                                     </a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a href="https://www.policybazaar.com/health-insurance/health-insurance-india/?utm_source=docprime&utm_medium=top-navigation&utm_term=health-insurance" target="_blank" className="d-flex align-item-center" onClick={(e) => {
                                     // e.preventDefault();
                                     // this.navigateTo('/covid-plans');
@@ -317,7 +317,7 @@ class DesktopProfileHeader extends React.Component {
                                         <img height="26px" src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} />
                                         <span className="d-none d-sm-block d-lg-block">Health Insurance</span>
                                     </a>
-                                </li>
+                                </li> */}
                                 <li className="d-none d-sm-block d-lg-block">
                                     <a className="d-flex align-item-center head-dropdowns">
                                         {
